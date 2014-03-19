@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="img/favicon.png">
+
+    <title>Nextflow - Simple pipeline</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/color-styles.css" rel="stylesheet">
+    <link href="css/ui-elements.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="css/animate.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html" style='padding: 8px'><img src='img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-left hidden-xs">
+                <li class="show animated flipInX" >
+                    <a href="#Features" class="pull-right scroll">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="#GetStarted" class="pull-right scroll">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="example1.html">Simple pipeline</a></li>
+                        <li><a href="example2.html">Mixing scripting languages</a></li>
+                        <li><a href="example3.html">BLAST pipeline</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="http://nextflow.readthedocs.org" class="pull-right" target="_blank">Documentation</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="about-us.html">About Us</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- Body -->
+<div class="wrapper"> <!-- wrapper -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="blg-summary example">
+                    <h3><a href="blog-story.html">Simple pipeline</a></h3>
+
+
+                    <p class="text-muted" >
+                        This example shows how write a pipeline made up of two simple BASH processes, so
+                        that the results produced by the first are consumed by the second process.
+                    </p>
+
+
+                    <script type="syntaxhighlighter" class="brush: groovy">
+<![CDATA[
+
+#!/usr/bin/env nextflow
+
+params.in = "$HOME/sample.fa"
+
+sequences = file(params.in)
+SPLIT = (System.properties['os.name'] == 'Mac OS X' ? 'gcsplit' : 'csplit')
+
+process splitSequences {
+
+    input:
+    file 'input.fa' from sequences
+
+    output:
+    file 'seq_*' into records
+
+    """
+    $SPLIT input.fa '%^>%' '/^>/' '{*}' -f seq_
+    """
+
+}
+
+process reverse {
+
+    input:
+    file x from records
+
+    output:
+    stdout result
+
+    """
+    cat $x | rev
+    """
+}
+
+result.subscribe { println it }
+
+]]>
+
+                    </script>
+
+                    <ul class="widelist" >
+                        <li>line 1: The script starts with a shebang declaration. This allows you to launch your
+                            pipeline, as any other BASH script
+                        </li>
+
+                        <li>line 3: Declares a pipeline parameter named params.in that is initialized with the value
+                            $HOME/sample.fa.This value can be overridden when launching the pipeline, by simply adding
+                            the option --in
+                            &lt;value&gt; to the script command line
+                        </li>
+
+                        <li>line 5: Defines a variable sequences holding a reference for the file whose name is
+                            specified by the params.in parameter
+                        </li>
+
+                        <li>line 6: Defines a variable SPLIT whose value is <code>gcsplit</code> when the script is executed
+                            on a Mac OSX or <code>csplit</code> when it runs on Linux. This is the name of the tool that is
+                            used to split the file.
+                        </li>
+                        <li>lines 8-20: The process that splits the provided file.
+                        </li>
+
+                        <li>line 10: Opens the input declaration block. The lines following this clause are
+                            interpreted as input definitions.
+                        </li>
+
+                        <li>line 11: Defines the process input file. This file is received from the variable
+                            sequences and will be named <code>input.fa</code>.
+                        </li>
+
+                        <li>line 13: Opens the output declaration block. Lines following this clause are
+                            interpreted as output definitions.
+                        </li>
+
+                        <li>line 14: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
+                            These files are sent over the channel records.
+                        </li>
+
+                        <li>lines 16-18: The actual script executed by the process to split the provided file.
+                        </li>
+
+                        <li>lines 22-33: Defines the second process, that receives the splits produced by the
+                            previous process and reverses their content.
+                        </li>
+
+                        <li>line 24: Opens the input declaration block. Lines following this clause are
+                            interpreted as input definitions.
+                        </li>
+
+                        <li>line 25: Defines the process input file. This file is received through the channel
+                            records.
+                        </li>
+
+                        <li>line 27: Opens the output declaration block. Lines following this clause are
+                            interpreted as output definitions.
+                        </li>
+
+                        <li>line 28: The standard output of the executed script is declared as the process
+                            output. This output is sent over the channel result.
+                        </li>
+
+                        <li>lines 30-32: The actual script executed by the process to reverse the content of the
+                            received files.
+                        </li>
+
+                        <li>line 35: Prints a result each time a new item is received on the result channel.
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!--
+            <div class="col-sm-4">
+                <h3>Stay Tuned
+                    <small>Social Links</small>
+                </h3>
+                <hr>
+                <ul class="blg-social">
+                    <li>
+                        <a href="#">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our free RSS Feed.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our Twitter Feed.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+			      <span class="icon google-plus">
+				    <i class="fa fa-google-plus fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our Goolge Plus Feed.</span>
+                        </a>
+                    </li>
+                </ul>
+                <h3>Popular Stories</h3>
+                <hr>
+                <div class="block-inverse">
+                    <ul>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                        <li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+                        <li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                    </ul>
+                </div>
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+<!-- / wrapper -->
+
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-right">
+
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+                <li><a href="about-us.html">About Us</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Syntax highlight -->
+<script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shCore.js"></script>
+<script type="text/javascript" src="syntaxhighlighter_3.0.83/scripts/shBrushGroovy.js"></script>
+<link type="text/css" rel="stylesheet" href="syntaxhighlighter_3.0.83/styles/shCoreDefault.css"/>
+<script type="text/javascript">
+	SyntaxHighlighter.defaults['toolbar']=false
+	SyntaxHighlighter.all();
+
+</script>
+
+</body>
+</html>
