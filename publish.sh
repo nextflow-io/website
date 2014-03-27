@@ -4,6 +4,6 @@ s3cmd sync * s3://www.nextflow.io \
  --acl-public \
  --no-mime-magic \
  --access_key=$NXF_AWS_ACCESS \
- --secret_key=NXF_AWS_SECRET \
- --exclude 'publish.sh' \
+ --secret_key=$NXF_AWS_SECRET \
+ --exclude "$0" \
  "$@"
