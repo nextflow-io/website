@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="img/favicon.png">
 
-    <title>Nextflow - Simple pipeline</title>
+    <title>Nextflow - Basic pipeline</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -55,9 +55,10 @@
                 <li class="dropdown show animated flipInX">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="example1.html">Simple pipeline</a></li>
+                        <li><a href="example1.html">Basic pipeline</a></li>
                         <li><a href="example2.html">Mixing scripting languages</a></li>
                         <li><a href="example3.html">BLAST pipeline</a></li>
+                        <li><a href="example4.html">Toy RNAseq pipeline</a></li>
                     </ul>
                 </li>
 
@@ -81,7 +82,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <div class="blg-summary example">
-                    <h3><a href="blog-story.html">Simple pipeline</a></h3>
+                    <h3><a href="blog-story.html">Basic pipeline</a></h3>
 
 
                     <p class="text-muted" >
@@ -96,9 +97,7 @@
 #!/usr/bin/env nextflow
 
 params.in = "$HOME/sample.fa"
-
 sequences = file(params.in)
-SPLIT = (System.properties['os.name'] == 'Mac OS X' ? 'gcsplit' : 'csplit')
 
 process splitSequences {
 
@@ -109,7 +108,7 @@ process splitSequences {
     file 'seq_*' into records
 
     """
-    $SPLIT input.fa '%^>%' '/^>/' '{*}' -f seq_
+    csplit input.fa '%^>%' '/^>/' '{*}' -f seq_
     """
 
 }
@@ -144,61 +143,58 @@ result.subscribe { println it }
                             &lt;value&gt; to the script command line
                         </li>
 
-                        <li>line 5: Defines a variable sequences holding a reference for the file whose name is
+                        <li>line 4: Defines a variable sequences holding a reference for the file whose name is
                             specified by the params.in parameter
                         </li>
 
-                        <li>line 6: Defines a variable SPLIT whose value is <code>gcsplit</code> when the script is executed
-                            on a Mac OSX or <code>csplit</code> when it runs on Linux. This is the name of the tool that is
-                            used to split the file.
-                        </li>
-                        <li>lines 8-20: The process that splits the provided file.
+
+                        <li>lines 6-18: The process that splits the provided file.
                         </li>
 
-                        <li>line 10: Opens the input declaration block. The lines following this clause are
+                        <li>line 8: Opens the input declaration block. The lines following this clause are
                             interpreted as input definitions.
                         </li>
 
-                        <li>line 11: Defines the process input file. This file is received from the variable
+                        <li>line 9: Defines the process input file. This file is received from the variable
                             sequences and will be named <code>input.fa</code>.
                         </li>
 
-                        <li>line 13: Opens the output declaration block. Lines following this clause are
+                        <li>line 11: Opens the output declaration block. Lines following this clause are
                             interpreted as output definitions.
                         </li>
 
-                        <li>line 14: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
+                        <li>line 12: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
                             These files are sent over the channel records.
                         </li>
 
-                        <li>lines 16-18: The actual script executed by the process to split the provided file.
+                        <li>lines 14-16: The actual script executed by the process to split the provided file.
                         </li>
 
-                        <li>lines 22-33: Defines the second process, that receives the splits produced by the
+                        <li>lines 20-31: Defines the second process, that receives the splits produced by the
                             previous process and reverses their content.
                         </li>
 
-                        <li>line 24: Opens the input declaration block. Lines following this clause are
+                        <li>line 22: Opens the input declaration block. Lines following this clause are
                             interpreted as input definitions.
                         </li>
 
-                        <li>line 25: Defines the process input file. This file is received through the channel
+                        <li>line 23: Defines the process input file. This file is received through the channel
                             records.
                         </li>
 
-                        <li>line 27: Opens the output declaration block. Lines following this clause are
+                        <li>line 25: Opens the output declaration block. Lines following this clause are
                             interpreted as output definitions.
                         </li>
 
-                        <li>line 28: The standard output of the executed script is declared as the process
+                        <li>line 26: The standard output of the executed script is declared as the process
                             output. This output is sent over the channel result.
                         </li>
 
-                        <li>lines 30-32: The actual script executed by the process to reverse the content of the
+                        <li>lines 28-30: The actual script executed by the process to reverse the content of the
                             received files.
                         </li>
 
-                        <li>line 35: Prints a result each time a new item is received on the result channel.
+                        <li>line 33: Prints a result each time a new item is received on the result channel.
                         </li>
                     </ul>
 

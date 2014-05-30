@@ -56,9 +56,10 @@
                 <li class="dropdown show animated flipInX">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="example1.html">Simple pipeline</a></li>
+                        <li><a href="example1.html">Basic pipeline</a></li>
                         <li><a href="example2.html">Mixing scripting languages</a></li>
                         <li><a href="example3.html">BLAST pipeline</a></li>
+                        <li><a href="example4.html">Toy RNAseq pipeline</a></li>
                     </ul>
                 </li>
 
@@ -85,8 +86,8 @@
                     <h3><a href="blog-story.html">BLAST pipeline</a></h3>
 
                     <p class="text-muted">
-                        The example below splits a FASTA file in chunks and executes for each of the a BLAST query in a parallel manner.
-                        Then, all the sequences for the top hits are collected, merge to a unique result file and aligned.
+                        The example below splits a FASTA file into chunks and executes for each of them a BLAST query in a parallel manner.
+                        Then, all the sequences for the top hits are collected and merged to a single result file.
                     </p>
 
                     <script type="syntaxhighlighter" class="brush: groovy">
@@ -94,11 +95,19 @@
 
 #!/usr/bin/env nextflow
 
+/* 
+ * Pipeline parameters that can be ovverride by the command line parameter 
+ */
 params.query = "$HOME/sample.fa"
 params.db = "$HOME/tools/blast-db/pdb/pdb"
+params.out = "./result.txt"
+params.chunkSize = 100 
 
 db = file(params.db)
-fasta = Channel.fromPath(params.query).splitFasta()
+fasta = Channel
+            .fromPath(params.query)
+            .splitFasta(by: params.chunkSize)
+
 
 process blast {
     input:
@@ -125,16 +134,9 @@ process extract {
 }
 
 
-all_seq = sequences.collectFile(name:'all_seq')
-
-process align {
-    echo true
-
-    input:
-    file all_seq
-
-    "t_coffee $all_seq 2>&- | tee align_result"
-}
+sequences
+    .collectFile(name: params.out)
+    .subscribe { println "Result saved at file: $it" }
 
 
                     </script>
