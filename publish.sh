@@ -1,5 +1,5 @@
 #!/bin/bash
-s3cmd sync * s3://www.nextflow.io \
+s3cmd sync output/* s3://www.nextflow.io \
  -rr \
  --acl-public \
  --no-mime-magic \
