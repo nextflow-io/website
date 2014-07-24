@@ -1,0 +1,176 @@
+title=Basic pipeline
+date=2014-07-23
+type=page
+status=published
+syntaxhighlighter=yes
+~~~~~~
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="blg-summary example">
+                    <h3><a href="javascript:void(0)">Basic pipeline</a></h3>
+
+
+                    <p class="text-muted" >
+                        This example shows how write a pipeline made up of two simple BASH processes, so
+                        that the results produced by the first are consumed by the second process.
+                    </p>
+
+
+                    <script type="syntaxhighlighter" class="brush: groovy">
+<![CDATA[
+
+#!/usr/bin/env nextflow
+
+params.in = "$HOME/sample.fa"
+sequences = file(params.in)
+
+process splitSequences {
+
+    input:
+    file 'input.fa' from sequences
+
+    output:
+    file 'seq_*' into records
+
+    """
+    csplit input.fa '%^>%' '/^>/' '{*}' -f seq_
+    """
+
+}
+
+process reverse {
+
+    input:
+    file x from records
+
+    output:
+    stdout result
+
+    """
+    cat $x | rev
+    """
+}
+
+result.subscribe { println it }
+
+]]>
+
+                    </script>
+
+                    <ul class="widelist" >
+                        <li>line 1: The script starts with a shebang declaration. This allows you to launch your
+                            pipeline, as any other BASH script
+                        </li>
+
+                        <li>line 3: Declares a pipeline parameter named params.in that is initialized with the value
+                            $HOME/sample.fa.This value can be overridden when launching the pipeline, by simply adding
+                            the option --in
+                            &lt;value&gt; to the script command line
+                        </li>
+
+                        <li>line 4: Defines a variable sequences holding a reference for the file whose name is
+                            specified by the params.in parameter
+                        </li>
+
+
+                        <li>lines 6-18: The process that splits the provided file.
+                        </li>
+
+                        <li>line 8: Opens the input declaration block. The lines following this clause are
+                            interpreted as input definitions.
+                        </li>
+
+                        <li>line 9: Defines the process input file. This file is received from the variable
+                            sequences and will be named <code>input.fa</code>.
+                        </li>
+
+                        <li>line 11: Opens the output declaration block. Lines following this clause are
+                            interpreted as output definitions.
+                        </li>
+
+                        <li>line 12: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
+                            These files are sent over the channel records.
+                        </li>
+
+                        <li>lines 14-16: The actual script executed by the process to split the provided file.
+                        </li>
+
+                        <li>lines 20-31: Defines the second process, that receives the splits produced by the
+                            previous process and reverses their content.
+                        </li>
+
+                        <li>line 22: Opens the input declaration block. Lines following this clause are
+                            interpreted as input definitions.
+                        </li>
+
+                        <li>line 23: Defines the process input file. This file is received through the channel
+                            records.
+                        </li>
+
+                        <li>line 25: Opens the output declaration block. Lines following this clause are
+                            interpreted as output definitions.
+                        </li>
+
+                        <li>line 26: The standard output of the executed script is declared as the process
+                            output. This output is sent over the channel result.
+                        </li>
+
+                        <li>lines 28-30: The actual script executed by the process to reverse the content of the
+                            received files.
+                        </li>
+
+                        <li>line 33: Prints a result each time a new item is received on the result channel.
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <!--
+            <div class="col-sm-4">
+                <h3>Stay Tuned
+                    <small>Social Links</small>
+                </h3>
+                <hr>
+                <ul class="blg-social">
+                    <li>
+                        <a href="#">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our free RSS Feed.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our Twitter Feed.</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+			      <span class="icon google-plus">
+				    <i class="fa fa-google-plus fa-2x"></i>
+				  </span>
+                            <span class="text-muted">Subscribe to our Goolge Plus Feed.</span>
+                        </a>
+                    </li>
+                </ul>
+                <h3>Popular Stories</h3>
+                <hr>
+                <div class="block-inverse">
+                    <ul>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                        <li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+                        <li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                        <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+                    </ul>
+                </div>
+            </div>
+            -->
+        </div>
