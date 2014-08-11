@@ -21,7 +21,7 @@
                         <ul>
                     </#if>
         
-                    <li>${post.date?string("dd")} - <a href="${post.uri}">${post.title}</a></li>
+                    <li>${post.date?string("dd")} - <a href="/${post.uri}">${post.title}</a></li>
                     <#assign last_month = post.date?string("MMMM yyyy")>
                     </#list>
                 </ul>              
