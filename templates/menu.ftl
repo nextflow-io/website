@@ -34,6 +34,10 @@
                 </li>
 
                 <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
                     <a href="/about-us.html">About Us</a>
                 </li>
             </ul>
