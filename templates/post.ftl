@@ -9,7 +9,7 @@
 			<div class="blg-summary">
 			  <h3><a href="#"><#escape x as x?xml>${content.title}</#escape></a></h3>
 			  <ul class="text-muted list-inline blg-header">
-				<li><i class="fa fa-user"></i> <a href="profile.html">${content.author}</a></li>
+				<li><i class="fa fa-user"></i> ${content.author}</li>
 				<li><i class="fa fa-calendar"></i> ${content.date?string("dd MMMM yyyy")}</li>
 				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
 			  </ul>
