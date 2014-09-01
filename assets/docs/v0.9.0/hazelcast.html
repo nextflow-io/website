@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hazelcast cluster &mdash; Nextflow 0.9.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'./',
+        VERSION:'0.9.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+    <script type="text/javascript">
+        jQuery(function () {
+            SphinxRtdTheme.StickyNav.enable();
+        });
+    </script>
+  
+
+  
+    <link rel="top" title="Nextflow 0.9.0 documentation" href="index.html"/>
+        <link rel="next" title="GridGain cluster" href="gridgain.html"/>
+        <link rel="prev" title="DNAnexus cloud" href="dnanexus.html"/> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Nextflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#your-first-script">Your first script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#processes-and-channels">Processes and channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#execution-abstraction">Execution abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#scripting-language">Scripting language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#configuration-options">Configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script.html#language-basics">Language basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#closures">Closures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#regular-expressions">Regular expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#files-and-i-o">Files and I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="process.html#script">Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#shares">Shares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#directives">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#channel-factory">Channel factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#binding-values">Binding values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#observing-events">Observing events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#filtering-operators">Filtering operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#transforming-operators">Transforming operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#splitting-operators">Splitting operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#combining-operators">Combining operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#forking-operators">Forking operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#maths-operators">Maths operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#local-executor">Local executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#sge-executor">SGE executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf-executor">LSF executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm-executor">SLURM executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#hazelcast-executor">Hazelcast executor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration file</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config-variables">Config Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config-comments">Config comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#config-scopes">Config scopes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scope-env">Scope 'env'</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scope-params">Scope 'params'</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scope-process">Scope 'process'</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#scope-executor">Scope 'executor'</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Hazelcast cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pipeline-execution">Pipeline execution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridgain.html">GridGain cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#pipeline-execution">Pipeline execution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example.html#basic-pipeline">Basic pipeline</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Hazelcast cluster</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/hazelcast.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="hazelcast-cluster">
+<span id="hazelcast-page"></span><h1>Hazelcast cluster<a class="headerlink" href="#hazelcast-cluster" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow can be be deployed in a <em>cluster</em> mode by setting up an <a class="reference external" href="http://www.hazelcast.com">Hazelcast</a> cluster,
+a light-weight and efficient data-grid technology.</p>
+<p>Hazelcast is packaged with Nextflow itself so you won't need to install it separately or configure other third party
+software.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This an experimental feature.</p>
+</div>
+<div class="section" id="cluster-daemon">
+<span id="hazelcast-daemon"></span><h2>Cluster daemon<a class="headerlink" href="#cluster-daemon" title="Permalink to this headline">¶</a></h2>
+<p>In order to setup a cluster you will need to run a cluster daemon on each mode that made up your cluster. It only
+requires Java 7 to be installed.</p>
+<p>In the case your network supports <em>multicast</em> discovery, simply launch the Nextflow daemon in each cluster node
+as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow -daemon.name hazelcast -bg
+</pre></div>
+</div>
+<p>The process will run in the background. The daemon output is stored in the log file <tt class="docutils literal"><span class="pre">.nxf-daemon.log</span></tt>. The daemon
+process <tt class="docutils literal"><span class="pre">PID</span></tt> is saved in the file <tt class="docutils literal"><span class="pre">.nextflow.pid</span></tt> in the same folder.</p>
+<p>If you don't see members joining, then it is likely because multicast is not available.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">To check if multicast is available, <a class="reference external" href="http://sourceforge.net/projects/iperf/">iperf</a> is a useful tool which is available for Windows/*NIX/OSX.
+To test multicast open a terminal one 2 machines within the network and run the following in the first terminal
+<tt class="docutils literal"><span class="pre">iperf</span> <span class="pre">-s</span> <span class="pre">-u</span> <span class="pre">-B</span> <span class="pre">224.2.2.3</span> <span class="pre">-i</span> <span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">iperf</span> <span class="pre">-c</span> <span class="pre">224.2.2.3</span> <span class="pre">-u</span> <span class="pre">-T</span> <span class="pre">32</span> <span class="pre">-t</span> <span class="pre">3</span> <span class="pre">-i</span> <span class="pre">1</span></tt> in the other terminal.
+If data is being transferred then multicast is working.</p>
+</div>
+<p>In the case the multicast discovery is not available in your network, you will need to provide at least one (or more)
+IP address of well known members to connect to. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow -daemon.name hazelcast -daemon.join 192.168.1.104 -bg
+</pre></div>
+</div>
+<div class="section" id="configuration-options">
+<h3>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h3>
+<p>The following daemon configuration options can be used.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>port</td>
+<td>TCP port to which the daemon will connect. Default: <tt class="docutils literal"><span class="pre">5701</span></tt></td>
+</tr>
+<tr class="row-odd"><td>join</td>
+<td>IP address(es) of one more more cluster nodes to which the daemon make part. By using the value <tt class="docutils literal"><span class="pre">multicast</span></tt></td>
+</tr>
+<tr class="row-even"><td>group</td>
+<td>Cluster name of which this node makes part. It allows to create separate clusters. Default: <tt class="docutils literal"><span class="pre">nextflow</span></tt></td>
+</tr>
+<tr class="row-odd"><td>slots</td>
+<td>TNumber of slots this damon node provides i.e. of process that can execute in parallel. By it is equal to the number of CPU cores.</td>
+</tr>
+<tr class="row-even"><td>interface</td>
+<td>Network interfaces that Hazelcast has to use. It can be the interface IP address or name.</td>
+</tr>
+<tr class="row-odd"><td>connectionMonitorInterval</td>
+<td>Minimum interval to consider a connection error as critical in milliseconds (default: 300).</td>
+</tr>
+<tr class="row-even"><td>connectionMonitorMaxFaults</td>
+<td>Maximum IO error count before disconnecting from a node (default: 5).</td>
+</tr>
+</tbody>
+</table>
+<p>These options can be specified as command line parameters by pre-pending them the prefix <tt class="docutils literal"><span class="pre">-daemon.</span></tt>, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow -daemon.name hazelcast -daemon.port 5705 -daemon.interface eth0 -bg
+</pre></div>
+</div>
+<p>The same options can be entered in the nextflow configuration file named <tt class="docutils literal"><span class="pre">nextflow.config</span></tt>, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>daemon {
+  name = &#39;hazelcast&#39;
+  port = &#39;5705&#39;
+  join = &#39;192.168.1.104&#39;
+  interface = &#39;eth0&#39;
+}
+</pre></div>
+</div>
+<p>Finally daemon options can be provided also as environment variables having the name in upper-case and by pre-pending
+them the prefix <tt class="docutils literal"><span class="pre">NXF_DAEMON_</span></tt>, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre>export NXF_DAEMON_PORT=5705
+export NXF_DAEMON_JOIN=192.168.1.104
+export NXF_DAEMON_INTERFACE=eth0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pipeline-execution">
+<h2>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Permalink to this headline">¶</a></h2>
+<p>The pipeline should be launched in a <cite>head</cite> node i.e. a cluster node where the Nextflow daemon is NOT running.
+In order to join and execute your pipeline in the Hazelcast cluster, you need to specify the Hazelcast executor
+and an IP address of the cluster to join, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow -executor.name hazelcast -executor.join 192.168.1.104 &lt;your pipeline script&gt;
+</pre></div>
+</div>
+<p>In place of the command line parameters, the following environment variables can be used in a
+semantically equivalent manner:</p>
+<div class="highlight-python"><div class="highlight"><pre>export NXF_EXECUTOR_NAME=hazelcast
+export NXF_EXECUTOR_JOIN=192.168.1.104
+</pre></div>
+</div>
+<p>Read more about the executor configuration options in <a class="reference internal" href="executor.html#hazelcast-executor"><em>Hazelcast executor</em></a> page.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gridgain.html" class="btn btn-neutral float-right" title="GridGain cluster"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dnanexus.html" class="btn btn-neutral" title="DNAnexus cloud"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Nextflow authors.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>
