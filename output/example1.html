@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
-
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
     <title>Nextflow - Basic pipeline</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
@@ -95,11 +95,12 @@
                     <script type="syntaxhighlighter" class="brush: groovy">
 <![CDATA[
 
-#!/usr/bin/env nextflow
-
-params.in = "$HOME/sample.fa"
+params.in = "$baseDir/data/sample.fa"
 sequences = file(params.in)
 
+/* 
+ * split a fasta file in multiple files 
+ */
 process splitSequences {
 
     input:
@@ -109,16 +110,19 @@ process splitSequences {
     file 'seq_*' into records
 
     """
-    csplit input.fa '%^>%' '/^>/' '{*}' -f seq_
+    awk '/^>/{f="seq_"++d} {print > f}' < input.fa
     """
 
 }
 
+/* 
+ * Simple reverse the sequences 
+ */
 process reverse {
 
     input:
     file x from records
-
+    
     output:
     stdout result
 
@@ -127,7 +131,11 @@ process reverse {
     """
 }
 
+/* 
+ * print the channel content 
+ */
 result.subscribe { println it }
+
 
 ]]>
 

@@ -21,4 +21,7 @@
 <url><loc>http://www.nextflow.io/docs/latest/gridgain.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.69</priority></url>
 <url><loc>http://www.nextflow.io/docs/latest/example.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.69</priority></url>
 <url><loc>http://www.nextflow.io/docs/latest/executor.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.69</priority></url>
+<url><loc>http://www.nextflow.io/docs/latest/docker.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+<url><loc>http://www.nextflow.io/docs/latest/tracing.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
+<url><loc>http://www.nextflow.io/docs/latest/sharing.html</loc><lastmod>${published_date?string("yyyy-MM-dd")}</lastmod><changefreq>weekly</changefreq><priority>0.85</priority></url>
 </urlset>

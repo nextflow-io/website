@@ -109,14 +109,14 @@ a `[t]` on the right, the current checked-out revision is marked with a `*` on t
 The `pull` command allows you to download a pipeline from a GitHub repository or to update 
 it if that repository has already been downloaded. For example: 
 
-    nextflow pull nextflow-io/pull
+    nextflow pull nextflow-io/examples
     
 Downloaded pipelines are stored in the folder `$HOME/.nextflow/assets` in your computer.
 
 
 #### Clone a pipeline into a folder 
 
-The `clone` command allows you to copy a Nextflow pipeline project to a directory of your choice. For example
+The `clone` command allows you to copy a Nextflow pipeline project to a directory of your choice. For example:
 
     nextflow clone nextflow-io/hello target-dir 
     
@@ -135,7 +135,7 @@ Downloaded pipelines can be deleted by using the `drop` command, as shown below:
 
 ### Limitations and known problems 
 
-* GitHub private repositories currently are not supported
+* <s>GitHub private repositories currently are not supported</s> Support for private GitHub repositories has been introduced with version 0.10.0.
 * Symlinks committed in a Git repository are not resolved correctly 
   when downloaded/cloned by Nextflow 
 

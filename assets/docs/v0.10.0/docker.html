@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Docker containers &mdash; Nextflow 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'./',
+        VERSION:'0.10.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+    <script type="text/javascript">
+        jQuery(function () {
+            SphinxRtdTheme.StickyNav.enable();
+        });
+    </script>
+  
+
+  
+    <link rel="top" title="Nextflow 0.10.0 documentation" href="index.html"/>
+        <link rel="next" title="DNAnexus cloud" href="dnanexus.html"/>
+        <link rel="prev" title="Configuration" href="config.html"/> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Nextflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#your-first-script">Your first script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#processes-and-channels">Processes and channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#execution-abstraction">Execution abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#scripting-language">Scripting language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#configuration-options">Configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script.html#language-basics">Language basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#closures">Closures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#regular-expressions">Regular expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#files-and-i-o">Files and I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="process.html#script">Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#shares">Shares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#directives">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#channel-factory">Channel factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#binding-values">Binding values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#observing-events">Observing events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#filtering-operators">Filtering operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#transforming-operators">Transforming operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#splitting-operators">Splitting operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#combining-operators">Combining operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#forking-operators">Forking operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#maths-operators">Maths operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#local-executor">Local executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#sge-executor">SGE executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf-executor">LSF executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm-executor">SLURM executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque-executor">PBS/Torque executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa-executor">DRMAA executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Docker containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-containers">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridgain.html">GridGain cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#pipeline-execution">Pipeline execution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#paraver-integration">Paraver integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#run-a-pipeline">Run a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#handle-revisions">Handle revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#commands-to-manage-pipelines">Commands to manage pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#publish-your-pipeline">Publish your pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#manage-dependencies">Manage dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example.html#basic-pipeline">Basic pipeline</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Docker containers</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="docker-containers">
+<span id="docker-page"></span><h1>Docker containers<a class="headerlink" href="#docker-containers" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow integration with <a class="reference external" href="http://www.docker.io">Docker containers</a> technology allows you to write self-contained
+and truly reproducible computational pipelines.</p>
+<p>By using this feature any process in a Nextflow script can be transparently executed into a Docker container. This may
+be extremely useful to package the binaries dependencies of a script into a standard and portable format that can be
+executed on any platform supporting the Docker engine.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>You will need Docker installed in your execution environment e.g. your computer or a distributed cluster, depending
+where you want to run your pipeline.</p>
+<p>If you are running Docker on Mac OSX make sure you are mounting your local <tt class="docutils literal"><span class="pre">/Users</span></tt> directory into the Docker VM as
+explained in this excellent tutorial: <a class="reference external" href="http://viget.com/extend/how-to-use-docker-on-os-x-the-missing-guide">How to use Docker on OSX</a>.</p>
+</div>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>In order to execute your Nextflow script with Docker you won't need to modify it. You simply have to specify the Docker
+image from which containers have to be started by using the <tt class="docutils literal"><span class="pre">-with-docker</span></tt> command line option. For example:</p>
+<div class="highlight-python"><pre>nextflow run &lt;your script&gt; -with-docker &lt;docker image&gt;</pre>
+</div>
+<p>Every time your script launches a process execution Nextflow will run it into a Docker container created by using the image
+specified. In practice Nextflow will automatically wrap your processes and run them by executing the <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></tt>
+command with the image you have provided.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A Docker image can contain any tool or piece of software you may need to carry out a process execution. Moreover the
+container is run is a such a way that the process result files are created in the hosting file system, in other words
+it behaves in a complete transparent manner without requiring extra steps or affecting the flow in your pipeline.</p>
+</div>
+<p>If you want to avoid to enter the Docker image as a command line parameter, you can define it in the Nextflow configuration
+file. For example you can add the following lines in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s">&#39;nextflow/examples:latest&#39;</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>In about example replace <tt class="docutils literal"><span class="pre">nextflow/examples:latest</span></tt> with any Docker image of your choice.</p>
+<p>Read the <a class="reference internal" href="config.html#config-page"><em>Configuration</em></a> page to learn more about the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file and how use it to configure
+your pipeline execution.</p>
+</div>
+<div class="section" id="multiple-containers">
+<h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to specify a different Docker image for each process definition in your pipeline script. Let's
+suppose you have two processes named <tt class="docutils literal"><span class="pre">foo</span></tt> and <tt class="docutils literal"><span class="pre">bar</span></tt>. You can specify two different Docker images for them
+in Nextflow script as shown below:</p>
+<div class="highlight-python"><pre>process foo {
+  container 'image_name_1'
+
+  '''
+  do this
+  '''
+}
+
+process bar {
+  container 'image_name_2'
+
+  '''
+  do that
+  '''
+}</pre>
+</div>
+<p>Alternatively, the same containers definition can be provided by using the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> as shown below:</p>
+<div class="highlight-python"><pre>process.$boo.container = 'image_name_1'
+process.$bar.container = 'image_name_2'
+docker.enabled = true</pre>
+</div>
+<p>Read the <a class="reference internal" href="config.html#config-process"><em>Process scope</em></a> section to learn more about processes configuration.</p>
+</div>
+<div class="section" id="advanced-settings">
+<h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
+<p>Docker advanced configuration settings are described in <a class="reference internal" href="config.html#config-docker"><em>Scope 'docker'</em></a> section in the Nextflow configuration page.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dnanexus.html" class="btn btn-neutral float-right" title="DNAnexus cloud"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config.html" class="btn btn-neutral" title="Configuration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Nextflow authors.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>

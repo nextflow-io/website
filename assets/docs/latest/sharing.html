@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Pipeline sharing &mdash; Nextflow 0.10.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'./',
+        VERSION:'0.10.0',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+    <script type="text/javascript">
+        jQuery(function () {
+            SphinxRtdTheme.StickyNav.enable();
+        });
+    </script>
+  
+
+  
+    <link rel="top" title="Nextflow 0.10.0 documentation" href="index.html"/>
+        <link rel="next" title="Examples" href="example.html"/>
+        <link rel="prev" title="Performance Analysis" href="tracing.html"/> 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Nextflow</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#your-first-script">Your first script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#processes-and-channels">Processes and channels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#execution-abstraction">Execution abstraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#scripting-language">Scripting language</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic.html#configuration-options">Configuration options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="script.html#language-basics">Language basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#closures">Closures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#regular-expressions">Regular expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#files-and-i-o">Files and I/O</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="process.html#script">Script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#inputs">Inputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#outputs">Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#shares">Shares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="process.html#directives">Directives</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#channel-factory">Channel factory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#binding-values">Binding values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="channel.html#observing-events">Observing events</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#filtering-operators">Filtering operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#transforming-operators">Transforming operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#splitting-operators">Splitting operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#combining-operators">Combining operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#forking-operators">Forking operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="operator.html#maths-operators">Maths operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#local-executor">Local executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#sge-executor">SGE executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf-executor">LSF executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm-executor">SLURM executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque-executor">PBS/Torque executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa-executor">DRMAA executor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config.html#configuration-file">Configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#multiple-containers">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gridgain.html">GridGain cluster</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gridgain.html#pipeline-execution">Pipeline execution</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#paraver-integration">Paraver integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Pipeline sharing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-a-pipeline">Run a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#handle-revisions">Handle revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#commands-to-manage-pipelines">Commands to manage pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#publish-your-pipeline">Publish your pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#manage-dependencies">Manage dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example.html#basic-pipeline">Basic pipeline</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Pipeline sharing</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="pipeline-sharing">
+<span id="sharing-page"></span><h1>Pipeline sharing<a class="headerlink" href="#pipeline-sharing" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow seamlessly integrates with <a class="reference external" href="http://github.com">GitHub</a> and <a class="reference external" href="http://bitbucket.org/">BitBucket</a> <a class="footnote-reference" href="#id2" id="id1">[1]</a>
+hosted code repositories and sharing platforms. This feature allows you to manage your code in a more consistent manner,
+or use other people's Nextflow pipelines, published through GitHub/BitBucket, in a quick and transparent way.</p>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>When you launch a script execution with Nextflow, it will look for a file with the pipeline name you've specified.
+If that file does not exist, it will look for a public repository with the same name on GitHub (unless otherwise specified).
+If it is found, the repository is automatically downloaded to your computer and the code executed. This repository is
+stored in the Nextflow home directory, by default the <tt class="docutils literal"><span class="pre">$HOME/.nextflow</span></tt> path, thus it will be reused for any further
+execution.</p>
+</div>
+<div class="section" id="run-a-pipeline">
+<h2>Run a pipeline<a class="headerlink" href="#run-a-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>To launch the execution of a pipeline hosted in remote code repository you simply need to specify its <cite>qualified</cite> name
+after the <tt class="docutils literal"><span class="pre">run</span></tt> command. The qualified name is formed by two parts: the <cite>owner</cite> name and the <cite>repository</cite> name
+separated by a <tt class="docutils literal"><span class="pre">/</span></tt> character.</p>
+<p>In other words if a Nextflow project is hosted, for example, into a GitHub repository having an address like
+<tt class="docutils literal"><span class="pre">http://github.com/foo/bar</span></tt>, It can be executed by entering in your shell terminal the following command:</p>
+<div class="highlight-python"><pre>nextflow run foo/bar</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For projects hosted on BitBucket you will need to specify this hosting service in the command line by adding the
+<tt class="docutils literal"><span class="pre">-hub</span> <span class="pre">bitbucket</span></tt> option.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Private repositories can be accessed by specifying the access credentials by using the <tt class="docutils literal"><span class="pre">-user</span></tt> command
+line option, then the program will ask to enter the password interactively.</p>
+</div>
+<p>You can try this feature out, by simply entering the following command in your shell terminal:</p>
+<div class="highlight-python"><pre>nextflow run nextflow-io/hello</pre>
+</div>
+<p>It will download a trivial <cite>Hello</cite> example from the repository published at the following address
+<a class="reference external" href="http://github.com/nextflow-io/hello">http://github.com/nextflow-io/hello</a> and execute it in your computer.</p>
+<p>If <cite>owner</cite> part in the pipeline name is omitted, Nextflow will look for a pipeline between the ones you have
+already executed having a name that matches the name specified. If none it's found it will try to download
+it using the <cite>organisation</cite> name defined by the environment variable <tt class="docutils literal"><span class="pre">NXF_ORG</span></tt> (which by default is <tt class="docutils literal"><span class="pre">nextflow-io</span></tt>).</p>
+</div>
+<div class="section" id="handle-revisions">
+<h2>Handle revisions<a class="headerlink" href="#handle-revisions" title="Permalink to this headline">¶</a></h2>
+<p>Any Git branch, tag or commit ID in the GitHub repository can be used to specify a revision, that you want to execute,
+when running your pipeline by adding the <tt class="docutils literal"><span class="pre">-r</span></tt> option to the run command line. So for example you could enter:</p>
+<div class="highlight-python"><pre>nextflow run nextflow-io-/hello -r mybranch</pre>
+</div>
+<p>or</p>
+<div class="highlight-python"><pre>nextflow run nextflow-io-/hello -r v1.1</pre>
+</div>
+<p>It will execute two different code revisions as specified.</p>
+</div>
+<div class="section" id="commands-to-manage-pipelines">
+<h2>Commands to manage pipelines<a class="headerlink" href="#commands-to-manage-pipelines" title="Permalink to this headline">¶</a></h2>
+<p>The following commands allows you to perform some basic operations that can be used to manage your pipelines.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Anyway Nextflow is not meant to replace functionalities provided by the <cite>Git</cite> tool, you may still need it to create new
+repositories or commit changes, etc.</p>
+</div>
+<div class="section" id="list-available-pipelines">
+<h3>List available pipelines<a class="headerlink" href="#list-available-pipelines" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">ls</span></tt> command allows you to list all the pipelines you have downloaded in your computer. For example:</p>
+<div class="highlight-python"><pre>nextflow ls</pre>
+</div>
+<p>This prints a list similar to the following one:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cbcrg</span><span class="o">/</span><span class="n">piper</span><span class="o">-</span><span class="n">nf</span>
+<span class="n">nextflow</span><span class="o">-</span><span class="n">io</span><span class="o">/</span><span class="n">hello</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="show-pipeline-information">
+<h3>Show pipeline information<a class="headerlink" href="#show-pipeline-information" title="Permalink to this headline">¶</a></h3>
+<p>By using the <tt class="docutils literal"><span class="pre">info</span></tt> command you can show information from a downloaded pipeline. For example:</p>
+<div class="highlight-python"><pre>repo name  : nextflow-io/hello
+home page  : http://github.com/nextflow-io/hello
+local path : $HOME/.nextflow/assets/nextflow-io/hello
+main script: main.nf
+revisions  :
+* master (default)
+  mybranch
+  v1.1 [t]
+  v1.2 [t]</pre>
+</div>
+<p>Starting from the top it shows: 1) the repository name; 2) the project home page; 3) the local folder where the
+pipeline has been downloaded; 4) the script that is executed when launched; 5) the list of available
+revisions i.e. branches and tags. Tags are marked with a <tt class="docutils literal"><span class="pre">[t]</span></tt> on the right, the current checked-out revision is
+marked with a <tt class="docutils literal"><span class="pre">*</span></tt> on the left.</p>
+</div>
+<div class="section" id="pull-or-update-a-pipeline">
+<h3>Pull or update a pipeline<a class="headerlink" href="#pull-or-update-a-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">pull</span></tt> command allows you to download a pipeline from a GitHub repository or to update it if
+that repository has already been downloaded. For example:</p>
+<div class="highlight-python"><pre>nextflow pull nextflow-io/examples</pre>
+</div>
+<p>Downloaded pipelines are stored in the folder <tt class="docutils literal"><span class="pre">$HOME/.nextflow/assets</span></tt> in your computer.</p>
+</div>
+<div class="section" id="view-the-code-a-pipeline">
+<h3>View the code a pipeline<a class="headerlink" href="#view-the-code-a-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">view</span></tt> command allows you to show quickly the content of a pipeline script you may have downloaded. For example:</p>
+<div class="highlight-python"><pre>nextflow view nextflow-io/hello</pre>
+</div>
+<p>By adding the <tt class="docutils literal"><span class="pre">-l</span></tt> option to the example above it will list the content of the repository.</p>
+</div>
+<div class="section" id="clone-a-pipeline-into-a-folder">
+<h3>Clone a pipeline into a folder<a class="headerlink" href="#clone-a-pipeline-into-a-folder" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">clone</span></tt> command allows you to copy a Nextflow pipeline project to a directory of your choice. For example:</p>
+<div class="highlight-python"><pre>nextflow clone nextflow-io/hello target-dir</pre>
+</div>
+<p>If the destination directory is omitted the specified pipeline is cloned to a directory with the same name as the
+pipeline base name (e.g. hello) in the current folder.</p>
+<p>The clone command can be used to inspect or modify the source code of a pipeline. You can eventually commit and push
+back your changes by using the usual Git/GitHub workflow.</p>
+</div>
+<div class="section" id="drop-an-installed-pipeline">
+<h3>Drop an installed pipeline<a class="headerlink" href="#drop-an-installed-pipeline" title="Permalink to this headline">¶</a></h3>
+<p>Downloaded pipelines can be deleted by using the <tt class="docutils literal"><span class="pre">drop</span></tt> command, as shown below:</p>
+<div class="highlight-python"><pre>nextflow drop nextflow-io/hello</pre>
+</div>
+</div>
+</div>
+<div class="section" id="publish-your-pipeline">
+<h2>Publish your pipeline<a class="headerlink" href="#publish-your-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>In order to publish your Nextflow pipeline to GitHub and allow other people to use it, you simply need to create a
+GitHub repository containing all your script and data files. If you don't know how to do it, follow this simple tutorial
+that explains how <a class="reference external" href="https://help.github.com/articles/create-a-repo">create a GitHub repository</a>.</p>
+<p>Nextflow only requires that main script in your pipeline project is called <tt class="docutils literal"><span class="pre">main.nf</span></tt>. A different name can be
+used by specifying the <tt class="docutils literal"><span class="pre">manifest.mainScript</span></tt> attribute in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file that must be
+included to your project. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">manifest</span><span class="o">.</span><span class="n">mainScript</span> <span class="o">=</span> <span class="s">&#39;my_pipeline_very_long_name.nf&#39;</span>
+</pre></div>
+</div>
+<p>Learn more about this and other pipeline meta-data information that can be defined in the Nextflow configuration file
+read the <a class="reference internal" href="config.html#config-manifest"><em>Manifest</em></a> section in the Nextflow configuration page.</p>
+<p>Once you have uploaded your pipeline project into GitHub (or BitBucket) other people can use it by specifying the
+pipeline <cite>qualified</cite> name on the Nextflow run command line. The qualified name is simply the GitHub user name
+(or organisation) plus the repository name.</p>
+<p>For the sake of the example if your GitHub account name is <tt class="docutils literal"><span class="pre">foo</span></tt> and you have uploaded it to a repository named <tt class="docutils literal"><span class="pre">bar</span></tt> the
+repository home page will be <tt class="docutils literal"><span class="pre">http://github.com/boo/bar</span></tt> and people will able to run it by entering the command:</p>
+<div class="highlight-python"><pre>nextflow run foo/bar</pre>
+</div>
+</div>
+<div class="section" id="manage-dependencies">
+<h2>Manage dependencies<a class="headerlink" href="#manage-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>Rarely a computational pipeline is composed by a single script. In real world applications they depends on other
+pieces of software. These can be other scripts, tools and applications compiled to a platform native binary format.</p>
+<p>External dependencies are the most common source of problems when sharing a piece of software, because the
+users need to have the identical set of tools and configuration to be able to use it. In many cases this is proven to be
+a painful and error prone process, that can severely limit the ability to reproduce computational results on a system other
+the one where it has been originally developed.</p>
+<p>Nextflow tackle this problem integrating the support for GitHub/BitBucket sharing platforms and <a class="reference external" href="http://www.docker.com">Docker</a> containers technology.</p>
+<p>The use of a code management system is important to keep together all the dependencies of your
+pipeline and allows you to track the changes of the source code in a consistent manner.</p>
+<p>Moreover to guarantee that a pipeline is reproducible it should be self-contained i.e. it should not have any
+dependencies with the hosting environment. By using Nextflow you can achieve this goal following these practices:</p>
+<div class="section" id="third-party-scripts">
+<h3>Third party scripts<a class="headerlink" href="#third-party-scripts" title="Permalink to this headline">¶</a></h3>
+<p>Any third part script that does not need to be compiled (BASH, Python, Perl, etc) can be included in the pipeline
+project repository, so that they are distributed with it.</p>
+<p>Grant the execute permission to these files and copy them into a folder named <tt class="docutils literal"><span class="pre">bin/</span></tt> in the root directory of your
+project repository. Nextflow will automatically add this folder to the <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable, and that scripts
+will be automatically accessible in your pipeline without the need to specify an absolute path to invoke them.</p>
+</div>
+<div class="section" id="system-environment">
+<h3>System environment<a class="headerlink" href="#system-environment" title="Permalink to this headline">¶</a></h3>
+<p>Any environment variable that may be required by the tools in your pipeline can be defined in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file
+by using the <tt class="docutils literal"><span class="pre">env</span></tt> scope and including it in the root folder of your project. For example:</p>
+<div class="highlight-python"><pre>env {
+  DELTA = 'foo'
+  GAMMA = 'bar'
+}</pre>
+</div>
+<p>See the <a class="reference internal" href="config.html#config-page"><em>Configuration</em></a> page to learn more about the Nextflow configuration file.</p>
+</div>
+<div class="section" id="resource-manager">
+<h3>Resource manager<a class="headerlink" href="#resource-manager" title="Permalink to this headline">¶</a></h3>
+<p>When using Nextflow you don't need to write the code to parallelize your pipeline for a specific grid engine/resource
+manager because the parallelization is defined implicitly and managed by the Nextflow runtime. The target execution
+environment is parametrized and defined in the configuration file, thus your code it's free from this kind of dependency.</p>
+</div>
+<div class="section" id="bootstrap-data">
+<h3>Bootstrap data<a class="headerlink" href="#bootstrap-data" title="Permalink to this headline">¶</a></h3>
+<p>Whenever your pipeline requires some files or dataset to carry out any initialization step, you
+can include these data in the pipeline repository itself and distribute along with it.</p>
+<p>To reference this data in your pipeline script in a portable manner (i.e. without the need to use a static absolute path)
+use the implicit variable <tt class="docutils literal"><span class="pre">baseDir</span></tt> which locates the base directory of your pipeline project.</p>
+<p>For example, you can create a folder named <tt class="docutils literal"><span class="pre">dataset/</span></tt> in your repository root folder and copy there the
+required files you may need. Then in your script you can access it writing:</p>
+<div class="highlight-python"><pre>sequences = file("$baseDir/dataset/sequences.fa")
+sequences.splitFasta {
+     println it
+ }</pre>
+</div>
+</div>
+<div class="section" id="user-inputs">
+<h3>User inputs<a class="headerlink" href="#user-inputs" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow scripts can be easily parametrised to allows users to provide their own input data. Simply declare on the
+top of your script all the parameters it may require as shown below:</p>
+<div class="highlight-python"><pre>params.my_input = 'default input file'
+params.my_output = 'default output path'
+params.my_flag = false
+..</pre>
+</div>
+<p>The actual parameter values can be provided when launching the script execution on the command line
+by prefixed the parameter name with a double <tt class="docutils literal"><span class="pre">--</span></tt> character. For example:</p>
+<div class="highlight-python"><pre>nextflow run &lt;your pipeline&gt; --my_input /path/to/input/file --my_output /other/path --my_flag true</pre>
+</div>
+</div>
+<div class="section" id="binary-applications">
+<h3>Binary applications<a class="headerlink" href="#binary-applications" title="Permalink to this headline">¶</a></h3>
+<p>Docker allows you to ship any binary dependencies that you may have in your pipeline in a portable image
+that is downloaded on-demand and can be executed on any platform where a Docker engine is installed.</p>
+<p>In order to use it with Nextflow, create a Docker image containing the tools needed by your pipeline and make it available
+in the <a class="reference external" href="https://registry.hub.docker.com">Docker registry</a>.</p>
+<p>Then declare in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file, that you will include in your project, the name of the Docker image you
+have created. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s">&#39;my-docker-image&#39;</span>
+<span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>In this way when the pipeline execution is started, it will automatically download the required Docker image and execute
+with it.</p>
+<p>Read <a class="reference internal" href="docker.html#docker-page"><em>Docker containers</em></a> page to lean more how use Docker containers with Nextflow.</p>
+<p>This mix of technologies make it possible to write self-contained and truly reproducible pipeline which requires
+zero configuration and be reproduced in any system having a Java VM and Docker engine installed.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>BitBucket provides two types of version control system: <cite>Git</cite> and <cite>Mercurial</cite>. Nextflow it supports only the <cite>Git</cite> one.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="example.html" class="btn btn-neutral float-right" title="Examples"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tracing.html" class="btn btn-neutral" title="Performance Analysis"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013, Nextflow authors.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>
