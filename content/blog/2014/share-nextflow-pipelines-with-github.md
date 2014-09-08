@@ -4,6 +4,7 @@ type=post
 tags=git,github,reproducibility
 status=published
 author=Paolo Di Tommaso
+icon=pablo.jpg
 ~~~~~~
 
 The [GitHub](https://github.com) code repository and collaboration platform is widely
