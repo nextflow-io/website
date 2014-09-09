@@ -55,11 +55,11 @@ tools or implement from scratch state-of-the-art data processing algorithms.
 
 ### Here it comes Docker
 
-This is why we think that Docker containers technology represents a big change for 
-For published code and data to be useful, it not only has to be reproducible, 
+This is why we think that Docker containers technology represent a big opportunity for 
+published code and data to be useful. It not only has to be reproducible, 
 but it also has to be easy to reproduce and interact with the data. 
 
-[Docker](http://www.docker.com) containers technology, is a solution to many of these problems. 
+[Docker](http://www.docker.com) containers technology, is a solution to many of the coumputational research reproducibility problems. 
 Basically, it is kind of like a lightweight virtual machine where you can set up a compute 
 environment, including all the libraries, code, data, you need, in a single "image". 
 
@@ -74,17 +74,17 @@ have already started discussing this.
 ### Docker and Nextflow: a perfect match 
 
 A big advantage of Docker containers compared to *traditional* machine virtualisation technology, 
-is that has it a minimal startup time. This make it possible to virtualise single application 
+is that it has a minimal startup time. This make it possible to virtualise single application 
 executions which can be launched in parallel in their own isolated process container, in 
-order to speedup a large computation. This the approach we have used integrating Docker with Nextflow. 
+order to speedup a large computation. 
 
-Nextflow is data-driven toolkit for computational pipelines which aims to simply the deployment of 
+Nextflow is data-driven toolkit for computational pipelines which aims to simplify the deployment of 
 distributed and highly parallelised pipelines for scientific application.  
   
 The latest version integrates the support for Docker containers that enables the deployment 
 of self-contained and truly reproducible pipelines. 
   
-### How it works 
+### How they work together 
 
 A Nextflow pipeline is made up by putting together several processes. Each process 
 can be written in any scripting language that can be executed by the Linux platform 
@@ -93,11 +93,8 @@ by the framework and it is implicitly defined by the processes input and
 output declarations. 
 
 By integrating Docker with Nextflow, a pipeline processes can be executed independently
-in its own isolated process container, this guarantee that each of them run in a predictable 
-manner without worry about the configuration of the target execution 
-platform. Moreover the minimal overhead added by Docker allow us to spawn multiple containers 
-execution in parallel with a negligible performance loss if compared to a platform *native*
-execution.   
+in its own isolated container, this guarantee that each of them run in a predictable 
+manner without worry about the configuration of the target execution platform. Moreover the minimal overhead added by Docker allow us to spawn multiple containers execution in parallel with a negligible performance loss if compared to a platform *native* execution.   
 
 
 ### An example
@@ -132,8 +129,8 @@ Now you are ready to the demo bu entering the following command:
     
     
 This will launch the pipeline execution printing the final alignment out in the terminal screen. 
-You can use a provide your own protein sequences FASTA filem by adding the option ``--query <file>`` 
-and the change the splitting chunk size with ``--chunk n``	in the above command line. 
+You can also provide your own protein sequence FASTA file by adding in the above command line 
+the option ``--query <file>`` and/or change the splitting chunk size with ``--chunk n``	 
 
 
 ### Conclusion 
@@ -141,6 +138,12 @@ and the change the splitting chunk size with ``--chunk n``	in the above command 
 This mix of technologies provide Docker, GitHub and Nextflow makes it possible to write 
 self-contained and truly reproducible pipeline which requires zero configuration and 
 be reproduced in any system having a Java VM and Docker engine installed.
+
+
+### Learn exactly how to do it!
+
+Follow our documentation guidelines for a quick start with Docker and Nextflow:
+
 
 
 
