@@ -32,38 +32,16 @@ but as many can attest, the information provided there is often not adequate for
 
 ### Promoting Computational Research Reproducibility
 
-Encouragingly scientific reproducibility has been at the forefront of many news stories 
-and there exist numerous initiatives to help address this problem. Particularly, when it 
-comes to producing reproducible computational analyses, some publications are starting 
-to publish the code and data used for analysing and generating figures. 
+Encouragingly scientific reproducibility has been at the forefront of many news stories and there exist numerous initiatives to help address this problem. Particularly, when it comes to producing reproducible computational analyses, some publications are starting to publish the code and data used. Many articles in various journals (Nature, Elife etc.) provide even a "source data" download link next to figures, that gives the possibility to download the source code used to generate the figure.
 
-For example, many articles in Nature and in the new Elife journal (and others) provide a 
-"source data" download link next to figures. Sometimes Elife might even have an option 
-to download the source code for figures.
-
-This is a good start, but there are still lots of problems. For example, if one wants 
-to re-execute a data analyses from these papers, he/she will have to download the 
-scripts and the data, to only realize that he/she has not all the required libraries, 
-or that it only runs on, for example, an Ubuntu version he/she doesn't have, or some 
-paths are hard-coded to match the authors' machines. 
-
-If it's not easy to run and doesn't run out of the box the chances that a researcher 
-will actually ever run most of these scripts is close to zero, especially if they lack 
-the time or expertise to manage the required installation of third-party libraries, 
-tools or implement from scratch state-of-the-art data processing algorithms.
+Although this might be a solution, it doesn't really solve the problem, as the chances that a researcher will actually ever run most of these scripts are quite low, especially if they lack the time or expertise to manage the required installation of third-party libraries, tools or implement from scratch state-of-the-art data processing algorithms. Imagine wanting to re-execute a data analyses from these papers, even if you download all the scripts and the data, you might still be missing required libraries or the software might have further dependencies, or it might require a certain operating system or platform to run to.
 
 ### Here it comes Docker
 
 [Docker](http://www.docker.com) containers technology is a solution to many of the computational 
-research reproducibility problems.  Basically, it is kind of a lightweight virtual machine 
-where you can set up a computing environment including all the libraries, code and data that you need, 
-into a single *image*. 
+The idea is for Docker to operate like a box; you can pack stuff together and then ship that box to someone else. In reality, it is a portable, lightweight virtual machine, that allows you to package into a single image (box) code and data, and customize the computing environment including all libraries and dependencies.
 
-This image can be distributed publicly and can seamlessly run on any major Linux operating system. 
-No need for the user to mess with installation, paths, etc. 
-
-They just run the Docker image you provided, and everything is set up to work out of the box.
-Researchers have already started discussing this (e.g. [here](http://www.bioinformaticszen.com/post/reproducible-assembler-benchmarks/), 
+This image can, then, be distributed publicly and can un on any major Linux operating system. Hence, the same computational analysis can run unchanged, on any laptop, data center VMS, and any cloud. They just run the Docker image you provided, and everything is set up to work out of the box. Researchers have already started discussing this (e.g. [here](http://www.bioinformaticszen.com/post/reproducible-assembler-benchmarks/), 
 [here](https://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-installation-of-genomic-analysis-pipelines-with-docker/) 
 and [here](http://melissagymrek.com/science/2014/08/29/docker-reproducible-research.html)).
  
