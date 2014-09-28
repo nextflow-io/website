@@ -41,7 +41,8 @@ For example, many articles in Nature and in the new Elife journal (and others) p
 "source data" download link next to figures. Sometimes Elife might even have an option 
 to download the source code for figures.
 
-This is a good start, but there are still lots of problems. For example, if one wants 
+As pointed out by Melissa Gymrek [in a recent post](http://melissagymrek.com/science/2014/08/29/docker-reproducible-research.html)
+this is a great start, but there are still lots of problems. Se wrote that, for example, if one wants 
 to re-execute a data analyses from these papers, he/she will have to download the 
 scripts and the data, to only realize that he/she has not all the required libraries, 
 or that it only runs on, for example, an Ubuntu version he/she doesn't have, or some 
@@ -64,8 +65,7 @@ No need for the user to mess with installation, paths, etc.
 
 They just run the Docker image you provided, and everything is set up to work out of the box.
 Researchers have already started discussing this (e.g. [here](http://www.bioinformaticszen.com/post/reproducible-assembler-benchmarks/), 
-[here](https://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-installation-of-genomic-analysis-pipelines-with-docker/) 
-and [here](http://melissagymrek.com/science/2014/08/29/docker-reproducible-research.html)).
+and [here](https://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-installation-of-genomic-analysis-pipelines-with-docker/)).
  
 ### Docker and Nextflow: a perfect match 
 
