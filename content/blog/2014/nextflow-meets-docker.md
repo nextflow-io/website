@@ -42,23 +42,23 @@ For example, many articles in Nature and in the new Elife journal (and others) p
 to download the source code for figures.
 
 As pointed out by Melissa Gymrek [in a recent post](http://melissagymrek.com/science/2014/08/29/docker-reproducible-research.html)
-this is a great start, but there are still lots of problems. Se wrote that, for example, if one wants 
+this is a great start, but there are still lots of problems. She wrote that, for example, if one wants 
 to re-execute a data analyses from these papers, he/she will have to download the 
 scripts and the data, to only realize that he/she has not all the required libraries, 
 or that it only runs on, for example, an Ubuntu version he/she doesn't have, or some 
-paths are hard-coded to match the authors' machines. 
+paths are hard-coded to match the authors' machine. 
 
 If it's not easy to run and doesn't run out of the box the chances that a researcher 
 will actually ever run most of these scripts is close to zero, especially if they lack 
 the time or expertise to manage the required installation of third-party libraries, 
 tools or implement from scratch state-of-the-art data processing algorithms.
 
-### Here it comes Docker
+### Here comes Docker
 
 [Docker](http://www.docker.com) containers technology is a solution to many of the computational 
-research reproducibility problems.  Basically, it is kind of a lightweight virtual machine 
+research reproducibility problems.  Basically, it is a kind of a lightweight virtual machine 
 where you can set up a computing environment including all the libraries, code and data that you need, 
-into a single *image*. 
+within a single *image*. 
 
 This image can be distributed publicly and can seamlessly run on any major Linux operating system. 
 No need for the user to mess with installation, paths, etc. 
@@ -69,10 +69,10 @@ and [here](https://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-
  
 ### Docker and Nextflow: a perfect match 
 
-A big advantage of Docker containers compared to *traditional* machine virtualisation technology
+One big advantage Docker has compared to *traditional* machine virtualisation technology
 is that it doesn't need a complete copy of the operating system, thus it has a minimal 
-startup time. This makes it possible to virtualise single applications or to launch the execution 
-of plenty of containers, that can run in parallel, in order to speedup a large computation. 
+startup time. This makes it possible to virtualise single applications or launch the execution 
+of multiple containers, that can run in parallel, in order to speedup a large computation. 
 
 Nextflow is a data-driven toolkit for computational pipelines, which aims to simplify the deployment of 
 distributed and highly parallelised pipelines for scientific applications.  
@@ -89,9 +89,9 @@ by the framework and it is implicitly defined by the processes input and
 output declarations. 
 
 By integrating Docker with Nextflow, every pipeline process can be executed independently
-in its own container, this guarantee that each of them run in a predictable 
+in its own container, this guarantees that each of them run in a predictable 
 manner without worrying about the configuration of the target execution platform. Moreover the 
-minimal overhead added by Docker allow us to spawn multiple containers executions in a parallel 
+minimal overhead added by Docker allows us to spawn multiple container executions in a parallel 
 manner with a negligible performance loss when compared to a platform *native* execution.   
 
 
@@ -100,16 +100,16 @@ manner with a negligible performance loss when compared to a platform *native* e
 As a proof of concept of the Docker integration with Nextflow you can try out the 
 pipeline example at this [link](https://github.com/nextflow-io/examples/blob/master/blast-parallel.nf). 
 
-It splits a protein sequences' FASTA file in chunks of *n* entries, executes a BLAST query 
+It splits a protein sequences multi FASTA file into chunks of *n* entries, executes a BLAST query 
 for each of them, then extracts the top 10 matching sequences and 
 finally aligns the results with the T-Coffee multiple sequence aligner. 
 
-In a common scenario you would need to install and configure the tools required by this 
+In a common scenario you generally need to install and configure the tools required by this 
 script: BLAST and T-Coffee. Moreover you should provide a formatted protein database in order
 to execute the BLAST search.
 
 By using  Docker with Nextflow you only need to have the Docker engine installed in your 
-computer and a Java VM. In order to try this example out follow these steps: 
+computer and a Java VM. In order to try this example out, follow these steps: 
 
 Install the latest version of Nextflow by entering the following command in your shell terminal:
    
@@ -127,8 +127,8 @@ Now you are ready to run the demo by launching the pipeline execution as shown b
     nextflow run examples/blast-parallel.nf -with-docker
     
     
-This will run the pipeline printing the final alignment out in the terminal screen. 
-You can also provide your own protein sequences' FASTA file by adding, in the above command line, 
+This will run the pipeline printing the final alignment out on the terminal screen. 
+You can also provide your own protein sequences multi FASTA file by adding, in the above command line, 
 the option ``--query <file>`` and change the splitting chunk size with ``--chunk n`` option. 
 
 Note: the result doesn't have a real biological meaning since it uses a very small protein database. 
@@ -136,7 +136,7 @@ Note: the result doesn't have a real biological meaning since it uses a very sma
 
 ### Conclusion 
 
-The mix of Docker, GitHub and Nextflow technologies makes it possible to deploy 
+The mix of Docker, GitHub and Nextflow technologies make it possible to deploy 
 self-contained and truly replicable pipelines. It requires zero configuration and 
 enables the reproducibility of data analysis pipelines in any system in which a Java VM and 
 the Docker engine are available.
