@@ -352,29 +352,30 @@ repository home page will be <tt class="docutils literal"><span class="pre">http
 </div>
 <div class="section" id="manage-dependencies">
 <h2>Manage dependencies<a class="headerlink" href="#manage-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>Rarely a computational pipeline is composed by a single script. In real world applications they depends on other
-pieces of software. These can be other scripts, tools and applications compiled to a platform native binary format.</p>
+<p>Computational pipelines are rarely composed by a single script. In real world applications they depend on other
+pieces of software. These can be other scripts, tools or applications compiled to a platform native binary format.</p>
 <p>External dependencies are the most common source of problems when sharing a piece of software, because the
-users need to have the identical set of tools and configuration to be able to use it. In many cases this is proven to be
-a painful and error prone process, that can severely limit the ability to reproduce computational results on a system other
-the one where it has been originally developed.</p>
-<p>Nextflow tackle this problem integrating the support for GitHub/BitBucket sharing platforms and <a class="reference external" href="http://www.docker.com">Docker</a> containers technology.</p>
+users need to have an identical set of tools and the same configuration to be able to use it. On many cases this has proven to be
+a painful and error prone process, that can severely limit the ability to reproduce computational results on a system other than
+the one on which it was originally developed.</p>
+<p>Nextflow tackles this problem by integrating GitHub and BitBucket sharing platforms and
+<a class="reference external" href="http://www.docker.com">Docker</a> containers technology.</p>
 <p>The use of a code management system is important to keep together all the dependencies of your
 pipeline and allows you to track the changes of the source code in a consistent manner.</p>
 <p>Moreover to guarantee that a pipeline is reproducible it should be self-contained i.e. it should not have any
-dependencies with the hosting environment. By using Nextflow you can achieve this goal following these practices:</p>
+dependencies with the hosting environment. By using Nextflow you can achieve this goal following these methods:</p>
 <div class="section" id="third-party-scripts">
 <h3>Third party scripts<a class="headerlink" href="#third-party-scripts" title="Permalink to this headline">¶</a></h3>
-<p>Any third part script that does not need to be compiled (BASH, Python, Perl, etc) can be included in the pipeline
+<p>Any third party script that does not need to be compiled (BASH, Python, Perl, etc) can be included in the pipeline
 project repository, so that they are distributed with it.</p>
 <p>Grant the execute permission to these files and copy them into a folder named <tt class="docutils literal"><span class="pre">bin/</span></tt> in the root directory of your
-project repository. Nextflow will automatically add this folder to the <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable, and that scripts
-will be automatically accessible in your pipeline without the need to specify an absolute path to invoke them.</p>
+project repository. Nextflow will automatically add this folder to the <tt class="docutils literal"><span class="pre">PATH</span></tt> environment variable, and the scripts
+will automatically be accessible in your pipeline without the need to specify an absolute path to invoke them.</p>
 </div>
 <div class="section" id="system-environment">
 <h3>System environment<a class="headerlink" href="#system-environment" title="Permalink to this headline">¶</a></h3>
 <p>Any environment variable that may be required by the tools in your pipeline can be defined in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file
-by using the <tt class="docutils literal"><span class="pre">env</span></tt> scope and including it in the root folder of your project. For example:</p>
+by using the <tt class="docutils literal"><span class="pre">env</span></tt> scope and including it in the root directory of your project. For example:</p>
 <div class="highlight-python"><pre>env {
   DELTA = 'foo'
   GAMMA = 'bar'
@@ -386,16 +387,16 @@ by using the <tt class="docutils literal"><span class="pre">env</span></tt> scop
 <h3>Resource manager<a class="headerlink" href="#resource-manager" title="Permalink to this headline">¶</a></h3>
 <p>When using Nextflow you don't need to write the code to parallelize your pipeline for a specific grid engine/resource
 manager because the parallelization is defined implicitly and managed by the Nextflow runtime. The target execution
-environment is parametrized and defined in the configuration file, thus your code it's free from this kind of dependency.</p>
+environment is parametrized and defined in the configuration file, thus your code is free from this kind of dependency.</p>
 </div>
 <div class="section" id="bootstrap-data">
 <h3>Bootstrap data<a class="headerlink" href="#bootstrap-data" title="Permalink to this headline">¶</a></h3>
 <p>Whenever your pipeline requires some files or dataset to carry out any initialization step, you
-can include these data in the pipeline repository itself and distribute along with it.</p>
+can include this data in the pipeline repository itself and distribute them together.</p>
 <p>To reference this data in your pipeline script in a portable manner (i.e. without the need to use a static absolute path)
 use the implicit variable <tt class="docutils literal"><span class="pre">baseDir</span></tt> which locates the base directory of your pipeline project.</p>
-<p>For example, you can create a folder named <tt class="docutils literal"><span class="pre">dataset/</span></tt> in your repository root folder and copy there the
-required files you may need. Then in your script you can access it writing:</p>
+<p>For example, you can create a folder named <tt class="docutils literal"><span class="pre">dataset/</span></tt> in your repository root directory and copy there the
+required data file(s) you may need, then you can access this data in your script by writing:</p>
 <div class="highlight-python"><pre>sequences = file("$baseDir/dataset/sequences.fa")
 sequences.splitFasta {
      println it
@@ -404,7 +405,7 @@ sequences.splitFasta {
 </div>
 <div class="section" id="user-inputs">
 <h3>User inputs<a class="headerlink" href="#user-inputs" title="Permalink to this headline">¶</a></h3>
-<p>Nextflow scripts can be easily parametrised to allows users to provide their own input data. Simply declare on the
+<p>Nextflow scripts can be easily parametrised to allow users to provide their own input data. Simply declare on the
 top of your script all the parameters it may require as shown below:</p>
 <div class="highlight-python"><pre>params.my_input = 'default input file'
 params.my_output = 'default output path'
@@ -412,13 +413,13 @@ params.my_flag = false
 ..</pre>
 </div>
 <p>The actual parameter values can be provided when launching the script execution on the command line
-by prefixed the parameter name with a double <tt class="docutils literal"><span class="pre">--</span></tt> character. For example:</p>
+by prefixed the parameter name with a double minus character i.e. <tt class="docutils literal"><span class="pre">--</span></tt>, for example:</p>
 <div class="highlight-python"><pre>nextflow run &lt;your pipeline&gt; --my_input /path/to/input/file --my_output /other/path --my_flag true</pre>
 </div>
 </div>
 <div class="section" id="binary-applications">
 <h3>Binary applications<a class="headerlink" href="#binary-applications" title="Permalink to this headline">¶</a></h3>
-<p>Docker allows you to ship any binary dependencies that you may have in your pipeline in a portable image
+<p>Docker allows you to ship any binary dependencies that you may have in your pipeline to a portable image
 that is downloaded on-demand and can be executed on any platform where a Docker engine is installed.</p>
 <p>In order to use it with Nextflow, create a Docker image containing the tools needed by your pipeline and make it available
 in the <a class="reference external" href="https://registry.hub.docker.com">Docker registry</a>.</p>
@@ -428,11 +429,11 @@ have created. For example:</p>
 <span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>In this way when the pipeline execution is started, it will automatically download the required Docker image and execute
-with it.</p>
-<p>Read <a class="reference internal" href="docker.html#docker-page"><em>Docker containers</em></a> page to lean more how use Docker containers with Nextflow.</p>
-<p>This mix of technologies make it possible to write self-contained and truly reproducible pipeline which requires
-zero configuration and be reproduced in any system having a Java VM and Docker engine installed.</p>
+<p>In this way when you launch the pipeline execution, the Docker image will be automatically downloaded and used to run
+your tasks.</p>
+<p>Read the <a class="reference internal" href="docker.html#docker-page"><em>Docker containers</em></a> page to lean more on how to use Docker containers with Nextflow.</p>
+<p>This mix of technologies makes it possible to write self-contained and truly reproducible pipelines which require
+zero configuration and can be reproduced in any system having a Java VM and a Docker engine installed.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
