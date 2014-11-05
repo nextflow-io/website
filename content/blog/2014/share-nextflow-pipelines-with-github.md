@@ -138,7 +138,7 @@ Downloaded pipelines can be deleted by using the `drop` command, as shown below:
 
 * <s>GitHub private repositories currently are not supported</s> Support for private GitHub repositories has been introduced with version 0.10.0.
 * <s>Symlinks committed in a Git repository are not resolved correctly 
-  when downloaded/cloned by Nextflow</s> Symlinks are resolved correctly when using version 0.11.0 Nextflow (or higher). 
+  when downloaded/cloned by Nextflow</s> Symlinks are resolved correctly when using Nextflow version 0.11.0 (or higher). 
 
 
 
