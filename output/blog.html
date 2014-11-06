@@ -91,6 +91,30 @@
 		  <div class="col-sm-8">
 			<div class="timeline">
 			  <div class="blg-summary">
+			    <h3 ><a href="blog/2014/using-docker-in-hpc-cluster.html">Using Docker for scientific data analysis in an HPC cluster   </a></h3>
+				<div class="timeline-info hidden-xs">
+				  <img src="/img/pablo.jpg" class="blg-author" alt="...">
+				</div>
+			    <ul class="text-muted list-inline blg-header">
+				  <li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				  <li><i class="fa fa-calendar"></i> 06 November 2014 </li>
+				  <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			    </ul>
+			    <hr>
+			    <p class="blg-text">
+			      <p>Scientific data analysis pipelines are rarely composed by a single piece of software. In a real world scenario, computational pipelines are made up of multiple stages, each of which can execute many different scripts, system commands and external tools deployed in a hosting computing environment, usually an HPC cluster. </p><p>As I work as a research engineer in a bioinformatics lab I experience on a daily basis the difficulties related on keeping such a piece of software consistent. </p><p>Computing enviroments can change frequently in order to test new pieces of software or maybe because system libraries need to be updated. For this reason replicating the results of a data analysis over time can be a challenging task. </p><p><a href="http://www.docker.com">Docker</a> has emerged recently as a new type of virtualisation technology that allows one to create a self-contained runtime environment. There are plenty of examples showing the benefits of using it to run application services, like web servers or databases. </p><p>However it seems that few people have considered using Docker for the deployment of scientific data analysis pipelines on distributed cluster of computer, in order to simplify the development, the deployment and the replicability of this kind of applications. </p><p>For this reason I wanted to test the capabilities of Docker to solve these problems in the cluster available in our <a href="http://www.crg.eu">institute</a>.</p><h2>Method</h2><p>The Docker engine has been installed in each node of our cluster, that runs a <a href="http://www.univa.com/products/grid-engine.php">Univa grid engine</a> resource manager. A Docker private registry instance has also been installed in our internal network, so that images can be pulled from the local repository in a much faster way when compared to the public <a href="http://registry.hub.docker.com">Docker registry</a>. </p><p>Moreover the Univa grid engine has been configured with a custom <a href="http://www.gridengine.eu/mangridengine/htmlman5/complex.html">complex</a> resource type. This allows us to request a specific Docker image as a resource type while submitting a job execution to the cluster. </p><p>The Docker image is requested as a <em>soft</em> resource, by doing that the UGE scheduler tries to run a job to a node where that image has already been pulled, otherwise a lower priority is given to it and it is executed, eventually, by a node where the specified Docker image is not available. This will force the node to pull the required image from the local registry at the time of the job execution. </p><p>This environment has been tested with <a href="https://github.com/cbcrg/piper-nf">Piper-NF</a>, a genomic pipeline for the detection and mapping of long non-coding RNAs. </p><p>The pipeline runs on top of Nextflow, which takes care of the tasks parallelisation and submits the jobs for execution to the Univa grid engine. </p><p>The Piper-NF code wasn't modified in order to run it using Docker. Nextflow is able to handle it automatically. The Docker containers are run in such a way that the tasks result files are created in the hosting file system, in other words it behaves in a completely transparent manner without requiring extra steps or affecting the flow of the pipeline execution. </p><p>It was only necessary to specify the Docker image (or images) to be used in the Nextflow configuration file for the pipeline. You can read more about this at <a href="http://www.nextflow.io/docs/latest/docker.html">this link</a>.</p><h2>Results</h2><p>To benchmark the impact of Docker on the pipeline performance a comparison was made running it with and without Docker.</p><p>For this experiment 10 cluster nodes were used. The pipeline execution launches around 100 jobs. It was run 5 times by using the same dataset with and without Docker. </p><p>The average execution time without Docker was 28.6 minutes, while the average pipeline execution time, running each job in a Docker container, was 32.2 minutes. Thus, by using Docker the overall execution time increased by something around 12.5%. </p><p>It is important to note that this time includes both the Docker bootstrap time, and the time overhead that is added to the task execution by the virtualisation layer. </p><p>For this reason the actual task run time was measured as well i.e. without including the Docker bootstrap time overhead. In this case, the aggregate average task execution time was 57.3 minutes and 59.5 minutes when running the same tasks using Docker. Thus, the time overhead added by the Docker virtualisation layer to the effective task run time can be estimated to around 4% in our test.</p><p>Keeping the complete toolset required by the pipeline execution within a Docker image dramatically reduced configuration and deployment problems. Also storing these images into the private and <a href="https://registry.hub.docker.com/repos/cbcrg/">public</a> repositories with a unique tag allowed us to replicate the results without the usual burden required to set-up an identical computing environment. </p><h2>Conclusion</h2><p>The fast start-up time for Docker containers technology allows one to virtualise a single process or the execution of a bunch of applications, instead of a complete operating system. This opens up new possibilities, for example the possibility to "virtualise" distributed job executions in an HPC cluster of computers. </p><p>The minimal performance loss introduced by the Docker engine is offset by the advantages of running your analysis in a self-contained and dead easy to reproduce runtime environment, which guarantees the consistency of the results over time and across different computing platforms. </p><h4>Credits</h4><p>Thanks to Arnau Bria and the all scientific systems admins team to manage the Docker installation in the CRG computing cluster. </p>
+			    </p>
+			    
+			    <!--
+			    <p class="tags">
+				  <a href="#" class="background-color bg-hover-color">Bootstrap</a>
+				  <a href="#" class="background-color bg-hover-color">HTML5</a>
+				  <a href="#" class="background-color bg-hover-color">CSS</a>
+				  <a href="#" class="background-color bg-hover-color">jQuery</a>
+			    </p>
+			    -->
+			  </div>
+			  <div class="blg-summary">
 			    <h3 ><a href="blog/2014/nextflow-meets-docker.html">Reproducibility in Science - Nextflow meets Docker </a></h3>
 				<div class="timeline-info hidden-xs">
 				  <img src="/img/maria.png" class="blg-author" alt="...">
@@ -116,63 +140,6 @@
 </code></pre><p>You can check the content of the image looking at the <a href="https://github.com/nextflow-io/examples/blob/master/Dockerfile">Dockerfile</a> used to create it.</p><p>Now you are ready to run the demo by launching the pipeline execution as shown below: </p>
 <pre><code>nextflow run examples/blast-parallel.nf -with-docker
 </code></pre><p>This will run the pipeline printing the final alignment out on the terminal screen. You can also provide your own protein sequences multi FASTA file by adding, in the above command line, the option <code>--query &lt;file&gt;</code> and change the splitting chunk size with <code>--chunk n</code> option. </p><p>Note: the result doesn't have a real biological meaning since it uses a very small protein database. </p><h3>Conclusion</h3><p>The mix of Docker, GitHub and Nextflow technologies make it possible to deploy self-contained and truly replicable pipelines. It requires zero configuration and enables the reproducibility of data analysis pipelines in any system in which a Java VM and the Docker engine are available.</p><h3>Learn how to do it!</h3><p>Follow our documentation for a quick start using Docker with Nextflow at the following link <a href="http://www.nextflow.io/docs/latest/docker.html">http://www.nextflow.io/docs/latest/docker.html</a></p>
-			    </p>
-			    
-			    <!--
-			    <p class="tags">
-				  <a href="#" class="background-color bg-hover-color">Bootstrap</a>
-				  <a href="#" class="background-color bg-hover-color">HTML5</a>
-				  <a href="#" class="background-color bg-hover-color">CSS</a>
-				  <a href="#" class="background-color bg-hover-color">jQuery</a>
-			    </p>
-			    -->
-			  </div>
-			  <div class="blg-summary">
-			    <h3 ><a href="blog/2014/share-nextflow-pipelines-with-github.html">Share Nextflow pipelines with Github</a></h3>
-				<div class="timeline-info hidden-xs">
-				  <img src="/img/pablo.jpg" class="blg-author" alt="...">
-				</div>
-			    <ul class="text-muted list-inline blg-header">
-				  <li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
-				  <li><i class="fa fa-calendar"></i> 07 August 2014 </li>
-				  <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
-			    </ul>
-			    <hr>
-			    <p class="blg-text">
-			      <p>The <a href="https://github.com">GitHub</a> code repository and collaboration platform is widely used between researchers to publish their work and to collaborate on projects source code. </p><p>Even more interestingly a few months ago <a href="https://github.com/blog/1840-improving-github-for-science">GitHub announced improved support for researchers</a> making it possible to get a Digital Object Identifier (DOI) for any GitHub repository archive. </p><p>With a DOI for your GitHub repository archive your code becomes formally citable in scientific publications.</p><h3>Why use GitHub with Nextflow?</h3><p>The latest Nextflow release (0.9.0) seamlessly integrates with GitHub. This feature allows you to manage your code in a more consistent manner, or use other people's Nextflow pipelines, published through GitHub, in a quick and transparent manner. </p><h3>How it works</h3><p>The idea is very simple, when you launch a script execution with Nextflow, it will look for a file with the pipeline name you've specified. If that file does not exist, it will look for a public repository with the same name on GitHub. If it is found, the repository is automatically downloaded to your computer and the code executed. This repository is stored in the Nextflow home directory, by default <code>$HOME/.nextflow</code>, thus it will be reused for any further execution.</p><p>You can try this feature out, having Nextflow (version 0.9.0 or higher) installed in your computer, by simply entering the following command in your shell terminal:</p>
-<pre><code>nextflow run nextflow-io/hello 
-</code></pre><p>The first time you execute this command Nextflow will download the pipeline at the following GitHub repository <code>https://github.com/nextflow-io/hello</code>, as you don't already have it in your computer. It will then execute it producing the expected output.</p><p>In order for a GitHub repository to be used as a Nextflow project, it must contain at least one file named <code>main.nf</code> that defines your Nextflow pipeline script.</p><h3>Run a specific revision</h3><p>Any Git branch, tag or commit ID in the GitHub repository can be used to specify a revision, that you want to execute, when running your pipeline by adding the <code>-r</code> option to the run command line. So for example you could enter:</p>
-<pre><code>nextflow run nextflow-io-/hello -r mybranch   
-</code></pre><p>or </p>
-<pre><code>nextflow run nextflow-io-/hello -r v1.1
-</code></pre><p>This can be very useful when comparing different versions of your project. It also guarantees consistent results in your pipeline as your source code evolves.</p><h3>Commands to manage pipelines</h3><p>The following commands allows you to perform some basic operations that can be used to manage your pipelines. Anyway Nextflow is not meant to replace functionalities provided by the <a href="http://git-scm.com/">Git</a> tool, you may still need it to create new repositories or commit changes, etc. </p><h4>List available pipelines</h4><p>The <code>ls</code> command allows you to list all the pipelines you have downloaded in your computer. For example: </p>
-<pre><code>nextflow ls
-</code></pre><p>This prints a list similar to the following one: </p>
-<pre><code>cbcrg/piper-nf
-nextflow-io/hello
-</code></pre><h4>Show pipeline information</h4><p>By using the <code>info</code> command you can show information from a downloaded pipeline. For example:</p>
-<pre><code>$ nextflow info hello
-</code></pre><p>This command prints: </p>
-<pre><code> repo name  : nextflow-io/hello
- home page  : http://github.com/nextflow-io/hello
- local path : $HOME/.nextflow/assets/nextflow-io/hello
- main script: main.nf
- revisions  : 
- * master (default)
-   mybranch
-   v1.1 [t]
-   v1.2 [t]   
-</code></pre><p>Starting from the top it shows: 1) the repository name; 2) the project home page; 3) the local folder where the pipeline has been downloaded; 4) the script that is executed when launched; 5) the list of available revisions i.e. branches + tags. Tags are marked with a <code>[t]</code> on the right, the current checked-out revision is marked with a <code>*</code> on the left.</p><h4>Pull or update a pipeline</h4><p>The <code>pull</code> command allows you to download a pipeline from a GitHub repository or to update it if that repository has already been downloaded. For example: </p>
-<pre><code>nextflow pull nextflow-io/examples
-</code></pre><p>Downloaded pipelines are stored in the folder <code>$HOME/.nextflow/assets</code> in your computer.</p><h4>Clone a pipeline into a folder</h4><p>The <code>clone</code> command allows you to copy a Nextflow pipeline project to a directory of your choice. For example:</p>
-<pre><code>nextflow clone nextflow-io/hello target-dir 
-</code></pre><p>If the destination directory is omitted the specified pipeline is cloned to a directory with the same name as the pipeline <em>base</em> name (e.g. <code>hello</code>) in the current folder. </p><p>The clone command can be used to inspect or modify the source code of a pipeline. You can eventually commit and push back your changes by using the usual Git/GitHub workflow. </p><h4>Drop an installed pipeline</h4><p>Downloaded pipelines can be deleted by using the <code>drop</code> command, as shown below: </p>
-<pre><code>nextflow drop nextflow-io/hello
-</code></pre><h3>Limitations and known problems</h3>
-<ul>
-  <li><s>GitHub private repositories currently are not supported</s> Support for private GitHub repositories has been introduced with version 0.10.0.</li>
-  <li><s>Symlinks committed in a Git repository are not resolved correctly  when downloaded/cloned by Nextflow</s> Symlinks are resolved correctly when using version 0.11.0 Nextflow (or higher).</li>
-</ul>
 			    </p>
 			    
 			    <!--
