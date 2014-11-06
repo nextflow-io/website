@@ -68,8 +68,8 @@ configuration file for the pipeline. You can read more about this at [this link]
 To benchmark the impact of Docker on the pipeline performance a comparison was made running 
 it with and without Docker.
 
-For this experiment 10 cluster nodes were used. The pipeline execution launches around 100 jobs. 
-It was run 5 times by using the same dataset with and without Docker. 
+For this experiment 10 cluster nodes were used. The pipeline execution launches around 100 jobs, 
+and it was run 5 times by using the same dataset with and without Docker. 
 
 The average execution time without Docker was 28.6 minutes, while the average 
 pipeline execution time, running each job in a Docker container, was 32.2 minutes.
