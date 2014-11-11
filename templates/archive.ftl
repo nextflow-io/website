@@ -16,8 +16,6 @@
 			<div class="timeline">
 			<#assign count = 0> 
 			<#list published_posts as post>
-			  <#assign count = count+1>
-			  <#if (count<=2) >		  
 			  <div class="blg-summary">
 			    <h3 ><a href="${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></h3>
 				<div class="timeline-info hidden-xs">
@@ -29,8 +27,16 @@
 				  <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
 			    </ul>
 			    <hr>
-			    <p class="blg-text">
-			      ${post.body}
+			    <p class="blg-text">	
+                  <#assign words = post.body?word_list>
+			      <#if words?size gt 150 > 
+			        <#assign body = words[0..149]?join(' ') >
+			        ${body} .. (<a href="${post.uri}">click here to read more</a>) 
+			      <#else>
+			        <#assign body = words?join(' ') >
+			        ${body}
+			      </#if>
+
 			    </p>
 			    
 			    <!--
@@ -42,7 +48,6 @@
 			    </p>
 			    -->
 			  </div>
-			  </#if>	
             </#list>
 			</div>
 			
