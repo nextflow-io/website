@@ -19,6 +19,7 @@ syntaxhighlighter=yes
 
                     <script type="syntaxhighlighter" class="brush: groovy">
 <![CDATA[
+#!/usr/bin/env nextflow
 
 params.in = "$baseDir/data/sample.fa"
 sequences = file(params.in)
@@ -71,64 +72,63 @@ result.subscribe { println it }
                             pipeline, as any other BASH script
                         </li>
 
-                        <li>line 3: Declares a pipeline parameter named params.in that is initialized with the value
-                            $HOME/sample.fa.This value can be overridden when launching the pipeline, by simply adding
-                            the option --in
-                            &lt;value&gt; to the script command line
+                        <li>line 3: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value
+                            <code>$HOME/sample.fa</code>.This value can be overridden when launching the pipeline, 
+                            by simply adding the option <code>--in &lt;value&gt;</code> to the script command line
                         </li>
 
                         <li>line 4: Defines a variable sequences holding a reference for the file whose name is
-                            specified by the params.in parameter
+                            specified by the <code>params.in</code> parameter
                         </li>
 
 
-                        <li>lines 6-18: The process that splits the provided file.
+                        <li>lines 9-21: The process that splits the provided file.
                         </li>
 
-                        <li>line 8: Opens the input declaration block. The lines following this clause are
+                        <li>line 11: Opens the input declaration block. The lines following this clause are
                             interpreted as input definitions.
                         </li>
 
-                        <li>line 9: Defines the process input file. This file is received from the variable
+                        <li>line 12: Defines the process input file. This file is received from the variable
                             sequences and will be named <code>input.fa</code>.
                         </li>
 
-                        <li>line 11: Opens the output declaration block. Lines following this clause are
+                        <li>line 14: Opens the output declaration block. Lines following this clause are
                             interpreted as output definitions.
                         </li>
 
-                        <li>line 12: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
+                        <li>line 15: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
                             These files are sent over the channel records.
                         </li>
 
-                        <li>lines 14-16: The actual script executed by the process to split the provided file.
+                        <li>lines 17-19: The actual script executed by the process to split the provided file.
                         </li>
 
-                        <li>lines 20-31: Defines the second process, that receives the splits produced by the
+                        <li>lines 26-37: Defines the second process, that receives the splits produced by the
                             previous process and reverses their content.
                         </li>
 
-                        <li>line 22: Opens the input declaration block. Lines following this clause are
+                        <li>line 28: Opens the input declaration block. Lines following this clause are
                             interpreted as input definitions.
                         </li>
 
-                        <li>line 23: Defines the process input file. This file is received through the channel
+                        <li>line 29: Defines the process input file. This file is received through the channel
                             records.
                         </li>
 
-                        <li>line 25: Opens the output declaration block. Lines following this clause are
+                        <li>line 31: Opens the output declaration block. Lines following this clause are
                             interpreted as output definitions.
                         </li>
 
-                        <li>line 26: The standard output of the executed script is declared as the process
+                        <li>line 32: The standard output of the executed script is declared as the process
                             output. This output is sent over the channel result.
                         </li>
 
-                        <li>lines 28-30: The actual script executed by the process to reverse the content of the
+                        <li>lines 34-36: The actual script executed by the process to reverse the content of the
                             received files.
                         </li>
 
-                        <li>line 33: Prints a result each time a new item is received on the result channel.
+                        <li>line 42: Prints a result each time a new item is received on the result channel.
                         </li>
                     </ul>
 
