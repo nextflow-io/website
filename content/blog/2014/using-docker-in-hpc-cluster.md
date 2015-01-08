@@ -4,7 +4,7 @@ type=post
 tags=docker,reproducibility,data-analysis,hpc
 status=published
 author=Paolo Di Tommaso
-icon=pablo.jpg
+icon=paolo.jpg
 ~~~~~~
 
 Scientific data analysis pipelines are rarely composed by a single piece of software. 
