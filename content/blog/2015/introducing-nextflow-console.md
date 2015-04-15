@@ -13,19 +13,19 @@ The Nextflow console is a REPL ([read-eval-print loop](http://en.wikipedia.org/w
 environment that allows one to quickly test part of a script or pieces of Nextflow code 
 in an interactive manner. 
 
-It is a very handy tool to evaluate fragments of Nextflow/Groovy code or fast prototype a 
-complete pipeline script. 
+It is a handy tool that allows one to evaluate fragments of Nextflow/Groovy code 
+or fast prototype a complete pipeline script. 
 
 
 ### Getting started 
 
-The console application is included with the latest version of Nextflow 
+The console application is included in the latest version of Nextflow 
 ([0.13.1](https://github.com/nextflow-io/nextflow/releases) or higher). 
 
-You can try this feature out, having Nextflow installed in your computer, by entering the 
+You can try this feature out, having Nextflow installed on your computer, by entering the 
 following command in your shell terminal: ``nextflow console ``.
     
-When you execute it for the first time, Nextflow will spend a few seconds to download 
+When you execute it for the first time, Nextflow will spend a few seconds downloading 
 the required runtime dependencies. When complete the console window will appear as shown in 
 the picture below. 
 
@@ -35,9 +35,9 @@ It contains a text editor (the top white box) that allows you to enter and modif
 The results area (the bottom yellow box) will show the executed code's output. 
 
 At the top you will find the menu bar (not shown in this picture) and the actions 
-toolbar that allows you to open, save, execute (etc.) the code under test.
+toolbar that allows you to open, save, execute (etc.) the code been tested.
 
-As a practical execution example simply copy and paste the following piece of code in the 
+As a practical execution example, simply copy and paste the following piece of code in the 
 console editor box:
 
     echo true 
@@ -53,7 +53,7 @@ console editor box:
     
 Then, in order to evaluate it, open the ``Script`` menu in the top menu bar and select the ``Run`` 
 command. Alternatively you can use the ``CTRL+R`` keyboard shortcut to run it (``⌘+R`` on the Mac). 
-In the result box you will see an output similar to the following: 
+In the result box an output similar to the following will appear: 
 
     [warm up] executor > local
     [00/d78a0f] Submitted process > sayHello (1)
@@ -67,7 +67,7 @@ Output`` is selected (it must have a tick on the left).
 
 It is worth noting that the global script context is maintained across script executions. 
 This means that variables declared in the global script scope are not lost when the 
-script run complete, and they can be accessed in the following executions of the same or another 
+script run is complete, and they can be accessed in further executions of the same or another 
 piece of code.
 
 In order to reset the global context you can use the command ``Clear Script Context``
