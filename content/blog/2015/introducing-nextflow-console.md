@@ -1,5 +1,5 @@
 title=Introducing Nextflow REPL Console
-date=2015-04-10
+date=2015-04-14
 type=post
 tags=data-analysis,pipelines,repl,groovy
 status=published
