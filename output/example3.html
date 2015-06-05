@@ -57,7 +57,7 @@
                         <li><a href="/example1.html">Basic pipeline</a></li>
                         <li><a href="/example2.html">Mixing scripting languages</a></li>
                         <li><a href="/example3.html">BLAST pipeline</a></li>
-                        <li><a href="/example4.html">RNAseq pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
                         <li><a href="https://github.com/nextflow-io/examples" target="_blank">More examples..</a></li>
                     </ul>
                 </li>
@@ -146,7 +146,9 @@ process extract {
     output:
     file 'sequences'
 
-    "blastdbcmd -db $db_path/$db_name -entry_batch top_hits | head -n 10 > sequences"
+    """
+    blastdbcmd -db $db_path/$db_name -entry_batch top_hits | head -n 10 > sequences
+    """
 }
 
 /* 
