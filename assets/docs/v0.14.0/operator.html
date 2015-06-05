@@ -1810,7 +1810,7 @@ a function that, given an item, returns the value to be summed. For example:</p>
 <div class="section" id="other-operators">
 <h2>Other operators<a class="headerlink" href="#other-operators" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="set">
-<h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
+<span id="operator-set"></span><h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">set</span></tt> operator assign the channel to which is applied to a variable whose name is specified as closure parameter.
 For example:</p>
 <div class="highlight-python"><pre>Channel.from(10,20,30).set { my_channel }</pre>
@@ -1822,7 +1822,7 @@ For example:</p>
 of chain of operator transformations, thus resulting in a more fluent and readable operation.</p>
 </div>
 <div class="section" id="ifempty">
-<h3>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline">¶</a></h3>
+<span id="operator-ifempty"></span><h3>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">ifEmpty</span></tt> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
 is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise the it will empty the same sequence of entries as the original channel.</p>
 <p>Thus, the following example prints:</p>
@@ -1840,9 +1840,10 @@ is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise the it will 
 </div>
 <p>The <tt class="docutils literal"><span class="pre">ifEmpty</span></tt> value parameter can be defined with a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>. In this case the result value of the closure evaluation
 will be emitted when the empty condition is satisfied.</p>
+<p>See also: <a class="reference internal" href="channel.html#channel-empty"><em>empty</em></a> method.</p>
 </div>
 <div class="section" id="print">
-<h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
+<span id="operator-print"></span><h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">print</span></tt> operator prints the items emitted by a channel to the console standard.
 An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> parameter can be specified to customise how items are printed.
 For example:</p>
@@ -1856,7 +1857,7 @@ For example:</p>
 <p>See also: <a class="reference internal" href="#println">println</a> and <a class="reference internal" href="#view">view</a>.</p>
 </div>
 <div class="section" id="println">
-<h3>println<a class="headerlink" href="#println" title="Permalink to this headline">¶</a></h3>
+<span id="operator-println"></span><h3>println<a class="headerlink" href="#println" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">println</span></tt> operator prints the items emitted by a channel to the console standard output appending
 a <em>new line</em> character to each of them. For example:</p>
 <div class="highlight-python"><pre>Channel
@@ -1885,7 +1886,7 @@ a <em>new line</em> character to each of them. For example:</p>
 <p>See also: <a class="reference internal" href="#print">print</a> and <a class="reference internal" href="#view">view</a>.</p>
 </div>
 <div class="section" id="view">
-<h3>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
+<span id="operator-view"></span><h3>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
 <p>The <tt class="docutils literal"><span class="pre">view</span></tt> operator prints the items emitted by a channel to the console standard output. For example:</p>
 <div class="highlight-python"><pre>Channel.from(1,2,3).view()
 
@@ -1913,9 +1914,10 @@ is identical to the source one. This allows the <em>view</em> operator to be cha
 </div>
 </div>
 <div class="section" id="close">
-<h3>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">close</span></tt> operator send a termination signal over the channels, causing downstream processes or operators to stop.
+<span id="operator-close"></span><h3>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">close</span></tt> operator send a termination signal over the channel, causing downstream processes or operators to stop.
 In a common usage scenario channels are closed implicitly by Nextflow, so won't need to use this operator.</p>
+<p>See also: <a class="reference internal" href="channel.html#channel-empty"><em>empty</em></a> factory method.</p>
 </div>
 </div>
 </div>
