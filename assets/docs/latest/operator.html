@@ -1130,10 +1130,10 @@ Channel
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The target channel specified as a parameter to the <tt class="docutils literal"><span class="pre">into</span></tt> operator must has been declared previously.</p>
+<p class="last">The target channel specified as a parameter to the <tt class="docutils literal"><span class="pre">into</span></tt> operator must have been declared previously.</p>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">into</span></tt> operator takes a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> as parameter which declares one or more
-target channels to which connect the source one. For example:</p>
+<p>A second version of the <tt class="docutils literal"><span class="pre">into</span></tt> operator takes a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> as a parameter which declares one or more
+target channels to which the source one is connected. For example:</p>
 <div class="highlight-python"><pre>Channel
     .from( 'a', 'b', 'c', 'd' )
     .into { foo; bar }</pre>
@@ -1141,7 +1141,7 @@ target channels to which connect the source one. For example:</p>
 <p>The advantage of using this syntax is that the <tt class="docutils literal"><span class="pre">into</span></tt> operator implicitly creates the target channel(s) as needed
 and you won't need to create it/them as in the previous example.</p>
 <p>Finally, a third version of the <tt class="docutils literal"><span class="pre">into</span></tt> operator takes an integer <cite>n</cite> as an argument and returns
-a list of <cite>n</cite> channels, each of which emits a copy of the items there were emitted by the
+a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
 source channel. For example:</p>
 <div class="highlight-python"><pre>(foo, bar) = Channel.from( 'a','b','c').into(2)
 foo.subscribe { println "Channel 1 emit: " + it }
@@ -1205,7 +1205,7 @@ is that you won't need to previously create the target channel, because it is cr
 log1.subscribe { println "Log 1: $it" }
 log2.subscribe { println "Log 2: $it" }</pre>
 </div>
-<p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators</p>
+<p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
 <div class="section" id="merge">
 <h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
@@ -1811,7 +1811,7 @@ a function that, given an item, returns the value to be summed. For example:</p>
 <h2>Other operators<a class="headerlink" href="#other-operators" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="set">
 <span id="operator-set"></span><h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">set</span></tt> operator assign the channel to which is applied to a variable whose name is specified as closure parameter.
+<p>The <tt class="docutils literal"><span class="pre">set</span></tt> operator assigns the channel to a variable whose name is specified as a closure parameter.
 For example:</p>
 <div class="highlight-python"><pre>Channel.from(10,20,30).set { my_channel }</pre>
 </div>
@@ -1819,7 +1819,7 @@ For example:</p>
 <div class="highlight-python"><pre>my_channel = Channel.from(10,20,30)</pre>
 </div>
 <p>However the <tt class="docutils literal"><span class="pre">set</span></tt> operator is more idiomatic in Nextflow scripting, since it can be used at the end
-of chain of operator transformations, thus resulting in a more fluent and readable operation.</p>
+of a chain of operator transformations, thus resulting in a more fluent and readable operation.</p>
 </div>
 <div class="section" id="ifempty">
 <span id="operator-ifempty"></span><h3>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline">¶</a></h3>
@@ -1915,8 +1915,8 @@ is identical to the source one. This allows the <em>view</em> operator to be cha
 </div>
 <div class="section" id="close">
 <span id="operator-close"></span><h3>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">close</span></tt> operator send a termination signal over the channel, causing downstream processes or operators to stop.
-In a common usage scenario channels are closed implicitly by Nextflow, so won't need to use this operator.</p>
+<p>The <tt class="docutils literal"><span class="pre">close</span></tt> operator sends a termination signal over the channel, causing downstream processes or operators to stop.
+In a common usage scenario channels are closed automatically by Nextflow, so you won't need to use this operator explicitly.</p>
 <p>See also: <a class="reference internal" href="channel.html#channel-empty"><em>empty</em></a> factory method.</p>
 </div>
 </div>

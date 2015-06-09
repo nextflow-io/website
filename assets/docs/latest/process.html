@@ -400,7 +400,7 @@ the other branches will be executed.</p>
 </div>
 <div class="section" id="template">
 <span id="process-template"></span><h3>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
-<p>Process script can be externalised by using <em>template</em> files which can be reused across different process and tested
+<p>Process script can be externalised by using <em>template</em> files which can be reused across different processes and tested
 independently by the overall pipeline execution.</p>
 <p>A template is simply a shell script file that Nextflow is able to execute by using the <tt class="docutils literal"><span class="pre">template</span></tt> function
 as shown below:</p>
@@ -415,7 +415,7 @@ as shown below:</p>
 }</pre>
 </div>
 <p>Nextflow looks for the <tt class="docutils literal"><span class="pre">my_script.sh</span></tt> template file in the directory <tt class="docutils literal"><span class="pre">templates</span></tt> that must exist in the same folder
-where the nextflow script file is located (any other location can be provided by using a absolute template path).</p>
+where the Nextflow script file is located (any other location can be provided by using an absolute template path).</p>
 <p>The template script can contain any piece of code that can be executed by the underlying system. For example:</p>
 <div class="highlight-python"><pre>#!/bin/bash
 echo "process started at `date`"
@@ -425,10 +425,10 @@ echo "process completed"</pre>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Note that the dollar character (<tt class="docutils literal"><span class="pre">$</span></tt>) is interpreted as a Nextflow variable placeholder, when the script is run as
+<p class="last">Note that the dollar character (<tt class="docutils literal"><span class="pre">$</span></tt>) is interpreted as a Nextflow variable placeholder, when the script is run as a
 Nextflow template, while it is evaluated as a BASH variable when it is run alone. This can be very useful to test
 your script autonomously, i.e. independently from Nextflow execution. You only need to provide a BASH environment
-variable for each Nextflow variable existing in your script. For example, it would be possible to execute the above
+variable for each the Nextflow variable existing in your script. For example, it would be possible to execute the above
 script entering the following command in the shell terminal: <tt class="docutils literal"><span class="pre">STR='foo'</span> <span class="pre">bash</span> <span class="pre">templates/my_script.sh</span></tt></p>
 </div>
 </div>
@@ -438,9 +438,9 @@ script entering the following command in the shell terminal: <tt class="docutils
 <p class="first admonition-title">Warning</p>
 <p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">shell</span></tt> block is string statement that defines the <em>shell</em> command executed by the process to carry out its task.
-It is an alternative to the <a class="reference internal" href="#process-script"><em>Script</em></a> definition with the important difference that it uses
-the question mark character as variable placeholder for Nextflow variables in place of the usual dollar character.</p>
+<p>The <tt class="docutils literal"><span class="pre">shell</span></tt> block is a string statement that defines the <em>shell</em> command executed by the process to carry out its task.
+It is an alternative to the <a class="reference internal" href="#process-script"><em>Script</em></a> definition with an important difference, it uses
+the exclamation mark <tt class="docutils literal"><span class="pre">!</span></tt> character as the variable placeholder for Nextflow variables in place of the usual dollar character.</p>
 <p>In this way it is possible to use both Nextflow and BASH variables in the same piece of code without having to escape
 the latter and making process scripts more readable and easy to maintain. For example:</p>
 <div class="highlight-python"><pre>process myTask {
@@ -455,16 +455,16 @@ the latter and making process scripts more readable and easy to maintain. For ex
 
 }</pre>
 </div>
-<p>In the above trivial example the <tt class="docutils literal"><span class="pre">$USER</span></tt> variable is managed by BASH while <tt class="docutils literal"><span class="pre">!{str}</span></tt> is handled as a process input
-variable managed by Nextflow.</p>
+<p>In the above trivial example the <tt class="docutils literal"><span class="pre">$USER</span></tt> variable is managed by the BASH interpreter, while <tt class="docutils literal"><span class="pre">!{str}</span></tt> is handled
+as a process input variable managed by Nextflow.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <ul class="last simple">
 <li>Shell script definition requires the use of single-quote <tt class="docutils literal"><span class="pre">'</span></tt> delimited strings. When using double-quote <tt class="docutils literal"><span class="pre">&quot;</span></tt>
 delimited strings, dollar variables are interpreted as Nextflow variables as usual. See <a class="reference internal" href="script.html#string-interpolation"><em>String interpolation</em></a>.</li>
-<li>Exclamation mark prefixed variables need always to be included between a curly brackets characters i.e. <tt class="docutils literal"><span class="pre">!{str}</span></tt>
-is a valid variable while <tt class="docutils literal"><span class="pre">!str</span></tt> it is ignored.</li>
-<li>Shell script supports the use the file <a class="reference internal" href="#process-template"><em>Template</em></a> mechanism. The same rules are applied to the variables
+<li>Exclamation mark prefixed variables always need to be enclosed in curly brackets i.e. <tt class="docutils literal"><span class="pre">!{str}</span></tt> is a valid
+variable while <tt class="docutils literal"><span class="pre">!str</span></tt> is ignored.</li>
+<li>Shell script supports the use of the file <a class="reference internal" href="#process-template"><em>Template</em></a> mechanism. The same rules are applied to the variables
 defined in the script template.</li>
 </ul>
 </div>
@@ -1182,7 +1182,7 @@ thus the above output <cite>set</cite> can be rewritten using a short notation a
 <div class="section" id="when">
 <h2>When<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
 <p>The <tt class="docutils literal"><span class="pre">when</span></tt> declaration allows you to define a condition that must be verified in order to execute the process.
-This can be any expression that evaluate to a boolean value.</p>
+This can be any expression that evaluates a boolean value.</p>
 <p>It is useful to enable/disable the process execution depending the state of various inputs and parameters. For example:</p>
 <div class="highlight-python"><pre>process find {
   input:
