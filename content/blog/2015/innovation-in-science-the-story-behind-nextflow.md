@@ -17,7 +17,7 @@ with most notable in Europe being the Horizon 2020 funding program. The problem 
 types of funding is that they are not designed for PhDs and Postdocs, but rather aim to 
 promote the collaboration of senior scientists in different institutions. This neglects two 
 very important facts, first and foremost that most of the Nobel prizes were given for 
-discoveries made when scientists were in their 20s / 30s (not in their 50s / 60s). 
+discoveries made when scientists were in their 20's / 30's (not in their 50's / 60's). 
 Secondly, innovation really happens when a few individuals (not institutions) face a 
 problem in their everyday life/work, and one day they just decide to do something about it 
 (end-user innovation). Without realizing, these people address a need that many others have. 
