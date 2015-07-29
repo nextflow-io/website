@@ -27,7 +27,7 @@ params.pair2 = "$baseDir/data/ggal/*_2.fq"
 params.genome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
  
 /*
- * Creates a channel from the path where the read fiels are located, 
+ * Creates a channel from the path where the read files are located, 
  * then transforms each file to a pair containing a name prefix and the file itself. 
  * Finally assign this channel to a variable named 'reads1'
  */
