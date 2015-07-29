@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline sharing &mdash; Nextflow 0.14.4 documentation</title>
+  <title>Pipeline sharing &mdash; Nextflow 0.15.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.14.4',
+        VERSION:'0.15.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.14.4 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Performance Analysis" href="tracing.html"/> 
 
@@ -106,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="process.html#inputs">Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="process.html#outputs">Outputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="process.html#when">When</a></li>
-<li class="toctree-l2"><a class="reference internal" href="process.html#shares">Shares</a></li>
 <li class="toctree-l2"><a class="reference internal" href="process.html#directives">Directives</a></li>
 </ul>
 </li>
@@ -364,18 +363,17 @@ repository home page will be <tt class="docutils literal"><span class="pre">http
 </div>
 <div class="section" id="manage-dependencies">
 <h2>Manage dependencies<a class="headerlink" href="#manage-dependencies" title="Permalink to this headline">¶</a></h2>
-<p>Computational pipelines are rarely composed by a single script. In real world applications they depend on other
-pieces of software. These can be other scripts, tools or applications compiled to a platform native binary format.</p>
+<p>Computational pipelines are rarely composed by a single script. In real world applications they depend on dozens of other components. These can be other scripts, databases, or applications compiled for a platform native binary format.</p>
 <p>External dependencies are the most common source of problems when sharing a piece of software, because the
-users need to have an identical set of tools and the same configuration to be able to use it. On many cases this has proven to be
+users need to have an identical set of tools and the same configuration to be able to use it. In many cases this has proven to be
 a painful and error prone process, that can severely limit the ability to reproduce computational results on a system other than
 the one on which it was originally developed.</p>
 <p>Nextflow tackles this problem by integrating GitHub and BitBucket sharing platforms and
 <a class="reference external" href="http://www.docker.com">Docker</a> containers technology.</p>
 <p>The use of a code management system is important to keep together all the dependencies of your
 pipeline and allows you to track the changes of the source code in a consistent manner.</p>
-<p>Moreover to guarantee that a pipeline is reproducible it should be self-contained i.e. it should not have any
-dependencies with the hosting environment. By using Nextflow you can achieve this goal following these methods:</p>
+<p>Moreover to guarantee that a pipeline is reproducible it should be self-contained i.e. it should have ideally no
+dependencies on the hosting environment. By using Nextflow you can achieve this goal following these methods:</p>
 <div class="section" id="third-party-scripts">
 <h3>Third party scripts<a class="headerlink" href="#third-party-scripts" title="Permalink to this headline">¶</a></h3>
 <p>Any third party script that does not need to be compiled (BASH, Python, Perl, etc) can be included in the pipeline

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.14.4 documentation</title>
+  <title>Processes &mdash; Nextflow 0.15.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.14.4',
+        VERSION:'0.15.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.14.4 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -106,7 +106,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#when">When</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#shares">Shares</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directives">Directives</a></li>
 </ul>
 </li>
@@ -235,7 +234,7 @@ a script that is executed by it. A basic process looks like the following exampl
 }</pre>
 </div>
 <p>more specifically a process may contain five definition blocks, respectively: directives,
-inputs, outputs, shares and finally the process script. The syntax is defined as follows:</p>
+inputs, outputs, when clause and finally the process script. The syntax is defined as follows:</p>
 <div class="highlight-python"><pre>process &lt; name &gt; {
 
    [ directives ]
@@ -258,7 +257,7 @@ inputs, outputs, shares and finally the process script. The syntax is defined as
 <span id="process-script"></span><h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>script</cite> block is a string statement that defines the command that is executed by the process to carry out its task.</p>
 <p>A process contains one and only one script block, and it must be the last statement when the process contains
-input, output and share declarations.</p>
+input and output declarations.</p>
 <p>The entered string is executed as a <a class="reference external" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">BASH</a> script in the
 <cite>host</cite> system. It can be any command, script or combination of them, that you would normally use in terminal shell
 or in a common BASH script.</p>
@@ -973,7 +972,7 @@ the actual channel over which outputs are sent. Finally some optional attributes
 this is a value which has been defined in the <cite>input</cite> declaration block, as shown in the following example:</p>
 <div class="highlight-python"><pre>methods = ['prot','dna', 'rna']
 
-process anyValue {
+process foo {
   input:
   val x from methods
 
@@ -986,28 +985,25 @@ process anyValue {
 
 }
 
-receiver.subscribe { println "Received: $it" }</pre>
+receiver.println { "Received: $it" }</pre>
 </div>
-<p>The example that follows is almost identical to the previous one, but it shows how to output a value
-that is computed in the script block:</p>
-<div class="highlight-python"><pre>methods = ['prot','dna', 'rna']
-
-process anyValue {
+<p>Valid output values are value literals, input values identifiers, variables accessible in the process scope and
+value expressions. For example:</p>
+<div class="highlight-python"><pre>process foo {
   input:
-  val x from methods
+  file fasta from 'dummy'
 
   output:
-  val str into receiver
+  val x into var_channel
+  val 'BB11' into str_channel
+  val "${fasta.baseName}.out" into exp_channel
 
   script:
-  str = "Processing $x"
+  x = fasta.name
   """
-  echo $x &gt; file
+  cat $x &gt; file
   """
-
-}
-
-receiver.subscribe { println "Received: $it" }</pre>
+}</pre>
 </div>
 </div>
 <div class="section" id="output-files">
@@ -1198,110 +1194,6 @@ This can be any expression that evaluates a boolean value.</p>
   """
 
 }</pre>
-</div>
-</div>
-<div class="section" id="shares">
-<h2>Shares<a class="headerlink" href="#shares" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This feature has been deprecated and will be removed in future releases</p>
-</div>
-<p>Share declarations are a special type of process parameter that can act as an <cite>input</cite> and <cite>output</cite> parameter at the same time.</p>
-<p>The share block is declared by using the syntax shown below:</p>
-<div class="highlight-python"><pre>share:
-  &lt;share qualifier&gt; &lt;parameter name&gt; [from &lt;source channel&gt;] [into &lt;target channel&gt;] [attributes]</pre>
-</div>
-<p>A share definition begins with the share <cite>qualifier</cite> followed by the parameter <cite>name</cite>. Optionally the keyword <tt class="docutils literal"><span class="pre">from</span></tt>
-can be used to specify the channel over which data is received, and the keyword <tt class="docutils literal"><span class="pre">into</span></tt>, followed by a channel name,
-can be used to specify the channel where the produced data has to be sent.</p>
-<p>Share parameters accept only the qualifiers listed in the following table:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="7%" />
-<col width="93%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Qualifier</th>
-<th class="head">Semantic</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>val</td>
-<td>Lets you access the input value in the process script and/or to send it over the output channel.</td>
-</tr>
-<tr class="row-odd"><td>file</td>
-<td>Lets you handle the input value as a file, staging it properly in the execution context and/or send it as result over the output channel.</td>
-</tr>
-</tbody>
-</table>
-<p>Share parameters have some important differences compared to input or output parameters:</p>
-<ul class="simple">
-<li>A share parameter can only receive a single input value, which is bound in the script evaluation context before the process first execution.</li>
-<li>If a share parameter declares an output channel it emits exactly one value, after the process last execution.</li>
-<li>It allows you to <cite>share</cite> the parameter's value across multiple process executions.</li>
-<li>Whenever a share parameter is declared, the process is executed serially, instead of in a parallel manner.</li>
-</ul>
-<div class="section" id="share-generic-values">
-<h3>Share generic values<a class="headerlink" href="#share-generic-values" title="Permalink to this headline">¶</a></h3>
-<p>The share <tt class="docutils literal"><span class="pre">val</span></tt> qualifier allows you to declare a parameter whose value can be accessed,
-in the script context, across multiple executions of the same process. For example:</p>
-<div class="highlight-python"><pre>process printCount {
-  input:
-  val cheers from 'Bonjour', 'Ciao', 'Hello', 'Hola'
-
-  share:
-  val count from 1 into result
-
-  script:
-  count += count
-  "echo $cheers world! "
-
-}
-
-
-result.subscribe  { println "Result = $it" }</pre>
-</div>
-<p>Will output:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Result</span> <span class="o">=</span> <span class="mi">16</span>
-</pre></div>
-</div>
-<p>This example shows how the <cite>state</cite> of the <tt class="docutils literal"><span class="pre">count</span></tt> variable is maintained throughout the process executions, and
-how on process termination the final value is sent over the channel declared by the <tt class="docutils literal"><span class="pre">into</span></tt> keyword.</p>
-<p>Some caveats about shared value parameters:</p>
-<ul class="simple">
-<li>The <tt class="docutils literal"><span class="pre">from</span></tt> declaration can be used to initialise the parameter by specifying a variable defined in the
-pipeline script or by using a <cite>literal</cite> value (as in the above example).</li>
-<li>When the <tt class="docutils literal"><span class="pre">from</span></tt> declaration is omitted, the parameter is initialised to the variable's value in the script scope
-having the same name as the parameter.</li>
-<li>When a variable with the parameter's name doesn't exist in the script scope and no <tt class="docutils literal"><span class="pre">from</span></tt> is specified,
-the parameter is initialised to <tt class="docutils literal"><span class="pre">null</span></tt>.</li>
-</ul>
-</div>
-<div class="section" id="share-file">
-<h3>Share file<a class="headerlink" href="#share-file" title="Permalink to this headline">¶</a></h3>
-<p>The share <tt class="docutils literal"><span class="pre">file</span></tt> qualifier allows you to declare a parameter that shares its state using a file. For example:</p>
-<div class="highlight-python"><pre>process saveHello {
-    input:
-    val cheers from 'Bonjour', 'Ciao', 'Hello', 'Hola'
-
-    share:
-    file greetings into result
-
-    "echo '$cheers' &gt;&gt; $greetings "
-
-  }
-
-  result.subscribe { println it.text  }</pre>
-</div>
-<p>It will print:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Bonjour</span>
-<span class="n">Ciao</span>
-<span class="n">Hello</span>
-<span class="n">Hola</span>
-</pre></div>
-</div>
-<p>This example shows how the file content is shared through the process executions. When the process
-completes, the file is sent over the channel declared as output.</p>
 </div>
 </div>
 <div class="section" id="directives">
