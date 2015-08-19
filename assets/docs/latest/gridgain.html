@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>GridGain cluster &mdash; Nextflow 0.15.0 documentation</title>
+  <title>GridGain cluster &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="Performance Analysis" href="tracing.html"/>
         <link rel="prev" title="DNAnexus cloud" href="dnanexus.html"/> 
 
@@ -232,13 +232,14 @@ software.</p>
 <div class="section" id="cluster-daemon">
 <span id="gridgain-daemon"></span><h2>Cluster daemon<a class="headerlink" href="#cluster-daemon" title="Permalink to this headline">¶</a></h2>
 <p>In order to setup a cluster you will need to run a cluster daemon on each node that made up your cluster.
-If you want to support the <a class="reference internal" href="docker.html#docker-page"><em>Docker integration</em></a> feature provided by Nextflow, the Docker engine has
+If you want to support the <a class="reference internal" href="docker.html#docker-page"><span>Docker integration</span></a> feature provided by Nextflow, the Docker engine has
 to be installed and must run in each node.</p>
 <p>In its simplest form just launch the Nextflow daemon in each cluster node as shown below:</p>
-<div class="highlight-python"><pre>nextflow node -bg</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg
+</pre></div>
 </div>
-<p>The command line options <tt class="docutils literal"><span class="pre">-bg</span></tt> launches the node daemon in the background. The output is stored in the log file <tt class="docutils literal"><span class="pre">.node-nextflow.log</span></tt>. The daemon
-process <tt class="docutils literal"><span class="pre">PID</span></tt> is saved in the file <tt class="docutils literal"><span class="pre">.nextflow.pid</span></tt> in the same folder.</p>
+<p>The command line options <code class="docutils literal"><span class="pre">-bg</span></code> launches the node daemon in the background. The output is stored in the log file <code class="docutils literal"><span class="pre">.node-nextflow.log</span></code>. The daemon
+process <code class="docutils literal"><span class="pre">PID</span></code> is saved in the file <code class="docutils literal"><span class="pre">.nextflow.pid</span></code> in the same folder.</p>
 <div class="section" id="multicast-discovery">
 <h3>Multicast discovery<a class="headerlink" href="#multicast-discovery" title="Permalink to this headline">¶</a></h3>
 <p>By default, the GridGain daemon tries to discover the members in the cluster by using the network <em>multicast</em> discovery.
@@ -247,32 +248,36 @@ Note that NOT all networks support this feature (Amazon EC2 does not).</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">To check if multicast is available, <a class="reference external" href="http://sourceforge.net/projects/iperf/">iperf</a> is a useful tool which is available for Windows/*NIX/OSX.
 To test multicast open a terminal one 2 machines within the network and run the following in the first terminal
-<tt class="docutils literal"><span class="pre">iperf</span> <span class="pre">-s</span> <span class="pre">-u</span> <span class="pre">-B</span> <span class="pre">228.1.2.4</span> <span class="pre">-i</span> <span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">iperf</span> <span class="pre">-c</span> <span class="pre">228.1.2.4</span> <span class="pre">-u</span> <span class="pre">-T</span> <span class="pre">32</span> <span class="pre">-t</span> <span class="pre">3</span> <span class="pre">-i</span> <span class="pre">1</span></tt> in the other terminal.
+<code class="docutils literal"><span class="pre">iperf</span> <span class="pre">-s</span> <span class="pre">-u</span> <span class="pre">-B</span> <span class="pre">228.1.2.4</span> <span class="pre">-i</span> <span class="pre">1</span></code> and <code class="docutils literal"><span class="pre">iperf</span> <span class="pre">-c</span> <span class="pre">228.1.2.4</span> <span class="pre">-u</span> <span class="pre">-T</span> <span class="pre">32</span> <span class="pre">-t</span> <span class="pre">3</span> <span class="pre">-i</span> <span class="pre">1</span></code> in the other terminal.
 If data is being transferred then multicast is working.</p>
 </div>
-<p>GridGain uses the multicast group <tt class="docutils literal"><span class="pre">228.1.2.4</span></tt> and port <tt class="docutils literal"><span class="pre">47400</span></tt> by default. You can change these values, by using the
-<tt class="docutils literal"><span class="pre">cluster.join</span></tt> command line option, as shown below:</p>
-<div class="highlight-python"><pre>nextflow node -bg -cluster.join multicast:224.2.2.3:55701</pre>
+<p>GridGain uses the multicast group <code class="docutils literal"><span class="pre">228.1.2.4</span></code> and port <code class="docutils literal"><span class="pre">47400</span></code> by default. You can change these values, by using the
+<code class="docutils literal"><span class="pre">cluster.join</span></code> command line option, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg -cluster.join multicast:224.2.2.3:55701
+</pre></div>
 </div>
 <p>In the case that multicast discovery is not available in your network, you can try one of the following alternative methods:</p>
 </div>
 <div class="section" id="shared-file-system">
 <h3>Shared file system<a class="headerlink" href="#shared-file-system" title="Permalink to this headline">¶</a></h3>
 <p>Simply provide a path shared across the cluster by a network file system, as shown below:</p>
-<div class="highlight-python"><pre>nextflow node -bg -cluster.join path:/net/shared/cluster</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg -cluster.join path:/net/shared/cluster
+</pre></div>
 </div>
 <p>The cluster members will use that path to discover each other.</p>
 </div>
 <div class="section" id="ip-address">
 <h3>IP address<a class="headerlink" href="#ip-address" title="Permalink to this headline">¶</a></h3>
 <p>Provide the list of pre-configured IP addresses on the daemon launch command line, for example:</p>
-<div class="highlight-python"><pre>nextflow node -bg -cluster.join ip:10.0.2.1,10.0.2.2,10.0.2.4</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg -cluster.join ip:10.0.2.1,10.0.2.2,10.0.2.4
+</pre></div>
 </div>
 </div>
 <div class="section" id="aws-s3-bucket">
 <h3>AWS S3 bucket<a class="headerlink" href="#aws-s3-bucket" title="Permalink to this headline">¶</a></h3>
 <p>Creates an Amazon AWS S3 bucket that will hold the cluster members IP addresses. For example:</p>
-<div class="highlight-python"><pre>nextflow node -bg -cluster.join s3:cluster_bucket</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg -cluster.join s3:cluster_bucket
+</pre></div>
 </div>
 </div>
 <div class="section" id="advanced-options">
@@ -290,10 +295,10 @@ If data is being transferred then multicast is working.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>join</td>
-<td>IP address(es) of one more more cluster nodes to which the daemon make part. By using the value <tt class="docutils literal"><span class="pre">multicast</span></tt></td>
+<td>IP address(es) of one more more cluster nodes to which the daemon make part. By using the value <code class="docutils literal"><span class="pre">multicast</span></code></td>
 </tr>
 <tr class="row-odd"><td>group</td>
-<td>Cluster name of which this node makes part. It allows to create separate clusters. Default: <tt class="docutils literal"><span class="pre">nextflow</span></tt></td>
+<td>Cluster name of which this node makes part. It allows to create separate clusters. Default: <code class="docutils literal"><span class="pre">nextflow</span></code></td>
 </tr>
 <tr class="row-even"><td>slots</td>
 <td>Number of slots this damon node provides i.e. of process that can execute in parallel. By it is equal to the number of CPU cores.</td>
@@ -342,19 +347,22 @@ If data is being transferred then multicast is working.</p>
 </tr>
 </tbody>
 </table>
-<p>These options can be specified as command line parameters by pre-pending them the prefix <tt class="docutils literal"><span class="pre">-cluster.</span></tt>, as shown below:</p>
-<div class="highlight-python"><pre>nextflow node -bg -cluster.slots 4 -cluster.interface eth0</pre>
+<p>These options can be specified as command line parameters by pre-pending them the prefix <code class="docutils literal"><span class="pre">-cluster.</span></code>, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow node -bg -cluster.slots 4 -cluster.interface eth0
+</pre></div>
 </div>
-<p>The same options can be entered in the nextflow configuration file named <tt class="docutils literal"><span class="pre">nextflow.config</span></tt>, as shown below:</p>
-<div class="highlight-python"><pre>cluster {
-  join = 'ip:192.168.1.104'
-  interface = 'eth0'
-}</pre>
+<p>The same options can be entered in the nextflow configuration file named <code class="docutils literal"><span class="pre">nextflow.config</span></code>, as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>cluster {
+  join = &#39;ip:192.168.1.104&#39;
+  interface = &#39;eth0&#39;
+}
+</pre></div>
 </div>
 <p>Finally daemon options can be provided also as environment variables having the name in upper-case and by pre-pending
-them with the prefix <tt class="docutils literal"><span class="pre">NXF_CLUSTER_</span></tt>, for example:</p>
-<div class="highlight-python"><pre>export NXF_CLUSTER_JOIN='ip:192.168.1.104'
-export NXF_CLUSTER_INTERFACE='eth0'</pre>
+them with the prefix <code class="docutils literal"><span class="pre">NXF_CLUSTER_</span></code>, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre>export NXF_CLUSTER_JOIN=&#39;ip:192.168.1.104&#39;
+export NXF_CLUSTER_INTERFACE=&#39;eth0&#39;
+</pre></div>
 </div>
 </div>
 </div>
@@ -363,11 +371,13 @@ export NXF_CLUSTER_INTERFACE='eth0'</pre>
 <p>The pipeline should be launched in a <cite>head</cite> node i.e. a cluster node where the Nextflow node daemon is <strong>not</strong> running.
 In order to execute your pipeline in the GridGain cluster you will need to specify to use the GridGain executor,
 as shown below:</p>
-<div class="highlight-python"><pre>nextflow run &lt;your pipeline&gt; -process.executor gridgain</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;your pipeline&gt; -process.executor gridgain
+</pre></div>
 </div>
 <p>If your network do no support multicast discovery, you will need to specify the <cite>joining</cite> strategy as you did for the
 cluster daemons. For example, using a shared path:</p>
-<div class="highlight-python"><pre>nextflow run &lt;your pipeline&gt; -process.executor gridgain -cluster.join path:/net/shared/cluster</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;your pipeline&gt; -process.executor gridgain -cluster.join path:/net/shared/cluster
+</pre></div>
 </div>
 </div>
 </div>

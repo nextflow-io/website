@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon S3 storage &mdash; Nextflow 0.15.0 documentation</title>
+  <title>Amazon S3 storage &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="Docker containers" href="docker.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -225,17 +225,19 @@
 transparently in in your pipeline script like any other file in the local file system.</p>
 <div class="section" id="s3-path">
 <h2>S3 path<a class="headerlink" href="#s3-path" title="Permalink to this headline">¶</a></h2>
-<p>In order to access a S3 file you only need to prefix the file path with the <tt class="docutils literal"><span class="pre">s3</span></tt> schema and the <cite>bucket</cite> name
+<p>In order to access a S3 file you only need to prefix the file path with the <code class="docutils literal"><span class="pre">s3</span></code> schema and the <cite>bucket</cite> name
 where it is stored.</p>
-<p>For example if you need to access the file <tt class="docutils literal"><span class="pre">/data/sequences.fa</span></tt> stored in a bucket with name <tt class="docutils literal"><span class="pre">my-bucket</span></tt>,
+<p>For example if you need to access the file <code class="docutils literal"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal"><span class="pre">my-bucket</span></code>,
 that file can be accessed using the following fully qualified path:</p>
-<div class="highlight-python"><pre>s3://my-bucket/data/sequences.fa</pre>
+<div class="highlight-python"><div class="highlight"><pre>s3://my-bucket/data/sequences.fa
+</pre></div>
 </div>
 <p>The usual file operations can be applied on a path handle created using the above notation. For example the content
 of a S3 file can be printed as shown below:</p>
-<div class="highlight-python"><pre>println file('s3://my-bucket/data/sequences.fa').text</pre>
+<div class="highlight-python"><div class="highlight"><pre>println file(&#39;s3://my-bucket/data/sequences.fa&#39;).text
+</pre></div>
 </div>
-<p>See section <a class="reference internal" href="script.html#script-file-io"><em>Files and I/O</em></a> to learn more about available file operations.</p>
+<p>See section <a class="reference internal" href="script.html#script-file-io"><span>Files and I/O</span></a> to learn more about available file operations.</p>
 </div>
 <div class="section" id="security-credentials">
 <h2>Security credentials<a class="headerlink" href="#security-credentials" title="Permalink to this headline">¶</a></h2>
@@ -246,23 +248,24 @@ of a S3 file can be printed as shown below:</p>
 </ol>
 <div class="section" id="aws-access-and-secret-keys">
 <h3>AWS access and secret keys<a class="headerlink" href="#aws-access-and-secret-keys" title="Permalink to this headline">¶</a></h3>
-<p>The AWS access and secret keys can be specified by using the <tt class="docutils literal"><span class="pre">aws</span></tt> section in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> configuration.
+<p>The AWS access and secret keys can be specified by using the <code class="docutils literal"><span class="pre">aws</span></code> section in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration.
 file as shown below:</p>
-<div class="highlight-python"><pre>aws {
-  accessKey = 'Your AWS access key'
-  secretKey = 'Your AWS secret key'
-}</pre>
+<div class="highlight-python"><div class="highlight"><pre>aws {
+  accessKey = &#39;Your AWS access key&#39;
+  secretKey = &#39;Your AWS secret key&#39;
+}
+</pre></div>
 </div>
 <p>If the access credentials are not found in the above file, Nextflow looks for AWS credentials in a number of different
 places, including environment variables and local AWS configuration files.</p>
 <p>Nextflow looks for AWS credentials in the following order:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file in the pipeline execution directory</li>
-<li>the environment variables <tt class="docutils literal"><span class="pre">AWS_ACCESS_KEY_ID</span></tt> and <tt class="docutils literal"><span class="pre">AWS_SECRET_ACCESS_KEY</span></tt></li>
-<li>the environment variables <tt class="docutils literal"><span class="pre">AWS_ACCESS_KEY</span></tt> and <tt class="docutils literal"><span class="pre">AWS_SECRET_KEY</span></tt></li>
-<li>the <cite>default</cite> profile in the AWS credentials file located at <tt class="docutils literal"><span class="pre">~/.aws/credentials</span></tt></li>
-<li>the <cite>default</cite> profile in the AWS client configuration file located at <tt class="docutils literal"><span class="pre">~/.aws/config</span></tt></li>
+<li>the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file in the pipeline execution directory</li>
+<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></li>
+<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_KEY</span></code></li>
+<li>the <cite>default</cite> profile in the AWS credentials file located at <code class="docutils literal"><span class="pre">~/.aws/credentials</span></code></li>
+<li>the <cite>default</cite> profile in the AWS client configuration file located at <code class="docutils literal"><span class="pre">~/.aws/config</span></code></li>
 </ol>
 </div></blockquote>
 <p>More information regarding <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials</a>
@@ -280,7 +283,7 @@ documentation.</p>
 </div>
 <div class="section" id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Read <a class="reference internal" href="config.html#config-aws"><em>AWS configuration</em></a> section to learn more about advanced S3 client configuration options.</p>
+<p>Read <a class="reference internal" href="config.html#config-aws"><span>AWS configuration</span></a> section to learn more about advanced S3 client configuration options.</p>
 </div>
 </div>
 

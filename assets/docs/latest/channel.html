@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 0.15.0 documentation</title>
+  <title>Channels &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -244,7 +244,7 @@ factory methods.</p>
 </ul>
 <div class="section" id="create">
 <span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
-<p>Creates a new <cite>channel</cite> by using the <tt class="docutils literal"><span class="pre">create</span></tt> method, as shown below:</p>
+<p>Creates a new <cite>channel</cite> by using the <code class="docutils literal"><span class="pre">create</span></code> method, as shown below:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -253,40 +253,45 @@ factory methods.</p>
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h3>
 <p>The from method allows you to create a channel emitting any sequence of values that are specified as the method argument,
 for example:</p>
-<div class="highlight-python"><pre>ch = Channel.from( 1, 3, 5, 7 )
-ch.subscribe { println "value: $it" }</pre>
+<div class="highlight-python"><div class="highlight"><pre>ch = Channel.from( 1, 3, 5, 7 )
+ch.subscribe { println &quot;value: $it&quot; }
+</pre></div>
 </div>
-<p>The first line in this example creates a variable <tt class="docutils literal"><span class="pre">ch</span></tt> which holds a channel object. This channel emits the values
-specified as a parameter in the <tt class="docutils literal"><span class="pre">from</span></tt> method. Thus the second line will print the following:</p>
-<div class="highlight-python"><pre>value: 1
+<p>The first line in this example creates a variable <code class="docutils literal"><span class="pre">ch</span></code> which holds a channel object. This channel emits the values
+specified as a parameter in the <code class="docutils literal"><span class="pre">from</span></code> method. Thus the second line will print the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>value: 1
 value: 3
 value: 5
-value: 7</pre>
+value: 7
+</pre></div>
 </div>
 <p>The following example shows how to create a channel from a <cite>range</cite> of numbers or strings:</p>
-<div class="highlight-python"><pre>zeroToNine = Channel.from( 0..9 )
-strings = Channel.from( 'A'..'Z' )</pre>
+<div class="highlight-python"><div class="highlight"><pre>zeroToNine = Channel.from( 0..9 )
+strings = Channel.from( &#39;A&#39;..&#39;Z&#39; )
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Note that when the <tt class="docutils literal"><span class="pre">from</span></tt> argument is an object implementing the (Java)
+<p class="last">Note that when the <code class="docutils literal"><span class="pre">from</span></code> argument is an object implementing the (Java)
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Collection.html">Collection</a> interface, the resulting channel
 emits the collection entries as individual emissions.</p>
 </div>
 <p>Thus the following two declarations produce an identical result even tough in the first case the items are specified
 as multiple arguments while in the second case as a single list object argument:</p>
-<div class="highlight-python"><pre>Channel.from( 1, 3, 5, 7, 9 )
-Channel.from( [1, 3, 5, 7, 9] )</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel.from( 1, 3, 5, 7, 9 )
+Channel.from( [1, 3, 5, 7, 9] )
+</pre></div>
 </div>
 <p>But when more than one argument is provided, they are always managed as <cite>single</cite> emissions. Thus, the following example
 creates a channel emitting three entries each of which is a list containing two elements:</p>
-<div class="highlight-python"><pre>Channel.from( [1, 2], [5,6], [7,9] )</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel.from( [1, 2], [5,6], [7,9] )
+</pre></div>
 </div>
 </div>
 <div class="section" id="value">
 <span id="channel-value"></span><h3>value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
 <p>This method creates a dataflow <cite>variable</cite> that is a channel to which one entry, at most, can be bound. An optional
-not <tt class="docutils literal"><span class="pre">null</span></tt> value can be specified as a parameters, which is bound to the newly created channel. For example:</p>
+not <code class="docutils literal"><span class="pre">null</span></code> value can be specified as a parameters, which is bound to the newly created channel. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="n">expl2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="s">&#39;Hello there&#39;</span> <span class="p">)</span>
 <span class="n">expl3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
@@ -301,7 +306,7 @@ Finally the last one creates a channel and binds a list object to it that will b
 </div>
 <div class="section" id="frompath">
 <span id="channel-path"></span><h3>fromPath<a class="headerlink" href="#frompath" title="Permalink to this headline">¶</a></h3>
-<p>You can create a channel emitting one or more file paths by using the <tt class="docutils literal"><span class="pre">fromPath</span></tt> method and specifying a path string
+<p>You can create a channel emitting one or more file paths by using the <code class="docutils literal"><span class="pre">fromPath</span></code> method and specifying a path string
 as an argument. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;/data/some/bigfile.txt&#39;</span> <span class="p">)</span>
 </pre></div>
@@ -312,15 +317,15 @@ item referring the specified file.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">It does not check the file existence.</p>
 </div>
-<p>Whenever the <tt class="docutils literal"><span class="pre">fromPath</span></tt> argument contains a <tt class="docutils literal"><span class="pre">*</span></tt> or <tt class="docutils literal"><span class="pre">?</span></tt> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
+<p>Whenever the <code class="docutils literal"><span class="pre">fromPath</span></code> argument contains a <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
 For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;/data/big/*.txt&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>This example creates a channel and emits as many <tt class="docutils literal"><span class="pre">Path</span></tt> items as there are files with <tt class="docutils literal"><span class="pre">txt</span></tt> extension in the <tt class="docutils literal"><span class="pre">/data/big</span></tt> folder.</p>
+<p>This example creates a channel and emits as many <code class="docutils literal"><span class="pre">Path</span></code> items as there are files with <code class="docutils literal"><span class="pre">txt</span></code> extension in the <code class="docutils literal"><span class="pre">/data/big</span></code> folder.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Two asterisks, i.e. <tt class="docutils literal"><span class="pre">**</span></tt>, works like <tt class="docutils literal"><span class="pre">*</span></tt> but crosses directory boundaries.
+<p class="last">Two asterisks, i.e. <code class="docutils literal"><span class="pre">**</span></code>, works like <code class="docutils literal"><span class="pre">*</span></code> but crosses directory boundaries.
 This syntax is generally used for matching complete paths. Curly brackets specify a collection of sub-patterns.</p>
 </div>
 <p>For example:</p>
@@ -329,29 +334,31 @@ This syntax is generally used for matching complete paths. Curly brackets specif
 <span class="n">pairFiles</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;data/file_{1,2}.fq&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
-<p>The first line returns a channel emitting the files ending with the suffix <tt class="docutils literal"><span class="pre">.fa</span></tt> in the <tt class="docutils literal"><span class="pre">data</span></tt> folder <cite>and</cite> recursively
-in all its sub-folders. While the second one only emits the files which have the same suffix in <cite>any</cite> sub-folder in the <tt class="docutils literal"><span class="pre">data</span></tt> path.
-Finally the last example emits two files: <tt class="docutils literal"><span class="pre">data/file_1.fq</span></tt> and <tt class="docutils literal"><span class="pre">data/file_2.fq</span></tt>.</p>
+<p>The first line returns a channel emitting the files ending with the suffix <code class="docutils literal"><span class="pre">.fa</span></code> in the <code class="docutils literal"><span class="pre">data</span></code> folder <cite>and</cite> recursively
+in all its sub-folders. While the second one only emits the files which have the same suffix in <cite>any</cite> sub-folder in the <code class="docutils literal"><span class="pre">data</span></code> path.
+Finally the last example emits two files: <code class="docutils literal"><span class="pre">data/file_1.fq</span></code> and <code class="docutils literal"><span class="pre">data/file_2.fq</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">As in Linux BASH the <tt class="docutils literal"><span class="pre">*</span></tt> wildcard does not match against hidden files (i.e. files whose name start with a <tt class="docutils literal"><span class="pre">.</span></tt> character).</p>
+<p class="last">As in Linux BASH the <code class="docutils literal"><span class="pre">*</span></code> wildcard does not match against hidden files (i.e. files whose name start with a <code class="docutils literal"><span class="pre">.</span></code> character).</p>
 </div>
-<p>In order to include hidden files, you need to start your pattern with a period character or specify the <tt class="docutils literal"><span class="pre">hidden:</span> <span class="pre">true</span></tt> option. For example:</p>
-<div class="highlight-python"><pre>expl1 = Channel.fromPath( '/path/.*' )
-expl2 = Channel.fromPath( '/path/.*.fa' )
-expl3 = Channel.fromPath( '/path/*', hidden: true )</pre>
+<p>In order to include hidden files, you need to start your pattern with a period character or specify the <code class="docutils literal"><span class="pre">hidden:</span> <span class="pre">true</span></code> option. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>expl1 = Channel.fromPath( &#39;/path/.*&#39; )
+expl2 = Channel.fromPath( &#39;/path/.*.fa&#39; )
+expl3 = Channel.fromPath( &#39;/path/*&#39;, hidden: true )
+</pre></div>
 </div>
 <p>The first example returns all hidden files in the specified path. The second one returns all hidden files
-ending with the <tt class="docutils literal"><span class="pre">.fa</span></tt> suffix. Finally the last example returns all files (hidden and non-hidden) in that path.</p>
+ending with the <code class="docutils literal"><span class="pre">.fa</span></code> suffix. Finally the last example returns all files (hidden and non-hidden) in that path.</p>
 <p>By default a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> pattern only looks for <cite>regular file</cite> paths that match the specified criteria, i.e.
 it won't return directory paths.</p>
-<p>You may use the parameter <tt class="docutils literal"><span class="pre">type</span></tt> specifying the value <tt class="docutils literal"><span class="pre">file</span></tt>, <tt class="docutils literal"><span class="pre">dir</span></tt> or <tt class="docutils literal"><span class="pre">any</span></tt> in order to define what kind of paths
+<p>You may use the parameter <code class="docutils literal"><span class="pre">type</span></code> specifying the value <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> in order to define what kind of paths
 you want. For example:</p>
-<div class="highlight-python"><pre>myFileChannel = Channel.fromPath( '/path/*b', type: 'dir' )
-myFileChannel = Channel.fromPath( '/path/a*', type: 'any' )</pre>
+<div class="highlight-python"><div class="highlight"><pre>myFileChannel = Channel.fromPath( &#39;/path/*b&#39;, type: &#39;dir&#39; )
+myFileChannel = Channel.fromPath( &#39;/path/a*&#39;, type: &#39;any&#39; )
+</pre></div>
 </div>
-<p>The first example will return all <cite>directory</cite> paths ending with the <tt class="docutils literal"><span class="pre">b</span></tt> suffix, while the second will return any file
-and directory starting with a <tt class="docutils literal"><span class="pre">a</span></tt> prefix.</p>
+<p>The first example will return all <cite>directory</cite> paths ending with the <code class="docutils literal"><span class="pre">b</span></code> suffix, while the second will return any file
+and directory starting with a <code class="docutils literal"><span class="pre">a</span></code> prefix.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%" />
@@ -364,30 +371,31 @@ and directory starting with a <tt class="docutils literal"><span class="pre">a</
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>type</td>
-<td>Type of paths returned, either <tt class="docutils literal"><span class="pre">file</span></tt>, <tt class="docutils literal"><span class="pre">dir</span></tt> or <tt class="docutils literal"><span class="pre">any</span></tt> (default: <tt class="docutils literal"><span class="pre">file</span></tt>)</td>
+<td>Type of paths returned, either <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> (default: <code class="docutils literal"><span class="pre">file</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>hidden</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> includes hidden files in the resulting paths (default: <tt class="docutils literal"><span class="pre">false</span></tt>)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> includes hidden files in the resulting paths (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 <tr class="row-even"><td>maxDepth</td>
 <td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
 </tr>
 <tr class="row-odd"><td>followLinks</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: <tt class="docutils literal"><span class="pre">true</span></tt>)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="watchpath">
 <span id="channel-watch"></span><h3>watchPath<a class="headerlink" href="#watchpath" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">watchPath</span></tt> factory method watches a folder for one or more files matching a specified pattern. As soon as
-there is a file that meets the specified condition, it is emitted over the channel that is returned by the <tt class="docutils literal"><span class="pre">watchPath</span></tt>
-method. The condition on files to watch can be specified by using <tt class="docutils literal"><span class="pre">*</span></tt> or <tt class="docutils literal"><span class="pre">?</span></tt> wildcard characters i.e. by specifying
+<p>The <code class="docutils literal"><span class="pre">watchPath</span></code> factory method watches a folder for one or more files matching a specified pattern. As soon as
+there is a file that meets the specified condition, it is emitted over the channel that is returned by the <code class="docutils literal"><span class="pre">watchPath</span></code>
+method. The condition on files to watch can be specified by using <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> wildcard characters i.e. by specifying
 a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matching criteria.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
-   .watchPath( '/path/*.fa' )
-   .subscribe { println "Fasta file: $it" }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+   .watchPath( &#39;/path/*.fa&#39; )
+   .subscribe { println &quot;Fasta file: $it&quot; }
+</pre></div>
 </div>
 <p>By default it watches only for new files created in the specified folder. Optionally, it is possible to provide a
 second argument that specifies what event(s) to watch. The supported events are:</p>
@@ -402,33 +410,34 @@ second argument that specifies what event(s) to watch. The supported events are:
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">create</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">create</span></code></td>
 <td>A new file is created (default)</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">modify</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">modify</span></code></td>
 <td>A file is modified</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">delete</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">delete</span></code></td>
 <td>A file is deleted</td>
 </tr>
 </tbody>
 </table>
 <p>You can specified more than one of these events by using a comma separated string as shown below:</p>
-<div class="highlight-python"><pre>Channel
-   .watchPath( '/path/*.fa', 'create,modify' )
-   .subscribe { println "File created or modified: $it" }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+   .watchPath( &#39;/path/*.fa&#39;, &#39;create,modify&#39; )
+   .subscribe { println &quot;File created or modified: $it&quot; }
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The <tt class="docutils literal"><span class="pre">watchPath</span></tt> factory waits endlessly for files that match the specified pattern and event(s).
+<p class="last">The <code class="docutils literal"><span class="pre">watchPath</span></code> factory waits endlessly for files that match the specified pattern and event(s).
 Thus, whenever you use it in your script, the resulting pipeline will never finish.</p>
 </div>
 <p>See also: <a class="reference internal" href="#frompath">fromPath</a> factory method.</p>
 </div>
 <div class="section" id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">empty</span></tt> factory method, by definition, creates a channel that doesn't emit any value.</p>
-<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><em>ifEmpty</em></a> and <a class="reference internal" href="operator.html#operator-close"><em>close</em></a> operators.</p>
+<p>The <code class="docutils literal"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn't emit any value.</p>
+<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span>ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span>close</span></a> operators.</p>
 </div>
 </div>
 <div class="section" id="binding-values">
@@ -446,7 +455,7 @@ For example:</p>
 </div>
 <div class="section" id="operator">
 <h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h3>
-<p>The operator <tt class="docutils literal"><span class="pre">&lt;&lt;</span></tt> is just a syntax sugar for the <cite>bind( )</cite> method. Thus, the following example produce
+<p>The operator <code class="docutils literal"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <cite>bind( )</cite> method. Thus, the following example produce
 an identical result as the previous one:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 <span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s">&#39;Hello world&#39;</span>
@@ -458,57 +467,63 @@ an identical result as the previous one:</p>
 <h2>Observing events<a class="headerlink" href="#observing-events" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="subscribe">
 <span id="channel-subscribe"></span><h3>subscribe( )<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></tt> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
+<p>The <code class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></code> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
-<div class="highlight-python"><pre>// define a channel emitting three values
-source = Channel.from ( 'alpha', 'beta', 'delta' )
+<div class="highlight-python"><div class="highlight"><pre>// define a channel emitting three values
+source = Channel.from ( &#39;alpha&#39;, &#39;beta&#39;, &#39;delta&#39; )
 
 // subscribe a function to the channel printing the emitted values
-source.subscribe {  println "Got: $it"  }</pre>
+source.subscribe {  println &quot;Got: $it&quot;  }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Got: alpha
+<div class="highlight-python"><div class="highlight"><pre>Got: alpha
 Got: beta
-Got: delta</pre>
+Got: delta
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Formally the user defined function is a <tt class="docutils literal"><span class="pre">Closure</span></tt> as defined by the Groovy programming language on which
+<p class="last">Formally the user defined function is a <code class="docutils literal"><span class="pre">Closure</span></code> as defined by the Groovy programming language on which
 the <cite>Nextflow</cite> scripts are based on.</p>
 </div>
-<p>If needed the closure parameter can be defined explicitly, using a name other than <tt class="docutils literal"><span class="pre">it</span></tt> and, optionally,
+<p>If needed the closure parameter can be defined explicitly, using a name other than <code class="docutils literal"><span class="pre">it</span></code> and, optionally,
 specifying the expected value type, as showed in the following example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'alpha', 'beta', 'lambda' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;alpha&#39;, &#39;beta&#39;, &#39;lambda&#39; )
     .subscribe { String str -&gt;
-        println "Got: ${str}; len: ${str.size()}"
-     }</pre>
+        println &quot;Got: ${str}; len: ${str.size()}&quot;
+     }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Got: alpha; len: 5
+<div class="highlight-python"><div class="highlight"><pre>Got: alpha; len: 5
 Got: beta; len: 4
-Got: lambda; len: 6</pre>
+Got: lambda; len: 6
+</pre></div>
 </div>
-<p>Read <a class="reference internal" href="script.html#script-closure"><em>Closures</em></a> paragraph to learn more about <cite>closure</cite> feature.</p>
+<p>Read <a class="reference internal" href="script.html#script-closure"><span>Closures</span></a> paragraph to learn more about <cite>closure</cite> feature.</p>
 </div>
 <div class="section" id="onnext-oncomplete-and-onerror">
 <h3>onNext, onComplete, and onError<a class="headerlink" href="#onnext-oncomplete-and-onerror" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">subscribe()</span></tt> method may accept one or more of the following event handlers:</p>
+<p>The <code class="docutils literal"><span class="pre">subscribe()</span></code> method may accept one or more of the following event handlers:</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">onNext</span></tt>: registers a function that is invoked whenever the channel emits a value.
-This is the same as using the <tt class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></tt> with a <cite>plain</cite> closure as describe in the examples above.</li>
-<li><tt class="docutils literal"><span class="pre">onComplete</span></tt>: registers a function that is invoked after the <cite>last</cite> value is emitted by the channel.</li>
-<li><tt class="docutils literal"><span class="pre">onError</span></tt>: registers a function that it is invoked when an exception is raised while handling the
-<tt class="docutils literal"><span class="pre">onNext</span></tt> event. It will not make further calls to <tt class="docutils literal"><span class="pre">onNext</span></tt> or <tt class="docutils literal"><span class="pre">onComplete</span></tt>.
-The <tt class="docutils literal"><span class="pre">onError</span></tt> method takes as its parameter the <tt class="docutils literal"><span class="pre">Throwable</span></tt> that caused the error.</li>
+<li><code class="docutils literal"><span class="pre">onNext</span></code>: registers a function that is invoked whenever the channel emits a value.
+This is the same as using the <code class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></code> with a <cite>plain</cite> closure as describe in the examples above.</li>
+<li><code class="docutils literal"><span class="pre">onComplete</span></code>: registers a function that is invoked after the <cite>last</cite> value is emitted by the channel.</li>
+<li><code class="docutils literal"><span class="pre">onError</span></code>: registers a function that it is invoked when an exception is raised while handling the
+<code class="docutils literal"><span class="pre">onNext</span></code> event. It will not make further calls to <code class="docutils literal"><span class="pre">onNext</span></code> or <code class="docutils literal"><span class="pre">onComplete</span></code>.
+The <code class="docutils literal"><span class="pre">onError</span></code> method takes as its parameter the <code class="docutils literal"><span class="pre">Throwable</span></code> that caused the error.</li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1, 2, 3 )
-    .subscribe onNext: { println it }, onComplete: { println 'Done.' }</pre>
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done.&#39; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>1
+<div class="highlight-python"><div class="highlight"><pre>1
 2
 3
-Done.</pre>
+Done.
+</pre></div>
 </div>
 </div>
 </div>

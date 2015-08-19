@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.15.0 documentation</title>
+  <title>Operators &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -247,38 +247,41 @@ emitted by a channel applying some user provided rules.</p>
 </ul>
 <div class="section" id="filter">
 <h3>filter<a class="headerlink" href="#filter" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">filter</span></tt> operator allows you to get only the items emitted by a channel that satisfy a condition and discarding
-all the others. The filtering condition can be specified by using either a <a class="reference internal" href="script.html#script-regexp"><em>regular expression</em></a>,
+<p>The <code class="docutils literal"><span class="pre">filter</span></code> operator allows you to get only the items emitted by a channel that satisfy a condition and discarding
+all the others. The filtering condition can be specified by using either a <a class="reference internal" href="script.html#script-regexp"><span>regular expression</span></a>,
 a literal value, a type <cite>qualifier</cite> (i.e. a Java class) or any boolean <cite>predicate</cite>.</p>
 <p>The following example shows how to filter a channel by using a regular expression that returns only string that
-begins with <tt class="docutils literal"><span class="pre">a</span></tt>:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'a', 'b', 'aa', 'bc', 3, 4.5 )
+begins with <code class="docutils literal"><span class="pre">a</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;a&#39;, &#39;b&#39;, &#39;aa&#39;, &#39;bc&#39;, 3, 4.5 )
     .filter( ~/a+/ )
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">a</span>
 <span class="n">aa</span>
 </pre></div>
 </div>
-<p>The following example shows how to filter a channel by specifying the type qualifier <tt class="docutils literal"><span class="pre">Number</span></tt> so that only numbers
+<p>The following example shows how to filter a channel by specifying the type qualifier <code class="docutils literal"><span class="pre">Number</span></code> so that only numbers
 are returned:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'a', 'b', 'aa', 'bc', 3, 4.5 )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;a&#39;, &#39;b&#39;, &#39;aa&#39;, &#39;bc&#39;, 3, 4.5 )
     .filter( Number )
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">3</span>
 <span class="mf">4.5</span>
 </pre></div>
 </div>
 <p>Finally, a filtering condition can be defined by using any a boolean <cite>predicate</cite>. A predicate is expressed by
-a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> retuning a boolean value. For example the following fragment shows how filter
+a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> retuning a boolean value. For example the following fragment shows how filter
 a channel emitting numbers so that the <cite>odd</cite> values are returned:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1, 2, 3, 4, 5 )
     .filter { it % 2 == 1 }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">3</span>
@@ -288,18 +291,19 @@ a channel emitting numbers so that the <cite>odd</cite> values are returned:</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">In the above example the filter condition is wrapped in curly brackets,
-instead of round brackets, since it specifies a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> as the operator's argument.
-This just is a language syntax-sugar for <tt class="docutils literal"><span class="pre">filter({</span> <span class="pre">it.toString().size()</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">})</span></tt></p>
+instead of round brackets, since it specifies a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> as the operator's argument.
+This just is a language syntax-sugar for <code class="docutils literal"><span class="pre">filter({</span> <span class="pre">it.toString().size()</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">})</span></code></p>
 </div>
 </div>
 <div class="section" id="unique">
 <h3>unique<a class="headerlink" href="#unique" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">unique</span></tt> operator allows you to remove duplicate items from a channel and only emit single items with no repetition.</p>
+<p>The <code class="docutils literal"><span class="pre">unique</span></code> operator allows you to remove duplicate items from a channel and only emit single items with no repetition.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,1,1,5,7,7,7,3,3 )
     .unique()
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">5</span>
@@ -307,12 +311,13 @@ This just is a language syntax-sugar for <tt class="docutils literal"><span clas
 <span class="mi">3</span>
 </pre></div>
 </div>
-<p>You can also specify an optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> that customizes the way it distinguishes between unique items.
+<p>You can also specify an optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> that customizes the way it distinguishes between unique items.
 For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(1,3,4,5)
     .unique { it % 2 }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">4</span>
@@ -321,12 +326,13 @@ For example:</p>
 </div>
 <div class="section" id="distinct">
 <h3>distinct<a class="headerlink" href="#distinct" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">distinct</span></tt> operator allows you to remove <cite>consecutive</cite> duplicated items from a channel, so that each emitted item
+<p>The <code class="docutils literal"><span class="pre">distinct</span></code> operator allows you to remove <cite>consecutive</cite> duplicated items from a channel, so that each emitted item
 is different from the preceding one. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,1,2,2,2,3,1,1,2,2,3 )
     .distinct()
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">2</span>
@@ -337,12 +343,13 @@ is different from the preceding one. For example:</p>
 <span class="n">Done</span>
 </pre></div>
 </div>
-<p>You can also specify an optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> that customizes the way it distinguishes between distinct items.
+<p>You can also specify an optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> that customizes the way it distinguishes between distinct items.
 For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,1,2,2,2,3,1,1,2,4,6 )
     .distinct { it % 2 }
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">2</span>
@@ -354,25 +361,25 @@ For example:</p>
 </div>
 <div class="section" id="first">
 <h3>first<a class="headerlink" href="#first" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">first</span></tt> operator creates a channel that returns the first item emitted by the source channel, or eventually
-the first item that matches an optional condition. The condition can be specified by using a <a class="reference internal" href="script.html#script-regexp"><em>regular expression</em></a>,
+<p>The <code class="docutils literal"><span class="pre">first</span></code> operator creates a channel that returns the first item emitted by the source channel, or eventually
+the first item that matches an optional condition. The condition can be specified by using a <a class="reference internal" href="script.html#script-regexp"><span>regular expression</span></a>,
 a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For example:</p>
-<div class="highlight-python"><pre>// no condition is specified, emits the very first item: 1
+<div class="highlight-python"><div class="highlight"><pre>// no condition is specified, emits the very first item: 1
 Channel
     .from( 1, 2, 3 )
     .first()
     .subscribe { println it }
 
 
-// emits the first String value: 'a'
+// emits the first String value: &#39;a&#39;
 Channel
-    .from( 1, 2, 'a', 'b', 3 )
+    .from( 1, 2, &#39;a&#39;, &#39;b&#39;, 3 )
     .first( String )
     .subscribe { println it }
 
-// emits the first item matching the regular expression: 'aa'
+// emits the first item matching the regular expression: &#39;aa&#39;
 Channel
-    .from( 'a', 'aa', 'aaa' )
+    .from( &#39;a&#39;, &#39;aa&#39;, &#39;aaa&#39; )
     .first( ~/aa.*/ )
     .subscribe { println it }
 
@@ -380,16 +387,18 @@ Channel
 Channel
     .from( 1,2,3,4,5 )
     .first { it &gt; 3 }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 </div>
 <div class="section" id="take">
 <h3>take<a class="headerlink" href="#take" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">take</span></tt> operator allows you to filter only the first <cite>n</cite> items emitted by a channel. For example:</p>
-<div class="highlight-python"><pre>Channel
+<p>The <code class="docutils literal"><span class="pre">take</span></code> operator allows you to filter only the first <cite>n</cite> items emitted by a channel. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,4,5,6 )
     .take( 3 )
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">2</span>
@@ -397,15 +406,19 @@ Channel
 <span class="n">Done</span>
 </pre></div>
 </div>
-<p>Note:: by specifying the value <tt class="docutils literal"><span class="pre">-1</span></tt> the operator <tt class="docutils literal"><span class="pre">takes</span></tt> all values.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By specifying the value <code class="docutils literal"><span class="pre">-1</span></code> the operator takes all values.</p>
+</div>
 </div>
 <div class="section" id="last">
 <h3>last<a class="headerlink" href="#last" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">last</span></tt> operator creates a channel that only returns the last item emitted by the source channel. For example:</p>
-<div class="highlight-python"><pre>Channel
+<p>The <code class="docutils literal"><span class="pre">last</span></code> operator creates a channel that only returns the last item emitted by the source channel. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,4,5,6 )
     .last()
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">6</span>
 </pre></div>
@@ -430,13 +443,14 @@ Channel
 </ul>
 <div class="section" id="map">
 <h3>map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">map</span></tt> operator applies a function of your choosing to every item emitted by a channel, and
+<p>The <code class="docutils literal"><span class="pre">map</span></code> operator applies a function of your choosing to every item emitted by a channel, and
 returns the items so obtained as a new channel. The function applied is called the <cite>mapping</cite> function
-and is expressed with a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> as shown in the example below:</p>
-<div class="highlight-python"><pre>Channel
+and is expressed with a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> as shown in the example below:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1, 2, 3, 4, 5 )
     .map { it * it  }
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">4</span>
@@ -449,18 +463,19 @@ and is expressed with a <a class="reference internal" href="script.html#script-c
 </div>
 <div class="section" id="flatmap">
 <span id="operator-flatmap"></span><h3>flatMap<a class="headerlink" href="#flatmap" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">flatMap</span></tt> operator applies a function of your choosing to every item emitted by a channel, and
+<p>The <code class="docutils literal"><span class="pre">flatMap</span></code> operator applies a function of your choosing to every item emitted by a channel, and
 returns the items so obtained as a new channel. Whenever the <cite>mapping</cite> function returns a list of items,
 this list is flattened so that each single item is emitted on its own.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>// create a channel of numbers
+<div class="highlight-python"><div class="highlight"><pre>// create a channel of numbers
 numbers = Channel.from( 1, 2, 3 )
 
 // map each number to a tuple (array), which items are emitted separately
 results = numbers.flatMap { n -&gt; [ n*2, n*3 ] }
 
 // print the final results
-results.subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+results.subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">2</span>
 <span class="mi">3</span>
@@ -472,39 +487,43 @@ results.subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
 </pre></div>
 </div>
 <p>Associative arrays are handled in the same way, so that each array entry is emitted as a single <cite>key-value</cite> item. For example:</p>
-<div class="highlight-python"><pre>Channel.from ( 1, 2, 3 )
+<div class="highlight-python"><div class="highlight"><pre>Channel.from ( 1, 2, 3 )
        .flatMap { it -&gt; [ number: it, square: it*it ] }
-       .subscribe { println it.key + ': ' + it.value }</pre>
+       .subscribe { println it.key + &#39;: &#39; + it.value }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>number: 1
+<div class="highlight-python"><div class="highlight"><pre>number: 1
 square: 1
 number: 2
 square: 4
 number: 3
-square: 9</pre>
+square: 9
+</pre></div>
 </div>
 </div>
 <div class="section" id="reduce">
 <h3>reduce<a class="headerlink" href="#reduce" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">reduce</span></tt> operator applies a function of your choosing to every item emitted by a channel.
+<p>The <code class="docutils literal"><span class="pre">reduce</span></code> operator applies a function of your choosing to every item emitted by a channel.
 Each time this function is invoked it takes two parameters: firstly the <cite>i-th</cite> emitted item
 and secondly the result of the previous invocation of the function itself. The result is
 passed on to the next function call, along with the <cite>i+1 th</cite> item, until all the items are
 processed.</p>
-<p>Finally, the <tt class="docutils literal"><span class="pre">reduce</span></tt> operator emits the result of the last invocation of your function
+<p>Finally, the <code class="docutils literal"><span class="pre">reduce</span></code> operator emits the result of the last invocation of your function
 as the sole output.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1, 2, 3, 4, 5 )
-    .reduce { a, b -&gt; println "a: $a b: $b"; return a+b }
-    .subscribe { println "result = $it" }</pre>
+    .reduce { a, b -&gt; println &quot;a: $a b: $b&quot;; return a+b }
+    .subscribe { println &quot;result = $it&quot; }
+</pre></div>
 </div>
 <p>It prints the following output:</p>
-<div class="highlight-python"><pre>a: 1    b: 2
+<div class="highlight-python"><div class="highlight"><pre>a: 1    b: 2
 a: 3    b: 3
 a: 6    b: 4
 a: 10   b: 5
-result = 15</pre>
+result = 15
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -513,42 +532,46 @@ the second parameter represents the <cite>i-th</cite> item to be processed.</p>
 </div>
 <p>Optionally you can specify a <cite>seed</cite> value in order to initialise the accumulator parameter
 as shown below:</p>
-<div class="highlight-python"><pre>myChannel.reduce( seedValue ) {  a, b -&gt; ... }</pre>
+<div class="highlight-python"><div class="highlight"><pre>myChannel.reduce( seedValue ) {  a, b -&gt; ... }
+</pre></div>
 </div>
 </div>
 <div class="section" id="groupby">
 <h3>groupBy<a class="headerlink" href="#groupby" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">groupBy</span></tt> operator collects the values emitted by the source channel grouping them together using a <cite>mapping</cite>
+<p>The <code class="docutils literal"><span class="pre">groupBy</span></code> operator collects the values emitted by the source channel grouping them together using a <cite>mapping</cite>
 function that associates each item with a key. When finished, it emits an associative
 array that maps each key to the set of items identified by that key.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from('hello','ciao','hola', 'hi', 'bonjour')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&#39;hello&#39;,&#39;ciao&#39;,&#39;hola&#39;, &#39;hi&#39;, &#39;bonjour&#39;)
     .groupBy { String str -&gt; str[0] }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>[ b:['bonjour'], c:['ciao'], h:['hello','hola','hi'] ]</pre>
+<div class="highlight-python"><div class="highlight"><pre>[ b:[&#39;bonjour&#39;], c:[&#39;ciao&#39;], h:[&#39;hello&#39;,&#39;hola&#39;,&#39;hi&#39;] ]
+</pre></div>
 </div>
 <p>The <cite>mapping</cite> function is an optional parameter. When omitted the values are grouped
 following these rules:</p>
 <ul class="simple">
-<li>Any value of type <tt class="docutils literal"><span class="pre">Map</span></tt> is associated with the value of its first entry, or <tt class="docutils literal"><span class="pre">null</span></tt> when the map itself is empty.</li>
-<li>Any value of type <tt class="docutils literal"><span class="pre">Map.Entry</span></tt> is associated with the value of its <tt class="docutils literal"><span class="pre">key</span></tt> attribute.</li>
-<li>Any value of type <tt class="docutils literal"><span class="pre">Collection</span></tt> or <tt class="docutils literal"><span class="pre">Array</span></tt> is associated with its first entry.</li>
+<li>Any value of type <code class="docutils literal"><span class="pre">Map</span></code> is associated with the value of its first entry, or <code class="docutils literal"><span class="pre">null</span></code> when the map itself is empty.</li>
+<li>Any value of type <code class="docutils literal"><span class="pre">Map.Entry</span></code> is associated with the value of its <code class="docutils literal"><span class="pre">key</span></code> attribute.</li>
+<li>Any value of type <code class="docutils literal"><span class="pre">Collection</span></code> or <code class="docutils literal"><span class="pre">Array</span></code> is associated with its first entry.</li>
 <li>For any other value, the value itself is used as a key.</li>
 </ul>
 </div>
 <div class="section" id="grouptuple">
 <h3>groupTuple<a class="headerlink" href="#grouptuple" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">groupTuple</span></tt> operator collects tuples (or lists) of values emitted by the source channel grouping together the
-values that share the same key. Finally it emits a new tuple object for each distinct key collected.</p>
+<p>The <code class="docutils literal"><span class="pre">groupTuple</span></code> operator collects tuples (or lists) of values emitted by the source channel grouping together the
+elements that share the same key. Finally it emits a new tuple object for each distinct key collected.</p>
 <p>In other words transform a sequence of tuple like <em>(K, V, W, ..)</em> into a new channel emitting a sequence of
 <em>(K, list(V), list(W), ..)</em></p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
-     .from( [1,'A'], [1,'B'], [2,'C'], [3, 'B'], [1,'C'], [2, 'A'], [3, 'D'] )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .from( [1,&#39;A&#39;], [1,&#39;B&#39;], [2,&#39;C&#39;], [3, &#39;B&#39;], [1,&#39;C&#39;], [2, &#39;A&#39;], [3, &#39;D&#39;] )
      .groupTuple()
-     .subscribe { println it }</pre>
+     .subscribe { println it }
+</pre></div>
 </div>
 <p>It prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">C</span><span class="p">]]</span>
@@ -557,11 +580,12 @@ values that share the same key. Finally it emits a new tuple object for each dis
 </pre></div>
 </div>
 <p>By default the first entry in the tuple is used a the grouping key. A different key can be chosen by using the
-<tt class="docutils literal"><span class="pre">by</span></tt> parameter and specifing the index of entry to be used as key (the index is zero-based). For example:</p>
-<div class="highlight-python"><pre>Channel
-     .from( [1,'A'], [1,'B'], [2,'C'], [3, 'B'], [1,'C'], [2, 'A'], [3, 'D'] )
+<code class="docutils literal"><span class="pre">by</span></code> parameter and specifing the index of entry to be used as key (the index is zero-based). For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .from( [1,&#39;A&#39;], [1,&#39;B&#39;], [2,&#39;C&#39;], [3, &#39;B&#39;], [1,&#39;C&#39;], [2, &#39;A&#39;], [3, &#39;D&#39;] )
      .groupTuple(by: 1)
-     .subscribe { println it }</pre>
+     .subscribe { println it }
+</pre></div>
 </div>
 <p>Grouping by the second value in each tuple the result is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">A</span><span class="p">]</span>
@@ -570,52 +594,108 @@ values that share the same key. Finally it emits a new tuple object for each dis
 <span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="n">D</span><span class="p">]</span>
 </pre></div>
 </div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">A multiple-items key can be defined by specifing a list of indices as value for the <tt class="docutils literal"><span class="pre">by</span></tt> parameters.</p>
-</div>
+<p>Available parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="8%" />
+<col width="92%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>by</td>
+<td>The index (zero based) of the element to be used as grouping key.
+A key composed by multiple elements can be defined specifying a list of indices e.g. <code class="docutils literal"><span class="pre">by:</span> <span class="pre">[0,2]</span></code></td>
+</tr>
+<tr class="row-odd"><td>sort</td>
+<td>Defines the sorting criteria for the grouped items. See below for available sorting options.</td>
+</tr>
+<tr class="row-even"><td>size</td>
+<td>The number of items the grouped list(s) has to contain. When the specified size is reached, the tuple is emitted.</td>
+</tr>
+<tr class="row-odd"><td>remainder</td>
+<td>When <code class="docutils literal"><span class="pre">false</span></code> incomplete tuples (i.e. with less than <cite>size</cite> grouped items)
+are discarded (default). When <code class="docutils literal"><span class="pre">true</span></code> incomplete tuples are emitted as the ending emission. Only valid when a <code class="docutils literal"><span class="pre">size</span></code> parameter
+is specified.</td>
+</tr>
+</tbody>
+</table>
+<p>Sorting options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Sort</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>false</td>
+<td>No sorting is applied (default).</td>
+</tr>
+<tr class="row-odd"><td>true</td>
+<td>Order the grouped items by the item natural ordering i.e. numerical for number, lexicographic for string, etc. See <a class="reference external" href="http://docs.oracle.com/javase/tutorial/collections/interfaces/order.html">http://docs.oracle.com/javase/tutorial/collections/interfaces/order.html</a></td>
+</tr>
+<tr class="row-even"><td>hash</td>
+<td>Order the grouped items by the hash number associated to each entry.</td>
+</tr>
+<tr class="row-odd"><td>deep</td>
+<td>Similar to the previous, but the hash number is created on actual entries content e.g. when the item is a file the hash is created on the actual file content.</td>
+</tr>
+<tr class="row-even"><td><cite>custom</cite></td>
+<td>A custom sorting criteria can be specified by using either a <a class="reference internal" href="script.html#script-closure"><span>Closure</span></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="buffer">
 <h3>buffer<a class="headerlink" href="#buffer" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">buffer</span></tt> operator gathers the items emitted by the source channel into subsets and emits these subsets separately.</p>
-<p>There are a number of ways you can regulate how <tt class="docutils literal"><span class="pre">buffer</span></tt> gathers the items from
+<p>The <code class="docutils literal"><span class="pre">buffer</span></code> operator gathers the items emitted by the source channel into subsets and emits these subsets separately.</p>
+<p>There are a number of ways you can regulate how <code class="docutils literal"><span class="pre">buffer</span></code> gathers the items from
 the source channel into subsets:</p>
 <ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">buffer(</span> <span class="pre">closingCondition</span> <span class="pre">)</span></tt>: starts to collect the items emitted by the channel into
+<li><p class="first"><code class="docutils literal"><span class="pre">buffer(</span> <span class="pre">closingCondition</span> <span class="pre">)</span></code>: starts to collect the items emitted by the channel into
 a subset until the <cite>closing condition</cite> is verified. After that the subset is emitted
 to the resulting channel and new items are gathered into a new subset. The process is repeated
-until the last value in the source channel is sent. The <tt class="docutils literal"><span class="pre">closingCondition</span></tt> can be specified
-either as a <a class="reference internal" href="script.html#script-regexp"><em>regular expression</em></a>, a Java class, a literal value, or a <cite>boolean predicate</cite>
+until the last value in the source channel is sent. The <code class="docutils literal"><span class="pre">closingCondition</span></code> can be specified
+either as a <a class="reference internal" href="script.html#script-regexp"><span>regular expression</span></a>, a Java class, a literal value, or a <cite>boolean predicate</cite>
 that has to be satisfied. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,1,2,3 )
     .buffer { it == 2 }
     .subscribe {  println it }
 
 // emitted values
 [1,2]
-[3,1,2]</pre>
+[3,1,2]
+</pre></div>
 </div>
 </li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">buffer(</span> <span class="pre">openingCondition,</span> <span class="pre">closingCondition</span> <span class="pre">)</span></tt>: starts to gather the items emitted by the channel
+<li><p class="first"><code class="docutils literal"><span class="pre">buffer(</span> <span class="pre">openingCondition,</span> <span class="pre">closingCondition</span> <span class="pre">)</span></code>: starts to gather the items emitted by the channel
 as soon as one of the them verify the <cite>opening condition</cite> and it continues until there is one item
 which verify the <cite>closing condition</cite>. After that the subset is emitted and it continues applying the
 described logic until the last channel item is emitted.
-Both conditions can be defined either as a <a class="reference internal" href="script.html#script-regexp"><em>regular expression</em></a>, a literal value,
+Both conditions can be defined either as a <a class="reference internal" href="script.html#script-regexp"><span>regular expression</span></a>, a literal value,
 a Java class, or a <cite>boolean predicate</cite> that need to be satisfied. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,4,5,1,2,3,4,5,1,2 )
     .buffer( 2, 4 )
     .subscribe {  println it }
 
-// emits bundles starting with '2' and ending with'4'
+// emits bundles starting with &#39;2&#39; and ending with&#39;4&#39;
 [2,3,4]
-[2,3,4]</pre>
+[2,3,4]
+</pre></div>
 </div>
 </li>
-<li><p class="first"><tt class="docutils literal"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n</span> <span class="pre">)</span></tt>: transform the source channel in such a way that it emits tuples
-made up of <tt class="docutils literal"><span class="pre">n</span></tt> elements. An incomplete tuple is discarded. For example:</p>
-<div class="highlight-python"><pre>Channel
+<li><p class="first"><code class="docutils literal"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n</span> <span class="pre">)</span></code>: transform the source channel in such a way that it emits tuples
+made up of <code class="docutils literal"><span class="pre">n</span></code> elements. An incomplete tuple is discarded. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,1,2,3,1 )
     .buffer( size: 2 )
     .subscribe {  println it }
@@ -623,13 +703,14 @@ made up of <tt class="docutils literal"><span class="pre">n</span></tt> elements
 // emitted values
 [1, 2]
 [3, 1]
-[2, 3]</pre>
+[2, 3]
+</pre></div>
 </div>
 </li>
 </ul>
-<p>If you want to emit the last items in a tuple containing less than <tt class="docutils literal"><span class="pre">n</span></tt> elements, simply
-add the parameter <tt class="docutils literal"><span class="pre">remainder</span></tt> specifying <tt class="docutils literal"><span class="pre">true</span></tt>, for example:</p>
-<div class="highlight-python"><pre>Channel
+<p>If you want to emit the last items in a tuple containing less than <code class="docutils literal"><span class="pre">n</span></code> elements, simply
+add the parameter <code class="docutils literal"><span class="pre">remainder</span></code> specifying <code class="docutils literal"><span class="pre">true</span></code>, for example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,1,2,3,1 )
     .buffer( size: 2, remainder: true )
     .subscribe {  println it }
@@ -638,33 +719,36 @@ add the parameter <tt class="docutils literal"><span class="pre">remainder</span
 [1, 2]
 [3, 1]
 [2, 3]
-[1]</pre>
+[1]
+</pre></div>
 </div>
 <ul>
-<li><p class="first"><tt class="docutils literal"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n,</span> <span class="pre">skip:</span> <span class="pre">m</span> <span class="pre">)</span></tt>: as in the previous example, it emits tuples containing <tt class="docutils literal"><span class="pre">n</span></tt> elements,
+<li><p class="first"><code class="docutils literal"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n,</span> <span class="pre">skip:</span> <span class="pre">m</span> <span class="pre">)</span></code>: as in the previous example, it emits tuples containing <code class="docutils literal"><span class="pre">n</span></code> elements,
 but skips <cite>m</cite> values before starting to collect the values for the next tuple (including the first emission). For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1,2,3,4,5,1,2,3,4,5,1,2 )
     .buffer( size:3, skip:2 )
     .subscribe {  println it }
 
 // emitted values
 [3, 4, 5]
-[3, 4, 5]</pre>
+[3, 4, 5]
+</pre></div>
 </div>
 </li>
 </ul>
-<p>If you want to emit the remaining items in a tuple containing less than <tt class="docutils literal"><span class="pre">n</span></tt> elements, simply
-add the parameter <tt class="docutils literal"><span class="pre">remainder</span></tt> specifying <tt class="docutils literal"><span class="pre">true</span></tt>, as shown in the previous example.</p>
+<p>If you want to emit the remaining items in a tuple containing less than <code class="docutils literal"><span class="pre">n</span></code> elements, simply
+add the parameter <code class="docutils literal"><span class="pre">remainder</span></code> specifying <code class="docutils literal"><span class="pre">true</span></code>, as shown in the previous example.</p>
 <p>See also: <a class="reference internal" href="#collate">collate</a> operator.</p>
 </div>
 <div class="section" id="collate">
 <h3>collate<a class="headerlink" href="#collate" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">collate</span></tt> operator transforms a channel in such a way that the emitted values are grouped in tuples containing <cite>n</cite> items. For example:</p>
-<div class="highlight-python"><pre>Channel
+<p>The <code class="docutils literal"><span class="pre">collate</span></code> operator transforms a channel in such a way that the emitted values are grouped in tuples containing <cite>n</cite> items. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(1,2,3,1,2,3,1)
     .collate( 3 )
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -672,22 +756,24 @@ add the parameter <tt class="docutils literal"><span class="pre">remainder</span
 </pre></div>
 </div>
 <p>As shown in the above example the last tuple may be incomplete e.g. contain less elements than the specified size.
-If you want to avoid this, specify <tt class="docutils literal"><span class="pre">false</span></tt> as the second parameter. For example:</p>
-<div class="highlight-python"><pre>Channel
+If you want to avoid this, specify <code class="docutils literal"><span class="pre">false</span></code> as the second parameter. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(1,2,3,1,2,3,1)
     .collate( 3, false )
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">collate</span></tt> operator allows you to specify, after the <cite>size</cite>, the <cite>step</cite> by which elements
+<p>A second version of the <code class="docutils literal"><span class="pre">collate</span></code> operator allows you to specify, after the <cite>size</cite>, the <cite>step</cite> by which elements
 are collected in tuples. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
   .from(1,2,3,4)
   .collate( 3, 1 )
-  .subscribe { println it }</pre>
+  .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
@@ -695,17 +781,18 @@ are collected in tuples. For example:</p>
 <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>As before, if you don't want to emit the last items which do not complete a tuple, specify <tt class="docutils literal"><span class="pre">false</span></tt> as the third parameter.</p>
+<p>As before, if you don't want to emit the last items which do not complete a tuple, specify <code class="docutils literal"><span class="pre">false</span></code> as the third parameter.</p>
 <p>See also: <a class="reference internal" href="#buffer">buffer</a> operator.</p>
 </div>
 <div class="section" id="flatten">
 <h3>flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">flatten</span></tt> operator transforms a channel in such a way that every item of type <tt class="docutils literal"><span class="pre">Collection</span></tt> or <tt class="docutils literal"><span class="pre">Array</span></tt>
+<p>The <code class="docutils literal"><span class="pre">flatten</span></code> operator transforms a channel in such a way that every item of type <code class="docutils literal"><span class="pre">Collection</span></code> or <code class="docutils literal"><span class="pre">Array</span></code>
 is flattened so that each single entry is emitted separately by the resulting channel. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( [1,[2,3]], 4, [5,[6]] )
     .flatten()
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">2</span>
@@ -719,12 +806,13 @@ is flattened so that each single entry is emitted separately by the resulting ch
 </div>
 <div class="section" id="tolist">
 <h3>toList<a class="headerlink" href="#tolist" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">toList</span></tt> operator collects all the items emitted by a channel to a <tt class="docutils literal"><span class="pre">List</span></tt> object
+<p>The <code class="docutils literal"><span class="pre">toList</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal"><span class="pre">List</span></code> object
 and emits the resulting collection as a single item. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 1, 2, 3, 4 )
     .toList()
-    .subscribe onNext: { println it }, onComplete: 'Done'</pre>
+    .subscribe onNext: { println it }, onComplete: &#39;Done&#39;
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">Done</span>
@@ -733,12 +821,13 @@ and emits the resulting collection as a single item. For example:</p>
 </div>
 <div class="section" id="tosortedlist">
 <h3>toSortedList<a class="headerlink" href="#tosortedlist" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">toSortedList</span></tt> operator collects all the items emitted by a channel to a <tt class="docutils literal"><span class="pre">List</span></tt> object where they are sorted
+<p>The <code class="docutils literal"><span class="pre">toSortedList</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal"><span class="pre">List</span></code> object where they are sorted
 and emits the resulting collection as a single item. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 3, 2, 1, 4 )
     .toSortedList()
-    .subscribe onNext: { println it }, onComplete: 'Done'</pre>
+    .subscribe onNext: { println it }, onComplete: &#39;Done&#39;
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">Done</span>
@@ -759,42 +848,45 @@ operators or processes.</p>
 </ul>
 <div class="section" id="splitcsv">
 <h3>splitCsv<a class="headerlink" href="#splitcsv" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">splitCsv</span></tt> operator allows you to parse text items emitted by a channel, that are formatted using the
+<p>The <code class="docutils literal"><span class="pre">splitCsv</span></code> operator allows you to parse text items emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV format</a>, and split them into records or group them into
 list of records with a specified length.</p>
-<p>In the simplest case just apply the <tt class="docutils literal"><span class="pre">splitCsv</span></tt> operator to a channel emitting a CSV formatted text files or
+<p>In the simplest case just apply the <code class="docutils literal"><span class="pre">splitCsv</span></code> operator to a channel emitting a CSV formatted text files or
 text entries. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'alpha,beta,gamma\n10,20,30\n70,80,90' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;alpha,beta,gamma\n10,20,30\n70,80,90&#39; )
     .splitCsv()
     .subscribe { row -&gt;
-       println "${row[0]} - ${row[1]} - ${row[2]}"
-    }</pre>
+       println &quot;${row[0]} - ${row[1]} - ${row[2]}&quot;
+    }
+</pre></div>
 </div>
 <p>The above example shows hows CSV text is parsed and is split into single rows. Values can be accessed
 by its column index in the row object.</p>
-<p>When the CVS begins with a header line defining the columns names, you can specify the parameter <tt class="docutils literal"><span class="pre">header:</span> <span class="pre">true</span></tt> which
+<p>When the CVS begins with a header line defining the columns names, you can specify the parameter <code class="docutils literal"><span class="pre">header:</span> <span class="pre">true</span></code> which
 allows you to reference each value by its name, as shown in the following example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'alpha,beta,gamma\n10,20,30\n70,80,90' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;alpha,beta,gamma\n10,20,30\n70,80,90&#39; )
     .splitCsv(header: true)
     .subscribe { row -&gt;
-       println "${row.alpha} - ${row.beta} - ${row.gamma}"
-    }</pre>
+       println &quot;${row.alpha} - ${row.beta} - ${row.gamma}&quot;
+    }
+</pre></div>
 </div>
 <p>It will print</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">10</span> <span class="o">-</span> <span class="mi">20</span> <span class="o">-</span> <span class="mi">30</span>
 <span class="mi">70</span> <span class="o">-</span> <span class="mi">80</span> <span class="o">-</span> <span class="mi">90</span>
 </pre></div>
 </div>
-<p>Alternatively you can provide custom header names by specifying a the list of strings in the <tt class="docutils literal"><span class="pre">header</span></tt> parameter
+<p>Alternatively you can provide custom header names by specifying a the list of strings in the <code class="docutils literal"><span class="pre">header</span></code> parameter
 as shown below:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'alpha,beta,gamma\n10,20,30\n70,80,90' )
-    .splitCsv(header: ['col1', 'col2', 'col3'], skip: 1 )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;alpha,beta,gamma\n10,20,30\n70,80,90&#39; )
+    .splitCsv(header: [&#39;col1&#39;, &#39;col2&#39;, &#39;col3&#39;], skip: 1 )
     .subscribe { row -&gt;
-       println "${row.col1} - ${row.col2} - ${row.col3}"
-    }</pre>
+       println &quot;${row.col1} - ${row.col2} - ${row.col3}&quot;
+    }
+</pre></div>
 </div>
 <p>Available parameters:</p>
 <table border="1" class="docutils">
@@ -812,19 +904,19 @@ as shown below:</p>
 <td>The number of rows in each <cite>chunk</cite></td>
 </tr>
 <tr class="row-odd"><td>sep</td>
-<td>The character used to separate the values (default: <tt class="docutils literal"><span class="pre">,</span></tt>)</td>
+<td>The character used to separate the values (default: <code class="docutils literal"><span class="pre">,</span></code>)</td>
 </tr>
 <tr class="row-even"><td>quote</td>
 <td>Values may be quoted by single or double quote characters.</td>
 </tr>
 <tr class="row-odd"><td>header</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> the first line is used as columns names. Alternatively it can be used to provide the list of columns names.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> the first line is used as columns names. Alternatively it can be used to provide the list of columns names.</td>
 </tr>
 <tr class="row-even"><td>charset</td>
-<td>Parse the content by using the specified charset e.g. <tt class="docutils literal"><span class="pre">UTF-8</span></tt></td>
+<td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
 <tr class="row-odd"><td>strip</td>
-<td>Removes leading and trailing blanks from values (default: <tt class="docutils literal"><span class="pre">false</span></tt>)</td>
+<td>Removes leading and trailing blanks from values (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 <tr class="row-even"><td>skip</td>
 <td>Number of lines since the file beginning to ignore when parsing the CSV content.</td>
@@ -833,10 +925,10 @@ as shown below:</p>
 <td>Limits the number of retrieved records to the specified value.</td>
 </tr>
 <tr class="row-even"><td>decompress</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> decompress the content using the GZIP format before processing it (note: files whose name ends with <tt class="docutils literal"><span class="pre">.gz</span></tt> extension are decompressed automatically)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-odd"><td>file</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> saves each split to a file. Use a string instead of <tt class="docutils literal"><span class="pre">true</span></tt> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
@@ -846,33 +938,35 @@ as shown below:</p>
 </div>
 <div class="section" id="splitfasta">
 <h3>splitFasta<a class="headerlink" href="#splitfasta" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">splitFasta</span></tt> operator allows you to split the entries emitted by a channel, that are formatted using the
+<p>The <code class="docutils literal"><span class="pre">splitFasta</span></code> operator allows you to split the entries emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/FASTA_format">FASTA format</a>. It returns a channel which emits text item
 for each sequence in the received FASTA content.</p>
-<p>The number of sequences in each text chunk produced by the <tt class="docutils literal"><span class="pre">splitFasta</span></tt> operator can be set by using
-the <tt class="docutils literal"><span class="pre">by</span></tt> parameter. The following example shows how to read a FASTA file and split it into chunks containing 10 sequences
+<p>The number of sequences in each text chunk produced by the <code class="docutils literal"><span class="pre">splitFasta</span></code> operator can be set by using
+the <code class="docutils literal"><span class="pre">by</span></code> parameter. The following example shows how to read a FASTA file and split it into chunks containing 10 sequences
 each:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('misc/sample.fa')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;misc/sample.fa&#39;)
      .splitFasta( by: 10 )
-     .subscribe { print it }</pre>
+     .subscribe { print it }
+</pre></div>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">splitFasta</span></tt> operator allows you to split a FASTA content into record objects, instead
+<p>A second version of the <code class="docutils literal"><span class="pre">splitFasta</span></code> operator allows you to split a FASTA content into record objects, instead
 of text chunks. A record object contains a set of fields that let you access and manipulate the FASTA sequence
 information with ease.</p>
-<p>In order to split a FASTA content into record objects, simply use the <tt class="docutils literal"><span class="pre">record</span></tt> parameter specifying the map of
+<p>In order to split a FASTA content into record objects, simply use the <code class="docutils literal"><span class="pre">record</span></code> parameter specifying the map of
 required the fields, as shown in the example below:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('misc/sample.fa')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;misc/sample.fa&#39;)
      .splitFasta( record: [id: true, seqString: true ])
      .filter { record -&gt; record.id =~ /^ENST0.*/ }
-     .subscribe { record -&gt; println record.seqString }</pre>
+     .subscribe { record -&gt; println record.seqString }
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">In this example, the file <tt class="docutils literal"><span class="pre">misc/sample.fa</span></tt> is split into records containing the <tt class="docutils literal"><span class="pre">id</span></tt> and the <tt class="docutils literal"><span class="pre">seqString</span></tt> fields
-(i.e. the sequence id and the sequence data). The following <tt class="docutils literal"><span class="pre">filter</span></tt> operator only keeps the sequences which ID
-starts with the <tt class="docutils literal"><span class="pre">ENST0</span></tt> prefix, finally the sequence content is printed by using the <tt class="docutils literal"><span class="pre">subscribe</span></tt> operator.</p>
+<p class="last">In this example, the file <code class="docutils literal"><span class="pre">misc/sample.fa</span></code> is split into records containing the <code class="docutils literal"><span class="pre">id</span></code> and the <code class="docutils literal"><span class="pre">seqString</span></code> fields
+(i.e. the sequence id and the sequence data). The following <code class="docutils literal"><span class="pre">filter</span></code> operator only keeps the sequences which ID
+starts with the <code class="docutils literal"><span class="pre">ENST0</span></code> prefix, finally the sequence content is printed by using the <code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
 </div>
 <p>Available parameters:</p>
 <table border="1" class="docutils">
@@ -887,7 +981,7 @@ starts with the <tt class="docutils literal"><span class="pre">ENST0</span></tt>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>by</td>
-<td>Defines the number of sequences in each <cite>chunk</cite> (default: <tt class="docutils literal"><span class="pre">1</span></tt>)</td>
+<td>Defines the number of sequences in each <cite>chunk</cite> (default: <code class="docutils literal"><span class="pre">1</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>limit</td>
 <td>Limits the number of retrieved sequences to the specified value.</td>
@@ -896,20 +990,20 @@ starts with the <tt class="docutils literal"><span class="pre">ENST0</span></tt>
 <td>Parse each entry in the FASTA file as record objects (see following table for accepted values)</td>
 </tr>
 <tr class="row-odd"><td>charset</td>
-<td>Parse the content by using the specified charset e.g. <tt class="docutils literal"><span class="pre">UTF-8</span></tt></td>
+<td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
 <tr class="row-even"><td>decompress</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt>, decompress the content using the GZIP format before processing it (note: files whose name ends with <tt class="docutils literal"><span class="pre">.gz</span></tt> extension are decompressed automatically)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-odd"><td>file</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> saves each split to a file. Use a string instead of <tt class="docutils literal"><span class="pre">true</span></tt> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
 </tr>
 </tbody>
 </table>
-<p>The following fields are available when using the <tt class="docutils literal"><span class="pre">record</span></tt> parameter:</p>
+<p>The following fields are available when using the <code class="docutils literal"><span class="pre">record</span></code> parameter:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="8%" />
@@ -922,10 +1016,10 @@ starts with the <tt class="docutils literal"><span class="pre">ENST0</span></tt>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>id</td>
-<td>The FASTA sequence identifier i.e. the word following the <tt class="docutils literal"><span class="pre">&gt;</span></tt> symbol up to the first <cite>blank</cite> or <cite>newline</cite> character</td>
+<td>The FASTA sequence identifier i.e. the word following the <code class="docutils literal"><span class="pre">&gt;</span></code> symbol up to the first <cite>blank</cite> or <cite>newline</cite> character</td>
 </tr>
 <tr class="row-odd"><td>header</td>
-<td>The first line in a FASTA sequence without the <tt class="docutils literal"><span class="pre">&gt;</span></tt> character</td>
+<td>The first line in a FASTA sequence without the <code class="docutils literal"><span class="pre">&gt;</span></code> character</td>
 </tr>
 <tr class="row-even"><td>desc</td>
 <td>The text in the FASTA header following the ID value</td>
@@ -940,33 +1034,35 @@ starts with the <tt class="docutils literal"><span class="pre">ENST0</span></tt>
 <td>The sequence data as a multi-line string (always ending with a <cite>newline</cite> character)</td>
 </tr>
 <tr class="row-even"><td>width</td>
-<td>Define the length of a single line when the <tt class="docutils literal"><span class="pre">sequence</span></tt> field is used, after that the sequence data continues on a new line.</td>
+<td>Define the length of a single line when the <code class="docutils literal"><span class="pre">sequence</span></code> field is used, after that the sequence data continues on a new line.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="splitfastq">
 <h3>splitFastq<a class="headerlink" href="#splitfastq" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">splitFastq</span></tt> operator allows you to split the entries emitted by a channel, that are formatted using the
+<p>The <code class="docutils literal"><span class="pre">splitFastq</span></code> operator allows you to split the entries emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/FASTQ_format">FASTQ format</a>. It returns a channel which emits a text chunk
 for each sequence in the received item.</p>
-<p>The number of sequences in each text chunk produced by the <tt class="docutils literal"><span class="pre">splitFastq</span></tt> operator is defined by the
-parameter <tt class="docutils literal"><span class="pre">by</span></tt>. The following example shows you how to read a FASTQ file and split it into chunks containing 10
+<p>The number of sequences in each text chunk produced by the <code class="docutils literal"><span class="pre">splitFastq</span></code> operator is defined by the
+parameter <code class="docutils literal"><span class="pre">by</span></code>. The following example shows you how to read a FASTQ file and split it into chunks containing 10
 sequences each:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('misc/sample.fastq')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;misc/sample.fastq&#39;)
      .splitFastq( by: 10 )
-     .subscribe { print it }</pre>
+     .subscribe { print it }
+</pre></div>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">splitFastq</span></tt> operator allows you to split a FASTQ formatted content into record objects,
+<p>A second version of the <code class="docutils literal"><span class="pre">splitFastq</span></code> operator allows you to split a FASTQ formatted content into record objects,
 instead of text chunks. A record object contains a set of fields that let you access and manipulate the FASTQ sequence
 data with ease.</p>
-<p>In order to split FASTQ sequences into record objects simply use the <tt class="docutils literal"><span class="pre">record</span></tt> parameter specifying the map of
-the required fields, or just specify <tt class="docutils literal"><span class="pre">record:</span> <span class="pre">true</span></tt> as in the example shown below:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('misc/sample.fastq')
+<p>In order to split FASTQ sequences into record objects simply use the <code class="docutils literal"><span class="pre">record</span></code> parameter specifying the map of
+the required fields, or just specify <code class="docutils literal"><span class="pre">record:</span> <span class="pre">true</span></code> as in the example shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;misc/sample.fastq&#39;)
      .splitFastq( record: true )
-     .subscribe { record -&gt; println record.readHeader }</pre>
+     .subscribe { record -&gt; println record.readHeader }
+</pre></div>
 </div>
 <p>Available parameters:</p>
 <table border="1" class="docutils">
@@ -981,7 +1077,7 @@ the required fields, or just specify <tt class="docutils literal"><span class="p
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>by</td>
-<td>Defines the number of <em>reads</em> in each <cite>chunk</cite> (default: <tt class="docutils literal"><span class="pre">1</span></tt>)</td>
+<td>Defines the number of <em>reads</em> in each <cite>chunk</cite> (default: <code class="docutils literal"><span class="pre">1</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>limit</td>
 <td>Limits the number of retrieved <em>reads</em> to the specified value.</td>
@@ -990,20 +1086,20 @@ the required fields, or just specify <tt class="docutils literal"><span class="p
 <td>Parse each entry in the FASTQ file as record objects (see following table for accepted values)</td>
 </tr>
 <tr class="row-odd"><td>charset</td>
-<td>Parse the content by using the specified charset e.g. <tt class="docutils literal"><span class="pre">UTF-8</span></tt></td>
+<td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
 <tr class="row-even"><td>decompress</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt>, decompress the content using the GZIP format before processing it (note: files whose name ends with <tt class="docutils literal"><span class="pre">.gz</span></tt> extension are decompressed automatically)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-odd"><td>file</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> saves each split to a file. Use a string instead of <tt class="docutils literal"><span class="pre">true</span></tt> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
 </tr>
 </tbody>
 </table>
-<p>The following fields are available when using the <tt class="docutils literal"><span class="pre">record</span></tt> parameter:</p>
+<p>The following fields are available when using the <code class="docutils literal"><span class="pre">record</span></code> parameter:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="26%" />
@@ -1016,7 +1112,7 @@ the required fields, or just specify <tt class="docutils literal"><span class="p
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>readHeader</td>
-<td>Sequence header (without the <tt class="docutils literal"><span class="pre">&#64;</span></tt> prefix)</td>
+<td>Sequence header (without the <code class="docutils literal"><span class="pre">&#64;</span></code> prefix)</td>
 </tr>
 <tr class="row-odd"><td>readString</td>
 <td>The raw sequence data</td>
@@ -1032,35 +1128,38 @@ the required fields, or just specify <tt class="docutils literal"><span class="p
 </div>
 <div class="section" id="splittext">
 <h3>splitText<a class="headerlink" href="#splittext" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">splitText</span></tt> operator allows you to split multi-line strings or text file items, emitted by a source channel
+<p>The <code class="docutils literal"><span class="pre">splitText</span></code> operator allows you to split multi-line strings or text file items, emitted by a source channel
 into chunks containing <cite>n</cite> lines, which will be emitted by the resulting channel.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('/some/path/*.txt')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;/some/path/*.txt&#39;)
      .splitText()
-     .subscribe { print it }</pre>
+     .subscribe { print it }
+</pre></div>
 </div>
-<p>It splits the content of the files with suffix <tt class="docutils literal"><span class="pre">.txt</span></tt>, and prints it line by line.</p>
-<p>By default the <tt class="docutils literal"><span class="pre">splitText</span></tt> operator splits each item into chunks of one line. You can define the number of lines in each chunk by using
-the parameter <tt class="docutils literal"><span class="pre">by</span></tt>, as shown in the following example:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('/some/path/*.txt')
+<p>It splits the content of the files with suffix <code class="docutils literal"><span class="pre">.txt</span></code>, and prints it line by line.</p>
+<p>By default the <code class="docutils literal"><span class="pre">splitText</span></code> operator splits each item into chunks of one line. You can define the number of lines in each chunk by using
+the parameter <code class="docutils literal"><span class="pre">by</span></code>, as shown in the following example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;/some/path/*.txt&#39;)
      .splitText( by: 10 )
      .subscribe {
          print it;
-         print "--- end of the chunk ---\n"
-     }</pre>
+         print &quot;--- end of the chunk ---\n&quot;
+     }
+</pre></div>
 </div>
-<p>An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> can be specified in order to <cite>transform</cite> the text chunks produced by the operator.
+<p>An optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> can be specified in order to <cite>transform</cite> the text chunks produced by the operator.
 The following example shows how to split text files into chunks of 10 lines and transform them to capital letters:</p>
-<div class="highlight-python"><pre>Channel
-   .fromPath('/some/path/*.txt')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+   .fromPath(&#39;/some/path/*.txt&#39;)
    .splitText( by: 10 ) { it.toUpperCase() }
-   .subscribe { print it }</pre>
+   .subscribe { print it }
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Text chunks returned by the operator <tt class="docutils literal"><span class="pre">splitText</span></tt> are always terminated by a <tt class="docutils literal"><span class="pre">newline</span></tt> character.</p>
+<p class="last">Text chunks returned by the operator <code class="docutils literal"><span class="pre">splitText</span></code> are always terminated by a <code class="docutils literal"><span class="pre">newline</span></code> character.</p>
 </div>
 <p>Available parameters:</p>
 <table border="1" class="docutils">
@@ -1075,19 +1174,19 @@ The following example shows how to split text files into chunks of 10 lines and 
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>by</td>
-<td>Defines the number of lines in each <cite>chunk</cite> (default: <tt class="docutils literal"><span class="pre">1</span></tt>)</td>
+<td>Defines the number of lines in each <cite>chunk</cite> (default: <code class="docutils literal"><span class="pre">1</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>limit</td>
 <td>Limits the number of retrieved lines to the specified value.</td>
 </tr>
 <tr class="row-even"><td>charset</td>
-<td>Parse the content by using the specified charset e.g. <tt class="docutils literal"><span class="pre">UTF-8</span></tt></td>
+<td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
 <tr class="row-odd"><td>decompress</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt>, decompress the content using the GZIP format before processing it (note: files whose name ends with <tt class="docutils literal"><span class="pre">.gz</span></tt> extension are decompressed automatically)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-even"><td>file</td>
-<td>When <tt class="docutils literal"><span class="pre">true</span></tt> saves each split to a file. Use a string instead of <tt class="docutils literal"><span class="pre">true</span></tt> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-odd"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
@@ -1112,14 +1211,15 @@ The following example shows how to split text files into chunks of 10 lines and 
 </ul>
 <div class="section" id="into">
 <h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">into</span></tt> operator connects a source channel to one or more target channels in such a way the values emitted by
+<p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to one or more target channels in such a way the values emitted by
 the source channel are copied to the target channel(s). For example:</p>
-<div class="highlight-python"><pre>target = Channel.create()
+<div class="highlight-python"><div class="highlight"><pre>target = Channel.create()
 target.subscribe { println it }
 
 Channel
-    .from( 'a', 'b', 'c', 'd' )
-    .into( target )</pre>
+    .from( &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39; )
+    .into( target )
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">a</span>
 <span class="n">b</span>
@@ -1129,56 +1229,60 @@ Channel
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The target channel specified as a parameter to the <tt class="docutils literal"><span class="pre">into</span></tt> operator must have been declared previously.</p>
+<p class="last">The target channel specified as a parameter to the <code class="docutils literal"><span class="pre">into</span></code> operator must have been declared previously.</p>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">into</span></tt> operator takes a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> as a parameter which declares one or more
+<p>A second version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> as a parameter which declares one or more
 target channels to which the source one is connected. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'a', 'b', 'c', 'd' )
-    .into { foo; bar }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39; )
+    .into { foo; bar }
+</pre></div>
 </div>
-<p>The advantage of using this syntax is that the <tt class="docutils literal"><span class="pre">into</span></tt> operator implicitly creates the target channel(s) as needed
+<p>The advantage of using this syntax is that the <code class="docutils literal"><span class="pre">into</span></code> operator implicitly creates the target channel(s) as needed
 and you won't need to create it/them as in the previous example.</p>
-<p>Finally, a third version of the <tt class="docutils literal"><span class="pre">into</span></tt> operator takes an integer <cite>n</cite> as an argument and returns
+<p>Finally, a third version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
 a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
 source channel. For example:</p>
-<div class="highlight-python"><pre>(foo, bar) = Channel.from( 'a','b','c').into(2)
-foo.subscribe { println "Channel 1 emit: " + it }
-bar.subscribe { println "Channel 2 emit: " + it }</pre>
+<div class="highlight-python"><div class="highlight"><pre>(foo, bar) = Channel.from( &#39;a&#39;,&#39;b&#39;,&#39;c&#39;).into(2)
+foo.subscribe { println &quot;Channel 1 emit: &quot; + it }
+bar.subscribe { println &quot;Channel 2 emit: &quot; + it }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Foo emit: a
+<div class="highlight-python"><div class="highlight"><pre>Foo emit: a
 Foo emit: b
 Foo emit: c
 
 Bar emit: a
 Bar emit: b
-Bar emit: c</pre>
+Bar emit: c
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><em>multiple assignment</em></a> syntax
-in order to assign two variables at once using the list of channels returned by the <tt class="docutils literal"><span class="pre">into</span></tt> operator.</p>
+<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span>multiple assignment</span></a> syntax
+in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">into</span></code> operator.</p>
 </div>
 <p>See also <a class="reference internal" href="#tap">tap</a>, <a class="reference internal" href="#separate">separate</a> and <a class="reference internal" href="#route">route</a> operators.</p>
 </div>
 <div class="section" id="tap">
 <h3>tap<a class="headerlink" href="#tap" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">tap</span></tt> operator combines the functions of <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators in such a way that
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator combines the functions of <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators in such a way that
 it connects two channels, copying the values from the source into the <cite>tapped</cite> channel. At the same
 time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
-<p>The <tt class="docutils literal"><span class="pre">tap</span></tt> can be useful in certain scenarios where you may be required to concatenate multiple operations,
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
 as in the following example:</p>
-<div class="highlight-python"><pre>log1 = Channel.create().subscribe { println "Log 1: $it" }
-log2 = Channel.create().subscribe { println "Log 2: $it" }
+<div class="highlight-python"><div class="highlight"><pre>log1 = Channel.create().subscribe { println &quot;Log 1: $it&quot; }
+log2 = Channel.create().subscribe { println &quot;Log 2: $it&quot; }
 
 Channel
-    .from ( 'a', 'b', 'c' )
+    .from ( &#39;a&#39;, &#39;b&#39;, &#39;c&#39; )
         .tap( log1 )
         .map { it * 2 }
         .tap( log2 )
-        .subscribe { println "Result: $it" }</pre>
+        .subscribe { println &quot;Result: $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Log 1: a
+<div class="highlight-python"><div class="highlight"><pre>Log 1: a
 Log 1: b
 Log 1: c
 
@@ -1188,35 +1292,38 @@ Log 2: cc
 
 Result: aa
 Result: bb
-Result: cc</pre>
+Result: cc
+</pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">tap</span></tt> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
 is that you won't need to previously create the target channel, because it is created implicitly by the operator itself.</p>
 <p>Using the closure syntax the above example can be rewritten as shown below:</p>
-<div class="highlight-python"><pre>Channel
-    .from ( 'a', 'b', 'c' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from ( &#39;a&#39;, &#39;b&#39;, &#39;c&#39; )
         .tap { log1 }
         .map { it * 2 }
         .tap { log2 }
-        .subscribe { println "Result: $it" }
+        .subscribe { println &quot;Result: $it&quot; }
 
 
-log1.subscribe { println "Log 1: $it" }
-log2.subscribe { println "Log 2: $it" }</pre>
+log1.subscribe { println &quot;Log 1: $it&quot; }
+log2.subscribe { println &quot;Log 2: $it&quot; }
+</pre></div>
 </div>
 <p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
 <div class="section" id="merge">
 <h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">merge</span></tt> operator lets you join items emitted by two (or more) channels into a new channel.</p>
+<p>The <code class="docutils literal"><span class="pre">merge</span></code> operator lets you join items emitted by two (or more) channels into a new channel.</p>
 <p>For example the following code merges two channels together, one which emits a series of odd integers
 and the other which emits a series of even integers:</p>
-<div class="highlight-python"><pre>odds  = Channel.from([1, 3, 5, 7, 9]);
+<div class="highlight-python"><div class="highlight"><pre>odds  = Channel.from([1, 3, 5, 7, 9]);
 evens = Channel.from([2, 4, 6]);
 
 odds
     .merge( evens ) { o, e -&gt; [o, e] }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
@@ -1226,14 +1333,15 @@ odds
 </div>
 <div class="section" id="mix">
 <h3>mix<a class="headerlink" href="#mix" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">mix</span></tt> operator combines the items emitted by two (or more) channels into a single channel.</p>
+<p>The <code class="docutils literal"><span class="pre">mix</span></code> operator combines the items emitted by two (or more) channels into a single channel.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>c1 = Channel.from( 1,2,3 )
-c2 = Channel.from( 'a','b' )
-c3 = Channel.form( 'z' )
+<div class="highlight-python"><div class="highlight"><pre>c1 = Channel.from( 1,2,3 )
+c2 = Channel.from( &#39;a&#39;,&#39;b&#39; )
+c3 = Channel.form( &#39;z&#39; )
 
 c1 .mix(c2,c3)
-   .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+   .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span>
 <span class="mi">2</span>
@@ -1260,14 +1368,15 @@ it could be a possible result of the above example as well.</p>
 </div>
 <div class="section" id="phase">
 <h3>phase<a class="headerlink" href="#phase" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">phase</span></tt> operator creates a channel that synchronizes the values emitted by two other channels,
+<p>The <code class="docutils literal"><span class="pre">phase</span></code> operator creates a channel that synchronizes the values emitted by two other channels,
 in such a way that it emits pairs of items that have a matching key.</p>
 <p>The key is defined, by default, as the first entry in an array, a list or map object,
 or the value itself for any other data type.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>ch1 = Channel.from( 1,2,3 )
+<div class="highlight-python"><div class="highlight"><pre>ch1 = Channel.from( 1,2,3 )
 ch2 = Channel.from( 1,0,0,2,7,8,9,3 )
-ch1 .phase(ch2) .subscribe { println it }</pre>
+ch1 .phase(ch2) .subscribe { println it }
+</pre></div>
 </div>
 <p>It prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
@@ -1277,19 +1386,22 @@ ch1 .phase(ch2) .subscribe { println it }</pre>
 </div>
 <p>Optionally, a mapping function can be specified in order to provide a custom rule to associate an item to a key,
 as shown in the following example:</p>
-<div class="highlight-python"><pre>ch1 = Channel.from( [sequence: 'aaaaaa', id: 1], [sequence: 'bbbbbb', id: 2] )
-ch2 = Channel.from( [val: 'zzzz', id: 3], [val: 'xxxxx', id: 1], [val: 'yyyyy', id: 2])
-ch1 .phase(ch2) { it -&gt; it.id } .subscribe { println it }</pre>
+<div class="highlight-python"><div class="highlight"><pre>ch1 = Channel.from( [sequence: &#39;aaaaaa&#39;, id: 1], [sequence: &#39;bbbbbb&#39;, id: 2] )
+ch2 = Channel.from( [val: &#39;zzzz&#39;, id: 3], [val: &#39;xxxxx&#39;, id: 1], [val: &#39;yyyyy&#39;, id: 2])
+ch1 .phase(ch2) { it -&gt; it.id } .subscribe { println it }
+</pre></div>
 </div>
 <p>It prints:</p>
-<div class="highlight-python"><pre>[[sequence:aaaaaa, id:1], [val:xxxxx, id:1]]
-[[sequence:bbbbbb, id:2], [val:yyyyy, id:2]]</pre>
+<div class="highlight-python"><div class="highlight"><pre>[[sequence:aaaaaa, id:1], [val:xxxxx, id:1]]
+[[sequence:bbbbbb, id:2], [val:yyyyy, id:2]]
+</pre></div>
 </div>
-<p>Finally, the <tt class="docutils literal"><span class="pre">phase</span></tt> operator can emit all the pairs that are incomplete, i.e. the items for which a matching element
-is missing, by specifying the optional parameter <tt class="docutils literal"><span class="pre">remainder</span></tt> as shown below:</p>
-<div class="highlight-python"><pre>ch1 = Channel.from( 1,0,0,2,5,3 )
+<p>Finally, the <code class="docutils literal"><span class="pre">phase</span></code> operator can emit all the pairs that are incomplete, i.e. the items for which a matching element
+is missing, by specifying the optional parameter <code class="docutils literal"><span class="pre">remainder</span></code> as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>ch1 = Channel.from( 1,0,0,2,5,3 )
 ch2 = Channel.from( 1,2,3,4 )
-ch1 .phase(ch2, remainder: true) .subscribe { println it }</pre>
+ch1 .phase(ch2, remainder: true) .subscribe { println it }
+</pre></div>
 </div>
 <p>It prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -1304,15 +1416,16 @@ ch1 .phase(ch2, remainder: true) .subscribe { println it }</pre>
 </div>
 <div class="section" id="cross">
 <h3>cross<a class="headerlink" href="#cross" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">cross</span></tt> operators allows you to combine the items of two channels in such a way that
+<p>The <code class="docutils literal"><span class="pre">cross</span></code> operators allows you to combine the items of two channels in such a way that
 the items of the source channel are emitted along with the items emitted by the target channel
 for which they have a matching key.</p>
 <p>The key is defined, by default, as the first entry in an array, a list or map object,
 or the value itself for any other data type. For example:</p>
-<div class="highlight-python"><pre>source = Channel.from( [1, 'alpha'], [2, 'beta'] )
-target = Channel.from( [1, 'x'], [1, 'y'], [1, 'z'], [2,'p'], [2,'q'], [2,'t'] )
+<div class="highlight-python"><div class="highlight"><pre>source = Channel.from( [1, &#39;alpha&#39;], [2, &#39;beta&#39;] )
+target = Channel.from( [1, &#39;x&#39;], [1, &#39;y&#39;], [1, &#39;z&#39;], [2,&#39;p&#39;], [2,&#39;q&#39;], [2,&#39;t&#39;] )
 
-source.cross(target).subscribe { println it }</pre>
+source.cross(target).subscribe { println it }
+</pre></div>
 </div>
 <p>It will output:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="p">]</span>
@@ -1325,10 +1438,10 @@ source.cross(target).subscribe { println it }</pre>
 </div>
 <p>The above example shows how the items emitted by the source channels are associated to the ones
 emitted by the target channel (on the right) having the same key.</p>
-<p>There are two important caveats when using the <tt class="docutils literal"><span class="pre">cross</span></tt> operator:</p>
+<p>There are two important caveats when using the <code class="docutils literal"><span class="pre">cross</span></code> operator:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>The operator is not <cite>reflexive</cite>, i.e. the result of <tt class="docutils literal"><span class="pre">a.cross(b)</span></tt> is different from <tt class="docutils literal"><span class="pre">b.cross(a)</span></tt></li>
+<li>The operator is not <cite>reflexive</cite>, i.e. the result of <code class="docutils literal"><span class="pre">a.cross(b)</span></code> is different from <code class="docutils literal"><span class="pre">b.cross(a)</span></code></li>
 <li>The source channel should emits items for which there's no key repetition i.e. the emitted
 items have an unique key identifier.</li>
 </ol>
@@ -1338,49 +1451,52 @@ in a similar manner as shown for the <a class="reference internal" href="#phase"
 </div>
 <div class="section" id="collectfile">
 <h3>collectFile<a class="headerlink" href="#collectfile" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">collectFile</span></tt> operator allows you to gather the items emitted by a channel and save them to one or more files.
+<p>The <code class="docutils literal"><span class="pre">collectFile</span></code> operator allows you to gather the items emitted by a channel and save them to one or more files.
 The operator returns a new channel that emits the collected file(s).</p>
 <p>In the simplest case, just specify the name of a file where the entries have to be stored. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from('alpha', 'beta', 'gamma')
-    .collectFile(name: 'sample.txt', newLine: true)
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&#39;alpha&#39;, &#39;beta&#39;, &#39;gamma&#39;)
+    .collectFile(name: &#39;sample.txt&#39;, newLine: true)
     .subscribe {
-        println "Entries are saved to file: $it"
-        println "File content is: ${it.text}"
-    }</pre>
+        println &quot;Entries are saved to file: $it&quot;
+        println &quot;File content is: ${it.text}&quot;
+    }
+</pre></div>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">collectFile</span></tt> operator allows you to gather the items emitted by a channel and group them together
-into files whose name can be defined by a dynamic criteria. The grouping criteria is specified by a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>
+<p>A second version of the <code class="docutils literal"><span class="pre">collectFile</span></code> operator allows you to gather the items emitted by a channel and group them together
+into files whose name can be defined by a dynamic criteria. The grouping criteria is specified by a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a>
 that must return a pair in which the first element defines the file name for the group and the second element the actual
 value to be appended to that file. For example:</p>
-<div class="highlight-python"><pre>Channel
-   .from('Hola', 'Ciao', 'Hello', 'Bonjour', 'Halo')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+   .from(&#39;Hola&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Bonjour&#39;, &#39;Halo&#39;)
    .collectFile() { item -&gt;
-       [ "${item[0]}.txt", item + '\n' ]
+       [ &quot;${item[0]}.txt&quot;, item + &#39;\n&#39; ]
    }
    .subscribe {
-       println "File ${it.name} contains:"
+       println &quot;File ${it.name} contains:&quot;
        println it.text
-   }</pre>
+   }
+</pre></div>
 </div>
 <p>It will print:</p>
-<div class="highlight-python"><pre>File 'B.txt' contains:
+<div class="highlight-python"><div class="highlight"><pre>File &#39;B.txt&#39; contains:
 Bonjour
 
-File 'C.txt' contains:
+File &#39;C.txt&#39; contains:
 Ciao
 
-File 'H.txt' contains:
+File &#39;H.txt&#39; contains:
 Halo
 Hola
-Hello</pre>
+Hello
+</pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">When the items emitted by the source channel are files, the grouping criteria can be omitted. In this case
 the items content will be grouped in file(s) having the same name as the source items.</p>
 </div>
-<p>The following parameters can be used with the <tt class="docutils literal"><span class="pre">collectFile</span></tt> operator:</p>
+<p>The following parameters can be used with the <code class="docutils literal"><span class="pre">collectFile</span></code> operator:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="15%" />
@@ -1399,7 +1515,7 @@ the items content will be grouped in file(s) having the same name as the source 
 <td>A value or a map of values used to initialise the files content</td>
 </tr>
 <tr class="row-even"><td>newLine</td>
-<td>Appends a <tt class="docutils literal"><span class="pre">newline</span></tt> character automatically after each entry (default: <tt class="docutils literal"><span class="pre">false</span></tt>)</td>
+<td>Appends a <code class="docutils literal"><span class="pre">newline</span></code> character automatically after each entry (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>storeDir</td>
 <td>Folder where the resulting file(s) are be stored</td>
@@ -1418,7 +1534,7 @@ the items content will be grouped in file(s) having the same name as the source 
 entries have been added to it, this guarantees that it is consistent (i.e. do not change) across different executions
 with the same data.</p>
 </div>
-<p>The ordering of file's content can be defined by using the <tt class="docutils literal"><span class="pre">sort</span></tt> parameter. The following criteria
+<p>The ordering of file's content can be defined by using the <code class="docutils literal"><span class="pre">sort</span></code> parameter. The following criteria
 can be specified:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -1444,54 +1560,58 @@ can be specified:</p>
 <td>Similar to the previous, but the hash number is created on actual entries content e.g. when the entry is a file the hash is created on the actual file content.</td>
 </tr>
 <tr class="row-even"><td><cite>custom</cite></td>
-<td>A custom sorting criteria can be specified by using either a <a class="reference internal" href="script.html#script-closure"><em>Closure</em></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</td>
+<td>A custom sorting criteria can be specified by using either a <a class="reference internal" href="script.html#script-closure"><span>Closure</span></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</td>
 </tr>
 </tbody>
 </table>
 <p>For example the following snippet shows how sort the content of the result file alphabetically:</p>
-<div class="highlight-python"><pre>Channel
-   .from('Z'..'A')
-   .collectFile(name:'result', sort: true, newLine: true)
+<div class="highlight-python"><div class="highlight"><pre>Channel
+   .from(&#39;Z&#39;..&#39;A&#39;)
+   .collectFile(name:&#39;result&#39;, sort: true, newLine: true)
    .subscribe {
        println it.text
-   }</pre>
+   }
+</pre></div>
 </div>
 <p>It will print:</p>
-<div class="highlight-python"><pre>A
+<div class="highlight-python"><div class="highlight"><pre>A
 B
 C
 :
-Z</pre>
+Z
+</pre></div>
 </div>
 <p>The following example shows how use a <cite>closure</cite> to collect and sort all sequences in a FASTA file from shortest to longest:</p>
-<div class="highlight-python"><pre>Channel
-     .fromPath('/data/sequences.fa')
+<div class="highlight-python"><div class="highlight"><pre>Channel
+     .fromPath(&#39;/data/sequences.fa&#39;)
      .splitFasta( record: [id: true, sequence: true] )
-     .collectFile( name:'result.fa', sort: { it.size() } )  {
+     .collectFile( name:&#39;result.fa&#39;, sort: { it.size() } )  {
         it.sequence
       }
-     .subscribe { println it.text }</pre>
+     .subscribe { println it.text }
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The <tt class="docutils literal"><span class="pre">collectFile</span></tt> operator to carry out its function need to store in a temporary folder that is
+<p class="last">The <code class="docutils literal"><span class="pre">collectFile</span></code> operator to carry out its function need to store in a temporary folder that is
 automatically deleted on job completion. For performance reason this folder is allocated in the machine local storage,
 and it will require as much free space as are the data you are collecting. Optionally, an alternative temporary data
-folder can be specified by using the <tt class="docutils literal"><span class="pre">tempDir</span></tt> parameter.</p>
+folder can be specified by using the <code class="docutils literal"><span class="pre">tempDir</span></code> parameter.</p>
 </div>
 </div>
 <div class="section" id="concat">
 <h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">concat</span></tt> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel, in such
+<p>The <code class="docutils literal"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel, in such
 a way that the items emitted by the resulting channel are in same order as they were when specified as operator arguments.</p>
 <p>In other words it guarantees that given any <cite>n</cite> channels, the concatenation channel emits the items proceeding from the channel <cite>i+1 th</cite>
 only after <cite>all</cite> the items proceeding from the channel <cite>i th</cite> were emitted.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>a = Channel.from('a','b','c')
+<div class="highlight-python"><div class="highlight"><pre>a = Channel.from(&#39;a&#39;,&#39;b&#39;,&#39;c&#39;)
 b = Channel.from(1,2,3)
-c = Channel.from('p','q')
+c = Channel.from(&#39;p&#39;,&#39;q&#39;)
 
-c.concat( b, a ).subscribe { println it }</pre>
+c.concat( b, a ).subscribe { println it }
+</pre></div>
 </div>
 <p>It will output:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">p</span>
@@ -1507,12 +1627,13 @@ c.concat( b, a ).subscribe { println it }</pre>
 </div>
 <div class="section" id="spread">
 <h3>spread<a class="headerlink" href="#spread" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">spread</span></tt> operator combines the items emitted by the source channel with all the values in an array
-or a <tt class="docutils literal"><span class="pre">Collection</span></tt> object specified as the operator argument. For example:</p>
-<div class="highlight-python"><pre>Channel
+<p>The <code class="docutils literal"><span class="pre">spread</span></code> operator combines the items emitted by the source channel with all the values in an array
+or a <code class="docutils literal"><span class="pre">Collection</span></code> object specified as the operator argument. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(1,2,3)
-    .spread(['a','b'])
-    .subscribe onNext: { println it }, onComplete: { println 'Done' }</pre>
+    .spread([&#39;a&#39;,&#39;b&#39;])
+    .subscribe onNext: { println it }, onComplete: { println &#39;Done&#39; }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
@@ -1535,78 +1656,84 @@ or a <tt class="docutils literal"><span class="pre">Collection</span></tt> objec
 </ul>
 <div class="section" id="choice">
 <h3>choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">choice</span></tt> operator allows you to forward the items emitted by a source channel to two
+<p>The <code class="docutils literal"><span class="pre">choice</span></code> operator allows you to forward the items emitted by a source channel to two
 (or more) output channels, <cite>choosing</cite> one out of them at a time.</p>
-<p>The destination channel is selected by using a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> that must return the <cite>index</cite> number of the channel
-where the item has to be sent. The first channel is identified by the index <tt class="docutils literal"><span class="pre">0</span></tt>, the second as <tt class="docutils literal"><span class="pre">1</span></tt> and so on.</p>
-<p>The following example sends all string items beginning with <tt class="docutils literal"><span class="pre">Hello</span></tt> into <tt class="docutils literal"><span class="pre">queue1</span></tt>,
-the others into <tt class="docutils literal"><span class="pre">queue2</span></tt></p>
-<div class="highlight-python"><pre>source = Channel.from 'Hello world', 'Hola', 'Hello John'
+<p>The destination channel is selected by using a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> that must return the <cite>index</cite> number of the channel
+where the item has to be sent. The first channel is identified by the index <code class="docutils literal"><span class="pre">0</span></code>, the second as <code class="docutils literal"><span class="pre">1</span></code> and so on.</p>
+<p>The following example sends all string items beginning with <code class="docutils literal"><span class="pre">Hello</span></code> into <code class="docutils literal"><span class="pre">queue1</span></code>,
+the others into <code class="docutils literal"><span class="pre">queue2</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>source = Channel.from &#39;Hello world&#39;, &#39;Hola&#39;, &#39;Hello John&#39;
 queue1 = Channel.create()
 queue2 = Channel.create()
 
 source.choice( queue1, queue2 ) { a -&gt; a =~ /^Hello.*/ ? 0 : 1 }
 
-queue1.subscribe { println it }</pre>
+queue1.subscribe { println it }
+</pre></div>
 </div>
 </div>
 <div class="section" id="separate">
 <h3>separate<a class="headerlink" href="#separate" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">separate</span></tt> operator lets you copy the items emitted by the source channel into multiple
+<p>The <code class="docutils literal"><span class="pre">separate</span></code> operator lets you copy the items emitted by the source channel into multiple
 channels, which each of these can receive a <cite>separate</cite> version of the same item.</p>
 <p>The operator applies a <cite>mapping function</cite> of your choosing to every item emitted by the source channel.
 This function must return a list of as many values as there are output channels. Each entry in the result
 list will be assigned to the output channel with the corresponding position index. For example:</p>
-<div class="highlight-python"><pre>queue1 = Channel.create()
+<div class="highlight-python"><div class="highlight"><pre>queue1 = Channel.create()
 queue2 = Channel.create()
 
 Channel
     .from ( 2,4,8 )
     .separate( queue1, queue2 ) { a -&gt; [a+1, a*a] }
 
-queue1.subscribe { println "Channel 1: $it" }
-queue2.subscribe { println "Channel 2: $it" }</pre>
+queue1.subscribe { println &quot;Channel 1: $it&quot; }
+queue2.subscribe { println &quot;Channel 2: $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Channel 1: 3
+<div class="highlight-python"><div class="highlight"><pre>Channel 1: 3
 Channel 2: 4
 Channel 1: 5
 Channel 2: 16
 Channel 2: 64
-Channel 1: 9</pre>
+Channel 1: 9
+</pre></div>
 </div>
-<p>When the <cite>mapping function</cite> is omitted, the source channel must emit tuples of values. In this case the operator <tt class="docutils literal"><span class="pre">separate</span></tt>
+<p>When the <cite>mapping function</cite> is omitted, the source channel must emit tuples of values. In this case the operator <code class="docutils literal"><span class="pre">separate</span></code>
 splits the tuple in such a way that the value <cite>i-th</cite> in a tuple is assigned to the target channel with the corresponding position index.
 For example:</p>
-<div class="highlight-python"><pre>alpha = Channel.create()
+<div class="highlight-python"><div class="highlight"><pre>alpha = Channel.create()
 delta = Channel.create()
 
 Channel
-   .from([1,2], ['a','b'], ['p','q'])
+   .from([1,2], [&#39;a&#39;,&#39;b&#39;], [&#39;p&#39;,&#39;q&#39;])
    .separate( alpha, delta )
 
-alpha.subscribe { println "first : $it" }
-delta.subscribe { println "second: $it" }</pre>
+alpha.subscribe { println &quot;first : $it&quot; }
+delta.subscribe { println &quot;second: $it&quot; }
+</pre></div>
 </div>
 <p>It will output:</p>
-<div class="highlight-python"><pre>first : 1
+<div class="highlight-python"><div class="highlight"><pre>first : 1
 first : a
 first : p
 second: 2
 second: b
-second: q</pre>
+second: q
+</pre></div>
 </div>
-<p>A second version of the <tt class="docutils literal"><span class="pre">separate</span></tt> operator takes an integer <cite>n</cite> as an argument and returns a list of <cite>n</cite> channels,
+<p>A second version of the <code class="docutils literal"><span class="pre">separate</span></code> operator takes an integer <cite>n</cite> as an argument and returns a list of <cite>n</cite> channels,
 each of which gets a value from the corresponding element in the list returned by the closure as explained above.
 For example:</p>
-<div class="highlight-python"><pre>source = Channel.from(1,2,3)
+<div class="highlight-python"><div class="highlight"><pre>source = Channel.from(1,2,3)
 (queue1, queue2, queue3) = source.separate(3) { a -&gt; [a, a+1, a*a] }
 
-queue1.subscribe { println "Queue 1 &gt; $it" }
-queue2.subscribe { println "Queue 2 &gt; $it" }
-queue3.subscribe { println "Queue 3 &gt; $it" }</pre>
+queue1.subscribe { println &quot;Queue 1 &gt; $it&quot; }
+queue2.subscribe { println &quot;Queue 2 &gt; $it&quot; }
+queue3.subscribe { println &quot;Queue 3 &gt; $it&quot; }
+</pre></div>
 </div>
 <p>The output will look like the following fragment:</p>
-<div class="highlight-python"><pre>Queue 1 &gt; 1
+<div class="highlight-python"><div class="highlight"><pre>Queue 1 &gt; 1
 Queue 1 &gt; 2
 Queue 1 &gt; 3
 Queue 2 &gt; 2
@@ -1614,23 +1741,24 @@ Queue 2 &gt; 3
 Queue 2 &gt; 4
 Queue 3 &gt; 1
 Queue 3 &gt; 4
-Queue 3 &gt; 9</pre>
+Queue 3 &gt; 9
+</pre></div>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">In the above example, please note that since the <tt class="docutils literal"><span class="pre">subscribe</span></tt> operator is asynchronous,
-the output of <tt class="docutils literal"><span class="pre">channel2</span></tt> and <tt class="docutils literal"><span class="pre">channel3</span></tt> can be printed before the content of <tt class="docutils literal"><span class="pre">channel1</span></tt>.</p>
+<p class="last">In the above example, please note that since the <code class="docutils literal"><span class="pre">subscribe</span></code> operator is asynchronous,
+the output of <code class="docutils literal"><span class="pre">channel2</span></code> and <code class="docutils literal"><span class="pre">channel3</span></code> can be printed before the content of <code class="docutils literal"><span class="pre">channel1</span></code>.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><em>multiple assignment</em></a> syntax
-in order to assign two variables at once using the list of channels returned by the <tt class="docutils literal"><span class="pre">separate</span></tt> operator.</p>
+<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span>multiple assignment</span></a> syntax
+in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">separate</span></code> operator.</p>
 </div>
 <p>See also: <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
 </div>
 <div class="section" id="route">
 <h3>route<a class="headerlink" href="#route" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">route</span></tt> operator allows you to forward the items emitted by the source channel
+<p>The <code class="docutils literal"><span class="pre">route</span></code> operator allows you to forward the items emitted by the source channel
 to a channel which is associated with the item's key.</p>
 <p>The channel's keys are specified by using a map parameter as the operator argument,
 that associates each channel with a key identifier.</p>
@@ -1638,24 +1766,25 @@ that associates each channel with a key identifier.</p>
 or the value itself for any other data type.</p>
 <p>Optionally, a mapping function can be specified as a parameter in order to provide a custom
 rule to associate an item with a key, as shown in the example below:</p>
-<div class="highlight-python"><pre>r1 = Channel.create()
+<div class="highlight-python"><div class="highlight"><pre>r1 = Channel.create()
 r2 = Channel.create()
 r3 = Channel.create()
 
 Channel
-    .from('hello','ciao','hola', 'hi', 'x', 'bonjour')
+    .from(&#39;hello&#39;,&#39;ciao&#39;,&#39;hola&#39;, &#39;hi&#39;, &#39;x&#39;, &#39;bonjour&#39;)
     .route ( b: r1, c: r2, h: r3 ) { it[0] }
 
-    r3.subscribe { println it }</pre>
+    r3.subscribe { println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">hello</span>
 <span class="n">hola</span>
 <span class="n">hi</span>
 </pre></div>
 </div>
-<p>In the above example all the string items starting with the letter <tt class="docutils literal"><span class="pre">b</span></tt> are copied to the
-channel <tt class="docutils literal"><span class="pre">r1</span></tt>, the items that begin with <tt class="docutils literal"><span class="pre">c</span></tt> to the channel <tt class="docutils literal"><span class="pre">r2</span></tt> and the ones beginning
-with <tt class="docutils literal"><span class="pre">h</span></tt> are copied to the channel <tt class="docutils literal"><span class="pre">r3</span></tt>. Other items eventually existing are discarded.</p>
+<p>In the above example all the string items starting with the letter <code class="docutils literal"><span class="pre">b</span></code> are copied to the
+channel <code class="docutils literal"><span class="pre">r1</span></code>, the items that begin with <code class="docutils literal"><span class="pre">c</span></code> to the channel <code class="docutils literal"><span class="pre">r2</span></code> and the ones beginning
+with <code class="docutils literal"><span class="pre">h</span></code> are copied to the channel <code class="docutils literal"><span class="pre">r3</span></code>. Other items eventually existing are discarded.</p>
 <p>See also: <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a>  and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
 </div>
@@ -1672,137 +1801,155 @@ with <tt class="docutils literal"><span class="pre">h</span></tt> are copied to 
 </ul>
 <div class="section" id="count">
 <h3>count<a class="headerlink" href="#count" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">count</span></tt> operator creates a channel that emits a single item: a number that represents the total number of
+<p>The <code class="docutils literal"><span class="pre">count</span></code> operator creates a channel that emits a single item: a number that represents the total number of
 items emitted by the source channel. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(9,1,7,5)
     .count()
     .subscribe { println it }
-// -&gt; 4</pre>
+// -&gt; 4
+</pre></div>
 </div>
 <p>An optional parameter can be provided in order to select which items are to be counted.
-The selection criteria can be specified either as a <a class="reference internal" href="script.html#script-regexp"><em>regular expression</em></a>,
+The selection criteria can be specified either as a <a class="reference internal" href="script.html#script-regexp"><span>regular expression</span></a>,
 a literal value, a Java class, or a <cite>boolean predicate</cite> that needs to be satisfied. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from(4,1,7,1,1)
     .count(1)
     .subscribe { println it }
  // -&gt; 3
 
 Channel
-    .from('a','c','c','q','b')
+    .from(&#39;a&#39;,&#39;c&#39;,&#39;c&#39;,&#39;q&#39;,&#39;b&#39;)
     .count ( ~/c/ )
     .subscribe { println it }
 // -&gt; 2
 
 Channel
-    .from('a','c','c','q','b')
-    .count { it &lt;= 'c' }
+    .from(&#39;a&#39;,&#39;c&#39;,&#39;c&#39;,&#39;q&#39;,&#39;b&#39;)
+    .count { it &lt;= &#39;c&#39; }
     .subscribe { println it }
-// -&gt; 4</pre>
+// -&gt; 4
+</pre></div>
 </div>
 </div>
 <div class="section" id="countby">
 <h3>countBy<a class="headerlink" href="#countby" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">countBy</span></tt> operator creates a channel which emits an associative array (i.e. <tt class="docutils literal"><span class="pre">Map</span></tt> object)
+<p>The <code class="docutils literal"><span class="pre">countBy</span></code> operator creates a channel which emits an associative array (i.e. <code class="docutils literal"><span class="pre">Map</span></code> object)
 that counts the occurrences of the emitted items in the source channel having the same key.
 For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'x', 'y', 'x', 'x', 'z', 'y' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;x&#39;, &#39;y&#39;, &#39;x&#39;, &#39;x&#39;, &#39;z&#39;, &#39;y&#39; )
     .countBy()
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>[x:3, y:2, z:1]</pre>
+<div class="highlight-python"><div class="highlight"><pre>[x:3, y:2, z:1]
+</pre></div>
 </div>
-<p>An optional grouping criteria can be specified by using a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>
+<p>An optional grouping criteria can be specified by using a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a>
 that associates each item with the grouping key. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from( 'hola', 'hello', 'ciao', 'bonjour', 'halo' )
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from( &#39;hola&#39;, &#39;hello&#39;, &#39;ciao&#39;, &#39;bonjour&#39;, &#39;halo&#39; )
     .countBy { it[0] }
-    .subscribe { println it }</pre>
+    .subscribe { println it }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>[h:3, c:1, b:1]</pre>
+<div class="highlight-python"><div class="highlight"><pre>[h:3, c:1, b:1]
+</pre></div>
 </div>
 </div>
 <div class="section" id="min">
 <h3>min<a class="headerlink" href="#min" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">min</span></tt> operator waits until the source channel completes, and then emits the item that has the lowest value.
+<p>The <code class="docutils literal"><span class="pre">min</span></code> operator waits until the source channel completes, and then emits the item that has the lowest value.
 For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 8, 6, 2, 5 )
     .min()
-    .subscribe { println "Min value is $it" }</pre>
+    .subscribe { println &quot;Min value is $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Min value is 2</pre>
+<div class="highlight-python"><div class="highlight"><pre>Min value is 2
+</pre></div>
 </div>
-<p>An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> parameter can be specified in order to provide
+<p>An optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> parameter can be specified in order to provide
 a function that returns the value to be compared. The example below shows how to find the string
 item that has the minimum length:</p>
-<div class="highlight-python"><pre>Channel
-    .from("hello","hi","hey")
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&quot;hello&quot;,&quot;hi&quot;,&quot;hey&quot;)
     .min { it.size() }
-    .subscribe {  println it }</pre>
+    .subscribe {  println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;hi&quot;</span>
 </pre></div>
 </div>
-<p>Alternatively it is possible to specify a comparator function i.e. a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>
+<p>Alternatively it is possible to specify a comparator function i.e. a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a>
 taking two parameters that represent two emitted items to be compared. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from("hello","hi","hey")
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&quot;hello&quot;,&quot;hi&quot;,&quot;hey&quot;)
     .min { a,b -&gt; a.size() &lt;=&gt; b.size() }
-    .subscribe {  println it }</pre>
+    .subscribe {  println it }
+</pre></div>
 </div>
 </div>
 <div class="section" id="max">
 <h3>max<a class="headerlink" href="#max" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">max</span></tt> operator waits until the source channel completes, and then emits the item that has the greatest value.
+<p>The <code class="docutils literal"><span class="pre">max</span></code> operator waits until the source channel completes, and then emits the item that has the greatest value.
 For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 8, 6, 2, 5 )
     .min()
-    .subscribe { println "Max value is $it" }</pre>
+    .subscribe { println &quot;Max value is $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Max value is 8</pre>
+<div class="highlight-python"><div class="highlight"><pre>Max value is 8
+</pre></div>
 </div>
-<p>An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> parameter can be specified in order to provide
+<p>An optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> parameter can be specified in order to provide
 a function that returns the value to be compared. The example below shows how to find the string
 item that has the maximum length:</p>
-<div class="highlight-python"><pre>Channel
-    .from("hello","hi","hey")
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&quot;hello&quot;,&quot;hi&quot;,&quot;hey&quot;)
     .max { it.size() }
-    .subscribe {  println it }</pre>
+    .subscribe {  println it }
+</pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;hello&quot;</span>
 </pre></div>
 </div>
-<p>Alternatively it is possible to specify a comparator function i.e. a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>
+<p>Alternatively it is possible to specify a comparator function i.e. a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a>
 taking two parameters that represent two emitted items to be compared. For example:</p>
-<div class="highlight-python"><pre>Channel
-    .from("hello","hi","hey")
+<div class="highlight-python"><div class="highlight"><pre>Channel
+    .from(&quot;hello&quot;,&quot;hi&quot;,&quot;hey&quot;)
     .max { a,b -&gt; a.size() &lt;=&gt; b.size() }
-    .subscribe {  println it }</pre>
+    .subscribe {  println it }
+</pre></div>
 </div>
 </div>
 <div class="section" id="sum">
 <h3>sum<a class="headerlink" href="#sum" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">sum</span></tt> operator creates a channel that emits the sum of all the items emitted by the channel itself.
+<p>The <code class="docutils literal"><span class="pre">sum</span></code> operator creates a channel that emits the sum of all the items emitted by the channel itself.
 For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
     .from( 8, 6, 2, 5 )
     .sum()
-    .subscribe { println "The sum is $it" }</pre>
+    .subscribe { println &quot;The sum is $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>The sum is 21</pre>
+<div class="highlight-python"><div class="highlight"><pre>The sum is 21
+</pre></div>
 </div>
-<p>An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> parameter can be specified in order to provide
+<p>An optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> parameter can be specified in order to provide
 a function that, given an item, returns the value to be summed. For example:</p>
-<div class="highlight-python"><pre>Channel
+<div class="highlight-python"><div class="highlight"><pre>Channel
         .from( 4, 1, 7, 5 )
         .sum { it * it }
-        .subscribe {  println "Square: $it" }</pre>
+        .subscribe {  println &quot;Square: $it&quot; }
+</pre></div>
 </div>
-<div class="highlight-python"><pre>Square: 91</pre>
+<div class="highlight-python"><div class="highlight"><pre>Square: 91
+</pre></div>
 </div>
 </div>
 </div>
@@ -1810,26 +1957,29 @@ a function that, given an item, returns the value to be summed. For example:</p>
 <h2>Other operators<a class="headerlink" href="#other-operators" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="set">
 <span id="operator-set"></span><h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">set</span></tt> operator assigns the channel to a variable whose name is specified as a closure parameter.
+<p>The <code class="docutils literal"><span class="pre">set</span></code> operator assigns the channel to a variable whose name is specified as a closure parameter.
 For example:</p>
-<div class="highlight-python"><pre>Channel.from(10,20,30).set { my_channel }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel.from(10,20,30).set { my_channel }
+</pre></div>
 </div>
 <p>This is semantically equivalent to the following assignment:</p>
-<div class="highlight-python"><pre>my_channel = Channel.from(10,20,30)</pre>
+<div class="highlight-python"><div class="highlight"><pre>my_channel = Channel.from(10,20,30)
+</pre></div>
 </div>
-<p>However the <tt class="docutils literal"><span class="pre">set</span></tt> operator is more idiomatic in Nextflow scripting, since it can be used at the end
+<p>However the <code class="docutils literal"><span class="pre">set</span></code> operator is more idiomatic in Nextflow scripting, since it can be used at the end
 of a chain of operator transformations, thus resulting in a more fluent and readable operation.</p>
 </div>
 <div class="section" id="ifempty">
 <span id="operator-ifempty"></span><h3>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">ifEmpty</span></tt> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
+<p>The <code class="docutils literal"><span class="pre">ifEmpty</span></code> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
 is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise the it will empty the same sequence of entries as the original channel.</p>
 <p>Thus, the following example prints:</p>
-<div class="highlight-python"><pre>Channel .from(1,2,3) .ifEmpty('Hello') .println()
+<div class="highlight-python"><div class="highlight"><pre>Channel .from(1,2,3) .ifEmpty(&#39;Hello&#39;) .println()
 
 1
 2
-3</pre>
+3
+</pre></div>
 </div>
 <p>Instead, this one prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">Channel</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span><span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">println</span><span class="p">()</span>
@@ -1837,31 +1987,34 @@ is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise the it will 
 <span class="n">Hello</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">ifEmpty</span></tt> value parameter can be defined with a <a class="reference internal" href="script.html#script-closure"><em>closure</em></a>. In this case the result value of the closure evaluation
+<p>The <code class="docutils literal"><span class="pre">ifEmpty</span></code> value parameter can be defined with a <a class="reference internal" href="script.html#script-closure"><span>closure</span></a>. In this case the result value of the closure evaluation
 will be emitted when the empty condition is satisfied.</p>
-<p>See also: <a class="reference internal" href="channel.html#channel-empty"><em>empty</em></a> method.</p>
+<p>See also: <a class="reference internal" href="channel.html#channel-empty"><span>empty</span></a> method.</p>
 </div>
 <div class="section" id="print">
 <span id="operator-print"></span><h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">print</span></tt> operator prints the items emitted by a channel to the console standard.
-An optional <a class="reference internal" href="script.html#script-closure"><em>closure</em></a> parameter can be specified to customise how items are printed.
+<p>The <code class="docutils literal"><span class="pre">print</span></code> operator prints the items emitted by a channel to the console standard.
+An optional <a class="reference internal" href="script.html#script-closure"><span>closure</span></a> parameter can be specified to customise how items are printed.
 For example:</p>
-<div class="highlight-python"><pre>Channel
-      .from('foo', 'bar', 'baz', 'qux')
-      .print { it.toUpperCase() + ' ' }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+      .from(&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;qux&#39;)
+      .print { it.toUpperCase() + &#39; &#39; }
+</pre></div>
 </div>
 <p>It prints:</p>
-<div class="highlight-python"><pre>FOO BAR BAZ QUX</pre>
+<div class="highlight-python"><div class="highlight"><pre>FOO BAR BAZ QUX
+</pre></div>
 </div>
 <p>See also: <a class="reference internal" href="#println">println</a> and <a class="reference internal" href="#view">view</a>.</p>
 </div>
 <div class="section" id="println">
 <span id="operator-println"></span><h3>println<a class="headerlink" href="#println" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">println</span></tt> operator prints the items emitted by a channel to the console standard output appending
+<p>The <code class="docutils literal"><span class="pre">println</span></code> operator prints the items emitted by a channel to the console standard output appending
 a <em>new line</em> character to each of them. For example:</p>
-<div class="highlight-python"><pre>Channel
-      .from('foo', 'bar', 'baz', 'qux')
-      .println()</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+      .from(&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;qux&#39;)
+      .println()
+</pre></div>
 </div>
 <p>It prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">foo</span>
@@ -1871,9 +2024,10 @@ a <em>new line</em> character to each of them. For example:</p>
 </pre></div>
 </div>
 <p>An optional closure parameter can be specified to customise how items are printed. For example:</p>
-<div class="highlight-python"><pre>Channel
-      .from('foo', 'bar', 'baz', 'qux')
-      .println { "~ $it" }</pre>
+<div class="highlight-python"><div class="highlight"><pre>Channel
+      .from(&#39;foo&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;qux&#39;)
+      .println { &quot;~ $it&quot; }
+</pre></div>
 </div>
 <p>It prints:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="o">~</span> <span class="n">foo</span>
@@ -1886,24 +2040,27 @@ a <em>new line</em> character to each of them. For example:</p>
 </div>
 <div class="section" id="view">
 <span id="operator-view"></span><h3>view<a class="headerlink" href="#view" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">view</span></tt> operator prints the items emitted by a channel to the console standard output. For example:</p>
-<div class="highlight-python"><pre>Channel.from(1,2,3).view()
+<p>The <code class="docutils literal"><span class="pre">view</span></code> operator prints the items emitted by a channel to the console standard output. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>Channel.from(1,2,3).view()
 
 1
 2
-3</pre>
+3
+</pre></div>
 </div>
-<p>Each item is printed on a separate line unless otherwise specified by using the <tt class="docutils literal"><span class="pre">newLine:</span> <span class="pre">false</span></tt> optional parameter.</p>
+<p>Each item is printed on a separate line unless otherwise specified by using the <code class="docutils literal"><span class="pre">newLine:</span> <span class="pre">false</span></code> optional parameter.</p>
 <p>How the channel items are printed can be controlled by using an optional closure parameter. The closure it must return
 the actual value of the item being to be printed:</p>
-<div class="highlight-python"><pre>Channel.from(1,2,3)
+<div class="highlight-python"><div class="highlight"><pre>Channel.from(1,2,3)
         .map { it -&gt; [it, it*it] }
-        .view { num, sqr -&gt; "Square of: $num is $sqr" }</pre>
+        .view { num, sqr -&gt; &quot;Square of: $num is $sqr&quot; }
+</pre></div>
 </div>
 <p>It prints:</p>
-<div class="highlight-python"><pre>Square of: 1 is 1
+<div class="highlight-python"><div class="highlight"><pre>Square of: 1 is 1
 Square of: 2 is 4
-Square of: 3 is 9</pre>
+Square of: 3 is 9
+</pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -1914,9 +2071,9 @@ is identical to the source one. This allows the <em>view</em> operator to be cha
 </div>
 <div class="section" id="close">
 <span id="operator-close"></span><h3>close<a class="headerlink" href="#close" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">close</span></tt> operator sends a termination signal over the channel, causing downstream processes or operators to stop.
+<p>The <code class="docutils literal"><span class="pre">close</span></code> operator sends a termination signal over the channel, causing downstream processes or operators to stop.
 In a common usage scenario channels are closed automatically by Nextflow, so you won't need to use this operator explicitly.</p>
-<p>See also: <a class="reference internal" href="channel.html#channel-empty"><em>empty</em></a> factory method.</p>
+<p>See also: <a class="reference internal" href="channel.html#channel-empty"><span>empty</span></a> factory method.</p>
 </div>
 </div>
 </div>

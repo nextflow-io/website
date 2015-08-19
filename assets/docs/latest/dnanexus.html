@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DNAnexus cloud &mdash; Nextflow 0.15.0 documentation</title>
+  <title>DNAnexus cloud &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="GridGain cluster" href="gridgain.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -229,13 +229,14 @@ for the DNAnexus platform allowing you to execute your pipeline in the cloud.</p
 installed in your computer.</p>
 <p>Moreover, since extra runtime packages are required by Nextflow to enable it to run in the cloud, you will need to download
 the full Nextflow source tree in your computer. You can do this by using the following <cite>git</cite> command:</p>
-<div class="highlight-python"><pre>git clone https://github.com/paoloditommaso/nextflow.git</pre>
+<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/paoloditommaso/nextflow.git
+</pre></div>
 </div>
 </div>
 <div class="section" id="app-packing">
 <h2>App packing<a class="headerlink" href="#app-packing" title="Permalink to this headline">¶</a></h2>
 <p>In order to execute a Nextflow pipeline in the DNAnexus cloud you need to package it as a DNAnexus app (or applet).
-Thus you will need to use the <tt class="docutils literal"><span class="pre">dx-app-wizard</span></tt> command to create the application structure and copy the pipeline script,
+Thus you will need to use the <code class="docutils literal"><span class="pre">dx-app-wizard</span></code> command to create the application structure and copy the pipeline script,
 along with the Nextflow runtime, in the app project folder..</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -243,35 +244,38 @@ along with the Nextflow runtime, in the app project folder..</p>
 </div>
 <p>Nextflow provides a shortcut that helps you create the DNAnexus application skeleton pre-configured to work with it.</p>
 <p>Simply change to the Nextflow source project folder, that you have cloned with <cite>git</cite>, and type the command:</p>
-<div class="highlight-python"><pre>./gradlew dnanexus</pre>
+<div class="highlight-python"><div class="highlight"><pre>./gradlew dnanexus
+</pre></div>
 </div>
 <p>This will:</p>
 <ol class="arabic simple">
 <li>Build the Nextflow runtime with the required dependencies</li>
-<li>Create the DNAnexus app skeleton in the folder named <tt class="docutils literal"><span class="pre">dx-project</span></tt></li>
-<li>Create the <tt class="docutils literal"><span class="pre">dxapp.json</span></tt> application manifest</li>
-<li>Create the <tt class="docutils literal"><span class="pre">dxapp.sh</span></tt> pipeline launcher</li>
-<li>Copy the Nextflow runtime to the <tt class="docutils literal"><span class="pre">dx-project/resources/usr/bin</span></tt> folder</li>
-<li>Copy some example scripts to the <tt class="docutils literal"><span class="pre">dx-project/resources</span></tt> folder</li>
+<li>Create the DNAnexus app skeleton in the folder named <code class="docutils literal"><span class="pre">dx-project</span></code></li>
+<li>Create the <code class="docutils literal"><span class="pre">dxapp.json</span></code> application manifest</li>
+<li>Create the <code class="docutils literal"><span class="pre">dxapp.sh</span></code> pipeline launcher</li>
+<li>Copy the Nextflow runtime to the <code class="docutils literal"><span class="pre">dx-project/resources/usr/bin</span></code> folder</li>
+<li>Copy some example scripts to the <code class="docutils literal"><span class="pre">dx-project/resources</span></code> folder</li>
 </ol>
-<p>Then, you will need to add your pipeline script into the <tt class="docutils literal"><span class="pre">resources</span></tt> folder (adding any other eventually needed
-binary dependencies) and modify the <tt class="docutils literal"><span class="pre">dxapp.json</span></tt> file providing your application name.</p>
+<p>Then, you will need to add your pipeline script into the <code class="docutils literal"><span class="pre">resources</span></code> folder (adding any other eventually needed
+binary dependencies) and modify the <code class="docutils literal"><span class="pre">dxapp.json</span></code> file providing your application name.</p>
 <p>When you have finished, package and upload the app by using the DNAnexus <cite>build</cite> command, as shown below:</p>
-<div class="highlight-python"><pre>dx build -f</pre>
+<div class="highlight-python"><div class="highlight"><pre>dx build -f
+</pre></div>
 </div>
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>When ready, you can launch it like any other DNAnexus app, by using the <cite>run</cite> command, for example:</p>
-<div class="highlight-python"><pre>dx run nextflow</pre>
+<div class="highlight-python"><div class="highlight"><pre>dx run nextflow
+</pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Replace <tt class="docutils literal"><span class="pre">nextflow</span></tt> with your app name in the above example.</p>
+<p class="last">Replace <code class="docutils literal"><span class="pre">nextflow</span></code> with your app name in the above example.</p>
 </div>
 <p>By running this example and confirming the default options, a simple <cite>Hello world</cite> script will run in the cloud, producing
 the output shown below.</p>
-<div class="highlight-python"><pre>Job Log
+<div class="highlight-python"><div class="highlight"><pre>Job Log
 -------
 Watching job job-BFY5Pz00kF9B7FY891602V7g. Press Ctrl+C to stop.
 * Nextflow pipelines framework (nextflow:main) (running) job-BFY5Pz00kF9B7FY891602V7g
@@ -288,19 +292,20 @@ Watching job job-BFY5Pz00kF9B7FY891602V7g. Press Ctrl+C to stop.
 2014-01-27 14:04:24 Nextflow pipelines framework STDOUT hello.log &gt; file-BFY5Xf00kF97JFXyzJ3Xg637
 * Nextflow pipelines framework (nextflow:main) (done) job-BFY5Pz00kF9B7FY891602V7g
   pditommaso 2014-01-27 13:58:36 (runtime 0:02:11)
-  Output: -</pre>
+  Output: -
+</pre></div>
 </div>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
-<p>The DNAnexus app is executed by the BASH script called <tt class="docutils literal"><span class="pre">dxapp.sh</span></tt> which defines two functions: <cite>main</cite> and <cite>process</cite>.</p>
+<p>The DNAnexus app is executed by the BASH script called <code class="docutils literal"><span class="pre">dxapp.sh</span></code> which defines two functions: <cite>main</cite> and <cite>process</cite>.</p>
 <p>The <cite>main</cite> function is the one that launches the Nextflow pipeline script execution in the cloud, specifying the required
 configuration parameters.</p>
 <p>Nextflow will be able to manage the processes scheduling and execution in the cloud because it is launched by specifying
-the <tt class="docutils literal"><span class="pre">dnanexus</span></tt> executor.</p>
+the <code class="docutils literal"><span class="pre">dnanexus</span></code> executor.</p>
 <p>When a new process needs to be executed, Nextflow will use the DNAnexus API to run a new job, which in turn calls
-the function <cite>process</cite>, defined in the <tt class="docutils literal"><span class="pre">dxapp.sh</span></tt> script, specifying the target command to run.</p>
-<p>Read more about Nextflow's <cite>dnanexus</cite> executor configuration properties <a class="reference internal" href="executor.html#dnanexus-executor"><em>here</em></a>.</p>
+the function <cite>process</cite>, defined in the <code class="docutils literal"><span class="pre">dxapp.sh</span></code> script, specifying the target command to run.</p>
+<p>Read more about Nextflow's <cite>dnanexus</cite> executor configuration properties <a class="reference internal" href="executor.html#dnanexus-executor"><span>here</span></a>.</p>
 </div>
 </div>
 

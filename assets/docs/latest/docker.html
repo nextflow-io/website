@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docker containers &mdash; Nextflow 0.15.0 documentation</title>
+  <title>Docker containers &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="DNAnexus cloud" href="dnanexus.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -230,32 +230,33 @@ executed on any platform supporting the Docker engine.</p>
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>You will need Docker installed on your execution environment e.g. your computer or a distributed cluster, depending
 on where you want to run your pipeline.</p>
-<p>If you are running Docker on Mac OSX make sure you are mounting your local <tt class="docutils literal"><span class="pre">/Users</span></tt> directory into the Docker VM as
+<p>If you are running Docker on Mac OSX make sure you are mounting your local <code class="docutils literal"><span class="pre">/Users</span></code> directory into the Docker VM as
 explained in this excellent tutorial: <a class="reference external" href="http://viget.com/extend/how-to-use-docker-on-os-x-the-missing-guide">How to use Docker on OSX</a>.</p>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>You won't need to modify your Nextflow script in order to run it with Docker. Simply specify the Docker image from
-where the containers are started by using the <tt class="docutils literal"><span class="pre">-with-docker</span></tt> command line option. For example:</p>
-<div class="highlight-python"><pre>nextflow run &lt;your script&gt; -with-docker &lt;docker image&gt;</pre>
+where the containers are started by using the <code class="docutils literal"><span class="pre">-with-docker</span></code> command line option. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;your script&gt; -with-docker &lt;docker image&gt;
+</pre></div>
 </div>
 <p>Every time your script launches a process execution, Nextflow will run it into a Docker container created by using the
-specified image. In practice Nextflow will automatically wrap your processes and run them by executing the <tt class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></tt>
+specified image. In practice Nextflow will automatically wrap your processes and run them by executing the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></code>
 command with the image you have provided.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">A Docker image can contain any tool or piece of software you may need to carry out a process execution. Moreover the
-container is run in such a way that the process result files are created in the hosting file system, in other words
+container is run in such a way that the process result files are created in the hosting file system, thus
 it behaves in a completely transparent manner without requiring extra steps or affecting the flow in your pipeline.</p>
 </div>
 <p>If you want to avoid entering the Docker image as a command line parameter, you can define it in the Nextflow configuration
-file. For example you can add the following lines in the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file:</p>
+file. For example you can add the following lines in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s">&#39;nextflow/examples:latest&#39;</span>
 <span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>In the above example replace <tt class="docutils literal"><span class="pre">nextflow/examples:latest</span></tt> with any Docker image of your choice.</p>
-<p>Read the <a class="reference internal" href="config.html#config-page"><em>Configuration</em></a> page to learn more about the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file and how to use it to configure
+<p>In the above example replace <code class="docutils literal"><span class="pre">nextflow/examples:latest</span></code> with any Docker image of your choice.</p>
+<p>Read the <a class="reference internal" href="config.html#config-page"><span>Configuration</span></a> page to learn more about the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file and how to use it to configure
 your pipeline execution.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -268,49 +269,52 @@ launched container won't be able to access the linked file.</p>
 <div class="section" id="multiple-containers">
 <h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to specify a different Docker image for each process definition in your pipeline script. Let's
-suppose you have two processes named <tt class="docutils literal"><span class="pre">foo</span></tt> and <tt class="docutils literal"><span class="pre">bar</span></tt>. You can specify two different Docker images for them
+suppose you have two processes named <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. You can specify two different Docker images for them
 in the Nextflow script as shown below:</p>
-<div class="highlight-python"><pre>process foo {
-  container 'image_name_1'
+<div class="highlight-python"><div class="highlight"><pre>process foo {
+  container &#39;image_name_1&#39;
 
-  '''
+  &#39;&#39;&#39;
   do this
-  '''
+  &#39;&#39;&#39;
 }
 
 process bar {
-  container 'image_name_2'
+  container &#39;image_name_2&#39;
 
-  '''
+  &#39;&#39;&#39;
   do that
-  '''
-}</pre>
+  &#39;&#39;&#39;
+}
+</pre></div>
 </div>
-<p>Alternatively, the same containers definitions can be provided by using the <tt class="docutils literal"><span class="pre">nextflow.config</span></tt> file as shown below:</p>
-<div class="highlight-python"><pre>process.$foo.container = 'image_name_1'
-process.$bar.container = 'image_name_2'
-docker.enabled = true</pre>
+<p>Alternatively, the same containers definitions can be provided by using the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>process.$foo.container = &#39;image_name_1&#39;
+process.$bar.container = &#39;image_name_2&#39;
+docker.enabled = true
+</pre></div>
 </div>
-<p>Read the <a class="reference internal" href="config.html#config-process"><em>Process scope</em></a> section to learn more about processes configuration.</p>
+<p>Read the <a class="reference internal" href="config.html#config-process"><span>Process scope</span></a> section to learn more about processes configuration.</p>
 </div>
 <div class="section" id="executable-containers">
 <h2>Executable containers<a class="headerlink" href="#executable-containers" title="Permalink to this headline">¶</a></h2>
 <p>An executable container is a Docker image which defines a command <a class="reference external" href="https://docs.docker.com/reference/builder/#entrypoint">entry point</a>
 i.e. a command that is executed by default when the container start.</p>
-<p>In order to use an executable container with Nextflow set the process' directive <tt class="docutils literal"><span class="pre">container</span></tt> to the value <tt class="docutils literal"><span class="pre">true</span></tt> and
+<p>In order to use an executable container with Nextflow set the process' directive <code class="docutils literal"><span class="pre">container</span></code> to the value <code class="docutils literal"><span class="pre">true</span></code> and
 use the Docker image name (including the user/organisation name) as the first command in the process script, followed
 eventually by any command parameters.</p>
 <p>For example:</p>
-<div class="highlight-python"><pre>process runImage {
+<div class="highlight-python"><div class="highlight"><pre>process runImage {
   container true
 
-  '''
+  &#39;&#39;&#39;
   docker/image --foo --bar
-  '''
+  &#39;&#39;&#39;
 
-}</pre>
+}
+</pre></div>
 </div>
-<p>The docker image name can be preceded by one or more lines containing comments or variables definition i.e. <tt class="docutils literal"><span class="pre">NAME=VALUE</span></tt>
+<p>The docker image name can be preceded by one or more lines containing comments or variables definition i.e. <code class="docutils literal"><span class="pre">NAME=VALUE</span></code>
 and can be followed by one or more lines containing BASH commands.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -319,7 +323,7 @@ and can be followed by one or more lines containing BASH commands.</p>
 </div>
 <div class="section" id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
-<p>Docker advanced configuration settings are described in <a class="reference internal" href="config.html#config-docker"><em>Scope docker</em></a> section in the Nextflow configuration page.</p>
+<p>Docker advanced configuration settings are described in <a class="reference internal" href="config.html#config-docker"><span>Scope docker</span></a> section in the Nextflow configuration page.</p>
 </div>
 </div>
 

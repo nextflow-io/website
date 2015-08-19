@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 0.15.0 documentation</title>
+  <title>Get started &mdash; Nextflow 0.15.2 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.0',
+        VERSION:'0.15.2',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.15.2 documentation" href="index.html"/>
         <link rel="next" title="Basic concepts" href="basic.html"/>
         <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
 
@@ -236,32 +236,32 @@ or <a class="reference external" href="http://www.vmware.com/">VMware</a>.</p>
 <p>It only needs two easy steps:</p>
 <ol class="arabic simple">
 <li>Download the executable package by copying and pasting the following command in your terminal
-window: <tt class="docutils literal"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></tt>.
-It will create the <tt class="docutils literal"><span class="pre">nextflow</span></tt> main executable file in the current directory.</li>
-<li>Optionally, move the <tt class="docutils literal"><span class="pre">nextflow</span></tt> file in a directory accessible by your <tt class="docutils literal"><span class="pre">$PATH</span></tt> variable
+window: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.
+It will create the <code class="docutils literal"><span class="pre">nextflow</span></code> main executable file in the current directory.</li>
+<li>Optionally, move the <code class="docutils literal"><span class="pre">nextflow</span></code> file in a directory accessible by your <code class="docutils literal"><span class="pre">$PATH</span></code> variable
 (this is only required to avoid to remember and type the Nextflow full path each time you need to run it).</li>
 </ol>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">In the case you don't have <tt class="docutils literal"><span class="pre">wget</span></tt> installed you can use the <tt class="docutils literal"><span class="pre">curl</span></tt> utility instead by entering
-the following command: <tt class="docutils literal"><span class="pre">curl</span> <span class="pre">-fsSL</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></tt></p>
+<p class="last">In the case you don't have <code class="docutils literal"><span class="pre">wget</span></code> installed you can use the <code class="docutils literal"><span class="pre">curl</span></code> utility instead by entering
+the following command: <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-fsSL</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code></p>
 </div>
 </div>
 <div class="section" id="your-first-script">
 <h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
-<p>By using your favourite text editor copy the following example, and save it to a file named <tt class="docutils literal"><span class="pre">tutorial.nf</span></tt></p>
-<div class="highlight-python"><pre>#!/usr/bin/env nextflow
+<p>By using your favourite text editor copy the following example, and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
+<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env nextflow
 
-params.str = 'Hello world!'
+params.str = &#39;Hello world!&#39;
 
 process splitLetters {
 
     output:
-    file 'chunk_*' into letters mode flatten
+    file &#39;chunk_*&#39; into letters mode flatten
 
-    """
-    printf '${params.str}' | split -b 6 - chunk_
-    """
+    &quot;&quot;&quot;
+    printf &#39;${params.str}&#39; | split -b 6 - chunk_
+    &quot;&quot;&quot;
 }
 
 
@@ -273,43 +273,47 @@ process convertToUpper {
     output:
     stdout result
 
-    """
-    cat $x | tr '[a-z]' '[A-Z]'
-    """
+    &quot;&quot;&quot;
+    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;
+    &quot;&quot;&quot;
 }
 
 result.subscribe {
     println it.trim()
-}</pre>
+}
+</pre></div>
 </div>
 <p>This script is made up of two processes, the first splits a string in file chunks containing 6 characters,
 the following process receives these files and transform the content to uppercase letters.
-The resulting strings are emitted on the <tt class="docutils literal"><span class="pre">result</span></tt> channel and finally the output is printed out by the
-<tt class="docutils literal"><span class="pre">subscribe</span></tt> operator.</p>
+The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and finally the output is printed out by the
+<code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
 <p>Execute the script by entering the following command in your terminal:</p>
-<div class="highlight-python"><pre>nextflow run tutorial.nf</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf
+</pre></div>
 </div>
 <p>It will output something similar to the text shown below:</p>
-<div class="highlight-python"><pre>N E X T F L O W  ~  version 0.9.0
+<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
 [warm up] executor &gt; local
 [22/7548fa] Submitted process &gt; splitLetters (1)
 [e2/008ee9] Submitted process &gt; convertToUpper (1)
 [1e/165130] Submitted process &gt; convertToUpper (2)
 HELLO
-WORLD!</pre>
+WORLD!
+</pre></div>
 </div>
 <p>You can see that the first process is execute once, while the second two times. Finally the result string is printed.</p>
-<p>It's worth noting that the process <tt class="docutils literal"><span class="pre">convertToUpper</span></tt> is executed in parallel, so there's no guarantee that the instance
+<p>It's worth noting that the process <code class="docutils literal"><span class="pre">convertToUpper</span></code> is executed in parallel, so there's no guarantee that the instance
 processing the first split (the chunk <cite>Hello</cite>) is executed before before the one processing the second split (the chunk <cite>world!</cite>).</p>
 <p>Thus, it is perfectly possible that you get the final result printed out in a different order:</p>
-<div class="highlight-python"><pre>WORLD!
-HELLO</pre>
+<div class="highlight-python"><div class="highlight"><pre>WORLD!
+HELLO
+</pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The hexadecimal numbers, like <tt class="docutils literal"><span class="pre">22/7548fa</span></tt>, identify the unique process execution. These numbers are
+<p class="last">The hexadecimal numbers, like <code class="docutils literal"><span class="pre">22/7548fa</span></code>, identify the unique process execution. These numbers are
 also the prefix of the directories where each process is executed. You can inspect the files produced by them
-changing to the directory <tt class="docutils literal"><span class="pre">$PWD/work</span></tt> and using that numbers to find the process specific execution path.</p>
+changing to the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code> and using that numbers to find the process specific execution path.</p>
 </div>
 <div class="section" id="modify-and-resume">
 <h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
@@ -317,9 +321,9 @@ changing to the directory <tt class="docutils literal"><span class="pre">$PWD/wo
 only the processes that are actually changed will be re-executed. The execution of the processes that are not changed
 will be skipped and the cached result used instead.</p>
 <p>This helps a lot when testing or modifying part of your pipeline without having to re-execute it from scratch.</p>
-<p>For the sake of this tutorial modify the <tt class="docutils literal"><span class="pre">convertToUpper</span></tt> process in the previous example, by replacing the
-process script with the string <tt class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></tt>, so that the process will look like as the following one:</p>
-<div class="highlight-python"><pre>process convertToUpper {
+<p>For the sake of this tutorial modify the <code class="docutils literal"><span class="pre">convertToUpper</span></code> process in the previous example, by replacing the
+process script with the string <code class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process will look like as the following one:</p>
+<div class="highlight-python"><div class="highlight"><pre>process convertToUpper {
 
     input:
     file x from letters
@@ -327,48 +331,53 @@ process script with the string <tt class="docutils literal"><span class="pre">re
     output:
     stdout result
 
-    """
+    &quot;&quot;&quot;
     rev $x
-    """
-}</pre>
+    &quot;&quot;&quot;
+}
+</pre></div>
 </div>
-<p>Then save the file with the same name, and execute it by adding the <tt class="docutils literal"><span class="pre">-resume</span></tt> option to the command line:</p>
-<div class="highlight-python"><pre>nextflow run tutorial.nf -resume</pre>
+<p>Then save the file with the same name, and execute it by adding the <code class="docutils literal"><span class="pre">-resume</span></code> option to the command line:</p>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf -resume
+</pre></div>
 </div>
 <p>It will print an output similar to the following one:</p>
-<div class="highlight-python"><pre>N E X T F L O W  ~  version 0.9.0
+<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
 [warm up] executor &gt; local
 [22/7548fa] Cached process &gt; splitLetters (1)
 [d0/7b79a3] Submitted process &gt; convertToUpper (1)
 [b0/c99ef9] Submitted process &gt; convertToUpper (2)
 olleH
-!dlrow</pre>
+!dlrow
+</pre></div>
 </div>
-<p>You will see that the execution of the process <tt class="docutils literal"><span class="pre">splitLetters</span></tt> is actually skipped (the process ID is the same), and
+<p>You will see that the execution of the process <code class="docutils literal"><span class="pre">splitLetters</span></code> is actually skipped (the process ID is the same), and
 its results are retried from the cache. Instead the second one is executed as expected, printing the reversed strings.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The pipeline results are cached by default in the directory <tt class="docutils literal"><span class="pre">$PWD/work</span></tt>. Depending your script this folder
+<p class="last">The pipeline results are cached by default in the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code>. Depending your script this folder
 can take of lot of disk space. If your are sure you won't resume your pipeline execution, clean this folder periodically.</p>
 </div>
 </div>
 <div class="section" id="pipeline-parameters">
 <h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Pipeline parameters are simply declared by pre-pending to a variable name the prefix <tt class="docutils literal"><span class="pre">params</span></tt> separated by dot character.
-Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <tt class="docutils literal"><span class="pre">--paramName</span></tt></p>
+<p>Pipeline parameters are simply declared by pre-pending to a variable name the prefix <code class="docutils literal"><span class="pre">params</span></code> separated by dot character.
+Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
 <p>For the sake of this tutorial you can try to execute the previous example specifying a different input
 string parameter, as shown below:</p>
-<div class="highlight-python"><pre>nextflow run tutorial.nf --str 'Hola mundo'</pre>
+<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf --str &#39;Hola mundo&#39;
+</pre></div>
 </div>
 <p>The string specified on the command line will override the default value of the parameter. The output
 will look like as the following:</p>
-<div class="highlight-python"><pre>N E X T F L O W  ~  version 0.7.0
+<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.7.0
 [warm up] executor &gt; local
 [6d/54ab39] Submitted process &gt; splitLetters (1)
 [a1/88716d] Submitted process &gt; convertToUpper (2)
 [7d/3561b6] Submitted process &gt; convertToUpper (1)
 odnu
-m aloH</pre>
+m aloH
+</pre></div>
 </div>
 </div>
 </div>
