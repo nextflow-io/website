@@ -1184,19 +1184,19 @@ channel.subscribe { print &quot;I say..  $it&quot; }
 <div class="section" id="output-set-of-values">
 <span id="process-set"></span><h3>Output 'set' of values<a class="headerlink" href="#output-set-of-values" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">set</span></code> qualifier allows to send multiple values into a single channel. This feature is useful
-when you need to <cite>together</cite> the result of multiple execution of the same process, as shown in the following
+when you need to <cite>group together</cite> the results of multiple executions of the same process, as shown in the following
 example:</p>
 <div class="highlight-python"><div class="highlight"><pre>query = Channel.fromPath &#39;*.fa&#39;
-specie = Channel.from &#39;human&#39;, &#39;cow&#39;, &#39;horse&#39;
+species = Channel.from &#39;human&#39;, &#39;cow&#39;, &#39;horse&#39;
 
 process blast {
 
 input:
-    val specie
+    val species
     file query
 
 output:
-    set val(specie), file(&#39;result&#39;) into blastOuts
+    set val(species), file(&#39;result&#39;) into blastOuts
 
 
 &quot;blast -db nr -query $query&quot; &gt; result
@@ -1204,8 +1204,8 @@ output:
 }
 </pre></div>
 </div>
-<p>In the above example a <cite>BLAST</cite> task is executed for each pair of <code class="docutils literal"><span class="pre">specie</span></code> and <code class="docutils literal"><span class="pre">query</span></code> that are received.
-When the task completes a new tuple containing the value for <code class="docutils literal"><span class="pre">specie</span></code> and the file <code class="docutils literal"><span class="pre">result</span></code> is sent to the <code class="docutils literal"><span class="pre">blastOuts</span></code> channel.</p>
+<p>In the above example a <cite>BLAST</cite> task is executed for each pair of <code class="docutils literal"><span class="pre">species</span></code> and <code class="docutils literal"><span class="pre">query</span></code> that are received.
+When the task completes a new tuple containing the value for <code class="docutils literal"><span class="pre">species</span></code> and the file <code class="docutils literal"><span class="pre">result</span></code> is sent to the <code class="docutils literal"><span class="pre">blastOuts</span></code> channel.</p>
 <p>A <cite>set</cite> declaration can contain any combination of the following qualifiers, previously described: <code class="docutils literal"><span class="pre">val</span></code>, <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">stdout</span></code>.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
@@ -1213,7 +1213,7 @@ When the task completes a new tuple containing the value for <code class="docuti
 thus the above output <cite>set</cite> can be rewritten using a short notation as shown below.</p>
 </div>
 <div class="highlight-python"><div class="highlight"><pre>output:
-    set specie, &#39;result&#39; into blastOuts
+    set species, &#39;result&#39; into blastOuts
 </pre></div>
 </div>
 <p>File names can be defined in a dynamic manner as explained in the <a class="reference internal" href="#process-dynoutname"><span>Dynamic output file names</span></a> section.</p>
@@ -1618,7 +1618,7 @@ the actual process result.</li>
 specified by the <code class="docutils literal"><span class="pre">storeDir</span></code> directive.</li>
 </ol>
 <p>The following example shows how use the <code class="docutils literal"><span class="pre">storeDir</span></code> directive to create a directory containing a BLAST database
-for each specie specified by an input parameter:</p>
+for each species specified by an input parameter:</p>
 <div class="highlight-python"><div class="highlight"><pre>genomes = Channel.fromPath(params.genomes)
 
 process formatBlastDatabases {
@@ -1626,15 +1626,15 @@ process formatBlastDatabases {
   storeDir &#39;/db/genomes&#39;
 
   input:
-  file specie from genomes
+  file species from genomes
 
   output:
   file &quot;${dbName}.*&quot; into blastDb
 
   script:
-  dbName = specie.baseName
+  dbName = species.baseName
   &quot;&quot;&quot;
-  makeblastdb -dbtype nucl -in ${specie} -out ${dbName}
+  makeblastdb -dbtype nucl -in ${species} -out ${dbName}
   &quot;&quot;&quot;
 
 }

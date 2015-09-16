@@ -67,7 +67,7 @@ result.subscribe { println it }
 
 ### Synopsis
 
-* Lin 1: The script starts with a shebang declaration. This allows you to launch your pipeline, 
+* Line 1: The script starts with a shebang declaration. This allows you to launch your pipeline, 
  as any other BASH script.
 
 * Line 3: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value

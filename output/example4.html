@@ -90,50 +90,31 @@
 
 <script type="syntaxhighlighter" class="brush: groovy">
 <![CDATA[
-
 #!/usr/bin/env nextflow
 
 /*
- * Defines the pipeline inputs parameters (giving a default value for each for them) 
- * Each of the following parameters can be specified as command line options
+ * Defines pipeline parameters in order to specify the refence genomes
+ * and read pairs by using the command line options
  */
-params.pair1 = "$baseDir/data/ggal/*_1.fq"
-params.pair2 = "$baseDir/data/ggal/*_2.fq"
+params.pairs = "$baseDir/data/ggal/*_{1,2}.fq"
 params.genome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
- 
-/*
- * Creates a channel from the path where the read files are located, 
- * then transforms each file to a pair containing a name prefix and the file itself. 
- * Finally assign this channel to a variable named 'reads1'
- */
-Channel
-    .fromPath( params.pair1 )
-    .map {  path -> tuple(path.baseName[0..-2], path) }
-    .set { reads1 }
   
 /*
- * as above for pair2 reads 
+ * The reference genome file
+ */
+genome_file = file(params.genome) 
+ 
+/*
+ * Creates the `read_pairs` channel that emits for each read-pair a tuple containing 
+ * three elements: the pair ID, the first read-pair file and the second read-pair file 
  */
 Channel
-    .fromPath( params.pair2 )
-    .map {  path -> tuple(path.baseName[0..-2], path) }
-	.set { reads2 }
-	     
-/*
- * Matches the pairs having the same 'prefix' emitted by the channels "read1" and "read2", 
- * for each match emits a new pair containing the expected read-pair files. 
- * Finally assign this channel to a variable named 'read_pairs'
- */
-reads1
-	.phase(reads2)
-	.map { pair1, pair2 -> tuple(pair1[0], pair1[1], pair2[1]) }
-	.set { read_pairs } 
-	
-/*
- * Creates a reference genome file object given the genome string parameter 
- */
-genome_file = file(params.genome)
- 
+    .fromPath( params.pairs )                                              
+    .ifEmpty { error "Cannot find any reads matching: ${params.pairs}" }   
+    .map {  path -> tuple(path.baseName[0..-2], path) }                     
+    .groupTuple(size: 2, sort: true)
+    .map { id, files -> tuple(id, files[0], files[1])}
+    .set { read_pairs } 
  
 /*
  * Step 1. Builds the genome index required by the mapping process
@@ -148,14 +129,12 @@ process buildIndex {
     """
     bowtie2-build ${genome_file} genome.index
     """
- 
 }
  
 /*
  * Step 2. Maps each read-pair by using Tophat2 mapper tool
  */
-process mapping {
-     
+process mapping {     
     input:
     file genome_file
     file genome_index from genome_index.first()
@@ -168,7 +147,6 @@ process mapping {
     tophat2 genome.index ${read1} ${read2}
     """
 }
- 
  
 /*
  * Step 3. Assembles the transcript by using the "cufflinks" 
