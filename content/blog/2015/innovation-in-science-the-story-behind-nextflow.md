@@ -37,7 +37,7 @@ to re-execute them from the beginning. We, therefore, developed a caching system
 allows Nextflow to resume any pipeline from the last executed step. While we were really 
 enjoying developing a new [DSL](http://en.wikipedia.org/wiki/Domain-specific_language) and 
 creating our own operators, at the same time we were not willing to give up our favorite 
-PERL/Python scripts and one-liners, and thus Nextflow became a polyglot. 
+Perl/Python scripts and one-liners, and thus Nextflow became a polyglot. 
 
 Another problem we were facing was that our pipelines were invoking a lot of 
 third-party software, making distribution and execution on different platforms a nightmare. 

@@ -78,7 +78,7 @@ process pyTask {
 ### Synopsis
 
 In the above example it is defined a simple pipeline made up of two processes.
-The first one executes a PERL code, because the script block definition starts
+The first one executes a Perl code, because the script block definition starts
 with a PERL <em>shebang</em> declaration (line 14).
 
 In the same way the second process will execute a Python piece of code, by
