@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline script &mdash; Nextflow 0.15.3 documentation</title>
+  <title>Pipeline script &mdash; Nextflow 0.16.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.3',
+        VERSION:'0.16.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.3 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.16.0 documentation" href="index.html"/>
         <link rel="next" title="Processes" href="process.html"/>
         <link rel="prev" title="Basic concepts" href="basic.html"/> 
 
@@ -164,9 +164,10 @@
 <li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gridgain.html">GridGain cluster</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gridgain.html#cluster-daemon">Cluster daemon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gridgain.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
@@ -176,11 +177,20 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#how-it-works">How it works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#run-a-pipeline">Run a pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#handle-revisions">Handle revisions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#commands-to-manage-pipelines">Commands to manage pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#publish-your-pipeline">Publish your pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#running-a-pipeline">Running a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#handling-revisions">Handling revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#commands-to-manage-projects">Commands to manage projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#scm-configuration-file">SCM configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#private-server-configuration">Private server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#publishing-your-pipeline">Publishing your pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#manage-dependencies">Manage dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#runtime-metadata">Runtime metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#notification-message">Notification message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
@@ -899,6 +909,35 @@ nonexistent parent directories. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span><span class="o">.</span><span class="n">mkdirs</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="create-links">
+<h3>Create links<a class="headerlink" href="#create-links" title="Permalink to this headline">¶</a></h3>
+<p>Given a file, the method <code class="docutils literal"><span class="pre">mklink</span></code> creates a <em>file system link</em> for that file using the path specified as a parameter.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="n">mklink</span><span class="p">(</span><span class="s">&#39;/user/name/link-to-file.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Table of optional parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Method</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>hard</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> it creates an <em>hard</em> link, otherwise it creates a <em>soft</em> (aka <em>symbolic</em>) link. (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>overwrite</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> it overwrite any exiting file with the same name, otherwise it will throws a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileAlreadyExistsException.html">FileAlreadyExistsException</a> (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="copy-files">
 <h3>Copy files<a class="headerlink" href="#copy-files" title="Permalink to this headline">¶</a></h3>

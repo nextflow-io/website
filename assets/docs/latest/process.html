@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.15.3 documentation</title>
+  <title>Processes &mdash; Nextflow 0.16.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.15.3',
+        VERSION:'0.16.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.15.3 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.16.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -164,9 +164,10 @@
 <li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="gridgain.html">GridGain cluster</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="gridgain.html#cluster-daemon">Cluster daemon</a></li>
-<li class="toctree-l2"><a class="reference internal" href="gridgain.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#cluster-daemon">Cluster daemon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
@@ -176,11 +177,20 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#how-it-works">How it works</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#run-a-pipeline">Run a pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#handle-revisions">Handle revisions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#commands-to-manage-pipelines">Commands to manage pipelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sharing.html#publish-your-pipeline">Publish your pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#running-a-pipeline">Running a pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#handling-revisions">Handling revisions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#commands-to-manage-projects">Commands to manage projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#scm-configuration-file">SCM configuration file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#private-server-configuration">Private server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sharing.html#publishing-your-pipeline">Publishing your pipeline</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#manage-dependencies">Manage dependencies</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#runtime-metadata">Runtime metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#notification-message">Notification message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
@@ -1271,6 +1281,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#memory">memory</a></li>
 <li><a class="reference internal" href="#module">module</a></li>
 <li><a class="reference internal" href="#penv">penv</a></li>
+<li><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li><a class="reference internal" href="#scratch">scratch</a></li>
 <li><a class="reference internal" href="#storedir">storeDir</a></li>
 <li><a class="reference internal" href="#tag">tag</a></li>
@@ -1506,7 +1517,7 @@ The latter defines the total number of errors that are allowed during the proces
 launch different execution instances), while the <code class="docutils literal"><span class="pre">maxRetries</span></code> defines the maximum number of times the same process
 execution can be retried in case of an error.</p>
 </div>
-<p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> and <a class="reference internal" href="#maxerrors">maxErrors</a>.</p>
+<p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> <a class="reference internal" href="#maxerrors">maxErrors</a>.</p>
 </div>
 <div class="section" id="module">
 <h3>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
@@ -1611,13 +1622,13 @@ RAM virtual disk.</p>
 <p>The <code class="docutils literal"><span class="pre">storeDir</span></code> directive allows you to define a directory that is used as <cite>permanent</cite> cache for your process results.</p>
 <p>In more detail, it affects the process execution in two main ways:</p>
 <ol class="arabic simple">
-<li>The process is executed only if the files declared in the <cite>output</cite> clause do not exists in directory specified by
+<li>The process is executed only if the files declared in the <cite>output</cite> clause do not exist in the directory specified by
 the <code class="docutils literal"><span class="pre">storeDir</span></code> directive. When the files exist the process execution is skipped and these files are used as
 the actual process result.</li>
-<li>Whenever a process complete successfully the files listed in the <cite>output</cite> declaration block are copied in the directory
+<li>Whenever a process is successfully completed the files listed in the <cite>output</cite> declaration block are copied into the directory
 specified by the <code class="docutils literal"><span class="pre">storeDir</span></code> directive.</li>
 </ol>
-<p>The following example shows how use the <code class="docutils literal"><span class="pre">storeDir</span></code> directive to create a directory containing a BLAST database
+<p>The following example shows how to use the <code class="docutils literal"><span class="pre">storeDir</span></code> directive to create a directory containing a BLAST database
 for each species specified by an input parameter:</p>
 <div class="highlight-python"><div class="highlight"><pre>genomes = Channel.fromPath(params.genomes)
 
@@ -1639,6 +1650,110 @@ process formatBlastDatabases {
 
 }
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <code class="docutils literal"><span class="pre">storeDir</span></code> directive is meant for long term process caching and should not be used to
+output the files produced by a process to a specific folder or organise result data in <cite>semantic</cite> directory structure.
+In these cases you may use the <a class="reference internal" href="#publishdir">publishDir</a> directive instead.</p>
+</div>
+</div>
+<div class="section" id="publishdir">
+<h3>publishDir<a class="headerlink" href="#publishdir" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">publishDir</span></code> directive allows you to publish the process output files to a specified folder. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>process foo {
+
+    publishDir &#39;/data/chunks&#39;
+
+    output:
+    file &#39;chunk_*&#39; into letters
+
+    &#39;&#39;&#39;
+    printf &#39;Hola&#39; | split -b 1 - chunk_
+    &#39;&#39;&#39;
+}
+</pre></div>
+</div>
+<p>The above example splits the string <code class="docutils literal"><span class="pre">Hola</span></code> into file chunks of a single byte. When complete the <code class="docutils literal"><span class="pre">chunk_*</span></code> output files
+are published into the <code class="docutils literal"><span class="pre">/data/chunks</span></code> folder.</p>
+<p>By default files are published to the target folder creating a <em>symbolic link</em> for each process output that links
+the file produced into the process working directory. This behavior can be modified using the <code class="docutils literal"><span class="pre">mode</span></code> parameter.</p>
+<p>Table of optional parameters that can be used with the <code class="docutils literal"><span class="pre">publishDir</span></code> directive:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>mode</td>
+<td>The file publishing method. See the following table for possible values.</td>
+</tr>
+<tr class="row-odd"><td>overwrite</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> any existing file in the specified folder will be overridden (default: <code class="docutils literal"><span class="pre">true</span></code> during normal
+pipeline execution and <code class="docutils literal"><span class="pre">false</span></code> when pipeline execution is <cite>resumed</cite>).</td>
+</tr>
+<tr class="row-even"><td>pattern</td>
+<td>Specifies a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> file pattern that selects which files to publish from the overall set of output files.</td>
+</tr>
+<tr class="row-odd"><td>path</td>
+<td>Specifies the directory where files need to be published. <strong>Note</strong>: the syntax <code class="docutils literal"><span class="pre">publishDir</span> <span class="pre">'/some/dir'</span></code> is a shortcut for <code class="docutils literal"><span class="pre">publishDir</span> <span class="pre">path:</span> <span class="pre">'/some/dir'</span></code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Table of publish modes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Mode</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>symlink</td>
+<td>Creates a <cite>symbolic link</cite> in the published directory for each process output file.</td>
+</tr>
+<tr class="row-odd"><td>link</td>
+<td>Creates a <cite>hard link</cite> in the published directory for each process output file.</td>
+</tr>
+<tr class="row-even"><td>copy</td>
+<td>Copies the output files into the published directory.</td>
+</tr>
+<tr class="row-odd"><td>move</td>
+<td>Moves the output files into the published directory. <strong>Note</strong>: this is only supposed to be used for a <cite>terminating</cite> process i.e. a process whose output is not consumed by any other downstream process.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <cite>mode</cite> value needs to be specified as a string literal i.e. enclosed by quote characters. Multiple parameters
+need to be separated by a colon character. For example:</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>process foo {
+
+    publishDir &#39;/data/chunks&#39;, mode: &#39;copy&#39;, overwrite: false
+
+    output:
+    file &#39;chunk_*&#39; into letters
+
+    &#39;&#39;&#39;
+    printf &#39;Hola&#39; | split -b 1 - chunk_
+    &#39;&#39;&#39;
+}
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Files are copied into the specified directory in an <em>asynchronous</em> manner, thus they may not be immediately
+available in the published directory at the end of the process execution. For this reason files published by a process
+must not be accessed by other downstream processes.</p>
 </div>
 </div>
 <div class="section" id="validexitstatus">
@@ -1767,7 +1882,7 @@ in your pipeline. For example:</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This directive currently is taken in account only by the <a class="reference internal" href="executor.html#cirrus-executor"><span>Cirrus</span></a> executor.</p>
 </div>
-<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a> <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a></p>
+<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a> <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </div>
 <div class="section" id="memory">
 <span id="process-memory"></span><h3>memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h3>
@@ -1818,7 +1933,7 @@ in your pipeline. For example:</p>
 <a class="reference internal" href="executor.html#sge-executor"><span>SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span>LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span>SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span>PBS/Torque</span></a>
 and <a class="reference internal" href="executor.html#drmaa-executor"><span>DRMAA</span></a></p>
 </div>
-<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a></p>
+<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </div>
 <div class="section" id="time">
 <span id="process-time"></span><h3>time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h3>
@@ -1865,7 +1980,7 @@ and <a class="reference internal" href="executor.html#drmaa-executor"><span>DRMA
 <a class="reference internal" href="executor.html#sge-executor"><span>SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span>LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span>SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span>PBS/Torque</span></a>
 and <a class="reference internal" href="executor.html#drmaa-executor"><span>DRMAA</span></a></p>
 </div>
-<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a></p>
+<p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </div>
 <div class="section" id="penv">
 <span id="process-penv"></span><h3>penv<a class="headerlink" href="#penv" title="Permalink to this headline">¶</a></h3>
@@ -1985,7 +2100,7 @@ bigger than 100, jobs will be submitted to the queue <code class="docutils liter
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">You can retrieve the current value of a dynamic directive in the process script by using the implicit variable <code class="docutils literal"><span class="pre">task</span></code>
-which holds the directive values defined in the current process.</p>
+which holds the directive values defined in the current process instance.</p>
 </div>
 <p>For example:</p>
 <div class="highlight-python"><div class="highlight"><pre>process foo {
@@ -2002,6 +2117,34 @@ which holds the directive values defined in the current process.</p>
  }
 </pre></div>
 </div>
+</div>
+<div class="section" id="dynamic-computing-resources">
+<h3>Dynamic computing resources<a class="headerlink" href="#dynamic-computing-resources" title="Permalink to this headline">¶</a></h3>
+<p>It's very common scenario that different instances of the same process may have a very different needs in terms of
+computing resources. In such situation requesting, for example, an amount of memory too low will cause some tasks to fail,
+instead using an higher limit that fits all the tasks execution could significantly decrease the execution priority of your jobs.</p>
+<p>The <a class="reference internal" href="#dynamic-directives">Dynamic directives</a> evaluation feature can used to modify the amount of computing resources request in case
+of a process failure and try to re-execute it using an higher limit. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>process foo {
+
+    memory { 2.GB * task.attempt }
+    time { 1.hour * task.attempt }
+
+    errorStrategy { task.exitStatus == 140 ? &#39;retry&#39; : &#39;terminate&#39; }
+    maxRetries 3
+
+    script:
+    &lt;your job here&gt;
+
+}
+</pre></div>
+</div>
+<p>In the above example the <a class="reference internal" href="#memory">memory</a> and execution <a class="reference internal" href="#time">time</a> limits are defined dynamically. The first time the process
+is executed the <code class="docutils literal"><span class="pre">task.attempt</span></code> is set to <code class="docutils literal"><span class="pre">1</span></code>, thus it will request a two GB of memory and one hour of maximum execution
+time.</p>
+<p>If the task execution fail reporting an exit status equals <code class="docutils literal"><span class="pre">140</span></code>, the task is re-submitted (otherwise terminates immediately).
+This time the value of <code class="docutils literal"><span class="pre">task.attempt</span></code> is <code class="docutils literal"><span class="pre">2</span></code>, thus increasing the amount of the memory to four GB and the time to 2 hours, and so on.</p>
+<p>The directory <a class="reference internal" href="#maxretries">maxRetries</a> set the maximum number of time the same task can be re-executed</p>
 </div>
 </div>
 </div>
