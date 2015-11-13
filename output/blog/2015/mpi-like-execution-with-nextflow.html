@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - MPI-like distributed execution with Nextflow</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -82,29 +82,58 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: pipelines</h3>
-                <hr>
-                <ul>
-                        <h4>November 2015</h4>
-                        <ul>
-        
-                    <li>13 - <a href="/blog/2015/mpi-like-execution-with-nextflow.html">MPI-like distributed execution with Nextflow</a></li>
-                            </ul>
-                            <h4>June 2015</h4>
-                            <ul>
-        
-                    <li>15 - <a href="/blog/2015/the-impact-of-docker-on-genomic-pipelines.html">The impact of Docker containers on the performance of genomic pipelines</a></li>
-        
-                    <li>09 - <a href="/blog/2015/innovation-in-science-the-story-behind-nextflow.html">Innovation In Science - The story behind Nextflow</a></li>
-                            </ul>
-                            <h4>April 2015</h4>
-                            <ul>
-        
-                    <li>14 - <a href="/blog/2015/introducing-nextflow-console.html">Introducing Nextflow REPL Console</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">MPI-like distributed execution with Nextflow</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 13 November 2015</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>The main goal of Nextflow is to make workflows portable across different computing platforms taking advantage of the parallelisation features provided by the underlying system without having to reimplement your application code. </p><p>From the beginning Nextflow has included executors designed to target the most popular resource managers and batch schedulers commonly used in HPC data centers, such as <a href="http://www.univa.com">Univa Grid Engine</a>, <a href="http://www.ibm.com/systems/platformcomputing/products/lsf/">Platform LSF</a>, <a href="https://computing.llnl.gov/linux/slurm/">SLURM</a>, <a href="http://www.pbsworks.com/Product.aspx?id=1">PBS</a> and <a href="http://www.adaptivecomputing.com/products/open-source/torque/">Torque</a>. </p><p>When using one of these executors Nextflow submits the computational workflow tasks as independent job requests to the underlying platform scheduler, specifying for each of them the computing resources needed to carry out its job. </p><p>This approach works well for workflows that are composed of long running tasks, which is the case of most common genomic pipelines.</p><p>However this approach does not scale well for workloads made up of a large number of short-lived tasks (e.g. a few seconds or sub-seconds). In this scenario the resource manager scheduling time is much longer than the actual task execution time, thus resulting in an overall execution time that is much longer than the real execution time. In some cases this represents an unacceptable waste of computing resources. </p><p>Moreover supercomputers, such as <a href="https://www.bsc.es/marenostrum-support-services/mn3">MareNostrum</a> in the <a href="https://www.bsc.es/">Barcelona Supercomputer Center (BSC)</a>, are optimized for memory distributed applications. In this context it is needed to allocate a certain amount of computing resources in advance to run the application in a distributed manner, commonly using the <a href="https://en.wikipedia.org/wiki/Message_Passing_Interface">MPI</a> standard.</p><p>In this scenario, the Nextflow execution model was far from optimal, if not unfeasible. </p><h3>Distributed execution</h3><p>For this reason, since the release 0.16.0, Nextflow has implemented a new distributed execution model that greatly improves the computation capability of the framework. It uses <a href="https://ignite.apache.org/">Apache Ignite</a>, a lightweight clustering engine and in-memory data grid, which has been recently open sourced under the Apache software foundation umbrella. </p><p>When using this feature a Nextflow application is launched as if it were an MPI application. It uses a job wrapper that submits a single request specifying all the needed computing resources. The Nextflow command line is executed by using the <code>mpirun</code> utility, as shown in the example below:</p>
+<pre><code>#!/bin/bash
+#$ -l virtual_free=120G
+#$ -q &lt;queue name&gt;
+#$ -N &lt;job name&gt;
+#$ -pe ompi &lt;nodes&gt;
+mpirun --pernode nextflow run &lt;your-project-name&gt; -with-mpi [pipeline parameters]
+</code></pre><p>This tool spawns a Nextflow instance in each of the computing nodes allocated by the cluster manager. </p><p>Each Nextflow instance automatically connects with the other peers creating an <em>private</em> internal cluster, thanks to the Apache Ignite clustering feature that is embedded within Nextflow itself. </p><p>The first node becomes the application driver that manages the execution of the workflow application, submitting the tasks to the remaining nodes that act as workers. </p><p>When the application is complete, the Nextflow driver automatically shuts down the Nextflow/Ignite cluster and terminates the job execution. </p><p><img src="/img/nextflow-distributed-execution.png" alt="Nextflow distributed execution""/></p><h3>Conclusion</h3><p>In this way it is possible to deploy a Nextflow workload in a supercomputer using an execution strategy that resembles the MPI distributed execution model. This doesn't require to implement your application using the MPI api/library and it allows you to maintain your code portable across different execution platforms. </p><p>Although we do not currently have a performance comparison between a Nextflow distributed execution and an equivalent MPI application, we assume that the latter provides better performance due to its low-level optimisation. </p><p>Nextflow, however, focuses on the fast prototyping of scientific applications in a portable manner while maintaining the ability to scale and distribute the application workload in an efficient manner in an HPC cluster. </p><p>This allows researchers to validate an experiment, quickly, reusing existing tools and software components. This eventually makes it possible to implement an optimised version using a low-level programming language in the second stage of a project. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/mpi.html" class="background-color bg-hover-color">mpi</a>
+				<a href="/tags/hpc.html" class="background-color bg-hover-color">hpc</a>
+				<a href="/tags/pipelines.html" class="background-color bg-hover-color">pipelines</a>
+				<a href="/tags/genomic.html" class="background-color bg-hover-color">genomic</a>
+			  </p>
 
-            </div>
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -143,6 +172,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>
