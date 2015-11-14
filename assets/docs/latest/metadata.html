@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 0.16.2 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.16.2 documentation</title>
   
 
   
@@ -53,8 +53,8 @@
 
   
     <link rel="top" title="Nextflow 0.16.2 documentation" href="index.html"/>
-        <link rel="next" title="Basic concepts" href="basic.html"/>
-        <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
+        <link rel="next" title="Examples" href="example.html"/>
+        <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
@@ -81,10 +81,10 @@
         
         
             <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Get started</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#your-first-script">Your first script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="getstarted.html#your-first-script">Your first script</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a><ul>
@@ -186,11 +186,11 @@
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#manage-dependencies">Manage dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="metadata.html#runtime-metadata">Runtime metadata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="metadata.html#completion-handler">Completion handler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="metadata.html#notification-message">Notification message</a></li>
-<li class="toctree-l2"><a class="reference internal" href="metadata.html#decoupling-metadata">Decoupling metadata</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Workflow introspection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#runtime-metadata">Runtime metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#notification-message">Notification message</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a><ul>
@@ -220,7 +220,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Get started</li>
+    <li>Workflow introspection</li>
       <li class="wy-breadcrumbs-aside">
         
       </li>
@@ -229,166 +229,152 @@
 </div>
           <div role="main">
             
-  <div class="section" id="get-started">
-<h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p><cite>Nextflow</cite> can be used on any POSIX compatible system (Linux, Solaris, OS X, etc) and
-requires <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 7</a> to be installed
-(Java 8 is not yet supported).</p>
-<p>Windows systems may be supported using a POSIX compatibility layer like <a class="reference external" href="http://www.cygwin.com">Cygwin</a> (unverified) or
-in alternative installing it into a Linux VM using a virtualization software like <a class="reference external" href="http://www.virtualbox.org">VirtualBox</a>
-or <a class="reference external" href="http://www.vmware.com/">VMware</a>.</p>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p><cite>Nextflow</cite> is distributed as a self-contained executable package, this means that it does not require any special installation procedure.</p>
-<p>It only needs two easy steps:</p>
-<ol class="arabic simple">
-<li>Download the executable package by copying and pasting the following command in your terminal
-window: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.
-It will create the <code class="docutils literal"><span class="pre">nextflow</span></code> main executable file in the current directory.</li>
-<li>Optionally, move the <code class="docutils literal"><span class="pre">nextflow</span></code> file in a directory accessible by your <code class="docutils literal"><span class="pre">$PATH</span></code> variable
-(this is only required to avoid to remember and type the Nextflow full path each time you need to run it).</li>
-</ol>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">In the case you don't have <code class="docutils literal"><span class="pre">wget</span></code> installed you can use the <code class="docutils literal"><span class="pre">curl</span></code> utility instead by entering
-the following command: <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-fsSL</span> <span class="pre">get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code></p>
-</div>
-</div>
-<div class="section" id="your-first-script">
-<h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
-<p>By using your favourite text editor copy the following example, and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env nextflow
-
-params.str = &#39;Hello world!&#39;
-
-process splitLetters {
-
-    output:
-    file &#39;chunk_*&#39; into letters mode flatten
-
-    &quot;&quot;&quot;
-    printf &#39;${params.str}&#39; | split -b 6 - chunk_
-    &quot;&quot;&quot;
-}
-
-
-process convertToUpper {
-
-    input:
-    file x from letters
-
-    output:
-    stdout result
-
-    &quot;&quot;&quot;
-    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;
-    &quot;&quot;&quot;
-}
-
-result.subscribe {
-    println it.trim()
-}
-</pre></div>
-</div>
-<p>This script is made up of two processes, the first splits a string in file chunks containing 6 characters,
-the following process receives these files and transform the content to uppercase letters.
-The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and finally the output is printed out by the
-<code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
-<p>Execute the script by entering the following command in your terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf
-</pre></div>
-</div>
-<p>It will output something similar to the text shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
-[warm up] executor &gt; local
-[22/7548fa] Submitted process &gt; splitLetters (1)
-[e2/008ee9] Submitted process &gt; convertToUpper (1)
-[1e/165130] Submitted process &gt; convertToUpper (2)
-HELLO
-WORLD!
-</pre></div>
-</div>
-<p>You can see that the first process is execute once, while the second two times. Finally the result string is printed.</p>
-<p>It's worth noting that the process <code class="docutils literal"><span class="pre">convertToUpper</span></code> is executed in parallel, so there's no guarantee that the instance
-processing the first split (the chunk <cite>Hello</cite>) is executed before before the one processing the second split (the chunk <cite>world!</cite>).</p>
-<p>Thus, it is perfectly possible that you get the final result printed out in a different order:</p>
-<div class="highlight-python"><div class="highlight"><pre>WORLD!
-HELLO
+  <div class="section" id="workflow-introspection">
+<h1>Workflow introspection<a class="headerlink" href="#workflow-introspection" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="runtime-metadata">
+<h2>Runtime metadata<a class="headerlink" href="#runtime-metadata" title="Permalink to this headline">¶</a></h2>
+<p>The implicit <code class="docutils literal"><span class="pre">workflow</span></code> object allows you to access some workflow and runtime metadata in your Nextflow scripts.
+For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>println &quot;Project : $workflow.projectDir&quot;
+println &quot;Git info: $workflow.repository - $workflow.revision [$workflow.commitId]&quot;
+println &quot;Cmd line: $workflow.commandLine&quot;
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The hexadecimal numbers, like <code class="docutils literal"><span class="pre">22/7548fa</span></code>, identify the unique process execution. These numbers are
-also the prefix of the directories where each process is executed. You can inspect the files produced by them
-changing to the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code> and using that numbers to find the process specific execution path.</p>
+<p class="last">To shortcut the access to multiple <code class="docutils literal"><span class="pre">workflow</span></code> properties you can use the Groovy
+<a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/lang/Object.html#with(groovy.lang.Closure)">with</a> method.</p>
 </div>
-<div class="section" id="modify-and-resume">
-<h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
-<p>Nextflow keep track of all the processes executed in your pipeline. If you modify some parts of your script,
-only the processes that are actually changed will be re-executed. The execution of the processes that are not changed
-will be skipped and the cached result used instead.</p>
-<p>This helps a lot when testing or modifying part of your pipeline without having to re-execute it from scratch.</p>
-<p>For the sake of this tutorial modify the <code class="docutils literal"><span class="pre">convertToUpper</span></code> process in the previous example, by replacing the
-process script with the string <code class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process will look like as the following one:</p>
-<div class="highlight-python"><div class="highlight"><pre>process convertToUpper {
+<p>The following table lists the properties that can be accessed on the <code class="docutils literal"><span class="pre">workflow</span></code> object:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>repository</td>
+<td>Project repository Git remote URL.</td>
+</tr>
+<tr class="row-odd"><td>commitId</td>
+<td>Git commit ID of the executed workflow repository.</td>
+</tr>
+<tr class="row-even"><td>revision</td>
+<td>Git branch/tag of the executed workflow repository.</td>
+</tr>
+<tr class="row-odd"><td>projectDir</td>
+<td>Directory where the workflow project is stored in the computer.</td>
+</tr>
+<tr class="row-even"><td>launchDir</td>
+<td>Directory where the workflow execution has been launched.</td>
+</tr>
+<tr class="row-odd"><td>workDir</td>
+<td>Workflow working directory.</td>
+</tr>
+<tr class="row-even"><td>container</td>
+<td>Docker image used to run workflow tasks. When more than one image is used
+it returns a map object containing <cite>[process name, image name]</cite> pair entries.</td>
+</tr>
+<tr class="row-odd"><td>commandLine</td>
+<td>Command line as entered by the user to launch the workflow execution.</td>
+</tr>
+<tr class="row-even"><td>profile</td>
+<td>Used configuration profile.</td>
+</tr>
+<tr class="row-odd"><td>start</td>
+<td>Timestamp of workflow at execution start.</td>
+</tr>
+<tr class="row-even"><td><sup>*</sup> complete</td>
+<td>Timestamp of workflow when execution is completed.</td>
+</tr>
+<tr class="row-odd"><td><sup>*</sup> duration</td>
+<td>Time elapsed to complete workflow execution.</td>
+</tr>
+<tr class="row-even"><td><sup>*</sup> success</td>
+<td>Reports if the execution completed successfully.</td>
+</tr>
+<tr class="row-odd"><td><sup>*</sup> exitStatus</td>
+<td>The exit status of the task that caused the workflow execution to fail.</td>
+</tr>
+<tr class="row-even"><td><sup>*</sup> errorMessage</td>
+<td>Error message of the task that caused the workflow execution to fail.</td>
+</tr>
+<tr class="row-odd"><td><sup>*</sup> errorReport</td>
+<td>Detailed error of the task that caused the workflow execution to fail.</td>
+</tr>
+<tr class="row-even"><td>nextflow.version</td>
+<td>Nextflow runtime version number.</td>
+</tr>
+<tr class="row-odd"><td>nextflow.build</td>
+<td>Nextflow runtime build number.</td>
+</tr>
+<tr class="row-even"><td>nextflow.timestamp</td>
+<td>Nextflow runtime compile timestamp.</td>
+</tr>
+</tbody>
+</table>
+<p>The properties marked with a <cite>*</cite> are accessible only in the workflow completion handler. See the following
+section for details.</p>
+</div>
+<div class="section" id="completion-handler">
+<h2>Completion handler<a class="headerlink" href="#completion-handler" title="Permalink to this headline">¶</a></h2>
+<p>Due to the asynchronous nature of Nextflow the termination of a script does not correspond to the termination
+of the running workflow. Thus the information, only available on execution completion, needs to be accessed by
+using an asynchronous handler.</p>
+<p>The <code class="docutils literal"><span class="pre">onComplete</span></code> event handler is invoked by the framework when the workflow execution is completed. It allows one
+to access the workflow termination status and other useful information. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete {
+    println &quot;Pipeline completed at: $workflow.complete&quot;
+    println &quot;Execution status: ${ workflow.success ? &#39;OK&#39; : &#39;failed&#39; }&quot;
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="notification-message">
+<h2>Notification message<a class="headerlink" href="#notification-message" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow does not provide a built-in mechanism to send emails or other messages. However the <code class="docutils literal"><span class="pre">mail</span></code> standard Linux
+tool (or an equivalent one) can easily be used to send a notification message when the workflow execution is completed,
+as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete {
+    def subject = &#39;My pipeline execution&#39;
+    def recipient = &#39;me@gmail.com&#39;
 
-    input:
-    file x from letters
+    [&#39;mail&#39;, &#39;-s&#39;, subject, recipient].execute() &lt;&lt; &quot;&quot;&quot;
 
-    output:
-    stdout result
-
-    &quot;&quot;&quot;
-    rev $x
+    Pipeline execution summary
+    ---------------------------
+    Completed at: ${workflow.complete}
+    Duration    : ${workflow.duration}
+    Success     : ${workflow.success}
+    workDir     : ${workflow.workDir}
+    exit status : ${workflow.exitStatus}
+    Error report: ${workflow.errorReport ?: &#39;-&#39;}
     &quot;&quot;&quot;
 }
 </pre></div>
 </div>
-<p>Then save the file with the same name, and execute it by adding the <code class="docutils literal"><span class="pre">-resume</span></code> option to the command line:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf -resume
+</div>
+<div class="section" id="decoupling-metadata">
+<h2>Decoupling metadata<a class="headerlink" href="#decoupling-metadata" title="Permalink to this headline">¶</a></h2>
+<p>The workflow completion handler can be defined also in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. This is useful to
+decouple the handling of pipeline metadata from the main script logic.</p>
+<p>When the completion handler is included in a configuration file the only difference is that the <code class="docutils literal"><span class="pre">onComplete</span></code> closure
+has to be defined by using the assignment operator as shown below:</p>
+<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete = {
+    // any workflow property can be used here
+    println &quot;Pipeline complete&quot;
+    println &quot;Command line: $workflow.commandLine&quot;
+}
 </pre></div>
 </div>
-<p>It will print an output similar to the following one:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
-[warm up] executor &gt; local
-[22/7548fa] Cached process &gt; splitLetters (1)
-[d0/7b79a3] Submitted process &gt; convertToUpper (1)
-[b0/c99ef9] Submitted process &gt; convertToUpper (2)
-olleH
-!dlrow
-</pre></div>
-</div>
-<p>You will see that the execution of the process <code class="docutils literal"><span class="pre">splitLetters</span></code> is actually skipped (the process ID is the same), and
-its results are retried from the cache. Instead the second one is executed as expected, printing the reversed strings.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">The pipeline results are cached by default in the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code>. Depending your script this folder
-can take of lot of disk space. If your are sure you won't resume your pipeline execution, clean this folder periodically.</p>
-</div>
-</div>
-<div class="section" id="pipeline-parameters">
-<h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Pipeline parameters are simply declared by pre-pending to a variable name the prefix <code class="docutils literal"><span class="pre">params</span></code> separated by dot character.
-Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
-<p>For the sake of this tutorial you can try to execute the previous example specifying a different input
-string parameter, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf --str &#39;Hola mundo&#39;
-</pre></div>
-</div>
-<p>The string specified on the command line will override the default value of the parameter. The output
-will look like as the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.7.0
-[warm up] executor &gt; local
-[6d/54ab39] Submitted process &gt; splitLetters (1)
-[a1/88716d] Submitted process &gt; convertToUpper (2)
-[7d/3561b6] Submitted process &gt; convertToUpper (1)
-odnu
-m aloH
-</pre></div>
-</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is possible to define a workflow completion handler both in the pipeline script <strong>and</strong> in the
+configuration file.</p>
 </div>
 </div>
 </div>
@@ -399,10 +385,10 @@ m aloH
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="basic.html" class="btn btn-neutral float-right" title="Basic concepts"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="example.html" class="btn btn-neutral float-right" title="Examples"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Nextflow&#39;s documentation!"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sharing.html" class="btn btn-neutral" title="Pipeline sharing"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
