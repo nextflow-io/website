@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - Developing a bioinformatics pipeline across multiple environments</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -82,34 +82,76 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: pipelines</h3>
-                <hr>
-                <ul>
-                        <h4>February 2016</h4>
-                        <ul>
-        
-                    <li>04 - <a href="/blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html">Developing a bioinformatics pipeline across multiple environments</a></li>
-                            </ul>
-                            <h4>November 2015</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2015/mpi-like-execution-with-nextflow.html">MPI-like distributed execution with Nextflow</a></li>
-                            </ul>
-                            <h4>June 2015</h4>
-                            <ul>
-        
-                    <li>15 - <a href="/blog/2015/the-impact-of-docker-on-genomic-pipelines.html">The impact of Docker containers on the performance of genomic pipelines</a></li>
-        
-                    <li>09 - <a href="/blog/2015/innovation-in-science-the-story-behind-nextflow.html">Innovation In Science - The story behind Nextflow</a></li>
-                            </ul>
-                            <h4>April 2015</h4>
-                            <ul>
-        
-                    <li>14 - <a href="/blog/2015/introducing-nextflow-console.html">Introducing Nextflow REPL Console</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Developing a bioinformatics pipeline across multiple environments</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Evan Floden</li>
+				<li><i class="fa fa-calendar"></i> 04 February 2016</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>As a new bioinformatics student with little formal computer science training, there are few things that scare me more than PhD committee meetings and having to run my code in a completely different operating environment. </p><p>Recently my work landed me in the middle of the phylogenetic tree jungle and the computational requirements of my project far outgrew the resources that were available on our institute’s <a href="https://en.wikipedia.org/wiki/Univa_Grid_Engine">Univa Grid Engine</a> based cluster. Luckily for me, an opportunity arose to participate in a joint program at the MareNostrum HPC at the <a href="http://www.bsc.es">Barcelona Supercomputing Centre</a> (BSC).</p><p>As one of the top 100 supercomputers in the world, the <a href="https://www.bsc.es/marenostrum-support-services">MareNostrum III</a> dwarfs our cluster and consists of nearly 50'000 processors. However it soon became apparent that with great power comes great responsibility and in the case of the BSC, great restrictions. These include no internet access, restrictive wall times for jobs, longer queues, fewer pre-installed binaries and an older version of bash. Faced with the possibility of having to rewrite my 16 bodged scripts for another queuing system I turned to Nextflow.</p><p>Straight off the bat I was able to reduce all my previous scripts to a single Nextflow script. Admittedly, the original code was not great, but the data processing model made me feel confident in what I was doing and I was able to reduce the volume of code to 25% of its initial amount whilst making huge improvements in the readability. The real benefits however came from the portability.</p><p>I was able to write the project on my laptop (Macbook Air), continuously test it on my local desktop machine (Linux) and then perform more realistic heavy lifting runs on the cluster, all managed from a single GitHub repository. The BSC uses the <a href="https://en.wikipedia.org/wiki/Platform_LSF">Load Sharing Facility</a> (LSF) platform with longer queue times, but a large number of CPUs. My project on the other hand had datasets that require over 100'000 tasks, but the tasks processes themselves run for a matter of seconds or minutes. We were able to marry these two competing interests deploying Nextflow in a <a href="/blog/2015/mpi-like-execution-with-nextflow.html">distributed execution manner that resemble the one of an MPI application</a>.</p><p>In this configuration, the queuing system allocates the Nextflow requested resources and using the embedded <a href="https://ignite.apache.org/">Apache Ignite</a> clustering engine, Nextflow handles the submission of processes to the individual nodes. </p><p>Here is some examples of how to run the same Nextflow project over multiple platforms.</p><h4>Local</h4><p>If I wished to launch a job locally I can run it with the command:</p>
+<pre><code>nextflow run myproject.nf
+</code></pre><h4>Univa Grid Engine (UGE)</h4><p>For the UGE I simply needed to specify the following in the <code>nextflow.config</code> file: </p>
+<pre><code>process {
+        executor=&#39;uge&#39;
+        queue=&#39;my_queue&#39;
+}  
+</code></pre><p>And then launch the pipeline execution as we did before:</p>
+<pre><code>nextflow run myproject.nf     
+</code></pre><h4>Load Sharing Facility (LSF)</h4><p>For running the same pipeline in the MareNostrum HPC enviroment, taking advantage of the MPI standard to deploy my workload, I first created a wrapper script (for example <code>bsc-wrapper.sh</code>) declaring the resources that I want to reserve for the pipeline execution:</p>
+<pre><code>#!/bin/bash
+#BSUB -oo logs/output_%J.out
+#BSUB -eo logs/output_%J.err
+#BSUB -J myProject
+#BSUB -q bsc_ls
+#BSUB -W 2:00
+#BSUB -x
+#BSUB -n 512
+#BSUB -R &quot;span[ptile=16]&quot;
+export NXF_CLUSTER_SEED=$(shuf -i 0-16777216 -n 1)
+mpirun --pernode bin/nextflow run concMSA.nf -with-mpi
+</code></pre><p>And then can execute it using <code>bsub</code> as shown below:</p>
+<pre><code>bsub &lt; bsc-wrapper.sh
+</code></pre><p>By running Nextflow in this way and given the wrapper above, a single <code>bsub</code> job will run on 512 cores in 32 computing nodes (512/16 = 32) with a maximum wall time of 2 hours. Thousands of Nextflow processes can be spawned during this and the execution can be monitored in the standard manner from a single Nextflow output and error files. If any errors occur the execution can of course to continued with <a href="/docs/latest/getstarted.html?highlight=resume#modify-and-resume"><code>-resume</code> command line option</a>.</p><h3>Conclusion</h3><p>Nextflow provides a simplified way to develop across multiple platforms and removes much of the overhead associated with running niche, user developed pipelines in an HPC environment. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/bioinformatics.html" class="background-color bg-hover-color">bioinformatics</a>
+				<a href="/tags/reproducibility.html" class="background-color bg-hover-color">reproducibility</a>
+				<a href="/tags/pipelines.html" class="background-color bg-hover-color">pipelines</a>
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/genomic.html" class="background-color bg-hover-color">genomic</a>
+				<a href="/tags/hpc.html" class="background-color bg-hover-color">hpc</a>
+			  </p>
 
-            </div>
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -148,6 +190,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

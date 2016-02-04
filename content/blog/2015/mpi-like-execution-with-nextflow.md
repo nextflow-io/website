@@ -92,6 +92,8 @@ This allows researchers to validate an experiment, quickly, reusing existing too
 software components. This eventually makes it possible to implement an optimised version 
 using a low-level programming language in the second stage of a project. 
 
+Read the documentation to learn more about the [Nextflow distributed execution model](http://www.nextflow.io/docs/latest/ignite.html#execution-with-mpi).
+
 
  
  
