@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - Automatic error recovery and resources managament with Nextflow</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -82,36 +82,81 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: pipelines</h3>
-                <hr>
-                <ul>
-                        <h4>February 2016</h4>
-                        <ul>
-        
-                    <li>11 - <a href="/blog/2016/error-recovery-and-automatic-resources-management.html">Error recovery and automatic resource management with Nextflow</a></li>
-        
-                    <li>04 - <a href="/blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html">Developing a bioinformatics pipeline across multiple environments</a></li>
-                            </ul>
-                            <h4>November 2015</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2015/mpi-like-execution-with-nextflow.html">MPI-like distributed execution with Nextflow</a></li>
-                            </ul>
-                            <h4>June 2015</h4>
-                            <ul>
-        
-                    <li>15 - <a href="/blog/2015/the-impact-of-docker-on-genomic-pipelines.html">The impact of Docker containers on the performance of genomic pipelines</a></li>
-        
-                    <li>09 - <a href="/blog/2015/innovation-in-science-the-story-behind-nextflow.html">Innovation In Science - The story behind Nextflow</a></li>
-                            </ul>
-                            <h4>April 2015</h4>
-                            <ul>
-        
-                    <li>14 - <a href="/blog/2015/introducing-nextflow-console.html">Introducing Nextflow REPL Console</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Automatic error recovery and resources managament with Nextflow</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 11 February 2016</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>In the past weeks a new features has been added to Nextflow that allows failing jobs to be rescheduled automatically increasing the amount of resources requested. </p><h2>The problem</h2><p>Nextflow provides a mechanism that allows tasks to be automatically re-executed when a error exist status is returned. This is useful to handle errors caused by temporary or even permanent computing node failues (i.e. networks hiccups, broken disks, etc.) that may happen in a cloud based environment. </p><p>However in a HPC cluster these events are very rare. In this scenario error conditions are more likely to be caused by, other than application errors, peaks of computing resources allocated by a job that exceeds the resources requested by it. This results in the batch scheduler killing the job which in turn stops the overall pipeline execution. </p><p>In this context re-executing automatically the failed task is usuless because it would simple replicate the same error condition. A common solution consists simply to increase the resources requested to the needs of the most consuming job, even though this will result in a suboptimal allocation of most of the jobs that are less resource hungry. </p><p>Moreover such upper limit is difficult to be predicted. In most case the only way to establish it is just by using a painful fail-and-retry approach. </p><p>For example take in consideration the following Nextflow process: </p>
+<pre><code>process aling {
+    executor &#39;sge&#39; 
+    memory 1.GB 
+    errorStratgey &#39;retry&#39; 
 
-            </div>
+    input: 
+    file &#39;seq.fa&#39; from sequences 
+
+    script:
+    &#39;&#39;&#39;
+    t_coffee -in seq.fa 
+    &#39;&#39;&#39;
+}
+</code></pre><p>The above definition will execute as many jobs as there are fasta files emitted by the <code>sequences</code> channel. If the task returns a non-zero error code, Nextflow will reschedule the job execution requesting the same amount of memory and disk storage resources. In the case the error is caused by <code>t_coffee</code> that needing more than one GB of memory for a specific alignment the task will continue to fail, stopping the pipeline execution as result. </p><h2>Automatically increase job resources</h2><p>However Nextflow allows resources to be defined in a dynamic manner, by doing that it is possible to increase the memory request when rescheduling a failing task execution. For example: </p>
+<pre><code>process aling { 
+    executor &#39;sge&#39;
+    memory { 1.GB * task.attempt }
+    errorStrategy &#39;retry&#39; 
+
+    input: 
+    file &#39;seq.fa&#39; from sequences 
+
+    script:
+    &#39;&#39;&#39;
+    t_coffee -in seq.fa 
+    &#39;&#39;&#39;
+}
+</code></pre><p>In the above example the memory requirement is defined using a dynamic rule. The <code>task.attempt</code> attribute represents the current task attempt (1 the first time the task is executed, 2 the second and so on). Thus the task will start requesting one GB of memory. </p><p>If case of error it will be rescheduled requesting 2 GB and so on, until it will be executed succefully or the limit of times the task can be retried is reached stopping the pipeline execution. </p><p>It is also possible to define the <code>errorStrategy</code> directive in a dyanmic manner. This is useful to re-execute failed jobs only if certain a condition is verified. </p><p>For example the Univa grid engine batch scheduler returns the exit status 140 when a jobs is terminated because it's using more resources than the ones requested. </p><p>We can use this information to reschedule only those jobs that fail for exeeding the resources allocation by checking that exit status. This can be done with the following directive declarion: </p>
+<pre><code>errorStrategy { task.exitStatus == 140 ? &#39;retry&#39; : &#39;terminate&#39; }
+</code></pre><p>In this way a failed task is rescheduled only when it returns the <code>140</code> exit status otherwise the pipeline execution is terminated in all other cases. </p><h2>Conclusion</h2><p>Nextflow provides a very flexible mechanism for defining the job resource request and to handle error events. It makes it possible to automatically reschedule failing tasks under certain condition and to define jobs resource request in a dynamic manner so that it can be adapted to the actual job need and to optimize the overall resource utilisation. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/bioinformatics.html" class="background-color bg-hover-color">bioinformatics</a>
+				<a href="/tags/pipelines.html" class="background-color bg-hover-color">pipelines</a>
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/hpc.html" class="background-color bg-hover-color">hpc</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -150,6 +195,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

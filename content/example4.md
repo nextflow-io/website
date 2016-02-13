@@ -75,8 +75,11 @@ process mapping {
  
 /*
  * Step 3. Assembles the transcript by using the "cufflinks" 
+ * and publish the transcript output files into the `results` folder
  */
 process makeTranscript {
+    publishDir "results"
+    
     input:
     set pair_id, bam_file from bam
      
@@ -88,12 +91,6 @@ process makeTranscript {
     """
 }
  
-/*
- * Step 4. Collects the transcripts files and print them
- */
-transcripts
-  .collectFile { tuple("${it[0]}transcript", it[1]) }
-  .println { "Transcript model: $it" }
 
 ]]>
 </script>
