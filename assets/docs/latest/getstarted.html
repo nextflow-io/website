@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 0.17.2 documentation</title>
+  <title>Get started &mdash; Nextflow 0.18.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.17.2',
+        VERSION:'0.18.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.17.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
         <link rel="next" title="Basic concepts" href="basic.html"/>
         <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
 
@@ -126,14 +126,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#local-executor">Local executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#sge-executor">SGE executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf-executor">LSF executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm-executor">SLURM executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque-executor">PBS/Torque executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa-executor">DRMAA executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#clusterk-cirrus">ClusterK Cirrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm">SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#htcondor">HTCondor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa">DRMAA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
@@ -230,9 +232,9 @@
           <div role="main">
             
   <div class="section" id="get-started">
-<h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
+<span id="getstart-page"></span><h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<span id="getstart-requirement"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p><cite>Nextflow</cite> can be used on any POSIX compatible system (Linux, Solaris, OS X, etc) and
 requires <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 7</a> to be installed
 (Java 8 is not yet supported).</p>
@@ -241,7 +243,7 @@ in alternative installing it into a Linux VM using a virtualization software lik
 or <a class="reference external" href="http://www.vmware.com/">VMware</a>.</p>
 </div>
 <div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<span id="getstart-install"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p><cite>Nextflow</cite> is distributed as a self-contained executable package, this means that it does not require any special installation procedure.</p>
 <p>It only needs two easy steps:</p>
 <ol class="arabic simple">
@@ -258,7 +260,7 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 </div>
 </div>
 <div class="section" id="your-first-script">
-<h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
+<span id="getstart-first"></span><h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
 <p>By using your favourite text editor copy the following example, and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
 <div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env nextflow
 
@@ -326,7 +328,7 @@ also the prefix of the directories where each process is executed. You can inspe
 changing to the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code> and using that numbers to find the process specific execution path.</p>
 </div>
 <div class="section" id="modify-and-resume">
-<h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
+<span id="getstart-resume"></span><h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow keep track of all the processes executed in your pipeline. If you modify some parts of your script,
 only the processes that are actually changed will be re-executed. The execution of the processes that are not changed
 will be skipped and the cached result used instead.</p>
@@ -370,7 +372,7 @@ can take of lot of disk space. If your are sure you won't resume your pipeline e
 </div>
 </div>
 <div class="section" id="pipeline-parameters">
-<h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
+<span id="getstart-params"></span><h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
 <p>Pipeline parameters are simply declared by pre-pending to a variable name the prefix <code class="docutils literal"><span class="pre">params</span></code> separated by dot character.
 Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
 <p>For the sake of this tutorial you can try to execute the previous example specifying a different input

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.17.2 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.18.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.17.2',
+        VERSION:'0.18.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.17.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon S3 storage" href="amazons3.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -126,14 +126,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#local-executor">Local executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#sge-executor">SGE executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf-executor">LSF executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm-executor">SLURM executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque-executor">PBS/Torque executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa-executor">DRMAA executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#clusterk-cirrus">ClusterK Cirrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#slurm">SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#htcondor">HTCondor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa">DRMAA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
@@ -382,7 +384,7 @@ pipeline, but the process <code class="docutils literal"><span class="pre">hello
 </div>
 </div>
 <div class="section" id="scope-executor">
-<h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline">¶</a></h3>
+<span id="config-executor"></span><h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -415,6 +417,9 @@ pipeline, but the process <code class="docutils literal"><span class="pre">hello
 </tr>
 <tr class="row-even"><td>killBatchSize</td>
 <td>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal"><span class="pre">100</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>perJobMemLimit</td>
+<td>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span>LSF</span></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -465,31 +470,34 @@ executor.$local.pollInterval = &#39;1sec&#39;
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>enabled</td>
-<td>Turn this flag to <code class="docutils literal"><span class="pre">true</span></code> to enable Docker execution (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+<td>Turn this flag to <code class="docutils literal"><span class="pre">true</span></code> to enable Docker execution (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>sudo</td>
-<td>Executes Docker run command as <code class="docutils literal"><span class="pre">sudo</span></code> (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+<tr class="row-odd"><td>legacy</td>
+<td>Uses command line options removed since version 1.10.x (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>tty</td>
-<td>Allocate a pseudo-tty (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+<tr class="row-even"><td>sudo</td>
+<td>Executes Docker run command as <code class="docutils literal"><span class="pre">sudo</span></code> (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>temp</td>
-<td>Mounts a path of your choice as the <code class="docutils literal"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal"><span class="pre">auto</span></code> to create a temporary directory each time a container is created</td>
+<tr class="row-odd"><td>tty</td>
+<td>Allocates a pseudo-tty (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>remove</td>
-<td>Clean-up the container after the execution (default: <code class="docutils literal"><span class="pre">true</span></code>). For details see: <a class="reference external" href="http://docs.docker.com/reference/run/#clean-up-rm">http://docs.docker.com/reference/run/#clean-up-rm</a></td>
+<tr class="row-even"><td>temp</td>
+<td>Mounts a path of your choice as the <code class="docutils literal"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</td>
 </tr>
-<tr class="row-odd"><td>runOptions</td>
-<td>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="http://docs.docker.com/reference/run">http://docs.docker.com/reference/run</a></td>
+<tr class="row-odd"><td>remove</td>
+<td>Clean-up the container after the execution (default: <code class="docutils literal"><span class="pre">true</span></code>). For details see: <a class="reference external" href="http://docs.docker.com/reference/run/#clean-up-rm">http://docs.docker.com/reference/run/#clean-up-rm</a> .</td>
 </tr>
-<tr class="row-even"><td>registry</td>
-<td>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal"><span class="pre">http://</span></code></td>
+<tr class="row-even"><td>runOptions</td>
+<td>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="http://docs.docker.com/reference/run">http://docs.docker.com/reference/run</a> .</td>
 </tr>
-<tr class="row-odd"><td>fixOwnership</td>
-<td>Fix ownership of files created by the docker container</td>
+<tr class="row-odd"><td>registry</td>
+<td>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal"><span class="pre">http://</span></code>.</td>
 </tr>
-<tr class="row-even"><td>engineOptions</td>
-<td>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal"><span class="pre">docker</span> <span class="pre">[OPTIONS]</span></code></td>
+<tr class="row-even"><td>fixOwnership</td>
+<td>Fixes ownership of files created by the docker container.</td>
+</tr>
+<tr class="row-odd"><td>engineOptions</td>
+<td>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal"><span class="pre">docker</span> <span class="pre">[OPTIONS]</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -616,38 +624,56 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-even"><td>connectionTimeout</td>
 <td>The amount of time to wait (in milliseconds) when initially establishing a connection before giving up and timing out.</td>
 </tr>
-<tr class="row-odd"><td>maxConnections</td>
+<tr class="row-odd"><td>endpoint</td>
+<td>The AWS S3 API entry point e.g. <cite>s3-us-west-1.amazonaws.com</cite>.</td>
+</tr>
+<tr class="row-even"><td>maxConnections</td>
 <td>The maximum number of allowed open HTTP connections.</td>
 </tr>
-<tr class="row-even"><td>maxErrorRetry</td>
+<tr class="row-odd"><td>maxErrorRetry</td>
 <td>The maximum number of retry attempts for failed retryable requests.</td>
 </tr>
-<tr class="row-odd"><td>protocol</td>
+<tr class="row-even"><td>protocol</td>
 <td>The protocol (i.e. HTTP or HTTPS) to use when connecting to AWS.</td>
 </tr>
-<tr class="row-even"><td>proxyHost</td>
+<tr class="row-odd"><td>proxyHost</td>
 <td>The proxy host to connect through.</td>
 </tr>
-<tr class="row-odd"><td>proxyPort</td>
+<tr class="row-even"><td>proxyPort</td>
 <td>The port on the proxy host to connect through.</td>
 </tr>
-<tr class="row-even"><td>proxyUsername</td>
+<tr class="row-odd"><td>proxyUsername</td>
 <td>The user name to use when connecting through a proxy.</td>
 </tr>
-<tr class="row-odd"><td>proxyPassword</td>
+<tr class="row-even"><td>proxyPassword</td>
 <td>The password to use when connecting through a proxy.</td>
 </tr>
-<tr class="row-even"><td>socketSendBufferSizeHint</td>
+<tr class="row-odd"><td>socketSendBufferSizeHint</td>
 <td>The Size hint (in bytes) for the low level TCP send buffer.</td>
 </tr>
-<tr class="row-odd"><td>socketRecvBufferSizeHint</td>
+<tr class="row-even"><td>socketRecvBufferSizeHint</td>
 <td>The Size hint (in bytes) for the low level TCP receive buffer.</td>
 </tr>
-<tr class="row-even"><td>socketTimeout</td>
+<tr class="row-odd"><td>socketTimeout</td>
 <td>The amount of time to wait (in milliseconds) for data to be transferred over an established, open connection before the connection is timed out.</td>
 </tr>
-<tr class="row-odd"><td>userAgent</td>
+<tr class="row-even"><td>userAgent</td>
 <td>The HTTP user agent header passed with all HTTP requests.</td>
+</tr>
+<tr class="row-odd"><td>uploadMaxThreads</td>
+<td>The maximum number of threads used for multipart upload.</td>
+</tr>
+<tr class="row-even"><td>uploadChunkSize</td>
+<td>The size of a single part in a multipart upload (default: <cite>10 MB</cite>).</td>
+</tr>
+<tr class="row-odd"><td>uploadStorageClass</td>
+<td>The S3 storage class applied to stored objects, either <cite>STANDARD</cite> or <cite>REDUCED_REDUNDANCY</cite> (default: <cite>STANDARD</cite>).</td>
+</tr>
+<tr class="row-even"><td>uploadMaxAttempts</td>
+<td>The maximum number of upload attempts after which a multipart upload returns an error (default: <cite>5</cite>).</td>
+</tr>
+<tr class="row-odd"><td>uploadRetrySleep</td>
+<td>The time to wait after a failed upload attempt to retry the part upload (default: <cite>100ms</cite>).</td>
 </tr>
 </tbody>
 </table>

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.17.2 documentation</title>
+  <title>Executors &mdash; Nextflow 0.18.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.17.2',
+        VERSION:'0.18.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.17.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -126,14 +126,16 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Executors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#local-executor">Local executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sge-executor">SGE executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lsf-executor">LSF executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#slurm-executor">SLURM executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pbs-torque-executor">PBS/Torque executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#drmaa-executor">DRMAA executor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#clusterk-cirrus">ClusterK Cirrus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drmaa">DRMAA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dnanexus">DNAnexus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a><ul>
@@ -237,16 +239,16 @@ process is run and supervises its execution.</p>
 allows you to write the pipeline functional logic independently from the actual processing platform.</p>
 <p>In other words you can write your pipeline script once and have it running on your computer, a cluster resource manager
 or the cloud by simply changing the executor definition in the Nextflow configuration file.</p>
-<div class="section" id="local-executor">
-<span id="id1"></span><h2>Local executor<a class="headerlink" href="#local-executor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="local">
+<span id="local-executor"></span><h2>Local<a class="headerlink" href="#local" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>local</cite> executor is used by default. It runs the pipeline processes in the computer where Nextflow
 is launched. The processes are parallelised by spawning multiple <cite>threads</cite> and by taking advantage of multi-cores
 architecture provided by the CPU.</p>
 <p>In a common usage scenario, the <cite>local</cite> executor can be useful to develop and test your pipeline script in your computer,
 switching to a cluster facility when you need to run it on production data.</p>
 </div>
-<div class="section" id="sge-executor">
-<span id="id2"></span><h2>SGE executor<a class="headerlink" href="#sge-executor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sge">
+<span id="sge-executor"></span><h2>SGE<a class="headerlink" href="#sge" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>SGE</cite> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Oracle_Grid_Engine">Sun Grid Engine</a>
 cluster or a compatible platform (<a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>, <a class="reference external" href="http://www.univa.com/products/grid-engine.php">Univa Grid Engine</a>, etc).</p>
 <p>Nextflow manages each process as a separate grid job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">qsub</span></code> command.</p>
@@ -263,8 +265,8 @@ scenario, the cluster <cite>head</cite> node.</p>
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
 </ul>
 </div>
-<div class="section" id="lsf-executor">
-<span id="id3"></span><h2>LSF executor<a class="headerlink" href="#lsf-executor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lsf">
+<span id="lsf-executor"></span><h2>LSF<a class="headerlink" href="#lsf" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>LSF</cite> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> cluster.</p>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">bsub</span></code> command.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">bsub</span></code> command is available, that is, in a common usage
@@ -278,9 +280,17 @@ scenario, the cluster <cite>head</cite> node.</p>
 <li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>LSF supports both <em>per-core</em> and <em>per-job</em> memory limit. Nextflow assumes that LSF works in the
+<em>per-core</em> memory limits mode, thus it divides the requested <a class="reference internal" href="process.html#process-memory"><span>memory</span></a> by the number of requested <a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a>.</p>
+<p>This is not required when LSF is configured to work in <em>per-job</em> memory limit mode. You will need to specified that
+adding the option <code class="docutils literal"><span class="pre">perJobMemLimit</span></code> in <a class="reference internal" href="config.html#config-executor"><span>Scope executor</span></a> in the Nextflow configuration file.</p>
+<p class="last">See also the <a class="reference external" href="https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_config_ref/lsf.conf.lsb_job_memlimit.5.dita">Platform LSF documentation</a>.</p>
 </div>
-<div class="section" id="slurm-executor">
-<span id="id4"></span><h2>SLURM executor<a class="headerlink" href="#slurm-executor" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="slurm">
+<span id="slurm-executor"></span><h2>SLURM<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>SLURM</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://computing.llnl.gov/linux/slurm/">SLURM</a> resource manager.</p>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">sbatch</span></code> command.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">sbatch</span></code> command is available, that is, in a common usage
@@ -300,8 +310,8 @@ scenario, the cluster <cite>head</cite> node.</p>
 directive.</p>
 </div>
 </div>
-<div class="section" id="pbs-torque-executor">
-<span id="pbs-executor"></span><h2>PBS/Torque executor<a class="headerlink" href="#pbs-torque-executor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pbs-torque">
+<span id="pbs-executor"></span><h2>PBS/Torque<a class="headerlink" href="#pbs-torque" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>PBS</cite> executor allows you to run your pipeline script by using a resource manager belonging to the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> family of batch schedulers.</p>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">qsub</span></code> command provided
 by the scheduler.</p>
@@ -317,8 +327,28 @@ scenario, the cluster <cite>login</cite> node.</p>
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
 </ul>
 </div>
-<div class="section" id="drmaa-executor">
-<span id="id5"></span><h2>DRMAA executor<a class="headerlink" href="#drmaa-executor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="htcondor">
+<span id="condor-executor"></span><h2>HTCondor<a class="headerlink" href="#htcondor" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>HTCondor</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> resource manager.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">condor_submit</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">condor_submit</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the HTCondor executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">condor</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-disk"><span>disk</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+</ul>
+</div>
+<div class="section" id="drmaa">
+<span id="drmaa-executor"></span><h2>DRMAA<a class="headerlink" href="#drmaa" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>DRMAA</cite> executor allows you to execute a Nextflow pipeline by using a grid engine that implements the
 Java binding for the <a class="reference external" href="http://www.drmaa.org">DRMAA</a> interface api (version 1).</p>
 <div class="admonition warning">
@@ -354,13 +384,13 @@ to include the path where this file is located in the <code class="docutils lite
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
 </ul>
 </div>
-<div class="section" id="clusterk-cirrus">
-<span id="cirrus-executor"></span><h2>ClusterK Cirrus<a class="headerlink" href="#clusterk-cirrus" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>Cirrus</cite> executor allows you to run your pipeline in the <a class="reference external" href="http://clusterk.com">ClusterK</a> cloud platform.</p>
+<div class="section" id="cirrus">
+<span id="cirrus-executor"></span><h2>Cirrus<a class="headerlink" href="#cirrus" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
+<p class="last">ClusterK cloud platform is not available any more.</p>
 </div>
+<p>The <cite>Cirrus</cite> executor allows you to run your pipeline in the <a class="reference external" href="http://clusterk.com">ClusterK</a> cloud platform.</p>
 <p>Nextflow manages each process execution as a separate task that is submitted to the cloud scheduler by using
 the <code class="docutils literal"><span class="pre">ksub</span></code> command provided along with the ClusterK platform.</p>
 <p>Thus, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">ksub</span></code> command is available, that is, in a common usage
@@ -396,6 +426,20 @@ executing the required job. For example:</p>
 </div>
 <p>The list of instance types, that can be used for this property, is available in the <a class="reference external" href="https://wiki.dnanexus.com/API-Specification-v1.0.0/IO-and-Run-Specifications#Run-Specification">Run Specification</a> page.</p>
 </div>
+</div>
+<div class="section" id="ignite">
+<span id="ignite-executor"></span><h2>Ignite<a class="headerlink" href="#ignite" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>Ignite</cite> executor allows you to run a pipeline by using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> clustering
+technology that is embedded with the Nextflow runtime.</p>
+<p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'ignite'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The amount of resources requested by each task submission is defined by the following process directives:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-disk"><span>disk</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
+</ul>
+<p>Read the <a class="reference internal" href="ignite.html#ignite-page"><span>Apache Ignite</span></a> section in this documentation to learn how to configure Nextflow to deploy and run an
+Ignite cluster in your infrastructure.</p>
 </div>
 </div>
 
