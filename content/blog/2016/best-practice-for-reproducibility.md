@@ -20,6 +20,7 @@ The recent publication describing *Kallisto* [(Bray et al. 2016)](http://dx.doi.
 provides an excellent high profile example of the growing efforts to ensure reproducible 
 science in computational biology. The authors provide a GitHub [repository](https://github.com/pachterlab/kallisto_paper_analysis) 
 that *“contains all the analysis to reproduce the results in the kallisto paper”*. 
+
 They should be applauded and indeed - in the Twittersphere - they were. The corresponding 
 author Lior Pachter stated that the publication could be reproduced starting from raw 
 reads in the NCBI Sequence Read Archive through to the results, which marks a fantastic 
@@ -48,7 +49,7 @@ there is only one result which can be output.
 Envisage what I term the *reproducibility triangle*: consisting of data, code and 
 compute environment.
 
-![Reproducibility Triangle](http://i.imgur.com/TTkKEqL.png)
+![Reproducibility Triangle](/img/reproducibility-triangle.png)
 
 **Figure 1:** The Reproducibility Triangle. *Data*: raw data such as sequencing reads, 
 genomes and annotations but also metadata such as experimental design. *Code*: 
@@ -65,23 +66,40 @@ holistically.
 Nextflow provides a solution to reproduciblility through version control and sandboxing.
 
 #### Code
-Version control is provided via [native integration with GitHub](http://www.nextflow.io/docs/latest/sharing.html) and other popular code management platforms such as Bitbucket and GitLab. Pipelines can be pulled, executed, developed, collaborated on and shared. For example, the command below will pull a specific version of a [simple Kallisto + Sleuth pipeline](https://github.com/cbcrg/kallisto-nf) from GitHub and execute it. The `-r` parameter can be used to specify a specific tag, branch or revision
-that was previously defined in the Git repository.  
+Version control is provided via [native integration with GitHub](http://www.nextflow.io/docs/latest/sharing.html) 
+and other popular code management platforms such as Bitbucket and GitLab. 
+Pipelines can be pulled, executed, developed, collaborated on and shared. For example, 
+the command below will pull a specific version of a [simple Kallisto + Sleuth pipeline](https://github.com/cbcrg/kallisto-nf) 
+from GitHub and execute it. The `-r` parameter can be used to specify a specific tag, branch 
+or revision that was previously defined in the Git repository.  
 
-`nextflow run cbcrg/kallisto-nf -r v0.9`
+    nextflow run cbcrg/kallisto-nf -r v0.9
 
 #### Environment
-Sandboxing during both development and execution is another key concept; version control alone does not ensure that all dependencies nor the compute environment are the same.
+Sandboxing during both development and execution is another key concept; version control 
+alone does not ensure that all dependencies nor the compute environment are the same.
 
-A simplified implementation of this places all binaries, dependencies and libraries within the project repository. In Nextflow, any binaries within the the  `bin` directory of a repository are added to the path. Also, within the Nextflow [config file](https://github.com/cbcrg/kallisto-nf/blob/master/nextflow.config), environmental variables such as `PERL5LIB` can be defined
-so that they are automatically added during the task executions. 
+A simplified implementation of this places all binaries, dependencies and libraries within 
+the project repository. In Nextflow, any binaries within the the  `bin` directory of a 
+repository are added to the path. Also, within the Nextflow [config file](https://github.com/cbcrg/kallisto-nf/blob/master/nextflow.config), 
+environmental variables such as `PERL5LIB` can be defined so that they are automatically 
+added during the task executions. 
 
-This can be taken a step further with containerisation such as [Docker](http://www.nextflow.io/docs/latest/docker.html). We have previously published [work](https://doi.org/10.7717/peerj.1273) about this: briefly a [dockerfile](https://github.com/cbcrg/kallisto-nf/blob/master/Dockerfile) containing the instructions on how to build the docker image resides inside a repository. This provides a specification for the operating system, software, libraries and dependencies to be run.
+This can be taken a step further with containerisation such as [Docker](http://www.nextflow.io/docs/latest/docker.html). 
+We have recently published [work](https://doi.org/10.7717/peerj.1273) about this: 
+briefly a [dockerfile](https://github.com/cbcrg/kallisto-nf/blob/master/Dockerfile) 
+containing the instructions on how to build the docker image resides inside a repository. 
+This provides a specification for the operating system, software, libraries and 
+dependencies to be run.
 
-The images themself also have content-addressable identifiers in the form of [digests](https://docs.docker.com/engine/userguide/containers/dockerimages/#image-digests), which ensure not a single byte of information, from the operating system through to the libraries pulled from public repos, has been changed. This container digest can be specified in the [Nextflow config file](https://github.com/cbcrg/kallisto-nf/blob/master/nextflow.config).
+The images themself also have content-addressable identifiers in the form of 
+[digests](https://docs.docker.com/engine/userguide/containers/dockerimages/#image-digests), 
+which ensure not a single byte of information, from the operating system through to the 
+libraries pulled from public repos, has been changed. This container digest can be specified 
+in the [pipeline config file](https://github.com/cbcrg/kallisto-nf/blob/master/nextflow.config).
 
     process {
-        container = "cbcrg/kallisto-nf@sha256:[digest]"
+        container = "cbcrg/kallisto-nf@sha256:9f84012739..."
     }
     
 When doing so Nextflow automatically pulls the specified image from the Docker Hub and 
