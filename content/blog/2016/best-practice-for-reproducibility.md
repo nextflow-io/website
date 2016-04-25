@@ -1,7 +1,7 @@
 title=Workflows & publishing: best practice for reproducibility 
 date=2016-04-13 
 type=post
-tags=bioinformatics,reproducibility,pipelines,nextflow,genomic,docker 
+tags=bioinformatics,reproducibility,pipelines,nextflow,genomic,docker
 status=published
 author=Evan Floden 
 icon=evan.jpg
