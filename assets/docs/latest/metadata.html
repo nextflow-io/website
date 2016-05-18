@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -188,7 +190,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sharing.html#manage-dependencies">Manage dependencies</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Workflow introspection</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow introspection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#runtime-metadata">Runtime metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#completion-handler">Completion handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notification-message">Notification message</a></li>
@@ -237,9 +239,9 @@
 <h2>Runtime metadata<a class="headerlink" href="#runtime-metadata" title="Permalink to this headline">¶</a></h2>
 <p>The implicit <code class="docutils literal"><span class="pre">workflow</span></code> object allows you to access some workflow and runtime metadata in your Nextflow scripts.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>println &quot;Project : $workflow.projectDir&quot;
-println &quot;Git info: $workflow.repository - $workflow.revision [$workflow.commitId]&quot;
-println &quot;Cmd line: $workflow.commandLine&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;Project : $workflow.projectDir&quot;</span>
+<span class="n">println</span> <span class="s2">&quot;Git info: $workflow.repository - $workflow.revision [$workflow.commitId]&quot;</span>
+<span class="n">println</span> <span class="s2">&quot;Cmd line: $workflow.commandLine&quot;</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -335,10 +337,10 @@ of the running workflow. Thus the information, only available on execution compl
 using an asynchronous handler.</p>
 <p>The <code class="docutils literal"><span class="pre">onComplete</span></code> event handler is invoked by the framework when the workflow execution is completed. It allows one
 to access the workflow termination status and other useful information. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete {
-    println &quot;Pipeline completed at: $workflow.complete&quot;
-    println &quot;Execution status: ${ workflow.success ? &#39;OK&#39; : &#39;failed&#39; }&quot;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Pipeline completed at: $workflow.complete&quot;</span>
+    <span class="n">println</span> <span class="s2">&quot;Execution status: ${ workflow.success ? &#39;OK&#39; : &#39;failed&#39; }&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -347,22 +349,22 @@ to access the workflow termination status and other useful information. For exam
 <p>Nextflow does not provide a built-in mechanism to send emails or other messages. However the <code class="docutils literal"><span class="pre">mail</span></code> standard Linux
 tool (or an equivalent one) can easily be used to send a notification message when the workflow execution is completed,
 as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete {
-    def subject = &#39;My pipeline execution&#39;
-    def recipient = &#39;me@gmail.com&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">subject</span> <span class="o">=</span> <span class="s1">&#39;My pipeline execution&#39;</span>
+    <span class="k">def</span> <span class="nf">recipient</span> <span class="o">=</span> <span class="s1">&#39;me@gmail.com&#39;</span>
 
-    [&#39;mail&#39;, &#39;-s&#39;, subject, recipient].execute() &lt;&lt; &quot;&quot;&quot;
+    <span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">recipient</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;&quot;&quot;</span>
 
-    Pipeline execution summary
-    ---------------------------
-    Completed at: ${workflow.complete}
-    Duration    : ${workflow.duration}
-    Success     : ${workflow.success}
-    workDir     : ${workflow.workDir}
-    exit status : ${workflow.exitStatus}
-    Error report: ${workflow.errorReport ?: &#39;-&#39;}
-    &quot;&quot;&quot;
-}
+<span class="s2">    Pipeline execution summary</span>
+<span class="s2">    ---------------------------</span>
+<span class="s2">    Completed at: $</span><span class="si">{workflow.complete}</span><span class="s2"></span>
+<span class="s2">    Duration    : $</span><span class="si">{workflow.duration}</span><span class="s2"></span>
+<span class="s2">    Success     : $</span><span class="si">{workflow.success}</span><span class="s2"></span>
+<span class="s2">    workDir     : $</span><span class="si">{workflow.workDir}</span><span class="s2"></span>
+<span class="s2">    exit status : $</span><span class="si">{workflow.exitStatus}</span><span class="s2"></span>
+<span class="s2">    Error report: ${workflow.errorReport ?: &#39;-&#39;}</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -372,11 +374,11 @@ as shown below:</p>
 decouple the handling of pipeline metadata from the main script logic.</p>
 <p>When the completion handler is included in a configuration file the only difference is that the <code class="docutils literal"><span class="pre">onComplete</span></code> closure
 has to be defined by using the assignment operator as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>workflow.onComplete = {
-    // any workflow property can be used here
-    println &quot;Pipeline complete&quot;
-    println &quot;Command line: $workflow.commandLine&quot;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="o">//</span> <span class="nb">any</span> <span class="n">workflow</span> <span class="nb">property</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">here</span>
+    <span class="n">println</span> <span class="s2">&quot;Pipeline complete&quot;</span>
+    <span class="n">println</span> <span class="s2">&quot;Command line: $workflow.commandLine&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">

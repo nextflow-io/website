@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Get started &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Basic concepts" href="basic.html"/>
         <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
 
@@ -81,7 +81,7 @@
         
         
             <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Get started</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Get started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#your-first-script">Your first script</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -262,37 +264,37 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 <div class="section" id="your-first-script">
 <span id="getstart-first"></span><h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
 <p>By using your favourite text editor copy the following example, and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
-<div class="highlight-python"><div class="highlight"><pre>#!/usr/bin/env nextflow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
-params.str = &#39;Hello world!&#39;
+<span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
 
-process splitLetters {
+<span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
 
-    output:
-    file &#39;chunk_*&#39; into letters mode flatten
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span> <span class="n">mode</span> <span class="n">flatten</span>
 
-    &quot;&quot;&quot;
-    printf &#39;${params.str}&#39; | split -b 6 - chunk_
-    &quot;&quot;&quot;
-}
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
 
 
-process convertToUpper {
+<span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
 
-    input:
-    file x from letters
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
 
-    output:
-    stdout result
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span> <span class="n">result</span>
 
-    &quot;&quot;&quot;
-    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;
-    &quot;&quot;&quot;
-}
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
 
-result.subscribe {
-    println it.trim()
-}
+<span class="n">result</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This script is made up of two processes, the first splits a string in file chunks containing 6 characters,
@@ -300,11 +302,11 @@ the following process receives these files and transform the content to uppercas
 The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and finally the output is printed out by the
 <code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
 <p>Execute the script by entering the following command in your terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
 </div>
 <p>It will output something similar to the text shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
+<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 0.9.0
 [warm up] executor &gt; local
 [22/7548fa] Submitted process &gt; splitLetters (1)
 [e2/008ee9] Submitted process &gt; convertToUpper (1)
@@ -317,7 +319,7 @@ WORLD!
 <p>It's worth noting that the process <code class="docutils literal"><span class="pre">convertToUpper</span></code> is executed in parallel, so there's no guarantee that the instance
 processing the first split (the chunk <cite>Hello</cite>) is executed before before the one processing the second split (the chunk <cite>world!</cite>).</p>
 <p>Thus, it is perfectly possible that you get the final result printed out in a different order:</p>
-<div class="highlight-python"><div class="highlight"><pre>WORLD!
+<div class="highlight-default"><div class="highlight"><pre><span></span>WORLD!
 HELLO
 </pre></div>
 </div>
@@ -335,26 +337,26 @@ will be skipped and the cached result used instead.</p>
 <p>This helps a lot when testing or modifying part of your pipeline without having to re-execute it from scratch.</p>
 <p>For the sake of this tutorial modify the <code class="docutils literal"><span class="pre">convertToUpper</span></code> process in the previous example, by replacing the
 process script with the string <code class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process will look like as the following one:</p>
-<div class="highlight-python"><div class="highlight"><pre>process convertToUpper {
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
 
-    input:
-    file x from letters
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
 
-    output:
-    stdout result
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span> <span class="n">result</span>
 
-    &quot;&quot;&quot;
-    rev $x
-    &quot;&quot;&quot;
-}
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    rev $x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Then save the file with the same name, and execute it by adding the <code class="docutils literal"><span class="pre">-resume</span></code> option to the command line:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf -resume
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">-</span><span class="n">resume</span>
 </pre></div>
 </div>
 <p>It will print an output similar to the following one:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.9.0
+<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 0.9.0
 [warm up] executor &gt; local
 [22/7548fa] Cached process &gt; splitLetters (1)
 [d0/7b79a3] Submitted process &gt; convertToUpper (1)
@@ -377,18 +379,18 @@ can take of lot of disk space. If your are sure you won't resume your pipeline e
 Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
 <p>For the sake of this tutorial you can try to execute the previous example specifying a different input
 string parameter, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run tutorial.nf --str &#39;Hola mundo&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">--</span><span class="nb">str</span> <span class="s1">&#39;Hola mundo&#39;</span>
 </pre></div>
 </div>
 <p>The string specified on the command line will override the default value of the parameter. The output
 will look like as the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>N E X T F L O W  ~  version 0.7.0
-[warm up] executor &gt; local
-[6d/54ab39] Submitted process &gt; splitLetters (1)
-[a1/88716d] Submitted process &gt; convertToUpper (2)
-[7d/3561b6] Submitted process &gt; convertToUpper (1)
-odnu
-m aloH
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="n">E</span> <span class="n">X</span> <span class="n">T</span> <span class="n">F</span> <span class="n">L</span> <span class="n">O</span> <span class="n">W</span>  <span class="o">~</span>  <span class="n">version</span> <span class="mf">0.7</span><span class="o">.</span><span class="mi">0</span>
+<span class="p">[</span><span class="n">warm</span> <span class="n">up</span><span class="p">]</span> <span class="n">executor</span> <span class="o">&gt;</span> <span class="n">local</span>
+<span class="p">[</span><span class="mi">6</span><span class="n">d</span><span class="o">/</span><span class="mi">54</span><span class="n">ab39</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">splitLetters</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">[</span><span class="n">a1</span><span class="o">/</span><span class="mi">88716</span><span class="n">d</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">convertToUpper</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">7</span><span class="n">d</span><span class="o">/</span><span class="mi">3561</span><span class="n">b6</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">convertToUpper</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">odnu</span>
+<span class="n">m</span> <span class="n">aloH</span>
 </pre></div>
 </div>
 </div>

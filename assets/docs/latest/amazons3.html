@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon S3 storage &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Amazon S3 storage &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Docker containers" href="docker.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -145,7 +145,7 @@
 <li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Amazon S3 storage</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#s3-path">S3 path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#security-credentials">Security credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -241,15 +243,15 @@ transparently in in your pipeline script like any other file in the local file s
 where it is stored.</p>
 <p>For example if you need to access the file <code class="docutils literal"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal"><span class="pre">my-bucket</span></code>,
 that file can be accessed using the following fully qualified path:</p>
-<div class="highlight-python"><div class="highlight"><pre>s3://my-bucket/data/sequences.fa
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sequences</span><span class="o">.</span><span class="n">fa</span>
 </pre></div>
 </div>
 <p>The usual file operations can be applied on a path handle created using the above notation. For example the content
 of a S3 file can be printed as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>println file(&#39;s3://my-bucket/data/sequences.fa&#39;).text
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://my-bucket/data/sequences.fa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
-<p>See section <a class="reference internal" href="script.html#script-file-io"><span>Files and I/O</span></a> to learn more about available file operations.</p>
+<p>See section <a class="reference internal" href="script.html#script-file-io"><span class="std std-ref">Files and I/O</span></a> to learn more about available file operations.</p>
 </div>
 <div class="section" id="security-credentials">
 <h2>Security credentials<a class="headerlink" href="#security-credentials" title="Permalink to this headline">¶</a></h2>
@@ -262,10 +264,10 @@ of a S3 file can be printed as shown below:</p>
 <h3>AWS access and secret keys<a class="headerlink" href="#aws-access-and-secret-keys" title="Permalink to this headline">¶</a></h3>
 <p>The AWS access and secret keys can be specified by using the <code class="docutils literal"><span class="pre">aws</span></code> section in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration.
 file as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>aws {
-  accessKey = &#39;Your AWS access key&#39;
-  secretKey = &#39;Your AWS secret key&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+  <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;Your AWS access key&#39;</span>
+  <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;Your AWS secret key&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>If the access credentials are not found in the above file, Nextflow looks for AWS credentials in a number of different
@@ -295,7 +297,7 @@ documentation.</p>
 </div>
 <div class="section" id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
-<p>Read <a class="reference internal" href="config.html#config-aws"><span>AWS configuration</span></a> section to learn more about advanced S3 client configuration options.</p>
+<p>Read <a class="reference internal" href="config.html#config-aws"><span class="std std-ref">AWS configuration</span></a> section to learn more about advanced S3 client configuration options.</p>
 </div>
 </div>
 

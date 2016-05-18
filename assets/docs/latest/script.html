@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline script &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Pipeline script &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Processes" href="process.html"/>
         <link rel="prev" title="Basic concepts" href="basic.html"/> 
 
@@ -94,7 +94,7 @@
 <li class="toctree-l2"><a class="reference internal" href="basic.html#configuration-options">Configuration options</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Pipeline script</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline script</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#language-basics">Language basics</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#closures">Closures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#regular-expressions">Regular expressions</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -243,12 +245,17 @@ specialized to ease the writing of computational pipelines in a declarative mann
 <li><a class="reference external" href="http://www.manning.com/koenig2/">Groovy in Action</a></li>
 </ul>
 <p>Below you can find a crash course in the most important language constructs used in the Nextflow scripting language.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Nextflow uses <code class="docutils literal"><span class="pre">UTF-8</span></code> as default file character encoding for source and application files. Make sure
+to use the <code class="docutils literal"><span class="pre">UTF-8</span></code> encoding when editing Nextflow scripts with your favourite text editor.</p>
+</div>
 <div class="section" id="language-basics">
 <h2>Language basics<a class="headerlink" href="#language-basics" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hello-world">
 <h3>Hello world<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
 <p>To print something is as easy as using the <code class="docutils literal"><span class="pre">print</span></code> or the <code class="docutils literal"><span class="pre">println</span></code> methods.</p>
-<div class="highlight-python"><div class="highlight"><pre>println &quot;Hello, World!&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;Hello, World!&quot;</span>
 </pre></div>
 </div>
 <p>The only difference between the two is that the <code class="docutils literal"><span class="pre">println</span></code> method appends implicitly a <cite>new line</cite> character
@@ -257,35 +264,35 @@ to the printed string.</p>
 <div class="section" id="variables">
 <h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
 <p>To define a variable, simply assign a value to it. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>x = 1
-println x
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">println</span> <span class="n">x</span>
 
-x = new java.util.Date()
-println x
+<span class="n">x</span> <span class="o">=</span> <span class="n">new</span> <span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
+<span class="n">println</span> <span class="n">x</span>
 
-x = -3.1499392
-println x
+<span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.1499392</span>
+<span class="n">println</span> <span class="n">x</span>
 
-x = false
-println x
+<span class="n">x</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">println</span> <span class="n">x</span>
 
-x = &quot;Hi&quot;
-println x
+<span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Hi&quot;</span>
+<span class="n">println</span> <span class="n">x</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="lists">
 <h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
 <p>A List object can be defined by placing the list items in square brackets. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">928734928763</span><span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">928734928763</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>You can access a given item in the list with square bracket notation (indexes start at 0):</p>
-<div class="highlight-python"><div class="highlight"><pre>println myList[0]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">myList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>In order to get the length of the list use the <code class="docutils literal"><span class="pre">size</span></code> method:</p>
-<div class="highlight-python"><div class="highlight"><pre>println myList.size()
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">myList</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Learn more about lists:</p>
@@ -299,19 +306,19 @@ println x
 <h3>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h3>
 <p>Maps are used to store <cite>associative arrays</cite> or <cite>dictionaries</cite>. They are unordered collections of heterogeneous, named data.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>scores = [ &quot;Brett&quot;:100, &quot;Pete&quot;:&quot;Did not finish&quot;, &quot;Andrew&quot;:86.87934 ]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Brett&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Pete&quot;</span><span class="p">:</span><span class="s2">&quot;Did not finish&quot;</span><span class="p">,</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">:</span><span class="mf">86.87934</span> <span class="p">]</span>
 </pre></div>
 </div>
 <p>Note that each of the values stored in the map can be of a different type. Brett's is an integer, Pete's is a string,
 and Andrew's is a floating point number.</p>
 <p>We can access the values in a map in two main ways, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>println scores[&quot;Pete&quot;]
-println scores.Pete
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span>
+<span class="n">println</span> <span class="n">scores</span><span class="o">.</span><span class="n">Pete</span>
 </pre></div>
 </div>
 <p>To modify or add data to a map, the syntax is similar to adding values to list.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">scores</span><span class="p">[</span><span class="s">&quot;Pete&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">scores</span><span class="p">[</span><span class="s">&quot;Cedric&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Cedric&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
 </pre></div>
 </div>
 <p>Learn more about maps at the following links:</p>
@@ -324,8 +331,8 @@ println scores.Pete
 <div class="section" id="multiple-assignment">
 <span id="script-multiple-assignment"></span><h3>Multiple assignment<a class="headerlink" href="#multiple-assignment" title="Permalink to this headline">¶</a></h3>
 <p>An array or a list object can used to assign multiple variables at once. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>(a, b, c) = [10, 20, &#39;foo&#39;]
-assert a == 10 &amp;&amp; b == 20 &amp;&amp; c == &#39;foo&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">]</span>
+<span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span>
 </pre></div>
 </div>
 <p>The three variables on the left of the assignment operator are initialized by the correspondent item in the list.</p>
@@ -335,13 +342,13 @@ assert a == 10 &amp;&amp; b == 20 &amp;&amp; c == &#39;foo&#39;
 <h3>Conditional Execution<a class="headerlink" href="#conditional-execution" title="Permalink to this headline">¶</a></h3>
 <p>One of the most important features of any programming language is the ability to execute different code under
 different conditions. The simplest way to do this is to use the <code class="docutils literal"><span class="pre">if</span></code> construct. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>x = Math.random()
-if( x &lt; 0.5 ) {
-    println &quot;You lost.&quot;
-}
-else {
-    println &quot;You won!&quot;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+<span class="k">if</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;You lost.&quot;</span>
+<span class="p">}</span>
+<span class="k">else</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;You won!&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -349,13 +356,13 @@ else {
 <h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
 <p>Strings can be defined by delimiting them with a single-quote <code class="docutils literal"><span class="pre">'</span></code> or a double-quote <code class="docutils literal"><span class="pre">&quot;</span></code>.
 Using either type of string allows you to use strings with quotations easily, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>println &quot;he said &#39;cheese&#39; once&quot;
-println &#39;he said &quot;cheese!&quot; again&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;he said &#39;cheese&#39; once&quot;</span>
+<span class="n">println</span> <span class="s1">&#39;he said &quot;cheese!&quot; again&#39;</span>
 </pre></div>
 </div>
 <p>Strings may be concatenated with <code class="docutils literal"><span class="pre">+</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="s">&quot;world&quot;</span>
-<span class="k">print</span> <span class="s">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>
+<span class="nb">print</span> <span class="s2">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -365,16 +372,16 @@ println &#39;he said &quot;cheese!&quot; again&#39;
 Double quoted strings supports variable interpolations, while single quoted strings do not.</p>
 <p>In practice, strings that are declared inside double-quotes can contain arbitrary variables prefixing them with the <code class="docutils literal"><span class="pre">$</span></code> character
 or any expressions by using the <code class="docutils literal"><span class="pre">${expression}</span></code> syntax in a very similar way to Bash/shell scripts.</p>
-<div class="highlight-python"><div class="highlight"><pre>foxtype = &#39;quick&#39;
-foxcolor = [&#39;b&#39;, &#39;r&#39;, &#39;o&#39;, &#39;w&#39;, &#39;n&#39;]
-println &quot;The $foxtype ${foxcolor.join()} fox&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foxtype</span> <span class="o">=</span> <span class="s1">&#39;quick&#39;</span>
+<span class="n">foxcolor</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]</span>
+<span class="n">println</span> <span class="s2">&quot;The $foxtype ${foxcolor.join()} fox&quot;</span>
 
-x = &#39;Hello&#39;
-println &#39;$x + $y&#39;
+<span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
+<span class="n">println</span> <span class="s1">&#39;$x + $y&#39;</span>
 </pre></div>
 </div>
 <p>It prints:</p>
-<div class="highlight-python"><div class="highlight"><pre>The quick brown fox
+<div class="highlight-default"><div class="highlight"><pre><span></span>The quick brown fox
 $x + $y
 </pre></div>
 </div>
@@ -382,10 +389,10 @@ $x + $y
 <div class="section" id="multi-line-strings">
 <h3>Multi-line strings<a class="headerlink" href="#multi-line-strings" title="Permalink to this headline">¶</a></h3>
 <p>A block of text that span multiple lines can be defined by delimiting it with triple single or double quotes, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    hello there James</span>
-<span class="s">    how are you today?</span>
-<span class="s">    &quot;&quot;&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    hello there James</span>
+<span class="s2">    how are you today?</span>
+<span class="s2">    &quot;&quot;&quot;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -395,12 +402,12 @@ single-quote string do not.</p>
 </div>
 <p>As in Bash/shell scripts, when terminating a multi-line text block with a <code class="docutils literal"><span class="pre">\</span></code> character, the resulting string is
 not broken up by <cite>new line</cite> character(s):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myLongCmdline</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot; blastp </span><span class="se">\</span>
-<span class="s">                -in $input_query </span><span class="se">\</span>
-<span class="s">                -out $output_file </span><span class="se">\</span>
-<span class="s">                -db $blast_database </span><span class="se">\</span>
-<span class="s">                -html</span>
-<span class="s">                &quot;&quot;&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myLongCmdline</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; blastp </span><span class="se">\</span>
+<span class="s2">                -in $input_query </span><span class="se">\</span>
+<span class="s2">                -out $output_file </span><span class="se">\</span>
+<span class="s2">                -db $blast_database </span><span class="se">\</span>
+<span class="s2">                -html</span>
+<span class="s2">                &quot;&quot;&quot;</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="n">myLongCmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
@@ -412,40 +419,40 @@ not broken up by <cite>new line</cite> character(s):</p>
 <p>In very few words a closure is a block of code that can be passed as an argument to a function.
 Thus you can define a chunk of code and then pass it around as if it were a string or an integer.</p>
 <p>More formally, you can create functions that are defined <cite>first class objects</cite>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">square</span> <span class="o">=</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span> <span class="p">}</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>The curly brackets around the expression <code class="docutils literal"><span class="pre">it</span> <span class="pre">*</span> <span class="pre">it</span></code> tells the script interpreter to treat this expression as code.
 In this case, the designator <code class="docutils literal"><span class="pre">it</span></code> refers to whatever value is given to the function. Then this compiled function is
 assigned to the variable <cite>'square`</cite> much like those above. So now we can do something like this:</p>
-<div class="highlight-python"><div class="highlight"><pre>println square(9)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">square</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and get the value 81.</p>
 <p>This is not very interesting until we find that we can pass this function <code class="docutils literal"><span class="pre">square</span></code> around as a method argument.
 There are some built in functions that take a function like this as an argument. One example is the <code class="docutils literal"><span class="pre">collect</span></code> method on lists.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This expression says, create an array with the values 1,2,3 and 4, then call the <cite>collect</cite> method, passing in the
 closure we defined above. The collect method runs through each item in the array, calls the closure on the item,
 then puts the result in a new array, resulting in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span> <span class="p">]</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span> <span class="p">]</span>
 </pre></div>
 </div>
 <p>For more methods that you can call with closures as arguments, see the <a class="reference external" href="http://groovy.codehaus.org/groovy-jdk/">Groovy GDK documentation</a>.</p>
 <p>By default closures take 1 parameter called <code class="docutils literal"><span class="pre">it</span></code>, you can also create closures with named parameters.
 For example the method <code class="docutils literal"><span class="pre">Map.each()</span></code> can take a closure with two variables, to which it binds the <cite>key</cite> and the associated <cite>value</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>printMapClosure = { key, value -&gt;
-    println &quot;$key = $value&quot;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">printMapClosure</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">-&gt;</span>
+    <span class="n">println</span> <span class="s2">&quot;$key = $value&quot;</span>
+<span class="p">}</span>
 
-[ &quot;Yue&quot; : &quot;Wu&quot;, &quot;Mark&quot; : &quot;Williams&quot;, &quot;sudha&quot; : &quot;Kumari&quot; ].each(printMapClosure)
+<span class="p">[</span> <span class="s2">&quot;Yue&quot;</span> <span class="p">:</span> <span class="s2">&quot;Wu&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span> <span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">,</span> <span class="s2">&quot;sudha&quot;</span> <span class="p">:</span> <span class="s2">&quot;Kumari&quot;</span> <span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="n">printMapClosure</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Prints:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">Yue</span><span class="o">=</span><span class="n">Wu</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Yue</span><span class="o">=</span><span class="n">Wu</span>
 <span class="n">Mark</span><span class="o">=</span><span class="n">Williams</span>
 <span class="n">Sudha</span><span class="o">=</span><span class="n">Kumari</span>
 </pre></div>
@@ -455,12 +462,12 @@ so it can <cite>interact</cite> with them.</p>
 <p>The second thing is that a closure can be defined in an <cite>anonymous</cite> manner, meaning that it is not given a name,
 and is defined in the place where it needs to be used.</p>
 <p>As an example showing both these features see the following code fragment:</p>
-<div class="highlight-python"><div class="highlight"><pre>myMap = [&quot;China&quot;: 1 , &quot;India&quot; : 2, &quot;USA&quot; : 3]
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myMap</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;China&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">,</span> <span class="s2">&quot;India&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;USA&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
 
-result = 0
-myMap.keySet().each( { result+= myMap[it] } )
+<span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">myMap</span><span class="o">.</span><span class="n">keySet</span><span class="p">()</span><span class="o">.</span><span class="n">each</span><span class="p">(</span> <span class="p">{</span> <span class="n">result</span><span class="o">+=</span> <span class="n">myMap</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="p">}</span> <span class="p">)</span>
 
-println result
+<span class="n">println</span> <span class="n">result</span>
 </pre></div>
 </div>
 </div>
@@ -470,18 +477,18 @@ println result
 and extract patterns from strings.</p>
 <p>Regular expressions are supported by using the <code class="docutils literal"><span class="pre">~/pattern/</span></code> syntax and the <code class="docutils literal"><span class="pre">=~</span></code> and the <code class="docutils literal"><span class="pre">==~</span></code> operators.</p>
 <p>Use the <code class="docutils literal"><span class="pre">=~</span></code> to check if there's any occurrence of a given pattern into a given string, thus:</p>
-<div class="highlight-python"><div class="highlight"><pre>assert &#39;foo&#39; =~ /foo/       // return TRUE
-assert &#39;foobar&#39; =~ /foo/    // return TRUE
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
+<span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
 </pre></div>
 </div>
 <p>Use the <code class="docutils literal"><span class="pre">==~</span></code> to check whenever a string matches a given regular expression pattern.</p>
-<div class="highlight-python"><div class="highlight"><pre>assert &#39;foo&#39; ==~ /foo/       // return TRUE
-assert &#39;foobar&#39; ==~ /foo/    // return FALSE
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
+<span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">FALSE</span>
 </pre></div>
 </div>
 <p>It is worth noting that the <code class="docutils literal"><span class="pre">~</span></code> operator creates a Java <code class="docutils literal"><span class="pre">Pattern</span></code> object from the given string,
 while the <code class="docutils literal"><span class="pre">=~</span></code> creates a Java <code class="docutils literal"><span class="pre">Matcher</span></code> object.</p>
-<div class="highlight-python"><div class="highlight"><pre>x = ~/abc/
+<div class="highlight-default"><div class="highlight"><pre><span></span>x = ~/abc/
 println x.class
 // prints java.util.regex.Pattern
 
@@ -496,13 +503,13 @@ println y.class
 <div class="section" id="string-replacements">
 <h3>String replacements<a class="headerlink" href="#string-replacements" title="Permalink to this headline">¶</a></h3>
 <p>To replace pattern occurrences into a given string use the <code class="docutils literal"><span class="pre">replaceFirst</span></code> and <code class="docutils literal"><span class="pre">replaceAll</span></code> methods. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>x = &quot;colour&quot;.replaceFirst(/ou/, &quot;o&quot;)
-println x
-// prints: color
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;colour&quot;</span><span class="o">.</span><span class="n">replaceFirst</span><span class="p">(</span><span class="o">/</span><span class="n">ou</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
+<span class="n">println</span> <span class="n">x</span>
+<span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">color</span>
 
-y = &quot;cheesecheese&quot;.replaceAll(/cheese/,&quot;nice&quot;)
-println y
-// prints: nicenice
+<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;cheesecheese&quot;</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="o">/</span><span class="n">cheese</span><span class="o">/</span><span class="p">,</span><span class="s2">&quot;nice&quot;</span><span class="p">)</span>
+<span class="n">println</span> <span class="n">y</span>
+<span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">nicenice</span>
 </pre></div>
 </div>
 </div>
@@ -513,7 +520,7 @@ Then, you can index the matcher object to find the matches, <code class="docutil
 of the regular expression in the string. The first element is the string that matches the entire regular expression, and
 the remaining elements are the strings that match each group.</p>
 <p>Here's how it works:</p>
-<div class="highlight-python"><div class="highlight"><pre>programVersion = &#39;2.7.3-beta&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
 m = programVersion =~ /(\d+)\.(\d+)\.(\d+)-?(.+)/
 
 assert m[0] ==  [&#39;2.7.3-beta&#39;, &#39;2&#39;, &#39;7&#39;, &#39;3&#39;, &#39;beta&#39;]
@@ -524,7 +531,7 @@ assert m[0][4] == &#39;beta&#39;
 </pre></div>
 </div>
 <p>Applying some syntax sugar, you can do the same in just one line of code:</p>
-<div class="highlight-python"><div class="highlight"><pre>programVersion = &#39;2.7.3-beta&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
 (full, major, minor, patch, flavor) = (programVersion =~ /(\d+)\.(\d+)\.(\d+)-?(.+)/)[0]
 
 println full    // 2.7.3-beta
@@ -539,7 +546,7 @@ println flavor  // beta
 <h3>Removing part of a string<a class="headerlink" href="#removing-part-of-a-string" title="Permalink to this headline">¶</a></h3>
 <p>You can subtract a part of a String value using a regular expression pattern. The first match found is
 replaced with an empty String. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>// define the regexp pattern
+<div class="highlight-default"><div class="highlight"><pre><span></span>// define the regexp pattern
 wordStartsWithGr = ~/(?i)\s+Gr\w+/
 
 // apply and verify the result
@@ -548,11 +555,11 @@ wordStartsWithGr = ~/(?i)\s+Gr\w+/
 </pre></div>
 </div>
 <p>Remove first match of a word with 5 characters:</p>
-<div class="highlight-python"><div class="highlight"><pre>assert (&#39;Remove first match of 5 letter word&#39; - ~/\b\w{5}\b/) == &#39;Remove  match of 5 letter word&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Remove first match of 5 letter word&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">b</span>\<span class="n">w</span><span class="p">{</span><span class="mi">5</span><span class="p">}</span>\<span class="n">b</span><span class="o">/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Remove  match of 5 letter word&#39;</span>
 </pre></div>
 </div>
 <p>Remove first found numbers followed by a whitespace character:</p>
-<div class="highlight-python"><div class="highlight"><pre>assert (&#39;Line contains 20 characters&#39; - ~/\d+\s+/) == &#39;Line contains characters&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Line contains 20 characters&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">d</span><span class="o">+</span>\<span class="n">s</span><span class="o">+/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Line contains characters&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -561,7 +568,7 @@ wordStartsWithGr = ~/(?i)\s+Gr\w+/
 <span id="script-file-io"></span><h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline">¶</a></h2>
 <p>In order to access and work with files, you need to use the <code class="docutils literal"><span class="pre">file</span></code> method which returns a file system object
 given a file path string. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;some/path/to/my_file.file&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/to/my_file.file&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal"><span class="pre">file</span></code> method can reference either <cite>files</cite> or <cite>directories</cite> depending on what the string path is locating in the
@@ -569,7 +576,7 @@ file system.</p>
 <p>When using a wildcard character i.e. <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> the argument is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher
 and the <code class="docutils literal"><span class="pre">file</span></code> method returns a list object holding the path of files
 whose name matches the specified pattern, or an empty list if no match is found. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">listOfFiles</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;some/path/*.fa&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listOfFiles</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -578,7 +585,7 @@ whose name matches the specified pattern, or an empty list if no match is found.
 by default wildcard characters do not match against hidden and directory files.</p>
 </div>
 <p>For example, if you want to include hidden files in the result list, add the optional parameter <code class="docutils literal"><span class="pre">hidden</span></code> as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>listWithHidden = file(&#39;some/path/*.fa&#39;, hidden: true)
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listWithHidden</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The list of available options is shown below:</p>
@@ -613,18 +620,18 @@ by default wildcard characters do not match against hidden and directory files.<
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html">Path</a> object, which allows
 you to use the usual methods as you would in a Java program.</p>
 </div>
-<p>See also: <a class="reference internal" href="channel.html#channel-path"><span>Channel.fromPath</span></a> .</p>
+<p>See also: <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">Channel.fromPath</span></a> .</p>
 <div class="section" id="basic-read-write">
 <h3>Basic read/write<a class="headerlink" href="#basic-read-write" title="Permalink to this headline">¶</a></h3>
 <p>Given a file variable, declared by using the <code class="docutils literal"><span class="pre">file</span></code> method as shown in the previous example, reading a file
 is as easy as getting the value of the file's <code class="docutils literal"><span class="pre">text</span></code> property, which returns the file content
 as a string value. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">myFile</span><span class="o">.</span><span class="n">text</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">myFile</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
 <p>In the same way you can save a string value to a file by simply assigning it to the file's <code class="docutils literal"><span class="pre">text</span></code> property,
 as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s">&#39;Hello world!&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -633,20 +640,20 @@ as shown below:</p>
 implicitly by the assignment operation.</p>
 </div>
 <p>In order to append a string value to a file without erasing the actual content, you can use the <code class="docutils literal"><span class="pre">append</span></code> method:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;Add this line</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Add this line</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>or by using the <cite>left shift</cite> operator, which is just a more idiomatic way to append text content to a file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">&lt;&lt;</span> <span class="s">&#39;Add a line more</span><span class="se">\n</span><span class="s">&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Add a line more</span><span class="se">\n</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 <p>Binary data can managed in the same way, just using the file property <code class="docutils literal"><span class="pre">bytes</span></code> instead of <code class="docutils literal"><span class="pre">text</span></code>. Thus, the following
 example read the file and returns its content as a byte array:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">binaryContent</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">binaryContent</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span>
 </pre></div>
 </div>
 <p>Or you can save a byte array data buffer to a file, by simply writing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span> <span class="o">=</span> <span class="n">binaryBuffer</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span> <span class="o">=</span> <span class="n">binaryBuffer</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -660,17 +667,17 @@ reading a file line by line or by using a fixed size buffer.</p>
 <h3>Read a file line by line<a class="headerlink" href="#read-a-file-line-by-line" title="Permalink to this headline">¶</a></h3>
 <p>In order to read a text file line by line you can use the method <code class="docutils literal"><span class="pre">readLines()</span></code> provided by the file object which
 returns the file content as a list of strings. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>myFile = file(&#39;some/my_file.txt&#39;)
-allLines  = myFile.readLines()
-for( line : allLines ) {
-    println line
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
+<span class="n">allLines</span>  <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
+<span class="k">for</span><span class="p">(</span> <span class="n">line</span> <span class="p">:</span> <span class="n">allLines</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">line</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The same example can be written in a more idiomatic syntax, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>file(&#39;some/my_file.txt&#39;)
-    .readLines()
-    .each { println it }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -680,10 +687,10 @@ this reason do not use it to read big files.</p>
 </div>
 <p>When you need to process a big file line by line, use the method <code class="docutils literal"><span class="pre">eachLine</span></code> which allows you to read a file
 processing each line one by one, thus avoiding the loading of all the file content in the memory. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>count = 0
-myFile.eachLine {  str -&gt;
-        println &quot;line ${count++}: $str&quot;
-    }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">myFile</span><span class="o">.</span><span class="n">eachLine</span> <span class="p">{</span>  <span class="nb">str</span> <span class="o">-&gt;</span>
+        <span class="n">println</span> <span class="s2">&quot;line ${count++}: $str&quot;</span>
+    <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -693,22 +700,22 @@ myFile.eachLine {  str -&gt;
 text and binary files respectively.</p>
 <p>The file method <code class="docutils literal"><span class="pre">newReader</span></code> creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object
 for the given file and allows you to read the content in single characters, lines or arrays of characters. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>myReader = myFile.newReader()
-String line
-while( line = myReader.readLine() ) {
-    println line
-}
-myReader.close()
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myReader</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">newReader</span><span class="p">()</span>
+<span class="n">String</span> <span class="n">line</span>
+<span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">line</span>
+<span class="p">}</span>
+<span class="n">myReader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The method <code class="docutils literal"><span class="pre">withReader</span></code> works in a similar manner but saves you from calling the method <code class="docutils literal"><span class="pre">close</span></code> when you have finished
 processing the file since it is managed automatically by the method itself. The same example can be rewritten as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>myFile.withReader {
-    String line
-    while( line = myReader.readLine() ) {
-        println line
-    }
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span>
+    <span class="n">String</span> <span class="n">line</span>
+    <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span> <span class="n">line</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The methods <code class="docutils literal"><span class="pre">newInputStream</span></code> and <code class="docutils literal"><span class="pre">withInputStream</span></code> work in a similar manner. The main difference is that they create an
@@ -736,10 +743,10 @@ data.</p>
 <td>Reads the file line by line and returns the content as a list of strings</td>
 </tr>
 <tr class="row-odd"><td>eachLine</td>
-<td>Iterates over the file line by line applying the specified <a class="reference internal" href="#script-closure"><span>closure</span></a></td>
+<td>Iterates over the file line by line applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
 </tr>
 <tr class="row-even"><td>eachByte</td>
-<td>Iterates over the file by each single byte applying the specified <a class="reference internal" href="#script-closure"><span>closure</span></a></td>
+<td>Iterates over the file by each single byte applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
 </tr>
 <tr class="row-odd"><td>withReader</td>
 <td>Opens a file for reading and lets you access it with a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object</td>
@@ -765,14 +772,14 @@ the methods concerning these classes.</p>
 need to use the <code class="docutils literal"><span class="pre">Writer</span></code> and <code class="docutils literal"><span class="pre">OutputStream</span></code> classes which provide fine control on write operations.</p>
 <p>For example, given two file objects <code class="docutils literal"><span class="pre">sourceFile</span></code> and <code class="docutils literal"><span class="pre">targetFile</span></code>, the following code snippet shows how to copy the
 file content from the first file into the second one replacing all the <code class="docutils literal"><span class="pre">U</span></code> characters with <code class="docutils literal"><span class="pre">X</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>sourceFile.withReader { source -&gt;
-    targetFile.withWriter { target -&gt;
-        String line
-        while( line=source.readLine() ) {
-            target &lt;&lt; line.replaceAll(&#39;U&#39;,&#39;X&#39;)
-        }
-    }
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sourceFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span> <span class="n">source</span> <span class="o">-&gt;</span>
+    <span class="n">targetFile</span><span class="o">.</span><span class="n">withWriter</span> <span class="p">{</span> <span class="n">target</span> <span class="o">-&gt;</span>
+        <span class="n">String</span> <span class="n">line</span>
+        <span class="k">while</span><span class="p">(</span> <span class="n">line</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+            <span class="n">target</span> <span class="o">&lt;&lt;</span> <span class="n">line</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Table of the most important methods to write data into a file:</p>
@@ -828,15 +835,15 @@ methods available for writing data.</p>
 <h3>List directory content<a class="headerlink" href="#list-directory-content" title="Permalink to this headline">¶</a></h3>
 <p>Let's assume that you need to walk through a directory of your choice. You can define the <code class="docutils literal"><span class="pre">myDir</span></code> variable
 that points to it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;any/path&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;any/path&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The simplest way to get a directory list is by using the methods <code class="docutils literal"><span class="pre">list</span></code> or <code class="docutils literal"><span class="pre">listFiles</span></code>,
 that return a collection of first-level elements (files and directories) in a directory. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>allFiles = myDir.list()
-for( def file : allFiles ) {
-    println file
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allFiles</span> <span class="o">=</span> <span class="n">myDir</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
+<span class="k">for</span><span class="p">(</span> <span class="k">def</span> <span class="nf">file</span> <span class="p">:</span> <span class="n">allFiles</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">file</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -846,14 +853,14 @@ list of file objects, that allow you to access file dependent data e.g. size, la
 </div>
 <p>The <code class="docutils literal"><span class="pre">eachFile</span></code> method allows you to iterate through the first-level elements only
 (just like <code class="docutils literal"><span class="pre">listFiles</span></code>). As with other <cite>each-</cite> methods, they take a closure as an input parameter. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>myDir.eachFile { item -&gt;
-    if( item.isFile() ) {
-        println &quot;${item.getName()} - size: ${item.size()}&quot;
-    }
-    else if( item.isDirectory() ) {
-        println &quot;${item.getName()} - DIR&quot;
-    }
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">eachFile</span> <span class="p">{</span> <span class="n">item</span> <span class="o">-&gt;</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">item</span><span class="o">.</span><span class="n">isFile</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span> <span class="s2">&quot;${item.getName()} - size: ${item.size()}&quot;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">item</span><span class="o">.</span><span class="n">isDirectory</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="n">println</span> <span class="s2">&quot;${item.getName()} - DIR&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Several variants of the above method are available. See the table below for a complete list.</p>
@@ -888,17 +895,17 @@ list of file objects, that allow you to access file dependent data e.g. size, la
 </tr>
 </tbody>
 </table>
-<p>See also: Channel <a class="reference internal" href="channel.html#channel-path"><span>fromPath</span></a> method.</p>
+<p>See also: Channel <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">fromPath</span></a> method.</p>
 </div>
 <div class="section" id="create-directories">
 <h3>Create directories<a class="headerlink" href="#create-directories" title="Permalink to this headline">¶</a></h3>
 <p>Given a file variable representing a nonexistent directory, like the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;any/path&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;any/path&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>the method <code class="docutils literal"><span class="pre">mkdir</span></code> allows you to create a folder at the given path. It returns a <code class="docutils literal"><span class="pre">true</span></code> value if the folder is created
 successfully, of <code class="docutils literal"><span class="pre">false</span></code> otherwise.</p>
-<div class="highlight-python"><div class="highlight"><pre>result = myDir.mkdir()
+<div class="highlight-default"><div class="highlight"><pre><span></span>result = myDir.mkdir()
 println result ? &quot;OK&quot; : &quot;Cannot create folder: $myDir&quot;
 </pre></div>
 </div>
@@ -908,7 +915,7 @@ println result ? &quot;OK&quot; : &quot;Cannot create folder: $myDir&quot;
 </div>
 <p>The method <code class="docutils literal"><span class="pre">mkdirs</span></code> allows you to create the directory named by the file object, including any necessary but
 nonexistent parent directories. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span><span class="o">.</span><span class="n">mkdirs</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">mkdirs</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -916,8 +923,8 @@ nonexistent parent directories. For example:</p>
 <h3>Create links<a class="headerlink" href="#create-links" title="Permalink to this headline">¶</a></h3>
 <p>Given a file, the method <code class="docutils literal"><span class="pre">mklink</span></code> creates a <em>file system link</em> for that file using the path specified as a parameter.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">mklink</span><span class="p">(</span><span class="s">&#39;/user/name/link-to-file.txt&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="n">mklink</span><span class="p">(</span><span class="s1">&#39;/user/name/link-to-file.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Table of optional parameters:</p>
@@ -946,7 +953,7 @@ For example:</p>
 <p>The method <code class="docutils literal"><span class="pre">copyTo</span></code> allows you to copy a file into a new file or into a directory, or copy a directory to a new
 directory. Having a file variable <code class="docutils literal"><span class="pre">myFile</span></code>, the following example shows how to copy a file into a new file
 with a different name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s">&#39;new_name.txt&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;new_name.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -955,8 +962,8 @@ with a different name:</p>
 a directory, the source file will be copied into that folder maintaining the original name.</p>
 </div>
 <p>When the source file is a directory, all the directory content is copied to the target folder. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;/some/path&#39;</span><span class="p">)</span>
-<span class="n">myDir</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s">&#39;/some/new/path&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path&#39;</span><span class="p">)</span>
+<span class="n">myDir</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;/some/new/path&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If the target path does not exist, it will be created automatically.</p>
@@ -973,8 +980,8 @@ exist, it is supposed to locate a regular file (and any parent directory will be
 <div class="section" id="move-files">
 <h3>Move files<a class="headerlink" href="#move-files" title="Permalink to this headline">¶</a></h3>
 <p>You can move a file by using the method <code class="docutils literal"><span class="pre">moveTo</span></code> as shown in the example below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s">&#39;/another/path/new_file.txt&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/another/path/new_file.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -983,18 +990,18 @@ exist, it is supposed to locate a regular file (and any parent directory will be
 when the target specifies a folder name instead of a file, the source file is moved in that folder maintaining the original name.</p>
 </div>
 <p>When the source file is a directory, all the directory content is moved to the new the destination folder:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myDir</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;/any/dir_a&#39;</span><span class="p">)</span>
-<span class="n">myDir</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s">&#39;/any/dir_b&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/any/dir_a&#39;</span><span class="p">)</span>
+<span class="n">myDir</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/any/dir_b&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Please note that the result of the above example depends on the existence of the destination folder. If the destination
 folder exists, the source is moved into the destination folder, thus the resulting path will be:</p>
-<div class="highlight-python"><div class="highlight"><pre>/any/dir_b/dir_a
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">dir_b</span><span class="o">/</span><span class="n">dir_a</span>
 </pre></div>
 </div>
 <p>If the destination folder does not exist, the source is just renamed to the target name and so the resulting
 path of the above move operation would be:</p>
-<div class="highlight-python"><div class="highlight"><pre>/any/dir_b
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">dir_b</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -1006,8 +1013,8 @@ the method <code class="docutils literal"><span class="pre">copyTo</span></code>
 <div class="section" id="rename-files">
 <h3>Rename files<a class="headerlink" href="#rename-files" title="Permalink to this headline">¶</a></h3>
 <p>You can rename a file or a directory by simply using the <code class="docutils literal"><span class="pre">renameTo</span></code> file method a shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;my_file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">renameTo</span><span class="p">(</span><span class="s">&#39;new_file_name.txt&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="p">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="n">renameTo</span><span class="p">(</span><span class="s1">&#39;new_file_name.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1015,7 +1022,7 @@ the method <code class="docutils literal"><span class="pre">copyTo</span></code>
 <h3>Delete files<a class="headerlink" href="#delete-files" title="Permalink to this headline">¶</a></h3>
 <p>The file method <code class="docutils literal"><span class="pre">delete</span></code> allows you to delete a file or a directory with a given path. It returns the value <code class="docutils literal"><span class="pre">true</span></code>
 when the operation is completed  successfully or <code class="docutils literal"><span class="pre">false</span></code> if it fails to delete it. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>myFile = file(&#39;some/file.txt&#39;)
+<div class="highlight-default"><div class="highlight"><pre><span></span>myFile = file(&#39;some/file.txt&#39;)
 result = myFile.delete
 println result ? &quot;OK&quot; : &quot;Can delete: $myFile&quot;
 </pre></div>
@@ -1077,7 +1084,7 @@ instead.</p>
 </tbody>
 </table>
 <p>For example, the following line prints a file name and size:</p>
-<div class="highlight-python"><div class="highlight"><pre>println &quot;File ${myFile.getName() size: ${myFile.size()}&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName() size: ${myFile.size()}&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -1087,17 +1094,17 @@ instead.</p>
 <code class="docutils literal"><span class="pre">getPermissions</span></code> returns a string of nine characters representing the file permission using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Symbolic_notation">Linux symbolic notation</a>
 e.g. <code class="docutils literal"><span class="pre">rw-rw-r--</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">permissions</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">getPermissions</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">permissions</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">getPermissions</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>In the same way the method <code class="docutils literal"><span class="pre">setPermissions</span></code> allows you to set the file access permissions using the same string
 notation. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="s">&#39;rwxr-xr-x&#39;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="s1">&#39;rwxr-xr-x&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>A second version of the <code class="docutils literal"><span class="pre">setPermissions</span></code> method allows you to set file permissions specifying three digits, representing
 respectively the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> permissions. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Learn more about <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Numeric_notation">File permissions numeric notation</a>.</p>

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon S3 storage" href="amazons3.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -138,7 +138,7 @@
 <li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#config-scopes">Config scopes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#config-profiles">Config profiles</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -255,7 +257,7 @@ ignored and they are merged as explained above.</p>
 <div class="section" id="config-syntax">
 <h3>Config syntax<a class="headerlink" href="#config-syntax" title="Permalink to this headline">¶</a></h3>
 <p>A Nextflow configuration file is a simple text file containing a set of properties defined using the syntax:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">name</span> <span class="o">=</span> <span class="n">value</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">value</span>
 </pre></div>
 </div>
 <p>Please note, string values need to be wrapped in quotation characters while numbers and boolean values (<code class="docutils literal"><span class="pre">true</span></code>, <code class="docutils literal"><span class="pre">false</span></code>) do not.
@@ -267,12 +269,12 @@ as the number one, while the latter is interpreted as a string value.</p>
 <p>Configuration properties can be used as variables in the configuration file itself, by using the usual
 <code class="docutils literal"><span class="pre">$propertyName</span></code> or <code class="docutils literal"><span class="pre">${expression}</span></code> syntax.</p>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">propertyOne</span> <span class="o">=</span> <span class="s">&#39;world&#39;</span>
-<span class="n">anotherProp</span> <span class="o">=</span> <span class="s">&quot;Hello $propertyOne&quot;</span>
-<span class="n">customPath</span> <span class="o">=</span> <span class="s">&quot;$PATH:/my/app/folder&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">propertyOne</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+<span class="n">anotherProp</span> <span class="o">=</span> <span class="s2">&quot;Hello $propertyOne&quot;</span>
+<span class="n">customPath</span> <span class="o">=</span> <span class="s2">&quot;$PATH:/my/app/folder&quot;</span>
 </pre></div>
 </div>
-<p>Please note, the usual rules for <a class="reference internal" href="script.html#string-interpolation"><span>String interpolation</span></a> are applied, thus a string containing a variable
+<p>Please note, the usual rules for <a class="reference internal" href="script.html#string-interpolation"><span class="std std-ref">String interpolation</span></a> are applied, thus a string containing a variable
 reference must be wrapped in double-quote chars instead of single-quote chars.</p>
 <p>The same mechanism allows you to access environment variables defined in the hosting system. Any variable whose name is
 not defined in the Nextflow configuration file(s) is supposed to be a reference to an environment variable with that name.
@@ -283,7 +285,7 @@ the string <code class="docutils literal"><span class="pre">/my/app/folder</span
 <p class="last">If you are accessing an environment variable that may not exist in the system, your property may contain
 an undefined value. You can avoid this by using a conditional expression in your property definition as shown below.</p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">mySafeProperty</span> <span class="o">=</span> <span class="s">&quot;${MY_FANCY_VARIABLE?:&#39;&#39;}&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mySafeProperty</span> <span class="o">=</span> <span class="s2">&quot;${MY_FANCY_VARIABLE?:&#39;&#39;}&quot;</span>
 </pre></div>
 </div>
 </div>
@@ -295,11 +297,11 @@ a single line or <code class="docutils literal"><span class="pre">/*</span></cod
 <div class="section" id="config-include">
 <h3>Config include<a class="headerlink" href="#config-include" title="Permalink to this headline">¶</a></h3>
 <p>A configuration file can include one or more configuration files using the keyword <code class="docutils literal"><span class="pre">includeConfig</span></code>. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>process.executor = &#39;sge&#39;
-process.queue = &#39;long&#39;
-process.memory = &#39;10G&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;10G&#39;</span>
 
-includeConfig &#39;path/foo.config&#39;
+<span class="n">includeConfig</span> <span class="s1">&#39;path/foo.config&#39;</span>
 </pre></div>
 </div>
 <p>When a relative path is used, it is resolved against the actual location of the including file.</p>
@@ -310,13 +312,13 @@ includeConfig &#39;path/foo.config&#39;
 <p>Configuration settings can be organized in different scopes by dot prefixing the property names with a scope
 identifier or grouping the properties in the same scope using the curly brackets notation. This is shown in the
 following example:</p>
-<div class="highlight-python"><div class="highlight"><pre>alpha.x  = 1
-alpha.y  = &#39;string value..&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="o">.</span><span class="n">x</span>  <span class="o">=</span> <span class="mi">1</span>
+<span class="n">alpha</span><span class="o">.</span><span class="n">y</span>  <span class="o">=</span> <span class="s1">&#39;string value..&#39;</span>
 
-beta {
-     p = 2
-     q = &#39;another string ..&#39;
-}
+<span class="n">beta</span> <span class="p">{</span>
+     <span class="n">p</span> <span class="o">=</span> <span class="mi">2</span>
+     <span class="n">q</span> <span class="o">=</span> <span class="s1">&#39;another string ..&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="section" id="scope-env">
@@ -324,13 +326,13 @@ beta {
 <p>The <code class="docutils literal"><span class="pre">env</span></code> scope allows you to define one or more environment variables that will be exported to the system environment
 where pipeline processes need to be executed.</p>
 <p>Simply prefix your variable names with the <code class="docutils literal"><span class="pre">env</span></code> scope or surround them by curly brackets, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>env.ALPHA = &#39;some value&#39;
-env.BETA = &quot;$HOME/some/path&quot;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
+<span class="n">env</span><span class="o">.</span><span class="n">BETA</span> <span class="o">=</span> <span class="s2">&quot;$HOME/some/path&quot;</span>
 
-env {
-     DELTA = &#39;one more&#39;
-     GAMMA = &quot;/my/path:$PATH&quot;
-}
+<span class="n">env</span> <span class="p">{</span>
+     <span class="n">DELTA</span> <span class="o">=</span> <span class="s1">&#39;one more&#39;</span>
+     <span class="n">GAMMA</span> <span class="o">=</span> <span class="s2">&quot;/my/path:$PATH&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -338,42 +340,42 @@ env {
 <h3>Scope <cite>params</cite><a class="headerlink" href="#scope-params" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">params</span></code> scope allows you to define parameters that will be accessible in the pipeline script. Simply prefix the
 parameter names with the <code class="docutils literal"><span class="pre">params</span></code> scope or surround them by curly brackets, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>params.custom_param = 123
-params.another_param = &#39;string value .. &#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">custom_param</span> <span class="o">=</span> <span class="mi">123</span>
+<span class="n">params</span><span class="o">.</span><span class="n">another_param</span> <span class="o">=</span> <span class="s1">&#39;string value .. &#39;</span>
 
-params {
+<span class="n">params</span> <span class="p">{</span>
 
-   alpha_1 = true
-   beta_2 = &#39;another string ..&#39;
+   <span class="n">alpha_1</span> <span class="o">=</span> <span class="n">true</span>
+   <span class="n">beta_2</span> <span class="o">=</span> <span class="s1">&#39;another string ..&#39;</span>
 
-}
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="scope-process">
 <span id="config-process"></span><h3>Scope <cite>process</cite><a class="headerlink" href="#scope-process" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">process</span></code> configuration scope allows you to provide the default configuration for the processes in your pipeline.</p>
-<p>You can specify here any property described in the <a class="reference internal" href="process.html#process-directives"><span>process directive</span></a> and the executor sections.
+<p>You can specify here any property described in the <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">process directive</span></a> and the executor sections.
 For examples:</p>
-<div class="highlight-python"><div class="highlight"><pre>process {
-  executor=&#39;sge&#39;
-  queue=&#39;long&#39;
-  clusterOptions = &#39;-pe smp 10 -l virtual_free=64G,h_rt=30:00:00&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+  <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
+  <span class="n">queue</span><span class="o">=</span><span class="s1">&#39;long&#39;</span>
+  <span class="n">clusterOptions</span> <span class="o">=</span> <span class="s1">&#39;-pe smp 10 -l virtual_free=64G,h_rt=30:00:00&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>By using this configuration all processes in your pipeline will be executed through the SGE cluster, with the specified
 settings.</p>
 <p>It is possible to set the properties for a specific process in your pipeline by prefixing the process name with
 the symbol <code class="docutils literal"><span class="pre">$</span></code> and using it as special scope identifier. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>process.queue = &#39;short&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span>process.queue = &#39;short&#39;
 process.$hello.queue = &#39;long&#39;
 </pre></div>
 </div>
 <p>The above configuration example sets the <code class="docutils literal"><span class="pre">queue</span></code> property to <code class="docutils literal"><span class="pre">'short'</span></code> as default value for all processes in your
 pipeline, but the process <code class="docutils literal"><span class="pre">hello</span></code> for which the <code class="docutils literal"><span class="pre">queue</span></code> property is set to <code class="docutils literal"><span class="pre">'long'</span></code>.</p>
 <p>When using the curly brackets notation, the above can be written as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>process {
+<div class="highlight-default"><div class="highlight"><pre><span></span>process {
   queue = &#39;short&#39;
 
   $hello {
@@ -419,21 +421,21 @@ pipeline, but the process <code class="docutils literal"><span class="pre">hello
 <td>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal"><span class="pre">100</span></code>).</td>
 </tr>
 <tr class="row-odd"><td>perJobMemLimit</td>
-<td>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span>LSF</span></a>.</td>
+<td>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</td>
 </tr>
 </tbody>
 </table>
 <p>The executor settings can be defined as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>executor {
-    name = &#39;sge&#39;
-    queueSize = 200
-    pollInterval = &#39;30 sec&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">executor</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
+    <span class="n">queueSize</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="n">pollInterval</span> <span class="o">=</span> <span class="s1">&#39;30 sec&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>When using two (or more) different executors in your pipeline, you can specify their settings separately by prefixing
 the executor name with the symbol <code class="docutils literal"><span class="pre">$</span></code> and using it as special scope identifier. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>executor {
+<div class="highlight-default"><div class="highlight"><pre><span></span>executor {
   $sge {
       queueSize = 100
       pollInterval = &#39;30sec&#39;
@@ -447,7 +449,7 @@ the executor name with the symbol <code class="docutils literal"><span class="pr
 </pre></div>
 </div>
 <p>The above configuration example can be rewritten using the dot notation as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>executor.$sge.queueSize = 100
+<div class="highlight-default"><div class="highlight"><pre><span></span>executor.$sge.queueSize = 100
 executor.$sge.pollInterval = &#39;30sec&#39;
 executor.$local.queueSize = 10
 executor.$local.pollInterval = &#39;1sec&#39;
@@ -503,15 +505,15 @@ executor.$local.pollInterval = &#39;1sec&#39;
 </table>
 <p>The above options can be used by prefixing them with the <code class="docutils literal"><span class="pre">docker</span></code> scope or surrounding them by curly
 brackets, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>process.container = &#39;nextflow/examples&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
 
-docker {
-    enabled = true
-    temp = &#39;auto&#39;
-}
+<span class="n">docker</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Read <a class="reference internal" href="docker.html#docker-page"><span>Docker containers</span></a> page to lean more how use Docker containers with Nextflow.</p>
+<p>Read <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to lean more how use Docker containers with Nextflow.</p>
 </div>
 <div class="section" id="scope-manifest">
 <span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline">¶</a></h3>
@@ -545,14 +547,14 @@ pipeline project on GitHub, BitBucket or GitLab.</p>
 </table>
 <p>The above options can be used by prefixing them with the <code class="docutils literal"><span class="pre">manifest</span></code> scope or surrounding them by curly
 brackets. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>manifest {
-    homePage = &#39;http://foo.com&#39;
-    description = &#39;Pipeline does this and that&#39;
-    mainScript = &#39;foo.nf&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">manifest</span> <span class="p">{</span>
+    <span class="n">homePage</span> <span class="o">=</span> <span class="s1">&#39;http://foo.com&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Pipeline does this and that&#39;</span>
+    <span class="n">mainScript</span> <span class="o">=</span> <span class="s1">&#39;foo.nf&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span>Pipeline sharing</span></a>
+<p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a>
 documentation page.</p>
 </div>
 <div class="section" id="scope-trace">
@@ -574,7 +576,7 @@ documentation page.</p>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> turns on the generation of the execution trace report file (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
 <tr class="row-odd"><td>fields</td>
-<td>Comma separated list of fields to be included in the report. The available fields are listed at <a class="reference internal" href="tracing.html#trace-fields"><span>this page</span></a></td>
+<td>Comma separated list of fields to be included in the report. The available fields are listed at <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">this page</span></a></td>
 </tr>
 <tr class="row-even"><td>file</td>
 <td>Trace file name (default: <code class="docutils literal"><span class="pre">trace.txt</span></code>).</td>
@@ -589,23 +591,23 @@ documentation page.</p>
 </table>
 <p>The above options can be used by prefixing them with the <code class="docutils literal"><span class="pre">trace</span></code> scope or surrounding them by curly
 brackets. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>trace {
-    enabled = true
-    file = &#39;pipeline_trace.txt&#39;
-    fields = &#39;task_id,name,status,exit,realtime,%cpu,rss&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">trace</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;pipeline_trace.txt&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;task_id,name,status,exit,realtime,</span><span class="si">%c</span><span class="s1">pu,rss&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>To learn more about the execution report that can be generated by Nextflow read <a class="reference internal" href="tracing.html#trace-report"><span>Execution report</span></a> documentation page.</p>
+<p>To learn more about the execution report that can be generated by Nextflow read <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Execution report</span></a> documentation page.</p>
 </div>
 <div class="section" id="scope-aws">
 <span id="config-aws"></span><h3>Scope <cite>aws</cite><a class="headerlink" href="#scope-aws" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">aws</span></code> scope allows you to configure the access to Amazon S3 storage. Use the attributes <code class="docutils literal"><span class="pre">accessKey</span></code> and <code class="docutils literal"><span class="pre">secretKey</span></code>
 to specify your bucket credentials. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>aws {
-    accessKey = &#39;&lt;YOUR S3 ACCESS KEY&gt;&#39;
-    secretKey = &#39;&lt;YOUR S3 SECRET KEY&gt;&#39;
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+    <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR S3 ACCESS KEY&gt;&#39;</span>
+    <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR S3 SECRET KEY&gt;&#39;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Click the following link to lean more about <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials</a>.</p>
@@ -678,12 +680,12 @@ to specify your bucket credentials. For example:</p>
 </tbody>
 </table>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>aws {
-    client {
-        maxConnections = 20
-        connectionTimeout = 10000
-    }
-}
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+    <span class="n">client</span> <span class="p">{</span>
+        <span class="n">maxConnections</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="n">connectionTimeout</span> <span class="o">=</span> <span class="mi">10000</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -718,25 +720,25 @@ to specify your bucket credentials. For example:</p>
 that can be activated/chosen when launching a pipeline execution by using the <code class="docutils literal"><span class="pre">-profile</span></code> command line option.</p>
 <p>Configuration profiles are defined by using the special scope <code class="docutils literal"><span class="pre">profiles</span></code> which group the attributes that belong
 to the same profile using a common prefix. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>profiles {
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">profiles</span> <span class="p">{</span>
 
-    standard {
-        process.executor = &#39;local&#39;
-    }
+    <span class="n">standard</span> <span class="p">{</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;local&#39;</span>
+    <span class="p">}</span>
 
-    cluster {
-        process.executor = &#39;sge&#39;
-        process.queue = &#39;long&#39;
-        process.memory = &#39;10GB&#39;
-    }
+    <span class="n">cluster</span> <span class="p">{</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;10GB&#39;</span>
+    <span class="p">}</span>
 
-    cloud {
-        process.executor = &#39;cirrus&#39;
-        process.container = &#39;cbcrg/imagex&#39;
-        docker.enabled = true
-    }
+    <span class="n">cloud</span> <span class="p">{</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;cirrus&#39;</span>
+        <span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;cbcrg/imagex&#39;</span>
+        <span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="p">}</span>
 
-}
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>This configuration defines three different profiles: <code class="docutils literal"><span class="pre">standard</span></code>, <code class="docutils literal"><span class="pre">cluster</span></code> and <code class="docutils literal"><span class="pre">cloud</span></code> that set different process

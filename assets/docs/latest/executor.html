@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Executors &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -125,7 +125,7 @@
 <li class="toctree-l2"><a class="reference internal" href="operator.html#other-operators">Other operators</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Executors</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Executors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#local">Local</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sge">SGE</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -257,12 +259,12 @@ scenario, the cluster <cite>head</cite> node.</p>
 <p>To enable the SGE executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">sge</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-penv"><span>penv</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-penv"><span class="std std-ref">penv</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
 <div class="section" id="lsf">
@@ -274,18 +276,18 @@ scenario, the cluster <cite>head</cite> node.</p>
 <p>To enable the LSF executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">lsf</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>LSF supports both <em>per-core</em> and <em>per-job</em> memory limit. Nextflow assumes that LSF works in the
-<em>per-core</em> memory limits mode, thus it divides the requested <a class="reference internal" href="process.html#process-memory"><span>memory</span></a> by the number of requested <a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a>.</p>
+<em>per-core</em> memory limits mode, thus it divides the requested <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a> by the number of requested <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a>.</p>
 <p>This is not required when LSF is configured to work in <em>per-job</em> memory limit mode. You will need to specified that
-adding the option <code class="docutils literal"><span class="pre">perJobMemLimit</span></code> in <a class="reference internal" href="config.html#config-executor"><span>Scope executor</span></a> in the Nextflow configuration file.</p>
+adding the option <code class="docutils literal"><span class="pre">perJobMemLimit</span></code> in <a class="reference internal" href="config.html#config-executor"><span class="std std-ref">Scope executor</span></a> in the Nextflow configuration file.</p>
 <p class="last">See also the <a class="reference external" href="https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_config_ref/lsf.conf.lsb_job_memlimit.5.dita">Platform LSF documentation</a>.</p>
 </div>
 </div>
@@ -298,11 +300,11 @@ scenario, the cluster <cite>head</cite> node.</p>
 <p>To enable the SLURM executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">slurm</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -320,11 +322,11 @@ scenario, the cluster <cite>login</cite> node.</p>
 <p>To enable the PBS executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbs'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
 <div class="section" id="htcondor">
@@ -340,11 +342,11 @@ scenario, the cluster <cite>head</cite> node.</p>
 <p>To enable the HTCondor executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">condor</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-disk"><span>disk</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
 <div class="section" id="drmaa">
@@ -361,7 +363,7 @@ Ask to your IT administrator how to find these files.</p>
 <p>To enable the PBS executor you will need to set the property <code class="docutils literal"><span class="pre">process.executor='drmaa'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file,
 moreover you will need to specify the <code class="docutils literal"><span class="pre">drmaa.jar</span></code> library path on the Nextflow command line by using the <code class="docutils literal"><span class="pre">-with-drmaa</span></code>
 option. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;your pipeline&gt; -with-drmaa /some/path/drmaa.jar
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">pipeline</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">drmaa</span> <span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">drmaa</span><span class="o">.</span><span class="n">jar</span>
 </pre></div>
 </div>
 <p>Alternatively, instead of specifying the DRMAA library on the command line, you may want to use the environment variable
@@ -369,7 +371,7 @@ option. For example:</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p>If you get the following error message:</p>
-<div class="highlight-python"><div class="highlight"><pre>ERROR: java.lang.UnsatisfiedLinkError: no drmaa in java.library.path
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">UnsatisfiedLinkError</span><span class="p">:</span> <span class="n">no</span> <span class="n">drmaa</span> <span class="ow">in</span> <span class="n">java</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span>
 </pre></div>
 </div>
 <p class="last">It means that Nextflow is unable to find <code class="docutils literal"><span class="pre">libdrmaa.so</span></code> file. The most common solution is
@@ -377,11 +379,11 @@ to include the path where this file is located in the <code class="docutils lite
 </div>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
 <div class="section" id="cirrus">
@@ -398,30 +400,30 @@ scenario, an AWS EC2 instance where ClusterK tools have been installed.</p>
 <p>To enable the Cirrus executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'cirrus'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each task submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-disk"><span>disk</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span>queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span>time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span>clusterOptions</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
 <div class="section" id="dnanexus">
 <span id="dnanexus-executor"></span><h2>DNAnexus<a class="headerlink" href="#dnanexus" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>DNAnexus</cite> executor allows you to run your pipeline in the <a class="reference external" href="http://dnanexus.com/">DNAnexus</a> cloud platform.</p>
 <p>Nextflow pipeline to be executed in the DNAnexus platform need to be packaged as DNAnexus app. Read how bundle and
-deploy Nextflow apps in the <a class="reference internal" href="dnanexus.html#dnanexus-page"><span>DNAnexus cloud</span></a> section.</p>
+deploy Nextflow apps in the <a class="reference internal" href="dnanexus.html#dnanexus-page"><span class="std std-ref">DNAnexus cloud</span></a> section.</p>
 <p>The <cite>dnanexus</cite> executor allows your script to submit pipeline's processes in the DNAnexus cloud platform as separate jobs.
 It has to be specified in the configuration file or on the program command line options, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s">&#39;dnanexus&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;dnanexus&#39;</span>
 </pre></div>
 </div>
 <div class="section" id="property-instancetype">
 <h3>Property 'instanceType'<a class="headerlink" href="#property-instancetype" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">instanceType</span></code> configuration property allows you to specify the instance type to be used by a process when
 executing the required job. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s">&#39;dnanexus&#39;</span>
-<span class="n">process</span><span class="o">.</span><span class="n">instanceType</span> <span class="o">=</span> <span class="s">&#39;dx_m1.xlarge&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;dnanexus&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;dx_m1.xlarge&#39;</span>
 </pre></div>
 </div>
 <p>The list of instance types, that can be used for this property, is available in the <a class="reference external" href="https://wiki.dnanexus.com/API-Specification-v1.0.0/IO-and-Run-Specifications#Run-Specification">Run Specification</a> page.</p>
@@ -434,11 +436,11 @@ technology that is embedded with the Nextflow runtime.</p>
 <p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'ignite'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each task submission is defined by the following process directives:</p>
 <ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span>cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-disk"><span>disk</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span>memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
 </ul>
-<p>Read the <a class="reference internal" href="ignite.html#ignite-page"><span>Apache Ignite</span></a> section in this documentation to learn how to configure Nextflow to deploy and run an
+<p>Read the <a class="reference internal" href="ignite.html#ignite-page"><span class="std std-ref">Apache Ignite</span></a> section in this documentation to learn how to configure Nextflow to deploy and run an
 Ignite cluster in your infrastructure.</p>
 </div>
 </div>

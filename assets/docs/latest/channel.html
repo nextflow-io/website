@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Channels &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -109,7 +109,7 @@
 <li class="toctree-l2"><a class="reference internal" href="process.html#directives">Directives</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Channels</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Channels</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#channel-factory">Channel factory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binding-values">Binding values</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#observing-events">Observing events</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -257,7 +259,7 @@ factory methods.</p>
 <div class="section" id="create">
 <span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
 <p>Creates a new <cite>channel</cite> by using the <code class="docutils literal"><span class="pre">create</span></code> method, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -265,21 +267,21 @@ factory methods.</p>
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h3>
 <p>The from method allows you to create a channel emitting any sequence of values that are specified as the method argument,
 for example:</p>
-<div class="highlight-python"><div class="highlight"><pre>ch = Channel.from( 1, 3, 5, 7 )
-ch.subscribe { println &quot;value: $it&quot; }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">)</span>
+<span class="n">ch</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;value: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>The first line in this example creates a variable <code class="docutils literal"><span class="pre">ch</span></code> which holds a channel object. This channel emits the values
 specified as a parameter in the <code class="docutils literal"><span class="pre">from</span></code> method. Thus the second line will print the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>value: 1
-value: 3
-value: 5
-value: 7
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">value</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">3</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">7</span>
 </pre></div>
 </div>
 <p>The following example shows how to create a channel from a <cite>range</cite> of numbers or strings:</p>
-<div class="highlight-python"><div class="highlight"><pre>zeroToNine = Channel.from( 0..9 )
-strings = Channel.from( &#39;A&#39;..&#39;Z&#39; )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">zeroToNine</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">0.</span><span class="o">.</span><span class="mi">9</span> <span class="p">)</span>
+<span class="n">strings</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;A&#39;</span><span class="o">..</span><span class="s1">&#39;Z&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -290,13 +292,13 @@ emits the collection entries as individual emissions.</p>
 </div>
 <p>Thus the following two declarations produce an identical result even tough in the first case the items are specified
 as multiple arguments while in the second case as a single list object argument:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel.from( 1, 3, 5, 7, 9 )
-Channel.from( [1, 3, 5, 7, 9] )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span> <span class="p">)</span>
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>But when more than one argument is provided, they are always managed as <cite>single</cite> emissions. Thus, the following example
 creates a channel emitting three entries each of which is a list containing two elements:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel.from( [1, 2], [5,6], [7,9] )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -304,8 +306,8 @@ creates a channel emitting three entries each of which is a list containing two 
 <span id="channel-value"></span><h3>value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
 <p>This method creates a dataflow <cite>variable</cite> that is a channel to which one entry, at most, can be bound. An optional
 not <code class="docutils literal"><span class="pre">null</span></code> value can be specified as a parameters, which is bound to the newly created channel. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
-<span class="n">expl2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="s">&#39;Hello there&#39;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+<span class="n">expl2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="s1">&#39;Hello there&#39;</span> <span class="p">)</span>
 <span class="n">expl3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
@@ -320,7 +322,7 @@ Finally the last one creates a channel and binds a list object to it that will b
 <span id="channel-path"></span><h3>fromPath<a class="headerlink" href="#frompath" title="Permalink to this headline">¶</a></h3>
 <p>You can create a channel emitting one or more file paths by using the <code class="docutils literal"><span class="pre">fromPath</span></code> method and specifying a path string
 as an argument. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;/data/some/bigfile.txt&#39;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/data/some/bigfile.txt&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>The above line creates a channel and binds to it a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html">Path</a>
@@ -331,7 +333,7 @@ item referring the specified file.</p>
 </div>
 <p>Whenever the <code class="docutils literal"><span class="pre">fromPath</span></code> argument contains a <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;/data/big/*.txt&#39;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/data/big/*.txt&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>This example creates a channel and emits as many <code class="docutils literal"><span class="pre">Path</span></code> items as there are files with <code class="docutils literal"><span class="pre">txt</span></code> extension in the <code class="docutils literal"><span class="pre">/data/big</span></code> folder.</p>
@@ -341,9 +343,9 @@ For example:</p>
 This syntax is generally used for matching complete paths. Curly brackets specify a collection of sub-patterns.</p>
 </div>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">files</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;data/**.fa&#39;</span> <span class="p">)</span>
-<span class="n">moreFiles</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;data/**/*.fa&#39;</span> <span class="p">)</span>
-<span class="n">pairFiles</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s">&#39;data/file_{1,2}.fq&#39;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">files</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;data/**.fa&#39;</span> <span class="p">)</span>
+<span class="n">moreFiles</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;data/**/*.fa&#39;</span> <span class="p">)</span>
+<span class="n">pairFiles</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;data/file_{1,2}.fq&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>The first line returns a channel emitting the files ending with the suffix <code class="docutils literal"><span class="pre">.fa</span></code> in the <code class="docutils literal"><span class="pre">data</span></code> folder <cite>and</cite> recursively
@@ -354,9 +356,9 @@ Finally the last example emits two files: <code class="docutils literal"><span c
 <p class="last">As in Linux BASH the <code class="docutils literal"><span class="pre">*</span></code> wildcard does not match against hidden files (i.e. files whose name start with a <code class="docutils literal"><span class="pre">.</span></code> character).</p>
 </div>
 <p>In order to include hidden files, you need to start your pattern with a period character or specify the <code class="docutils literal"><span class="pre">hidden:</span> <span class="pre">true</span></code> option. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>expl1 = Channel.fromPath( &#39;/path/.*&#39; )
-expl2 = Channel.fromPath( &#39;/path/.*.fa&#39; )
-expl3 = Channel.fromPath( &#39;/path/*&#39;, hidden: true )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/.*&#39;</span> <span class="p">)</span>
+<span class="n">expl2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/.*.fa&#39;</span> <span class="p">)</span>
+<span class="n">expl3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/*&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>The first example returns all hidden files in the specified path. The second one returns all hidden files
@@ -365,8 +367,8 @@ ending with the <code class="docutils literal"><span class="pre">.fa</span></cod
 it won't return directory paths.</p>
 <p>You may use the parameter <code class="docutils literal"><span class="pre">type</span></code> specifying the value <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> in order to define what kind of paths
 you want. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>myFileChannel = Channel.fromPath( &#39;/path/*b&#39;, type: &#39;dir&#39; )
-myFileChannel = Channel.fromPath( &#39;/path/a*&#39;, type: &#39;any&#39; )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/*b&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;dir&#39;</span> <span class="p">)</span>
+<span class="n">myFileChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/a*&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;any&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 <p>The first example will return all <cite>directory</cite> paths ending with the <code class="docutils literal"><span class="pre">b</span></code> suffix, while the second will return any file
@@ -404,9 +406,9 @@ there is a file that meets the specified condition, it is emitted over the chann
 method. The condition on files to watch can be specified by using <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> wildcard characters i.e. by specifying
 a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matching criteria.</p>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel
-   .watchPath( &#39;/path/*.fa&#39; )
-   .subscribe { println &quot;Fasta file: $it&quot; }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+   <span class="o">.</span><span class="n">watchPath</span><span class="p">(</span> <span class="s1">&#39;/path/*.fa&#39;</span> <span class="p">)</span>
+   <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Fasta file: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>By default it watches only for new files created in the specified folder. Optionally, it is possible to provide a
@@ -434,9 +436,9 @@ second argument that specifies what event(s) to watch. The supported events are:
 </tbody>
 </table>
 <p>You can specified more than one of these events by using a comma separated string as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel
-   .watchPath( &#39;/path/*.fa&#39;, &#39;create,modify&#39; )
-   .subscribe { println &quot;File created or modified: $it&quot; }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+   <span class="o">.</span><span class="n">watchPath</span><span class="p">(</span> <span class="s1">&#39;/path/*.fa&#39;</span><span class="p">,</span> <span class="s1">&#39;create,modify&#39;</span> <span class="p">)</span>
+   <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;File created or modified: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -449,7 +451,7 @@ Thus, whenever you use it in your script, the resulting pipeline will never fini
 <div class="section" id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn't emit any value.</p>
-<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span>ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span>close</span></a> operators.</p>
+<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a> operators.</p>
 </div>
 </div>
 <div class="section" id="binding-values">
@@ -460,8 +462,8 @@ is equivalent to <cite>bind</cite> a value to object representing the communicat
 <h3>bind( )<a class="headerlink" href="#bind" title="Permalink to this headline">¶</a></h3>
 <p>Channel objects provide a <cite>bind( )</cite> method which is the basic operation to send a message over the channel.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span> <span class="s">&#39;Hello world&#39;</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="n">myChannel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -469,8 +471,8 @@ For example:</p>
 <h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h3>
 <p>The operator <code class="docutils literal"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <cite>bind( )</cite> method. Thus, the following example produce
 an identical result as the previous one:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s">&#39;Hello world&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Hello world&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -481,16 +483,16 @@ an identical result as the previous one:</p>
 <span id="channel-subscribe"></span><h3>subscribe( )<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></code> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>// define a channel emitting three values
-source = Channel.from ( &#39;alpha&#39;, &#39;beta&#39;, &#39;delta&#39; )
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span> <span class="p">)</span>
 
-// subscribe a function to the channel printing the emitted values
-source.subscribe {  println &quot;Got: $it&quot;  }
+<span class="o">//</span> <span class="n">subscribe</span> <span class="n">a</span> <span class="n">function</span> <span class="n">to</span> <span class="n">the</span> <span class="n">channel</span> <span class="n">printing</span> <span class="n">the</span> <span class="n">emitted</span> <span class="n">values</span>
+<span class="n">source</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="s2">&quot;Got: $it&quot;</span>  <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>Got: alpha
-Got: beta
-Got: delta
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">delta</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -500,19 +502,19 @@ the <cite>Nextflow</cite> scripts are based on.</p>
 </div>
 <p>If needed the closure parameter can be defined explicitly, using a name other than <code class="docutils literal"><span class="pre">it</span></code> and, optionally,
 specifying the expected value type, as showed in the following example:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel
-    .from( &#39;alpha&#39;, &#39;beta&#39;, &#39;lambda&#39; )
-    .subscribe { String str -&gt;
-        println &quot;Got: ${str}; len: ${str.size()}&quot;
-     }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span>
+        <span class="n">println</span> <span class="s2">&quot;Got: $</span><span class="si">{str}</span><span class="s2">; len: ${str.size()}&quot;</span>
+     <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>Got: alpha; len: 5
-Got: beta; len: 4
-Got: lambda; len: 6
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">Got</span><span class="p">:</span> <span class="k">lambda</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">6</span>
 </pre></div>
 </div>
-<p>Read <a class="reference internal" href="script.html#script-closure"><span>Closures</span></a> paragraph to learn more about <cite>closure</cite> feature.</p>
+<p>Read <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closures</span></a> paragraph to learn more about <cite>closure</cite> feature.</p>
 </div>
 <div class="section" id="onnext-oncomplete-and-onerror">
 <h3>onNext, onComplete, and onError<a class="headerlink" href="#onnext-oncomplete-and-onerror" title="Permalink to this headline">¶</a></h3>
@@ -526,15 +528,15 @@ This is the same as using the <code class="docutils literal"><span class="pre">s
 The <code class="docutils literal"><span class="pre">onError</span></code> method takes as its parameter the <code class="docutils literal"><span class="pre">Throwable</span></code> that caused the error.</li>
 </ul>
 <p>For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>Channel
-    .from( 1, 2, 3 )
-    .subscribe onNext: { println it }, onComplete: { println &#39;Done.&#39; }
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done.&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>1
-2
-3
-Done.
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="n">Done</span><span class="o">.</span>
 </pre></div>
 </div>
 </div>

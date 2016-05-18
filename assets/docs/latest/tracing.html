@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Performance Analysis &mdash; Nextflow 0.18.0 documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Pipeline sharing" href="sharing.html"/>
         <link rel="prev" title="Apache Ignite" href="ignite.html"/> 
 
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Performance Analysis</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -222,7 +224,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Performance Analysis</li>
+    <li>Tracing &amp; visualisation</li>
       <li class="wy-breadcrumbs-aside">
         
       </li>
@@ -231,8 +233,8 @@
 </div>
           <div role="main">
             
-  <div class="section" id="performance-analysis">
-<span id="perfanalysis-page"></span><h1>Performance Analysis<a class="headerlink" href="#performance-analysis" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="tracing-visualisation">
+<span id="perfanalysis-page"></span><h1>Tracing &amp; visualisation<a class="headerlink" href="#tracing-visualisation" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow can produce an execution tracing report that provides some information for a basic performance analysis
 of a pipeline execution. A more advanced analysis is possible by using the <cite>Extrae</cite> and <cite>Paraver</cite> tools integrated with Nextflow.</p>
 <div class="section" id="execution-report">
@@ -245,7 +247,7 @@ script, including: submission time, start time, completion time, cpu and memory 
 </div>
 <p>In order to create the execution trace file add the <code class="docutils literal"><span class="pre">-with-trace</span></code> command line option when launching the pipeline execution.
 For example:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;pipeline name&gt; -with-trace
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">trace</span>
 </pre></div>
 </div>
 <p>It will create a file named <code class="docutils literal"><span class="pre">trace.txt</span></code> in the current directory. The content looks like the above example:</p>
@@ -682,7 +684,74 @@ to low level performance analysis provided by other tools and they may not be fu
 (taking less than one minute).</p>
 </div>
 <p>Trace report layout and other configuration settings can be specified by using the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration file.</p>
-<p>Please read <a class="reference internal" href="config.html#config-trace"><span>Trace scope</span></a> section to learn more about it.</p>
+<p>Please read <a class="reference internal" href="config.html#config-trace"><span class="std std-ref">Trace scope</span></a> section to learn more about it.</p>
+</div>
+<div class="section" id="timeline-report">
+<h2>Timeline report<a class="headerlink" href="#timeline-report" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow can render a HTML timeline of all processes executed in your pipeline. An example of the timeline
+report is shown below:</p>
+<img alt="_images/timeline.png" src="_images/timeline.png" />
+<p>Each bar represent a process run in the pipeline execution. The bar length represents the task duration time (wall-time).
+The colored area in each bar represents the real execution time. The grey area on the <em>left</em> of the colored one represents
+the task scheduling wait time. The grey area on the <em>right</em> of the colored one represents the task termination time
+(clean-up and file un-staging).</p>
+<p>For each bar are reported two numbers, respectively the task duration time and the virtual memory size peak.</p>
+<p>Since each process can spawn many tasks, colors are used to identify the tasks belonging to the same process.</p>
+<p>To enable the creation of the timeline report add the <code class="docutils literal"><span class="pre">-with-timeline</span></code> command line option when launching the pipeline
+execution. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">timeline</span>
+</pre></div>
+</div>
+<p>The report file name can be specified as an optional parameter.</p>
+</div>
+<div class="section" id="dag-visualisation">
+<h2>DAG visualisation<a class="headerlink" href="#dag-visualisation" title="Permalink to this headline">¶</a></h2>
+<p>A Nextflow pipeline is implicitly modelled by a direct acyclic graph (DAG). The vertices in the graph represent
+the pipeline processes and operators, while the edges represent the data connections (i.e. channels) between them.</p>
+<p>The pipeline execution DAG can be outputted by adding the <code class="docutils literal"><span class="pre">-with-dag</span></code> option to the run command line.
+It creates a file named <code class="docutils literal"><span class="pre">dag.dot</span></code> containing a textual representation of the pipeline execution graph
+in the <a class="reference external" href="http://www.graphviz.org/content/dot-language">DOT format</a>.</p>
+<p>The execution DAG can be rendered in a different format by specifying the an output file name with the format
+corresponding extension. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">dag</span> <span class="n">flowchart</span><span class="o">.</span><span class="n">png</span>
+</pre></div>
+</div>
+<p>List of supported file formats:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="63%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Extension</th>
+<th class="head">File format</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>dot</td>
+<td>Graphviz DOT file</td>
+</tr>
+<tr class="row-odd"><td>html</td>
+<td>HTML file</td>
+</tr>
+<tr class="row-even"><td>pdf</td>
+<td>PDF file (*)</td>
+</tr>
+<tr class="row-odd"><td>png</td>
+<td>PNG file (*)</td>
+</tr>
+<tr class="row-even"><td>svg</td>
+<td>SVG file (*)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The file formats marked with a <cite>*</cite> require the <a class="reference external" href="http://www.graphviz.org">Graphviz</a> tool installed
+in your computer.</p>
+</div>
+<p>The DAG produced by Nextflow for the <a class="reference external" href="https://github.com/cbcrg/shootstrap/">Shootstrap</a> pipeline:</p>
+<img alt="_images/dag.png" src="_images/dag.png" />
 </div>
 <div class="section" id="extrae-integration">
 <h2>Extrae integration<a class="headerlink" href="#extrae-integration" title="Permalink to this headline">¶</a></h2>
@@ -711,7 +780,7 @@ the computer where the pipeline is executed.</p>
 </ul>
 <p>If you are using an Ubuntu Linux distribution these packages can be installed using the following
 commands:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install libxml2-dev binutils-dev
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">binutils</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
 </div>
 <p>It may change depending your Linux distribution and the available package installer tool.</p>
@@ -720,21 +789,21 @@ commands:</p>
 <h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
 <p>Download the Extrae 2.5.0 at this link <a class="reference external" href="http://www.nextflow.io/misc/extrae-2.5.0.tar.gz">http://www.nextflow.io/misc/extrae-2.5.0.tar.gz</a></p>
 <p>Compile and install it by using the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>./configure \
- --without-mpi \
- --without-unwind \
- --without-dyninst \
- --without-papi \
- --without-java \
- --prefix=&lt;extrae_install_dir&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">configure</span> \
+ <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">mpi</span> \
+ <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">unwind</span> \
+ <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">dyninst</span> \
+ <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">papi</span> \
+ <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">java</span> \
+ <span class="o">--</span><span class="n">prefix</span><span class="o">=&lt;</span><span class="n">extrae_install_dir</span><span class="o">&gt;</span>
 
-make
-make install
+<span class="n">make</span>
+<span class="n">make</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>When the compilation process is completed define the following variables in your
 environment profile file:</p>
-<div class="highlight-python"><div class="highlight"><pre>export EXTRAE_HOME=&lt;extrae_install_dir&gt;
+<div class="highlight-default"><div class="highlight"><pre><span></span>export EXTRAE_HOME=&lt;extrae_install_dir&gt;
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${EXTRAE_HOME}/lib
 </pre></div>
 </div>
@@ -743,13 +812,13 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${EXTRAE_HOME}/lib
 <h3>Profile your pipeline<a class="headerlink" href="#profile-your-pipeline" title="Permalink to this headline">¶</a></h3>
 <p>In order to use the Extrae tracing simply add the option <code class="docutils literal"><span class="pre">-with-extrae</span></code> to your Nextflow
 launch command line, for example:</p>
-<div class="highlight-python"><div class="highlight"><pre>nextflow run &lt;your pipeline&gt; -with-extrae
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">pipeline</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">extrae</span>
 </pre></div>
 </div>
 <p>When the pipeline execution completes, other then the expected result files, it will produce the Extrae
 trace file having the following name: <code class="docutils literal"><span class="pre">TRACE.mpits</span></code></p>
 <p>Converts this file to the Paraver format by using the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>${EXTRAE_HOME}/bin/mpi2prv -task-view -f TRACE.mpits -o &lt;your file name&gt;.prv
+<div class="highlight-default"><div class="highlight"><pre><span></span>${EXTRAE_HOME}/bin/mpi2prv -task-view -f TRACE.mpits -o &lt;your file name&gt;.prv
 </pre></div>
 </div>
 </div>

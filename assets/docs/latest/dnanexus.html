@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DNAnexus cloud &mdash; Nextflow 0.18.0 documentation</title>
+  <title>DNAnexus cloud &mdash; Nextflow 0.19.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.18.0',
+        VERSION:'0.19.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.18.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.19.0 documentation" href="index.html"/>
         <link rel="next" title="Apache Ignite" href="ignite.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -159,7 +159,7 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">DNAnexus cloud</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DNAnexus cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#app-packing">App packing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
@@ -172,8 +172,10 @@
 <li class="toctree-l2"><a class="reference internal" href="ignite.html#execution-with-mpi">Execution with MPI</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Performance Analysis</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#execution-report">Execution report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#timeline-report">Timeline report</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tracing.html#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="tracing.html#extrae-integration">Extrae integration</a></li>
 </ul>
 </li>
@@ -241,7 +243,7 @@ for the DNAnexus platform allowing you to execute your pipeline in the cloud.</p
 installed in your computer.</p>
 <p>Moreover, since extra runtime packages are required by Nextflow to enable it to run in the cloud, you will need to download
 the full Nextflow source tree in your computer. You can do this by using the following <cite>git</cite> command:</p>
-<div class="highlight-python"><div class="highlight"><pre>git clone https://github.com/nextflow-io/nextflow.git
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nextflow</span><span class="o">-</span><span class="n">io</span><span class="o">/</span><span class="n">nextflow</span><span class="o">.</span><span class="n">git</span>
 </pre></div>
 </div>
 </div>
@@ -256,7 +258,7 @@ along with the Nextflow runtime, in the app project folder..</p>
 </div>
 <p>Nextflow provides a shortcut that helps you create the DNAnexus application skeleton pre-configured to work with it.</p>
 <p>Simply change to the Nextflow source project folder, that you have cloned with <cite>git</cite>, and type the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>./gradlew dnanexus
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">gradlew</span> <span class="n">dnanexus</span>
 </pre></div>
 </div>
 <p>This will:</p>
@@ -271,14 +273,14 @@ along with the Nextflow runtime, in the app project folder..</p>
 <p>Then, you will need to add your pipeline script into the <code class="docutils literal"><span class="pre">resources</span></code> folder (adding any other eventually needed
 binary dependencies) and modify the <code class="docutils literal"><span class="pre">dxapp.json</span></code> file providing your application name.</p>
 <p>When you have finished, package and upload the app by using the DNAnexus <cite>build</cite> command, as shown below:</p>
-<div class="highlight-python"><div class="highlight"><pre>dx build -f
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dx</span> <span class="n">build</span> <span class="o">-</span><span class="n">f</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>When ready, you can launch it like any other DNAnexus app, by using the <cite>run</cite> command, for example:</p>
-<div class="highlight-python"><div class="highlight"><pre>dx run nextflow
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dx</span> <span class="n">run</span> <span class="n">nextflow</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -287,7 +289,7 @@ binary dependencies) and modify the <code class="docutils literal"><span class="
 </div>
 <p>By running this example and confirming the default options, a simple <cite>Hello world</cite> script will run in the cloud, producing
 the output shown below.</p>
-<div class="highlight-python"><div class="highlight"><pre>Job Log
+<div class="highlight-default"><div class="highlight"><pre><span></span>Job Log
 -------
 Watching job job-BFY5Pz00kF9B7FY891602V7g. Press Ctrl+C to stop.
 * Nextflow pipelines framework (nextflow:main) (running) job-BFY5Pz00kF9B7FY891602V7g
@@ -317,7 +319,7 @@ configuration parameters.</p>
 the <code class="docutils literal"><span class="pre">dnanexus</span></code> executor.</p>
 <p>When a new process needs to be executed, Nextflow will use the DNAnexus API to run a new job, which in turn calls
 the function <cite>process</cite>, defined in the <code class="docutils literal"><span class="pre">dxapp.sh</span></code> script, specifying the target command to run.</p>
-<p>Read more about Nextflow's <cite>dnanexus</cite> executor configuration properties <a class="reference internal" href="executor.html#dnanexus-executor"><span>here</span></a>.</p>
+<p>Read more about Nextflow's <cite>dnanexus</cite> executor configuration properties <a class="reference internal" href="executor.html#dnanexus-executor"><span class="std std-ref">here</span></a>.</p>
 </div>
 </div>
 
