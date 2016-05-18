@@ -688,31 +688,31 @@ to low level performance analysis provided by other tools and they may not be fu
 </div>
 <div class="section" id="timeline-report">
 <h2>Timeline report<a class="headerlink" href="#timeline-report" title="Permalink to this headline">¶</a></h2>
-<p>Nextflow can render a HTML timeline of all processes executed in your pipeline. An example of the timeline
+<p>Nextflow can render an HTML timeline for all processes executed in your pipeline. An example of the timeline
 report is shown below:</p>
 <img alt="_images/timeline.png" src="_images/timeline.png" />
-<p>Each bar represent a process run in the pipeline execution. The bar length represents the task duration time (wall-time).
-The colored area in each bar represents the real execution time. The grey area on the <em>left</em> of the colored one represents
-the task scheduling wait time. The grey area on the <em>right</em> of the colored one represents the task termination time
+<p>Each bar represents a process run in the pipeline execution. The bar length represents the task duration time (wall-time).
+The colored area in each bar represents the real execution time. The grey area to the <em>left</em> of the colored area represents
+the task scheduling wait time. The grey area to the <em>right</em> of the colored area represents the task termination time
 (clean-up and file un-staging).</p>
-<p>For each bar are reported two numbers, respectively the task duration time and the virtual memory size peak.</p>
-<p>Since each process can spawn many tasks, colors are used to identify the tasks belonging to the same process.</p>
+<p>Each bar displays two numbers: the task duration time and the virtual memory size peak.</p>
+<p>As each process can spawn many tasks, colors are used to identify those tasks belonging to the same process.</p>
 <p>To enable the creation of the timeline report add the <code class="docutils literal"><span class="pre">-with-timeline</span></code> command line option when launching the pipeline
 execution. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">timeline</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">timeline</span> <span class="p">[</span><span class="n">file</span> <span class="n">name</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>The report file name can be specified as an optional parameter.</p>
+<p>The report file name can be specified as an optional parameter following the timeline option.</p>
 </div>
 <div class="section" id="dag-visualisation">
 <h2>DAG visualisation<a class="headerlink" href="#dag-visualisation" title="Permalink to this headline">¶</a></h2>
 <p>A Nextflow pipeline is implicitly modelled by a direct acyclic graph (DAG). The vertices in the graph represent
-the pipeline processes and operators, while the edges represent the data connections (i.e. channels) between them.</p>
+the pipeline's processes and operators, while the edges represent the data connections (i.e. channels) between them.</p>
 <p>The pipeline execution DAG can be outputted by adding the <code class="docutils literal"><span class="pre">-with-dag</span></code> option to the run command line.
 It creates a file named <code class="docutils literal"><span class="pre">dag.dot</span></code> containing a textual representation of the pipeline execution graph
 in the <a class="reference external" href="http://www.graphviz.org/content/dot-language">DOT format</a>.</p>
-<p>The execution DAG can be rendered in a different format by specifying the an output file name with the format
-corresponding extension. For example:</p>
+<p>The execution DAG can be rendered in a different format by specifying an output file name which has an extension
+corresponding to the required format. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">dag</span> <span class="n">flowchart</span><span class="o">.</span><span class="n">png</span>
 </pre></div>
 </div>
