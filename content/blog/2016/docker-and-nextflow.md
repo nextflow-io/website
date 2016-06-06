@@ -1,4 +1,11 @@
-title=Docker and Nextflow: an introductory guide date=2016-06-06 type=post tags=bioinformatics,reproducibility,pipelines,nextflow,docker,guide status=published author=Evan Floden icon=evan.jpg
+title=Workflows & publishing: best practice for reproducibility 
+date=2016-04-13 
+type=post
+tags=bioinformatics,reproducibility,pipelines,nextflow,genomic,docker
+status=published
+author=Evan Floden 
+icon=evan.jpg
+~~~~~~
 
 *Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope it may encourage others to join in the virtualization revolution.*
 
@@ -6,27 +13,27 @@ Modern science is built on collaboration. Recently I became involved with one su
 
 During several successful 'hackathon' meetings the best approach was determined and implemented in a joint effort. I undertook the task of wrapping the procedure up into a Nextflow pipeline with a view to replicating the results across our different institutions and allow the easy execution of the pipeline by researchers anywhere. 
 
-Creating the Nextflow pipeline ([here](http://www.github.com/skptic/lncrna-annotation-nf)) in itself was not a difficult task. My collaborators had documented their work well and were on hand if anything was not clear. Problems however arose when we tried to port and replicate the results across the different institutions. 
+Creating the Nextflow pipeline ([here](http://www.github.com/skptic/lncrna-annotation-nf)) in itself was not a difficult task. My collabrators had documented their work well and were on hand if anything was not clear. However installing and keep aligned all the pipeline dependencies across different data centers was still a challenging task. 
 
-The pipeline is typical of many in bioinformatics, consisting of binary executions, bash scripting, R, perl and bioperl modules. We found the bio-perl modules in particular where very sensitive to the various versions in the *long* dependancy tree. The solution was to turn to [Docker](link to docker and Nextflow blog). 
+The pipeline is typical of many in bioinformatics, consisting of binary executions, BASH scripting, R, Perl, BioPerl and some custom Perl modules. We found the BioPerl modules in particular where very sensistive to the various versions in the *long* dependency tree. The solution was to turn to [Docker](https://www.docker.com/) containers. 
 
 I have taken this opportunity to document the process of developing the Docker side of a Nextflow + Docker pipeline in a step-by-step manner.
 
 ###Docker Installation
-By far the most challenging issue is the installation of Docker. For local installations, the [process is relatively straight forward](https://docs.docker.com/engine/installation). However difficulties arise as computing moves to the cluster. Owing to security concerns, many HPC administors have been reluctant to install Docker system-wide. This is changing and Docker developers have been responding to many of these concerns with updates addressing these issues.
+
+By far the most challenging issue is the installation of Docker. For local installations, the [process is relatively straight forward](https://docs.docker.com/engine/installation). However difficulties arise as computing moves to a cluster. Owing to security concerns, many HPC administors have been reluctant to install Docker system-wide. This is changing and Docker developers have been responding to many of these concerns with [updates addressing these issues](https://blog.docker.com/2016/02/docker-engine-1-10-security/).
 
 That being the case, local installations are usually perfectly fine for developing pipelines. One of the golden rules in Nextflow development is to have a small test dataset that can run the full pipeline in minutes with few computational resources, ie can run on a laptop.
 
 If you have Docker and Nextflow installed and you wish to view the working pipeline, you can perform the following commands to obtain everything you need and run the full lncrna annotation pipeline on a test dataset. 
 
     docker pull skptic/lncrna_annotation
-    git clone skptic/lncrna-annotation-nf
-    cd lncRNA-Annotation-nf
-    nextflow run lncRNA-Annotation-nf -with-docker
+    nextflow run skptic/lncrna-annotation-nf -with-docker
 
 If the following does not work, there could be a problem with your Docker installation.
 
 ###The Dockerfile
+
 The `Dockerfile` contains all the instructions required by Docker to build the Docker image. It provides a transparent and consistent way to specify the base operating system and installation of all software, libraries and modules.
 
 We begin by creating a file `Dockerfile` in our Nextflow project directory. The Dockerfile begins with:
@@ -37,28 +44,26 @@ We begin by creating a file `Dockerfile` in our Nextflow project directory. The 
     # File Author / Maintainer
     MAINTAINER Evan Floden <evanfloden@gmail.com>
     
-This sets the base distribution for our Docker image to be debian v8.4, a lightweight linux distribution that is ideally suited to the task. We must also specify the maintainer of Docker image.
+This sets the base distribution for our Docker image to be Debian v8.4, a lightweight Linux distribution that is ideally suited to the task. We must also specify the maintainer of the Docker image.
 
 Next we update the repository sources and install some essential tools such as `wget` and `perl`.
 
-    # Update the repository sources list
-    RUN apt-get update
-
-    # Install compiler and perl stuff
-    RUN apt-get install --yes --no-install-recommends \
+    # Update the repository sources list and install the components 
+    RUN apt-get update && apt-get install --yes --no-install-recommends \
         wget \
         git \
         cmake \
         build-essential \
         gcc-multilib \
-        perl
+        perl \
+        cpanminus
     
-Notice that we use the command `RUN` before each line. The `RUN` instruction executes commands as if they are performed from the terminal shell 
+Notice that we use the command `RUN` before each line. The `RUN` instruction executes commands as if they are performed from the terminal shell.
 
-Next we can specify the install of the required perl modules using [cpan minus](http://search.cpan.org/~miyagawa/Menlo-1.9003/script/cpanm-menlo)
+Also, notice that is a good practice, in order to reduce the size of the final Docker image, to group as many as possible commands in the same `RUN` statement. See [here](https://blog.replicated.com/2016/02/05/refactoring-a-dockerfile-for-image-size/) and [here] for more best practices.    
 
-    # Install cpanminus for perl modules 
-    RUN apt-get install -y cpanminus
+Next we can specify the install of the required perl modules using [cpan minus](http://search.cpan.org/~miyagawa/Menlo-1.9003/script/cpanm-menlo):
+
 
     # Install perl modules
     RUN cpanm --force CPAN::Meta \
@@ -69,14 +74,14 @@ Next we can specify the install of the required perl modules using [cpan minus](
         Config::Simple \
         Statistics::Lite
 
-We can give the instructions to download and install software from github using:
+We can give the instructions to download and install software from GitHub using:
 
     RUN wget https://github.com/alexdobin/STAR/archive/2.5.2a.tar.gz &&\
     tar -xzf 2.5.2a.tar.gz && \
     cd STAR-2.5.2a &&\
     make STAR
 
-We can add custom perl modules and specify environment variables such as PERL5LIB as below:
+We can add custom Perl modules and specify enviromental variables such as `PERL5LIB` as below:
 
     RUN wget https://github.com/tderrien/FEELnc/archive/a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\
     unzip a6146996e06f8a206a0ae6fd59f8ca635c7d9467.zip &&\ 
@@ -99,6 +104,7 @@ R and R libraries can be installed as follows:
 For the complete working Dockerfile of this project see [here](https://github.com/skptic/lncRNA-Annotation-nf/blob/master/Dockerfile)
 
 ###Building the Docker Image
+
 Once we start working on the Dockerfile, we can build it anytime using:
 
     docker build -t lncRNA_annotation .
@@ -106,6 +112,7 @@ Once we start working on the Dockerfile, we can build it anytime using:
 This builds the image from the Dockerfile and assigns a name for the image. If there are no errors, the Docker image is now in you local Docker repository ready for use.
 
 ###Testing the Docker Image
+
 We find it very helpful to test our images as we develop the Docker file. Once built, it is possible to launch the Docker image and test if the desired software was correctly installed. For example, we can test if FEELnc and its dependencies were successfully installed by running the following:
 
     docker run -ti lncrna_annotation
@@ -117,7 +124,9 @@ We find it very helpful to test our images as we develop the Docker file. Once b
     
     exit # remember to exit the Docker image
 
+
 ###Tagging the Docker Image
+
 Once you are confident your image is built correctly, you can tag it, allowing you to push it to [Dockerhub.io](https://hub.docker.com/). Dockerhub is an online repository for docker images which allows anyone to pull public images and run them.
 
     docker images
@@ -136,6 +145,7 @@ Now when we check our local images we can see the updated tag.
     
     
 ###Pushing the Docker Image to Dockerhub
+
 If you have not previously, sign up for a Dockerhub account [here](https://hub.docker.com/). From the command line, login to Dockerhub and push your image.
 
     docker login --username=skptic
@@ -153,6 +163,7 @@ You can test if you image has been correctly pushed and is publicly available by
 We are now almost ready to run our pipeline. The last step is to set up the Nexflow config.
 
 ###Nextflow Configuration
+
 Within the `nextflow.config` file in the main project directory we can add the following line which links the Docker image to the Nexflow execution. The images can be: 
 
 * General (same docker image for all processes):
@@ -188,6 +199,7 @@ All that is left now to run the pipeline.
 Whilst I have explained this step-by-step process in a linear, consequential manner, in reality the development process is often more circular with changes in the Docker images reflecting changes in the pipeline.
 
 ###CircleCI and Nextflow
+
 Now that you have a pipeline that successfully runs on a test dataset with Docker, a very useful step is to add a continuous development step to the pipeline. With this, whenever you push a modification of the pipeline to the GitHub repo, the test data set is run on the [CircleCI](http://www.circleci.com) servers (using Docker).
 
 To include CircleCI into the Nexflow pipeline, create a file named `circle.yml` in the project directory. We add the following instructions to the file:
@@ -215,7 +227,8 @@ Within the GitHub README.md you can then add a badge with the following:
     ![CircleCI status](https://circleci.com/gh/skptic/lncRNA-Annotation-nf.png?style=shield)
 
 ###Tips and Tricks
-**File permissions**: When a process is executed by a docker container, the unix user running the process is not you. Therefore any files that are used as an input should have the appropriate file permissions. For example, I had to change the permissoins of all the input data in the test data set with:
+
+**File permissions**: When a process is executed by a docker container, the UNIX user running the process is not you. Therefore any files that are used as an input should have the appropriate file permissions. For example, I had to change the permissoins of all the input data in the test data set with:
 
     chmod 0755 <input_files>
 
