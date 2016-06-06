@@ -1,4 +1,5 @@
-##Docker and Nextflow: an introductory guide
+title=Docker and Nextflow: an introductory guide date=2016-06-06 type=post tags=bioinformatics,reproducibility,pipelines,nextflow,docker,guide status=published author=Evan Floden icon=evan.jpg
+
 *Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope it may encourage others to join in the virtualization revolution.*
 
 Modern science is built on collaboration. Recently I became involved with one such venture between several groups across Europe. The aim was to annotate long non-coding RNA (lncRNA) in farm animals. I agreed to join in with the annotation based on RNA sequencing data. The basic procedure relies on mapping short read data from many tissues, generating transcripts and then determining if they are likely to be lncRNA or protein coding genes.
