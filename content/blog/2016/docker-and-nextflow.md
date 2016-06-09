@@ -1,5 +1,5 @@
-title=Workflows & publishing: best practice for reproducibility 
-date=2016-04-13 
+title=Docker for dunces & Nextflow for nunces 
+date=2016-06-09 
 type=post
 tags=bioinformatics,reproducibility,pipelines,nextflow,genomic,docker
 status=published
@@ -7,15 +7,15 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-*Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope it may encourage others to join in the virtualization revolution.*
+*Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope it may encourage others to join in the containerization revolution.*
 
 Modern science is built on collaboration. Recently I became involved with one such venture between several groups across Europe. The aim was to annotate long non-coding RNA (lncRNA) in farm animals. I agreed to join in with the annotation based on RNA sequencing data. The basic procedure relies on mapping short read data from many tissues, generating transcripts and then determining if they are likely to be lncRNA or protein coding genes.
 
 During several successful 'hackathon' meetings the best approach was determined and implemented in a joint effort. I undertook the task of wrapping the procedure up into a Nextflow pipeline with a view to replicating the results across our different institutions and allow the easy execution of the pipeline by researchers anywhere. 
 
-Creating the Nextflow pipeline ([here](http://www.github.com/skptic/lncrna-annotation-nf)) in itself was not a difficult task. My collabrators had documented their work well and were on hand if anything was not clear. However installing and keep aligned all the pipeline dependencies across different data centers was still a challenging task. 
+Creating the Nextflow pipeline ([here](http://www.github.com/skptic/lncrna-annotation-nf)) in itself was not a difficult task. My collaborators had documented their work well and were on hand if anything was not clear. However installing and keep aligned all the pipeline dependencies across different data centers was still a challenging task. 
 
-The pipeline is typical of many in bioinformatics, consisting of binary executions, BASH scripting, R, Perl, BioPerl and some custom Perl modules. We found the BioPerl modules in particular where very sensistive to the various versions in the *long* dependency tree. The solution was to turn to [Docker](https://www.docker.com/) containers. 
+The pipeline is typical of many in bioinformatics, consisting of binary executions, BASH scripting, R, Perl, BioPerl and some custom Perl modules. We found the BioPerl modules in particular where very sensistive to the various versions in the *long* dependencies tree. The solution was to turn to [Docker](https://www.docker.com/) containers. 
 
 I have taken this opportunity to document the process of developing the Docker side of a Nextflow + Docker pipeline in a step-by-step manner.
 
@@ -30,7 +30,10 @@ If you have Docker and Nextflow installed and you wish to view the working pipel
     docker pull skptic/lncrna_annotation
     nextflow run skptic/lncrna-annotation-nf -with-docker
 
-If the following does not work, there could be a problem with your Docker installation.
+[If the following does not work, there could be a problem with your Docker installation.]
+
+The first command will download the required Docker image in your computer, while the second will launch Nextflow which automatically download the pipeline repository and 
+run it using the test data included with it.
 
 ###The Dockerfile
 
@@ -44,7 +47,7 @@ We begin by creating a file `Dockerfile` in our Nextflow project directory. The 
     # File Author / Maintainer
     MAINTAINER Evan Floden <evanfloden@gmail.com>
     
-This sets the base distribution for our Docker image to be Debian v8.4, a lightweight Linux distribution that is ideally suited to the task. We must also specify the maintainer of the Docker image.
+This sets the base distribution for our Docker image to be Debian v8.4, a lightweight Linux distribution that is ideally suited for the task. We must also specify the maintainer of the Docker image.
 
 Next we update the repository sources and install some essential tools such as `wget` and `perl`.
 
@@ -58,7 +61,7 @@ Next we update the repository sources and install some essential tools such as `
         perl \
         cpanminus
     
-Notice that we use the command `RUN` before each line. The `RUN` instruction executes commands as if they are performed from the terminal shell.
+Notice that we use the command `RUN` before each line. The `RUN` instruction executes commands as if they are performed from the Linux shell.
 
 Also, notice that is a good practice, in order to reduce the size of the final Docker image, to group as many as possible commands in the same `RUN` statement. See [here](https://blog.replicated.com/2016/02/05/refactoring-a-dockerfile-for-image-size/) and [here] for more best practices.    
 
@@ -107,9 +110,9 @@ For the complete working Dockerfile of this project see [here](https://github.co
 
 Once we start working on the Dockerfile, we can build it anytime using:
 
-    docker build -t lncRNA_annotation .
+    docker build -t skptic/lncRNA_annotation .
     
-This builds the image from the Dockerfile and assigns a name for the image. If there are no errors, the Docker image is now in you local Docker repository ready for use.
+This builds the image from the Dockerfile and assigns a tag (i.e. a name) for the image. If there are no errors, the Docker image is now in you local Docker repository ready for use.
 
 ###Testing the Docker Image
 
