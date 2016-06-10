@@ -213,8 +213,6 @@ Now that you have a pipeline that successfully runs on a test dataset with Docke
 To include CircleCI in the Nexflow pipeline, create a file named `circle.yml` in the project directory. We add the following instructions to the file:
 
     machine:
-        pre:
-            - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
         java:
             version: oraclejdk8
         services:
@@ -240,9 +238,9 @@ Within the GitHub README.md you can add a badge with the following:
 
 **File permissions**: When a process is executed by a Docker container, the UNIX user running the process is not you. Therefore any files that are used as an input should have the appropriate file permissions. For example, I had to change the permissions of all the input data in the test data set with:
 
-    chmod 0755 <input_files>
+ 	find <data-path> -type f -exec chmod 644 {} \;
+ 	find <data-path> -type d -exec chmod 755 {} \;
     
 ###Summary
 This was my first time building a Docker image and after a bit of trial-and-error the process was surprising straight forward. There is a wealth of information available for Docker and the almost seamless integration with Nextflow is fantastic. Our collaboration team is now looking forward to applying the pipeline to different datasets and publishing the work, knowing our results will be completely reproducible across any platform.
 
-If you have any questions you can always find detailed documentation for using Docker with Nextflow [here](http://www.nextflow.io/docs/latest/docker.html) or alternatively join us on Gitter.im [here](https://gitter.im/nextflow-io/nextflow).
