@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.19.2 documentation</title>
+  <title>Processes &mdash; Nextflow 0.20.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.19.2',
+        VERSION:'0.20.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.19.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.20.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -193,6 +193,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html#runtime-metadata">Runtime metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metadata.html#error-handler">Error handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html#notification-message">Notification message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="metadata.html#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
@@ -1381,10 +1382,36 @@ running process <cite>stdout</cite> file, showing it in the shell terminal.</p>
 <p>Without specifying <code class="docutils literal"><span class="pre">echo</span> <span class="pre">true</span></code> you won't see the <code class="docutils literal"><span class="pre">Hello</span></code> string printed out when executing the above example.</p>
 </div>
 <div class="section" id="errorstrategy">
-<h3>errorStrategy<a class="headerlink" href="#errorstrategy" title="Permalink to this headline">¶</a></h3>
+<span id="process-page-error-strategy"></span><h3>errorStrategy<a class="headerlink" href="#errorstrategy" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">errorStrategy</span></code> directive allows you to define how an error condition is managed by the process. By default when
 an error status is returned by the executed script, the process stops immediately. This in turn forces the entire pipeline
 to terminate.</p>
+<p>Table of available error strategies:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Executor</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">terminate</span></code></td>
+<td>Terminates the execution as soon as an error condition is reported. Pending jobs are killed (default)</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">finish</span></code></td>
+<td>Initiates an orderly pipeline shutdown when an error condition is raised, waiting the completion of any submitted job.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ignore</span></code></td>
+<td>Ignores processes execution errors.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">retry</span></code></td>
+<td>Re-submit for execution a process returning an error condition.</td>
+</tr>
+</tbody>
+</table>
 <p>When setting the <code class="docutils literal"><span class="pre">errorStrategy</span></code> directive to <code class="docutils literal"><span class="pre">ignore</span></code> the process doesn't stop on an error condition,
 it just reports a message notifying you of the error event.</p>
 <p>For example:</p>
@@ -1401,7 +1428,7 @@ it just reports a message notifying you of the error event.</p>
 <p class="last">By definition a command script fails when it ends with a non-zero exit status. To change this behavior
 see <a class="reference internal" href="#validexitstatus">validExitStatus</a>.</p>
 </div>
-<p>Alternatively, you can specify the <code class="docutils literal"><span class="pre">retry</span></code> <cite>error strategy</cite>, which allows you to re-submit for execution a process
+<p>The <code class="docutils literal"><span class="pre">retry</span></code> <cite>error strategy</cite>, allows you to re-submit for execution a process
 returning an error condition. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">retryIfFail</span> <span class="p">{</span>
    <span class="n">errorStrategy</span> <span class="s1">&#39;retry&#39;</span>
@@ -1525,7 +1552,7 @@ The latter defines the total number of errors that are allowed during the proces
 launch different execution instances), while the <code class="docutils literal"><span class="pre">maxRetries</span></code> defines the maximum number of times the same process
 execution can be retried in case of an error.</p>
 </div>
-<p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> <a class="reference internal" href="#maxerrors">maxErrors</a>.</p>
+<p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> and <a class="reference internal" href="#maxerrors">maxErrors</a>.</p>
 </div>
 <div class="section" id="module">
 <h3>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
@@ -1710,6 +1737,11 @@ pipeline execution and <code class="docutils literal"><span class="pre">false</s
 </tr>
 <tr class="row-odd"><td>path</td>
 <td>Specifies the directory where files need to be published. <strong>Note</strong>: the syntax <code class="docutils literal"><span class="pre">publishDir</span> <span class="pre">'/some/dir'</span></code> is a shortcut for <code class="docutils literal"><span class="pre">publishDir</span> <span class="pre">path:</span> <span class="pre">'/some/dir'</span></code>.</td>
+</tr>
+<tr class="row-even"><td>saveAs</td>
+<td>A closure which, given the name of the file being published, returns the actual file name or a full path where the file is required to be stored.
+This can be used to rename or change the destination directory of the published files dynamically by using
+a custom strategy.</td>
 </tr>
 </tbody>
 </table>

@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.19.2 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.20.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.19.2',
+        VERSION:'0.20.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.19.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.20.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -193,6 +193,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow introspection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#runtime-metadata">Runtime metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#completion-handler">Completion handler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-handler">Error handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notification-message">Notification message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
@@ -298,10 +299,10 @@ it returns a map object containing <cite>[process name, image name]</cite> pair 
 <tr class="row-odd"><td>start</td>
 <td>Timestamp of workflow at execution start.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> complete</td>
+<tr class="row-even"><td><sup>✝</sup> complete</td>
 <td>Timestamp of workflow when execution is completed.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> duration</td>
+<tr class="row-odd"><td><sup>✝</sup> duration</td>
 <td>Time elapsed to complete workflow execution.</td>
 </tr>
 <tr class="row-even"><td><sup>*</sup> success</td>
@@ -327,13 +328,14 @@ it returns a map object containing <cite>[process name, image name]</cite> pair 
 </tr>
 </tbody>
 </table>
-<p>The properties marked with a <cite>*</cite> are accessible only in the workflow completion handler. See the following
-section for details.</p>
+<p>Properties marked with a <cite>✝</cite> are accessible only in the workflow completion handler.
+Properties marked with a <cite>*</cite> are accessible only in the workflow completion and error handlers.
+See the following section for details.</p>
 </div>
 <div class="section" id="completion-handler">
 <h2>Completion handler<a class="headerlink" href="#completion-handler" title="Permalink to this headline">¶</a></h2>
 <p>Due to the asynchronous nature of Nextflow the termination of a script does not correspond to the termination
-of the running workflow. Thus the information, only available on execution completion, needs to be accessed by
+of the running workflow. Thus some information, only available on execution completion, needs to be accessed by
 using an asynchronous handler.</p>
 <p>The <code class="docutils literal"><span class="pre">onComplete</span></code> event handler is invoked by the framework when the workflow execution is completed. It allows one
 to access the workflow termination status and other useful information. For example:</p>
@@ -342,6 +344,23 @@ to access the workflow termination status and other useful information. For exam
     <span class="n">println</span> <span class="s2">&quot;Execution status: ${ workflow.success ? &#39;OK&#39; : &#39;failed&#39; }&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="error-handler">
+<h2>Error handler<a class="headerlink" href="#error-handler" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal"><span class="pre">onError</span></code> even handler is invoked by Nextflow when a runtime or process error caused the pipeline execution to stop.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onError</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Oops... Pipeline execution stopped with the following message: $</span><span class="si">{workflow.errorMessage}</span><span class="s2">&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Both the <code class="docutils literal"><span class="pre">onError</span></code> and <code class="docutils literal"><span class="pre">onComplete</span></code> handlers are invoked when an error condition is encountered.
+However the first is called as soon as the error is raised, while the second just before the pipeline execution
+is going terminate. When using the <code class="docutils literal"><span class="pre">finish</span></code> <a class="reference internal" href="process.html#process-page-error-strategy"><span class="std std-ref">errorStrategy</span></a>, between the two there could be
+a significant time gap depending by the time required to complete any pending job.</p>
 </div>
 </div>
 <div class="section" id="notification-message">
@@ -370,20 +389,25 @@ as shown below:</p>
 </div>
 <div class="section" id="decoupling-metadata">
 <h2>Decoupling metadata<a class="headerlink" href="#decoupling-metadata" title="Permalink to this headline">¶</a></h2>
-<p>The workflow completion handler can be defined also in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. This is useful to
-decouple the handling of pipeline metadata from the main script logic.</p>
-<p>When the completion handler is included in a configuration file the only difference is that the <code class="docutils literal"><span class="pre">onComplete</span></code> closure
-has to be defined by using the assignment operator as shown below:</p>
+<p>The workflow event handlers can be defined also in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. This is useful to
+decouple the handling of pipeline events from the main script logic.</p>
+<p>When the event handlers are included in a configuration file the only difference is that the <code class="docutils literal"><span class="pre">onComplete</span></code> and
+the <a href="#id1"><span class="problematic" id="id2">``</span></a>onError` closures have to be defined by using the assignment operator as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="o">=</span> <span class="p">{</span>
     <span class="o">//</span> <span class="nb">any</span> <span class="n">workflow</span> <span class="nb">property</span> <span class="n">can</span> <span class="n">be</span> <span class="n">used</span> <span class="n">here</span>
     <span class="n">println</span> <span class="s2">&quot;Pipeline complete&quot;</span>
     <span class="n">println</span> <span class="s2">&quot;Command line: $workflow.commandLine&quot;</span>
 <span class="p">}</span>
+
+
+<span class="n">workflow</span><span class="o">.</span><span class="n">onError</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="s2">&quot;Oops .. something when wrong&quot;</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">It is possible to define a workflow completion handler both in the pipeline script <strong>and</strong> in the
+<p class="last">It is possible to define a workflow event handlers both in the pipeline script <strong>and</strong> in the
 configuration file.</p>
 </div>
 </div>
