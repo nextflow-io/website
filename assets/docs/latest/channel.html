@@ -252,9 +252,9 @@ factory methods.</p>
 <li><a class="reference internal" href="#create">create</a></li>
 <li><a class="reference internal" href="#empty">empty</a></li>
 <li><a class="reference internal" href="#from">from</a></li>
-<li><a class="reference internal" href="#just">just</a></li>
-<li><a class="reference internal" href="#value">value</a></li>
 <li><a class="reference internal" href="#frompath">fromPath</a></li>
+<li><a class="reference internal" href="#fromfilepairs">fromFilePairs</a></li>
+<li><a class="reference internal" href="#value">value</a></li>
 <li><a class="reference internal" href="#watchpath">watchPath</a></li>
 </ul>
 <div class="section" id="create">
@@ -266,7 +266,7 @@ factory methods.</p>
 </div>
 <div class="section" id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h3>
-<p>The from method allows you to create a channel emitting any sequence of values that are specified as the method argument,
+<p>The <code class="docutils literal"><span class="pre">from</span></code> method allows you to create a channel emitting any sequence of values that are specified as the method argument,
 for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">)</span>
 <span class="n">ch</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;value: $it&quot;</span> <span class="p">}</span>
@@ -314,10 +314,6 @@ not <code class="docutils literal"><span class="pre">null</span></code> value ca
 </div>
 <p>The first line in the example creates an 'empty' variable. The second line creates a channel and binds a string to it.
 Finally the last one creates a channel and binds a list object to it that will be emitted as a sole emission.</p>
-</div>
-<div class="section" id="just">
-<span id="channel-just"></span><h3>just<a class="headerlink" href="#just" title="Permalink to this headline">¶</a></h3>
-<p>A synonym for <a class="reference internal" href="#value">value</a> method.</p>
 </div>
 <div class="section" id="frompath">
 <span id="channel-path"></span><h3>fromPath<a class="headerlink" href="#frompath" title="Permalink to this headline">¶</a></h3>
@@ -400,9 +396,73 @@ and directory starting with a <code class="docutils literal"><span class="pre">a
 </tbody>
 </table>
 </div>
+<div class="section" id="fromfilepairs">
+<span id="channel-filepairs"></span><h3>fromFilePairs<a class="headerlink" href="#fromfilepairs" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">fromFilePairs</span></code> method creates a channel emitting the file pairs matching a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> pattern provided by the user.
+The matching files are emitted as tuples in which the first element is the grouping key of the matching
+pair and the second element is the list of files (sorted in lexicographical order). For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/my/data/SRR*_{1,2}.fastq&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It will produce an output similar to the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">SRR493366</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493366_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493366_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">SRR493367</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493367_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493367_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">SRR493368</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493368_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493368_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">SRR493369</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493369_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493369_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">SRR493370</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493370_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493370_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">SRR493371</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493371_1</span><span class="o">.</span><span class="n">fastq</span><span class="p">,</span> <span class="o">/</span><span class="n">my</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">SRR493371_2</span><span class="o">.</span><span class="n">fastq</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The glob pattern must contain at least a star wildcard character.</p>
+</div>
+<p>Alternatively it is possible to implement a custom file pair grouping strategy providing a closure which,
+given the current file as parameter, returns the grouping key.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/some/data/*&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">file</span> <span class="o">-&gt;</span> <span class="n">file</span><span class="o">.</span><span class="n">extension</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">ext</span><span class="p">,</span> <span class="n">files</span> <span class="o">-&gt;</span> <span class="s2">&quot;Files with the extension $ext are $files&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Table of optional parameters available:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>type</td>
+<td>Type of paths returned, either <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> (default: <code class="docutils literal"><span class="pre">file</span></code>)</td>
+</tr>
+<tr class="row-odd"><td>hidden</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> includes hidden files in the resulting paths (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+</tr>
+<tr class="row-even"><td>maxDepth</td>
+<td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
+</tr>
+<tr class="row-odd"><td>followLinks</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+</tr>
+<tr class="row-even"><td>size</td>
+<td>Defines the number of files each emitted item is expected to hold (default: 2). Set to <code class="docutils literal"><span class="pre">-1</span></code> for any.</td>
+</tr>
+<tr class="row-odd"><td>flat</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> the matching files are produced as sole elements in the emitted tuples (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="watchpath">
 <span id="channel-watch"></span><h3>watchPath<a class="headerlink" href="#watchpath" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">watchPath</span></code> factory method watches a folder for one or more files matching a specified pattern. As soon as
+<p>The <code class="docutils literal"><span class="pre">watchPath</span></code> method watches a folder for one or more files matching a specified pattern. As soon as
 there is a file that meets the specified condition, it is emitted over the channel that is returned by the <code class="docutils literal"><span class="pre">watchPath</span></code>
 method. The condition on files to watch can be specified by using <code class="docutils literal"><span class="pre">*</span></code> or <code class="docutils literal"><span class="pre">?</span></code> wildcard characters i.e. by specifying
 a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matching criteria.</p>
