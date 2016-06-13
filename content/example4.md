@@ -21,7 +21,7 @@ syntaxhighlighter=yes
  * Defines pipeline parameters in order to specify the refence genomes
  * and read pairs by using the command line options
  */
-params.pairs = "$baseDir/data/ggal/*_{1,2}.fq"
+params.reads = "$baseDir/data/ggal/*_{1,2}.fq"
 params.genome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
   
 /*
@@ -34,11 +34,8 @@ genome_file = file(params.genome)
  * three elements: the pair ID, the first read-pair file and the second read-pair file 
  */
 Channel
-    .fromPath( params.pairs )                                              
-    .ifEmpty { error "Cannot find any reads matching: ${params.pairs}" }   
-    .map {  path -> tuple(path.baseName[0..-2], path) }                     
-    .groupTuple(size: 2, sort: true)
-    .map { id, files -> tuple(id, files[0], files[1])}
+    .fromFilePairs( params.reads )                                              
+    .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }   
     .set { read_pairs } 
  
 /*
@@ -63,13 +60,13 @@ process mapping {
     input:
     file genome_file
     file genome_index from genome_index.first()
-    set pair_id, file(read1), file(read2) from read_pairs
+    set pair_id, file(reads) from read_pairs
  
     output:
     set pair_id, "tophat_out/accepted_hits.bam" into bam
  
     """
-    tophat2 genome.index ${read1} ${read2}
+    tophat2 genome.index ${reads}
     """
 }
  
