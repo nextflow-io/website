@@ -1,4 +1,4 @@
-title=Deploy your computational pipelines in the cloud in a fingers snap 
+title=Deploy your computational pipelines in the cloud at the snap-of-a-finger 
 date=2016-08-30
 type=post
 tags=aws,cloud,pipelines,nextflow,genomic,docker
@@ -11,56 +11,56 @@ icon=paolo.jpg
 thanks to Nextflow and Docker containers*
 
 Nextflow is a framework to simplify the writing of parallel and distributed computational
-pipelines in a portable and reproducible across different computing platforms, from 
+pipelines in a portable and reproducible way across different computing platforms, from 
 a single computer to the cloud, with minimal maintenance or interventions. 
 
 Indeed, the very original idea, when this project started three years ago, was to 
 implement a tool that would allow the researchers in 
-[our lab](http://www.crg.eu/es/programmes-groups/comparative-bioinformatics) to migrate 
-smoothly their data analisys applications in the cloud when needed. Without having 
+[our lab](http://www.crg.eu/es/programmes-groups/comparative-bioinformatics) to smoothly migrate 
+their data analysis applications in the cloud when needed - without having 
 to change or adapt their code. 
 
-However Nextflow ended-up to be used mostly to deploy computational workflows on-premise 
+However to date Nextflow has been used mostly to deploy computational workflows at on-premise 
 computing clusters or HPC data-centers, such as 
 [BSC MareNostrum](https://www.bsc.es/marenostrum-support-services/mn3), because these 
 infrastructures are easier to use and provide, on average, a cheaper cost and better 
 performance when compared to a cloud environments. 
 
 A major obstacle to efficient deployment of scientific workflows in the cloud is the lack 
-in this kind of infrastructure of a performant POSIX compatible shared file system. These
-kind of application are usually made-up by putting together a but of tools, scripts and 
-systems command that need a reliable shared file system to share each other the input and 
-output files they produced. 
+of this kind of infrastructure for a performant POSIX compatible shared file system. These
+kinds of applications are usually made-up by putting together a collection of tools, scripts and 
+systems command that need a reliable shared file system to share with each other the input and 
+output of files as they are produced. 
 
 The recent availability of the [Amazon Elastic File System](https://aws.amazon.com/efs/) 
-(EFS), a fully feature NFS based file system hosted in the AWS infrastructure represent 
-a major step in this contest and it can unlock the deployment of scientific computing 
-in the cloud to the next level. 
+(EFS), a fully featured NFS based file system hosted on the AWS infrastructure represents 
+a major step in this context, unlocking the deployment of scientific computing 
+in the cloud and taking it to the next level. 
 
 ### Nextflow support for the cloud 
 
 Nextflow could already be deployed in the cloud, either using tools such as 
 [ElastiCluster](https://github.com/gc3-uzh-ch/elasticluster) or [CfnCluster](https://aws.amazon.com/hpc/cfncluster/),
 or by using custom deployment scripts. However the procedure was still cumbersome and,
-above all, it was not optimised to take fully advantage of cloud elasticity i.e. 
-the ability to shape the computing cluster dynamically as the computing needs change 
+above all, it was not optimised to fully take advantage of cloud elasticity i.e. 
+the ability to shape the computing cluster dynamically as the computing needs change.
 
-For these reasons, we decided that was time to provide in Nextflow a first-class support 
+For these reasons, we decided it was time to provide in Nextflow a first-class support 
 for the cloud, implementing a native support for Amazon EFS, a revamped cloud-optimised 
 scheduler based on [Apache Ignite](https://ignite.apache.org/) and full-support for cluster 
 auto-scaling. 
 
-In practice this means that Nextflow can now spin and configure a full featured computing 
+In practice this means that Nextflow can now spin and configure a fullly featured computing 
 cluster in the cloud with a single command, after that you need only to login in the master 
-node and launch the pipeline execution as would do in your cluster. 
+node and launch the pipeline execution as you would do in your cluster. 
 
 
 ### Demo !
 
 Since a demo is worth a thousands words, I've record a short screencast showing to use
 Nextflow to setup a cluster in the cloud made-up of the 10 EC2 spot instances and using 
-the Amazon EFS file system. When the cluster is ready it's only required to SSH login 
-in the cluster master node and launch the Nextflow pipeline execution as usual. 
+the Amazon EFS file system. When the cluster is ready, the only requirement is to SSH login 
+to the cluster master node and launch the Nextflow pipeline execution as usual. 
 
 <script type="text/javascript" src="https://asciinema.org/a/bq44gqp2sizxen4i05a6vomd6.js" id="asciicast-bq44gqp2sizxen4i05a6vomd6" async></script> 
    
@@ -77,21 +77,21 @@ Let's recap the steps showed in the demo
   
 * The AWS access and secret keys are provided by using the usual environment variables. 
 
-* The `cloud launch` launches the requested number of instances, configure the user and 
-  access keys, mount the EFS storage and setup the Nextflow cluster automatically.
-  Any Linux AMI can be used, it only requires the [cloud-init](https://cloudinit.readthedocs.io/en/latest/) 
-  package, a Java 7+ runtime and the Docker engine. 
+* The `cloud launch` launches the requested number of instances, configures the user and 
+  access keys, mounts the EFS storage and setsup the Nextflow cluster automatically.
+  Any Linux AMI can be used, it only required that the [cloud-init](https://cloudinit.readthedocs.io/en/latest/) 
+  package, a Java 7+ runtime and the Docker engine are present. 
   
 * When the cluster is ready, you can SSH in the master node and launch the pipeline execution 
   as usual with the `nextflow run ..` command.
   
 * For the sake of this demo we are using [pditommaso/paraMSA](https://github.com/pditommaso/paraMSA), 
-  a ...   
+  a pipeline for generating multiple sequence alignments and bootstrap replicates 
   developed by [Evan Floden](https://github.com/skptic). 
 
-* Nextflow pulls automatically the pipeline code from its GitHub repository when the 
+* Nextflow automatically puuls the pipeline code from its GitHub repository when the 
   execution is launched. This repository includes also a dataset which is used by default.  
-  The many bioinformatic tools used by this pipeline are packaged by using a Docker image, 
+  The many bioinformatic tools used by the pipeline are packaged using a Docker image, 
   which is downloaded automatically on each computing node. 
   
 * The pipeline results are uploaded automatically in the S3 bucket specified 
@@ -116,16 +116,13 @@ we made public available the EC2 image `ami-43f49030` (EU Ireland region) used i
         
 ### Conclusion 
 
-Nextflow provides the state-of-art support for cloud and containers technologies, which make 
-it possibile to create and configure computing cluster in the cloud and deploy the execution 
-a computational workflow in a no-brainer way, with just two commands on
+Nextflow provides state-of-art support for cloud and containers technologies making 
+it possibile to create and configure computing clusters in the cloud. The deployment and execution 
+of computational workflows become executible in a no-brainer way, with just two commands on
 your terminal. 
 
 In an upcoming post I will describe the autoscaling capabilities implemented by the 
 Nextflow cloud native scheduler that allows, along with the use of 
-spot/preemptible instances, a cost efficient execution of your pipeline in the cloud. 
+spot/preemptible instances, a cost effective solution to execution of your pipeline in the cloud. 
 
   
- 
-
-
