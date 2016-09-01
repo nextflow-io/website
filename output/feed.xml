@@ -2,16 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nextflow Blog</title>
-    <link>http://www.nextflow.io/</link>
-    <atom:link href="http://www.nextflow.io//feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://www.nextflow.io/</link>
+    <atom:link href="https://www.nextflow.io//feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Mon, 13 Jun 2016 14:24:43 +0200</pubDate>
-    <lastBuildDate>Mon, 13 Jun 2016 14:24:43 +0200</lastBuildDate>
+    <pubDate>Thu, 1 Sep 2016 16:43:46 +0200</pubDate>
+    <lastBuildDate>Thu, 1 Sep 2016 16:43:46 +0200</lastBuildDate>
 
     <item>
+      <title>Deploy your computational pipelines in the cloud at the snap-of-a-finger </title>
+      <link>https://www.nextflow.io//blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html</link>
+      <pubDate>Thu, 1 Sep 2016 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html</guid>
+      	<description>
+	&lt;p class=&quot;text-muted&quot; style=&apos;font-size: 1.2em; padding-bottom: 10px&apos;&gt;
+&lt;i&gt;Learn how to deploy and run a computational pipeline in the Amazon AWS cloud with ease 
+thanks to Nextflow and Docker containers&lt;/i&gt;
+&lt;/p&gt;&lt;p&gt;Nextflow is a framework that simplifies the writing of parallel and distributed computational pipelines in a portable and reproducible manner across different computing platforms, from a laptop to a cluster of computers. &lt;/p&gt;&lt;p&gt;Indeed, the original idea, when this project started three years ago, was to implement a tool that would allow researchers in &lt;a href=&quot;http://www.crg.eu/es/programmes-groups/comparative-bioinformatics&quot;&gt;our lab&lt;/a&gt; to smoothly migrate their data analysis applications in the cloud when needed - without having to change or adapt their code. &lt;/p&gt;&lt;p&gt;However to date Nextflow has been used mostly to deploy computational workflows within on-premise computing clusters or HPC data-centers, because these infrastructures are easier to use and provide, on average, cheaper cost and better performance when compared to a cloud environment. &lt;/p&gt;&lt;p&gt;A major obstacle to efficient deployment of scientific workflows in the cloud is the lack of a performant POSIX compatible shared file system. These kinds of applications are usually made-up by putting together a collection of tools, scripts and system commands that need a reliable file system to share with each other the input and output files as they are produced, above all in a distributed cluster of computers. &lt;/p&gt;&lt;p&gt;The recent availability of the &lt;a href=&quot;https://aws.amazon.com/efs/&quot;&gt;Amazon Elastic File System&lt;/a&gt; (EFS), a fully featured NFS based file system hosted on the AWS infrastructure represents a major step in this context, unlocking the deployment of scientific computing in the cloud and taking it to the next level. &lt;/p&gt;&lt;h3&gt;Nextflow support for the cloud&lt;/h3&gt;&lt;p&gt;Nextflow could already be deployed in the cloud, either using tools such as &lt;a href=&quot;https://github.com/gc3-uzh-ch/elasticluster&quot;&gt;ElastiCluster&lt;/a&gt; or &lt;a href=&quot;https://aws.amazon.com/hpc/cfncluster/&quot;&gt;CfnCluster&lt;/a&gt;, or by using custom deployment scripts. However the procedure was still cumbersome and, above all, it was not optimised to fully take advantage of cloud elasticity i.e. the ability to (re)shape the computing cluster dynamically as the computing needs change over time. &lt;/p&gt;&lt;p&gt;For these reasons, we decided it was time to provide Nextflow with a first-class support for the cloud, integrating the Amazon EFS and implementing an optimised native cloud scheduler, based on &lt;a href=&quot;https://ignite.apache.org/&quot;&gt;Apache Ignite&lt;/a&gt;, with a full support for cluster auto-scaling and spot/preemptible instances. &lt;/p&gt;&lt;p&gt;In practice this means that Nextflow can now spin-up and configure a fully featured computing cluster in the cloud with a single command, after that you need only to login to the master node and launch the pipeline execution as you would do in your on-premise cluster. &lt;/p&gt;&lt;h3&gt;Demo !&lt;/h3&gt;&lt;p&gt;Since a demo is worth a thousands words, I&apos;ve record a short screencast showing how Nextflow can setup a cluster in the cloud and mount the Amazon EFS shared file system. &lt;/p&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;https://asciinema.org/a/9vupd4d72ivaz6h56pajjjkop.js&quot; id=&quot;asciicast-9vupd4d72ivaz6h56pajjjkop&quot; async&gt;&lt;/script&gt;
+&lt;p class=&quot;text-muted&quot; style=&apos;font-size: 0.9em; position: relative; top:-15px&apos; &gt;
+Note: in this screencast it has been cut the Ec2 instances startup delay. It required around 
+5 minutes to launch them and setup the cluster.   
+&lt;/p&gt;&lt;p&gt;Let&apos;s recap the steps showed in the demo: &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;p&gt;The user provides the cloud parameters (such as the VM image ID and the instance type)  in the &lt;code&gt;nextflow.config&lt;/code&gt; file.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;To configure the EFS file system you need to provide your EFS storage ID and the mount path  by using the &lt;code&gt;sharedStorageId&lt;/code&gt; and &lt;code&gt;sharedStorageMount&lt;/code&gt; properties. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;To use &lt;a href=&quot;https://aws.amazon.com/ec2/spot/&quot;&gt;EC2 Spot&lt;/a&gt; instances, just specify the price  you want to bid by using the &lt;code&gt;spotPrice&lt;/code&gt; property.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;The AWS access and secret keys are provided by using the usual environment variables. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;The &lt;code&gt;nextflow cloud create&lt;/code&gt; launches the requested number of instances, configures the user and  access key, mounts the EFS storage and setups the Nextflow cluster automatically.  Any Linux AMI can be used, it is only required that the &lt;a href=&quot;https://cloudinit.readthedocs.io/en/latest/&quot;&gt;cloud-init&lt;/a&gt;  package, a Java 7+ runtime and the Docker engine are present. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;When the cluster is ready, you can SSH in the master node and launch the pipeline execution  as usual with the &lt;code&gt;nextflow run &amp;lt;pipeline name&amp;gt;&lt;/code&gt; command.&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;For the sake of this demo we are using &lt;a href=&quot;https://github.com/pditommaso/paraMSA&quot;&gt;paraMSA&lt;/a&gt;,  a pipeline for generating multiple sequence alignments and bootstrap replicates developed  in our lab. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;Nextflow automatically pulls the pipeline code from its GitHub repository when the  execution is launched. This repository includes also a dataset which is used by default.&lt;br/&gt; &lt;a href=&quot;https://github.com/pditommaso/paraMSA#dependencies-&quot;&gt;The many bioinformatic tools used by the pipeline&lt;/a&gt;  are packaged using a Docker image, which is downloaded automatically on each computing node. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;The pipeline results are uploaded automatically in the S3 bucket specified  by the &lt;code&gt;--output s3://cbcrg-eu/para-msa-results&lt;/code&gt; command line option. &lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;When the computation is completed, the cluster can be safely shutdown and the  EC2 instances terminated with the &lt;code&gt;nextflow cloud shutdown&lt;/code&gt; command. &lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;Try it yourself&lt;/h3&gt;&lt;p&gt;We are releasing the Nextflow integrated cloud support in the upcoming version &lt;code&gt;0.22.0&lt;/code&gt;. You can test it now by defining the following environment variable and running the Nextflow installer script as shown below: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    export NXF_VER=0.22.0-RC1 
+    curl get.nextflow.io | bash 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Bare in mind that Nextflow requires a Unix-like operating system and a Java runtime version 7+ (Windows 10 users which have installed the &lt;a href=&quot;https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/&quot;&gt;Ubuntu subsystem&lt;/a&gt; should be able to run it, at their risk..). &lt;/p&gt;&lt;p&gt;Once you have installed it, you can follow the steps in the above demo. For your convenience we made publicly available the EC2 image &lt;code&gt;ami-43f49030&lt;/code&gt; (EU Ireland region) used to record this screencast. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Nextflow provides state of the art support for cloud and containers technologies making it possibile to create computing clusters in the cloud and deploy computational workflows in a no-brainer way, with just two commands on your terminal. &lt;/p&gt;&lt;p&gt;In an upcoming post I will describe the autoscaling capabilities implemented by the Nextflow scheduler that allows, along with the use of spot/preemptible instances, a cost effective solution for the execution of your pipeline in the cloud. &lt;/p&gt;&lt;h4&gt;Credits&lt;/h4&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/skptic&quot;&gt;Evan Floden&lt;/a&gt; for reviewing this post and for writing the &lt;a href=&quot;https://github.com/skptic/paraMSA/&quot;&gt;paraMSA&lt;/a&gt; pipeline.&lt;/p&gt;
+	</description>
+    </item>
+    <item>
       <title>Docker for dunces &amp; Nextflow for nunces</title>
-      <link>http://www.nextflow.io//blog/2016/docker-for-dunces-nextflow-for-nunces.html</link>
+      <link>https://www.nextflow.io//blog/2016/docker-for-dunces-nextflow-for-nunces.html</link>
       <pubDate>Fri, 10 Jun 2016 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2016/docker-for-dunces-nextflow-for-nunces.html</guid>
       	<description>
@@ -145,7 +177,7 @@ test:
     </item>
     <item>
       <title>Workflows &amp; publishing: best practice for reproducibility </title>
-      <link>http://www.nextflow.io//blog/2016/best-practice-for-reproducibility.html</link>
+      <link>https://www.nextflow.io//blog/2016/best-practice-for-reproducibility.html</link>
       <pubDate>Wed, 13 Apr 2016 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2016/best-practice-for-reproducibility.html</guid>
       	<description>
@@ -164,7 +196,7 @@ test:
     </item>
     <item>
       <title>Error recovery and automatic resource management with Nextflow</title>
-      <link>http://www.nextflow.io//blog/2016/error-recovery-and-automatic-resources-management.html</link>
+      <link>https://www.nextflow.io//blog/2016/error-recovery-and-automatic-resources-management.html</link>
       <pubDate>Thu, 11 Feb 2016 00:00:00 +0100</pubDate>
       <guid isPermaLink="false">blog/2016/error-recovery-and-automatic-resources-management.html</guid>
       	<description>
@@ -203,7 +235,7 @@ test:
     </item>
     <item>
       <title>Developing a bioinformatics pipeline across multiple environments</title>
-      <link>http://www.nextflow.io//blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html</link>
+      <link>https://www.nextflow.io//blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html</link>
       <pubDate>Thu, 4 Feb 2016 00:00:00 +0100</pubDate>
       <guid isPermaLink="false">blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html</guid>
       	<description>
@@ -235,7 +267,7 @@ mpirun --pernode bin/nextflow run concMSA.nf -with-mpi
     </item>
     <item>
       <title>MPI-like distributed execution with Nextflow</title>
-      <link>http://www.nextflow.io//blog/2015/mpi-like-execution-with-nextflow.html</link>
+      <link>https://www.nextflow.io//blog/2015/mpi-like-execution-with-nextflow.html</link>
       <pubDate>Fri, 13 Nov 2015 00:00:00 +0100</pubDate>
       <guid isPermaLink="false">blog/2015/mpi-like-execution-with-nextflow.html</guid>
       	<description>
@@ -251,7 +283,7 @@ mpirun --pernode nextflow run &amp;lt;your-project-name&amp;gt; -with-mpi [pipel
     </item>
     <item>
       <title>The impact of Docker containers on the performance of genomic pipelines</title>
-      <link>http://www.nextflow.io//blog/2015/the-impact-of-docker-on-genomic-pipelines.html</link>
+      <link>https://www.nextflow.io//blog/2015/the-impact-of-docker-on-genomic-pipelines.html</link>
       <pubDate>Mon, 15 Jun 2015 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2015/the-impact-of-docker-on-genomic-pipelines.html</guid>
       	<description>
@@ -260,7 +292,7 @@ mpirun --pernode nextflow run &amp;lt;your-project-name&amp;gt; -with-mpi [pipel
     </item>
     <item>
       <title>Innovation In Science - The story behind Nextflow</title>
-      <link>http://www.nextflow.io//blog/2015/innovation-in-science-the-story-behind-nextflow.html</link>
+      <link>https://www.nextflow.io//blog/2015/innovation-in-science-the-story-behind-nextflow.html</link>
       <pubDate>Tue, 9 Jun 2015 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2015/innovation-in-science-the-story-behind-nextflow.html</guid>
       	<description>
@@ -269,7 +301,7 @@ mpirun --pernode nextflow run &amp;lt;your-project-name&amp;gt; -with-mpi [pipel
     </item>
     <item>
       <title>Introducing Nextflow REPL Console</title>
-      <link>http://www.nextflow.io//blog/2015/introducing-nextflow-console.html</link>
+      <link>https://www.nextflow.io//blog/2015/introducing-nextflow-console.html</link>
       <pubDate>Tue, 14 Apr 2015 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2015/introducing-nextflow-console.html</guid>
       	<description>
@@ -293,7 +325,7 @@ Output&lt;/code&gt; is selected (it must have a tick on the left).&lt;/p&gt;&lt;
     </item>
     <item>
       <title>Using Docker for scientific data analysis in an HPC cluster   </title>
-      <link>http://www.nextflow.io//blog/2014/using-docker-in-hpc-cluster.html</link>
+      <link>https://www.nextflow.io//blog/2014/using-docker-in-hpc-cluster.html</link>
       <pubDate>Thu, 6 Nov 2014 00:00:00 +0100</pubDate>
       <guid isPermaLink="false">blog/2014/using-docker-in-hpc-cluster.html</guid>
       	<description>
@@ -302,7 +334,7 @@ Output&lt;/code&gt; is selected (it must have a tick on the left).&lt;/p&gt;&lt;
     </item>
     <item>
       <title>Reproducibility in Science - Nextflow meets Docker </title>
-      <link>http://www.nextflow.io//blog/2014/nextflow-meets-docker.html</link>
+      <link>https://www.nextflow.io//blog/2014/nextflow-meets-docker.html</link>
       <pubDate>Tue, 9 Sep 2014 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2014/nextflow-meets-docker.html</guid>
       	<description>
@@ -324,7 +356,7 @@ Output&lt;/code&gt; is selected (it must have a tick on the left).&lt;/p&gt;&lt;
     </item>
     <item>
       <title>Share Nextflow pipelines with Github</title>
-      <link>http://www.nextflow.io//blog/2014/share-nextflow-pipelines-with-github.html</link>
+      <link>https://www.nextflow.io//blog/2014/share-nextflow-pipelines-with-github.html</link>
       <pubDate>Thu, 7 Aug 2014 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2014/share-nextflow-pipelines-with-github.html</guid>
       	<description>
