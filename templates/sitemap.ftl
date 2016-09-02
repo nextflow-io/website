@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.sitemaps.org/schemas/sitemap/0.9 https://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"> 
 <#list published_content as content>
 <#if (content.uri = 'index.html')>
 <url><loc>${config.site_host}</loc><lastmod>${content.date?string("yyyy-MM-dd")}</lastmod><priority>1.0</priority></url>
