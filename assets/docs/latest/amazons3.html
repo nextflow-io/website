@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon S3 storage &mdash; Nextflow 0.21.1 documentation</title>
+  <title>Amazon S3 storage &mdash; Nextflow 0.22.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.21.1',
+        VERSION:'0.22.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,9 +52,9 @@
   
 
   
-    <link rel="top" title="Nextflow 0.21.1 documentation" href="index.html"/>
-        <link rel="next" title="Docker containers" href="docker.html"/>
-        <link rel="prev" title="Configuration" href="config.html"/> 
+    <link rel="top" title="Nextflow 0.22.0 documentation" href="index.html"/>
+        <link rel="next" title="DNAnexus cloud" href="dnanexus.html"/>
+        <link rel="prev" title="Amazon Cloud" href="awscloud.html"/> 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
 
@@ -133,7 +133,6 @@
 <li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque">PBS/Torque</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa">DRMAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
@@ -145,10 +144,27 @@
 <li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#s3-path">S3 path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#security-credentials">Security credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a><ul>
@@ -157,13 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#multiple-containers">Multiple containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#executable-containers">Executable containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
@@ -266,8 +275,9 @@ of a S3 file can be printed as shown below:</p>
 <p>The AWS access and secret keys can be specified by using the <code class="docutils literal"><span class="pre">aws</span></code> section in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration.
 file as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
-  <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;Your AWS access key&#39;</span>
-  <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;Your AWS secret key&#39;</span>
+  <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS access key&gt;&#39;</span>
+  <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS secret key&gt;&#39;</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS region identifier&gt;&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -308,10 +318,10 @@ documentation.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="docker.html" class="btn btn-neutral float-right" title="Docker containers"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dnanexus.html" class="btn btn-neutral float-right" title="DNAnexus cloud"/>Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="config.html" class="btn btn-neutral" title="Configuration"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="awscloud.html" class="btn btn-neutral" title="Amazon Cloud"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

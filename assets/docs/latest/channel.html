@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 0.21.1 documentation</title>
+  <title>Channels &mdash; Nextflow 0.22.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.21.1',
+        VERSION:'0.22.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.21.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.22.0 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -133,7 +133,6 @@
 <li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque">PBS/Torque</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa">DRMAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
@@ -145,10 +144,27 @@
 <li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#s3-path">S3 path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#security-credentials">Security credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a><ul>
@@ -157,13 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#multiple-containers">Multiple containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#executable-containers">Executable containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
@@ -372,8 +381,8 @@ you want. For example:</p>
 and directory starting with a <code class="docutils literal"><span class="pre">a</span></code> prefix.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col width="9%" />
+<col width="91%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -381,16 +390,19 @@ and directory starting with a <code class="docutils literal"><span class="pre">a
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>type</td>
+<tr class="row-even"><td>glob</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> interprets characters <code class="docutils literal"><span class="pre">*</span></code>, <code class="docutils literal"><span class="pre">?</span></code>, <code class="docutils literal"><span class="pre">[]</span></code> and <code class="docutils literal"><span class="pre">{}</span></code> as glob wildcards, otherwise handles them as normal characters (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+</tr>
+<tr class="row-odd"><td>type</td>
 <td>Type of paths returned, either <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> (default: <code class="docutils literal"><span class="pre">file</span></code>)</td>
 </tr>
-<tr class="row-odd"><td>hidden</td>
+<tr class="row-even"><td>hidden</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> includes hidden files in the resulting paths (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
-<tr class="row-even"><td>maxDepth</td>
+<tr class="row-odd"><td>maxDepth</td>
 <td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
 </tr>
-<tr class="row-odd"><td>followLinks</td>
+<tr class="row-even"><td>followLinks</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
 </tr>
 </tbody>

@@ -121,6 +121,12 @@ Once you have installed it, you can follow the steps in the above demo. For your
 we made publicly available the EC2 image `ami-43f49030` (EU Ireland region) used to record this 
 screencast. 
 		
+Also make sure you have the following the following variables defined in your environment:
+
+    AWS_ACCESS_KEY_ID="<your aws access key>"
+    AWS_SECRET_ACCESS_KEY="<your aws secret key>"
+    AWS_DEFAULT_REGION="<your aws region>"
+    		
         
 ### Conclusion 
 

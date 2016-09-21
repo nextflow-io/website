@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.21.1 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.22.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.21.1',
+        VERSION:'0.22.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.21.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.22.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -133,7 +133,6 @@
 <li class="toctree-l2"><a class="reference internal" href="executor.html#pbs-torque">PBS/Torque</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#drmaa">DRMAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="executor.html#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#dnanexus">DNAnexus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="executor.html#ignite">Ignite</a></li>
 </ul>
@@ -145,10 +144,27 @@
 <li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#s3-path">S3 path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#security-credentials">Security credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a><ul>
@@ -157,13 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#multiple-containers">Multiple containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#executable-containers">Executable containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
@@ -262,33 +271,45 @@ For example:</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>repository</td>
+<tr class="row-even"><td>scriptId</td>
+<td>Project main script unique hash ID.</td>
+</tr>
+<tr class="row-odd"><td>scriptName</td>
+<td>Project main script file name.</td>
+</tr>
+<tr class="row-even"><td>scriptFile</td>
+<td>Project main script file path.</td>
+</tr>
+<tr class="row-odd"><td>repository</td>
 <td>Project repository Git remote URL.</td>
 </tr>
-<tr class="row-odd"><td>commitId</td>
+<tr class="row-even"><td>commitId</td>
 <td>Git commit ID of the executed workflow repository.</td>
 </tr>
-<tr class="row-even"><td>revision</td>
+<tr class="row-odd"><td>revision</td>
 <td>Git branch/tag of the executed workflow repository.</td>
 </tr>
-<tr class="row-odd"><td>projectDir</td>
+<tr class="row-even"><td>projectDir</td>
 <td>Directory where the workflow project is stored in the computer.</td>
 </tr>
-<tr class="row-even"><td>launchDir</td>
+<tr class="row-odd"><td>launchDir</td>
 <td>Directory where the workflow execution has been launched.</td>
 </tr>
-<tr class="row-odd"><td>workDir</td>
+<tr class="row-even"><td>workDir</td>
 <td>Workflow working directory.</td>
 </tr>
-<tr class="row-even"><td>container</td>
+<tr class="row-odd"><td>container</td>
 <td>Docker image used to run workflow tasks. When more than one image is used
 it returns a map object containing <cite>[process name, image name]</cite> pair entries.</td>
 </tr>
-<tr class="row-odd"><td>commandLine</td>
+<tr class="row-even"><td>commandLine</td>
 <td>Command line as entered by the user to launch the workflow execution.</td>
 </tr>
-<tr class="row-even"><td>profile</td>
+<tr class="row-odd"><td>profile</td>
 <td>Used configuration profile.</td>
+</tr>
+<tr class="row-even"><td>runName</td>
+<td>Mnemonic name assigned to this execution instance.</td>
 </tr>
 <tr class="row-odd"><td>sessionId</td>
 <td>Unique identifier (UUID) associated to current execution.</td>

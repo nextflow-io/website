@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.21.1 documentation</title>
+  <title>Executors &mdash; Nextflow 0.22.0 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.21.1',
+        VERSION:'0.22.0',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.21.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.22.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -133,7 +133,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#drmaa">DRMAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cirrus">Cirrus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dnanexus">DNAnexus</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 </ul>
@@ -145,10 +144,27 @@
 <li class="toctree-l2"><a class="reference internal" href="config.html#environment-variables">Environment variables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#s3-path">S3 path</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#security-credentials">Security credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="amazons3.html#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a><ul>
@@ -157,13 +173,6 @@
 <li class="toctree-l2"><a class="reference internal" href="docker.html#multiple-containers">Multiple containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#executable-containers">Executable containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="docker.html#advanced-settings">Advanced settings</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#prerequisites">Prerequisites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#app-packing">App packing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#execution">Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dnanexus.html#how-it-works">How it works</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a><ul>
@@ -381,28 +390,6 @@ to include the path where this file is located in the <code class="docutils lite
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
 <li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
-</ul>
-</div>
-<div class="section" id="cirrus">
-<span id="cirrus-executor"></span><h2>Cirrus<a class="headerlink" href="#cirrus" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">ClusterK cloud platform is not available any more.</p>
-</div>
-<p>The <cite>Cirrus</cite> executor allows you to run your pipeline in the <a class="reference external" href="http://clusterk.com">ClusterK</a> cloud platform.</p>
-<p>Nextflow manages each process execution as a separate task that is submitted to the cloud scheduler by using
-the <code class="docutils literal"><span class="pre">ksub</span></code> command provided along with the ClusterK platform.</p>
-<p>Thus, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">ksub</span></code> command is available, that is, in a common usage
-scenario, an AWS EC2 instance where ClusterK tools have been installed.</p>
-<p>To enable the Cirrus executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'cirrus'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each task submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></li>
 <li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
 <li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
 <li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
