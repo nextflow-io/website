@@ -106,12 +106,10 @@ Let's recap the steps showed in the demo:
   
 ### Try it yourself 
 
-We are releasing the Nextflow integrated cloud support in the upcoming version `0.22.0`.  You 
-can test it now by defining the following environment variable and running the Nextflow 
-installer script as shown below: 
+<s>We are releasing the Nextflow integrated cloud support in the upcoming version `0.22.0`</s>. 
 
-		export NXF_VER=0.22.0-RC1 
-		curl get.nextflow.io | bash 
+Nextflow integrated cloud support is available from version `0.22.0`. To use it just make sure to 
+have this or an higher version of Nextflow. 
 		
 Bare in mind that Nextflow requires a Unix-like operating system and a Java runtime version 7+ 
 (Windows 10 users which have installed the [Ubuntu subsystem](https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/)
@@ -127,6 +125,9 @@ Also make sure you have the following the following variables defined in your en
     AWS_SECRET_ACCESS_KEY="<your aws secret key>"
     AWS_DEFAULT_REGION="<your aws region>"
     		
+        
+Referes to the <a href='/docs/latest/awscloud.html'>documentation</a> for configuration details. 
+       
         
 ### Conclusion 
 
