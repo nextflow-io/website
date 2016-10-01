@@ -249,10 +249,6 @@
 and clustering platform.</p>
 <p>Apache Ignite is packaged with Nextflow itself, so you won't need to install it separately or configure other third party
 software.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
 <div class="section" id="cluster-daemon">
 <span id="ignite-daemon"></span><h2>Cluster daemon<a class="headerlink" href="#cluster-daemon" title="Permalink to this headline">¶</a></h2>
 <p>In order to setup a cluster you will need to run a cluster daemon on each node within your cluster.
@@ -266,8 +262,8 @@ to be installed and must run in each node.</p>
 process <code class="docutils literal"><span class="pre">PID</span></code> is saved in the file <code class="docutils literal"><span class="pre">.nextflow.pid</span></code> in the same folder.</p>
 <div class="section" id="multicast-discovery">
 <h3>Multicast discovery<a class="headerlink" href="#multicast-discovery" title="Permalink to this headline">¶</a></h3>
-<p>By default, the Ignite daemon tries to discover all members in the cluster by using the network <em>multicast</em> discovery.
-Note that NOT all networks support this feature (Amazon EC2 does not).</p>
+<p>By default, the Ignite daemon tries to automatically discover all members in the cluster by using the network <em>multicast</em> discovery.
+Note that NOT all networks support this feature (for example Amazon AWS does not).</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To check if multicast is available in your network, use the <a class="reference external" href="http://sourceforge.net/projects/iperf/">iperf</a> tool.
@@ -319,54 +315,60 @@ If data is being transferred then multicast is working.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>join</td>
-<td>IP address(es) of one more more cluster nodes to which the daemon make part. By using the value <code class="docutils literal"><span class="pre">multicast</span></code></td>
+<td>IP address(es) of one or more cluster nodes to which the daemon will join.</td>
 </tr>
 <tr class="row-odd"><td>group</td>
-<td>Cluster name of which this node makes part. It allows to create separate clusters. Default: <code class="docutils literal"><span class="pre">nextflow</span></code></td>
+<td>The name of the cluster to which this node join. It allows the creation of separate cluster instances. Default: <code class="docutils literal"><span class="pre">nextflow</span></code></td>
 </tr>
-<tr class="row-even"><td>slots</td>
-<td>Number of slots this damon node provides i.e. of process that can execute in parallel. By it is equal to the number of CPU cores.</td>
+<tr class="row-even"><td>maxCpus</td>
+<td>Max number of CPUs that can be used by the daemon to run user tasks. By default it is equal to the number of CPU cores.</td>
+</tr>
+<tr class="row-odd"><td>maxDisk</td>
+<td>Max amount of disk storage that can be used by user tasks eg. <code class="docutils literal"><span class="pre">500</span> <span class="pre">GB</span></code>.</td>
+</tr>
+<tr class="row-even"><td>maxMemory</td>
+<td>Max amount of memory that can be used by user tasks eg. <code class="docutils literal"><span class="pre">64</span> <span class="pre">GB</span></code>. Default total available memory.</td>
 </tr>
 <tr class="row-odd"><td>interface</td>
-<td>Network interfaces that Ignite has to use. It can be the interface IP address or name.</td>
+<td>Network interfaces that Ignite will use. It can be the interface IP address or name.</td>
 </tr>
 <tr class="row-even"><td>tcp.localAddress</td>
-<td>Sets local host IP address.</td>
+<td>Defines the local host IP address.</td>
 </tr>
 <tr class="row-odd"><td>tcp.localPort</td>
-<td>Sets local port to listen to.</td>
+<td>Defines the local port to listen to.</td>
 </tr>
 <tr class="row-even"><td>tcp.localPortRange</td>
 <td>Range for local ports.</td>
 </tr>
 <tr class="row-odd"><td>tcp.heartbeatFrequency</td>
-<td>Gets delay between heartbeat messages sent by coordinator.</td>
+<td>Defines the delay between heartbeat messages sent by coordinator.</td>
 </tr>
 <tr class="row-even"><td>tcp.maxMissedHeartbeats</td>
-<td>Gets max heartbeats count node can miss without initiating status check.</td>
+<td>Defines max heartbeats count node can miss without initiating status check.</td>
 </tr>
 <tr class="row-odd"><td>tcp.reconnectCount</td>
-<td>Number of times node tries to (re)establish connection to another node.</td>
+<td>Number of times the node tries to (re)establish connection to another node.</td>
 </tr>
 <tr class="row-even"><td>tcp.networkTimeout</td>
-<td>Gets network timeout.</td>
+<td>Defines the network timeout.</td>
 </tr>
 <tr class="row-odd"><td>tcp.socketTimeout</td>
-<td>Sets socket operations timeout. This timeout is used to limit connection time and write-to-socket time. Note that when running Ignite on Amazon EC2, socket timeout must be set to a value significantly greater than the default (e.g. to 30000).</td>
+<td>Defines the socket operations timeout. This timeout is used to limit connection time and write-to-socket time. Note that when running Ignite on Amazon EC2, socket timeout must be set to a value significantly greater than the default (e.g. to 30000).</td>
 </tr>
 <tr class="row-even"><td>tcp.ackTimeout</td>
-<td>Sets timeout for receiving acknowledgement for sent message.</td>
+<td>Defines the timeout for receiving acknowledgement for sent message.</td>
 </tr>
 <tr class="row-odd"><td>tcp.maxAckTimeout</td>
-<td>Sets maximum timeout for receiving acknowledgement for sent message.</td>
+<td>Defines the maximum timeout for receiving acknowledgement for sent message.</td>
 </tr>
 <tr class="row-even"><td>tcp.joinTimeout</td>
-<td>Sets join timeout.</td>
+<td>Defines the join timeout.</td>
 </tr>
 </tbody>
 </table>
 <p>These options can be specified as command line parameters by adding the prefix <code class="docutils literal"><span class="pre">-cluster.</span></code> to them, as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">node</span> <span class="o">-</span><span class="n">bg</span> <span class="o">-</span><span class="n">cluster</span><span class="o">.</span><span class="n">slots</span> <span class="mi">4</span> <span class="o">-</span><span class="n">cluster</span><span class="o">.</span><span class="n">interface</span> <span class="n">eth0</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">node</span> <span class="o">-</span><span class="n">bg</span> <span class="o">-</span><span class="n">cluster</span><span class="o">.</span><span class="n">maxCpus</span> <span class="mi">4</span> <span class="o">-</span><span class="n">cluster</span><span class="o">.</span><span class="n">interface</span> <span class="n">eth0</span>
 </pre></div>
 </div>
 <p>The same options can be entered into the Nextflow <a class="reference internal" href="config.html#config-page"><span class="std std-ref">configuration file</span></a>, as shown below:</p>
@@ -386,8 +388,8 @@ the prefix <code class="docutils literal"><span class="pre">NXF_CLUSTER_</span><
 </div>
 <div class="section" id="pipeline-execution">
 <h2>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Permalink to this headline">¶</a></h2>
-<p>The pipeline should be launched in a <cite>head</cite> node i.e. a cluster node where the Nextflow node daemon is <strong>not</strong> running.
-In order to execute your pipeline in the Ignite cluster you will need to use the Ignite executor,
+<p>The pipeline execution needs to be launched in a <cite>head</cite> node i.e. a cluster node where the Nextflow node daemon
+is <strong>not</strong> running. In order to execute your pipeline in the Ignite cluster you will need to use the Ignite executor,
 as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">pipeline</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="n">ignite</span>
 </pre></div>
@@ -427,7 +429,7 @@ mpirun --pernode nextflow run &lt;your-project-name&gt; -with-mpi [pipeline para
 Nextflow needs to be executed using the <code class="docutils literal"><span class="pre">-with-mpi</span></code> command line option. It will automatically use <code class="docutils literal"><span class="pre">ignite</span></code> as the executor.</p>
 <p>The variable <code class="docutils literal"><span class="pre">NXF_CLUSTER_SEED</span></code> must contain an integer value (in the range 0-16777216) that will unequivocally identify
 your cluster instance. In the above example it is randomly generated by using the <a class="reference external" href="http://linux.die.net/man/1/shuf">shuf</a> Linux tool.</p>
-<p>The following example shows a wrapper script for the Sun/<a class="reference external" href="https://en.wikipedia.org/wiki/Univa_Grid_Engine">Univa grid engine</a>:</p>
+<p>The following example shows a wrapper script for the <a class="reference external" href="https://en.wikipedia.org/wiki/Univa_Grid_Engine">Univa grid engine</a> (aka SGE):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>#!/bin/bash
 #$ -cwd
 #$ -j y
@@ -440,7 +442,7 @@ export NXF_CLUSTER_SEED=$(shuf -i 0-16777216 -n 1)
 mpirun --pernode nextflow run &lt;your-project-name&gt; -with-mpi [pipeline parameters]
 </pre></div>
 </div>
-<p>As in the previous script it allocates 5 processing nodes. SGE/UGE does not have an option to reserve a node in an exclusive
+<p>As in the previous script it allocates 5 processing nodes. UGE/SGE does not have an option to reserve a node in an exclusive
 manner. A common workaround is to request the maximum amount of memory or cpus available in the nodes of your cluster.</p>
 </div>
 </div>
