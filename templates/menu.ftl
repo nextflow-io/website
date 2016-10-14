@@ -41,6 +41,10 @@
                 <li class="show animated flipInX">
                     <a href="/about-us.html">About Us</a>
                 </li>
+                
+                <li class="show">
+                	<a href='http://www.crg.eu' target='_blank' style='padding: 10px 20px 0px 30px'><img src='/img/crg_logo.png' height='45'/></a>
+                </li>
             </ul>
         </div>
     </div>
