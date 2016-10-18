@@ -6,9 +6,43 @@
     <atom:link href="https://www.nextflow.io//feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Thu, 1 Sep 2016 16:43:46 +0200</pubDate>
-    <lastBuildDate>Thu, 1 Sep 2016 16:43:46 +0200</lastBuildDate>
+    <pubDate>Wed, 19 Oct 2016 01:10:12 +0200</pubDate>
+    <lastBuildDate>Wed, 19 Oct 2016 01:10:12 +0200</lastBuildDate>
 
+    <item>
+      <title>Enabling elastic computing with Nextflow </title>
+      <link>https://www.nextflow.io//blog/2016/enabling-elastic-computing-nextflow.html</link>
+      <pubDate>Wed, 19 Oct 2016 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">blog/2016/enabling-elastic-computing-nextflow.html</guid>
+      	<description>
+	&lt;p class=&quot;text-muted&quot; style=&apos;font-size: 1.2em; padding-bottom: 10px&apos;&gt;
+&lt;i&gt;Learn how to deploy an elastic computing cluster in the AWS cloud with Nextflow &lt;/i&gt;
+&lt;/p&gt;&lt;p&gt;In the &lt;a href=&quot;/blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html&quot;&gt;previous post&lt;/a&gt; I introduced the new cloud native support for AWS provided by Nextflow. &lt;/p&gt;&lt;p&gt;It allows the creation of a computing cluster in the cloud in a no-brainer way, enabling the deployment of complex computational pipelines in a few commands. &lt;/p&gt;&lt;p&gt;This solution is characterised by using a lean application stack which does not require any third party component installed in the EC2 instances other than a Java VM and the Docker engine (the latter it&apos;s only required in order to deploy pipeline binary dependencies). &lt;/p&gt;&lt;p&gt;&lt;img alt=&apos;Nextflow cloud deployment&apos; width=&apos;640&apos; height=&apos;448&apos; src=&apos;/img/cloud-deployment.png&apos; /&gt;&lt;/p&gt;&lt;p&gt;Each EC2 instance runs a script, at bootstrap time, that mounts the &lt;a href=&quot;https://aws.amazon.com/efs/&quot;&gt;EFS&lt;/a&gt; storage and downloads and launches the Nextflow cluster daemon. This daemon is self-configuring, it automatically discovers the other running instances and joins them forming the computing cluster. &lt;/p&gt;&lt;p&gt;The simplicity of this stack makes it possible to setup the cluster in the cloud in just a few minutes, a little more time than is required to spin up the EC2 VMs. This time does not depend on the number of instances launched, as they configure themself independently. &lt;/p&gt;&lt;p&gt;This also makes it possible to add or remove instances as needed, realising the &lt;a href=&quot;http://www.nextplatform.com/2016/09/21/three-great-lies-cloud-computing/&quot;&gt;long promised elastic scalability&lt;/a&gt; of cloud computing. &lt;/p&gt;&lt;p&gt;This ability is even more important for bioinformatic workflows, which frequently crunch not homogenous datasets and are composed of tasks with very different computing requirements (eg. a few very long running tasks and many short-lived tasks in the same workload).&lt;/p&gt;&lt;h3&gt;Going elastic&lt;/h3&gt;&lt;p&gt;The Nextflow support for the cloud features an elastic cluster which is capable of resizing itself to adapt to the actual computing needs at runtime, thus spinning up new EC2 instances when jobs wait for too long in the execution queue, or terminating instances that are not used for a certain amount of time. &lt;/p&gt;&lt;p&gt;In order to enable the cluster autoscaling you will need to specify the autoscale properties in the &lt;code&gt;nextflow.config&lt;/code&gt; file. For example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cloud {
+  imageId = &amp;#39;ami-43f49030&amp;#39;
+  instanceType = &amp;#39;m4.xlarge&amp;#39;
+
+  autoscale {
+     enabled = true
+     minInstances = 5
+     maxInstances = 10 
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above configuration enables the autoscaling features so that the cluster will include at least 5 nodes. If at any point one or more tasks spend more than 5 minutes without being processed, the number of instances needed to fullfil the pending tasks, up to limit specified by the &lt;code&gt;maxInstances&lt;/code&gt; attribute, are launched. On the other hand, if these instances are idle, they are terminated before reaching the 60 minutes instance usage boundary. &lt;/p&gt;&lt;p&gt;The autoscaler launches instances by using the same AMI ID and type specified in the &lt;code&gt;cloud&lt;/code&gt; configuration. However it is possible to define different attributes as shown below: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cloud {
+  imageId = &amp;#39;ami-43f49030&amp;#39;
+  instanceType = &amp;#39;m4.large&amp;#39;
+
+  autoscale {
+     enabled = true
+     maxInstances = 10 
+     instanceType = &amp;#39;m4.2xlarge&amp;#39;
+     spotPrice = 0.05 
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The cluster is first created by using instance(s) of type &lt;code&gt;m4.large&lt;/code&gt;. Then, when new computing nodes are required the autoscaler launches instances of type &lt;code&gt;m4.2xlarge&lt;/code&gt;. Also, since the &lt;code&gt;spotPrice&lt;/code&gt; attribute is specified, &lt;a href=&quot;https://aws.amazon.com/ec2/spot/&quot;&gt;EC2 spot&lt;/a&gt; instances are launched, instead of regular on-demand ones, bidding for the price specified. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Nextflow implements an easy though effective cloud scheduler that is able to scale dynamically to meet the computing needs of deployed workloads taking advantage of the &lt;em&gt;elastic&lt;/em&gt; nature of the cloud platform. &lt;/p&gt;&lt;p&gt;This ability, along the support for spot/preemptible instances, allows a cost effective solution for the execution of your pipeline in the cloud. &lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Deploy your computational pipelines in the cloud at the snap-of-a-finger </title>
       <link>https://www.nextflow.io//blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html</link>
@@ -35,10 +69,11 @@ Note: in this screencast it has been cut the Ec2 instances startup delay. It req
   &lt;li&gt;&lt;p&gt;Nextflow automatically pulls the pipeline code from its GitHub repository when the  execution is launched. This repository includes also a dataset which is used by default.&lt;br/&gt; &lt;a href=&quot;https://github.com/pditommaso/paraMSA#dependencies-&quot;&gt;The many bioinformatic tools used by the pipeline&lt;/a&gt;  are packaged using a Docker image, which is downloaded automatically on each computing node. &lt;/p&gt;&lt;/li&gt;
   &lt;li&gt;&lt;p&gt;The pipeline results are uploaded automatically in the S3 bucket specified  by the &lt;code&gt;--output s3://cbcrg-eu/para-msa-results&lt;/code&gt; command line option. &lt;/p&gt;&lt;/li&gt;
   &lt;li&gt;&lt;p&gt;When the computation is completed, the cluster can be safely shutdown and the  EC2 instances terminated with the &lt;code&gt;nextflow cloud shutdown&lt;/code&gt; command. &lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;h3&gt;Try it yourself&lt;/h3&gt;&lt;p&gt;We are releasing the Nextflow integrated cloud support in the upcoming version &lt;code&gt;0.22.0&lt;/code&gt;. You can test it now by defining the following environment variable and running the Nextflow installer script as shown below: &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;    export NXF_VER=0.22.0-RC1 
-    curl get.nextflow.io | bash 
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Bare in mind that Nextflow requires a Unix-like operating system and a Java runtime version 7+ (Windows 10 users which have installed the &lt;a href=&quot;https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/&quot;&gt;Ubuntu subsystem&lt;/a&gt; should be able to run it, at their risk..). &lt;/p&gt;&lt;p&gt;Once you have installed it, you can follow the steps in the above demo. For your convenience we made publicly available the EC2 image &lt;code&gt;ami-43f49030&lt;/code&gt; (EU Ireland region) used to record this screencast. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Nextflow provides state of the art support for cloud and containers technologies making it possibile to create computing clusters in the cloud and deploy computational workflows in a no-brainer way, with just two commands on your terminal. &lt;/p&gt;&lt;p&gt;In an upcoming post I will describe the autoscaling capabilities implemented by the Nextflow scheduler that allows, along with the use of spot/preemptible instances, a cost effective solution for the execution of your pipeline in the cloud. &lt;/p&gt;&lt;h4&gt;Credits&lt;/h4&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/skptic&quot;&gt;Evan Floden&lt;/a&gt; for reviewing this post and for writing the &lt;a href=&quot;https://github.com/skptic/paraMSA/&quot;&gt;paraMSA&lt;/a&gt; pipeline.&lt;/p&gt;
+&lt;/ul&gt;&lt;h3&gt;Try it yourself&lt;/h3&gt;&lt;p&gt;&lt;s&gt;We are releasing the Nextflow integrated cloud support in the upcoming version &lt;code&gt;0.22.0&lt;/code&gt;&lt;/s&gt;. &lt;/p&gt;&lt;p&gt;Nextflow integrated cloud support is available from version &lt;code&gt;0.22.0&lt;/code&gt;. To use it just make sure to have this or an higher version of Nextflow. &lt;/p&gt;&lt;p&gt;Bare in mind that Nextflow requires a Unix-like operating system and a Java runtime version 7+ (Windows 10 users which have installed the &lt;a href=&quot;https://blogs.windows.com/buildingapps/2016/03/30/run-bash-on-ubuntu-on-windows/&quot;&gt;Ubuntu subsystem&lt;/a&gt; should be able to run it, at their risk..). &lt;/p&gt;&lt;p&gt;Once you have installed it, you can follow the steps in the above demo. For your convenience we made publicly available the EC2 image &lt;code&gt;ami-43f49030&lt;/code&gt; (EU Ireland region) used to record this screencast. &lt;/p&gt;&lt;p&gt;Also make sure you have the following the following variables defined in your environment:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;AWS_ACCESS_KEY_ID=&amp;quot;&amp;lt;your aws access key&amp;gt;&amp;quot;
+AWS_SECRET_ACCESS_KEY=&amp;quot;&amp;lt;your aws secret key&amp;gt;&amp;quot;
+AWS_DEFAULT_REGION=&amp;quot;&amp;lt;your aws region&amp;gt;&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Referes to the &lt;a href=&apos;/docs/latest/awscloud.html&apos;&gt;documentation&lt;/a&gt; for configuration details. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Nextflow provides state of the art support for cloud and containers technologies making it possibile to create computing clusters in the cloud and deploy computational workflows in a no-brainer way, with just two commands on your terminal. &lt;/p&gt;&lt;p&gt;In an upcoming post I will describe the autoscaling capabilities implemented by the Nextflow scheduler that allows, along with the use of spot/preemptible instances, a cost effective solution for the execution of your pipeline in the cloud. &lt;/p&gt;&lt;h4&gt;Credits&lt;/h4&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/skptic&quot;&gt;Evan Floden&lt;/a&gt; for reviewing this post and for writing the &lt;a href=&quot;https://github.com/skptic/paraMSA/&quot;&gt;paraMSA&lt;/a&gt; pipeline.&lt;/p&gt;
 	</description>
     </item>
     <item>
