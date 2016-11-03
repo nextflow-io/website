@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Nextflow - Enabling elastic computing with Nextflow  </title>
+    <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-left hidden-xs">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="pull-right">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="pull-right">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/nextflow-io/examples" target="_blank">More examples..</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/docs/latest/index.html" class="pull-right" target="_blank">Documentation</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About Us</a>
+                </li>
+                   
+            </ul>
+            <ul  class="list-inline pull-right">
+                <li class="show pull-right" style='position: relative; top: 10px; right: 75px' >
+                	<a href='http://www.crg.eu' target='_blank' style='padding: 0'><img src='/img/crg_logo.png' height='45'/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+	
+    <!-- Body -->
+	<div class="wrapper"> <!-- wrapper -->
+	  <div class="container">
+	    <div class="row">
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Enabling elastic computing with Nextflow  </a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso </li>
+				<li><i class="fa fa-calendar"></i> 18 October 2016</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p class="text-muted" style='font-size: 1.2em; padding-bottom: 10px'>
+<i>Learn about the new cloud native elastic scheduled implemented by Nextflow</i>
+</p><p>In the <a href="/blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html">previous post</a> I've introduced the new cloud native support for AWS provided by Nextflow. </p><p>This allows the creation of a computing in the cloud in a no-brainer way, enabling the deployment of complex computational pipelines in a few commands. </p><p>This solution is characterised by using a lean application stack which does not require any third party component in the cloud instances other than a Java VM and the Docker engine (only required to deploy a pipeline binary dependencies). </p><p><img src="/img/cloud-deployment.png" alt="Nextflow cloud deployment""/></p><p>Each EC2 instance runs during the bootstrap a script that mounts the <a href="https://aws.amazon.com/efs/">EFS</a> storage and downloads and launches the Nextflow cluster daemon. This daemon is self-configuring i.e. it automatically discovers the other running instances and join them forming the computing cluster. </p><p>The simplicity of this stack makes it possible to setup the cluster in the cloud a few minutes, little more the time required to spin up the EC2 instances, and, above all, independently from the number of instances launched, because each of them configures itself in an autonomous manner. </p><p>This makes also possible to add or remove instances as needed, realising the <a href="http://www.nextplatform.com/2016/09/21/three-great-lies-cloud-computing/">long promised elastic scalability</a> of cloud computing. </p><p>This ability is even more important for bioinformatic workflows, which frequently are composed by tasks with a very different computing requirements (eg. few very long running tasks and many short-lived tasks in the same workload) and crunch not homogenous dataset.</p><h3>Going elastic</h3><p>The Nextflow cloud scheduler features an elastic cluster that is able to resize itself to adapt to the actual computing needs at runtime, thus spinning up new EC2 instances when jobs wait too long in the execution queue or terminating instances that are not used for a certain amount of time. </p><p>In order to enable the cluster autoscaling you will need to specify the autoscale properties in the <code>nextflow.config</code> file. For example: </p>
+<pre><code>cloud {
+  imageId = &#39;ami-43f49030&#39;
+  instanceType = &#39;m4.xlarge&#39;
+
+  autoscale {
+   	 enabled = true
+     minInstances = 5
+     maxInstances = 10 
+  }
+}
+</code></pre><p>The above configuration enables the autoscaling features in such a way that the cluster will be made up of at least 5 nodes. If at any point some tasks will spend more than 5 minutes without being processed, a number of instances needed to fullfil the pending tasks - up to the specified limit ie. 10 - will be launched. On the other hand, if these instances are idle, they will be terminated before reaching the instance 60 minutes usage boundary. </p><p>The autoscaler launches instances by using the same AMI ID and type specified in the <code>cloud</code> configuration. However it is possible to define different instance attributes as shown below: </p>
+<pre><code>cloud {
+  imageId = &#39;ami-43f49030&#39;
+  instanceType = &#39;m4.large&#39;
+
+  autoscale {
+   	 enabled = true
+     maxInstances = 10 
+  	 instanceType = &#39;m4.2xlarge&#39;
+  	 spotPrice = 0.05 
+  }
+}
+</code></pre><p>The cluster is first created by using instance(s) of type <code>m4.large</code>. Then, when new computing nodes are required the autoscaler will launch instances of type <code>m4.2xlarge</code>. Also, since the <code>spotPrice</code> attribute is specified, <a href="https://aws.amazon.com/ec2/spot/">EC2 spot</a> instances are launched, instead of regular on-demand ones, bidding for the price specified. </p><h3>Conclusion</h3><p>Nextflow implements an easy though effective cloud scheduler that is able to scale dynamically to meet the computing needs of deployed workloads taking advantage of the <em>elastic</em> nature of the cloud environment. </p><p>This ability, along with the support for spot/preemptible instances, allows a cost effective solution for the execution of your pipeline in the cloud.</p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/aws.html" class="background-color bg-hover-color">aws</a>
+				<a href="/tags/cloud.html" class="background-color bg-hover-color">cloud</a>
+				<a href="/tags/pipelines.html" class="background-color bg-hover-color">pipelines</a>
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/genomic.html" class="background-color bg-hover-color">genomic</a>
+				<a href="/tags/docker.html" class="background-color bg-hover-color">docker</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
+		  <div class="col-sm-4">
+			<h3>Stay Tuned <small>Social Links</small></h3>
+			<hr>
+			<ul class="blg-social">
+			  <li>
+			    <a href="/feed.xml">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our RSS Feed.</span>
+				</a>
+			  </li>
+			  <li>
+			    <a href="https://twitter.com/nextflowio">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our Twitter Feed.</span>
+				</a>
+			  </li>
+			</ul>
+            <!--
+			<h3>Popular Stories</h3>
+			<hr>
+			<div class="block-inverse">
+			  <ul>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+				<li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+			  </ul>
+			</div>			
+            -->
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- / wrapper -->
+
+	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                  <a target='_blank' href="https://gitter.im/nextflow-io/nextflow?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg"/></a>
+                </li>
+            </ul>
+            
+            <ul class="list-inline pull-right">
+
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
