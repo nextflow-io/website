@@ -17,7 +17,7 @@ requirements of my project far outgrew the resources that were available on our 
 an opportunity arose to participate in a joint program at the MareNostrum HPC at the 
 [Barcelona Supercomputing Centre](http://www.bsc.es) (BSC).
 
-As one of the top 100 supercomputers in the world, the [MareNostrum III](https://www.bsc.es/marenostrum-support-services) 
+As one of the top 100 supercomputers in the world, the [MareNostrum III](https://www.bsc.es/discover-bsc/the-centre/marenostrum) 
 dwarfs our cluster and consists of nearly 50'000 processors. However it soon became apparent 
 that with great power comes great responsibility and in the case of the BSC, great restrictions. 
 These include no internet access, restrictive wall times for jobs, longer queues, 
