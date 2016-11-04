@@ -1094,6 +1094,8 @@ The directives are:
 * `penv`_
 * `publishDir`_
 * `scratch`_
+* `stageInMode`_
+* `stageOutMode`_
 * `storeDir`_
 * `tag`_
 * `time`_
@@ -1830,6 +1832,36 @@ ext
 The ``ext`` is a special directive used as *namespace* for user custom configuration properties that can be defined at
 process level. This can be useful for advanced configuration options.
 
+stageInMode
+-----------
+
+The ``stageInMode`` directive defines how input files are staged-in to the process work directory. The following values
+are allowed:
+
+======= ==================
+Value   Description
+======= ==================
+copy    Input files are staged in the process work directory by creating a copy.
+link    Input files are staged in the process work directory by creating an (hard) link for each of them.
+symlink Input files are staged in the process work directory by creating an symlink for each of them (default).
+======= ==================
+
+stageOutMode
+------------
+
+The ``stageOutMode`` directive defines how output files are staged-out from the scratch directory to the process work
+directory. The following values are allowed:
+
+======= ==================
+Value   Description
+======= ==================
+copy    Output files are copied from the scratch directory to the work directory.
+move    Output files are moved from the scratch directory to the work directory.
+rsync   Output files are copied from the scratch directory to the work directory by using the ``rsync`` utility.
+======= ==================
+
+See also: `scratch`_.
+
 
 Dynamic directives
 ------------------
@@ -1915,4 +1947,4 @@ time.
 If the task execution fail reporting an exit status equals ``140``, the task is re-submitted (otherwise terminates immediately).
 This time the value of ``task.attempt`` is ``2``, thus increasing the amount of the memory to four GB and the time to 2 hours, and so on.
 
-The directory `maxRetries`_ set the maximum number of time the same task can be re-executed.
+The directive `maxRetries`_ set the maximum number of time the same task can be re-executed.

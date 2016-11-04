@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.22.0 documentation</title>
+  <title>Operators &mdash; Nextflow 0.22.4 documentation</title>
   
 
   
@@ -22,7 +22,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:'./',
-        VERSION:'0.22.0',
+        VERSION:'0.22.4',
         COLLAPSE_INDEX:false,
         FILE_SUFFIX:'.html',
         HAS_SOURCE:  true
@@ -52,7 +52,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.22.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.22.4 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -971,6 +971,11 @@ each:</p>
      <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">By default chunks are kept in memory. When splitting big files specify the parameter <code class="docutils literal"><span class="pre">file:</span> <span class="pre">true</span></code> to save the
+chunks into files in order to not incur in a <code class="docutils literal"><span class="pre">OutOfMemoryException</span></code>. See the available parameter table below for details.</p>
+</div>
 <p>A second version of the <code class="docutils literal"><span class="pre">splitFasta</span></code> operator allows you to split a FASTA content into record objects, instead
 of text chunks. A record object contains a set of fields that let you access and manipulate the FASTA sequence
 information with ease.</p>
@@ -1073,6 +1078,11 @@ sequences each:</p>
      <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span> <span class="n">by</span><span class="p">:</span> <span class="mi">10</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">By default chunks are kept in memory. When splitting big files specify the parameter <code class="docutils literal"><span class="pre">file:</span> <span class="pre">true</span></code> to save the
+chunks into files in order to not incur in a <code class="docutils literal"><span class="pre">OutOfMemoryException</span></code>. See the available parameter table below for details.</p>
 </div>
 <p>A second version of the <code class="docutils literal"><span class="pre">splitFastq</span></code> operator allows you to split a FASTQ formatted content into record objects,
 instead of text chunks. A record object contains a set of fields that let you access and manipulate the FASTQ sequence
