@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Singularity &mdash; Nextflow 0.23.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 0.23.0 documentation" href="index.html"/>
+        <link rel="next" title="Apache Ignite" href="ignite.html"/>
+        <link rel="prev" title="Docker containers" href="docker.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Singularity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images">Images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-containers">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Singularity</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="singularity">
+<span id="singularity-page"></span><h1>Singularity<a class="headerlink" href="#singularity" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://singularity.lbl.gov/">Singularity</a> is a container engine alternative to Docker. The main advantages
+of Singularity is that it can be used with unprivileged permissions and doesn't require a separate daemon process.
+These, along other features, like for example the support for autofs mounts, makes Singularity a container engine
+better suited the requirements of HPC workloads.</p>
+<p>Nextflow provides built-in support for Singularity. This allows you to precisely control the execution environment
+of the processes in your pipeline by running them in isolated containers along all their dependencies.</p>
+<p>Moreover the support provided by Nextflow for different container technologies, allows the same pipeline to be
+transparently executed both with Docker or Singularity containers, depending the available engine in the target
+execution platforms.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>You will need Singularity installed on your execution environment e.g. your computer or a distributed cluster, depending
+on where you want to run your pipeline.</p>
+</div>
+<div class="section" id="images">
+<h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>Singularity makes use of a container image file, which physically contains the container. Refer to the <a class="reference external" href="http://singularity.lbl.gov/user-guide">Singularity
+documentation</a> to learn how create Singularity images.</p>
+<p>Docker images can automatically be converted to Singularity images by using the
+<a class="reference external" href="https://github.com/singularityware/docker2singularity">docker2singularity</a> tool.</p>
+<p>Singularity allows paths that do not currently exist within the container to be created
+and mounted dynamically by specifying them on the command line. However this feature is only supported on hosts
+that support the <a class="reference external" href="https://en.wikipedia.org/wiki/OverlayFS">Overlay file system</a> and is not enabled by default.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Nextflow expects that data paths are defined system wide, and your Singularity images need to be created having the
+mount paths defined in the container file system.</p>
+</div>
+<p>If your Singularity installation support the <cite>user bind control</cite> feature,
+enable the Nextflow support for that by defining the <code class="docutils literal"><span class="pre">singularity.autoMounts</span> <span class="pre">=</span> <span class="pre">true</span></code> setting in the Nextflow
+configuration file.</p>
+</div>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>The integration for Singularity follows the same execution model implemented for Docker. You won't need to modify your
+Nextflow script in order to run it with Singularity. Simply specify the Singularity image
+file from where the containers are started by using the <code class="docutils literal"><span class="pre">-with-singularity</span></code> command line option. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">singularity</span> <span class="p">[</span><span class="n">singularity</span> <span class="n">image</span> <span class="n">file</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Every time your script launches a process execution, Nextflow will run it into a Singularity container created by using the
+specified image. In practice Nextflow will automatically wrap your processes and launch them by running the
+<code class="docutils literal"><span class="pre">singularity</span> <span class="pre">exec</span></code> command with the image you have provided.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A Singularity image can contain any tool or piece of software you may need to carry out a process execution.
+Moreover the container is run in such a way that the process result files are created in the hosting file system, thus
+it behaves in a completely transparent manner without requiring extra steps or affecting the flow in your pipeline.</p>
+</div>
+<p>If you want to avoid entering the Singularity image as a command line parameter, you can define it in the Nextflow
+configuration file. For example you can add the following lines in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;/path/to/singularity.img&#39;</span>
+<span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>In the above example replace <code class="docutils literal"><span class="pre">/path/to/singularity.img</span></code> with any Singularity image of your choice.</p>
+<p>Read the <a class="reference internal" href="config.html#config-page"><span class="std std-ref">Configuration</span></a> page to learn more about the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file and how to use it to configure
+your pipeline execution.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Unlike Docker, Nextflow does not mount automatically host paths in the container when using Singularity.
+It expects they are configure and mounted system wide by the Singularity runtime. If your Singularity installation
+allows <cite>user defined bind points</cite> read the <a class="reference internal" href="config.html#config-singularity"><span class="std std-ref">Singularity configuration</span></a> section to learn
+how to enable Nextflow auto mounts.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When a process input is a <em>symbolic link</em> file, make sure the linked file <strong>must</strong> is stored in a host folder
+that is accessible from a bind path defined in your Singularity installation. Otherwise the process execution
+will fail because the launched container won't be able to access the linked file.</p>
+</div>
+</div>
+<div class="section" id="multiple-containers">
+<h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to specify a different Singularity image for each process definition in your pipeline script. For example,
+let's suppose you have two processes named <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. You can specify two different Singularity images
+specifing them in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>process.$foo.container = &#39;image_name_1&#39;
+process.$bar.container = &#39;image_name_2&#39;
+singularity.enabled = true
+</pre></div>
+</div>
+<p>Read the <a class="reference internal" href="config.html#config-process"><span class="std std-ref">Process scope</span></a> section to learn more about processes configuration.</p>
+</div>
+<div class="section" id="advanced-settings">
+<h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
+<p>Singularity advanced configuration settings are described in <a class="reference internal" href="config.html#config-singularity"><span class="std std-ref">Scope singularity</span></a> section in the Nextflow
+configuration page.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ignite.html" class="btn btn-neutral float-right" title="Apache Ignite" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="docker.html" class="btn btn-neutral" title="Docker containers" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Nextflow authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'0.23.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

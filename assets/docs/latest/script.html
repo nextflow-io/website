@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline script &mdash; Nextflow 0.22.5 documentation</title>
+  <title>Pipeline script &mdash; Nextflow 0.23.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.22.5 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.23.0 documentation" href="index.html"/>
         <link rel="next" title="Processes" href="process.html"/>
         <link rel="prev" title="Basic concepts" href="basic.html"/> 
 
@@ -111,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#delete-files">Delete files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#check-file-attributes">Check file attributes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#get-and-modify-file-permissions">Get and modify file permissions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#http-ftp-files">HTTP/FTP files</a></li>
 </ul>
 </li>
 </ul>
@@ -124,11 +125,13 @@
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
             
@@ -913,7 +916,7 @@ a directory, the source file will be copied into that folder maintaining the ori
 <p class="last">The <code class="docutils literal"><span class="pre">copyTo</span></code> method mimics the semantic of the Linux command <code class="docutils literal"><span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>,
 with the following caveats: Unix BASH distinguish between paths having or not having and ending slash, for example:
 <code class="docutils literal"><span class="pre">/some/path/name</span></code> and <code class="docutils literal"><span class="pre">/some/path/name/</span></code>. The first locates a regular file while the latter identifies a directory
-location. With Nextflow, due to Java files API implementation, this not possibles and both strings represents the same path.
+location. With Nextflow, due to Java files API implementation, this is not possibles and both strings represents the same path.
 If that path exists on the file systems it is handled accordingly (as a regular file or as a directory). If the path does not
 exist, it is supposed to locate a regular file (and any parent directory will be created automatically).</p>
 </div>
@@ -1050,6 +1053,24 @@ respectively the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> p
 </div>
 <p>Learn more about <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Numeric_notation">File permissions numeric notation</a>.</p>
 </div>
+<div class="section" id="http-ftp-files">
+<h3>HTTP/FTP files<a class="headerlink" href="#http-ftp-files" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow provides a transparent integration for HTTP/S and FTP protocols that allows you to handle remote resources
+as local file system objects. Simply specify the resource URL as the argument of the <cite>file</cite> object. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;http://files.rcsb.org/header/5FID.pdb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then, you will be able to access it as a local file as described in the previous sections. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">pdb</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<p>The above one-liner prints the content of the PDB file. See in the previous sections how to stream or copy the content
+of files.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Write and list operations are not supported by HTTP/S and FTP files.</p>
+</div>
+</div>
 </div>
 </div>
 
@@ -1094,7 +1115,7 @@ respectively the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> p
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.22.5',
+            VERSION:'0.23.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

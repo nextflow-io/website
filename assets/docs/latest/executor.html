@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.22.5 documentation</title>
+  <title>Executors &mdash; Nextflow 0.23.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.22.5 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.23.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -94,6 +94,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
@@ -101,11 +102,13 @@
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
             
@@ -252,8 +255,8 @@ scenario, the cluster <cite>login</cite> node.</p>
 <p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
 </div>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">condor_submit</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">condor_submit</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>head</cite> node.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">condor_submit</span></code> command is available, that is, in a
+common usage scenario, the cluster <cite>head</cite> node.</p>
 <p>To enable the HTCondor executor simply set to <code class="docutils literal"><span class="pre">process.executor</span></code> property to <code class="docutils literal"><span class="pre">condor</span></code> value in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
@@ -336,6 +339,23 @@ technology that is embedded with the Nextflow runtime.</p>
 <p>Read the <a class="reference internal" href="ignite.html#ignite-page"><span class="std std-ref">Apache Ignite</span></a> section in this documentation to learn how to configure Nextflow to deploy and run an
 Ignite cluster in your infrastructure.</p>
 </div>
+<div class="section" id="kubernetes">
+<h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow provides an experimental support for <a class="reference external" href="http://kubernetes.io/">Kubernetes</a> clustering technology. It allows
+you to deploy and transparently run a Nextflow pipeline in a Kubernetes cluster.</p>
+<p>Nextflow manages each process as a separate <cite>pod</cite> that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">kubectl</span></code> command.
+Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">kubectl</span></code> command is available.</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline must be executed in a shared file system folder
+accessible by all Kubernetes cluster nodes.</p>
+<p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'k8s'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The following directives can be used to define the amount of computing resources needed and the container(s) to use:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></li>
+</ul>
+</div>
 </div>
 
 
@@ -379,7 +399,7 @@ Ignite cluster in your infrastructure.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.22.5',
+            VERSION:'0.23.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

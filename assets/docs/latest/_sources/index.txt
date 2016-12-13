@@ -23,11 +23,13 @@ Contents:
    amazons3
    dnanexus
    docker
+   singularity
    ignite
    tracing
    sharing
    metadata
    example
+   faq
 
 
 

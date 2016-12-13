@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.22.5 documentation</title>
+  <title>Operators &mdash; Nextflow 0.23.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.22.5 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.23.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -153,11 +153,13 @@
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
 </ul>
 
             
@@ -1198,7 +1200,7 @@ The following example shows how to split text files into chunks of 10 lines and 
 <li><a class="reference internal" href="#tap">tap</a></li>
 </ul>
 <div class="section" id="into">
-<h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
+<span id="operator-into"></span><h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to one or more target channels in such a way the values emitted by
 the source channel are copied to the target channel(s). For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
@@ -1325,7 +1327,7 @@ and the other which emits a series of even integers:</p>
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
 <span class="n">c2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span> <span class="p">)</span>
-<span class="n">c3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">form</span><span class="p">(</span> <span class="s1">&#39;z&#39;</span> <span class="p">)</span>
+<span class="n">c3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;z&#39;</span> <span class="p">)</span>
 
 <span class="n">c1</span> <span class="o">.</span><span class="n">mix</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span><span class="n">c3</span><span class="p">)</span>
    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
@@ -2110,7 +2112,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.22.5',
+            VERSION:'0.23.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
