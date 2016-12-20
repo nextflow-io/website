@@ -238,8 +238,8 @@ Within the GitHub README.md you can add a badge with the following:
 
 **File permissions**: When a process is executed by a Docker container, the UNIX user running the process is not you. Therefore any files that are used as an input should have the appropriate file permissions. For example, I had to change the permissions of all the input data in the test data set with:
 
- 	find <data-path> -type f -exec chmod 644 {} \;
- 	find <data-path> -type d -exec chmod 755 {} \;
+ 	 find <data-path> -type f -exec chmod 644 {} \;
+ 	 find <data-path> -type d -exec chmod 755 {} \;
     
 ###Summary
 This was my first time building a Docker image and after a bit of trial-and-error the process was surprising straight forward. There is a wealth of information available for Docker and the almost seamless integration with Nextflow is fantastic. Our collaboration team is now looking forward to applying the pipeline to different datasets and publishing the work, knowing our results will be completely reproducible across any platform.

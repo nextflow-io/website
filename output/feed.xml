@@ -6,9 +6,92 @@
     <atom:link href="https://www.nextflow.io//feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Wed, 19 Oct 2016 01:10:12 +0200</pubDate>
-    <lastBuildDate>Wed, 19 Oct 2016 01:10:12 +0200</lastBuildDate>
+    <pubDate>Tue, 20 Dec 2016 22:36:04 +0100</pubDate>
+    <lastBuildDate>Tue, 20 Dec 2016 22:36:04 +0100</lastBuildDate>
 
+    <item>
+      <title>More fun with containers in HPC</title>
+      <link>https://www.nextflow.io//blog/2016/more-fun-containers-hpc.html</link>
+      <pubDate>Tue, 20 Dec 2016 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">blog/2016/more-fun-containers-hpc.html</guid>
+      	<description>
+	&lt;p&gt;Nextflow was one of the &lt;a href=&quot;https://www.nextflow.io/blog/2014/nextflow-meets-docker.html&quot;&gt;first workflow framework&lt;/a&gt; to provide built-in support for Docker containers. A couple of years ago we also started to experiment with the deployment of containerised bioinformatic pipelines at CRG, using Docker technology (see &lt;a href=&quot;https://www.nextflow.io/blog/2014/using-docker-in-hpc-cluster.html&quot;&gt;here&lt;/a&gt; and &lt;a href=&quot;https://www.nextplatform.com/2016/01/28/crg-goes-with-the-genomics-flow/&quot;&gt;here&lt;/a&gt;).&lt;/p&gt;&lt;p&gt;We found that by isolating and packaging the complete computational workflow environment with the use of Docker images, radically simplifies the burden of maintaining complex dependency graphs of real workload data analysis pipelines.&lt;/p&gt;&lt;p&gt;Even more importantly, the use of containers enables replicable results with minimal effort for the system configuration. The entire computational environment can be archived in a self-contained executable format, allowing the replication of the associated analysis at any point in time.&lt;/p&gt;&lt;p&gt;This ability is the main reason that drove the rapid adoption of Docker in the bioinformatic community and its support in many projects, like for example &lt;a href=&quot;https://galaxyproject.org&quot;&gt;Galaxy&lt;/a&gt;, &lt;a href=&quot;http://commonwl.org&quot;&gt;CWL&lt;/a&gt;, &lt;a href=&quot;http://bioboxes.org&quot;&gt;Bioboxes&lt;/a&gt;, &lt;a href=&quot;https://dockstore.org&quot;&gt;Dockstore&lt;/a&gt; and many others. &lt;/p&gt;&lt;p&gt;However, while the popularity of Docker spread between the developers, its adaption in research computing infrastructures continues to remain very low and it&apos;s very unlikely that this trend will change in the future.&lt;/p&gt;&lt;p&gt;The reason for this resides in the Docker architecture, which requires a daemon running with root permissions on each node of a computing cluster. Such a requirement raises many security concerns, thus good practices would prevent its use in shared HPC cluster or supercomputer environments.&lt;/p&gt;&lt;h3&gt;Introducing Singularity&lt;/h3&gt;&lt;p&gt;Alternative implementations, such as &lt;a href=&quot;http://singularity.lbl.gov&quot;&gt;Singularity&lt;/a&gt;, have fortunately been promoted by the interested in containers technology. &lt;/p&gt;&lt;p&gt;Singularity is a containers engine developed at the Berkeley Lab and designed for the needs of scientific workloads. The main differences with Docker are: containers are file based, no root escalation is allowed nor root permission is needed to run a container (although a privileged user is needed to create a container image), and there is no separate running daemon.&lt;/p&gt;&lt;p&gt;These, along with other features, such as support for autofs mounts, makes Singularity a container engine better suited to the requirements of HPC clusters and supercomputers.&lt;/p&gt;&lt;p&gt;Moreover, although Singularity uses a container image format different to that of Docker, they provide a conversion tool that allows Docker images to be converted to the Singularity format.&lt;/p&gt;&lt;h3&gt;Singularity in the wild&lt;/h3&gt;&lt;p&gt;We integrated Singularity support in Nextflow framework and tested it in the CRG computing cluster and the BSC &lt;a href=&quot;https://www.bsc.es/discover-bsc/the-centre/marenostrum&quot;&gt;MareNostrum&lt;/a&gt; supercomputer.&lt;/p&gt;&lt;p&gt;The absence of a separate running daemon or image gateway made the installation straightforward when compared to Docker or other solutions.&lt;/p&gt;&lt;p&gt;To evaluate the performance of Singularity we carried out the &lt;a href=&quot;https://peerj.com/articles/1273/&quot;&gt;same benchmarks&lt;/a&gt; we performed for Docker and compared the results of the two engines.&lt;/p&gt;&lt;p&gt;The benchmarks consisted in the execution of three Nextflow based genomic pipelines:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nextflow-io/rnatoy/tree/peerj5515&quot;&gt;Rna-toy&lt;/a&gt;: a simple pipeline for RNA-Seq data analysis.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/nextflow-io/nmdp-flow/tree/peerj5515/&quot;&gt;Nmdp-Flow&lt;/a&gt;: an assembly-based variant calling pipeline.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/cbcrg/piper-nf/tree/peerj5515&quot;&gt;Piper-NF&lt;/a&gt;: a pipeline for the detection and mapping of long non-coding RNAs.&lt;/li&gt;
+&lt;/ol&gt;&lt;p&gt;In order to repeat the analyses, we converted the container images we used to perform the Docker benchmarks to Singularity image files by using the &lt;a href=&quot;https://github.com/singularityware/docker2singularity&quot;&gt;docker2singularity&lt;/a&gt; tool.&lt;/p&gt;&lt;p&gt;The only change needed to run these pipelines with Singularity was to replace the Docker specific settings with the following ones in the configuration file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;singularity.enabled = true
+process.container = &amp;#39;&amp;lt;the image file path&amp;gt;&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Each pipeline was executed 10 times, alternately by using Docker and Singularity as container engine. The results are shown in the following table (time in minutes):&lt;/p&gt;
+&lt;style&gt; 
+table#benchmark { width: 100%; margin-bottom: 1em; margin-top: 1em; border-top: 1px solid #999; border-bottom: 1px solid #999 }
+table#benchmark th { text-align: center; background-color: #eee; padding: 2px 5px }
+table#benchmark td { text-align: right; padding: 2px 5px; padding-right: 15px }
+table#benchmark .r { text-align: right }
+table#benchmark .l { text-align: left }
+&lt;/style&gt;
+&lt;table id=&apos;benchmark&apos;&gt;
+&lt;tr&gt;
+&lt;th class=&apos;l&apos;&gt;Pipeline&lt;/th&gt;
+&lt;th &gt;Tasks&lt;/th&gt;
+&lt;th colspan=2 &gt;Mean task time&lt;/th&gt;
+&lt;th colspan=2 &gt;Mean execution time&lt;/th&gt;
+&lt;th colspan=2 &gt;Execution time std dev&lt;/th&gt;
+&lt;th colspan=2 &gt;Ratio&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;th&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th&gt;Singularity&lt;/th&gt;
+&lt;th&gt;Docker&lt;/th&gt;
+&lt;th&gt;Singularity&lt;/th&gt;
+&lt;th&gt;Docker&lt;/th&gt;
+&lt;th&gt;Singularity&lt;/th&gt;
+&lt;th&gt;Docker&lt;/th&gt;
+&lt;th&gt;&amp;nbsp;&lt;/th&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class=&apos;l&apos;&gt;RNA-Seq&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;73.7&lt;/td&gt;
+&lt;td&gt;73.6&lt;/td&gt;
+&lt;td&gt;663.6&lt;/td&gt;
+&lt;td&gt;662.3&lt;/td&gt;
+&lt;td&gt;2.0&lt;/td&gt;
+&lt;td&gt;3.1&lt;/td&gt;
+&lt;td&gt;0.998&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class=&apos;l&apos;&gt;Variant call&lt;/td&gt;
+&lt;td&gt;48&lt;/td&gt;
+&lt;td&gt;22.1&lt;/td&gt;
+&lt;td&gt;22.4&lt;/td&gt;
+&lt;td&gt;1061.2&lt;/td&gt;
+&lt;td&gt;1074.4&lt;/td&gt;
+&lt;td&gt;43.1&lt;/td&gt;
+&lt;td&gt;38.5&lt;/td&gt;
+&lt;td&gt;1.012&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td class=&apos;l&apos;&gt;Piper-NF&lt;/td&gt;
+&lt;td&gt;98&lt;/td&gt;
+&lt;td&gt;1.2&lt;/td&gt;
+&lt;td&gt;1.3&lt;/td&gt;
+&lt;td&gt;120.0&lt;/td&gt;
+&lt;td&gt;124.5&lt;/td&gt;
+&lt;td&gt;6.9 &lt;/td&gt;
+&lt;td&gt;2.8&lt;/td&gt;
+&lt;td&gt;1.038&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;&lt;p&gt;The benchmark results show that there isn&apos;t any significative difference in the execution times of containerised workflows between Docker and Singularity. In two cases Singularity was slightly faster and a third one it was almost identical although a little slower than Docker.&lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;In our evaluation Singularity proved to be an easy to install, stable and performant container engine.&lt;/p&gt;&lt;p&gt;The only minor drawback, we found when compared to Docker, was the need to define the host path mount points statically when the Singularity images were created. In fact, even if Singularity supports user mount points to be defined dynamically when the container is launched, this feature requires the overlay file system which was not supported by the kernel available in our system.&lt;/p&gt;&lt;p&gt;Docker surely will remain the &lt;em&gt;de facto&lt;/em&gt; standard engine and image format for containers due to its popularity and &lt;a href=&quot;http://www.coscale.com/blog/docker-usage-statistics-increased-adoption-by-enterprises-and-for-production-use&quot;&gt;impressive growth&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;However, in our opinion, Singularity is the tool of choice for the execution of containerised workloads in the context of HPC, thanks to its focus on system security and its simpler architectural design.&lt;/p&gt;&lt;p&gt;The transparent support provided by Nextflow for both Docker and Singularity technology guarantees the ability to deploy your workflows in a range of different platforms (cloud, cluster, supercomputer, etc). Nextflow transparently manages the deployment of the containerised workload according to the runtime available in the target system.&lt;/p&gt;&lt;h4&gt;Credits&lt;/h4&gt;&lt;p&gt;Thanks to Gabriel Gonzalez (CRG), Luis Exposito (CRG) and Carlos Tripiana Montes (BSC) for the support installing Singularity.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Enabling elastic computing with Nextflow </title>
       <link>https://www.nextflow.io//blog/2016/enabling-elastic-computing-nextflow.html</link>
@@ -274,7 +357,7 @@ test:
       <pubDate>Thu, 4 Feb 2016 00:00:00 +0100</pubDate>
       <guid isPermaLink="false">blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html</guid>
       	<description>
-	&lt;p&gt;As a new bioinformatics student with little formal computer science training, there are few things that scare me more than PhD committee meetings and having to run my code in a completely different operating environment. &lt;/p&gt;&lt;p&gt;Recently my work landed me in the middle of the phylogenetic tree jungle and the computational requirements of my project far outgrew the resources that were available on our institute’s &lt;a href=&quot;https://en.wikipedia.org/wiki/Univa_Grid_Engine&quot;&gt;Univa Grid Engine&lt;/a&gt; based cluster. Luckily for me, an opportunity arose to participate in a joint program at the MareNostrum HPC at the &lt;a href=&quot;http://www.bsc.es&quot;&gt;Barcelona Supercomputing Centre&lt;/a&gt; (BSC).&lt;/p&gt;&lt;p&gt;As one of the top 100 supercomputers in the world, the &lt;a href=&quot;https://www.bsc.es/marenostrum-support-services&quot;&gt;MareNostrum III&lt;/a&gt; dwarfs our cluster and consists of nearly 50&apos;000 processors. However it soon became apparent that with great power comes great responsibility and in the case of the BSC, great restrictions. These include no internet access, restrictive wall times for jobs, longer queues, fewer pre-installed binaries and an older version of bash. Faced with the possibility of having to rewrite my 16 bodged scripts for another queuing system I turned to Nextflow.&lt;/p&gt;&lt;p&gt;Straight off the bat I was able to reduce all my previous scripts to a single Nextflow script. Admittedly, the original code was not great, but the data processing model made me feel confident in what I was doing and I was able to reduce the volume of code to 25% of its initial amount whilst making huge improvements in the readability. The real benefits however came from the portability.&lt;/p&gt;&lt;p&gt;I was able to write the project on my laptop (Macbook Air), continuously test it on my local desktop machine (Linux) and then perform more realistic heavy lifting runs on the cluster, all managed from a single GitHub repository. The BSC uses the &lt;a href=&quot;https://en.wikipedia.org/wiki/Platform_LSF&quot;&gt;Load Sharing Facility&lt;/a&gt; (LSF) platform with longer queue times, but a large number of CPUs. My project on the other hand had datasets that require over 100&apos;000 tasks, but the tasks processes themselves run for a matter of seconds or minutes. We were able to marry these two competing interests deploying Nextflow in a &lt;a href=&quot;/blog/2015/mpi-like-execution-with-nextflow.html&quot;&gt;distributed execution manner that resemble the one of an MPI application&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;In this configuration, the queuing system allocates the Nextflow requested resources and using the embedded &lt;a href=&quot;https://ignite.apache.org/&quot;&gt;Apache Ignite&lt;/a&gt; clustering engine, Nextflow handles the submission of processes to the individual nodes. &lt;/p&gt;&lt;p&gt;Here is some examples of how to run the same Nextflow project over multiple platforms.&lt;/p&gt;&lt;h4&gt;Local&lt;/h4&gt;&lt;p&gt;If I wished to launch a job locally I can run it with the command:&lt;/p&gt;
+	&lt;p&gt;As a new bioinformatics student with little formal computer science training, there are few things that scare me more than PhD committee meetings and having to run my code in a completely different operating environment. &lt;/p&gt;&lt;p&gt;Recently my work landed me in the middle of the phylogenetic tree jungle and the computational requirements of my project far outgrew the resources that were available on our institute’s &lt;a href=&quot;https://en.wikipedia.org/wiki/Univa_Grid_Engine&quot;&gt;Univa Grid Engine&lt;/a&gt; based cluster. Luckily for me, an opportunity arose to participate in a joint program at the MareNostrum HPC at the &lt;a href=&quot;http://www.bsc.es&quot;&gt;Barcelona Supercomputing Centre&lt;/a&gt; (BSC).&lt;/p&gt;&lt;p&gt;As one of the top 100 supercomputers in the world, the &lt;a href=&quot;https://www.bsc.es/discover-bsc/the-centre/marenostrum&quot;&gt;MareNostrum III&lt;/a&gt; dwarfs our cluster and consists of nearly 50&apos;000 processors. However it soon became apparent that with great power comes great responsibility and in the case of the BSC, great restrictions. These include no internet access, restrictive wall times for jobs, longer queues, fewer pre-installed binaries and an older version of bash. Faced with the possibility of having to rewrite my 16 bodged scripts for another queuing system I turned to Nextflow.&lt;/p&gt;&lt;p&gt;Straight off the bat I was able to reduce all my previous scripts to a single Nextflow script. Admittedly, the original code was not great, but the data processing model made me feel confident in what I was doing and I was able to reduce the volume of code to 25% of its initial amount whilst making huge improvements in the readability. The real benefits however came from the portability.&lt;/p&gt;&lt;p&gt;I was able to write the project on my laptop (Macbook Air), continuously test it on my local desktop machine (Linux) and then perform more realistic heavy lifting runs on the cluster, all managed from a single GitHub repository. The BSC uses the &lt;a href=&quot;https://en.wikipedia.org/wiki/Platform_LSF&quot;&gt;Load Sharing Facility&lt;/a&gt; (LSF) platform with longer queue times, but a large number of CPUs. My project on the other hand had datasets that require over 100&apos;000 tasks, but the tasks processes themselves run for a matter of seconds or minutes. We were able to marry these two competing interests deploying Nextflow in a &lt;a href=&quot;/blog/2015/mpi-like-execution-with-nextflow.html&quot;&gt;distributed execution manner that resemble the one of an MPI application&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;In this configuration, the queuing system allocates the Nextflow requested resources and using the embedded &lt;a href=&quot;https://ignite.apache.org/&quot;&gt;Apache Ignite&lt;/a&gt; clustering engine, Nextflow handles the submission of processes to the individual nodes. &lt;/p&gt;&lt;p&gt;Here is some examples of how to run the same Nextflow project over multiple platforms.&lt;/p&gt;&lt;h4&gt;Local&lt;/h4&gt;&lt;p&gt;If I wished to launch a job locally I can run it with the command:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;nextflow run myproject.nf
 &lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;Univa Grid Engine (UGE)&lt;/h4&gt;&lt;p&gt;For the UGE I simply needed to specify the following in the &lt;code&gt;nextflow.config&lt;/code&gt; file: &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;process {
