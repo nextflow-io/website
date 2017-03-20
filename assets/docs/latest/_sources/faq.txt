@@ -249,7 +249,7 @@ the files by using a simple for-loop.
         publishDir "$results_path/$datasetID/concatenate"
 
         input:
-        file bootstrapTreeList from bootstrapReplicateTrees.toList()
+        file bootstrapTreeList from bootstrapReplicateTrees.collect()
 
         output:
         file "concatenatedBootstrapTrees.nwk"
@@ -265,46 +265,3 @@ the files by using a simple for-loop.
         """
     }
 
-Why a process is performed only one time?
------------------------------------------
-
-*Q: I have two channels, one emitting many items and the second one emitting one item, why the process is performed only one time?*
-
-A process is executed when there's an item available in each channel
-declared in the input statement. Then, each item is removed from the
-channel
-
-::
-
-    process intersect_bed {
-        input:
-        file bed from bed_collection
-        file feature from bed_features
-        
-        output:
-        file 'intersect.bed' into bed_light_activity
-
-        script:
-        """
-        bedtools intersect -a $bed -b $feature > intersect.bed
-        """
-    }
-
-In this example, the process will be run only one time. Here the channel
-is a dataflow stream and when an item is read it is removed from the
-channel, as the channel contains only one file, when it is read, it
-sends a termination signal to the process and it stops.
-
-If you want to run the process as many times as files in
-bed\_collection, you only need to change the declaration of
-``bed_features`` by:
-
-::
-
-    file bed_features.first()
-
-This code generates a dataflow value (or singleton). This type of
-channels can be used as many times as needed, because it always returns
-the same value without removing it. That is way with this command the
-process will be run as many time as bed files inside the bed\_collection
-channel.

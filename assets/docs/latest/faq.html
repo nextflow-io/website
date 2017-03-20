@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Frequently Asked Questions &mdash; Nextflow 0.23.2 documentation</title>
+  <title>Frequently Asked Questions &mdash; Nextflow 0.24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.23.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.24.0 documentation" href="index.html"/>
         <link rel="prev" title="Examples" href="example.html"/> 
 
   
@@ -99,7 +99,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#how-invoke-custom-scripts-and-tools">How invoke custom scripts and tools?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-iterate-over-a-process-nth-times">How do I iterate over a process nth times?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-do-i-iterate-over-nth-files-them-within-a-process">How do I iterate over nth files them within a process?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#why-a-process-is-performed-only-one-time">Why a process is performed only one time?</a></li>
 </ul>
 </li>
 </ul>
@@ -348,7 +347,7 @@ the files by using a simple for-loop.</p>
     <span class="n">publishDir</span> <span class="s2">&quot;$results_path/$datasetID/concatenate&quot;</span>
 
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">bootstrapTreeList</span> <span class="kn">from</span> <span class="nn">bootstrapReplicateTrees.toList</span><span class="p">()</span>
+    <span class="n">file</span> <span class="n">bootstrapTreeList</span> <span class="kn">from</span> <span class="nn">bootstrapReplicateTrees.collect</span><span class="p">()</span>
 
     <span class="n">output</span><span class="p">:</span>
     <span class="n">file</span> <span class="s2">&quot;concatenatedBootstrapTrees.nwk&quot;</span>
@@ -365,43 +364,6 @@ the files by using a simple for-loop.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="why-a-process-is-performed-only-one-time">
-<h2>Why a process is performed only one time?<a class="headerlink" href="#why-a-process-is-performed-only-one-time" title="Permalink to this headline">¶</a></h2>
-<p><em>Q: I have two channels, one emitting many items and the second one emitting one item, why the process is performed only one time?</em></p>
-<p>A process is executed when there's an item available in each channel
-declared in the input statement. Then, each item is removed from the
-channel</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">intersect_bed</span> <span class="p">{</span>
-    <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">bed</span> <span class="kn">from</span> <span class="nn">bed_collection</span>
-    <span class="n">file</span> <span class="n">feature</span> <span class="kn">from</span> <span class="nn">bed_features</span>
-
-    <span class="n">output</span><span class="p">:</span>
-    <span class="n">file</span> <span class="s1">&#39;intersect.bed&#39;</span> <span class="n">into</span> <span class="n">bed_light_activity</span>
-
-    <span class="n">script</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    bedtools intersect -a $bed -b $feature &gt; intersect.bed</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>In this example, the process will be run only one time. Here the channel
-is a dataflow stream and when an item is read it is removed from the
-channel, as the channel contains only one file, when it is read, it
-sends a termination signal to the process and it stops.</p>
-<p>If you want to run the process as many times as files in
-bed_collection, you only need to change the declaration of
-<code class="docutils literal"><span class="pre">bed_features</span></code> by:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">file</span> <span class="n">bed_features</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>This code generates a dataflow value (or singleton). This type of
-channels can be used as many times as needed, because it always returns
-the same value without removing it. That is way with this command the
-process will be run as many time as bed files inside the bed_collection
-channel.</p>
 </div>
 </div>
 
@@ -444,7 +406,7 @@ channel.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.23.2',
+            VERSION:'0.24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -43,13 +43,13 @@ Channel
  */
 process buildIndex {
     input:
-    file genome_file
+    file genome from genome_file
      
     output:
     file 'genome.index*' into genome_index
        
     """
-    bowtie2-build ${genome_file} genome.index
+    bowtie2-build ${genome} genome.index
     """
 }
  
@@ -58,12 +58,12 @@ process buildIndex {
  */
 process mapping {     
     input:
-    file genome_file
-    file genome_index from genome_index.first()
+    file genome from genome_file
+    file index from genome_index
     set pair_id, file(reads) from read_pairs
  
     output:
-    set pair_id, "tophat_out/accepted_hits.bam" into bam
+    set pair_id, "tophat_out/accepted_hits.bam" into bam_files
  
     """
     tophat2 genome.index ${reads}
@@ -78,7 +78,7 @@ process makeTranscript {
     publishDir "results"
     
     input:
-    set pair_id, bam_file from bam
+    set pair_id, bam_file from bam_files
      
     output:
     set pair_id, 'transcripts.gtf' into transcripts

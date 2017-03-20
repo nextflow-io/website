@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.23.2 documentation</title>
+  <title>Operators &mdash; Nextflow 0.24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.23.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.24.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -98,6 +98,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#grouptuple">groupTuple</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#buffer">buffer</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#collate">collate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collect">collect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flatten">flatten</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tolist">toList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tosortedlist">toSortedList</a></li>
@@ -118,6 +119,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#phase">phase</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cross">cross</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#collectfile">collectFile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#combine">combine</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#concat">concat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#spread">spread</a></li>
 </ul>
@@ -415,6 +417,7 @@ a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For exampl
 <ul class="simple">
 <li><a class="reference internal" href="#buffer">buffer</a></li>
 <li><a class="reference internal" href="#collate">collate</a></li>
+<li><a class="reference internal" href="#collect">collect</a></li>
 <li><a class="reference internal" href="#flatten">flatten</a></li>
 <li><a class="reference internal" href="#flatmap">flatMap</a></li>
 <li><a class="reference internal" href="#groupby">groupBy</a></li>
@@ -767,6 +770,32 @@ are collected in tuples. For example:</p>
 <p>As before, if you don't want to emit the last items which do not complete a tuple, specify <code class="docutils literal"><span class="pre">false</span></code> as the third parameter.</p>
 <p>See also: <a class="reference internal" href="#buffer">buffer</a> operator.</p>
 </div>
+<div class="section" id="collect">
+<h3>collect<a class="headerlink" href="#collect" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">collect</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal"><span class="pre">List</span></code> and return
+the resulting object as a sole emission. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+
+<span class="c1"># outputs</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>An optional <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> can be specified to transform each item before adding it to the resulting list.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+
+<span class="c1"># outputs</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>See also: <a class="reference internal" href="#tolist">toList</a> and <a class="reference internal" href="#tosortedlist">toSortedList</a> operator.</p>
+</div>
 <div class="section" id="flatten">
 <h3>flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">flatten</span></code> operator transforms a channel in such a way that every item of type <code class="docutils literal"><span class="pre">Collection</span></code> or <code class="docutils literal"><span class="pre">Array</span></code>
@@ -801,6 +830,7 @@ and emits the resulting collection as a single item. For example:</p>
 <span class="n">Done</span>
 </pre></div>
 </div>
+<p>See also: <a class="reference internal" href="#collect">collect</a> operator.</p>
 </div>
 <div class="section" id="tosortedlist">
 <h3>toSortedList<a class="headerlink" href="#tosortedlist" title="Permalink to this headline">¶</a></h3>
@@ -826,6 +856,7 @@ and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">lisa</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="p">[</span><span class="n">maggie</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="n">homer</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="n">marge</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">bart</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
 </pre></div>
 </div>
+<p>See also: <a class="reference internal" href="#collect">collect</a> operator.</p>
 </div>
 </div>
 <div class="section" id="splitting-operators">
@@ -1201,6 +1232,7 @@ The following example shows how to split text files into chunks of 10 lines and 
 <ul class="simple">
 <li><a class="reference internal" href="#cross">cross</a></li>
 <li><a class="reference internal" href="#collectfile">collectFile</a></li>
+<li><a class="reference internal" href="#combine">combine</a></li>
 <li><a class="reference internal" href="#concat">concat</a></li>
 <li><a class="reference internal" href="#into">into</a></li>
 <li><a class="reference internal" href="#merge">merge</a></li>
@@ -1509,22 +1541,25 @@ the items content will be grouped in file(s) having the same name as the source 
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>name</td>
-<td>Name of the file where all received values are stored</td>
+<td>Name of the file where all received values are stored.</td>
 </tr>
-<tr class="row-odd"><td>seed</td>
-<td>A value or a map of values used to initialise the files content</td>
+<tr class="row-odd"><td>newLine</td>
+<td>Appends a <code class="docutils literal"><span class="pre">newline</span></code> character automatically after each entry (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>newLine</td>
-<td>Appends a <code class="docutils literal"><span class="pre">newline</span></code> character automatically after each entry (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+<tr class="row-even"><td>seed</td>
+<td>A value or a map of values used to initialise the files content.</td>
+</tr>
+<tr class="row-odd"><td>skip</td>
+<td>Skip the first <cite>n</cite> lines eg. <code class="docutils literal"><span class="pre">skip:</span> <span class="pre">1</span></code>.</td>
+</tr>
+<tr class="row-even"><td>sort</td>
+<td>Defines sorting criteria of content in resulting file(s). See below for sorting options.</td>
 </tr>
 <tr class="row-odd"><td>storeDir</td>
-<td>Folder where the resulting file(s) are be stored</td>
+<td>Folder where the resulting file(s) are be stored.</td>
 </tr>
 <tr class="row-even"><td>tempDir</td>
 <td>Folder where temporary files, used by the collecting process, are stored.</td>
-</tr>
-<tr class="row-odd"><td>sort</td>
-<td>Defines sorting criteria of content in resulting file(s). See below for sorting options.</td>
 </tr>
 </tbody>
 </table>
@@ -1602,6 +1637,46 @@ and it will require as much free space as are the data you are collecting. Optio
 folder can be specified by using the <code class="docutils literal"><span class="pre">tempDir</span></code> parameter.</p>
 </div>
 </div>
+<div class="section" id="combine">
+<h3>combine<a class="headerlink" href="#combine" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">combine</span></code> operator combines (cartesian product) the items emitted by two channels or by a channel and a <code class="docutils literal"><span class="pre">Collection</span></code>
+object (as right operand). For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">words</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span>
+<span class="n">numbers</span>
+    <span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+
+<span class="c1"># outputs</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">hello</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">hello</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">hello</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">ciao</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">ciao</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">ciao</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>A second version of the <code class="docutils literal"><span class="pre">combine</span></code> operator allows you to combine between them those items that share a common
+matching key. The index of the key element is specified by using the <code class="docutils literal"><span class="pre">by</span></code> parameter (the index is zero-based,
+multiple indexes can be specified with list a integers).
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">right</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">])</span>
+
+<span class="n">left</span>
+    <span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+
+<span class="c1"># outputs</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">]</span>
+<span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">w</span><span class="p">]</span>
+<span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
+<span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="concat">
 <h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel, in such
@@ -1630,6 +1705,10 @@ only after <cite>all</cite> the items proceeding from the channel <cite>i th</ci
 </div>
 <div class="section" id="spread">
 <h3>spread<a class="headerlink" href="#spread" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This operator is deprecated. See <a class="reference internal" href="#combine">combine</a> instead.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">spread</span></code> operator combines the items emitted by the source channel with all the values in an array
 or a <code class="docutils literal"><span class="pre">Collection</span></code> object specified as the operator argument. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2122,7 +2201,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.23.2',
+            VERSION:'0.24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
