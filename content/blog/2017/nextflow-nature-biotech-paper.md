@@ -7,7 +7,7 @@ author=Paolo Di Tommaso
 icon=paolo.jpg
 ~~~~~~
 
-We are excited to announce the publication of our work *[Nextflow enables reproducible computational workflows](http://www.nature.com/nbt/journal/v35/n4/full/nbt.3820.html)* in Nature Biotechnology.
+We are excited to announce the publication of our work *[Nextflow enables reproducible computational workflows](http://rdcu.be/qZVo)* in Nature Biotechnology.
 
 The article provides a description of the fundamental components and principles of Nextflow. 
 We illustrate how the unique combination of containers, pipeline sharing and portable 
@@ -32,5 +32,5 @@ We kindly ask if you use Nextflow in your own work to cite the following article
 <div style='padding: 0.7em 1.5em; background-color: #eee'>
 Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). 
 <i>Nextflow enables reproducible computational workflows.</i> Nature Biotechnology, 35(4), 316–319.
-doi:10.1038/nbt.3820
+<a href='http://www.nature.com/nbt/journal/v35/n4/full/nbt.3820.html'>doi:10.1038/nbt.3820</a>
 </div>
