@@ -29,7 +29,7 @@ users and contributors.
 
 We kindly ask if you use Nextflow in your own work to cite the following article:
 
-<div style='padding: 0.7em 1.5em; margin-left:1.5em; margin-right:1.5em; background-color: #eee'>
+<div style='padding: 0.7em 1.5em; background-color: #eee'>
 Di Tommaso, P., Chatzou, M., Floden, E. W., Barja, P. P., Palumbo, E., & Notredame, C. (2017). 
 <i>Nextflow enables reproducible computational workflows.</i> Nature Biotechnology, 35(4), 316–319.
 doi:10.1038/nbt.3820
