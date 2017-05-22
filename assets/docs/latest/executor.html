@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.24.2 documentation</title>
+  <title>Executors &mdash; Nextflow 0.24.4 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.24.2 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.24.4 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -87,6 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#drmaa">DRMAA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dnanexus">DNAnexus</a><ul>
@@ -238,6 +239,23 @@ by the scheduler.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">qsub</span></code> command is available, that is, in a common usage
 scenario, the cluster <cite>login</cite> node.</p>
 <p>To enable the PBS executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbs'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
+</ul>
+</div>
+<div class="section" id="nqsii">
+<span id="nqsii-executor"></span><h2>NQSII<a class="headerlink" href="#nqsii" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>NQSII</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">qsub</span></code> command provided
+by the scheduler.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>login</cite> node.</p>
+<p>To enable the NQSII executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'nqsii'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
 <li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
@@ -399,7 +417,7 @@ accessible by all Kubernetes cluster nodes.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.24.2',
+            VERSION:'0.24.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
