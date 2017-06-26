@@ -90,7 +90,7 @@ The registration form is [available here](http://apps.crg.es/content/internet/ev
  
 <tr>
 <td valign='top'>13.10</td> 
-<td valign='top'>(available)</td>
+<td valign='top'>(to be determined)</td>
 </tr> 
 
 <tr>
