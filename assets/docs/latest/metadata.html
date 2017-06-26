@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.24.4 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.25.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.24.4 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.25.0 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -87,12 +87,13 @@
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Workflow introspection</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#runtime-metadata">Runtime metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nextflow-metadata">Nextflow metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#completion-handler">Completion handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#error-handler">Error handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notification-message">Notification message</a></li>
@@ -100,7 +101,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -238,6 +239,28 @@ it returns a map object containing <cite>[process name, image name]</cite> pair 
 <tr class="row-odd"><td><sup>*</sup> errorReport</td>
 <td>Detailed error of the task that caused the workflow execution to fail.</td>
 </tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line">Properties marked with a <cite>✝</cite> are accessible only in the workflow completion handler.</div>
+<div class="line">Properties marked with a <cite>*</cite> are accessible only in the workflow completion and error handlers. See the <a class="reference internal" href="#completion-handler">Completion handler</a> section for details.</div>
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="nextflow-metadata">
+<h2>Nextflow metadata<a class="headerlink" href="#nextflow-metadata" title="Permalink to this headline">¶</a></h2>
+<p>The implicit <code class="docutils literal"><span class="pre">nextflow</span></code> object allows you to access the metadata information of the Nextflow runtime.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
 <tr class="row-even"><td>nextflow.version</td>
 <td>Nextflow runtime version number.</td>
 </tr>
@@ -249,9 +272,16 @@ it returns a map object containing <cite>[process name, image name]</cite> pair 
 </tr>
 </tbody>
 </table>
-<p>Properties marked with a <cite>✝</cite> are accessible only in the workflow completion handler.
-Properties marked with a <cite>*</cite> are accessible only in the workflow completion and error handlers.
-See the following section for details.</p>
+<p>The method <code class="docutils literal"><span class="pre">nextflow.version.matches</span></code> allows you to check if the Nextflow runtime satisfies the version
+requirement eventually needed by your workflow script. The required version string can be prefixed with the usual
+comparison operators eg <code class="docutils literal"><span class="pre">&gt;</span></code>, <code class="docutils literal"><span class="pre">&gt;=</span></code>, <code class="docutils literal"><span class="pre">=</span></code>, etc. or postfixed with the <code class="docutils literal"><span class="pre">+</span></code> operator to specify a minimal version
+requirement. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>if( !nextflow.version.matches(&#39;0.22+&#39;) ) {
+    println &quot;This workflow requires Nextflow version 0.22 or greater -- You are running version $nextflow.version&quot;
+    exit 1
+}
+</pre></div>
+</div>
 </div>
 <div class="section" id="completion-handler">
 <h2>Completion handler<a class="headerlink" href="#completion-handler" title="Permalink to this headline">¶</a></h2>
@@ -375,7 +405,7 @@ configuration file.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.24.4',
+            VERSION:'0.25.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

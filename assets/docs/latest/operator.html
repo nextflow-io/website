@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.24.4 documentation</title>
+  <title>Operators &mdash; Nextflow 0.25.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.24.4 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.25.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -86,6 +86,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#unique">unique</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#distinct">distinct</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#first">first</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#randomsample">randomSample</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#take">take</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#last">last</a></li>
 </ul>
@@ -136,6 +137,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#min">min</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#max">max</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sum">sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tointeger">toInteger</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#other-operators">Other operators</a><ul>
@@ -155,13 +157,13 @@
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -227,6 +229,7 @@ emitted by a channel applying some user provided rules.</p>
 <li><a class="reference internal" href="#filter">filter</a></li>
 <li><a class="reference internal" href="#first">first</a></li>
 <li><a class="reference internal" href="#last">last</a></li>
+<li><a class="reference internal" href="#randomsample">randomSample</a></li>
 <li><a class="reference internal" href="#take">take</a></li>
 <li><a class="reference internal" href="#unique">unique</a></li>
 </ul>
@@ -375,6 +378,18 @@ a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For exampl
     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="randomsample">
+<h3>randomSample<a class="headerlink" href="#randomsample" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">randomSample</span></code> operator allows you to create a channel emitting the specified number of items randomly taken
+from the channel to which is applied. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">1.</span><span class="o">.</span><span class="mi">100</span> <span class="p">)</span>
+      <span class="o">.</span><span class="n">randomSample</span><span class="p">(</span> <span class="mi">10</span> <span class="p">)</span>
+      <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above snippet will print 10 numbers in the range from 1 to 100.</p>
 </div>
 <div class="section" id="take">
 <h3>take<a class="headerlink" href="#take" title="Permalink to this headline">¶</a></h3>
@@ -1399,7 +1414,7 @@ it could be a possible result of the above example as well.</p>
 </div>
 </div>
 <div class="section" id="phase">
-<h3>phase<a class="headerlink" href="#phase" title="Permalink to this headline">¶</a></h3>
+<span id="operator-phase"></span><h3>phase<a class="headerlink" href="#phase" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">phase</span></code> operator creates a channel that synchronizes the values emitted by two other channels,
 in such a way that it emits pairs of items that have a matching key.</p>
 <p>The key is defined, by default, as the first entry in an array, a list or map object,
@@ -1447,7 +1462,7 @@ is missing, by specifying the optional parameter <code class="docutils literal">
 </div>
 </div>
 <div class="section" id="cross">
-<h3>cross<a class="headerlink" href="#cross" title="Permalink to this headline">¶</a></h3>
+<span id="operator-cross"></span><h3>cross<a class="headerlink" href="#cross" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">cross</span></code> operators allows you to combine the items of two channels in such a way that
 the items of the source channel are emitted along with the items emitted by the target channel
 for which they have a matching key.</p>
@@ -1638,7 +1653,7 @@ folder can be specified by using the <code class="docutils literal"><span class=
 </div>
 </div>
 <div class="section" id="combine">
-<h3>combine<a class="headerlink" href="#combine" title="Permalink to this headline">¶</a></h3>
+<span id="operator-combine"></span><h3>combine<a class="headerlink" href="#combine" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">combine</span></code> operator combines (cartesian product) the items emitted by two channels or by a channel and a <code class="docutils literal"><span class="pre">Collection</span></code>
 object (as right operand). For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
@@ -1676,9 +1691,10 @@ For example:</p>
 <span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>See also <a class="reference internal" href="#cross">cross</a>, <a class="reference internal" href="#spread">spread</a> and <a class="reference internal" href="#phase">phase</a>.</p>
 </div>
 <div class="section" id="concat">
-<h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
+<span id="operator-concat"></span><h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel, in such
 a way that the items emitted by the resulting channel are in same order as they were when specified as operator arguments.</p>
 <p>In other words it guarantees that given any <cite>n</cite> channels, the concatenation channel emits the items proceeding from the channel <cite>i+1 th</cite>
@@ -1704,7 +1720,7 @@ only after <cite>all</cite> the items proceeding from the channel <cite>i th</ci
 </div>
 </div>
 <div class="section" id="spread">
-<h3>spread<a class="headerlink" href="#spread" title="Permalink to this headline">¶</a></h3>
+<span id="operator-spread"></span><h3>spread<a class="headerlink" href="#spread" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This operator is deprecated. See <a class="reference internal" href="#combine">combine</a> instead.</p>
@@ -1880,6 +1896,7 @@ with <code class="docutils literal"><span class="pre">h</span></code> are copied
 <li><a class="reference internal" href="#min">min</a></li>
 <li><a class="reference internal" href="#max">max</a></li>
 <li><a class="reference internal" href="#sum">sum</a></li>
+<li><a class="reference internal" href="#tointeger">toInteger</a></li>
 </ul>
 <div class="section" id="count">
 <h3>count<a class="headerlink" href="#count" title="Permalink to this headline">¶</a></h3>
@@ -2031,6 +2048,18 @@ a function that, given an item, returns the value to be summed. For example:</p>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Square</span><span class="p">:</span> <span class="mi">91</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tointeger">
+<h3>toInteger<a class="headerlink" href="#tointeger" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">toInteger</span></code> operator allows you to convert the string values emitted by a channel to <code class="docutils literal"><span class="pre">Integer</span></code> values. For
+example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">toInteger</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2201,7 +2230,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.24.4',
+            VERSION:'0.25.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
