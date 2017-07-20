@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - Nextflow and the Common Workflow Language</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -88,63 +88,53 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: nextflow</h3>
-                <hr>
-                <ul>
-                        <h4>July 2017</h4>
-                        <ul>
-        
-                    <li>20 - <a href="/blog/2017/nextflow-and-cwl.html">Nextflow and the Common Workflow Language</a></li>
-                            </ul>
-                            <h4>April 2017</h4>
-                            <ul>
-        
-                    <li>26 - <a href="/blog/2017/nextflow-workshop.html">Nextflow workshop is coming!</a></li>
-        
-                    <li>12 - <a href="/blog/2017/nextflow-nature-biotech-paper.html">Nextflow published in Nature Biotechnology</a></li>
-                            </ul>
-                            <h4>December 2016</h4>
-                            <ul>
-        
-                    <li>20 - <a href="/blog/2016/more-fun-containers-hpc.html">More fun with containers in HPC</a></li>
-                            </ul>
-                            <h4>October 2016</h4>
-                            <ul>
-        
-                    <li>19 - <a href="/blog/2016/enabling-elastic-computing-nextflow.html">Enabling elastic computing with Nextflow </a></li>
-                            </ul>
-                            <h4>September 2016</h4>
-                            <ul>
-        
-                    <li>01 - <a href="/blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html">Deploy your computational pipelines in the cloud at the snap-of-a-finger </a></li>
-                            </ul>
-                            <h4>June 2016</h4>
-                            <ul>
-        
-                    <li>10 - <a href="/blog/2016/docker-for-dunces-nextflow-for-nunces.html">Docker for dunces & Nextflow for nunces</a></li>
-                            </ul>
-                            <h4>April 2016</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2016/best-practice-for-reproducibility.html">Workflows & publishing: best practice for reproducibility </a></li>
-                            </ul>
-                            <h4>February 2016</h4>
-                            <ul>
-        
-                    <li>11 - <a href="/blog/2016/error-recovery-and-automatic-resources-management.html">Error recovery and automatic resource management with Nextflow</a></li>
-        
-                    <li>04 - <a href="/blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html">Developing a bioinformatics pipeline across multiple environments</a></li>
-                            </ul>
-                            <h4>June 2015</h4>
-                            <ul>
-        
-                    <li>15 - <a href="/blog/2015/the-impact-of-docker-on-genomic-pipelines.html">The impact of Docker containers on the performance of genomic pipelines</a></li>
-        
-                    <li>09 - <a href="/blog/2015/innovation-in-science-the-story-behind-nextflow.html">Innovation In Science - The story behind Nextflow</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Nextflow and the Common Workflow Language</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Kevin Sayers  </li>
+				<li><i class="fa fa-calendar"></i> 20 July 2017</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>The Common Workflow Language (<a href="http://www.commonwl.org/">CWL</a>) is a specification for defining workflows in a declarative manner. It has been implemented to varying degrees by different software packages. Nextflow and CWL share a common goal of enabling portable reproducible workflows. </p><p>We are currently investigating the automatic conversion of CWL workflows into Nextflow scripts to increase the portability of workflows. This work is being developed as the <a href="https://github.com/nextflow-io/cwl2nxf">cwl2nxf</a> project, currently in early prototype stage. </p><p>Our first phase of the project was to determine mappings of CWL to Nextflow and familiarize ourselves with how the current implementation of the converter supports a number of CWL specific features. </p><h3>Mapping CWL to Nextflow</h3><p>Inputs in the CWL workflow file are initially parsed as <em>channels</em> or other Nextflow input types. Each step specified in the workflow is then parsed independently. At the time of writing subworkflows are not supported, each step must be a CWL <code>CommandLineTool</code> file. </p><p>The image below shows an example of the major components in the CWL files and then post-conversion (click to zoom). </p><p><a href='/img/cwl2nxf-min.png' target='_blank'> <img alt='Nextflow cloud deployment' width='760' src='/img/cwl2nxf-min.png' style='margin:1em auto'/> </a></p><p>CWL and Nextflow share a similar structure of defining inputs and outputs as shown above. </p><p>A notable difference between the two is how tasks are defined. CWL requires either a separate file for each task or a sub-workflow. CWL also requires the explicit mapping of each command line option for an executed tool. This is done using YAML meta-annotation to indicate the position, prefix, etc. for each command line option.</p><p>In Nextflow a task command is defined as a separated component in the <code>process</code> definition and it is ultimately a multiline string which is interpreted by a command script by the underlying system. Input parameters can be used in the command string with a simple variable interpolation mechanism. This is beneficial as it simplifies porting existing BASH scripts to Nextflow with minimal refactoring. </p><p>These examples highlight some of the differences between the two approaches, and the difficulties converting complex use cases such as scatter, CWL expressions, and conditional command line inclusion. </p><h3>Current status</h3><p>The cwl2nxf is a Groovy based tool with a limited conversion ability. It parses the YAML documents and maps the various CWL objects to Nextflow. Conversion examples are provided as part of the repository along with documentation for each example specifying the mapping. </p><p>This project was initially focused on developing an understanding of how to translate CWL to Nextflow. A number of CWL specific features such as scatter, secondary files and simple JavaScript expressions were analyzed and implemented. </p><p>The GitHub repository includes instructions on how to build cwl2nxf and an example usage. The tool can be executed as either just a parser printing the converted CWL to stdout, or by specifying an output file which will generate the Nextflow script file and if necessary a config file. </p><p>The tool takes in a CWL workflow file and the YAML inputs file. It does not currently work with a standalone <code>CommandLineTool</code>. The following example show how to run it: </p>
+<pre><code>java -jar build/libs/cwl2nxf-*.jar rnatoy.cwl samp.yaml
+</code></pre><p><br> See the GitHub <a href="https://github.com/nextflow-io/cwl2nxf">repository</a> for further details. </p><h3>Conclusion</h3><p>We are continuing to investigate ways to improve the interoperability of Nextflow with CWL. Although still an early prototype, the cwl2nxf tool provides some level of conversion of CWL to Nextflow. </p><p>We are also planning to explore <a href="https://github.com/common-workflow-language/cwlavro">CWL Avro</a>, which may provide a more efficient way to parse and handle CWL objects for conversion to Nextflow.</p><p>Additionally, a number of workflows in the GitHub repository have been implemented in both CWL and Nextflow which can be used as a comparison of the two languages. </p><p>The Nextflow team will be presenting a short talk and participating in the Codefest at <a href="https://www.open-bio.org/wiki/BOSC_2017">BOSC 2017</a>. We are interested in hearing from the community regarding CWL to Nextflow conversion, and would like to encourage anyone interested to contribute to the cwl2nxf project. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/workflow.html" class="background-color bg-hover-color">workflow</a>
+				<a href="/tags/reproducibility.html" class="background-color bg-hover-color">reproducibility</a>
+				<a href="/tags/cwl.html" class="background-color bg-hover-color">cwl</a>
+			  </p>
 
-            </div>
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -183,6 +173,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

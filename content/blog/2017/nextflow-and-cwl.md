@@ -1,5 +1,5 @@
 title=Nextflow and the Common Workflow Language
-date=2017-07-19
+date=2017-07-20
 type=post
 tags=nextflow,workflow,reproducibility,cwl
 status=published
@@ -35,9 +35,9 @@ The image below shows an example of the major components in the CWL files and th
 CWL and Nextflow share a similar structure of defining inputs and outputs as shown above. 
 
 A notable difference between the two is how tasks are defined. CWL requires either a separate
-file for each task or a verbose subworkflow. CWL also requires the explicit mapping of each command
-line option for an executed tool. This is done using tags to indicate the position, prefix, etc for
-each command line option.
+file for each task or a sub-workflow. CWL also requires the explicit mapping of each command
+line option for an executed tool. This is done using YAML meta-annotation to indicate the position, prefix, etc. 
+for each command line option.
 
 In Nextflow a task command is defined as a separated component in the `process` definition and 
 it is ultimately a multiline string which is interpreted by a command script by the underlying 
@@ -72,11 +72,12 @@ with a standalone `CommandLineTool`. The following example show how to run it:
 java -jar build/libs/cwl2nxf-*.jar rnatoy.cwl samp.yaml
 ```
 
+<br>
 See the GitHub [repository](https://github.com/nextflow-io/cwl2nxf) for further details. 
 
 ### Conclusion
 
-We are continuing to explore ways to improve the interoperability of Nextflow with CWL. 
+We are continuing to investigate ways to improve the interoperability of Nextflow with CWL. 
 Although still an early prototype, the cwl2nxf tool provides some level of conversion of CWL to Nextflow. 
 
 
@@ -87,6 +88,5 @@ Additionally, a number of workflows in the GitHub repository have been implement
 CWL and Nextflow which can be used as a comparison of the two languages. 
 
 The Nextflow team will be presenting a short talk and participating in the Codefest at [BOSC 2017](https://www.open-bio.org/wiki/BOSC_2017). 
-
-We are interested in hearing from the community regarding CWL conversion, and would like 
+We are interested in hearing from the community regarding CWL to Nextflow conversion, and would like 
 to encourage anyone interested to contribute to the cwl2nxf project. 
