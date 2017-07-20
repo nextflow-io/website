@@ -12,8 +12,8 @@ workflows in a declarative manner. It has been implemented to varying degrees
 by different software packages. Nextflow and CWL share a common goal of enabling portable 
 reproducible workflows. 
 
-In an effort to further the portability of workflows we are investigating the automatic conversion 
-of CWL workflows into Nextflow scripts. This work is being developed as 
+We are currently investigating the automatic conversion of CWL workflows into Nextflow scripts
+to increase the portability of workflows. This work is being developed as 
 the [cwl2nxf](https://github.com/nextflow-io/cwl2nxf) project, currently in early prototype stage. 
 
 Our first phase of the project was to determine mappings of CWL to Nextflow and familiarize 
@@ -34,18 +34,19 @@ The image below shows an example of the major components in the CWL files and th
 
 CWL and Nextflow share a similar structure of defining inputs and outputs as shown above. 
 
-A notable difference between the two is how tasks are defined. CWL requires a separate
-file for each task and an explicit mapping of each single command line option of the executed 
-tool. It is required to specify the option name, prefix, type, position, etc.
+A notable difference between the two is how tasks are defined. CWL requires either a separate
+file for each task or a verbose subworkflow. CWL also requires the explicit mapping of each command
+line option for an executed tool. This is done using tags to indicate the position, prefix, etc for
+each command line option.
 
 In Nextflow a task command is defined as a separated component in the `process` definition and 
 it is ultimately a multiline string which is interpreted by a command script by the underlying 
 system. Input parameters can be used in the command string with a simple variable interpolation 
-mechanism. This is beneficial as it simplifies to port existing BASH scripts to Nextflow 
+mechanism. This is beneficial as it simplifies porting existing BASH scripts to Nextflow 
 with minimal refactoring. 
 
-These examples highlight the differences between the two approaches, therefore the difficulties 
-converting complex use cases such as scatter, CWL expressions and conditional command line inclusion. 
+These examples highlight some of the differences between the two approaches, and the difficulties 
+converting complex use cases such as scatter, CWL expressions, and conditional command line inclusion. 
 
 
 ### Current status 
