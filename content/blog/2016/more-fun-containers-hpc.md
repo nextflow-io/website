@@ -70,7 +70,8 @@ The benchmarks consisted in the execution of three Nextflow based genomic pipeli
 3. [Piper-NF](https://github.com/cbcrg/piper-nf/tree/peerj5515): a pipeline for the detection and mapping of long non-coding RNAs.
 
 In order to repeat the analyses, we converted the container images we used to perform 
-the Docker benchmarks to Singularity image files by using the [docker2singularity](https://github.com/singularityware/docker2singularity) tool.
+the Docker benchmarks to Singularity image files by using the [docker2singularity](https://github.com/singularityware/docker2singularity) tool 
+*(this is not required anymore, see the update below)*.
 
 The only change needed to run these pipelines with Singularity was to replace the Docker 
 specific settings with the following ones in the configuration file:
@@ -177,7 +178,7 @@ The transparent support provided by Nextflow for both Docker and Singularity tec
 guarantees the ability to deploy your workflows in a range of different platforms (cloud, 
 cluster, supercomputer, etc). Nextflow transparently manages the deployment of the 
 containerised workload according to the runtime available in the target system.
-
+    
 
 #### Credits 
 
@@ -185,3 +186,10 @@ Thanks to Gabriel Gonzalez (CRG), Luis Exposito (CRG) and Carlos Tripiana Montes
 for the support installing Singularity.
 
 
+**Update** Singularity, since version 2.3.x, is able to pull and run Docker images from the Docker Hub. 
+This greatly simplifies the interoperability with existing Docker containers. You only need 
+to prefix the image name with the `docker://` pseudo-protocol to download it as a Singularity image,
+for example:
+
+    singularity pull --size 1200 docker://nextflow/rnatoy
+    
