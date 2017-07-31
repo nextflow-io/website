@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Singularity containers &mdash; Nextflow 0.25.0 documentation</title>
+  <title>Singularity containers &mdash; Nextflow 0.25.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.25.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.25.3 documentation" href="index.html"/>
         <link rel="next" title="Apache Ignite" href="ignite.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#images">Images</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multiple-containers">Multiple containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#singularity-docker-hub">Singularity &amp; Docker Hub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>
@@ -229,6 +230,34 @@ singularity.enabled = true
 </div>
 <p>Read the <a class="reference internal" href="config.html#config-process"><span class="std std-ref">Process scope</span></a> section to learn more about processes configuration.</p>
 </div>
+<div class="section" id="singularity-docker-hub">
+<h2>Singularity &amp; Docker Hub<a class="headerlink" href="#singularity-docker-hub" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow is able to transparently pull remote container images stored in the <a class="reference external" href="https://singularity-hub.org/">Singularity-Hub</a>
+or any Docker compatible registry.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires you have installed Singularity 2.3.x or higher</p>
+</div>
+<p>Remote container images can specified in your Nextflow script or configuration file by simply prefixing the image name
+with the <code class="docutils literal"><span class="pre">shub://</span></code> or <code class="docutils literal"><span class="pre">docker://</span></code> pseudo-protocol as required by the Singularity tool. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;docker://debian:wheezy&#39;</span>
+<span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Nextflow caches those images in the <code class="docutils literal"><span class="pre">singularity</span></code> directory in the pipeline work directory by default. However it is
+suggest to provide a centralised caching directory by using either the <code class="docutils literal"><span class="pre">NXF_SINGULARITY_CACHEDIR</span></code> environment variable
+or the <code class="docutils literal"><span class="pre">singularity.cacheDir</span></code> setting in the Nextflow config file.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When using a computing cluster the Singularity cache directory must be a shared folder accessible
+to all computing nodes.</p>
+</div>
+<div class="admonition error">
+<p class="first admonition-title">Error</p>
+<p class="last">When pulling Docker images Singularity may be unable to determine the container size if the image was
+stored by using an old Docker format, resulting in a pipeline execution error. See the Singularity documentation for details.</p>
+</div>
+</div>
 <div class="section" id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
 <p>Singularity advanced configuration settings are described in <a class="reference internal" href="config.html#config-singularity"><span class="std std-ref">Scope singularity</span></a> section in the Nextflow
@@ -277,7 +306,7 @@ configuration page.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.25.0',
+            VERSION:'0.25.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

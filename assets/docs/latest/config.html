@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.25.0 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.25.3 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.25.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.25.3 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -343,7 +343,7 @@ pipeline, but the process <code class="docutils literal"><span class="pre">hello
 <td>Determines how often the queue status is fetched from the cluster system. This setting is used only by grid executors (default: <code class="docutils literal"><span class="pre">1min</span></code>).</td>
 </tr>
 <tr class="row-odd"><td>exitReadTimeout</td>
-<td>Determines how long the executor waits before return an error status when a process is terminated but the <cite>exit</cite> file does not exist or it is empty. This setting is used only by grid executors (default: <code class="docutils literal"><span class="pre">90sec</span></code>).</td>
+<td>Determines how long the executor waits before return an error status when a process is terminated but the <cite>exit</cite> file does not exist or it is empty. This setting is used only by grid executors (default: <code class="docutils literal"><span class="pre">270</span> <span class="pre">sec</span></code>).</td>
 </tr>
 <tr class="row-even"><td>killBatchSize</td>
 <td>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal"><span class="pre">100</span></code>).</td>
@@ -479,6 +479,9 @@ by Nextflow.</p>
 </tr>
 <tr class="row-odd"><td>autoMounts</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed contained. It requires the <cite>user bind control</cite> feature enabled in your Singularity installation (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+<tr class="row-even"><td>cacheDir</td>
+<td>The directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</td>
 </tr>
 </tbody>
 </table>
@@ -826,8 +829,8 @@ when no other profile is specified by the user.</p>
 the Java virtual machine used by it.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="9%" />
-<col width="91%" />
+<col width="13%" />
+<col width="88%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -874,16 +877,19 @@ the Java virtual machine used by it.</p>
 <tr class="row-even"><td>NXF_EXECUTOR</td>
 <td>Defines the default process executor e.g. <cite>sge</cite></td>
 </tr>
-<tr class="row-odd"><td>JAVA_HOME</td>
+<tr class="row-odd"><td>NXF_SINGULARITY_CACHEDIR</td>
+<td>Directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</td>
+</tr>
+<tr class="row-even"><td>JAVA_HOME</td>
 <td>Path location of the Java VM installation used to run Nextflow.</td>
 </tr>
-<tr class="row-even"><td>JAVA_CMD</td>
+<tr class="row-odd"><td>JAVA_CMD</td>
 <td>Path location of the Java binary command used to launch  Nextflow.</td>
 </tr>
-<tr class="row-odd"><td>HTTP_PROXY</td>
+<tr class="row-even"><td>HTTP_PROXY</td>
 <td>Defines the HTTP proxy server</td>
 </tr>
-<tr class="row-even"><td>HTTPS_PROXY</td>
+<tr class="row-odd"><td>HTTPS_PROXY</td>
 <td>Defines the HTTPS proxy server</td>
 </tr>
 </tbody>
@@ -932,7 +938,7 @@ the Java virtual machine used by it.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.25.0',
+            VERSION:'0.25.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
