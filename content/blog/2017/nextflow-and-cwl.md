@@ -29,7 +29,7 @@ subworkflows are not supported, each step must be a CWL `CommandLineTool` file.
 The image below shows an example of the major components in the CWL files and then post-conversion (click to zoom). 
 
 <a href='/img/cwl2nxf-min.png' target='_blank'>
-<img alt='Nextflow cloud deployment' width='760' src='/img/cwl2nxf-min.png' style='margin:1em auto'/>
+<img alt='Nextflow CWL conversion' width='760' src='/img/cwl2nxf-min.png' style='margin:1em auto'/>
 </a>
 
 CWL and Nextflow share a similar structure of defining inputs and outputs as shown above. 
