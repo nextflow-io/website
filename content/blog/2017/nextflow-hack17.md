@@ -69,7 +69,7 @@ wished to piggyback  off existing repositories and settled on [Dockstore](https:
 which is an open platform compliant with the [GA4GH](http://genomicsandhealth.org) initiative. 
 
 The majority of tools in Dockstore are written in the CWL and therefore we required a parser 
-between the CWL CoomandLineTool class and Nextflow processes. Johan was able to develop 
+between the CWL CommandLineTool class and Nextflow processes. Johan was able to develop 
 a parser which generates Nextflow processes for several Dockstore tools. 
 
 As these resources such as Dockstore become mature and standardised, it will be 
