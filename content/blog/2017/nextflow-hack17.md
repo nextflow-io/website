@@ -76,7 +76,7 @@ As these resources such as Dockstore become mature and standardised, it will be
 possible to automatically generate a *Nextflow Store* and enable efficient incorporation 
 of tools into workflows.
 
-[IMAGE]
+<script src="https://gist.github.com/pditommaso/7ccdb6e8af80133a25f259ae801371bf.js"></script>
 
 *Example showing a Nextflow process generated from the Dockstore CWL repository for the tool BAMStats.*
 
