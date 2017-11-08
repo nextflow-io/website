@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Nextflow - Scaling with AWS Batch</title>
+    <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav navbar-left hidden-xs">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="pull-right">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="pull-right">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/nextflow-io/examples" target="_blank">More examples..</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/docs/latest/index.html" class="pull-right" target="_blank">Documentation</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About Us</a>
+                </li>
+                   
+            </ul>
+            <ul  class="list-inline pull-right">
+                <li class="show pull-right" style='position: relative; top: 10px; right: 75px' >
+                	<a href='http://www.crg.eu' target='_blank' style='padding: 0'><img src='/img/crg_logo.png' height='45'/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+	
+    <!-- Body -->
+	<div class="wrapper"> <!-- wrapper -->
+	  <div class="container">
+	    <div class="row">
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Scaling with AWS Batch</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso </li>
+				<li><i class="fa fa-calendar"></i> 08 November 2017</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>The latest Nextflow release (0.26.0) includes built-in support for <a href="https://aws.amazon.com/batch/">AWS Batch</a>, a managed computing service that allows the execution of containerised workloads over the Amazon EC2 Container Service (ECS).</p><p>This feature allows the seamless deployment of Nextflow pipelines in the cloud by offloading the process executions as managed Batch jobs. The service takes care to spin up the required computing instances on-demand, scaling up and down the number and composition of the instances to best accommodate the actual workload resource needs at any point in time. </p><p>AWS Batch shares with the Nextflow the same vision regarding workflow containerisation i.e. each compute task is executed in its own Docker container. This dramatically simplifies the workflow deployment through the download of a few container images. This common design background made the support for AWS Batch a natural extension for Nextflow.</p><h3>Batch in a nutshell</h3><p>Batch is organised in <em>Compute Environments</em>, <em>Job queues</em>, <em>Job definitions</em> and <em>Jobs</em>. </p><p>The <em>Compute Environment</em> allows you to define the computing resources required for a specific workload (type). You can specify the minimum and maximum number of CPUs that can be allocated, the EC2 provisioning model (On-demand or Spot), the AMI to be used and the allowed instance types. </p><p>The <em>Job queue</em> definition allows you to bind a specific task to one or more Compute Environments. </p><p>Then, the <em>Job definition</em> is a template for one or more jobs in your workload. This is required to specify the Docker image to be used to run a particular task along with other requirements such as the container mount points, the number of CPUs, the amount of memory and the number of retries in case of job failure. </p><p>Finally the <em>Job</em> binds a Job definition to a specific Job queue and allows you to specify the actual task command to be executed in the container. </p><p>The job input and output data management is delegated to the user. This means you will need to take care to stage the input data from a S3 bucket (or a different source) and upload the results to a persistent storage location. </p><p>This could turn out to be cumbersome in complex workflows with a large number of tasks and above all make difficult to deploy the same applications across different infrastructure. </p><h3>How to use Batch with Nextflow</h3><p>Nextflow streamlines the use of AWS Batch by smoothly integrating it in its workflow processing model and enabling transparent interoperability with other systems. </p><p>To run Nextflow you will need to set-up in your AWS Batch account with at least a <a href="http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Compute Environment</a> defining the required computing resources and associate it to a <a href="http://docs.aws.amazon.com/batch/latest/userguide/job_queues.html">Job Queue</a>. </p><p>Nextflow takes care to create the required <em>Job Definitions</em> and <em>Job</em> requests as needed. This spares some Batch configurations steps. </p><p>In the <code>nextflow.config</code> file specify the <code>awsbatch</code> executor, the Batch <code>queue</code> and the container to be used in the usual manner. You may also need to specify the AWS region and access credentials if they are not provided by other means. For example: </p>
+<pre><code>process.executor = &#39;awsbatch&#39;
+process.queue = &#39;my-batch-queue&#39;
+process.container = org/my-docker:image
+aws.region = &#39;eu-west-1&#39;
+aws.accessKey = &#39;xxx&#39;
+aws.secretKey = &#39;yyy&#39;
+</code></pre><p>The container image must be published in a Docker registry that is accessible from the instances run by AWS Batch eg. <a href="https://hub.docker.com/">Docker Hub</a>, <a href="https://quay.io/">Quay</a> or <a href="https://aws.amazon.com/ecr/">ECS Container Registry</a>. </p><p>The Nextflow process can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long running workloads. </p><p>Note that input data should be stored in the S3 storage. In the same manner the pipeline execution must specify a S3 bucket as a working directory by using the <code>-w</code> command line option.</p><p>A final caveat about custom containers and computing AMI. Nextflow automatically stages input data and shares tasks intermediate results by using the S3 bucket specified as a work directory. For this reason it needs to use the <code>aws</code> command line tool which must be installed either in your process container or be present in a custom AMI that can be mounted and accessed by the Docker containers. </p><p>You may also need to create a custom AMI because the default image used by AWS Batch only provides 22 GB of storage which may not be enough for real world analysis pipelines. </p><p>See the documentation to learn <a href="/docs/latest/awscloud.html#custom-ami">how to create a custom AMI</a> with larger storage and how to setup the AWS CLI tools. </p><h3>An example</h3><p>In order to validate Nextflow integration with AWS Batch, we used a simple RNA-Seq pipeline. </p><p>This pipeline takes as input a metadata file from the Encode project corresponding to a <a href="https://www.encodeproject.org/search/?type=Experiment&award.project=ENCODE&replicates.library.biosample.donor.organism.scientific_name=Homo+sapiens&files.file_type=fastq&files.run_type=paired-ended&replicates.library.nucleic_acid_term_name=RNA&replicates.library.depleted_in_term_name=rRNA">search returning all human RNA-seq paired-end datasets</a> (the metadata file has been additionally filtered to retain only data having a SRA ID). </p><p>The pipeline automatically downloads the FASTQ files for each sample from the EBI ENA database, it assesses the overall quality of sequencing data using FastQC and then runs <a href="https://combine-lab.github.io/salmon/">Salmon</a> to perform the quantification over the human transcripts sequences. Finally all the QC and quantification outputs are summarised using the <a href="http://multiqc.info/">MultiQC</a> tool. </p><p>For the sake of this benchmark we used the first 38 samples out of 375 from the full dataset.</p><p>The pipeline was executed both on AWS Batch cloud and in the CRG internal Univa cluster, using <a href="/blog/2016/more-fun-containers-hpc.html">Singularity</a> as containers runtime. </p><p>It's worth noting that with the exception of the two configuration changes detailed below, we used exactly the same pipeline implementation at <a href="https://github.com/nextflow-io/rnaseq-encode-nf">this GitHub repository</a>. </p><p>The AWS deploy used the following configuration profile: </p>
+<pre><code>aws.region = &#39;eu-west-1&#39;
+aws.client.storageEncryption = &#39;AES256&#39;
+process.queue = &#39;large&#39;
+executor.name = &#39;awsbatch&#39;
+executor.awscli = &#39;/home/ec2-user/miniconda/bin/aws&#39;
+</code></pre><p>While for the cluster deployment the following configuration was used: </p>
+<pre><code>executor = &#39;crg&#39;
+singularity.enabled = true
+process.container = &quot;docker://nextflow/rnaseq-nf&quot;
+process.queue = &#39;cn-el7&#39;
+process.time = &#39;90 min&#39;
+process.$quant.time = &#39;4.5 h&#39;
+</code></pre><h3>Results</h3><p>The AWS Batch Compute environment was configured to use maximum 132 CPUs as the number of CPUs that were available in the queue for local cluster deployment. </p><p>The two executions ran in roughly the same time: 2 hours and 24 minutes when running in the CRG cluster and 2 hours and 37 minutes when using AWS Batch. </p><p>It must noted that 14 jobs failed in the Batch deployment, presumably because one or more spot instances were retired. However Nextflow was able to re-schedule the failed jobs automatically and the overall pipeline execution completed successfully, showing also the benefits of a truly fault tolerant environment.</p><p>The overall cost for running the pipeline with AWS Batch was <strong>$5.47</strong> ($ 3.28 for EC2 instances, $1.88 for EBS volume and $0.31 for S3 storage). This means that with ~ $55 we could have performed the same analysis on the full larger Encode dataset. </p><p>It is more difficult to estimate the cost when using the internal cluster, because we don't have access to such detailed cost accounting. However, as a user, we can estimate it roughly comes out at $0.01 per CPU-Hour. The pipeline needed around 147 CPU-Hour to carry out the analysis, hence with an estimated cost of <strong>$1.47</strong> just for the computation. </p><p>The execution report for the Batch execution is available at <a href="https://cdn.rawgit.com/nextflow-io/rnaseq-encode-nf/db303a81/benchmark/aws-batch/report.html">this link</a> and the one for cluster is available <a href="https://cdn.rawgit.com/nextflow-io/rnaseq-encode-nf/db303a81/benchmark/crg-cluster/report.html">here</a>. </p><h3>Conclusion</h3><p>This post shows how Nextflow integrates smoothly with AWS Batch and how it can be used to deploy and execute real world genomics pipeline in the cloud with ease. </p><p>The auto-scaling ability provided by AWS Batch along with the use of spot instances make the use of the cloud even more cost effective. Running on a local cluster may still be cheaper, even if it is non trivial to account for all the real costs of a HPC infrastructure. However the cloud allows flexibility and scalability not possible with common on-premises clusters. </p><p>It also show how the same Nextflow pipeline can be <em>transparently</em> deployed in two very different computing infrastructure, using different containerisation technologies by simply providing a separate configuration profile.</p><p>This approach enables the interoperability across different deployment sites, reduces operational and maintenance costs and guarantees consistent results over time.</p><h3>Credits</h3><p>This post is co-authored with <a href="https://twitter.com/fstrozzi">Francesco Strozzi</a>, who also helped to write the pipeline used for the benchmark in this post and contributed to and tested the AWS Batch integration. Thanks to <a href="https://github.com/emi80">Emilio Palumbo</a> that helped to set-up and configure the AWS Batch environment and <a href="https://gitter.im/skptic">Evan Floden</a> for the comments. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/pipelines.html" class="background-color bg-hover-color">pipelines</a>
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/genomic.html" class="background-color bg-hover-color">genomic</a>
+				<a href="/tags/workflow.html" class="background-color bg-hover-color">workflow</a>
+				<a href="/tags/aws.html" class="background-color bg-hover-color">aws</a>
+				<a href="/tags/batch.html" class="background-color bg-hover-color">batch</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
+		  <div class="col-sm-4">
+			<h3>Stay Tuned <small>Social Links</small></h3>
+			<hr>
+			<ul class="blg-social">
+			  <li>
+			    <a href="/feed.xml">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our RSS Feed.</span>
+				</a>
+			  </li>
+			  <li>
+			    <a href="https://twitter.com/nextflowio">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our Twitter Feed.</span>
+				</a>
+			  </li>
+			</ul>
+            <!--
+			<h3>Popular Stories</h3>
+			<hr>
+			<div class="block-inverse">
+			  <ul>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+				<li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+			  </ul>
+			</div>			
+            -->
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- / wrapper -->
+
+	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+<style type="text/css">
+  .gitter-chat-embed { z-index: 9999 }
+  .gitter-open-chat-button { background-color: #1b95e0; border-color: #004e7f }
+  .gitter-open-chat-button:focus { background-color: #0c7abf; border-color: #004e7f}
+  .gitter-open-chat-button:hover { background-color: #0c7abf; border-color: #004e7f }  
+</style>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nextflow-io/nextflow'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</body>
+</html>
