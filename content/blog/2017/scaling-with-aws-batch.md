@@ -16,7 +16,7 @@ the process executions as managed Batch jobs. The service takes care to spin up 
 computing instances on-demand, scaling up and down the number and composition of the instances 
 to best accommodate the actual workload resource needs at any point in time. 
 
-AWS Batch shares with the Nextflow the same vision regarding workflow containerisation 
+AWS Batch shares with Nextflow the same vision regarding workflow containerisation 
 i.e. each compute task is executed in its own Docker container. This dramatically 
 simplifies the workflow deployment through the download of a few container images. 
 This common design background made the support for AWS Batch a natural extension for Nextflow.
@@ -44,7 +44,7 @@ need to take care to stage the input data from a S3 bucket (or a different sourc
 upload the results to a persistent storage location. 
 
 This could turn out to be cumbersome in complex workflows with a large number of 
-tasks and above all make difficult to deploy the same applications across different 
+tasks and above all makes difficult to deploy the same applications across different 
 infrastructure.    
 
 ### How to use Batch with Nextflow  
@@ -139,7 +139,7 @@ that were available in the queue for local cluster deployment.
 The two executions ran in roughly the same time: 2 hours and 24 minutes when running in the 
 CRG cluster and 2 hours and 37 minutes when using AWS Batch. 
 
-It must noted that 14 jobs failed in the Batch deployment, presumably because one or more spot 
+It must be noted that 14 jobs failed in the Batch deployment, presumably because one or more spot 
 instances were retired. However Nextflow was able to re-schedule the failed jobs automatically 
 and the overall pipeline execution completed successfully, showing also the benefits of a truly 
 fault tolerant environment.
