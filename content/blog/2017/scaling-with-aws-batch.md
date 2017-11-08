@@ -52,7 +52,7 @@ infrastructure.
 Nextflow streamlines the use of AWS Batch by smoothly integrating it in its workflow processing 
 model and enabling transparent interoperability with other systems. 
 
-To run Nextflow you will need to set-up in your AWS Batch account with at least a 
+To run Nextflow you will need to set-up your AWS Batch account with at least a 
 [Compute Environment](http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) 
 defining the required computing resources and associate it to a [Job Queue](http://docs.aws.amazon.com/batch/latest/userguide/job_queues.html). 
  
@@ -65,12 +65,13 @@ and access credentials if they are not provided by other means. For example:
 
     process.executor = 'awsbatch'
     process.queue = 'my-batch-queue'
-    process.container = org/my-docker:image
+    process.container = your-org/your-docker:image
     aws.region = 'eu-west-1'
     aws.accessKey = 'xxx'
     aws.secretKey = 'yyy'
 
-The container image must be published in a Docker registry that is accessible from the 
+Each process can eventually use a different queue and Docker image (see Nextflow documentation for details). 
+The container image(s) must be published in a Docker registry that is accessible from the 
 instances run by AWS Batch eg. [Docker Hub](https://hub.docker.com/), [Quay](https://quay.io/) 
 or [ECS Container Registry](https://aws.amazon.com/ecr/). 
 
