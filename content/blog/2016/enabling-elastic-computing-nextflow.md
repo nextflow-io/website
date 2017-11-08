@@ -53,7 +53,7 @@ properties in the `nextflow.config` file. For example:
 
 ```
 cloud {
-  imageId = 'ami-43f49030'
+  imageId = 'ami-4b7daa32'
   instanceType = 'm4.xlarge'
 
   autoscale {
@@ -75,7 +75,7 @@ configuration. However it is possible to define different attributes as shown be
 
 ```
 cloud {
-  imageId = 'ami-43f49030'
+  imageId = 'ami-4b7daa32'
   instanceType = 'm4.large'
 
   autoscale {

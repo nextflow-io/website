@@ -116,7 +116,7 @@ Bare in mind that Nextflow requires a Unix-like operating system and a Java runt
 should be able to run it, at their risk..). 
 
 Once you have installed it, you can follow the steps in the above demo. For your convenience 
-we made publicly available the EC2 image `ami-43f49030` (EU Ireland region) used to record this 
+we made publicly available the EC2 image <s>`ami-43f49030`</s> `ami-4b7daa32`<sup>* </sup> (EU Ireland region) used to record this 
 screencast. 
 		
 Also make sure you have the following the following variables defined in your environment:
@@ -127,7 +127,8 @@ Also make sure you have the following the following variables defined in your en
     		
         
 Referes to the <a href='/docs/latest/awscloud.html'>documentation</a> for configuration details. 
-       
+   
+\* Update: the AMI has been updated with Java 8 on Sept 2017.   
         
 ### Conclusion 
 

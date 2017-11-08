@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.25.3 documentation</title>
+  <title>Processes &mdash; Nextflow 0.26.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.25.3 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -147,7 +147,6 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
@@ -1515,8 +1514,8 @@ defined globally in the <code class="docutils literal"><span class="pre">nextflo
 configuration. The following values can be used:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="10%" />
+<col width="90%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -1528,22 +1527,31 @@ configuration. The following values can be used:</p>
 <td>The process is executed in the computer where <cite>Nextflow</cite> is launched.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">sge</span></code></td>
-<td>The process is executed using a Sun Grid Engine / <a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>.</td>
+<td>The process is executed using the Sun Grid Engine / <a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">lsf</span></code></td>
-<td>The process is executed via the <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> job scheduler.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">uge</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://en.wikipedia.org/wiki/Univa_Grid_Engine/">Univa Grid Engine</a> job scheduler.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">slurm</span></code></td>
-<td>The process is executed via the SLURM job scheduler.</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">lsf</span></code></td>
+<td>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> job scheduler.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">pbs</span></code></td>
-<td>The process is executed via the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> job scheduler.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">slurm</span></code></td>
+<td>The process is executed using the SLURM job scheduler.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">condor</span></code></td>
-<td>The process is executed via the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> job scheduler.</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">pbs</span></code></td>
+<td>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> job scheduler.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">dnanexus</span></code></td>
-<td>The process is executed into the <a class="reference external" href="http://www.dnanexus.com/">DNAnexus</a> cloud.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">condor</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> job scheduler.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">nqsii</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> job scheduler.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">ignite</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> cluster.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">k8s</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://kubernetes.io/">Kubernetes</a> cluster.</td>
 </tr>
 </tbody>
 </table>
@@ -1798,7 +1806,9 @@ pipeline execution and <code class="docutils literal"><span class="pre">false</s
 <tr class="row-even"><td>saveAs</td>
 <td>A closure which, given the name of the file being published, returns the actual file name or a full path where the file is required to be stored.
 This can be used to rename or change the destination directory of the published files dynamically by using
-a custom strategy.</td>
+a custom strategy.
+Return the value <code class="docutils literal"><span class="pre">null</span></code> from the closure to <em>not</em> publish a file.
+This is useful when the process has multiple output files, but you want to publish only some of them.</td>
 </tr>
 </tbody>
 </table>
@@ -2261,7 +2271,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.25.3',
+            VERSION:'0.26.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

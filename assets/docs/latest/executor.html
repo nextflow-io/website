@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.25.3 documentation</title>
+  <title>Executors &mdash; Nextflow 0.26.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.25.3 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -90,18 +90,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#drmaa">DRMAA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dnanexus">DNAnexus</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#property-instancetype">Property 'instanceType'</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
@@ -212,7 +208,7 @@ adding the option <code class="docutils literal"><span class="pre">perJobMemLimi
 </div>
 <div class="section" id="slurm">
 <span id="slurm-executor"></span><h2>SLURM<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>SLURM</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://computing.llnl.gov/linux/slurm/">SLURM</a> resource manager.</p>
+<p>The <cite>SLURM</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM</a> resource manager.</p>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">sbatch</span></code> command.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">sbatch</span></code> command is available, that is, in a common usage
 scenario, the cluster <cite>head</cite> node.</p>
@@ -322,27 +318,6 @@ to include the path where this file is located in the <code class="docutils lite
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
-<div class="section" id="dnanexus">
-<span id="dnanexus-executor"></span><h2>DNAnexus<a class="headerlink" href="#dnanexus" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>DNAnexus</cite> executor allows you to run your pipeline in the <a class="reference external" href="http://dnanexus.com/">DNAnexus</a> cloud platform.</p>
-<p>Nextflow pipeline to be executed in the DNAnexus platform need to be packaged as DNAnexus app. Read how bundle and
-deploy Nextflow apps in the <a class="reference internal" href="dnanexus.html#dnanexus-page"><span class="std std-ref">DNAnexus cloud</span></a> section.</p>
-<p>The <cite>dnanexus</cite> executor allows your script to submit pipeline's processes in the DNAnexus cloud platform as separate jobs.
-It has to be specified in the configuration file or on the program command line options, as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;dnanexus&#39;</span>
-</pre></div>
-</div>
-<div class="section" id="property-instancetype">
-<h3>Property 'instanceType'<a class="headerlink" href="#property-instancetype" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">instanceType</span></code> configuration property allows you to specify the instance type to be used by a process when
-executing the required job. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;dnanexus&#39;</span>
-<span class="n">process</span><span class="o">.</span><span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;dx_m1.xlarge&#39;</span>
-</pre></div>
-</div>
-<p>The list of instance types, that can be used for this property, is available in the <a class="reference external" href="https://wiki.dnanexus.com/API-Specification-v1.0.0/IO-and-Run-Specifications#Run-Specification">Run Specification</a> page.</p>
-</div>
-</div>
 <div class="section" id="ignite">
 <span id="ignite-executor"></span><h2>Ignite<a class="headerlink" href="#ignite" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>Ignite</cite> executor allows you to run a pipeline by using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> clustering
@@ -358,7 +333,7 @@ technology that is embedded with the Nextflow runtime.</p>
 Ignite cluster in your infrastructure.</p>
 </div>
 <div class="section" id="kubernetes">
-<h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
+<span id="kubernetes-executor"></span><h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow provides an experimental support for <a class="reference external" href="http://kubernetes.io/">Kubernetes</a> clustering technology. It allows
 you to deploy and transparently run a Nextflow pipeline in a Kubernetes cluster.</p>
 <p>Nextflow manages each process as a separate <cite>pod</cite> that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">kubectl</span></code> command.
@@ -373,6 +348,18 @@ accessible by all Kubernetes cluster nodes.</p>
 <li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
 <li><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></li>
 </ul>
+</div>
+<div class="section" id="aws-batch">
+<span id="awsbatch-executor"></span><h2>AWS Batch<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow supports <a class="reference external" href="https://aws.amazon.com/batch/">AWS Batch</a> service which allows submitting jobs in the cloud
+without having to spin out and manage a cluster of virtual machines. AWS Batch uses Docker containers to run tasks,
+which makes deploying pipelines much simpler.</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'awsbatch'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
+running workloads. Moreover a S3 bucket must be used as pipeline work directory.</p>
+<p>See the <a class="reference internal" href="awscloud.html#awscloud-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
 </div>
 </div>
 
@@ -417,7 +404,7 @@ accessible by all Kubernetes cluster nodes.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.25.3',
+            VERSION:'0.26.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

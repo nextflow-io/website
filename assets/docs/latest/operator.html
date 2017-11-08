@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.25.3 documentation</title>
+  <title>Operators &mdash; Nextflow 0.26.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.25.3 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -103,6 +103,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#flatten">flatten</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tolist">toList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tosortedlist">toSortedList</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#transpose">transpose</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#splitting-operators">Splitting operators</a><ul>
@@ -115,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#combining-operators">Combining operators</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#into">into</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tap">tap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#join">join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#merge">merge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mix">mix</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#phase">phase</a></li>
@@ -155,7 +157,6 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dnanexus.html">DNAnexus cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
@@ -263,7 +264,7 @@ are returned:</p>
 </pre></div>
 </div>
 <p>Finally, a filtering condition can be defined by using any a boolean <cite>predicate</cite>. A predicate is expressed by
-a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> retuning a boolean value. For example the following fragment shows how filter
+a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> returning a boolean value. For example the following fragment shows how filter
 a channel emitting numbers so that the <cite>odd</cite> values are returned:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
@@ -390,6 +391,16 @@ from the channel to which is applied. For example:</p>
 </pre></div>
 </div>
 <p>The above snippet will print 10 numbers in the range from 1 to 100.</p>
+<p>The operator supports a second parameter that allows to set the initial <cite>seed</cite> for the random number generator.
+By setting it, the <code class="docutils literal"><span class="pre">randomSample</span></code> operator will always return the same pseudo-random sequence. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">1.</span><span class="o">.</span><span class="mi">100</span> <span class="p">)</span>
+      <span class="o">.</span><span class="n">randomSample</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">234</span> <span class="p">)</span>
+      <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above example will print 10 random numbers in the range between 1 and 100. At each run of the script, the same
+sequence will be returned.</p>
 </div>
 <div class="section" id="take">
 <h3>take<a class="headerlink" href="#take" title="Permalink to this headline">¶</a></h3>
@@ -441,6 +452,7 @@ from the channel to which is applied. For example:</p>
 <li><a class="reference internal" href="#reduce">reduce</a></li>
 <li><a class="reference internal" href="#tolist">toList</a></li>
 <li><a class="reference internal" href="#tosortedlist">toSortedList</a></li>
+<li><a class="reference internal" href="#transpose">transpose</a></li>
 </ul>
 <div class="section" id="map">
 <h3>map<a class="headerlink" href="#map" title="Permalink to this headline">¶</a></h3>
@@ -581,7 +593,7 @@ elements that share the same key. Finally it emits a new tuple object for each d
 </pre></div>
 </div>
 <p>By default the first entry in the tuple is used a the grouping key. A different key can be chosen by using the
-<code class="docutils literal"><span class="pre">by</span></code> parameter and specifing the index of entry to be used as key (the index is zero-based). For example:</p>
+<code class="docutils literal"><span class="pre">by</span></code> parameter and specifying the index of entry to be used as key (the index is zero-based). For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">groupTuple</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
@@ -873,6 +885,48 @@ and emits the resulting collection as a single item. For example:</p>
 </div>
 <p>See also: <a class="reference internal" href="#collect">collect</a> operator.</p>
 </div>
+<div class="section" id="transpose">
+<h3>transpose<a class="headerlink" href="#transpose" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">traspose</span></code> operator transforms a channel in such a way that the emitted items are the result of a transposition
+of all tuple elements in each item. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span>
+   <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="p">],</span>
+   <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="p">]</span>
+   <span class="p">])</span>
+   <span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+   <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above snippet prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">]</span>
+<span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span>
+<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
+<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Available parameters:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>by</td>
+<td>The index (zero based) of the element to be transposed.
+Multiple elements can be defined specifying as list of indices e.g. <code class="docutils literal"><span class="pre">by:</span> <span class="pre">[0,2]</span></code></td>
+</tr>
+<tr class="row-odd"><td>remainder</td>
+<td>When <code class="docutils literal"><span class="pre">false</span></code> incomplete tuples are discarded (default). When <code class="docutils literal"><span class="pre">true</span></code> incomplete tuples are emitted
+containing a <cite>null</cite> in place of a missing element.</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section" id="splitting-operators">
 <h2>Splitting operators<a class="headerlink" href="#splitting-operators" title="Permalink to this headline">¶</a></h2>
@@ -1024,20 +1078,26 @@ starts with the <code class="docutils literal"><span class="pre">ENST0</span></c
 <tr class="row-even"><td>by</td>
 <td>Defines the number of sequences in each <cite>chunk</cite> (default: <code class="docutils literal"><span class="pre">1</span></code>)</td>
 </tr>
-<tr class="row-odd"><td>limit</td>
+<tr class="row-odd"><td>size</td>
+<td>Defines the size in memory units of the expected chunks eg. <cite>1.MB</cite>.</td>
+</tr>
+<tr class="row-even"><td>limit</td>
 <td>Limits the number of retrieved sequences to the specified value.</td>
 </tr>
-<tr class="row-even"><td>record</td>
+<tr class="row-odd"><td>record</td>
 <td>Parse each entry in the FASTA file as record objects (see following table for accepted values)</td>
 </tr>
-<tr class="row-odd"><td>charset</td>
+<tr class="row-even"><td>charset</td>
 <td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
+</tr>
+<tr class="row-odd"><td>compress</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> resulting file chunks are GZIP compressed. The <code class="docutils literal"><span class="pre">.gz</span></code> suffix is automatically added to chunk file names.</td>
 </tr>
 <tr class="row-even"><td>decompress</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-odd"><td>file</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in order to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
@@ -1091,7 +1151,7 @@ sequences each:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fastq&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span> <span class="n">by</span><span class="p">:</span> <span class="mi">10</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">println</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1107,8 +1167,26 @@ the required fields, or just specify <code class="docutils literal"><span class=
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fastq&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span> <span class="n">record</span><span class="p">:</span> <span class="n">true</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">println</span> <span class="n">record</span><span class="o">.</span><span class="n">readHeader</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">readHeader</span> <span class="p">}</span>
 </pre></div>
+</div>
+<p>Finally the <code class="docutils literal"><span class="pre">splitFastq</span></code> operator is able to split paired-end read pair FASTQ files. It must be applied to a channel
+which emits tuples containing at list two elements that are the files to be splitted. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/my/data/SRR*_{1,2}.fastq&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="p">:</span><span class="n">true</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">100</span><span class="n">_000</span><span class="p">,</span> <span class="n">pe</span><span class="p">:</span><span class="n">true</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span><span class="n">true</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">fromFilePairs</span></code> requires the <code class="docutils literal"><span class="pre">flat:true</span></code> option to have the file pairs as separate elements
+in the produced tuples.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This operator assumes that the order of the PE reads correspond with each other and both files contain
+the same number of reads.</p>
 </div>
 <p>Available parameters:</p>
 <table border="1" class="docutils">
@@ -1125,20 +1203,26 @@ the required fields, or just specify <code class="docutils literal"><span class=
 <tr class="row-even"><td>by</td>
 <td>Defines the number of <em>reads</em> in each <cite>chunk</cite> (default: <code class="docutils literal"><span class="pre">1</span></code>)</td>
 </tr>
-<tr class="row-odd"><td>limit</td>
+<tr class="row-odd"><td>pe</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> splits paired-end read files, therefore items emitted by the source channel must be tuples in which at least two elements are the read-pair files to be splitted.</td>
+</tr>
+<tr class="row-even"><td>limit</td>
 <td>Limits the number of retrieved <em>reads</em> to the specified value.</td>
 </tr>
-<tr class="row-even"><td>record</td>
+<tr class="row-odd"><td>record</td>
 <td>Parse each entry in the FASTQ file as record objects (see following table for accepted values)</td>
 </tr>
-<tr class="row-odd"><td>charset</td>
+<tr class="row-even"><td>charset</td>
 <td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
+<tr class="row-odd"><td>compress</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> resulting file chunks are GZIP compressed. The <code class="docutils literal"><span class="pre">.gz</span></code> suffix is automatically added to chunk file names.</td>
+</tr>
 <tr class="row-even"><td>decompress</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
 <tr class="row-odd"><td>file</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in order to save the split files into the specified folder.</td>
 </tr>
 <tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
@@ -1228,13 +1312,16 @@ The following example shows how to split text files into chunks of 10 lines and 
 <tr class="row-even"><td>charset</td>
 <td>Parse the content by using the specified charset e.g. <code class="docutils literal"><span class="pre">UTF-8</span></code></td>
 </tr>
-<tr class="row-odd"><td>decompress</td>
+<tr class="row-odd"><td>compress</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> resulting file chunks are GZIP compressed. The <code class="docutils literal"><span class="pre">.gz</span></code> suffix is automatically added to chunk file names.</td>
+</tr>
+<tr class="row-even"><td>decompress</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code>, decompress the content using the GZIP format before processing it (note: files whose name ends with <code class="docutils literal"><span class="pre">.gz</span></code> extension are decompressed automatically)</td>
 </tr>
-<tr class="row-even"><td>file</td>
+<tr class="row-odd"><td>file</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> saves each split to a file. Use a string instead of <code class="docutils literal"><span class="pre">true</span></code> value to create split files with a specific name (split index number is automatically added). Finally, set this attribute to an existing directory, in oder to save the split files into the specified folder.</td>
 </tr>
-<tr class="row-odd"><td>elem</td>
+<tr class="row-even"><td>elem</td>
 <td>The index of the element to split when the operator is applied to a channel emitting list/tuple objects (default: first file object or first element)</td>
 </tr>
 </tbody>
@@ -1250,6 +1337,7 @@ The following example shows how to split text files into chunks of 10 lines and 
 <li><a class="reference internal" href="#combine">combine</a></li>
 <li><a class="reference internal" href="#concat">concat</a></li>
 <li><a class="reference internal" href="#into">into</a></li>
+<li><a class="reference internal" href="#join">join</a></li>
 <li><a class="reference internal" href="#merge">merge</a></li>
 <li><a class="reference internal" href="#mix">mix</a></li>
 <li><a class="reference internal" href="#phase">phase</a></li>
@@ -1258,47 +1346,19 @@ The following example shows how to split text files into chunks of 10 lines and 
 </ul>
 <div class="section" id="into">
 <span id="operator-into"></span><h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to one or more target channels in such a way the values emitted by
-the source channel are copied to the target channel(s). For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">target</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">target</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
-
-<span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">into</span><span class="p">(</span> <span class="n">target</span> <span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span>
-<span class="n">b</span>
-<span class="n">c</span>
-<span class="n">d</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The target channel specified as a parameter to the <code class="docutils literal"><span class="pre">into</span></code> operator must have been declared previously.</p>
-</div>
-<p>A second version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> as a parameter which declares one or more
-target channels to which the source one is connected. For example:</p>
+<p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to two or more target channels in such a way the values emitted by
+the source channel are copied to the target channels. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">into</span> <span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>The advantage of using this syntax is that the <code class="docutils literal"><span class="pre">into</span></code> operator implicitly creates the target channel(s) as needed
-and you won't need to create it/them as in the previous example.</p>
-<p>Finally, a third version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
-a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
-source channel. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Channel 1 emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Channel 2 emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+     <span class="o">.</span><span class="n">into</span><span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
+
+ <span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+ <span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
 <span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
 <span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
-
 <span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
 <span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
 <span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
@@ -1306,10 +1366,24 @@ source channel. For example:</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
+<p class="last">Note the use in this example of curly brackets and the <code class="docutils literal"><span class="pre">;</span></code> as channel names separator. This is needed
+because the actual parameter of <code class="docutils literal"><span class="pre">into</span></code> is a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> which defines the target channels
+to which the source one is connected.</p>
+</div>
+<p>A second version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
+a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
+source channel. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
 in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">into</span></code> operator.</p>
 </div>
-<p>See also <a class="reference internal" href="#tap">tap</a>, <a class="reference internal" href="#separate">separate</a> and <a class="reference internal" href="#route">route</a> operators.</p>
+<p>See also <a class="reference internal" href="#tap">tap</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
 <div class="section" id="tap">
 <h3>tap<a class="headerlink" href="#tap" title="Permalink to this headline">¶</a></h3>
@@ -1359,8 +1433,62 @@ is that you won't need to previously create the target channel, because it is cr
 </div>
 <p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
+<div class="section" id="join">
+<span id="operator-join"></span><h3>join<a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">join</span></code> operator creates a channel that joins together the items emitted by two channels for which exits
+a matching key. The key is defined, by default, as the first element in each item emitted.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">right</span><span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The resulting channel emits:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Z</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <cite>index</cite> of a different matching element can be specified by using the <code class="docutils literal"><span class="pre">by</span></code> parameter.</p>
+<p>The <code class="docutils literal"><span class="pre">join</span></code> operator can emit all the pairs that are incomplete, i.e. the items for which a matching element
+is missing, by specifying the optional parameter <code class="docutils literal"><span class="pre">remainder</span></code> as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">right</span><span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The above example prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Y</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="n">Z</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="p">[</span><span class="n">X</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="p">[</span><span class="n">P</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="n">null</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The following parameters can be used with the <code class="docutils literal"><span class="pre">join</span></code> operator:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>by</td>
+<td>The index (zero based) of the element to be used as grouping key.
+A key composed by multiple elements can be defined specifying a list of indices e.g. <code class="docutils literal"><span class="pre">by:</span> <span class="pre">[0,2]</span></code></td>
+</tr>
+<tr class="row-odd"><td>remainder</td>
+<td>When <code class="docutils literal"><span class="pre">false</span></code> incomplete tuples (i.e. with less than <cite>size</cite> grouped items)
+are discarded (default). When <code class="docutils literal"><span class="pre">true</span></code> incomplete tuples are emitted as the ending emission.</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="merge">
-<h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
+<span id="operator-merge"></span><h3>merge<a class="headerlink" href="#merge" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">merge</span></code> operator lets you join items emitted by two (or more) channels into a new channel.</p>
 <p>For example the following code merges two channels together, one which emits a series of odd integers
 and the other which emits a series of even integers:</p>
@@ -1368,13 +1496,22 @@ and the other which emits a series of even integers:</p>
 <span class="n">evens</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]);</span>
 
 <span class="n">odds</span>
-    <span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">evens</span> <span class="p">)</span> <span class="p">{</span> <span class="n">o</span><span class="p">,</span> <span class="n">e</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">o</span><span class="p">,</span> <span class="n">e</span><span class="p">]</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">evens</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>An option closure can be provide to customise the items emitted by the resulting merged channel. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">odds</span>  <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">]);</span>
+<span class="n">evens</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">]);</span>
+
+<span class="n">odds</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">evens</span> <span class="p">)</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1415,6 +1552,10 @@ it could be a possible result of the above example as well.</p>
 </div>
 <div class="section" id="phase">
 <span id="operator-phase"></span><h3>phase<a class="headerlink" href="#phase" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This operator is deprecated. Use the <a class="reference internal" href="#join">join</a> operator instead.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">phase</span></code> operator creates a channel that synchronizes the values emitted by two other channels,
 in such a way that it emits pairs of items that have a matching key.</p>
 <p>The key is defined, by default, as the first entry in an array, a list or map object,
@@ -1460,6 +1601,7 @@ is missing, by specifying the optional parameter <code class="docutils literal">
 <span class="p">[</span><span class="n">null</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
 </pre></div>
 </div>
+<p>See also <a class="reference internal" href="#join">join</a> operator.</p>
 </div>
 <div class="section" id="cross">
 <span id="operator-cross"></span><h3>cross<a class="headerlink" href="#cross" title="Permalink to this headline">¶</a></h3>
@@ -2087,7 +2229,7 @@ of a chain of operator transformations, thus resulting in a more fluent and read
 <div class="section" id="ifempty">
 <span id="operator-ifempty"></span><h3>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">ifEmpty</span></code> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
-is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise the it will empty the same sequence of entries as the original channel.</p>
+is applied is <em>empty</em> i.e. doesn't emit any value. Otherwise it will emit the same sequence of entries as the original channel.</p>
 <p>Thus, the following example prints:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span> <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">println</span><span class="p">()</span>
 
@@ -2234,7 +2376,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.25.3',
+            VERSION:'0.26.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
