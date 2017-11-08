@@ -32,19 +32,19 @@ the EC2 provisioning model (On-demand or Spot), the AMI to be used and the allow
 The *Job queue* definition allows you to bind a specific task to one or more Compute Environments. 
 
 Then, the *Job definition* is a template for one or more jobs in your workload. This is required 
-to specify the Docker image to be used to run a particular task along with other requirements 
+to specify the Docker image to be used in running a particular task along with other requirements 
 such as the container mount points, the number of CPUs, the amount of memory and the number of 
 retries in case of job failure. 
 
 Finally the *Job* binds a Job definition to a specific Job queue 
 and allows you to specify the actual task command to be executed in the container. 
 
-The job input and output data management is delegated to the user. This means you will 
-need to take care to stage the input data from a S3 bucket (or a different source) and 
-upload the results to a persistent storage location. 
+The job input and output data management is delegated to the user. This means that if you 
+only use Batch API/tools you will need to take care to stage the input data from a S3 bucket 
+(or a different source) and upload the results to a persistent storage location. 
 
 This could turn out to be cumbersome in complex workflows with a large number of 
-tasks and above all makes difficult to deploy the same applications across different 
+tasks and above all it makes it difficult to deploy the same applications across different 
 infrastructure.    
 
 ### How to use Batch with Nextflow  
@@ -52,14 +52,13 @@ infrastructure.
 Nextflow streamlines the use of AWS Batch by smoothly integrating it in its workflow processing 
 model and enabling transparent interoperability with other systems. 
 
-To run Nextflow you will need to set-up your AWS Batch account with at least a 
-[Compute Environment](http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) 
+To run Nextflow you will need to set-up in your AWS Batch account a [Compute Environment](http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) 
 defining the required computing resources and associate it to a [Job Queue](http://docs.aws.amazon.com/batch/latest/userguide/job_queues.html). 
  
 Nextflow takes care to create the required *Job Definitions* and *Job* requests as needed. 
 This spares some Batch configurations steps. 
  
-In the `nextflow.config` file specify the `awsbatch` executor, the Batch `queue` and 
+In the `nextflow.config`, file specify the `awsbatch` executor, the Batch `queue` and 
 the container to be used in the usual manner. You may also need to specify the AWS region 
 and access credentials if they are not provided by other means. For example: 
 
@@ -103,10 +102,10 @@ returning all human RNA-seq paired-end datasets](https://www.encodeproject.org/s
 
 The pipeline  automatically downloads the FASTQ files for each sample from the EBI ENA database, 
 it assesses the overall quality of sequencing data using FastQC and then runs [Salmon](https://combine-lab.github.io/salmon/) 
-to perform the quantification over the human transcripts sequences. Finally all the QC and 
+to perform the quantification over the human transcript sequences. Finally all the QC and 
 quantification outputs are summarised using the [MultiQC](http://multiqc.info/) tool. 
 
-For the sake of this benchmark we used the first 38 samples out of 375 from the full dataset.
+For the sake of this benchmark we used the first 38 samples out of the full 375 samples dataset.
  
 The pipeline was executed both on AWS Batch cloud and in the CRG internal Univa cluster, 
 using [Singularity](/blog/2016/more-fun-containers-hpc.html ) as containers runtime.   
@@ -133,7 +132,7 @@ While for the cluster deployment the following configuration was used:
 
 ### Results 
 
-The AWS Batch Compute environment was configured to use maximum 132 CPUs as the number of CPUs 
+The AWS Batch Compute environment was configured to use a maximum of 132 CPUs as the number of CPUs 
 that were available in the queue for local cluster deployment. 
 
 The two executions ran in roughly the same time: 2 hours and 24 minutes when running in the 
@@ -141,7 +140,7 @@ CRG cluster and 2 hours and 37 minutes when using AWS Batch.
 
 It must be noted that 14 jobs failed in the Batch deployment, presumably because one or more spot 
 instances were retired. However Nextflow was able to re-schedule the failed jobs automatically 
-and the overall pipeline execution completed successfully, showing also the benefits of a truly 
+and the overall pipeline execution completed successfully, also showing the benefits of a truly 
 fault tolerant environment.
 
 The overall cost for running the pipeline with AWS Batch was **$5.47** ($ 3.28 for EC2 instances, 
@@ -166,7 +165,7 @@ the use of the cloud even more cost effective. Running on a local cluster may st
 even if it is non trivial to account for all the real costs of a HPC infrastructure. 
 However the cloud allows flexibility and scalability not possible with common on-premises clusters. 
 
-It also show how the same Nextflow pipeline can be *transparently* deployed in two very 
+We also demonstrate how the same Nextflow pipeline can be *transparently* deployed in two very 
 different computing infrastructure, using different containerisation technologies by simply 
 providing a separate configuration profile.
  
