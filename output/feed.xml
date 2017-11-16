@@ -6,9 +6,56 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Wed, 8 Nov 2017 13:59:06 +0100</pubDate>
-    <lastBuildDate>Wed, 8 Nov 2017 13:59:06 +0100</lastBuildDate>
+    <pubDate>Thu, 16 Nov 2017 12:45:30 +0100</pubDate>
+    <lastBuildDate>Thu, 16 Nov 2017 12:45:30 +0100</lastBuildDate>
 
+    <item>
+      <title>Running CAW with Singularity and Nextflow</title>
+      <link>https://www.nextflow.io/blog/2017/caw-and-singularity.html</link>
+      <pubDate>Thu, 16 Nov 2017 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">blog/2017/caw-and-singularity.html</guid>
+      	<description>
+	&lt;p&gt;&lt;i&gt;This is a guest post authored by Maxime Garcia from the Science for Life Laboratory in Sweden. Max describes how they deploy complex cancer data analysis pipelines by using Nextflow and Singularity. We are very happy to share their experience across the Nextflow community.&lt;/i&gt;&lt;/p&gt;&lt;h3&gt;The CAW pipeline&lt;/h3&gt;&lt;p&gt;&lt;img src=&apos;https://raw.githubusercontent.com/SciLifeLab/CAW/master/doc/images/CAW_logo.png&apos; alt=&quot;Cancer Analysis Workflow logo&quot; style=&apos;float:right&apos; /&gt;&lt;/p&gt;&lt;p&gt;&lt;a href=&quot;http://opensource.scilifelab.se/projects/caw/&quot;&gt;Cancer Analysis Workflow&lt;/a&gt; (CAW for short) is a Nextflow based analysis pipeline developed for the analysis of tumour: normal pairs. It is developed in collaboration with two infrastructures within &lt;a href=&quot;https://www.scilifelab.se/&quot;&gt;Science for Life Laboratory&lt;/a&gt;: &lt;a href=&quot;https://ngisweden.scilifelab.se/&quot;&gt;National Genomics Infrastructure&lt;/a&gt; (NGI), in The Stockholm &lt;a href=&quot;https://www.scilifelab.se/facilities/ngi-stockholm/&quot;&gt;Genomics Applications Development Facility&lt;/a&gt; to be precise and &lt;a href=&quot;https://www.nbis.se/&quot;&gt;National Bioinformatics Infrastructure Sweden&lt;/a&gt; (NBIS).&lt;/p&gt;&lt;p&gt;CAW is based on &lt;a href=&quot;https://software.broadinstitute.org/gatk/best-practices/&quot;&gt;GATK Best Practices&lt;/a&gt; for the preprocessing of FastQ files, then uses various variant calling tools to look for somatic SNVs and small indels (&lt;a href=&quot;https://github.com/broadinstitute/mutect/&quot;&gt;MuTect1&lt;/a&gt;, &lt;a href=&quot;https://github.com/broadgsa/gatk-protected/&quot;&gt;MuTect2&lt;/a&gt;, &lt;a href=&quot;https://github.com/Illumina/strelka/&quot;&gt;Strelka&lt;/a&gt;, &lt;a href=&quot;https://github.com/ekg/freebayes/&quot;&gt;Freebayes&lt;/a&gt;), (&lt;a href=&quot;https://github.com/broadgsa/gatk-protected/&quot;&gt;GATK HaplotyeCaller&lt;/a&gt;), for structural variants(&lt;a href=&quot;https://github.com/Illumina/manta/&quot;&gt;Manta&lt;/a&gt;) and for CNVs (&lt;a href=&quot;https://github.com/Crick-CancerGenomics/ascat/&quot;&gt;ASCAT&lt;/a&gt;). Annotation tools (&lt;a href=&quot;http://snpeff.sourceforge.net/&quot;&gt;snpEff&lt;/a&gt;, &lt;a href=&quot;https://www.ensembl.org/info/docs/tools/vep/index.html&quot;&gt;VEP&lt;/a&gt;) are also used, and finally &lt;a href=&quot;http://multiqc.info/&quot;&gt;MultiQC&lt;/a&gt; for handling reports.&lt;/p&gt;&lt;p&gt;We are currently working on a manuscript, but you&apos;re welcome to look at (or even contribute to) our &lt;a href=&quot;https://github.com/SciLifeLab/CAW/&quot;&gt;github repository&lt;/a&gt; or talk with us on our &lt;a href=&quot;https://gitter.im/SciLifeLab/CAW/&quot;&gt;gitter channel&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Singularity and UPPMAX&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://singularity.lbl.gov/&quot;&gt;Singularity&lt;/a&gt; is a tool package software dependencies into a contained environment, much like Docker. It&apos;s designed to run on HPC environments where Docker is often a problem due to its requirement for administrative privileges.&lt;/p&gt;&lt;p&gt;We&apos;re based in Sweden, and &lt;a href=&quot;https://uppmax.uu.se/&quot;&gt;Uppsala Multidisciplinary Center for Advanced Computational Science&lt;/a&gt; (UPPMAX) provides Computational infrastructures for all Swedish researchers. Since we&apos;re analyzing sensitive data, we are using secure clusters (with a two factor authentication), set up by UPPMAX: &lt;a href=&quot;https://www.uppmax.uu.se/projects-and-collaborations/snic-sens/&quot;&gt;SNIC-SENS&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;In my case, since we&apos;re still developing the pipeline, I am mainly using the research cluster &lt;a href=&quot;https://www.uppmax.uu.se/resources/systems/the-bianca-cluster/&quot;&gt;Bianca&lt;/a&gt;. So I can only transfer files and data in one specific repository using SFTP.&lt;/p&gt;&lt;p&gt;UPPMAX provides computing resources for Swedish researchers for all scientific domains, so getting software updates can occasionally take some time. Typically, &lt;a href=&quot;http://modules.sourceforge.net/&quot;&gt;Environment Modules&lt;/a&gt; are used which allow several versions of different tools - this is good for reproducibility and is quite easy to use. However, the approach is not portable across different clusters outside of UPPMAX.&lt;/p&gt;&lt;h3&gt;Why use containers?&lt;/h3&gt;&lt;p&gt;The idea of using containers, for improved portability and reproducibility, and more up to date tools, came naturally to us, as it is easily managed within Nextflow. We cannot use &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; on our secure cluster, so we wanted to run CAW with &lt;a href=&quot;http://singularity.lbl.gov/&quot;&gt;Singularity&lt;/a&gt; images instead.&lt;/p&gt;&lt;h3&gt;How was the switch made?&lt;/h3&gt;&lt;p&gt;We were already using Docker containers for our continuous integration testing with Travis, and since we use many tools, I took the approach of making (almost) a container for each process. Because this process is quite slow, repetitive and I&lt;s&gt;&apos;m lazy&lt;/s&gt; like to automate everything, I made a simple NF &lt;a href=&quot;https://github.com/SciLifeLab/CAW/blob/master/buildContainers.nf&quot;&gt;script&lt;/a&gt; to build and push all docker containers. Basically it&apos;s just &lt;code&gt;build&lt;/code&gt; and &lt;code&gt;pull&lt;/code&gt; for all containers, with some configuration possibilities.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;docker build -t ${repository}/${container}:${tag} ${baseDir}/containers/${container}/.
+
+docker push ${repository}/${container}:${tag}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Since Singularity can directly pull images from DockerHub, I made the build script to pull all containers from DockerHub to have local Singularity image files.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;singularity pull --name ${container}-${tag}.img docker://${repository}/${container}:${tag}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After this, it&apos;s just a matter of moving all containers to the secure cluster we&apos;re using, and using the right configuration file in the profile. I&apos;ll spare you the details of the SFTP transfer. This is what the configuration file for such Singularity images looks like: &lt;a href=&quot;https://github.com/SciLifeLab/CAW/blob/master/configuration/singularity-path.config&quot;&gt;&lt;code&gt;singularity-path.config&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/*
+vim: syntax=groovy
+-*- mode: groovy;-*-
+ * -------------------------------------------------
+ * Nextflow config file for CAW project
+ * -------------------------------------------------
+ * Paths to Singularity images for every process
+ * No image will be pulled automatically
+ * Need to transfer and set up images before
+ * -------------------------------------------------
+ */
+
+singularity {
+  enabled = true
+  runOptions = &amp;quot;--bind /scratch&amp;quot;
+}
+
+params {
+  containerPath=&amp;#39;containers&amp;#39;
+  tag=&amp;#39;1.2.3&amp;#39;
+}
+
+process {
+  $ConcatVCF.container      = &amp;quot;${params.containerPath}/caw-${params.tag}.img&amp;quot;
+  $RunMultiQC.container     = &amp;quot;${params.containerPath}/multiqc-${params.tag}.img&amp;quot;
+  $IndelRealigner.container = &amp;quot;${params.containerPath}/gatk-${params.tag}.img&amp;quot;
+  // I&amp;#39;m not putting the whole file here
+  // you probably already got the point
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This approach ran (almost) perfectly on the first try, except a process failing due to a typo on a container name...&lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;This switch was completed a couple of months ago and has been a great success. We are now using Singularity containers in almost all of our Nextflow pipelines developed at NGI. Even if we do enjoy the improved control, we must not forgot that:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;With great power comes great responsibility!&lt;/p&gt;
+&lt;/blockquote&gt;&lt;h3&gt;Credits&lt;/h3&gt;&lt;p&gt;Thanks to &lt;a href=&quot;https://github.com/Hammarn&quot;&gt;Rickard Hammarén&lt;/a&gt; and &lt;a href=&quot;http://phil.ewels.co.uk/&quot;&gt;Phil Ewels&lt;/a&gt; for comments and suggestions for improving the post.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Scaling with AWS Batch</title>
       <link>https://www.nextflow.io/blog/2017/scaling-with-aws-batch.html</link>
