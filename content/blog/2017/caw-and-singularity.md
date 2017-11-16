@@ -1,4 +1,4 @@
-title=Running CAW with Singularity
+title=Running CAW with Singularity and Nextflow
 date=2017-11-16
 type=post
 tags=pipelines,nextflow,genomic,workflow,singularity,cancer
@@ -6,13 +6,16 @@ status=published
 author=Maxime Garcia
 icon=maxime.jpg
 ~~~~~~
-## Running CAW with Singularity
 
-### The CAW Pipeline
+<i>This is a guest post authored by Maxime Garcia from the Science for Life Laboratory in Sweden. Max
+describes how they deploy complex cancer data analysis pipelines using Nextflow 
+and Singularity. We are very happy to share their experience across the Nextflow community.</i>
 
-![alt text](https://raw.githubusercontent.com/SciLifeLab/CAW/master/doc/images/CAW_logo.png "Cancer Analysis Workflow logo")
+### The CAW pipeline
 
-[Cancer Analysis Workflow](http://opensource.scilifelab.se/projects/caw/) (CAW for short) is an analysis pipeline developed for the analysis of tumour : normal pairs.
+<img src='https://raw.githubusercontent.com/SciLifeLab/CAW/master/doc/images/CAW_logo.png' alt="Cancer Analysis Workflow logo" style='float:right' />
+
+[Cancer Analysis Workflow](http://opensource.scilifelab.se/projects/caw/) (CAW for short) is a Nextflow based analysis pipeline developed for the analysis of tumour: normal pairs.
 It is developed in collaboration with two infrastructures within [Science for Life Laboratory](https://www.scilifelab.se/): [National Genomics Infrastructure](https://ngisweden.scilifelab.se/) (NGI), in The Stockholm [Genomics Applications Development Facility](https://www.scilifelab.se/facilities/ngi-stockholm/) to be precise and [National Bioinformatics Infrastructure Sweden](https://www.nbis.se/) (NBIS).
 
 CAW is based on [GATK Best Practices](https://software.broadinstitute.org/gatk/best-practices/) for the preprocessing of FastQ files, then uses various variant calling tools to look for somatic SNVs and small indels ([MuTect1](https://github.com/broadinstitute/mutect/), [MuTect2](https://github.com/broadgsa/gatk-protected/), [Strelka](https://github.com/Illumina/strelka/), [Freebayes](https://github.com/ekg/freebayes/)), ([GATK HaplotyeCaller](https://github.com/broadgsa/gatk-protected/)), for structural variants([Manta](https://github.com/Illumina/manta/)) and for CNVs ([ASCAT](https://github.com/Crick-CancerGenomics/ascat/)).
@@ -31,7 +34,7 @@ In my case, since we're still developing the pipeline, I am mainly using the res
 So I can only transfer files and data in one specific repository using SFTP.
 
 UPPMAX provides computing resources for Swedish researchers for all scientific domains, so getting software updates can occasionally take some time.
-Typically, [environment modules](http://modules.sourceforge.net/) are used which allow several versions of different tools - this is good for reproducibility and is quite easy to use. However, the approach is not portable across different clusters outside of UPPMAX.
+Typically, [Environment Modules](http://modules.sourceforge.net/) are used which allow several versions of different tools - this is good for reproducibility and is quite easy to use. However, the approach is not portable across different clusters outside of UPPMAX.
 
 ### Why use containers?
 
@@ -41,10 +44,10 @@ We cannot use [Docker](https://www.docker.com/) on our secure cluster, so we wan
 ### How was the switch made?
 
 We were already using Docker containers for our continuous integration testing with Travis, and since we use many tools, I took the approach of making (almost) a container for each process.
-Because this process is quite slow, repetitive and I~~'m lazy~~ like to automate everything, I made a simple NF [script](https://github.com/SciLifeLab/CAW/blob/master/buildContainers.nf) to build and push all docker containers.
+Because this process is quite slow, repetitive and I<s>'m lazy</s> like to automate everything, I made a simple NF [script](https://github.com/SciLifeLab/CAW/blob/master/buildContainers.nf) to build and push all docker containers.
 Basically it's just `build` and `pull` for all containers, with some configuration possibilities.
 
-```groovy
+```
 docker build -t ${repository}/${container}:${tag} ${baseDir}/containers/${container}/.
 
 docker push ${repository}/${container}:${tag}
@@ -52,14 +55,15 @@ docker push ${repository}/${container}:${tag}
 
 Since Singularity can directly pull images from DockerHub, I made the build script to pull all containers from DockerHub to have local Singularity image files.
 
-```groovy
+```
 singularity pull --name ${container}-${tag}.img docker://${repository}/${container}:${tag}
 ```
 
 After this, it's just a matter of moving all containers to the secure cluster we're using, and using the right configuration file in the profile.
 I'll spare you the details of the SFTP transfer.
 This is what the configuration file for such Singularity images looks like: [`singularity-path.config`](https://github.com/SciLifeLab/CAW/blob/master/configuration/singularity-path.config)
-```groovy
+
+```
 /*
 vim: syntax=groovy
 -*- mode: groovy;-*-
