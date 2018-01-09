@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon Cloud &mdash; Nextflow 0.26.0 documentation</title>
+  <title>Amazon Cloud &mdash; Nextflow 0.27.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon S3 storage" href="amazons3.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -116,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
@@ -168,7 +169,7 @@ deploy it and run your pipeline in the AWS infrastructure in a few commands.</p>
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>Cloud configuration attributes are provided in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown in the example below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
-    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;ami-43f49030&#39;</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;ami-4b7daa32&#39;</span>
     <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;m4.xlarge&#39;</span>
     <span class="n">subnetId</span> <span class="o">=</span> <span class="s1">&#39;subnet-05222a43&#39;</span>
 <span class="p">}</span>
@@ -177,7 +178,7 @@ deploy it and run your pipeline in the AWS infrastructure in a few commands.</p>
 <p>The above attributes define the virtual machine ID and type to be used and the VPC subnet ID to be applied
 in you cluster. Replace these values with the ones of your choice.</p>
 <p>Nextflow only requires a Linux image that provides support for <a class="reference external" href="http://cloudinit.readthedocs.io/">Cloud-init</a>
-bootstrapping mechanism and includes a Java runtime (version 7 or 8) and a Docker engine (version 1.11 or higher).</p>
+bootstrapping mechanism and includes a Java runtime (version 8) and a Docker engine (version 1.11 or higher).</p>
 <p>For your convenience the following pre-configured Amazon Linux AMI is available in the <em>EU Ireland</em> region:
 <code class="docutils literal"><span class="pre">ami-4b7daa32</span></code>.</p>
 <div class="section" id="aws-credentials">
@@ -230,22 +231,27 @@ by specifying the attribute <code class="docutils literal"><span class="pre">boo
 </div>
 <div class="section" id="instance-storage">
 <h3>Instance storage<a class="headerlink" href="#instance-storage" title="Permalink to this headline">¶</a></h3>
-<p>Amazon instances can provide one or more <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">ephemeral volume storage</a>,
+<p>Amazon instances can provide one or more <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">ephemeral storage volumes</a>,
 depending the instance type chosen. This storage can be made available by using the <code class="docutils literal"><span class="pre">instanceStorageMount</span></code>
-and <code class="docutils literal"><span class="pre">instanceStorageDevice</span></code> configuration attributes, as shown below:</p>
+configuration attributes, as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
-        <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;xxx&#39;</span>
-        <span class="n">instanceStorageMount</span> <span class="o">=</span> <span class="s1">&#39;/mnt/scratch&#39;</span>
-        <span class="n">instanceStorageDevice</span> <span class="o">=</span> <span class="s1">&#39;/dev/xvdc&#39;</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;ami-xxx&#39;</span>
+    <span class="n">instanceStorageMount</span> <span class="o">=</span> <span class="s1">&#39;/mnt/scratch&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The mount path can be any of your choice. The storage device name should follow a pattern that may change depending
-the AMI and machine virtualization type. See the <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html">Amazon documentation for details</a>.</p>
+<p>The mount path can be any of your choice.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Currently Nextflow can setup only one instance storage volume.</p>
+<p class="last">When the selected instance provides more than one ephemeral storage volume, Nextflow automatically groups all
+of them together in a single logical volume and mounts it to the specified path. Therefore the resulting instance
+storage size is equals to the sum of the sizes of all ephemeral volumes provided by the actual instance
+(this feature requires Nextflow version 0.27.0 or higher).</p>
 </div>
+<p>If you want to mount a specific instance storage volume, specify the corresponding device name by using
+the <code class="docutils literal"><span class="pre">instanceStorageDevice</span></code> setting in the above configuration. See the Amazon documentation for details on
+<a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html">EC2 Instance storage</a> and
+<a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html">devices naming</a>.</p>
 </div>
 <div class="section" id="shared-file-system">
 <h3>Shared file system<a class="headerlink" href="#shared-file-system" title="Permalink to this headline">¶</a></h3>
@@ -315,7 +321,7 @@ to scale-out or scale-down i.e. add or remove computing nodes dynamically at run
 cluster to adapt dynamically to the actual workload computing resources need as they change over the time.</p>
 <p>Cluster auto-scaling is enabled by adding the <code class="docutils literal"><span class="pre">autoscale</span></code> option group in the configuration file as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
-    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;xxx&#39;</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;ami-xxx&#39;</span>
     <span class="n">autoscale</span> <span class="p">{</span>
         <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
         <span class="n">maxInstances</span> <span class="o">=</span> <span class="mi">10</span>
@@ -586,7 +592,7 @@ which does not allow the execution of the BASH launcher script required by Nextf
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.26.0',
+            VERSION:'0.27.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

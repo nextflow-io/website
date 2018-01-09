@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.26.0 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.27.0 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
-        <link rel="next" title="Examples" href="example.html"/>
+    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
+        <link rel="next" title="Mail &amp; Notifications" href="mail.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
   
@@ -99,6 +99,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
@@ -144,7 +145,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="workflow-introspection">
-<h1>Workflow introspection<a class="headerlink" href="#workflow-introspection" title="Permalink to this headline">¶</a></h1>
+<span id="metadata-page"></span><h1>Workflow introspection<a class="headerlink" href="#workflow-introspection" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="runtime-metadata">
 <h2>Runtime metadata<a class="headerlink" href="#runtime-metadata" title="Permalink to this headline">¶</a></h2>
 <p>The implicit <code class="docutils literal"><span class="pre">workflow</span></code> object allows you to access some workflow and runtime metadata in your Nextflow scripts.
@@ -198,44 +199,47 @@ For example:</p>
 <tr class="row-even"><td>workDir</td>
 <td>Workflow working directory.</td>
 </tr>
-<tr class="row-odd"><td>container</td>
+<tr class="row-odd"><td>configFiles</td>
+<td>Configuration files used for the workflow execution.</td>
+</tr>
+<tr class="row-even"><td>container</td>
 <td>Docker image used to run workflow tasks. When more than one image is used
 it returns a map object containing <cite>[process name, image name]</cite> pair entries.</td>
 </tr>
-<tr class="row-even"><td>commandLine</td>
+<tr class="row-odd"><td>commandLine</td>
 <td>Command line as entered by the user to launch the workflow execution.</td>
 </tr>
-<tr class="row-odd"><td>profile</td>
+<tr class="row-even"><td>profile</td>
 <td>Used configuration profile.</td>
 </tr>
-<tr class="row-even"><td>runName</td>
+<tr class="row-odd"><td>runName</td>
 <td>Mnemonic name assigned to this execution instance.</td>
 </tr>
-<tr class="row-odd"><td>sessionId</td>
+<tr class="row-even"><td>sessionId</td>
 <td>Unique identifier (UUID) associated to current execution.</td>
 </tr>
-<tr class="row-even"><td>resume</td>
+<tr class="row-odd"><td>resume</td>
 <td>Returns <code class="docutils literal"><span class="pre">true</span></code> whenever the current instance is resumed from a previous execution.</td>
 </tr>
-<tr class="row-odd"><td>start</td>
+<tr class="row-even"><td>start</td>
 <td>Timestamp of workflow at execution start.</td>
 </tr>
-<tr class="row-even"><td><sup>✝</sup> complete</td>
+<tr class="row-odd"><td><sup>✝</sup> complete</td>
 <td>Timestamp of workflow when execution is completed.</td>
 </tr>
-<tr class="row-odd"><td><sup>✝</sup> duration</td>
+<tr class="row-even"><td><sup>✝</sup> duration</td>
 <td>Time elapsed to complete workflow execution.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> success</td>
+<tr class="row-odd"><td><sup>*</sup> success</td>
 <td>Reports if the execution completed successfully.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> exitStatus</td>
+<tr class="row-even"><td><sup>*</sup> exitStatus</td>
 <td>Exit status of the task that caused the workflow execution to fail.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> errorMessage</td>
+<tr class="row-odd"><td><sup>*</sup> errorMessage</td>
 <td>Error message of the task that caused the workflow execution to fail.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> errorReport</td>
+<tr class="row-even"><td><sup>*</sup> errorReport</td>
 <td>Detailed error of the task that caused the workflow execution to fail.</td>
 </tr>
 </tbody>
@@ -283,7 +287,7 @@ requirement. For example:</p>
 </div>
 </div>
 <div class="section" id="completion-handler">
-<h2>Completion handler<a class="headerlink" href="#completion-handler" title="Permalink to this headline">¶</a></h2>
+<span id="metadata-completion-handler"></span><h2>Completion handler<a class="headerlink" href="#completion-handler" title="Permalink to this headline">¶</a></h2>
 <p>Due to the asynchronous nature of Nextflow the termination of a script does not correspond to the termination
 of the running workflow. Thus some information, only available on execution completion, needs to be accessed by
 using an asynchronous handler.</p>
@@ -297,7 +301,7 @@ to access the workflow termination status and other useful information. For exam
 </div>
 </div>
 <div class="section" id="error-handler">
-<h2>Error handler<a class="headerlink" href="#error-handler" title="Permalink to this headline">¶</a></h2>
+<span id="metadata-error-handler"></span><h2>Error handler<a class="headerlink" href="#error-handler" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal"><span class="pre">onError</span></code> even handler is invoked by Nextflow when a runtime or process error caused the pipeline execution to stop.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onError</span> <span class="p">{</span>
@@ -370,7 +374,7 @@ configuration file.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="example.html" class="btn btn-neutral float-right" title="Examples" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="mail.html" class="btn btn-neutral float-right" title="Mail &amp; Notifications" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="sharing.html" class="btn btn-neutral" title="Pipeline sharing" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -404,7 +408,7 @@ configuration file.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.26.0',
+            VERSION:'0.27.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

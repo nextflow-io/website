@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 0.26.0 documentation</title>
+  <title>Operators &mdash; Nextflow 0.27.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -143,6 +143,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#other-operators">Other operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dump">dump</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#set">set</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ifempty">ifEmpty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#print">print</a></li>
@@ -163,6 +164,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
@@ -1688,8 +1690,8 @@ the items content will be grouped in file(s) having the same name as the source 
 <p>The following parameters can be used with the <code class="docutils literal"><span class="pre">collectFile</span></code> operator:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="15%" />
-<col width="85%" />
+<col width="8%" />
+<col width="92%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -1697,25 +1699,28 @@ the items content will be grouped in file(s) having the same name as the source 
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>name</td>
+<tr class="row-even"><td>keepHeader</td>
+<td>Prepend the resulting file with the header fetched in the first collected file. The header size (ie. lines) can be specified by using the <code class="docutils literal"><span class="pre">size</span></code> parameter (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>name</td>
 <td>Name of the file where all received values are stored.</td>
 </tr>
-<tr class="row-odd"><td>newLine</td>
+<tr class="row-even"><td>newLine</td>
 <td>Appends a <code class="docutils literal"><span class="pre">newline</span></code> character automatically after each entry (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>seed</td>
+<tr class="row-odd"><td>seed</td>
 <td>A value or a map of values used to initialise the files content.</td>
 </tr>
-<tr class="row-odd"><td>skip</td>
+<tr class="row-even"><td>skip</td>
 <td>Skip the first <cite>n</cite> lines eg. <code class="docutils literal"><span class="pre">skip:</span> <span class="pre">1</span></code>.</td>
 </tr>
-<tr class="row-even"><td>sort</td>
+<tr class="row-odd"><td>sort</td>
 <td>Defines sorting criteria of content in resulting file(s). See below for sorting options.</td>
 </tr>
-<tr class="row-odd"><td>storeDir</td>
+<tr class="row-even"><td>storeDir</td>
 <td>Folder where the resulting file(s) are be stored.</td>
 </tr>
-<tr class="row-even"><td>tempDir</td>
+<tr class="row-odd"><td>tempDir</td>
 <td>Folder where temporary files, used by the collecting process, are stored.</td>
 </tr>
 </tbody>
@@ -2212,6 +2217,37 @@ example:</p>
 </div>
 <div class="section" id="other-operators">
 <h2>Other operators<a class="headerlink" href="#other-operators" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="#close">close</a></li>
+<li><a class="reference internal" href="#dump">dump</a></li>
+<li><a class="reference internal" href="#ifempty">ifEmpty</a></li>
+<li><a class="reference internal" href="#print">print</a></li>
+<li><a class="reference internal" href="#println">println</a></li>
+<li><a class="reference internal" href="#set">set</a></li>
+<li><a class="reference internal" href="#view">view</a></li>
+</ul>
+<div class="section" id="dump">
+<span id="operator-dump"></span><h3>dump<a class="headerlink" href="#dump" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">dump</span></code> operator prints the items emitted by the channel to which is applied only when the option
+<code class="docutils literal"><span class="pre">-dump-channels</span></code> is specified on the <code class="docutils literal"><span class="pre">run</span></code> command line, otherwise it is ignored.</p>
+<p>This is useful to enable the debugging of one or more channel content on-demand by using a command line option
+instead of modifying your script code.</p>
+<p>An optional <code class="docutils literal"><span class="pre">tag</span></code> parameter allows you to select which channel to dump. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">+</span><span class="mi">1</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span><span class="s1">&#39;foo&#39;</span><span class="p">)</span>
+
+<span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">^</span><span class="mi">2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Then you will be able to specify the tag <code class="docutils literal"><span class="pre">foo</span></code> or <code class="docutils literal"><span class="pre">bar</span></code> as an argument of the <code class="docutils literal"><span class="pre">-dump-channels</span></code> option to print
+either the content of the first or the second channel. Multiple tag names can be specified separating them with a <code class="docutils literal"><span class="pre">,</span></code>
+character.</p>
+</div>
 <div class="section" id="set">
 <span id="operator-set"></span><h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">set</span></code> operator assigns the channel to a variable whose name is specified as a closure parameter.
@@ -2250,7 +2286,7 @@ will be emitted when the empty condition is satisfied.</p>
 </div>
 <div class="section" id="print">
 <span id="operator-print"></span><h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">print</span></code> operator prints the items emitted by a channel to the console standard.
+<p>The <code class="docutils literal"><span class="pre">print</span></code> operator prints the items emitted by a channel to the standard output.
 An optional <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> parameter can be specified to customise how items are printed.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2376,7 +2412,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.26.0',
+            VERSION:'0.27.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

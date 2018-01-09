@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.26.0 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.27.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -102,6 +102,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#scope-aws">Scope <cite>aws</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-cloud">Scope <cite>cloud</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-timeline">Scope <cite>timeline</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-mail">Scope <cite>mail</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-notification">Scope <cite>notification</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-report">Scope <cite>report</cite></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#config-profiles">Config profiles</a></li>
@@ -116,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
@@ -493,8 +497,8 @@ pipeline project on GitHub, BitBucket or GitLab.</p>
 <p>The following settings are available:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="26%" />
-<col width="74%" />
+<col width="23%" />
+<col width="78%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -502,16 +506,19 @@ pipeline project on GitHub, BitBucket or GitLab.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>homePage</td>
+<tr class="row-even"><td>author</td>
+<td>Project author name (use a comma to separate multiple names).</td>
+</tr>
+<tr class="row-odd"><td>homePage</td>
 <td>Project home page URL</td>
 </tr>
-<tr class="row-odd"><td>description</td>
+<tr class="row-even"><td>description</td>
 <td>Free text describing the pipeline project</td>
 </tr>
-<tr class="row-even"><td>mainScript</td>
+<tr class="row-odd"><td>mainScript</td>
 <td>Pipeline main script (default: <code class="docutils literal"><span class="pre">main.nf</span></code>)</td>
 </tr>
-<tr class="row-odd"><td>defaultBranch</td>
+<tr class="row-even"><td>defaultBranch</td>
 <td>Git repository default branch (default: <code class="docutils literal"><span class="pre">master</span></code>)</td>
 </tr>
 </tbody>
@@ -622,34 +629,37 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-even"><td>proxyPassword</td>
 <td>The password to use when connecting through a proxy.</td>
 </tr>
-<tr class="row-odd"><td>socketSendBufferSizeHint</td>
+<tr class="row-odd"><td>signerOverride</td>
+<td>The name of the signature algorithm to use for signing requests made by the client.</td>
+</tr>
+<tr class="row-even"><td>socketSendBufferSizeHint</td>
 <td>The Size hint (in bytes) for the low level TCP send buffer.</td>
 </tr>
-<tr class="row-even"><td>socketRecvBufferSizeHint</td>
+<tr class="row-odd"><td>socketRecvBufferSizeHint</td>
 <td>The Size hint (in bytes) for the low level TCP receive buffer.</td>
 </tr>
-<tr class="row-odd"><td>socketTimeout</td>
+<tr class="row-even"><td>socketTimeout</td>
 <td>The amount of time to wait (in milliseconds) for data to be transferred over an established, open connection before the connection is timed out.</td>
 </tr>
-<tr class="row-even"><td>storageEncryption</td>
+<tr class="row-odd"><td>storageEncryption</td>
 <td>The S3 server side encryption to be used when saving objects on S3 (currently only AES256 is supported)</td>
 </tr>
-<tr class="row-odd"><td>userAgent</td>
+<tr class="row-even"><td>userAgent</td>
 <td>The HTTP user agent header passed with all HTTP requests.</td>
 </tr>
-<tr class="row-even"><td>uploadMaxThreads</td>
+<tr class="row-odd"><td>uploadMaxThreads</td>
 <td>The maximum number of threads used for multipart upload.</td>
 </tr>
-<tr class="row-odd"><td>uploadChunkSize</td>
+<tr class="row-even"><td>uploadChunkSize</td>
 <td>The size of a single part in a multipart upload (default: <cite>10 MB</cite>).</td>
 </tr>
-<tr class="row-even"><td>uploadStorageClass</td>
+<tr class="row-odd"><td>uploadStorageClass</td>
 <td>The S3 storage class applied to stored objects, either <cite>STANDARD</cite> or <cite>REDUCED_REDUNDANCY</cite> (default: <cite>STANDARD</cite>).</td>
 </tr>
-<tr class="row-odd"><td>uploadMaxAttempts</td>
+<tr class="row-even"><td>uploadMaxAttempts</td>
 <td>The maximum number of upload attempts after which a multipart upload returns an error (default: <cite>5</cite>).</td>
 </tr>
-<tr class="row-even"><td>uploadRetrySleep</td>
+<tr class="row-odd"><td>uploadRetrySleep</td>
 <td>The time to wait after a failed upload attempt to retry the part upload (default: <cite>100ms</cite>).</td>
 </tr>
 </tbody>
@@ -696,10 +706,10 @@ When specifying an IAM role no access/security keys are installed in the cluster
 <td>Type of the virtual machine(s) to launch e.g. <code class="docutils literal"><span class="pre">m4.xlarge</span></code>.</td>
 </tr>
 <tr class="row-even"><td>instanceStorageMount</td>
-<td>Instance ephemeral storage mount path e.g. <code class="docutils literal"><span class="pre">/mnt/scratch</span></code>.</td>
+<td>Ephemeral instance storage mount path e.g. <code class="docutils literal"><span class="pre">/mnt/scratch</span></code>.</td>
 </tr>
 <tr class="row-odd"><td>instanceStorageDevice</td>
-<td>Instance ephemeral storage device name e.g. <code class="docutils literal"><span class="pre">/dev/xvdc</span></code>.</td>
+<td>Ephemeral instance storage device name e.g. <code class="docutils literal"><span class="pre">/dev/xvdc</span></code> (optional).</td>
 </tr>
 <tr class="row-even"><td>keyName</td>
 <td>SSH access key name given by the cloud provider.</td>
@@ -736,8 +746,8 @@ When specifying an IAM role no access/security keys are installed in the cluster
 <p>The autoscale configuration group provides the following settings:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="22%" />
-<col width="78%" />
+<col width="18%" />
+<col width="82%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -749,13 +759,13 @@ When specifying an IAM role no access/security keys are installed in the cluster
 <td>Enable cluster auto-scaling.</td>
 </tr>
 <tr class="row-odd"><td>terminateWhenIdle</td>
-<td>Enable cluster automatic scale-down i.e. instance terminations when idle.</td>
+<td>Enable cluster automatic scale-down i.e. instance terminations when idle (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
 <tr class="row-even"><td>idleTimeout</td>
-<td>Amount of time in idle state after which an instance is candidate to be terminated.</td>
+<td>Amount of time in idle state after which an instance is candidate to be terminated (default: <code class="docutils literal"><span class="pre">5</span> <span class="pre">min</span></code>).</td>
 </tr>
 <tr class="row-odd"><td>starvingTimeout</td>
-<td>Amount of time after which one ore more tasks pending for execution trigger an auto-scale request.</td>
+<td>Amount of time after which one ore more tasks pending for execution trigger an auto-scale request (default: <code class="docutils literal"><span class="pre">5</span> <span class="pre">min</span></code>).</td>
 </tr>
 <tr class="row-even"><td>minInstances</td>
 <td>Minimum number of instances in the cluster.</td>
@@ -776,7 +786,7 @@ When specifying an IAM role no access/security keys are installed in the cluster
 </table>
 </div>
 <div class="section" id="scope-timeline">
-<h3>Scope <cite>timeline</cite><a class="headerlink" href="#scope-timeline" title="Permalink to this headline">¶</a></h3>
+<span id="config-timeline"></span><h3>Scope <cite>timeline</cite><a class="headerlink" href="#scope-timeline" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">timeline</span></code> scope allows you to enable/disable the processes execution timeline report generated by Nextflow.</p>
 <p>The following settings are available:</p>
 <table border="1" class="docutils">
@@ -795,6 +805,125 @@ When specifying an IAM role no access/security keys are installed in the cluster
 </tr>
 <tr class="row-odd"><td>file</td>
 <td>Timeline file name (default: <code class="docutils literal"><span class="pre">timeline.html</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="scope-mail">
+<span id="config-mail"></span><h3>Scope <cite>mail</cite><a class="headerlink" href="#scope-mail" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">mail</span></code> scope allows you to define the mail server configuration settings needed to send email messages.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="84%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>from</td>
+<td>Default email sender address.</td>
+</tr>
+<tr class="row-odd"><td>smtp.host</td>
+<td>Host name of the mail server.</td>
+</tr>
+<tr class="row-even"><td>smtp.port</td>
+<td>Port number of the mail server.</td>
+</tr>
+<tr class="row-odd"><td>smtp.user</td>
+<td>User name to connect to  the mail server.</td>
+</tr>
+<tr class="row-even"><td>smtp.password</td>
+<td>User password to connect to the mail server.</td>
+</tr>
+<tr class="row-odd"><td>smtp.proxy.host</td>
+<td>Host name of an HTTP web proxy server that will be used for connections to the mail server.</td>
+</tr>
+<tr class="row-even"><td>smtp.proxy.port</td>
+<td>Port number for the HTTP web proxy server.</td>
+</tr>
+<tr class="row-odd"><td>smtp.*</td>
+<td>Any SMTP configuration property supported by the Java Mail API (see link below).</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Nextflow relies on the <a class="reference external" href="https://javaee.github.io/javamail/">Java Mail API</a> to send email messages.
+Advanced mail configuration can be provided by using any SMTP configuration property supported by the Java Mail API.
+See the <a class="reference external" href="https://javaee.github.io/javamail/docs/api/com/sun/mail/smtp/package-summary.html#properties">table of available properties at this link</a>.</p>
+</div>
+<p>For example, the following snippet shows how to configure Nextflow to send emails through the
+<a class="reference external" href="https://aws.amazon.com/ses/">AWS Simple Email Service</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="p">{</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;email-smtp.us-east-1.amazonaws.com&#39;</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">587</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS SES access key&gt;&#39;</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS SES secret key&gt;&#39;</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">auth</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">starttls</span><span class="o">.</span><span class="n">enable</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">starttls</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scope-notification">
+<span id="config-notification"></span><h3>Scope <cite>notification</cite><a class="headerlink" href="#scope-notification" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">notification</span></code> scope allows you to define the automatic sending of a notification email message
+when the workflow execution terminates.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="86%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>enabled</td>
+<td>Enables the sending of a notification message when the workflow execution completes.</td>
+</tr>
+<tr class="row-odd"><td>to</td>
+<td>Recipient address for the notification email. Multiple addresses can be specified separating them with a comma.</td>
+</tr>
+<tr class="row-even"><td>from</td>
+<td>Sender address for the notification email message.</td>
+</tr>
+<tr class="row-odd"><td>template</td>
+<td>Path of a template file which provides the content of the notification message.</td>
+</tr>
+<tr class="row-even"><td>binding</td>
+<td>An associative array modelling the variables in the template file.</td>
+</tr>
+</tbody>
+</table>
+<p>The notification message is sent my using the STMP server defined in the configuration <a class="reference internal" href="#config-mail"><span class="std std-ref">mail scope</span></a>.</p>
+<p>If no mail configuration is provided, it tries to send the notification message by using the external mail command
+eventually provided by the underlying system (eg. <code class="docutils literal"><span class="pre">sendmail</span></code> or <code class="docutils literal"><span class="pre">mail</span></code>).</p>
+</div>
+<div class="section" id="scope-report">
+<span id="config-report"></span><h3>Scope <cite>report</cite><a class="headerlink" href="#scope-report" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">report</span></code> scope scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>enabled</td>
+<td>If <code class="docutils literal"><span class="pre">true</span></code> it create the workflow execution report.</td>
+</tr>
+<tr class="row-odd"><td>file</td>
+<td>The path of the created execution report file (default: <code class="docutils literal"><span class="pre">report.html</span></code>).</td>
 </tr>
 </tbody>
 </table>
@@ -946,7 +1075,7 @@ the Java virtual machine used by it.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.26.0',
+            VERSION:'0.27.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

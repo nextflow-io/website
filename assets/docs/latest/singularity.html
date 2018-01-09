@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Singularity containers &mdash; Nextflow 0.26.0 documentation</title>
+  <title>Singularity containers &mdash; Nextflow 0.27.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.26.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
         <link rel="next" title="Apache Ignite" href="ignite.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
@@ -237,11 +238,30 @@ or any Docker compatible registry.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This feature requires you have installed Singularity 2.3.x or higher</p>
 </div>
-<p>Remote container images can specified in your Nextflow script or configuration file by simply prefixing the image name
-with the <code class="docutils literal"><span class="pre">shub://</span></code> or <code class="docutils literal"><span class="pre">docker://</span></code> pseudo-protocol as required by the Singularity tool. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;docker://debian:wheezy&#39;</span>
+<p>By default when a container name is specified, Nextflow checks if an image file with that name exists in the local file
+system. If that image file exists, it's used to execute the container. If a matching file does not exist,
+Nextflow automatically tries to pull an image with the specified name from the Docker Hub.</p>
+<p>If you want Nextflow to check only for local file images, prefix the container name with the <code class="docutils literal"><span class="pre">file://</span></code> pseudo-protocol.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;file:///path/to/singularity.img&#39;</span>
 <span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Note the use of triple <code class="docutils literal"><span class="pre">/</span></code> to specify an <strong>absolute</strong> file path, otherwise the path is interpreted as
+relative to the workflow launching directory.</p>
+</div>
+<p>To pull images from the Singularity Hub or a third party Docker registry simply prefix the image name
+with the <code class="docutils literal"><span class="pre">shub://</span></code> or <code class="docutils literal"><span class="pre">docker://</span></code> pseudo-protocol as required by the Singularity tool. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;docker://quay.io/biocontainers/multiqc:1.3--py35_2&#39;</span>
+<span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires the availability of the <code class="docutils literal"><span class="pre">singularity</span></code> tool in the computer
+where the workflow execution is launched (other than the computing nodes).</p>
 </div>
 <p>Nextflow caches those images in the <code class="docutils literal"><span class="pre">singularity</span></code> directory in the pipeline work directory by default. However it is
 suggest to provide a centralised caching directory by using either the <code class="docutils literal"><span class="pre">NXF_SINGULARITY_CACHEDIR</span></code> environment variable
@@ -305,7 +325,7 @@ configuration page.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.26.0',
+            VERSION:'0.27.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
