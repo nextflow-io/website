@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline script &mdash; Nextflow 0.27.0 documentation</title>
+  <title>Pipeline script &mdash; Nextflow 0.27.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.1 documentation" href="index.html"/>
         <link rel="next" title="Processes" href="process.html"/>
         <link rel="prev" title="Basic concepts" href="basic.html"/> 
 
@@ -92,7 +92,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#closures">Closures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#regular-expressions">Regular expressions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#string-replacements">String replacements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#string-replacement">String replacement</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#capturing-groups">Capturing groups</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#removing-part-of-a-string">Removing part of a string</a></li>
 </ul>
@@ -178,8 +178,8 @@
 <span id="pipeline-page"></span><h1>Pipeline script<a class="headerlink" href="#pipeline-script" title="Permalink to this headline">¶</a></h1>
 <p>The Nextflow scripting language is an extension of the Groovy programming language whose syntax has been
 specialized to ease the writing of computational pipelines in a declarative manner.</p>
-<p>This means that Nextflow can execute any Groovy piece of code or use any library for the Java JVM platform.</p>
-<p>For a detailed description of the Groovy programming language, references these links:</p>
+<p>This means that Nextflow can execute any piece of Groovy code or use any library for the JVM platform.</p>
+<p>For a detailed description of the Groovy programming language, reference these links:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://groovy-lang.org/documentation.html">Groovy User Guide</a></li>
 <li><a class="reference external" href="http://refcardz.dzone.com/refcardz/groovy">Groovy Cheat sheet</a></li>
@@ -188,23 +188,23 @@ specialized to ease the writing of computational pipelines in a declarative mann
 <p>Below you can find a crash course in the most important language constructs used in the Nextflow scripting language.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Nextflow uses <code class="docutils literal"><span class="pre">UTF-8</span></code> as default file character encoding for source and application files. Make sure
+<p class="last">Nextflow uses <code class="docutils literal"><span class="pre">UTF-8</span></code> as the default file character encoding for source and application files. Make sure
 to use the <code class="docutils literal"><span class="pre">UTF-8</span></code> encoding when editing Nextflow scripts with your favourite text editor.</p>
 </div>
 <div class="section" id="language-basics">
 <h2>Language basics<a class="headerlink" href="#language-basics" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="hello-world">
 <h3>Hello world<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h3>
-<p>To print something is as easy as using the <code class="docutils literal"><span class="pre">print</span></code> or the <code class="docutils literal"><span class="pre">println</span></code> methods.</p>
+<p>To print something is as easy as using one of the <code class="docutils literal"><span class="pre">print</span></code> or <code class="docutils literal"><span class="pre">println</span></code> methods.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;Hello, World!&quot;</span>
 </pre></div>
 </div>
-<p>The only difference between the two is that the <code class="docutils literal"><span class="pre">println</span></code> method appends implicitly a <cite>new line</cite> character
+<p>The only difference between the two is that the <code class="docutils literal"><span class="pre">println</span></code> method implicitly appends a <cite>new line</cite> character
 to the printed string.</p>
 </div>
 <div class="section" id="variables">
 <h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
-<p>To define a variable, simply assign a value to it. For example:</p>
+<p>To define a variable, simply assign a value to it:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">println</span> <span class="n">x</span>
 
@@ -224,11 +224,11 @@ to the printed string.</p>
 </div>
 <div class="section" id="lists">
 <h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
-<p>A List object can be defined by placing the list items in square brackets. For example:</p>
+<p>A List object can be defined by placing the list items in square brackets:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">928734928763</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>You can access a given item in the list with square bracket notation (indexes start at 0):</p>
+<p>You can access a given item in the list with square-bracket notation (indexes start at 0):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">myList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -245,44 +245,43 @@ to the printed string.</p>
 </div>
 <div class="section" id="maps">
 <h3>Maps<a class="headerlink" href="#maps" title="Permalink to this headline">¶</a></h3>
-<p>Maps are used to store <cite>associative arrays</cite> or <cite>dictionaries</cite>. They are unordered collections of heterogeneous, named data.
-For example:</p>
+<p>Maps are used to store <cite>associative arrays</cite> or <cite>dictionaries</cite>. They are unordered collections of heterogeneous, named data:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Brett&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Pete&quot;</span><span class="p">:</span><span class="s2">&quot;Did not finish&quot;</span><span class="p">,</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">:</span><span class="mf">86.87934</span> <span class="p">]</span>
 </pre></div>
 </div>
-<p>Note that each of the values stored in the map can be of a different type. Brett's is an integer, Pete's is a string,
-and Andrew's is a floating point number.</p>
-<p>We can access the values in a map in two main ways, as shown below:</p>
+<p>Note that each of the values stored in the map can be of a different type. <code class="docutils literal"><span class="pre">Brett</span></code> is an integer, <code class="docutils literal"><span class="pre">Pete</span></code> is a string,
+and <code class="docutils literal"><span class="pre">Andrew</span></code> is a floating-point number.</p>
+<p>We can access the values in a map in two main ways:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span>
 <span class="n">println</span> <span class="n">scores</span><span class="o">.</span><span class="n">Pete</span>
 </pre></div>
 </div>
-<p>To modify or add data to a map, the syntax is similar to adding values to list.</p>
+<p>To add data to or modify a map, the syntax is similar to adding values to list:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Cedric&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
 </pre></div>
 </div>
-<p>Learn more about maps at the following links:</p>
+<p>Learn more about maps:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://http://groovy-lang.org/groovy-dev-kit.html#Collections-Maps">Groovy Maps tutorial</a></li>
+<li><a class="reference external" href="http://groovy-lang.org/groovy-dev-kit.html#Collections-Maps">Groovy Maps tutorial</a></li>
 <li><a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Map.html">Groovy Map SDK</a></li>
 <li><a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Map.html">Java Map SDK</a></li>
 </ul>
 </div>
 <div class="section" id="multiple-assignment">
 <span id="script-multiple-assignment"></span><h3>Multiple assignment<a class="headerlink" href="#multiple-assignment" title="Permalink to this headline">¶</a></h3>
-<p>An array or a list object can used to assign multiple variables at once. For example:</p>
+<p>An array or a list object can used to assign to multiple variables at once:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">]</span>
 <span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span>
 </pre></div>
 </div>
-<p>The three variables on the left of the assignment operator are initialized by the correspondent item in the list.</p>
-<p>Read more about <a class="reference external" href="http://www.groovy-lang.org/semantics.html#_multiple_assignment">Multiple assignment</a> on the Groovy documentation.</p>
+<p>The three variables on the left of the assignment operator are initialized by the corresponding item in the list.</p>
+<p>Read more about <a class="reference external" href="http://www.groovy-lang.org/semantics.html#_multiple_assignment">Multiple assignment</a> in the Groovy documentation.</p>
 </div>
 <div class="section" id="conditional-execution">
 <h3>Conditional Execution<a class="headerlink" href="#conditional-execution" title="Permalink to this headline">¶</a></h3>
 <p>One of the most important features of any programming language is the ability to execute different code under
-different conditions. The simplest way to do this is to use the <code class="docutils literal"><span class="pre">if</span></code> construct. For example:</p>
+different conditions. The simplest way to do this is to use the <code class="docutils literal"><span class="pre">if</span></code> construct:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
 <span class="k">if</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="p">{</span>
     <span class="n">println</span> <span class="s2">&quot;You lost.&quot;</span>
@@ -295,24 +294,23 @@ different conditions. The simplest way to do this is to use the <code class="doc
 </div>
 <div class="section" id="strings">
 <h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
-<p>Strings can be defined by delimiting them with a single-quote <code class="docutils literal"><span class="pre">'</span></code> or a double-quote <code class="docutils literal"><span class="pre">&quot;</span></code>.
-Using either type of string allows you to use strings with quotations easily, as shown below:</p>
+<p>Strings can be defined by enclosing text in single or double quotes (<a href="#id2"><span class="problematic" id="id3">``</span></a>'<a href="#id4"><span class="problematic" id="id5">``</span></a>s or <a href="#id6"><span class="problematic" id="id7">``</span></a>&quot;<a href="#id8"><span class="problematic" id="id9">``</span></a>s):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;he said &#39;cheese&#39; once&quot;</span>
 <span class="n">println</span> <span class="s1">&#39;he said &quot;cheese!&quot; again&#39;</span>
 </pre></div>
 </div>
-<p>Strings may be concatenated with <code class="docutils literal"><span class="pre">+</span></code>. For example:</p>
+<p>Strings can be concatenated with <code class="docutils literal"><span class="pre">+</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>
 <span class="nb">print</span> <span class="s2">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="string-interpolation">
-<span id="id2"></span><h3>String interpolation<a class="headerlink" href="#string-interpolation" title="Permalink to this headline">¶</a></h3>
-<p>There is an important difference between single <code class="docutils literal"><span class="pre">'</span></code> and double <code class="docutils literal"><span class="pre">&quot;</span></code> quoted strings.
-Double quoted strings supports variable interpolations, while single quoted strings do not.</p>
-<p>In practice, strings that are declared inside double-quotes can contain arbitrary variables prefixing them with the <code class="docutils literal"><span class="pre">$</span></code> character
-or any expressions by using the <code class="docutils literal"><span class="pre">${expression}</span></code> syntax in a very similar way to Bash/shell scripts.</p>
+<span id="id10"></span><h3>String interpolation<a class="headerlink" href="#string-interpolation" title="Permalink to this headline">¶</a></h3>
+<p>There is an important difference between single- and double-quoted strings:
+Double-quoted strings support variable interpolations, while single-quoted strings do not.</p>
+<p>In practice, double-quoted strings can contain the value of an arbitrary variable by prefixing its name with the <code class="docutils literal"><span class="pre">$</span></code> character,
+or the value of any expression by using the <code class="docutils literal"><span class="pre">${expression}</span></code> syntax, similar to Bash/shell scripts:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foxtype</span> <span class="o">=</span> <span class="s1">&#39;quick&#39;</span>
 <span class="n">foxcolor</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]</span>
 <span class="n">println</span> <span class="s2">&quot;The $foxtype ${foxcolor.join()} fox&quot;</span>
@@ -321,7 +319,7 @@ or any expressions by using the <code class="docutils literal"><span class="pre"
 <span class="n">println</span> <span class="s1">&#39;$x + $y&#39;</span>
 </pre></div>
 </div>
-<p>It prints:</p>
+<p>This code prints:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>The quick brown fox
 $x + $y
 </pre></div>
@@ -329,7 +327,7 @@ $x + $y
 </div>
 <div class="section" id="multi-line-strings">
 <h3>Multi-line strings<a class="headerlink" href="#multi-line-strings" title="Permalink to this headline">¶</a></h3>
-<p>A block of text that span multiple lines can be defined by delimiting it with triple single or double quotes, as shown below:</p>
+<p>A block of text that span multiple lines can be defined by delimiting it with triple single or double quotes:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    hello there James</span>
 <span class="s2">    how are you today?</span>
@@ -338,11 +336,11 @@ $x + $y
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Like before, multi-line strings delimited by double-quotes characters supports variable interpolation, while
-single-quote string do not.</p>
+<p class="last">Like before, multi-line strings inside double quotes support variable interpolation, while
+single-quoted multi-line strings do not.</p>
 </div>
-<p>As in Bash/shell scripts, when terminating a multi-line text block with a <code class="docutils literal"><span class="pre">\</span></code> character, the resulting string is
-not broken up by <cite>new line</cite> character(s):</p>
+<p>As in Bash/shell scripts, terminating a line in a multi-line string with a <code class="docutils literal"><span class="pre">\</span></code> character prevents a
+a <cite>new line</cite> character from separating that line from the one that follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myLongCmdline</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot; blastp </span><span class="se">\</span>
 <span class="s2">                -in $input_query </span><span class="se">\</span>
 <span class="s2">                -out $output_file </span><span class="se">\</span>
@@ -353,38 +351,40 @@ not broken up by <cite>new line</cite> character(s):</p>
 <span class="n">result</span> <span class="o">=</span> <span class="n">myLongCmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
+<p>In the preceding example, <code class="docutils literal"><span class="pre">blastp</span></code> and its <code class="docutils literal"><span class="pre">-in</span></code>, <code class="docutils literal"><span class="pre">-out</span></code>, <code class="docutils literal"><span class="pre">-db</span></code> and <code class="docutils literal"><span class="pre">-html</span></code> switches and
+their arguments are effectively a single line.</p>
 </div>
 </div>
 <div class="section" id="closures">
 <span id="script-closure"></span><h2>Closures<a class="headerlink" href="#closures" title="Permalink to this headline">¶</a></h2>
-<p>In very few words a closure is a block of code that can be passed as an argument to a function.
-Thus you can define a chunk of code and then pass it around as if it were a string or an integer.</p>
-<p>More formally, you can create functions that are defined <cite>first class objects</cite>.</p>
+<p>Briefly, a closure is a block of code that can be passed as an argument to a function.
+Thus, you can define a chunk of code and then pass it around as if it were a string or an integer.</p>
+<p>More formally, you can create functions that are defined as <cite>first class objects</cite>.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>The curly brackets around the expression <code class="docutils literal"><span class="pre">it</span> <span class="pre">*</span> <span class="pre">it</span></code> tells the script interpreter to treat this expression as code.
-In this case, the designator <code class="docutils literal"><span class="pre">it</span></code> refers to whatever value is given to the function. Then this compiled function is
-assigned to the variable <cite>'square`</cite> much like those above. So now we can do something like this:</p>
+In this case, the designator <code class="docutils literal"><span class="pre">it</span></code> refers to whatever value is passed to the function when it is called. This compiled function is
+assigned to the variable <code class="docutils literal"><span class="pre">square</span></code>, much like variable assignments shown previously. Now we can do something like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">square</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and get the value 81.</p>
-<p>This is not very interesting until we find that we can pass this function <code class="docutils literal"><span class="pre">square</span></code> around as a method argument.
-There are some built in functions that take a function like this as an argument. One example is the <code class="docutils literal"><span class="pre">collect</span></code> method on lists.
-For example:</p>
+<p>This is not very interesting until we find that we can pass the function <code class="docutils literal"><span class="pre">square</span></code> as an argument to other functions or methods.
+Some built-in functions take a function like this as an argument. One example is the <code class="docutils literal"><span class="pre">collect</span></code> method on lists:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This expression says, create an array with the values 1,2,3 and 4, then call the <cite>collect</cite> method, passing in the
-closure we defined above. The collect method runs through each item in the array, calls the closure on the item,
+<p>This expression says: Create an array with the values 1, 2, 3 and 4, then call its <code class="docutils literal"><span class="pre">collect</span></code> method, passing in the
+closure we defined above. The <code class="docutils literal"><span class="pre">collect</span></code> method runs through each item in the array, calls the closure on the item,
 then puts the result in a new array, resulting in:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span> <span class="p">]</span>
 </pre></div>
 </div>
-<p>For more methods that you can call with closures as arguments, see the <a class="reference external" href="http://groovy.codehaus.org/groovy-jdk/">Groovy GDK documentation</a>.</p>
-<p>By default closures take 1 parameter called <code class="docutils literal"><span class="pre">it</span></code>, you can also create closures with named parameters.
-For example the method <code class="docutils literal"><span class="pre">Map.each()</span></code> can take a closure with two variables, to which it binds the <cite>key</cite> and the associated <cite>value</cite>:</p>
+<p>For more methods that you can call with closures as arguments, see the <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/">Groovy GDK documentation</a>.</p>
+<p>By default, closures take a single parameter called <code class="docutils literal"><span class="pre">it</span></code>, but you can also create closures with multiple, custom-named parameters.
+For example, the method <code class="docutils literal"><span class="pre">Map.each()</span></code> can take a closure with two arguments, to which it binds the <cite>key</cite> and the associated <cite>value</cite>
+for each key-value pair in the <code class="docutils literal"><span class="pre">Map</span></code>. Here, we use the obvious variable names <code class="docutils literal"><span class="pre">key</span></code> and <code class="docutils literal"><span class="pre">value</span></code> in our closure:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">printMapClosure</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">-&gt;</span>
     <span class="n">println</span> <span class="s2">&quot;$key = $value&quot;</span>
 <span class="p">}</span>
@@ -398,11 +398,11 @@ For example the method <code class="docutils literal"><span class="pre">Map.each
 <span class="n">Sudha</span><span class="o">=</span><span class="n">Kumari</span>
 </pre></div>
 </div>
-<p>A closure has another two important features. First it can access variables in the scope where it is defined and
-so it can <cite>interact</cite> with them.</p>
-<p>The second thing is that a closure can be defined in an <cite>anonymous</cite> manner, meaning that it is not given a name,
+<p>A closure has two other important features. First, it can access variables in the scope where it is defined,
+so that it can <cite>interact</cite> with them.</p>
+<p>Second, a closure can be defined in an <cite>anonymous</cite> manner, meaning that it is not given a name,
 and is defined in the place where it needs to be used.</p>
-<p>As an example showing both these features see the following code fragment:</p>
+<p>As an example showing both these features, see the following code fragment:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myMap</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;China&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">,</span> <span class="s2">&quot;India&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;USA&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
 
 <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
@@ -417,19 +417,19 @@ and is defined in the place where it needs to be used.</p>
 <span id="script-regexp"></span><h2>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this headline">¶</a></h2>
 <p>Regular expressions are the Swiss Army knife of text processing. They provide the programmer with the ability to match
 and extract patterns from strings.</p>
-<p>Regular expressions are supported by using the <code class="docutils literal"><span class="pre">~/pattern/</span></code> syntax and the <code class="docutils literal"><span class="pre">=~</span></code> and the <code class="docutils literal"><span class="pre">==~</span></code> operators.</p>
-<p>Use the <code class="docutils literal"><span class="pre">=~</span></code> to check if there's any occurrence of a given pattern into a given string, thus:</p>
+<p>Regular expressions are available via the <code class="docutils literal"><span class="pre">~/pattern/</span></code> syntax and the <code class="docutils literal"><span class="pre">=~</span></code> and <code class="docutils literal"><span class="pre">==~</span></code> operators.</p>
+<p>Use <code class="docutils literal"><span class="pre">=~</span></code> to check whether a given pattern occurs anywhere in a string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
 <span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
 </pre></div>
 </div>
-<p>Use the <code class="docutils literal"><span class="pre">==~</span></code> to check whenever a string matches a given regular expression pattern.</p>
+<p>Use <code class="docutils literal"><span class="pre">==~</span></code> to check whether a string matches a given regular expression pattern exactly.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
 <span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">FALSE</span>
 </pre></div>
 </div>
 <p>It is worth noting that the <code class="docutils literal"><span class="pre">~</span></code> operator creates a Java <code class="docutils literal"><span class="pre">Pattern</span></code> object from the given string,
-while the <code class="docutils literal"><span class="pre">=~</span></code> creates a Java <code class="docutils literal"><span class="pre">Matcher</span></code> object.</p>
+while the <code class="docutils literal"><span class="pre">=~</span></code> operator creates a Java <code class="docutils literal"><span class="pre">Matcher</span></code> object.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>x = ~/abc/
 println x.class
 // prints java.util.regex.Pattern
@@ -441,15 +441,15 @@ println y.class
 </div>
 <p>Regular expression support is imported from Java. Java's regular expression language and API is documented in the
 <a class="reference external" href="http://download.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">Pattern Java documentation</a>.</p>
-<p>You may also be interested in this post <a class="reference external" href="http://naleid.com/blog/2008/05/19/dont-fear-the-regexp">Groovy: Don't Fear the RegExp</a>.</p>
-<div class="section" id="string-replacements">
-<h3>String replacements<a class="headerlink" href="#string-replacements" title="Permalink to this headline">¶</a></h3>
-<p>To replace pattern occurrences into a given string use the <code class="docutils literal"><span class="pre">replaceFirst</span></code> and <code class="docutils literal"><span class="pre">replaceAll</span></code> methods. For example:</p>
+<p>You may also be interested in this post: <a class="reference external" href="https://web.archive.org/web/20170621185113/http://www.naleid.com/blog/2008/05/19/dont-fear-the-regexp">Groovy: Don't Fear the RegExp</a>.</p>
+<div class="section" id="string-replacement">
+<h3>String replacement<a class="headerlink" href="#string-replacement" title="Permalink to this headline">¶</a></h3>
+<p>To replace pattern occurrences in a given string, use the <code class="docutils literal"><span class="pre">replaceFirst</span></code> and <code class="docutils literal"><span class="pre">replaceAll</span></code> methods:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;colour&quot;</span><span class="o">.</span><span class="n">replaceFirst</span><span class="p">(</span><span class="o">/</span><span class="n">ou</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
 <span class="n">println</span> <span class="n">x</span>
 <span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">color</span>
 
-<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;cheesecheese&quot;</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="o">/</span><span class="n">cheese</span><span class="o">/</span><span class="p">,</span><span class="s2">&quot;nice&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;cheesecheese&quot;</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="o">/</span><span class="n">cheese</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;nice&quot;</span><span class="p">)</span>
 <span class="n">println</span> <span class="n">y</span>
 <span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">nicenice</span>
 </pre></div>
@@ -458,8 +458,8 @@ println y.class
 <div class="section" id="capturing-groups">
 <h3>Capturing groups<a class="headerlink" href="#capturing-groups" title="Permalink to this headline">¶</a></h3>
 <p>You can match a pattern that includes groups.  First create a matcher object with the <code class="docutils literal"><span class="pre">=~</span></code> operator.
-Then, you can index the matcher object to find the matches, <code class="docutils literal"><span class="pre">matcher[0]</span></code> returns a list representing the first match
-of the regular expression in the string. The first element is the string that matches the entire regular expression, and
+Then, you can index the matcher object to find the matches: <code class="docutils literal"><span class="pre">matcher[0]</span></code> returns a list representing the first match
+of the regular expression in the string. The first list element is the string that matches the entire regular expression, and
 the remaining elements are the strings that match each group.</p>
 <p>Here's how it works:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
@@ -472,7 +472,7 @@ assert m[0][3] == &#39;3&#39;
 assert m[0][4] == &#39;beta&#39;
 </pre></div>
 </div>
-<p>Applying some syntax sugar, you can do the same in just one line of code:</p>
+<p>Applying some syntactic sugar, you can do the same in just one line of code:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
 (full, major, minor, patch, flavor) = (programVersion =~ /(\d+)\.(\d+)\.(\d+)-?(.+)/)[0]
 
@@ -486,8 +486,8 @@ println flavor  // beta
 </div>
 <div class="section" id="removing-part-of-a-string">
 <h3>Removing part of a string<a class="headerlink" href="#removing-part-of-a-string" title="Permalink to this headline">¶</a></h3>
-<p>You can subtract a part of a String value using a regular expression pattern. The first match found is
-replaced with an empty String. For example:</p>
+<p>You can remove part of a <code class="docutils literal"><span class="pre">String</span></code> value using a regular expression pattern. The first match found is
+replaced with an empty String:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>// define the regexp pattern
 wordStartsWithGr = ~/(?i)\s+Gr\w+/
 
@@ -496,11 +496,11 @@ wordStartsWithGr = ~/(?i)\s+Gr\w+/
 (&#39;Hi Grails users&#39; - wordStartsWithGr) == &#39;Hi users&#39;
 </pre></div>
 </div>
-<p>Remove first match of a word with 5 characters:</p>
+<p>Remove the first 5-character word from a string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Remove first match of 5 letter word&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">b</span>\<span class="n">w</span><span class="p">{</span><span class="mi">5</span><span class="p">}</span>\<span class="n">b</span><span class="o">/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Remove  match of 5 letter word&#39;</span>
 </pre></div>
 </div>
-<p>Remove first found numbers followed by a whitespace character:</p>
+<p>Remove the first number with its trailing whitespace from a string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Line contains 20 characters&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">d</span><span class="o">+</span>\<span class="n">s</span><span class="o">+/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Line contains characters&#39;</span>
 </pre></div>
 </div>
@@ -508,29 +508,30 @@ wordStartsWithGr = ~/(?i)\s+Gr\w+/
 </div>
 <div class="section" id="files-and-i-o">
 <span id="script-file-io"></span><h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline">¶</a></h2>
-<p>In order to access and work with files, you need to use the <code class="docutils literal"><span class="pre">file</span></code> method which returns a file system object
-given a file path string. For example:</p>
+<p>To access and work with files, use the <code class="docutils literal"><span class="pre">file</span></code> method, which returns a file system object
+given a file path string:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/to/my_file.file&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">file</span></code> method can reference either <cite>files</cite> or <cite>directories</cite> depending on what the string path is locating in the
+<p>The <code class="docutils literal"><span class="pre">file</span></code> method can reference either <cite>files</cite> or <cite>directories</cite>, depending on what the string path refers to in the
 file system.</p>
-<p>When using wildcard characters i.e. <code class="docutils literal"><span class="pre">*</span></code>, <code class="docutils literal"><span class="pre">?</span></code>, <code class="docutils literal"><span class="pre">[]</span></code> and <code class="docutils literal"><span class="pre">{}</span></code> the argument is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher
-and the <code class="docutils literal"><span class="pre">file</span></code> method returns a list object holding the path of files
-whose name matches the specified pattern, or an empty list if no match is found. For example:</p>
+<p>When using the wildcard characters <code class="docutils literal"><span class="pre">*</span></code>, <code class="docutils literal"><span class="pre">?</span></code>, <code class="docutils literal"><span class="pre">[]</span></code> and <code class="docutils literal"><span class="pre">{}</span></code>, the argument is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher
+and the <code class="docutils literal"><span class="pre">file</span></code> method returns a list object holding the paths of files whose names match the specified pattern, or an
+empty list if no match is found:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listOfFiles</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Two asterisks, i.e. <code class="docutils literal"><span class="pre">**</span></code>, works like <code class="docutils literal"><span class="pre">*</span></code> but crosses directory boundaries. Also note that,
-by default wildcard characters do not match against hidden and directory files.</p>
+<p class="last">Two asterisks (<code class="docutils literal"><span class="pre">**</span></code>) in a glob pattern works like <code class="docutils literal"><span class="pre">*</span></code> but matches any number of directory components in a
+file system path.</p>
 </div>
-<p>For example, if you want to include hidden files in the result list, add the optional parameter <code class="docutils literal"><span class="pre">hidden</span></code> as shown below:</p>
+<p>By default, wildcard characters do not match directories or hidden files. For example, if you want to include hidden
+files in the result list, add the optional parameter <code class="docutils literal"><span class="pre">hidden</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">listWithHidden</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The list of available options is shown below:</p>
+<p>Here are <code class="docutils literal"><span class="pre">file</span></code>'s available options:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="9%" />
@@ -555,7 +556,7 @@ by default wildcard characters do not match against hidden and directory files.<
 <td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
 </tr>
 <tr class="row-even"><td>followLinks</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code> it follows symbolic links during directories tree traversal, otherwise they are managed as files (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> follows symbolic links during directory tree traversal, otherwise treats them as files (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -563,37 +564,36 @@ by default wildcard characters do not match against hidden and directory files.<
 <p class="first admonition-title">Tip</p>
 <p class="last">If you are a Java geek you will be interested to know that the <code class="docutils literal"><span class="pre">file</span></code> method returns a
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html">Path</a> object, which allows
-you to use the usual methods as you would in a Java program.</p>
+you to use the usual methods you would in a Java program.</p>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">Channel.fromPath</span></a> .</p>
 <div class="section" id="basic-read-write">
 <h3>Basic read/write<a class="headerlink" href="#basic-read-write" title="Permalink to this headline">¶</a></h3>
-<p>Given a file variable, declared by using the <code class="docutils literal"><span class="pre">file</span></code> method as shown in the previous example, reading a file
+<p>Given a file variable, declared using the <code class="docutils literal"><span class="pre">file</span></code> method as shown in the previous example, reading a file
 is as easy as getting the value of the file's <code class="docutils literal"><span class="pre">text</span></code> property, which returns the file content
-as a string value. For example:</p>
+as a string value:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">myFile</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
-<p>In the same way you can save a string value to a file by simply assigning it to the file's <code class="docutils literal"><span class="pre">text</span></code> property,
-as shown below:</p>
+<p>Similarly, you can save a string value to a file by simply assigning it to the file's <code class="docutils literal"><span class="pre">text</span></code> property:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The actual file content is overwritten by the assignment operation. If the file does not exist, it is created
-implicitly by the assignment operation.</p>
+<p class="last">Existing file content is overwritten by the assignment operation, which also implicitly creates
+files that do not exist.</p>
 </div>
-<p>In order to append a string value to a file without erasing the actual content, you can use the <code class="docutils literal"><span class="pre">append</span></code> method:</p>
+<p>In order to append a string value to a file without erasing existing content, you can use the <code class="docutils literal"><span class="pre">append</span></code> method:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Add this line</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>or by using the <cite>left shift</cite> operator, which is just a more idiomatic way to append text content to a file:</p>
+<p>Or use the <cite>left shift</cite> operator, a more idiomatic way to append text content to a file:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Add a line more</span><span class="se">\n</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 <p>Binary data can managed in the same way, just using the file property <code class="docutils literal"><span class="pre">bytes</span></code> instead of <code class="docutils literal"><span class="pre">text</span></code>. Thus, the following
-example read the file and returns its content as a byte array:</p>
+example reads the file and returns its content as a byte array:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">binaryContent</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span>
 </pre></div>
 </div>
@@ -610,8 +610,8 @@ reading a file line by line or by using a fixed size buffer.</p>
 </div>
 <div class="section" id="read-a-file-line-by-line">
 <h3>Read a file line by line<a class="headerlink" href="#read-a-file-line-by-line" title="Permalink to this headline">¶</a></h3>
-<p>In order to read a text file line by line you can use the method <code class="docutils literal"><span class="pre">readLines()</span></code> provided by the file object which
-returns the file content as a list of strings. For example:</p>
+<p>In order to read a text file line by line you can use the method <code class="docutils literal"><span class="pre">readLines()</span></code> provided by the file object, which
+returns the file content as a list of strings:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
 <span class="n">allLines</span>  <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
 <span class="k">for</span><span class="p">(</span> <span class="n">line</span> <span class="p">:</span> <span class="n">allLines</span> <span class="p">)</span> <span class="p">{</span>
@@ -619,7 +619,7 @@ returns the file content as a list of strings. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The same example can be written in a more idiomatic syntax, as shown below:</p>
+<p>This can also be written in a more idiomatic syntax:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
     <span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
@@ -628,10 +628,9 @@ returns the file content as a list of strings. For example:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The method <code class="docutils literal"><span class="pre">readLines()</span></code> reads all the file content at once and returns a list containing all the lines. For
-this reason do not use it to read big files.</p>
+this reason, do not use it to read big files.</p>
 </div>
-<p>When you need to process a big file line by line, use the method <code class="docutils literal"><span class="pre">eachLine</span></code> which allows you to read a file
-processing each line one by one, thus avoiding the loading of all the file content in the memory. For example:</p>
+<p>To process a big file, use the method <code class="docutils literal"><span class="pre">eachLine</span></code>, which reads only a single line at a time into memory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">myFile</span><span class="o">.</span><span class="n">eachLine</span> <span class="p">{</span>  <span class="nb">str</span> <span class="o">-&gt;</span>
         <span class="n">println</span> <span class="s2">&quot;line ${count++}: $str&quot;</span>
@@ -641,10 +640,9 @@ processing each line one by one, thus avoiding the loading of all the file conte
 </div>
 <div class="section" id="advanced-file-reading-operations">
 <h3>Advanced file reading operations<a class="headerlink" href="#advanced-file-reading-operations" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">Reader</span></code> and the <code class="docutils literal"><span class="pre">InputStream</span></code> classes allow you to gain fine control on read operations for
-text and binary files respectively.</p>
-<p>The file method <code class="docutils literal"><span class="pre">newReader</span></code> creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object
-for the given file and allows you to read the content in single characters, lines or arrays of characters. For example:</p>
+<p>The classes <code class="docutils literal"><span class="pre">Reader</span></code> and <code class="docutils literal"><span class="pre">InputStream</span></code> provide fine control for reading text and binary files, respectively._</p>
+<p>The method <code class="docutils literal"><span class="pre">newReader</span></code> creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object
+for the given file that allows you to read the content as single characters, lines or arrays of characters:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myReader</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">newReader</span><span class="p">()</span>
 <span class="n">String</span> <span class="n">line</span>
 <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
@@ -653,8 +651,8 @@ for the given file and allows you to read the content in single characters, line
 <span class="n">myReader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>The method <code class="docutils literal"><span class="pre">withReader</span></code> works in a similar manner but saves you from calling the method <code class="docutils literal"><span class="pre">close</span></code> when you have finished
-processing the file since it is managed automatically by the method itself. The same example can be rewritten as shown below:</p>
+<p>The method <code class="docutils literal"><span class="pre">withReader</span></code> works similarly, but automatically calls the <code class="docutils literal"><span class="pre">close</span></code> method for you when you have finished
+processing the file. So, the previous example can be written more simply as:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span>
     <span class="n">String</span> <span class="n">line</span>
     <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
@@ -663,10 +661,10 @@ processing the file since it is managed automatically by the method itself. The 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The methods <code class="docutils literal"><span class="pre">newInputStream</span></code> and <code class="docutils literal"><span class="pre">withInputStream</span></code> work in a similar manner. The main difference is that they create an
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> object that is useful to write binary
+<p>The methods <code class="docutils literal"><span class="pre">newInputStream</span></code> and <code class="docutils literal"><span class="pre">withInputStream</span></code> work similarly. The main difference is that they create an
+<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> object useful for writing binary
 data.</p>
-<p>Table of the most important methods to read file content:</p>
+<p>Here are the most important methods for reading from files:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="9%" />
@@ -688,10 +686,10 @@ data.</p>
 <td>Reads the file line by line and returns the content as a list of strings</td>
 </tr>
 <tr class="row-odd"><td>eachLine</td>
-<td>Iterates over the file line by line applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
+<td>Iterates over the file line by line, applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
 </tr>
 <tr class="row-even"><td>eachByte</td>
-<td>Iterates over the file by each single byte applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
+<td>Iterates over the file byte by byte, applying the specified <a class="reference internal" href="#script-closure"><span class="std std-ref">closure</span></a></td>
 </tr>
 <tr class="row-odd"><td>withReader</td>
 <td>Opens a file for reading and lets you access it with a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object</td>
@@ -709,14 +707,14 @@ data.</p>
 </table>
 <p>Read the Java documentation for <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> and
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> classes to learn more about
-the methods concerning these classes.</p>
+methods available for reading data from files.</p>
 </div>
 <div class="section" id="advanced-file-writing-operations">
 <h3>Advanced file writing operations<a class="headerlink" href="#advanced-file-writing-operations" title="Permalink to this headline">¶</a></h3>
-<p>When you need to access low-level write operations to handle single bytes or characters, or if you are working with big files you will
-need to use the <code class="docutils literal"><span class="pre">Writer</span></code> and <code class="docutils literal"><span class="pre">OutputStream</span></code> classes which provide fine control on write operations.</p>
-<p>For example, given two file objects <code class="docutils literal"><span class="pre">sourceFile</span></code> and <code class="docutils literal"><span class="pre">targetFile</span></code>, the following code snippet shows how to copy the
-file content from the first file into the second one replacing all the <code class="docutils literal"><span class="pre">U</span></code> characters with <code class="docutils literal"><span class="pre">X</span></code>:</p>
+<p>The <code class="docutils literal"><span class="pre">Writer</span></code> and <code class="docutils literal"><span class="pre">OutputStream</span></code> classes provide fine control for writing text and binary files,
+respectively, including low-level operations for single characters or bytes, and support for big files.</p>
+<p>For example, given two file objects <code class="docutils literal"><span class="pre">sourceFile</span></code> and <code class="docutils literal"><span class="pre">targetFile</span></code>, the following code copies the
+first file's content into the second file, replacing all <code class="docutils literal"><span class="pre">U</span></code> characters with <a href="#id17"><span class="problematic" id="id18">``</span></a>X``s:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sourceFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span> <span class="n">source</span> <span class="o">-&gt;</span>
     <span class="n">targetFile</span><span class="o">.</span><span class="n">withWriter</span> <span class="p">{</span> <span class="n">target</span> <span class="o">-&gt;</span>
         <span class="n">String</span> <span class="n">line</span>
@@ -727,7 +725,7 @@ file content from the first file into the second one replacing all the <code cla
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Table of the most important methods to write data into a file:</p>
+<p>Here are the most important methods for writing to files:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="11%" />
@@ -740,16 +738,16 @@ file content from the first file into the second one replacing all the <code cla
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>setText</td>
-<td>Saves a string value to a file</td>
+<td>Writes a string value to a file</td>
 </tr>
 <tr class="row-odd"><td>setBytes</td>
-<td>Saves a bytes array to a file</td>
+<td>Writes a byte array to a file</td>
 </tr>
 <tr class="row-even"><td>write</td>
-<td>Saves a string to a file truncating the actual content</td>
+<td>Writes a string to a file, replacing any existing content</td>
 </tr>
 <tr class="row-odd"><td>append</td>
-<td>Appends a string value to a file without truncating the actual content</td>
+<td>Appends a string value to a file without replacing existing content</td>
 </tr>
 <tr class="row-even"><td>newWriter</td>
 <td>Creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a> object that allows you to save text data to a file</td>
@@ -761,20 +759,20 @@ file content from the first file into the second one replacing all the <code cla
 <td>Creates an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> object that allows you to write binary data to a file</td>
 </tr>
 <tr class="row-odd"><td>withWriter</td>
-<td>Applies the specified closure to a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a> object, closing it when finished.</td>
+<td>Applies the specified closure to a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a> object, closing it when finished</td>
 </tr>
 <tr class="row-even"><td>withPrintWriter</td>
-<td>Applies the specified closure to a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html">PrintWriter</a> object, closing it when finished.</td>
+<td>Applies the specified closure to a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html">PrintWriter</a> object, closing it when finished</td>
 </tr>
 <tr class="row-odd"><td>withOutputStream</td>
-<td>Applies the specified closure to an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> object, closing it when finished.</td>
+<td>Applies the specified closure to an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> object, closing it when finished</td>
 </tr>
 </tbody>
 </table>
 <p>Read the Java documentation for the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a>,
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html">PrintWriter</a> and
 <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> classes to learn more about
-methods available for writing data.</p>
+methods available for writing data to files.</p>
 </div>
 <div class="section" id="list-directory-content">
 <h3>List directory content<a class="headerlink" href="#list-directory-content" title="Permalink to this headline">¶</a></h3>
@@ -784,7 +782,7 @@ that points to it:</p>
 </pre></div>
 </div>
 <p>The simplest way to get a directory list is by using the methods <code class="docutils literal"><span class="pre">list</span></code> or <code class="docutils literal"><span class="pre">listFiles</span></code>,
-that return a collection of first-level elements (files and directories) in a directory. For example:</p>
+which return a collection of first-level elements (files and directories) of a directory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">allFiles</span> <span class="o">=</span> <span class="n">myDir</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
 <span class="k">for</span><span class="p">(</span> <span class="k">def</span> <span class="nf">file</span> <span class="p">:</span> <span class="n">allFiles</span> <span class="p">)</span> <span class="p">{</span>
     <span class="n">println</span> <span class="n">file</span>
@@ -793,11 +791,11 @@ that return a collection of first-level elements (files and directories) in a di
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">The only difference between <code class="docutils literal"><span class="pre">list</span></code> and <code class="docutils literal"><span class="pre">listFiles</span></code> is that the first returns a list of strings, while the latter a
-list of file objects, that allow you to access file dependent data e.g. size, last modified time, etc.</p>
+<p class="last">The only difference between <code class="docutils literal"><span class="pre">list</span></code> and <code class="docutils literal"><span class="pre">listFiles</span></code> is that the former returns a list of strings, and the latter a
+list of file objects that allow you to access file metadata, e.g. size, last modified time, etc.</p>
 </div>
 <p>The <code class="docutils literal"><span class="pre">eachFile</span></code> method allows you to iterate through the first-level elements only
-(just like <code class="docutils literal"><span class="pre">listFiles</span></code>). As with other <cite>each-</cite> methods, they take a closure as an input parameter. For example:</p>
+(just like <code class="docutils literal"><span class="pre">listFiles</span></code>). As with other <cite>each-</cite> methods, <code class="docutils literal"><span class="pre">eachFiles</span></code> takes a closure as a parameter:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">eachFile</span> <span class="p">{</span> <span class="n">item</span> <span class="o">-&gt;</span>
     <span class="k">if</span><span class="p">(</span> <span class="n">item</span><span class="o">.</span><span class="n">isFile</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
         <span class="n">println</span> <span class="s2">&quot;${item.getName()} - size: ${item.size()}&quot;</span>
@@ -827,16 +825,16 @@ list of file objects, that allow you to access file dependent data e.g. size, la
 <td>Iterates through first-level directories only. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachDir(groovy.lang.Closure)">Read more</a></td>
 </tr>
 <tr class="row-even"><td>eachFileMatch</td>
-<td>Iterates through files and dirs whose name match the given filter. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachFileMatch(java.lang.Object,%20groovy.lang.Closure)">Read more</a></td>
+<td>Iterates through files and dirs whose names match the given filter. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachFileMatch(java.lang.Object,%20groovy.lang.Closure)">Read more</a></td>
 </tr>
 <tr class="row-odd"><td>eachDirMatch</td>
-<td>Iterates through directories whose name match the given filter. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachDirMatch(java.lang.Object,%20groovy.lang.Closure)">Read more</a></td>
+<td>Iterates through directories whose names match the given filter. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachDirMatch(java.lang.Object,%20groovy.lang.Closure)">Read more</a></td>
 </tr>
 <tr class="row-even"><td>eachFileRecurse</td>
-<td>Iterates through directory elements in a depth-first fashion. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachFileRecurse(groovy.lang.Closure)">Read more</a></td>
+<td>Iterates through directory elements depth-first. <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachFileRecurse(groovy.lang.Closure)">Read more</a></td>
 </tr>
 <tr class="row-odd"><td>eachDirRecurse</td>
-<td>Iterates through directories in a depth-first fashion (regular files are ignored). <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachDirRecurse(groovy.lang.Closure)">Read more</a></td>
+<td>Iterates through directories depth-first (regular files are ignored). <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/java/io/File.html#eachDirRecurse(groovy.lang.Closure)">Read more</a></td>
 </tr>
 </tbody>
 </table>
@@ -848,26 +846,24 @@ list of file objects, that allow you to access file dependent data e.g. size, la
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;any/path&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>the method <code class="docutils literal"><span class="pre">mkdir</span></code> allows you to create a folder at the given path. It returns a <code class="docutils literal"><span class="pre">true</span></code> value if the folder is created
-successfully, of <code class="docutils literal"><span class="pre">false</span></code> otherwise.</p>
+<p>the method <code class="docutils literal"><span class="pre">mkdir</span></code> creates a directory at the given path, returning <code class="docutils literal"><span class="pre">true</span></code> if the directory is created
+successfully, and <code class="docutils literal"><span class="pre">false</span></code> otherwise:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>result = myDir.mkdir()
-println result ? &quot;OK&quot; : &quot;Cannot create folder: $myDir&quot;
+println result ? &quot;OK&quot; : &quot;Cannot create directory: $myDir&quot;
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the parent directories do not exist, the above method will fail returning a <code class="docutils literal"><span class="pre">false</span></code> value.</p>
+<p class="last">If the parent directories do not exist, the above method will fail and return <code class="docutils literal"><span class="pre">false</span></code>.</p>
 </div>
-<p>The method <code class="docutils literal"><span class="pre">mkdirs</span></code> allows you to create the directory named by the file object, including any necessary but
-nonexistent parent directories. For example:</p>
+<p>The method <code class="docutils literal"><span class="pre">mkdirs</span></code> creates the directory named by the file object, including any nonexistent parent directories:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">mkdirs</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="create-links">
 <h3>Create links<a class="headerlink" href="#create-links" title="Permalink to this headline">¶</a></h3>
-<p>Given a file, the method <code class="docutils literal"><span class="pre">mklink</span></code> creates a <em>file system link</em> for that file using the path specified as a parameter.
-For example:</p>
+<p>Given a file, the method <code class="docutils literal"><span class="pre">mklink</span></code> creates a <em>file system link</em> for that file using the path specified as a parameter:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
 <span class="n">myFile</span><span class="o">.</span><span class="n">mklink</span><span class="p">(</span><span class="s1">&#39;/user/name/link-to-file.txt&#39;</span><span class="p">)</span>
 </pre></div>
@@ -875,89 +871,90 @@ For example:</p>
 <p>Table of optional parameters:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="7%" />
-<col width="93%" />
+<col width="8%" />
+<col width="92%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Method</th>
+<tr class="row-odd"><th class="head">Name</th>
 <th class="head">Description</th>
 </tr>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>hard</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code> it creates an <em>hard</em> link, otherwise it creates a <em>soft</em> (aka <em>symbolic</em>) link. (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> creates a <em>hard</em> link, otherwise creates a <em>soft</em> (aka <em>symbolic</em>) link. (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 <tr class="row-odd"><td>overwrite</td>
-<td>When <code class="docutils literal"><span class="pre">true</span></code> it overwrite any exiting file with the same name, otherwise it will throws a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileAlreadyExistsException.html">FileAlreadyExistsException</a> (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> overwrites any existing file with the same name, otherwise throws a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/FileAlreadyExistsException.html">FileAlreadyExistsException</a> (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="copy-files">
 <h3>Copy files<a class="headerlink" href="#copy-files" title="Permalink to this headline">¶</a></h3>
-<p>The method <code class="docutils literal"><span class="pre">copyTo</span></code> allows you to copy a file into a new file or into a directory, or copy a directory to a new
-directory. Having a file variable <code class="docutils literal"><span class="pre">myFile</span></code>, the following example shows how to copy a file into a new file
-with a different name:</p>
+<p>The method <code class="docutils literal"><span class="pre">copyTo</span></code> copies a file into a new file or into a directory, or copie a directory to a new
+directory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;new_name.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">If the target file already exists, it will be replaced by the new one. Note also that if the target is
-a directory, the source file will be copied into that folder maintaining the original name.</p>
+<p class="last">If the target file already exists, it will be replaced by the new one. Note also that, if the target is
+a directory, the source file will be copied into that directory, maintaining the file's original name.</p>
 </div>
-<p>When the source file is a directory, all the directory content is copied to the target folder. For example:</p>
+<p>When the source file is a directory, all its content is copied to the target directory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path&#39;</span><span class="p">)</span>
 <span class="n">myDir</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;/some/new/path&#39;</span><span class="p">)</span>
+
+
+<span class="n">If</span> <span class="n">the</span> <span class="n">target</span> <span class="n">path</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">,</span> <span class="n">it</span> <span class="n">will</span> <span class="n">be</span> <span class="n">created</span> <span class="n">automatically</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>If the target path does not exist, it will be created automatically.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The <code class="docutils literal"><span class="pre">copyTo</span></code> method mimics the semantic of the Linux command <code class="docutils literal"><span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>,
-with the following caveats: Unix BASH distinguish between paths having or not having and ending slash, for example:
-<code class="docutils literal"><span class="pre">/some/path/name</span></code> and <code class="docutils literal"><span class="pre">/some/path/name/</span></code>. The first locates a regular file while the latter identifies a directory
-location. With Nextflow, due to Java files API implementation, this is not possibles and both strings represents the same path.
-If that path exists on the file systems it is handled accordingly (as a regular file or as a directory). If the path does not
-exist, it is supposed to locate a regular file (and any parent directory will be created automatically).</p>
+<p class="last">The <code class="docutils literal"><span class="pre">copyTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal"><span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the
+following caveat: While Linux tools often treat paths ending with a slash (e.g. <code class="docutils literal"><span class="pre">/some/path/name/</span></code>)
+as directories, and those not (e.g. <code class="docutils literal"><span class="pre">/some/path/name</span></code>) as regular files, Nextflow (due to its use of
+the Java files API) views both these paths as the same file system object. If the path exists, it is
+handled according to its actual type (i.e. as a regular file or as a directory). If the path does not
+exist, it is treated as a regular file, with any missing parent directories created automatically.</p>
 </div>
 </div>
 <div class="section" id="move-files">
 <h3>Move files<a class="headerlink" href="#move-files" title="Permalink to this headline">¶</a></h3>
-<p>You can move a file by using the method <code class="docutils literal"><span class="pre">moveTo</span></code> as shown in the example below:</p>
+<p>You can move a file by using the method <code class="docutils literal"><span class="pre">moveTo</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
 <span class="n">myFile</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/another/path/new_file.txt&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">When a file with the same name as the target already exists, it will be replaced by the new one. Note also that
-when the target specifies a folder name instead of a file, the source file is moved in that folder maintaining the original name.</p>
+<p class="last">When a file with the same name as the target already exists, it will be replaced by the source. Note
+also that, when the target is a directory, the file will be moved to (or within) that directory,
+maintaining the file's original name.</p>
 </div>
-<p>When the source file is a directory, all the directory content is moved to the new the destination folder:</p>
+<p>When the source is a directory, all the directory content is moved to the target directory:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/any/dir_a&#39;</span><span class="p">)</span>
 <span class="n">myDir</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/any/dir_b&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Please note that the result of the above example depends on the existence of the destination folder. If the destination
-folder exists, the source is moved into the destination folder, thus the resulting path will be:</p>
+<p>Please note that the result of the above example depends on the existence of the target directory. If the target
+directory exists, the source is moved into the target directory, resulting in the path:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">dir_b</span><span class="o">/</span><span class="n">dir_a</span>
 </pre></div>
 </div>
-<p>If the destination folder does not exist, the source is just renamed to the target name and so the resulting
-path of the above move operation would be:</p>
+<p>If the target directory does not exist, the source is just renamed to the target name, resulting in the path:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">dir_b</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">The <code class="docutils literal"><span class="pre">moveTo</span></code> uses the same semantic as the Linux command <code class="docutils literal"><span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>. The same caveats as for
-the method <code class="docutils literal"><span class="pre">copyTo</span></code> are applied.</p>
+<p class="last">The <code class="docutils literal"><span class="pre">moveTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal"><span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the
+same caveat as that given for <code class="docutils literal"><span class="pre">copyTo</span></code>, above.</p>
 </div>
 </div>
 <div class="section" id="rename-files">
 <h3>Rename files<a class="headerlink" href="#rename-files" title="Permalink to this headline">¶</a></h3>
-<p>You can rename a file or a directory by simply using the <code class="docutils literal"><span class="pre">renameTo</span></code> file method a shown below:</p>
+<p>You can rename a file or directory by simply using the <code class="docutils literal"><span class="pre">renameTo</span></code> file method:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="p">)</span>
 <span class="n">myFile</span><span class="o">.</span><span class="n">renameTo</span><span class="p">(</span><span class="s1">&#39;new_file_name.txt&#39;</span><span class="p">)</span>
 </pre></div>
@@ -965,8 +962,8 @@ the method <code class="docutils literal"><span class="pre">copyTo</span></code>
 </div>
 <div class="section" id="delete-files">
 <h3>Delete files<a class="headerlink" href="#delete-files" title="Permalink to this headline">¶</a></h3>
-<p>The file method <code class="docutils literal"><span class="pre">delete</span></code> allows you to delete a file or a directory with a given path. It returns the value <code class="docutils literal"><span class="pre">true</span></code>
-when the operation is completed  successfully or <code class="docutils literal"><span class="pre">false</span></code> if it fails to delete it. For example:</p>
+<p>The file method <code class="docutils literal"><span class="pre">delete</span></code> deletes the file or directory at the given path, returning <code class="docutils literal"><span class="pre">true</span></code> if the
+operation succeeds, and <code class="docutils literal"><span class="pre">false</span></code> otherwise:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>myFile = file(&#39;some/file.txt&#39;)
 result = myFile.delete
 println result ? &quot;OK&quot; : &quot;Can delete: $myFile&quot;
@@ -974,21 +971,21 @@ println result ? &quot;OK&quot; : &quot;Can delete: $myFile&quot;
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This method deletes a directory ONLY if it does not contain any file or sub-directory. In order to delete a
-directory and ALL its content, i.e. removing all the files and sub-directories it may contain, use the method <code class="docutils literal"><span class="pre">deleteDir</span></code>
-instead.</p>
+<p class="last">This method deletes a directory ONLY if it does not contain any files or sub-directories. To
+delete a directory and ALL its content (i.e. removing all the files and sub-directories it may
+contain), use the method <code class="docutils literal"><span class="pre">deleteDir</span></code>.</p>
 </div>
 </div>
 <div class="section" id="check-file-attributes">
 <h3>Check file attributes<a class="headerlink" href="#check-file-attributes" title="Permalink to this headline">¶</a></h3>
-<p>The following methods can be used on a file variable created by using the <code class="docutils literal"><span class="pre">file</span></code> method.</p>
+<p>The following methods can be used on a file variable created by using the <code class="docutils literal"><span class="pre">file</span></code> method:</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="18%" />
 <col width="82%" />
 </colgroup>
 <thead valign="bottom">
-<tr class="row-odd"><th class="head">Method</th>
+<tr class="row-odd"><th class="head">Name</th>
 <th class="head">Description</th>
 </tr>
 </thead>
@@ -997,7 +994,7 @@ instead.</p>
 <td>Gets the file name e.g. <code class="docutils literal"><span class="pre">/some/path/file.txt</span></code> -&gt; <code class="docutils literal"><span class="pre">file.txt</span></code></td>
 </tr>
 <tr class="row-odd"><td>getBaseName</td>
-<td>Gets the file name e.g. <code class="docutils literal"><span class="pre">/some/path/file.txt</span></code> -&gt; <code class="docutils literal"><span class="pre">file</span></code></td>
+<td>Gets the file name without its extension e.g. <code class="docutils literal"><span class="pre">/some/path/file.txt</span></code> -&gt; <code class="docutils literal"><span class="pre">file</span></code></td>
 </tr>
 <tr class="row-even"><td>getExtension</td>
 <td>Gets the file extension e.g. <code class="docutils literal"><span class="pre">/some/path/file.txt</span></code> -&gt; <code class="docutils literal"><span class="pre">txt</span></code></td>
@@ -1035,20 +1032,19 @@ instead.</p>
 </div>
 <div class="section" id="get-and-modify-file-permissions">
 <h3>Get and modify file permissions<a class="headerlink" href="#get-and-modify-file-permissions" title="Permalink to this headline">¶</a></h3>
-<p>Given a file variable representing any file or a directory, the method
-<code class="docutils literal"><span class="pre">getPermissions</span></code> returns a string of nine characters representing the file permission using the
+<p>Given a file variable representing a file (or directory), the method <code class="docutils literal"><span class="pre">getPermissions</span></code> returns a
+9-character string representing the file's permissions using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Symbolic_notation">Linux symbolic notation</a>
-e.g. <code class="docutils literal"><span class="pre">rw-rw-r--</span></code>. For example:</p>
+e.g. <code class="docutils literal"><span class="pre">rw-rw-r--</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">permissions</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">getPermissions</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>In the same way the method <code class="docutils literal"><span class="pre">setPermissions</span></code> allows you to set the file access permissions using the same string
-notation. For example:</p>
+<p>Similarly, the method <code class="docutils literal"><span class="pre">setPermissions</span></code> sets the file's permissions using the same notation:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="s1">&#39;rwxr-xr-x&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A second version of the <code class="docutils literal"><span class="pre">setPermissions</span></code> method allows you to set file permissions specifying three digits, representing
-respectively the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> permissions. For example:</p>
+<p>A second version of the <code class="docutils literal"><span class="pre">setPermissions</span></code> method sets a file's permissions given three digits representing,
+respectively, the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> permissions:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1056,20 +1052,20 @@ respectively the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> p
 </div>
 <div class="section" id="http-ftp-files">
 <h3>HTTP/FTP files<a class="headerlink" href="#http-ftp-files" title="Permalink to this headline">¶</a></h3>
-<p>Nextflow provides a transparent integration for HTTP/S and FTP protocols that allows you to handle remote resources
-as local file system objects. Simply specify the resource URL as the argument of the <cite>file</cite> object. For example:</p>
+<p>Nextflow provides transparent integration of HTTP/S and FTP protocols for handling remote resources
+as local file system objects. Simply specify the resource URL as the argument of the <cite>file</cite> object:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pdb</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;http://files.rcsb.org/header/5FID.pdb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Then, you will be able to access it as a local file as described in the previous sections. For example:</p>
+<p>Then, you can access it as a local file as described in the previous sections:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">pdb</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
-<p>The above one-liner prints the content of the PDB file. See in the previous sections how to stream or copy the content
-of files.</p>
+<p>The above one-liner prints the content of the remote PDB file. Previous sections provide code examples
+showing how to stream or copy the content of files.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Write and list operations are not supported by HTTP/S and FTP files.</p>
+<p class="last">Write and list operations are not supported for HTTP/S and FTP files.</p>
 </div>
 </div>
 </div>
@@ -1116,7 +1112,7 @@ of files.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.27.0',
+            VERSION:'0.27.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

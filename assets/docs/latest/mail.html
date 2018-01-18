@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Mail &amp; Notifications &mdash; Nextflow 0.27.0 documentation</title>
+  <title>Mail &amp; Notifications &mdash; Nextflow 0.27.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.27.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.27.1 documentation" href="index.html"/>
         <link rel="next" title="Examples" href="example.html"/>
         <link rel="prev" title="Workflow introspection" href="metadata.html"/> 
 
@@ -225,7 +225,7 @@ For example:</p>
     <span class="kn">from</span> <span class="s1">&#39;me@gmail.com&#39;</span>
     <span class="n">attach</span> <span class="s1">&#39;/some/path/attachment/file.txt&#39;</span>
     <span class="n">attach</span> <span class="s1">&#39;/other/path/image.png&#39;</span>
-    <span class="n">subject</span><span class="p">:</span> <span class="s1">&#39;Catch up&#39;</span>
+    <span class="n">subject</span> <span class="s1">&#39;Catch up&#39;</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Hi there,</span>
@@ -235,9 +235,12 @@ For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The same attributes listed in the above table are allowed.</p>
-<p>When it terminates with a string expression it's implicitly interpreted as the mail body content, therefore
+<p>The same attributes listed in the table in the previous section are allowed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When it terminates with a string expression it's implicitly interpreted as the mail body content, therefore
 the <code class="docutils literal"><span class="pre">body</span></code> parameter can be omitted as shown above.</p>
+</div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">To send an <cite>alternative</cite> mail message that includes either text and HTML content use both the <code class="docutils literal"><span class="pre">text</span></code> and <code class="docutils literal"><span class="pre">body</span></code> attributes.
@@ -294,7 +297,7 @@ eventually provided by the underlying system (eg. <code class="docutils literal"
 <p>If your system does not provide access to none of the above you can configure a SMTP server in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="p">{</span>
-    <span class="n">smtp</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;your.smtp-server.com&#39;</span>
     <span class="n">smtp</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">475</span>
     <span class="n">smtp</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;my-user&#39;</span>
 <span class="p">}</span>
@@ -338,8 +341,14 @@ when a workflow execution terminates.</p>
 </div>
 <p>It will send a notification mail when the execution completes similar to the one shown below:</p>
 <img alt="_images/workflow-notification-min.png" src="_images/workflow-notification-min.png" />
-<p>The message is delivered using the Nextflow built-in mailing function. See the <a class="reference internal" href="#mail-configuration">Mail configuration</a> section to learn
-about the available mail delivery options and configuration settings.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">By default the notification message is sent by using the <code class="docutils literal"><span class="pre">sendmail</span></code> system tool which is assumed to be
+available in the computer where Nextflow is running. Make sure it's properly installed and configured.
+Alternatively provide the SMTP server configuration settings to use the Nextflow
+built-in mail support, which doesn't require any external system tool.</p>
+</div>
+<p>See the <a class="reference internal" href="#mail-configuration">Mail configuration</a> section to learn about the available mail delivery options and configuration settings.</p>
 <p>Read <a class="reference internal" href="config.html#config-notification"><span class="std std-ref">Notification scope</span></a> section to learn more about the workflow notification
 configuration details.</p>
 </div>
@@ -386,7 +395,7 @@ configuration details.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.27.0',
+            VERSION:'0.27.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
