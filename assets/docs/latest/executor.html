@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.27.1 documentation</title>
+  <title>Executors &mdash; Nextflow 0.28.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.27.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.28.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -89,7 +89,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#drmaa">DRMAA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
@@ -101,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
@@ -282,47 +282,6 @@ common usage scenario, the cluster <cite>head</cite> node.</p>
 <li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
 </ul>
 </div>
-<div class="section" id="drmaa">
-<span id="drmaa-executor"></span><h2>DRMAA<a class="headerlink" href="#drmaa" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This feature has been deprecated and it will be removed in a future release</p>
-</div>
-<p>The <cite>DRMAA</cite> executor allows you to execute a Nextflow pipeline by using a grid engine that implements the
-Java binding for the <a class="reference external" href="http://www.drmaa.org">DRMAA</a> interface api (version 1).</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
-<p>In order to be able to use this executor you will need to access the DRMAA libraries provided by your cluster vendor.
-Commonly these files are named <code class="docutils literal"><span class="pre">drmaa.jar</span></code> and <code class="docutils literal"><span class="pre">libdrmaa.so</span></code> and they are located in the cluster installation lib folder.
-Ask to your IT administrator how to find these files.</p>
-<p>To enable the PBS executor you will need to set the property <code class="docutils literal"><span class="pre">process.executor='drmaa'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file,
-moreover you will need to specify the <code class="docutils literal"><span class="pre">drmaa.jar</span></code> library path on the Nextflow command line by using the <code class="docutils literal"><span class="pre">-with-drmaa</span></code>
-option. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">pipeline</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">drmaa</span> <span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">drmaa</span><span class="o">.</span><span class="n">jar</span>
-</pre></div>
-</div>
-<p>Alternatively, instead of specifying the DRMAA library on the command line, you may want to use the environment variable
-<code class="docutils literal"><span class="pre">NXF_DRMAA</span></code> to define it.</p>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p>If you get the following error message:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ERROR</span><span class="p">:</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">UnsatisfiedLinkError</span><span class="p">:</span> <span class="n">no</span> <span class="n">drmaa</span> <span class="ow">in</span> <span class="n">java</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span>
-</pre></div>
-</div>
-<p class="last">It means that Nextflow is unable to find <code class="docutils literal"><span class="pre">libdrmaa.so</span></code> file. The most common solution is
-to include the path where this file is located in the <code class="docutils literal"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable.</p>
-</div>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
-<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
-<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
-<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
-<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
-</ul>
-</div>
 <div class="section" id="ignite">
 <span id="ignite-executor"></span><h2>Ignite<a class="headerlink" href="#ignite" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>Ignite</cite> executor allows you to run a pipeline by using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> clustering
@@ -341,18 +300,13 @@ Ignite cluster in your infrastructure.</p>
 <span id="kubernetes-executor"></span><h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow provides an experimental support for <a class="reference external" href="http://kubernetes.io/">Kubernetes</a> clustering technology. It allows
 you to deploy and transparently run a Nextflow pipeline in a Kubernetes cluster.</p>
-<p>Nextflow manages each process as a separate <cite>pod</cite> that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">kubectl</span></code> command.
-Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">kubectl</span></code> command is available.</p>
-<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal"><span class="pre">container</span></code> directive, either in the pipeline
-script or the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline must be executed in a shared file system folder
-accessible by all Kubernetes cluster nodes.</p>
-<p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'k8s'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The following directives can be used to define the amount of computing resources needed and the container(s) to use:</p>
 <ul class="simple">
 <li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
 <li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
 <li><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></li>
 </ul>
+<p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes documentation</span></a> to learn how to deploy a workflow execution in a Kubernetes cluster.</p>
 </div>
 <div class="section" id="aws-batch">
 <span id="awsbatch-executor"></span><h2>AWS Batch<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h2>
@@ -409,7 +363,7 @@ running workloads. Moreover a S3 bucket must be used as pipeline work directory.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.27.1',
+            VERSION:'0.28.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

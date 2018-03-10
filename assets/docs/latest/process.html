@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.27.1 documentation</title>
+  <title>Processes &mdash; Nextflow 0.28.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.27.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.28.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -150,6 +150,7 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
@@ -653,7 +654,7 @@ use it as shown before, referring to all the files in the list, or by accessing 
 usual square brackets notation.</p>
 <p>When a target file name is defined in the input parameter and a collection of files is received by the process,
 the file name will be appended by a numerical suffix representing its ordinal position in the list. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">count</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
@@ -675,9 +676,9 @@ to control the name of staged files. The following table shows how the wildcards
 replaced depending on the cardinality of the received input collection.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="16%" />
-<col width="18%" />
-<col width="66%" />
+<col width="9%" />
+<col width="11%" />
+<col width="80%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Cardinality</th>
@@ -688,7 +689,7 @@ replaced depending on the cardinality of the received input collection.</p>
 <tbody valign="top">
 <tr class="row-even"><td>any</td>
 <td><code class="docutils literal"><span class="pre">*</span></code></td>
-<td>(named as source)</td>
+<td>named as the source file</td>
 </tr>
 <tr class="row-odd"><td>1</td>
 <td><code class="docutils literal"><span class="pre">file*.ext</span></code></td>
@@ -714,10 +715,22 @@ replaced depending on the cardinality of the received input collection.</p>
 <td><code class="docutils literal"><span class="pre">file??.ext</span></code></td>
 <td><code class="docutils literal"><span class="pre">file01.ext</span></code>, <code class="docutils literal"><span class="pre">file02.ext</span></code>, <code class="docutils literal"><span class="pre">file03.ext</span></code>, ..</td>
 </tr>
+<tr class="row-odd"><td>many</td>
+<td><code class="docutils literal"><span class="pre">dir/*</span></code></td>
+<td>named as the source file, created in <code class="docutils literal"><span class="pre">dir</span></code> subdirectory</td>
+</tr>
+<tr class="row-even"><td>many</td>
+<td><code class="docutils literal"><span class="pre">dir??/*</span></code></td>
+<td>named as the source file, created in a progressively indexed subdirectory e.g. <code class="docutils literal"><span class="pre">dir01/</span></code>, <a href="#id1"><span class="problematic" id="id2">``</span></a>dir02/<a href="#id3"><span class="problematic" id="id4">`</span></a>, etc.</td>
+</tr>
+<tr class="row-odd"><td>many</td>
+<td><code class="docutils literal"><span class="pre">dir*/*</span></code></td>
+<td>(as above)</td>
+</tr>
 </tbody>
 </table>
 <p>The following fragment shows how a wildcard can be used in the input file declaration:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">count</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
 
 <span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
@@ -1375,8 +1388,8 @@ out of the box by Nextflow.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This directive is taken in account only when using a grid based executor:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>,
-<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> and <a class="reference internal" href="executor.html#drmaa-executor"><span class="std std-ref">DRMAA</span></a> executors.</p>
+<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> and
+<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
 </div>
 </div>
 <div class="section" id="disk">
@@ -1834,7 +1847,10 @@ This is useful when the process has multiple output files, but you want to publi
 <tr class="row-even"><td>copy</td>
 <td>Copies the output files into the published directory.</td>
 </tr>
-<tr class="row-odd"><td>move</td>
+<tr class="row-odd"><td>copyNoFollow</td>
+<td>Copies the output files into the published directory without following symlinks ie. copies the links themselves.</td>
+</tr>
+<tr class="row-even"><td>move</td>
 <td>Moves the output files into the published directory. <strong>Note</strong>: this is only supposed to be used for a <cite>terminating</cite> process i.e. a process whose output is not consumed by any other downstream process.</td>
 </tr>
 </tbody>
@@ -1894,7 +1910,7 @@ in your pipeline. For example:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This directive is taken in account only by the following executors: <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>,
-<a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> and <a class="reference internal" href="executor.html#drmaa-executor"><span class="std std-ref">DRMAA</span></a> executors.</p>
+<a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a> and <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> executors.</p>
 </div>
 </div>
 <div class="section" id="scratch">
@@ -2130,8 +2146,8 @@ to identify them in the log file or in the trace execution report. For example:<
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This directive is taken in account only when using one of the following grid based executors:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>,
-<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> and <a class="reference internal" href="executor.html#drmaa-executor"><span class="std std-ref">DRMAA</span></a> executors.</p>
+<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> and
+<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </div>
@@ -2277,7 +2293,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.27.1',
+            VERSION:'0.28.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

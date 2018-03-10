@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tracing &amp; visualisation &mdash; Nextflow 0.27.1 documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 0.28.0 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="Nextflow 0.27.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.28.0 documentation" href="index.html"/>
         <link rel="next" title="Pipeline sharing" href="sharing.html"/>
-        <link rel="prev" title="Apache Ignite" href="ignite.html"/> 
+        <link rel="prev" title="Kubernetes" href="kubernetes.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -88,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-report">Execution report</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
@@ -98,15 +99,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#trace-report">Trace report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#extrae-integration">Extrae integration</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#how-to-use-it">How to use it</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pre-requisite">Pre-requisite</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#profile-your-pipeline">Profile your pipeline</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#analysis-with-paraver">Analysis with Paraver</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -731,99 +723,6 @@ in your computer.</p>
 <p>The DAG produced by Nextflow for the <a class="reference external" href="https://github.com/cbcrg/shootstrap/">Shootstrap</a> pipeline:</p>
 <img alt="_images/dag.png" src="_images/dag.png" />
 </div>
-<div class="section" id="extrae-integration">
-<h2>Extrae integration<a class="headerlink" href="#extrae-integration" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This feature has been deprecated and it will be removed in a future release</p>
-</div>
-<p>Nextflow integrates the support for <a class="reference external" href="http://www.bsc.es/computer-sciences/extrae">Extrae</a> a library for performance tracing. Trace files
-created by Extrae can be analysed with <a class="reference external" href="http://www.bsc.es/computer-sciences/performance-tools/paraver">Paraver</a>, a visual performance analysis tool.</p>
-<p><em>Extrae</em> together with <em>Paraver</em> will allows you to analyse the execution performance of your
-pipeline.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Both <em>Extrae</em> and <em>Paraver</em> are tools developed by the <a class="reference external" href="http://www.bsc.es">Barcelona Supercomputing Center</a>.</p>
-</div>
-<div class="section" id="how-to-use-it">
-<h3>How to use it<a class="headerlink" href="#how-to-use-it" title="Permalink to this headline">¶</a></h3>
-<p>This feature currently depends on a custom version of Extrae 2.5.0 that needs to be installed in
-the computer where the pipeline is executed.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
-</div>
-<div class="section" id="pre-requisite">
-<h3>Pre-requisite<a class="headerlink" href="#pre-requisite" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>Install <code class="docutils literal"><span class="pre">libxml2</span></code></li>
-<li>Install <code class="docutils literal"><span class="pre">binutils</span></code></li>
-</ul>
-<p>If you are using an Ubuntu Linux distribution these packages can be installed using the following
-commands:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">binutils</span><span class="o">-</span><span class="n">dev</span>
-</pre></div>
-</div>
-<p>It may change depending your Linux distribution and the available package installer tool.</p>
-</div>
-<div class="section" id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
-<p>Download the Extrae 2.5.0 at this link <a class="reference external" href="http://www.nextflow.io/misc/extrae-2.5.0.tar.gz">http://www.nextflow.io/misc/extrae-2.5.0.tar.gz</a></p>
-<p>Compile and install it by using the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">configure</span> \
- <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">mpi</span> \
- <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">unwind</span> \
- <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">dyninst</span> \
- <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">papi</span> \
- <span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">java</span> \
- <span class="o">--</span><span class="n">prefix</span><span class="o">=&lt;</span><span class="n">extrae_install_dir</span><span class="o">&gt;</span>
-
-<span class="n">make</span>
-<span class="n">make</span> <span class="n">install</span>
-</pre></div>
-</div>
-<p>When the compilation process is completed define the following variables in your
-environment profile file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>export EXTRAE_HOME=&lt;extrae_install_dir&gt;
-export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${EXTRAE_HOME}/lib
-</pre></div>
-</div>
-</div>
-<div class="section" id="profile-your-pipeline">
-<h3>Profile your pipeline<a class="headerlink" href="#profile-your-pipeline" title="Permalink to this headline">¶</a></h3>
-<p>In order to use the Extrae tracing simply add the option <code class="docutils literal"><span class="pre">-with-extrae</span></code> to your Nextflow
-launch command line, for example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">pipeline</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">extrae</span>
-</pre></div>
-</div>
-<p>When the pipeline execution completes, other then the expected result files, it will produce the Extrae
-trace file having the following name: <code class="docutils literal"><span class="pre">TRACE.mpits</span></code></p>
-<p>Converts this file to the Paraver format by using the following command:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>${EXTRAE_HOME}/bin/mpi2prv -task-view -f TRACE.mpits -o &lt;your file name&gt;.prv
-</pre></div>
-</div>
-</div>
-<div class="section" id="analysis-with-paraver">
-<h3>Analysis with Paraver<a class="headerlink" href="#analysis-with-paraver" title="Permalink to this headline">¶</a></h3>
-<p>If do not have Paraver installed, you need to download and install it in your computer.
-You can download it from this page: <a class="reference external" href="http://www.bsc.es/performance_tools/downloads">http://www.bsc.es/performance_tools/downloads</a></p>
-<p>Use the <code class="docutils literal"><span class="pre">File</span> <span class="pre">&gt;</span> <span class="pre">Load</span> <span class="pre">Trace</span></code> command in the Paraver menu to load the trace file
-(the file with <code class="docutils literal"><span class="pre">.prv</span></code> suffix).</p>
-<p>To perform a basic analysis download the <a class="reference external" href="http://www.nextflow.io/misc/nextflow_runtime_analysis.cfg">configuration file available
-at this link</a> and open it
-by using the command <code class="docutils literal"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Load</span> <span class="pre">Configuration</span></code> in the Paraver menu.</p>
-<p>It defines some views useful to observe the different tasks duration.</p>
-<p>Please refers the <a class="reference external" href="http://www.bsc.es/computer-sciences/performance-tools/paraver">Paraver</a> documentation for information about it.</p>
-</div>
-<div class="section" id="advanced-configuration">
-<h3>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h3>
-<p>In order to fine control the Extra tracing you can provide a custom Extrae
-configuration file by specifying its location by using the environment
-variable <code class="docutils literal"><span class="pre">EXTRAE_CONFIG_FILE</span></code>.</p>
-<p>Read the <a class="reference external" href="http://www.bsc.es/computer-sciences/extrae">Extrae</a> documentation for more information about it.</p>
-</div>
-</div>
 </div>
 
 
@@ -836,7 +735,7 @@ variable <code class="docutils literal"><span class="pre">EXTRAE_CONFIG_FILE</sp
         <a href="sharing.html" class="btn btn-neutral float-right" title="Pipeline sharing" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="ignite.html" class="btn btn-neutral" title="Apache Ignite" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="kubernetes.html" class="btn btn-neutral" title="Kubernetes" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -867,7 +766,7 @@ variable <code class="docutils literal"><span class="pre">EXTRAE_CONFIG_FILE</sp
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.27.1',
+            VERSION:'0.28.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

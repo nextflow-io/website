@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kubernetes &mdash; Nextflow 0.28.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 0.28.0 documentation" href="index.html"/>
+        <link rel="next" title="Tracing &amp; visualisation" href="tracing.html"/>
+        <link rel="prev" title="Apache Ignite" href="ignite.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-login">Interactive login</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limitation">Limitation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Kubernetes</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kubernetes">
+<span id="k8s-page"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://kubernetes.io/">Kubernetes</a> is a cloud-native open-source system for deployment, scaling, and management of
+containerized applications.</p>
+<p>It provides clustering and file system abstractions that allows the execution of containerised workloads across
+different cloud platforms and on-premises installations.</p>
+<p>The built-in support for Kubernetes provided by Nextflow streamlines the execution of containerised workflows in
+Kubernetes clusters.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental feature and it may change in a future release. It requires Nextflow
+version 0.28.0 or higher.</p>
+</div>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<p>Kubernetes main abstraction is the <cite>pod</cite>. A <cite>pod</cite> defines the (desired) state of one or more containers i.e. required
+computing resources, storage, network configuration.</p>
+<p>Kubernetes abstracts also the storage provisioning through the definition of one more more persistent volumes that
+allow containers to access to the underlying storage systems in a transparent and portable manner.</p>
+<p>When using the <code class="docutils literal"><span class="pre">k8s</span></code> executor Nextflow deploys the workflow execution as a Kubernetes pod. This pod orchestrates
+the workflow execution and submits a separate pod execution for each job that need to be carried out by the workflow
+application.</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>At least a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes">Persistent Volume</a> with
+<code class="docutils literal"><span class="pre">ReadWriteMany</span></code> access mode has to be defined in the Kubernetes cluster (check the supported storage systems
+at <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes">this link</a>).</p>
+<p>Such volume needs to be accessible through a
+<a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">Persistent Volume Claim</a>, which
+will be used by Nextflow to run the application and store the scratch data and the pipeline final result.</p>
+<p>The workflow application has to be containerised using the usual Nextflow <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
+</div>
+<div class="section" id="execution">
+<h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
+<p>The workflow execution needs to be submitted from a computer able to connect to the Kubernetes cluster.</p>
+<p>Nextflow uses the Kubernetes configuration file available at the path <code class="docutils literal"><span class="pre">$HOME/.kube/config</span></code> or the file specified
+by the environment variable <code class="docutils literal"><span class="pre">KUBECONFIG</span></code>.</p>
+<p>You can verify such configuration with the command below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ kubectl cluster-info
+Kubernetes master is running at https://your-host:6443
+KubeDNS is running at https://your-host:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+</pre></div>
+</div>
+<p>To deploy and launch the workflow execution use the Nextflow command <code class="docutils literal"><span class="pre">kuberun</span></code> as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+<p>This command will create and execute a pod running the nextflow orchestrator for the specified workflow.
+In the above example replace <code class="docutils literal"><span class="pre">&lt;pipeline-name&gt;</span></code> with an existing nextflow project or the absolute path
+of a workflow already deployed in the Kubernetes cluster.</p>
+<p>The <code class="docutils literal"><span class="pre">-v</span></code> command line option is required to specify the volume claim name and mount path to use for the workflow
+execution. In the above example replace <code class="docutils literal"><span class="pre">vol-claim</span></code> with the name of an existing persistent volume claim and
+<code class="docutils literal"><span class="pre">/mount/path</span></code> with the path where the volume is required to be mount in the container. Volume claims can also be
+specified in the Nextflow configuration file, see the <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration section</span></a> for details.</p>
+<p>Once the pod execution starts, the application in the foreground prints the console output produced by the running
+workflow pod.</p>
+</div>
+<div class="section" id="interactive-login">
+<h2>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline">¶</a></h2>
+<p>For debugging purpose it's possible to execute a Nextflow pod and launch an interactive shell using the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="n">login</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+<p>This command creates a pod, sets up the volume claim(s), configures the Nextflow environment and finally launches a Bash
+login session.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The pod is automatically destroyed once the shell session terminates. Do not use to start long running
+workflow executions in background.</p>
+</div>
+</div>
+<div class="section" id="limitation">
+<h2>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h2>
+<p>Currently Nextflow does not allow the execution of local workflow scripts.</p>
+</div>
+<div class="section" id="advanced-configuration">
+<h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Read <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration</span></a> section to learn more about advanced cloud configuration options.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tracing.html" class="btn btn-neutral float-right" title="Tracing &amp; visualisation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ignite.html" class="btn btn-neutral" title="Apache Ignite" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2016, Nextflow authors.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'0.28.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
