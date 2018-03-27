@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.28.0 documentation</title>
+  <title>Processes &mdash; Nextflow 0.28.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.28.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.28.1 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -105,6 +105,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-output-file-names">Dynamic output file names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-stdout-special-file">Output 'stdout' special file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-set-of-values">Output 'set' of values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-output">Optional Output</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#when">When</a></li>
@@ -1208,6 +1209,15 @@ thus the above output <cite>set</cite> can be rewritten using a short notation a
 </div>
 <p>File names can be defined in a dynamic manner as explained in the <a class="reference internal" href="#process-dynoutname"><span class="std std-ref">Dynamic output file names</span></a> section.</p>
 </div>
+<div class="section" id="optional-output">
+<h3>Optional Output<a class="headerlink" href="#optional-output" title="Permalink to this headline">¶</a></h3>
+<p>In most cases a process is expected to generate output that is added to the output channel.  However, there are situations where it is valid for a process to <cite>not</cite> generate output. In these cases <code class="docutils literal"><span class="pre">optional</span> <span class="pre">true</span></code> may be added to the output declaration, which tells Nextflow not to fail the process if the declared output is not created.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span><span class="p">(</span><span class="s2">&quot;output.txt&quot;</span><span class="p">)</span> <span class="n">optional</span> <span class="n">true</span> <span class="n">into</span> <span class="n">outChannel</span>
+</pre></div>
+</div>
+<p>In this example, the process is normally expected to generate an <code class="docutils literal"><span class="pre">output.txt</span></code> file, but in the cases where the file is legitimately missing, the process does not fail. <code class="docutils literal"><span class="pre">outChannel</span></code> is only populated by those processes that do generate <code class="docutils literal"><span class="pre">output.txt</span></code>.</p>
+</div>
 </div>
 <div class="section" id="when">
 <h2>When<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
@@ -2293,7 +2303,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.28.0',
+            VERSION:'0.28.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
