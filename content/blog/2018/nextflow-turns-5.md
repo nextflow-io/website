@@ -7,7 +7,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-Nextflow is growing up. Last week marked five years since the [first commit]() of the project which took place on the 22 of March 2013. Like a parent reflecting on their child attending school for the first time, we know reaching this point hasn’t been an entirely solo journey, despite Paolo's best efforts!
+Nextflow is growing up. Last week marked five years since the [first commit](https://github.com/nextflow-io/nextflow/commit/c080150321e5000a2c891e477bb582df07b7f75f) of the project which took place on the 22 of March 2013. Like a parent reflecting on their child attending school for the first time, we know reaching this point hasn’t been an entirely solo journey, despite Paolo's best efforts!
 
 A lot has happened recently and we thought it was time to highlight some of the recent evolutions. We also take the opportunity to extend the warmest of thanks to all those who have contributed to the development of Nextflow as well as the fantastic community of users who consistently provide ideas, feedback and the occasional late night banter on the [Gitter channel](https://gitter.im/nextflow-io/nextflow).
 
