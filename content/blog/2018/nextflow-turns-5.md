@@ -29,9 +29,9 @@ As well as being a place for best-practise pipelines, other features of *nf-core
 
 There is also a Python package with helper tools for Nextflow.
 
-You can find more information about the community via the project [website](nf-core.github.io), [GitHub repository](https://github.com/nf-core), [Twitter account](https://twitter.com/nf_core) or join the dedicated [Gitter](https://gitter.im/nf-core/Lobby) chat.
+You can find more information about the community via the project [website](https://nf-core.github.io), [GitHub repository](https://github.com/nf-core), [Twitter account](https://twitter.com/nf_core) or join the dedicated [Gitter](https://gitter.im/nf-core/Lobby) chat.
 
-<img alt='nf-core logo' width='560' src='/img/nf-core-logo-min.png' style='margin:1em auto'/>
+<img alt='nf-core logo' width='560' src='/img/nf-core-logo-min.png' style='margin:1em auto; cursor: pointer;' onclick="window.open('https://nf-core.github.io')" />
 
 ### Kubernetes has landed
 
