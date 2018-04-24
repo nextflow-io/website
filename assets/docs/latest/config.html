@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.28.1 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.29.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.28.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.29.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -299,23 +299,85 @@ For examples:</p>
 </div>
 <p>By using this configuration all processes in your pipeline will be executed through the SGE cluster, with the specified
 settings.</p>
-<p>It is possible to set the properties for a specific process in your pipeline by prefixing the process name with
-the symbol <code class="docutils literal"><span class="pre">$</span></code> and using it as special scope identifier. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>process.queue = &#39;short&#39;
-process.$hello.queue = &#39;long&#39;
+<div class="section" id="process-selectors">
+<span id="config-process-selectors"></span><h4>Process selectors<a class="headerlink" href="#process-selectors" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive
+shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">big_mem</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">64.</span><span class="n">GB</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>The above configuration example sets the <code class="docutils literal"><span class="pre">queue</span></code> property to <code class="docutils literal"><span class="pre">'short'</span></code> as default value for all processes in your
-pipeline, but the process <code class="docutils literal"><span class="pre">hello</span></code> for which the <code class="docutils literal"><span class="pre">queue</span></code> property is set to <code class="docutils literal"><span class="pre">'long'</span></code>.</p>
-<p>When using the curly brackets notation, the above can be written as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>process {
-  queue = &#39;short&#39;
-
-  $hello {
-      queue = &#39;long&#39;
-  }
-}
+<p>The above configuration example assigns 16 cpus, 64 Gb of memory and the <code class="docutils literal"><span class="pre">long</span></code> queue to all processes annotated
+with a <code class="docutils literal"><span class="pre">big_mem</span></code> label.</p>
+<p>In the same manner, the <code class="docutils literal"><span class="pre">withName</span></code> selector allows the configuration of a specific process in your pipeline by its name.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="n">hello</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">8.</span><span class="n">GB</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;short&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Either label and process names do not need to be enclosed with quote characters, provided the name
+does include special characters (e.g. <code class="docutils literal"><span class="pre">-</span></code>, <code class="docutils literal"><span class="pre">!</span></code>, etc) or it's not a keyword or a built-in type identifier.
+In case of doubt, you can enclose the label name or the process name with single or double quote characters.</p>
+</div>
+</div>
+<div class="section" id="selector-expressions">
+<span id="config-selector-expressions"></span><h4>Selector expressions<a class="headerlink" href="#selector-expressions" title="Permalink to this headline">¶</a></h4>
+<p>Both label and process name selectors allow the use of a regular expression to apply the same configuration
+to all processes matching the selection pattern condition. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo|bar&#39;</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">4.</span><span class="n">GB</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with with a label <code class="docutils literal"><span class="pre">foo</span></code>
+and <code class="docutils literal"><span class="pre">bar</span></code>.</p>
+<p>A process selector can be negated prefixing it with the special character <code class="docutils literal"><span class="pre">!</span></code>. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;!foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="s1">&#39;!align.*&#39;</span> <span class="p">{</span> <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet sets 2 cpus to processes annotated with the <code class="docutils literal"><span class="pre">foo</span></code> label and 4 cpus to all processes
+<em>not</em> annotated with that label. Finally it sets the use of <code class="docutils literal"><span class="pre">long</span></code> queue to all process whose name does <em>not</em> start
+with <code class="docutils literal"><span class="pre">align</span></code>.</p>
+</div>
+<div class="section" id="selectors-priority">
+<span id="config-selectors-priority"></span><h4>Selectors priority<a class="headerlink" href="#selectors-priority" title="Permalink to this headline">¶</a></h4>
+<p>When mixing generic process configuration and selectors the following priority rules are applied (from lower to higher):</p>
+<ol class="arabic simple">
+<li>Process generic configuration.</li>
+<li>Process specific directive defined in the workflow script.</li>
+<li><code class="docutils literal"><span class="pre">withLabel</span></code> selector definition.</li>
+<li><code class="docutils literal"><span class="pre">withName</span></code> selector definition.</li>
+</ol>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">foo</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">8</span> <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="n">bar</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">32</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using the above configuration snippet, all workflow processes use 4 cpus in not otherwise specified in the workflow
+script. Moreover processes annotated with the <code class="docutils literal"><span class="pre">foo</span></code> label use 8 cpus. Finally the process named <code class="docutils literal"><span class="pre">bar</span></code>
+uses 32 cpus.</p>
 </div>
 </div>
 <div class="section" id="scope-executor">
@@ -1147,7 +1209,7 @@ the Java virtual machine used by it.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.28.1',
+            VERSION:'0.29.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

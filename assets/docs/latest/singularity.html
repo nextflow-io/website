@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Singularity containers &mdash; Nextflow 0.28.1 documentation</title>
+  <title>Singularity containers &mdash; Nextflow 0.29.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.28.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.29.0 documentation" href="index.html"/>
         <link rel="next" title="Apache Ignite" href="ignite.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -224,9 +224,17 @@ will fail because the launched container won't be able to access the linked file
 <p>It is possible to specify a different Singularity image for each process definition in your pipeline script. For example,
 let's suppose you have two processes named <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. You can specify two different Singularity images
 specifing them in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>process.$foo.container = &#39;image_name_1&#39;
-process.$bar.container = &#39;image_name_2&#39;
-singularity.enabled = true
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withName</span><span class="p">:</span><span class="n">foo</span> <span class="p">{</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_1&#39;</span>
+    <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span><span class="n">bar</span> <span class="p">{</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_2&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">singularity</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Read the <a class="reference internal" href="config.html#config-process"><span class="std std-ref">Process scope</span></a> section to learn more about processes configuration.</p>
@@ -326,7 +334,7 @@ configuration page.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.28.1',
+            VERSION:'0.29.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

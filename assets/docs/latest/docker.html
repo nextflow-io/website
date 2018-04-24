@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Docker containers &mdash; Nextflow 0.28.1 documentation</title>
+  <title>Docker containers &mdash; Nextflow 0.29.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.28.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.29.0 documentation" href="index.html"/>
         <link rel="next" title="Singularity containers" href="singularity.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -214,9 +214,17 @@ in the Nextflow script as shown below:</p>
 </pre></div>
 </div>
 <p>Alternatively, the same containers definitions can be provided by using the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>process.$foo.container = &#39;image_name_1&#39;
-process.$bar.container = &#39;image_name_2&#39;
-docker.enabled = true
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withName</span><span class="p">:</span><span class="n">foo</span> <span class="p">{</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_1&#39;</span>
+    <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span><span class="n">bar</span> <span class="p">{</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_2&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">docker</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>Read the <a class="reference internal" href="config.html#config-process"><span class="std std-ref">Process scope</span></a> section to learn more about processes configuration.</p>
@@ -293,7 +301,7 @@ and can be followed by one or more lines containing BASH commands.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.28.1',
+            VERSION:'0.29.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

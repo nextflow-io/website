@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.28.1 documentation</title>
+  <title>Processes &mdash; Nextflow 0.29.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.28.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.29.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -114,6 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#beforescript">beforeScript</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cache">cache</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#container">container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#containeroptions">containerOptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cpus">cpus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#clusteroptions">clusterOptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#disk">disk</a></li>
@@ -129,6 +130,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#penv">penv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#queue">queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scratch">scratch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storedir">storeDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stageinmode">stageInMode</a></li>
@@ -678,8 +680,8 @@ replaced depending on the cardinality of the received input collection.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="9%" />
-<col width="11%" />
-<col width="80%" />
+<col width="10%" />
+<col width="81%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Cardinality</th>
@@ -722,7 +724,7 @@ replaced depending on the cardinality of the received input collection.</p>
 </tr>
 <tr class="row-even"><td>many</td>
 <td><code class="docutils literal"><span class="pre">dir??/*</span></code></td>
-<td>named as the source file, created in a progressively indexed subdirectory e.g. <code class="docutils literal"><span class="pre">dir01/</span></code>, <a href="#id1"><span class="problematic" id="id2">``</span></a>dir02/<a href="#id3"><span class="problematic" id="id4">`</span></a>, etc.</td>
+<td>named as the source file, created in a progressively indexed subdirectory e.g. <code class="docutils literal"><span class="pre">dir01/</span></code>, <code class="docutils literal"><span class="pre">dir02/</span></code>, etc.</td>
 </tr>
 <tr class="row-odd"><td>many</td>
 <td><code class="docutils literal"><span class="pre">dir*/*</span></code></td>
@@ -1258,6 +1260,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#cache">cache</a></li>
 <li><a class="reference internal" href="#cpus">cpus</a></li>
 <li><a class="reference internal" href="#container">container</a></li>
+<li><a class="reference internal" href="#containeroptions">containerOptions</a></li>
 <li><a class="reference internal" href="#clusteroptions">clusterOptions</a></li>
 <li><a class="reference internal" href="#disk">disk</a></li>
 <li><a class="reference internal" href="#echo">echo</a></li>
@@ -1265,6 +1268,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#executor">executor</a></li>
 <li><a class="reference internal" href="#ext">ext</a></li>
 <li><a class="reference internal" href="#queue">queue</a></li>
+<li><a class="reference internal" href="#label">label</a></li>
 <li><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li><a class="reference internal" href="#maxforks">maxForks</a></li>
 <li><a class="reference internal" href="#maxretries">maxRetries</a></li>
@@ -1371,6 +1375,29 @@ directive to <code class="docutils literal"><span class="pre">false</span></code
 <p class="last">This directive is ignore for processes <a class="reference internal" href="#process-native"><span class="std std-ref">executed natively</span></a>.</p>
 </div>
 </div>
+<div class="section" id="containeroptions">
+<span id="process-containeroptions"></span><h3>containerOptions<a class="headerlink" href="#containeroptions" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">containerOptions</span></code> directive allows you to specify any container execution option supported by the underlying
+container engine (ie. Docker, Singularity, etc). This can be useful to provide container settings
+only for a specific process e.g. mount a custom path:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">runThisWithDocker</span> <span class="p">{</span>
+
+    <span class="n">container</span> <span class="s1">&#39;busybox:latest&#39;</span>
+    <span class="n">containerOptions</span> <span class="s1">&#39;--volume /data/db:/db&#39;</span>
+
+    <span class="n">output</span><span class="p">:</span> <span class="n">file</span> <span class="s1">&#39;output.txt&#39;</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    your_command --data /db &gt; output.txt</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This feature is not supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> and <a class="reference internal" href="executor.html#kubernetes-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+</div>
+</div>
 <div class="section" id="cpus">
 <span id="process-cpus"></span><h3>cpus<a class="headerlink" href="#cpus" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">cpus</span></code> directive allows you to define the number of (logical) CPU required by the process' task.
@@ -1392,7 +1419,7 @@ to reserve enough CPUs when a pipeline task is executed through a cluster resour
 </div>
 <div class="section" id="clusteroptions">
 <span id="process-clusteroptions"></span><h3>clusterOptions<a class="headerlink" href="#clusteroptions" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">clusterOptions</span></code> directive allows to use any <cite>native</cite> configuration option accepted by your cluster submit command.
+<p>The <code class="docutils literal"><span class="pre">clusterOptions</span></code> directive allows the usage of any <cite>native</cite> configuration option accepted by your cluster submit command.
 You can use it to request non-standard resources or use settings that are specific to your cluster and not supported
 out of the box by Nextflow.</p>
 <div class="admonition note">
@@ -1800,6 +1827,11 @@ cluster documentation or contact your admin to lean more about this.</p>
 </div>
 <p>The above example splits the string <code class="docutils literal"><span class="pre">Hola</span></code> into file chunks of a single byte. When complete the <code class="docutils literal"><span class="pre">chunk_*</span></code> output files
 are published into the <code class="docutils literal"><span class="pre">/data/chunks</span></code> folder.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <code class="docutils literal"><span class="pre">publishDir</span></code> directive can be specified more than one time in to publish the output files
+to different target directories. This feature requires version 0.29.0 or higher.</p>
+</div>
 <p>By default files are published to the target folder creating a <em>symbolic link</em> for each process output that links
 the file produced into the process working directory. This behavior can be modified using the <code class="docutils literal"><span class="pre">mode</span></code> parameter.</p>
 <p>Table of optional parameters that can be used with the <code class="docutils literal"><span class="pre">publishDir</span></code> directive:</p>
@@ -1922,6 +1954,31 @@ in your pipeline. For example:</p>
 <p class="last">This directive is taken in account only by the following executors: <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>,
 <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a> and <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> executors.</p>
 </div>
+</div>
+<div class="section" id="label">
+<span id="process-label"></span><h3>label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">label</span></code> directive allows the annotation of processes with mnemonic identifier of your choice.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">bigTask</span> <span class="p">{</span>
+
+  <span class="n">label</span> <span class="s1">&#39;big_mem&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  &lt;task script&gt;</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The same label can be applied to more than a process and multiple labels can be applied to the same
+process using the <code class="docutils literal"><span class="pre">label</span></code> directive more than one time.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A label must consist of alphanumeric characters or <code class="docutils literal"><span class="pre">_</span></code>, must start with an alphabetic character
+and must end with an alphanumeric character.</p>
+</div>
+<p>Labels are useful to organise workflow processes in separate groups which can be referenced
+in the configuration file to select and configure subset of processes having similar computing requirements.</p>
+<p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
 </div>
 <div class="section" id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline">¶</a></h3>
@@ -2303,7 +2360,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.28.1',
+            VERSION:'0.29.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
