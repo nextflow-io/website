@@ -301,7 +301,7 @@ For examples:</p>
 settings.</p>
 <div class="section" id="process-selectors">
 <span id="config-process-selectors"></span><h4>Process selectors<a class="headerlink" href="#process-selectors" title="Permalink to this headline">¶</a></h4>
-<p>The <code class="docutils literal"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive
+<p>The <code class="docutils literal"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive as
 shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
     <span class="n">withLabel</span><span class="p">:</span> <span class="n">big_mem</span> <span class="p">{</span>
@@ -313,7 +313,7 @@ shown below:</p>
 </pre></div>
 </div>
 <p>The above configuration example assigns 16 cpus, 64 Gb of memory and the <code class="docutils literal"><span class="pre">long</span></code> queue to all processes annotated
-with a <code class="docutils literal"><span class="pre">big_mem</span></code> label.</p>
+with the <code class="docutils literal"><span class="pre">big_mem</span></code> label.</p>
 <p>In the same manner, the <code class="docutils literal"><span class="pre">withName</span></code> selector allows the configuration of a specific process in your pipeline by its name.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
@@ -329,13 +329,13 @@ For example:</p>
 <p class="first admonition-title">Tip</p>
 <p class="last">Either label and process names do not need to be enclosed with quote characters, provided the name
 does include special characters (e.g. <code class="docutils literal"><span class="pre">-</span></code>, <code class="docutils literal"><span class="pre">!</span></code>, etc) or it's not a keyword or a built-in type identifier.
-In case of doubt, you can enclose the label name or the process name with single or double quote characters.</p>
+In case of doubt, you can enclose the label names or the process names with single or double quote characters.</p>
 </div>
 </div>
 <div class="section" id="selector-expressions">
 <span id="config-selector-expressions"></span><h4>Selector expressions<a class="headerlink" href="#selector-expressions" title="Permalink to this headline">¶</a></h4>
-<p>Both label and process name selectors allow the use of a regular expression to apply the same configuration
-to all processes matching the selection pattern condition. For example:</p>
+<p>Both label and process name selectors allow the use of a regular expression in order to apply the same configuration
+to all processes matching the specified pattern condition. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
     <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo|bar&#39;</span> <span class="p">{</span>
         <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
@@ -354,7 +354,7 @@ and <code class="docutils literal"><span class="pre">bar</span></code>.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above configuration snippet sets 2 cpus to processes annotated with the <code class="docutils literal"><span class="pre">foo</span></code> label and 4 cpus to all processes
+<p>The above configuration snippet sets 2 cpus for the processes annotated with the <code class="docutils literal"><span class="pre">foo</span></code> label and 4 cpus to all processes
 <em>not</em> annotated with that label. Finally it sets the use of <code class="docutils literal"><span class="pre">long</span></code> queue to all process whose name does <em>not</em> start
 with <code class="docutils literal"><span class="pre">align</span></code>.</p>
 </div>
@@ -375,7 +375,7 @@ with <code class="docutils literal"><span class="pre">align</span></code>.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Using the above configuration snippet, all workflow processes use 4 cpus in not otherwise specified in the workflow
+<p>Using the above configuration snippet, all workflow processes use 4 cpus if not otherwise specified in the workflow
 script. Moreover processes annotated with the <code class="docutils literal"><span class="pre">foo</span></code> label use 8 cpus. Finally the process named <code class="docutils literal"><span class="pre">bar</span></code>
 uses 32 cpus.</p>
 </div>
