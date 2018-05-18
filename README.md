@@ -8,8 +8,8 @@ Jbake configuration is controlled by file `jbake.properties`.
 Content 
 ----------
 
-Web site content in provided either with Markdown or HTML text file in the folder `content`. 
-Each content file declared a `type` property that defined the template to be used. 
+Web site content is provided either with Markdown or HTML text file in the folder `content`. 
+Each content file declares a `type` property that defines the template to be used. 
 The following type are used : 
 
 
@@ -21,7 +21,8 @@ Blog        | -     | archive.ftl (blog.html) |
 Blog posts  | post  | post.ftl    |
 
 
-Template are contained in the folder `templates`. 
+Template are contained in the folder `templates`. To add a custom template 
+add an entry in the `jbake.properties` file as shown here: `template.<type>.file=<type>.ftl`.
 
 
 Generate the web site pages entering the command: `jbake` and 
