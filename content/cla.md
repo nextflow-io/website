@@ -10,7 +10,8 @@ type=col8
 
 By signing Nextflow's Contributor License Agreement, known as a CLA, you agree that:
 
-1. You retain ownership of the copyright of your contribution and have the same right to use or licence as you had entering in this agreement.  
+1. You retain ownership of the copyright of your contribution and have the same rights to use or 
+licence it as You would have had without entering into the Agreement.  
 2. You grant us the right to sublicense your contribution under the terms of any license approved by the Open Source Initiative. 
 3. Your contributions do not infringe on anyone else's rights.
 
