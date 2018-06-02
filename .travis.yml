@@ -1,6 +1,9 @@
 sudo: required
+cache:
+  directories:
+  - output
 before_install:
   - sudo apt-get -qq update
   - sudo pip install awscli
 script:
-  - bash publish.sh
+  - travis_wait 90 bash publish.sh
