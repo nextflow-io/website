@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - Conda support has landed!</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -88,85 +88,77 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: nextflow</h3>
-                <hr>
-                <ul>
-                        <h4>June 2018</h4>
-                        <ul>
-        
-                    <li>05 - <a href="/blog/2018/conda-support-has-landed.html">Conda support has landed!</a></li>
-                            </ul>
-                            <h4>April 2018</h4>
-                            <ul>
-        
-                    <li>03 - <a href="/blog/2018/nextflow-turns-5.html">Nextflow turns five! Happy birthday!</a></li>
-                            </ul>
-                            <h4>November 2017</h4>
-                            <ul>
-        
-                    <li>16 - <a href="/blog/2017/caw-and-singularity.html">Running CAW with Singularity and Nextflow</a></li>
-        
-                    <li>08 - <a href="/blog/2017/scaling-with-aws-batch.html">Scaling with AWS Batch</a></li>
-                            </ul>
-                            <h4>September 2017</h4>
-                            <ul>
-        
-                    <li>30 - <a href="/blog/2017/nextflow-hack17.html">Nexflow Hackathon 2017</a></li>
-                            </ul>
-                            <h4>July 2017</h4>
-                            <ul>
-        
-                    <li>20 - <a href="/blog/2017/nextflow-and-cwl.html">Nextflow and the Common Workflow Language</a></li>
-                            </ul>
-                            <h4>April 2017</h4>
-                            <ul>
-        
-                    <li>26 - <a href="/blog/2017/nextflow-workshop.html">Nextflow workshop is coming!</a></li>
-        
-                    <li>12 - <a href="/blog/2017/nextflow-nature-biotech-paper.html">Nextflow published in Nature Biotechnology</a></li>
-                            </ul>
-                            <h4>December 2016</h4>
-                            <ul>
-        
-                    <li>20 - <a href="/blog/2016/more-fun-containers-hpc.html">More fun with containers in HPC</a></li>
-                            </ul>
-                            <h4>October 2016</h4>
-                            <ul>
-        
-                    <li>19 - <a href="/blog/2016/enabling-elastic-computing-nextflow.html">Enabling elastic computing with Nextflow </a></li>
-                            </ul>
-                            <h4>September 2016</h4>
-                            <ul>
-        
-                    <li>01 - <a href="/blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html">Deploy your computational pipelines in the cloud at the snap-of-a-finger </a></li>
-                            </ul>
-                            <h4>June 2016</h4>
-                            <ul>
-        
-                    <li>10 - <a href="/blog/2016/docker-for-dunces-nextflow-for-nunces.html">Docker for dunces & Nextflow for nunces</a></li>
-                            </ul>
-                            <h4>April 2016</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2016/best-practice-for-reproducibility.html">Workflows & publishing: best practice for reproducibility </a></li>
-                            </ul>
-                            <h4>February 2016</h4>
-                            <ul>
-        
-                    <li>11 - <a href="/blog/2016/error-recovery-and-automatic-resources-management.html">Error recovery and automatic resource management with Nextflow</a></li>
-        
-                    <li>04 - <a href="/blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html">Developing a bioinformatics pipeline across multiple environments</a></li>
-                            </ul>
-                            <h4>June 2015</h4>
-                            <ul>
-        
-                    <li>15 - <a href="/blog/2015/the-impact-of-docker-on-genomic-pipelines.html">The impact of Docker containers on the performance of genomic pipelines</a></li>
-        
-                    <li>09 - <a href="/blog/2015/innovation-in-science-the-story-behind-nextflow.html">Innovation In Science - The story behind Nextflow</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h3><a href="#">Conda support has landed!</a></h3>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 05 June 2018</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>Nextflow aims to ease the development of large scale, reproducible workflows allowing<br/>developers to focus on the main application logic and to rely on best community tools and best practices.</p><p>For this reason we are very excited to announce that the latest Nextflow version (<code>0.30.0</code>) finally provides built-in support for <a href="https://conda.io/docs/">Conda</a>. </p><p>Conda is a popular package manager that simplifies the installation of software packages and the configuration of complex software environments. Above all, it provides access to large tool and software package collections maintained by domain specific communities such as <a href="https://bioconda.github.io">Bioconda</a> and <a href="https://biobuilds.org/">BioBuild</a>. </p><p>The native integration with Nextflow allows researchers to develop workflow applications in a rapid and easy repeatable manner, reusing community tools, whilst taking advantage of the configuration flexibility, portability and scalability provided by Nextflow.</p><h3>How it works</h3><p>Nextflow automatically creates and activates the Conda environment(s) given the dependencies specified by each process.</p><p>Dependencies are specified by using the <a href="/docs/latest/process.html#conda">conda</a> directive, providing either the names of the required Conda packages, the path of a Conda environment yaml file or the path of an existing Conda environment directory.</p><p>Conda environments are stored on the file system. By default Nextflow instructs Conda to save the required environments in the pipeline work directory. You can specify the directory where the Conda environments are stored using the <code>conda.cacheDir</code> configuration property.</p><h4>Use Conda package names</h4><p>The simplest way to use one or more Conda packages consists in specifying their names using the <code>conda</code> directive. Multiple package names can be specified by separating them with a space. For example:</p>
+<pre><code>process foo {
+    conda &quot;bwa samtools multiqc&quot;
 
-            </div>
+    &quot;&quot;&quot;
+    your_command --here
+    &quot;&quot;&quot;
+}
+</code></pre><p>Using the above definition a Conda environment that includes BWA, Samtools and MultiQC tools is created and activated when the process is executed.</p><p>The usual Conda package syntax and naming conventions can be used. The version of a package can be specified after the package name as shown here: <code>bwa=0.7.15</code>.</p><p>The name of the channel where a package is located can be specified prefixing the package with the channel name as shown here: <code>bioconda::bwa=0.7.15</code>.</p><h4>Use Conda environment files</h4><p>When working in a project requiring a large number of dependencies it can be more convenient to consolidate all required tools using a Conda environment file. This is a file that lists the required packages and channels, structured using the YAML format. For example:</p>
+<pre><code>name: my-env
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - star=2.5.4a
+  - bwa=0.7.15
+</code></pre><p>The path of the environment file can be specified using the <code>conda</code> directive:</p>
+<pre><code>process foo {
+  conda &#39;/some/path/my-env.yaml&#39;
+
+  &#39;&#39;&#39;
+  your_command --here
+  &#39;&#39;&#39;
+}
+</code></pre><p>Note: the environment file name <strong>must</strong> end with a <code>.yml</code> or <code>.yaml</code> suffix otherwise it won't be properly recognized. Also relative paths are resolved against the workflow launching directory. </p><p>The suggested approach is to store the the Conda environment file in your project root directory and reference it in the <code>nextflow.config</code> directory using the <code>baseDir</code> variable as shown below: </p>
+<pre><code>process.conda = &quot;$baseDir/my-env.yaml&quot;
+</code></pre><p>This guarantees that the environment paths is correctly resolved independently of the execution path. </p><p>See the <a href="/docs/latest/conda.html">documentation</a> for more details on how to configure and use Conda environments in your Nextflow workflow. </p><h3>Bonus!</h3><p>This release includes also a better support for <a href="https://biocontainers.pro/">Biocontainers</a>. So far, Nextflow users were able to use container images provided by the Biocontainers community. However, it was not possible to collect process metrics and runtime statistics within those images due to the usage of a legacy version of the <code>ps</code> system tool that is not compatible with the one expected by Nextflow. </p><p>The latest version of Nextflow does not require the <code>ps</code> tool any more to fetch execution metrics and runtime statistics, therefore this information is collected and correctly reported when using Biocontainers images.</p><h3>Conclusion</h3><p>We are very excited by this new feature bringing the ability to use popular Conda tool collections, such as Bioconda, directly into Nextflow workflow applications. </p><p>Nextflow developers have now yet another option to transparently manage the dependencies in their workflows along with <a href="/docs/latest/process.html#module">Environment Modules</a> and <a href="/docs/latest/docker.html">containers</a> <a href="/docs/latest/singularity.html">technology</a>, giving them great configuration flexibility. </p><p>The resulting workflow applications can easily be reconfigured and deployed across a range of different platforms choosing the best technology according to the requirements of the target system. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/conda.html" class="background-color bg-hover-color">conda</a>
+				<a href="/tags/bioconda.html" class="background-color bg-hover-color">bioconda</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -205,6 +197,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

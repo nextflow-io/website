@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.29.0 documentation</title>
+  <title>Processes &mdash; Nextflow 0.30.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.29.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.30.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#afterscript">afterScript</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#beforescript">beforeScript</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cache">cache</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conda">conda</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#container">container</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#containeroptions">containerOptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cpus">cpus</a></li>
@@ -128,6 +129,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#memory">memory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module">module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#penv">penv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pod">pod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#queue">queue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
@@ -150,6 +152,7 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
@@ -1259,6 +1262,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#beforescript">beforeScript</a></li>
 <li><a class="reference internal" href="#cache">cache</a></li>
 <li><a class="reference internal" href="#cpus">cpus</a></li>
+<li><a class="reference external" href="https://conda.io">conda</a></li>
 <li><a class="reference internal" href="#container">container</a></li>
 <li><a class="reference internal" href="#containeroptions">containerOptions</a></li>
 <li><a class="reference internal" href="#clusteroptions">clusterOptions</a></li>
@@ -1275,6 +1279,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#memory">memory</a></li>
 <li><a class="reference internal" href="#module">module</a></li>
 <li><a class="reference internal" href="#penv">penv</a></li>
+<li><a class="reference internal" href="#pod">pod</a></li>
 <li><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li><a class="reference internal" href="#scratch">scratch</a></li>
 <li><a class="reference internal" href="#stageinmode">stageInMode</a></li>
@@ -1348,6 +1353,27 @@ directive to <code class="docutils literal"><span class="pre">false</span></code
 </tbody>
 </table>
 </div>
+<div class="section" id="conda">
+<span id="process-conda"></span><h3>conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">conda</span></code> directive allows for the definition of the process dependencies using the <a class="reference external" href="https://conda.io">Conda</a>
+package manager.</p>
+<p>Nextflow automatically sets up an environment for the given package names listed by in the <code class="docutils literal"><span class="pre">conda</span></code> directive.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">conda</span> <span class="s1">&#39;bwa=0.7.15&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Multiple packages can be specified separating them with a blank space eg. <code class="docutils literal"><span class="pre">bwa=0.7.15</span> <span class="pre">fastqc=0.11.5</span></code>.
+The name of the channel from where a specific package needs to be downloaded can be specified using the usual
+Conda notation i.e. prefixing the package with the channel name as shown here <code class="docutils literal"><span class="pre">bioconda::bwa=0.7.15</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">conda</span></code> directory also allows the specification of a Conda environment file
+path or the path of an existing environment directory. See the <a class="reference internal" href="conda.html#conda-page"><span class="std std-ref">Conda environments</span></a> page for further details.</p>
+</div>
 <div class="section" id="container">
 <span id="process-container"></span><h3>container<a class="headerlink" href="#container" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">container</span></code> directive allows you to execute the process script in a <a class="reference external" href="http://docker.io">Docker</a> container.</p>
@@ -1395,7 +1421,7 @@ only for a specific process e.g. mount a custom path:</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This feature is not supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> and <a class="reference internal" href="executor.html#kubernetes-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+<p class="last">This feature is not supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
 </div>
 </div>
 <div class="section" id="cpus">
@@ -1755,7 +1781,7 @@ execution can be retried in case of an error.</p>
 </div>
 <div class="section" id="module">
 <span id="process-module"></span><h3>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
-<p><a class="reference external" href="http://modules.sourceforge.net/">Modules</a> is a package manager that allows you to dynamically configure
+<p><a class="reference external" href="http://modules.sourceforge.net/">Environment Modules</a> is a package manager that allows you to dynamically configure
 your execution environment and easily switch between multiple versions of the same software tool.</p>
 <p>If it is available in your system you can use it with Nextflow in order to configure the processes execution
 environment in your pipeline.</p>
@@ -1808,6 +1834,62 @@ cluster documentation or contact your admin to lean more about this.</p>
 <p class="last">This setting is available when using the <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> executor.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#time">time</a></p>
+</div>
+<div class="section" id="pod">
+<span id="process-pod"></span><h3>pod<a class="headerlink" href="#pod" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">pod</span></code> directive allows the definition of pods specific settings, such as environment variables, secrets
+and config maps when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">your_task</span> <span class="p">{</span>
+  <span class="n">pod</span> <span class="n">env</span><span class="p">:</span> <span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  echo $FOO</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above snippet defines an environment variable named <code class="docutils literal"><span class="pre">FOO</span></code> which value is <code class="docutils literal"><span class="pre">bar</span></code>.</p>
+<p>The <code class="docutils literal"><span class="pre">pod</span></code> directive allows the definition of the following options:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal"><span class="pre">V</span></code> string.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></td>
+<td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></td>
+<td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<td>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>ConfigMap</cite> entries are exposed in that path.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<td>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<td>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal"><span class="pre">V</span></code> to the specified path location.</td>
+</tr>
+</tbody>
+</table>
+<p>When defined in the Nextflow configuration file, a pod setting can be defined using the canonical
+associative array syntax. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+  <span class="n">pod</span> <span class="o">=</span> <span class="p">[</span><span class="n">env</span><span class="p">:</span> <span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When more than one setting needs to be provides they must be enclosed in a list definition as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+  <span class="n">pod</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="n">env</span><span class="p">:</span> <span class="s1">&#39;FOO&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;bar&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">secret</span><span class="p">:</span> <span class="s1">&#39;my-secret/key1&#39;</span><span class="p">,</span> <span class="n">mountPath</span><span class="p">:</span> <span class="s1">&#39;/etc/file.txt&#39;</span><span class="p">]</span> <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="publishdir">
 <span id="process-publishdir"></span><h3>publishDir<a class="headerlink" href="#publishdir" title="Permalink to this headline">¶</a></h3>
@@ -2213,8 +2295,8 @@ to identify them in the log file or in the trace execution report. For example:<
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This directive is taken in account only when using one of the following grid based executors:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> and
-<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
+<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>,
+<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> and <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> executors.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </div>
@@ -2360,7 +2442,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.29.0',
+            VERSION:'0.30.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
