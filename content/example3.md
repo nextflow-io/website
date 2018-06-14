@@ -98,13 +98,13 @@ In order to run this pipeline in your computer you will required:
 
 Install Nextflow entering the following command in the shell terminal:
 
-    $ curl -fsSL get.nextflow.io | bash
+    $ curl -fsSL https://get.nextflow.io | bash
 
 
 Then launch the pipeline execution using this command: 
 
-    $ nextflow run examples/blast.nf -with-docker 
+    $ ./nextflow run blast-example -with-docker 
 
-It will automatically download the pipeline [Github repository](https://github.com/nextflow-io/examples) 
+It will automatically download the pipeline [Github repository](https://github.com/nextflow-io/blast-example) 
 and the associated Docker images, thus the first execution can requires few minutes to complete 
 depending you network connection. 
