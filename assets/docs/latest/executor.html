@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 0.30.1 documentation</title>
+  <title>Executors &mdash; Nextflow 0.31.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.30.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
@@ -321,6 +322,53 @@ script or the <code class="docutils literal"><span class="pre">nextflow.config</
 running workloads. Moreover a S3 bucket must be used as pipeline work directory.</p>
 <p>See the <a class="reference internal" href="awscloud.html#awscloud-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
 </div>
+<div class="section" id="ga4gh-tes">
+<span id="ga4ghtes-executor"></span><h2>GA4GH TES<a class="headerlink" href="#ga4gh-tes" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental feature and it may change in a future release. It requires Nextflow
+version 0.31.0 or later.</p>
+</div>
+<p>The <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas">Task Execution Schema</a> (TES) project
+by the <a class="reference external" href="https://www.ga4gh.org">GA4GH</a> standardisation initiative is an effort to define a
+standardized schema and API for describing batch execution tasks in portable manner.</p>
+<p>Nextflow includes an experimental support for the TES API providing a <code class="docutils literal"><span class="pre">tes</span></code> executor which allows
+the submission of workflow tasks to a remote execution back-end exposing a TES API endpoint.</p>
+<p>To use this feature define the following variables in the workflow launching environment:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_MODE</span><span class="o">=</span><span class="n">ga4gh</span>
+<span class="n">export</span> <span class="n">NXF_EXECUTOR</span><span class="o">=</span><span class="n">tes</span>
+<span class="n">export</span> <span class="n">NXF_EXECUTOR_TES_ENDPOINT</span><span class="o">=</span><span class="s1">&#39;http://back.end.com&#39;</span>
+</pre></div>
+</div>
+<p>Then you will be able to run your workflow over TES using the usual Nextflow command line, i.e.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">rnaseq</span><span class="o">-</span><span class="n">nf</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the variable <code class="docutils literal"><span class="pre">NXF_EXECUTOR_TES_ENDPOINT</span></code> is omitted the default endpoint is <code class="docutils literal"><span class="pre">http://localhost:8000</span></code>.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>You can use a local <a class="reference external" href="https://ohsu-comp-bio.github.io/funnel/">Funnel</a> server using the following launch
+command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>./funnel server --Server.HTTPPort 8000 --LocalStorage.AllowedDirs $HOME run
+</pre></div>
+</div>
+<p class="last">(tested with version 0.8.0 on macOS)</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure the TES back-end can access the workflow work directory when
+data is exchanged using a local or shared file system.</p>
+</div>
+<p><strong>Known limitation</strong></p>
+<ul class="simple">
+<li>Automatic deployment of workflow scripts in the <cite>bin</cite> folder is not supported.</li>
+<li>Process output directories are not supported. For details see <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas/issues/76">#76</a>.</li>
+<li>Glob patterns in process output declarations are not supported. For details see <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas/issues/77">#77</a>.</li>
+</ul>
+</div>
 </div>
 
 
@@ -364,7 +412,7 @@ running workloads. Moreover a S3 bucket must be used as pipeline work directory.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.30.1',
+            VERSION:'0.31.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

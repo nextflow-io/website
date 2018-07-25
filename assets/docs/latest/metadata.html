@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 0.30.1 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 0.31.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.30.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
         <link rel="next" title="Mail &amp; Notifications" href="mail.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -201,6 +201,12 @@ For example:</p>
 <tr class="row-even"><td>workDir</td>
 <td>Workflow working directory.</td>
 </tr>
+<tr class="row-odd"><td>homeDir</td>
+<td>User system home directory.</td>
+</tr>
+<tr class="row-even"><td>userName</td>
+<td>User system account name.</td>
+</tr>
 <tr class="row-odd"><td>configFiles</td>
 <td>Configuration files used for the workflow execution.</td>
 </tr>
@@ -208,40 +214,44 @@ For example:</p>
 <td>Docker image used to run workflow tasks. When more than one image is used
 it returns a map object containing <cite>[process name, image name]</cite> pair entries.</td>
 </tr>
-<tr class="row-odd"><td>commandLine</td>
+<tr class="row-odd"><td>containerEngine</td>
+<td>Returns the name of the container engine (e.g. docker or singularity) or null
+if no container engine is enabled.</td>
+</tr>
+<tr class="row-even"><td>commandLine</td>
 <td>Command line as entered by the user to launch the workflow execution.</td>
 </tr>
-<tr class="row-even"><td>profile</td>
+<tr class="row-odd"><td>profile</td>
 <td>Used configuration profile.</td>
 </tr>
-<tr class="row-odd"><td>runName</td>
+<tr class="row-even"><td>runName</td>
 <td>Mnemonic name assigned to this execution instance.</td>
 </tr>
-<tr class="row-even"><td>sessionId</td>
+<tr class="row-odd"><td>sessionId</td>
 <td>Unique identifier (UUID) associated to current execution.</td>
 </tr>
-<tr class="row-odd"><td>resume</td>
+<tr class="row-even"><td>resume</td>
 <td>Returns <code class="docutils literal"><span class="pre">true</span></code> whenever the current instance is resumed from a previous execution.</td>
 </tr>
-<tr class="row-even"><td>start</td>
+<tr class="row-odd"><td>start</td>
 <td>Timestamp of workflow at execution start.</td>
 </tr>
-<tr class="row-odd"><td><sup>✝</sup> complete</td>
+<tr class="row-even"><td><sup>✝</sup> complete</td>
 <td>Timestamp of workflow when execution is completed.</td>
 </tr>
-<tr class="row-even"><td><sup>✝</sup> duration</td>
+<tr class="row-odd"><td><sup>✝</sup> duration</td>
 <td>Time elapsed to complete workflow execution.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> success</td>
+<tr class="row-even"><td><sup>*</sup> success</td>
 <td>Reports if the execution completed successfully.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> exitStatus</td>
+<tr class="row-odd"><td><sup>*</sup> exitStatus</td>
 <td>Exit status of the task that caused the workflow execution to fail.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> errorMessage</td>
+<tr class="row-even"><td><sup>*</sup> errorMessage</td>
 <td>Error message of the task that caused the workflow execution to fail.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> errorReport</td>
+<tr class="row-odd"><td><sup>*</sup> errorReport</td>
 <td>Detailed error of the task that caused the workflow execution to fail.</td>
 </tr>
 </tbody>
@@ -410,7 +420,7 @@ configuration file.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.30.1',
+            VERSION:'0.31.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

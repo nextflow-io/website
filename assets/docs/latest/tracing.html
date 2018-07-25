@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tracing &amp; visualisation &mdash; Nextflow 0.30.1 documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 0.31.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.30.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
         <link rel="next" title="Pipeline sharing" href="sharing.html"/>
         <link rel="prev" title="Kubernetes" href="kubernetes.html"/> 
 
@@ -100,6 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#trace-report">Trace report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#weblog-via-http">Weblog via HTTP</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -185,7 +186,7 @@ and many other runtime metrics. You can see an example below:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Nextflow collect these metrics running a background process for each job in the target environment.
-Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code> in the system where
+Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code> in the system where
 the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
 message about that in the <a class="reference internal" href="#id2">Trace report</a> below.</p>
 </div>
@@ -724,6 +725,67 @@ in your computer.</p>
 <p>The DAG produced by Nextflow for the <a class="reference external" href="https://github.com/cbcrg/shootstrap/">Shootstrap</a> pipeline:</p>
 <img alt="_images/dag.png" src="_images/dag.png" />
 </div>
+<div class="section" id="weblog-via-http">
+<span id="weblog-service"></span><h2>Weblog via HTTP<a class="headerlink" href="#weblog-via-http" title="Permalink to this headline">¶</a></h2>
+<p>In order to enable Nextflow to send detailed trace reports via HTTP POST requests, add the following command line option:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">weblog</span> <span class="p">[</span><span class="n">url</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Nextflow will then take trace information and send it as JSON object to the given URL. An example JSON message can look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+     <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;mighty_jones&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="s2">&quot;f6b21633-af1e-4fe2-8328-39e70b110c83&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;runStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;process_started&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-14T08:28:48Z&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+         <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;e9/9efab9&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;printHello (3)&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="mi">2147483647</span><span class="p">,</span>
+         <span class="s2">&quot;submit&quot;</span><span class="p">:</span> <span class="mi">1526313056637</span><span class="p">,</span>
+         <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="mi">1526313056715</span><span class="p">,</span>
+         <span class="s2">&quot;process&quot;</span><span class="p">:</span> <span class="s2">&quot;printHello&quot;</span><span class="p">,</span>
+         <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+         <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+         <span class="p">],</span>
+         <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="s2">&quot;nextflow/examples&quot;</span><span class="p">,</span>
+         <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The JSON object contains the following attributes:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribute</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>runName</td>
+<td>The worklow run name. Nextflow creates an own, if you do not provide one explicitly.</td>
+</tr>
+<tr class="row-odd"><td>runId</td>
+<td>The unique workflow id Nextflow creates for every workflow.</td>
+</tr>
+<tr class="row-even"><td>runStatus</td>
+<td>The current status of the workflow. One of <code class="docutils literal"><span class="pre">[&quot;started&quot;,</span> <span class="pre">&quot;process_submitted&quot;,</span> <span class="pre">&quot;process_started&quot;,</span> <span class="pre">&quot;process_completed&quot;,</span> <span class="pre">&quot;error&quot;,</span> <span class="pre">&quot;completed&quot;]</span></code>.</td>
+</tr>
+<tr class="row-odd"><td>utcTime</td>
+<td>The UTC timestamp in ISO 8601 format.</td>
+</tr>
+<tr class="row-even"><td>(trace)</td>
+<td>Provided only on process submission, process start, process complete and workflow error.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code class="docutils literal"><span class="pre">trace</span></code> attribute contains a list of trace information fields, which you can look up in the <a class="reference internal" href="#trace-fields"><span class="std std-ref">trace fields</span></a> description.</p>
+</div>
 </div>
 
 
@@ -767,7 +829,7 @@ in your computer.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.30.1',
+            VERSION:'0.31.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

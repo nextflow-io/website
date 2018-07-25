@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.30.1 documentation</title>
+  <title>Processes &mdash; Nextflow 0.31.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.30.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -1271,7 +1271,6 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#errorstrategy">errorStrategy</a></li>
 <li><a class="reference internal" href="#executor">executor</a></li>
 <li><a class="reference internal" href="#ext">ext</a></li>
-<li><a class="reference internal" href="#queue">queue</a></li>
 <li><a class="reference internal" href="#label">label</a></li>
 <li><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li><a class="reference internal" href="#maxforks">maxForks</a></li>
@@ -1281,6 +1280,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#penv">penv</a></li>
 <li><a class="reference internal" href="#pod">pod</a></li>
 <li><a class="reference internal" href="#publishdir">publishDir</a></li>
+<li><a class="reference internal" href="#queue">queue</a></li>
 <li><a class="reference internal" href="#scratch">scratch</a></li>
 <li><a class="reference internal" href="#stageinmode">stageInMode</a></li>
 <li><a class="reference internal" href="#stageoutmode">stageOutMode</a></li>
@@ -1857,23 +1857,32 @@ and config maps when using the <a class="reference internal" href="executor.html
 <col width="87%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">label:</span> <span class="pre">&lt;K&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Defines a pod label with key <code class="docutils literal"><span class="pre">K</span></code> and value <code class="docutils literal"><span class="pre">V</span></code>.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal"><span class="pre">V</span></code> string.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>ConfigMap</cite> entries are exposed in that path.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
-<td>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal"><span class="pre">V</span></code> to the specified path location.</td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<td>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">pullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal"><span class="pre">pullPolicy:</span> <span class="pre">'Always'</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
+<td>Specifies the user ID to be used to run the container.</td>
 </tr>
 </tbody>
 </table>
@@ -1963,18 +1972,21 @@ This is useful when the process has multiple output files, but you want to publi
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>symlink</td>
-<td>Creates a <cite>symbolic link</cite> in the published directory for each process output file (default).</td>
+<td>Creates an absolute <cite>symbolic link</cite> in the published directory for each process output file (default).</td>
 </tr>
-<tr class="row-odd"><td>link</td>
+<tr class="row-odd"><td>rellink</td>
+<td>Creates a relative <cite>symbolic link</cite> in the published directory for each process output file.</td>
+</tr>
+<tr class="row-even"><td>link</td>
 <td>Creates a <cite>hard link</cite> in the published directory for each process output file.</td>
 </tr>
-<tr class="row-even"><td>copy</td>
+<tr class="row-odd"><td>copy</td>
 <td>Copies the output files into the published directory.</td>
 </tr>
-<tr class="row-odd"><td>copyNoFollow</td>
+<tr class="row-even"><td>copyNoFollow</td>
 <td>Copies the output files into the published directory without following symlinks ie. copies the links themselves.</td>
 </tr>
-<tr class="row-even"><td>move</td>
+<tr class="row-odd"><td>move</td>
 <td>Moves the output files into the published directory. <strong>Note</strong>: this is only supposed to be used for a <cite>terminating</cite> process i.e. a process whose output is not consumed by any other downstream process.</td>
 </tr>
 </tbody>
@@ -2180,8 +2192,8 @@ In these cases you may use the <a class="reference internal" href="#publishdir">
 are allowed:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="6%" />
-<col width="94%" />
+<col width="5%" />
+<col width="95%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -2196,7 +2208,10 @@ are allowed:</p>
 <td>Input files are staged in the process work directory by creating an (hard) link for each of them.</td>
 </tr>
 <tr class="row-even"><td>symlink</td>
-<td>Input files are staged in the process work directory by creating an symlink for each of them (default).</td>
+<td>Input files are staged in the process work directory by creating a symbolic link with an absolute path for each of them (default).</td>
+</tr>
+<tr class="row-odd"><td>rellink</td>
+<td>Input files are staged in the process work directory by creating a symbolic link with a relative path for each of them.</td>
 </tr>
 </tbody>
 </table>
@@ -2372,11 +2387,11 @@ which holds the directive values defined in the current process instance.</p>
 </div>
 <div class="section" id="dynamic-computing-resources">
 <h3>Dynamic computing resources<a class="headerlink" href="#dynamic-computing-resources" title="Permalink to this headline">¶</a></h3>
-<p>It's very common scenario that different instances of the same process may have a very different needs in terms of
-computing resources. In such situation requesting, for example, an amount of memory too low will cause some tasks to fail,
-instead using an higher limit that fits all the tasks execution could significantly decrease the execution priority of your jobs.</p>
-<p>The <a class="reference internal" href="#dynamic-directives">Dynamic directives</a> evaluation feature can used to modify the amount of computing resources request in case
-of a process failure and try to re-execute it using an higher limit. For example:</p>
+<p>It's a very common scenario that different instances of the same process may have very different needs in terms of computing resources.
+In such situations requesting, for example, an amount of memory too low will cause some tasks to fail.
+Instead, using a higher limit that fits all the tasks in your execution could significantly decrease the execution priority of your jobs.</p>
+<p>The <a class="reference internal" href="#dynamic-directives">Dynamic directives</a> evaluation feature can be used to modify the amount of computing resources requested in case
+of a process failure and try to re-execute it using a higher limit. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>process foo {
 
     memory { 2.GB * task.attempt }
@@ -2442,7 +2457,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.30.1',
+            VERSION:'0.31.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

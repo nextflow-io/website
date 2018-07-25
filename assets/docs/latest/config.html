@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 0.30.1 documentation</title>
+  <title>Configuration &mdash; Nextflow 0.31.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.30.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
@@ -107,6 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#scope-mail">Scope <cite>mail</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-notification">Scope <cite>notification</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-report">Scope <cite>report</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-weblog">Scope <cite>weblog</cite></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#config-profiles">Config profiles</a></li>
@@ -471,8 +472,8 @@ executor.$local.memory = &#39;32 GB&#39;
 <p>The following settings are available:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col width="9%" />
+<col width="91%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -483,34 +484,37 @@ executor.$local.memory = &#39;32 GB&#39;
 <tr class="row-even"><td>enabled</td>
 <td>Turn this flag to <code class="docutils literal"><span class="pre">true</span></code> to enable Docker execution (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>legacy</td>
+<tr class="row-odd"><td>envWhitelist</td>
+<td>Comma separated list of environment variable names to be included in the container environment.</td>
+</tr>
+<tr class="row-even"><td>legacy</td>
 <td>Uses command line options removed since version 1.10.x (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>sudo</td>
+<tr class="row-odd"><td>sudo</td>
 <td>Executes Docker run command as <code class="docutils literal"><span class="pre">sudo</span></code> (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>tty</td>
+<tr class="row-even"><td>tty</td>
 <td>Allocates a pseudo-tty (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>temp</td>
+<tr class="row-odd"><td>temp</td>
 <td>Mounts a path of your choice as the <code class="docutils literal"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</td>
 </tr>
-<tr class="row-odd"><td>remove</td>
-<td>Clean-up the container after the execution (default: <code class="docutils literal"><span class="pre">true</span></code>). For details see: <a class="reference external" href="http://docs.docker.com/reference/run/#clean-up-rm">http://docs.docker.com/reference/run/#clean-up-rm</a> .</td>
+<tr class="row-even"><td>remove</td>
+<td>Clean-up the container after the execution (default: <code class="docutils literal"><span class="pre">true</span></code>). For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/#clean-up---rm">https://docs.docker.com/engine/reference/run/#clean-up---rm</a> .</td>
 </tr>
-<tr class="row-even"><td>runOptions</td>
-<td>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="http://docs.docker.com/reference/run">http://docs.docker.com/reference/run</a> .</td>
+<tr class="row-odd"><td>runOptions</td>
+<td>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/">https://docs.docker.com/engine/reference/run/</a> .</td>
 </tr>
-<tr class="row-odd"><td>registry</td>
+<tr class="row-even"><td>registry</td>
 <td>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal"><span class="pre">http://</span></code>.</td>
 </tr>
-<tr class="row-even"><td>fixOwnership</td>
+<tr class="row-odd"><td>fixOwnership</td>
 <td>Fixes ownership of files created by the docker container.</td>
 </tr>
-<tr class="row-odd"><td>engineOptions</td>
+<tr class="row-even"><td>engineOptions</td>
 <td>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal"><span class="pre">docker</span> <span class="pre">[OPTIONS]</span></code>.</td>
 </tr>
-<tr class="row-even"><td>mountFlags</td>
+<tr class="row-odd"><td>mountFlags</td>
 <td>Add the specified flags to the volume mounts e.g. <cite>mountFlags = 'ro,Z'</cite></td>
 </tr>
 </tbody>
@@ -549,16 +553,19 @@ by Nextflow.</p>
 <tr class="row-odd"><td>engineOptions</td>
 <td>This attribute can be used to provide any option supported by the Singularity engine i.e. <code class="docutils literal"><span class="pre">singularity</span> <span class="pre">[OPTIONS]</span></code>.</td>
 </tr>
-<tr class="row-even"><td>runOptions</td>
+<tr class="row-even"><td>envWhitelist</td>
+<td>Comma separated list of environment variable names to be included in the container environment.</td>
+</tr>
+<tr class="row-odd"><td>runOptions</td>
 <td>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal"><span class="pre">singularity</span> <span class="pre">exec</span></code>.</td>
 </tr>
-<tr class="row-odd"><td>autoMounts</td>
+<tr class="row-even"><td>autoMounts</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed contained. It requires the <cite>user bind control</cite> feature enabled in your Singularity installation (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-even"><td>cacheDir</td>
+<tr class="row-odd"><td>cacheDir</td>
 <td>The directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</td>
 </tr>
-<tr class="row-odd"><td>pullTimeout</td>
+<tr class="row-even"><td>pullTimeout</td>
 <td>The amount of time the Singularity pull can last, exceeding which the process is terminated (default: <code class="docutils literal"><span class="pre">20</span> <span class="pre">min</span></code>).</td>
 </tr>
 </tbody>
@@ -925,14 +932,23 @@ workflow applications in a Kubernetes cluster.</p>
 <tr class="row-odd"><td>pod</td>
 <td>Allows the definition of one or more pod configuration options such as environment variables, config maps, secrets, etc. It allows the same settings as the <a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a> process directive.</td>
 </tr>
-<tr class="row-even"><td>volumeClaims</td>
-<td>(deprecated)</td>
+<tr class="row-even"><td>pullPolicy</td>
+<td>Defines the strategy to be used to pull the container image e.g. <code class="docutils literal"><span class="pre">pullPolicy:</span> <span class="pre">'Always'</span></code>.</td>
 </tr>
-<tr class="row-odd"><td>storageClaimName</td>
+<tr class="row-odd"><td>runAsUser</td>
+<td>Defines the user ID to be used to run the containers.</td>
+</tr>
+<tr class="row-even"><td>storageClaimName</td>
 <td>The name of the persistent volume claim where store workflow result data.</td>
 </tr>
-<tr class="row-even"><td>storageMountPath</td>
+<tr class="row-odd"><td>storageMountPath</td>
 <td>The path location used to mount the persistent volume claim (default: <code class="docutils literal"><span class="pre">/workspace</span></code>).</td>
+</tr>
+<tr class="row-even"><td>storageSubPath</td>
+<td>The path in the persistent volume to be mounted (default: root).</td>
+</tr>
+<tr class="row-odd"><td>volumeClaims</td>
+<td>(deprecated)</td>
 </tr>
 </tbody>
 </table>
@@ -1063,7 +1079,7 @@ eventually provided by the underlying system (eg. <code class="docutils literal"
 </div>
 <div class="section" id="scope-report">
 <span id="config-report"></span><h3>Scope <cite>report</cite><a class="headerlink" href="#scope-report" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">report</span></code> scope scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
+<p>The <code class="docutils literal"><span class="pre">report</span></code> scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="20%" />
@@ -1084,9 +1100,33 @@ eventually provided by the underlying system (eg. <code class="docutils literal"
 </tbody>
 </table>
 </div>
+<div class="section" id="scope-weblog">
+<span id="config-weblog"></span><h3>Scope <cite>weblog</cite><a class="headerlink" href="#scope-weblog" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">weblog</span></code> scope allows to send detailed <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">trace scope</span></a> information as HTTP POST request to a webserver, shipped as a JSON object.</p>
+<p>Detailed information about the JSON fields can be found in the <a class="reference internal" href="tracing.html#weblog-service"><span class="std std-ref">weblog description</span></a>.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>enabled</td>
+<td>If <code class="docutils literal"><span class="pre">true</span></code> it will send HTTP POST requests to a given url.</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>The url where to send HTTP POST requests (default: <code class="docutils literal"><span class="pre">http:localhost</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div class="section" id="config-profiles">
-<h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline">¶</a></h2>
+<span id="id1"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline">¶</a></h2>
 <p>Configuration files can contain the definition of one or more <em>profiles</em>. A profile is a set of configuration attributes
 that can be activated/chosen when launching a pipeline execution by using the <code class="docutils literal"><span class="pre">-profile</span></code> command line option.</p>
 <p>Configuration profiles are defined by using the special scope <code class="docutils literal"><span class="pre">profiles</span></code> which group the attributes that belong
@@ -1246,7 +1286,7 @@ the Java virtual machine used by it.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.30.1',
+            VERSION:'0.31.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
