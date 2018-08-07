@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 0.31.0 documentation</title>
+  <title>Channels &mdash; Nextflow 0.31.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.1 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -80,6 +80,11 @@
 <li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Channels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#channel-types">Channel types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#queue-channel">Queue channel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#value-channel">Value channel</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-factory">Channel factory</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#from">from</a></li>
@@ -163,14 +168,68 @@
   <div class="section" id="channels">
 <span id="channel-page"></span><h1>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow is based on the Dataflow programming model in which processes communicate through channels.</p>
-<p>A <cite>channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes. It has two properties:</p>
+<p>A channel has two major properties:</p>
 <ol class="arabic simple">
 <li>Sending a message is an <cite>asynchronous</cite> operation which completes immediately,
 without having to wait for the receiving process.</li>
 <li>Receiving data is a blocking operation which stops the receiving process until the message has arrived.</li>
 </ol>
+<div class="section" id="channel-types">
+<span id="id1"></span><h2>Channel types<a class="headerlink" href="#channel-types" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow distinguish two different kinds of channels: <cite>queue channels</cite> and <cite>value channels</cite>.</p>
+<div class="section" id="queue-channel">
+<h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline">¶</a></h3>
+<p>A <cite>queue channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes or operators.</p>
+<p>A queue channel is usually created using a factory method such as a <a class="reference internal" href="#from">from</a>, <a class="reference internal" href="#frompath">fromPath</a>, etc.
+or chaining it with a channel operator such as <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc.</p>
+<p>Queue channels are also created by process output declarations using the <code class="docutils literal"><span class="pre">into</span></code> clause.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The definition implies that the same queue channel cannot be used more than one time as process
+output and more then one time as process input.</p>
+</div>
+<p>In you need to connect a process output channel to more then one process or operator use the
+<a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator to create two (or more) copies of the same channel and use each
+of them to connect a separate process.</p>
+</div>
+<div class="section" id="value-channel">
+<h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline">¶</a></h3>
+<p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> by definition is bound to a single value and it can be read
+unlimited times without consuming its content.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">For this reason a value channel can be used as input by more than one process.</p>
+</div>
+<p>A value channel is created using the <a class="reference internal" href="#value">value</a> factory method or by operators returning
+a single value, such us <a class="reference internal" href="operator.html#operator-first"><span class="std std-ref">first</span></a>, <a class="reference internal" href="operator.html#operator-last"><span class="std std-ref">last</span></a>, <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>,
+<a class="reference internal" href="operator.html#operator-count"><span class="std std-ref">count</span></a>, <a class="reference internal" href="operator.html#operator-min"><span class="std std-ref">min</span></a>, <a class="reference internal" href="operator.html#operator-max"><span class="std std-ref">max</span></a>, <a class="reference internal" href="operator.html#operator-reduce"><span class="std std-ref">reduce</span></a>, <a class="reference internal" href="operator.html#operator-sum"><span class="std std-ref">sum</span></a>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A value channel is implicitly created by a process when an input specifies a simple value
+in the <code class="docutils literal"><span class="pre">from</span></code> clause.
+Moreover, a value channel is also implicitly created as output for a process whose
+inputs are only value channels.</p>
+</div>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="mi">1</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="n">file</span> <span class="s1">&#39;x.txt&#39;</span> <span class="n">into</span> <span class="n">result</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  echo $x &gt; x.txt</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The process in the above snippet declare a single input which implicitly is a value channel.
+Therefore also the <code class="docutils literal"><span class="pre">result</span></code> output is a value channel that can be read by more than one process.</p>
+<p>See also: <a class="reference internal" href="process.html#process-understand-how-multiple-input-channels-work"><span class="std std-ref">Understand how multiple input channels work</span></a>.</p>
+</div>
+</div>
 <div class="section" id="channel-factory">
-<span id="id1"></span><h2>Channel factory<a class="headerlink" href="#channel-factory" title="Permalink to this headline">¶</a></h2>
+<span id="id2"></span><h2>Channel factory<a class="headerlink" href="#channel-factory" title="Permalink to this headline">¶</a></h2>
 <p>Channels may be created implicitly by the process output(s) declaration or explicitly using the following channel
 factory methods.</p>
 <p>The available factory methods are:</p>
@@ -327,6 +386,14 @@ and directory starting with a <code class="docutils literal"><span class="pre">a
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>More than one path or glob pattern can be specified using a list as argument:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="p">[</span><span class="s1">&#39;/some/path/*.fq&#39;</span><span class="p">,</span> <span class="s1">&#39;/other/path/*.fastq&#39;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">(requires version 0.31.x or later)</p>
+</div>
 </div>
 <div class="section" id="fromfilepairs">
 <span id="channel-filepairs"></span><h3>fromFilePairs<a class="headerlink" href="#fromfilepairs" title="Permalink to this headline">¶</a></h3>
@@ -391,6 +458,14 @@ For example:</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>More than one glob pattern can be specified using a list as argument:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span> <span class="p">[</span><span class="s1">&#39;/some/data/SRR*_{1,2}.fastq&#39;</span><span class="p">,</span> <span class="s1">&#39;/other/data/QFF*_{1,2}.fastq&#39;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p class="last">(requires version 0.31.x or later)</p>
+</div>
 </div>
 <div class="section" id="watchpath">
 <span id="channel-watch"></span><h3>watchPath<a class="headerlink" href="#watchpath" title="Permalink to this headline">¶</a></h3>
@@ -577,7 +652,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.31.0',
+            VERSION:'0.31.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

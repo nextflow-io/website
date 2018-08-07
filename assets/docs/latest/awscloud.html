@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon Cloud &mdash; Nextflow 0.31.0 documentation</title>
+  <title>Amazon Cloud &mdash; Nextflow 0.31.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.1 documentation" href="index.html"/>
         <link rel="next" title="Amazon S3 storage" href="amazons3.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -103,7 +103,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-ami">Custom AMI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aws-cli-installation">AWS CLI installation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-job-definition">Custom job definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
@@ -419,16 +420,16 @@ by ECS Batch.</p>
 Batch queues allow you to bind the execution of a process to a specific computing environment ie. number of CPUs,
 type of instances (On-demand or Spot), scaling ability, etc. See the <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/create-job-queue.html">AWS Batch documentation</a> to learn
 how to setup Batch queues.</p>
-<p>5 (optional) - Nextflow automatically creates the Batch <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/job_definitions.html">Job definitions</a>
-needed to execute your pipeline processes. However you may still need to specify a custom <cite>Job Definition</cite> to fine control
-the configuration settings of a specific job. In this case you can associate a process execution with a <em>Job definition</em> of your choice by using the
-<a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive and specifing, in place of the Docker image name, the Job definition name
-prefixed by the <code class="docutils literal"><span class="pre">job-definition://</span></code> string.</p>
+<p>5 - Make sure the container image includes the <a class="reference external" href="https://aws.amazon.com/cli">AWS CLI tool</a> i.e. <code class="docutils literal"><span class="pre">aws</span></code>.
+Alternatively, it can also be installed in a custom AMI image. See the note below for details.</p>
 <p>An example <code class="docutils literal"><span class="pre">nextflow.config</span></code> file is shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;awsbatch&#39;</span>
-<span class="n">process</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;my-batch-queue&#39;</span>
-<span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;quay.io/biocontainers/salmon&#39;</span>
-<span class="n">aws</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;eu-west-1&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span>process.executor = &#39;awsbatch&#39;
+process.queue = &#39;my-batch-queue&#39;
+process.container = &#39;quay.io/biocontainers/salmon&#39;
+aws.region = &#39;eu-west-1&#39;
+
+// NOTE: the following line only if the `aws` tool is installed in a custom AMI
+executor.awscli = &#39;/home/ec2-home/miniconda/bin/aws&#39;
 </pre></div>
 </div>
 <div class="admonition note">
@@ -441,13 +442,14 @@ in order to stage the required input files and to copy back the resulting output
 installed in a custom AMI that needs to used in place of the default AMI when configuring the Batch
 <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Computing environment</a>.</p>
 <p>The latter approach is preferred  because it allows the use of existing Docker images without the need to add
-the AWS CLI tool to them.</p>
+the AWS CLI tool to them. See the sections below to learn how create a custom AMI and install the AWS CLI tool
+to it.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">AWS Batch uses the default ECS instance AMI, which has only a 22 GB storage volume which may not
 be enough for real world data analysis pipelines.</p>
 </div>
-<p>See the section below to learn how to create a custom AWS Batch custom AMI.</p>
+<p>See the section below to learn how to create a custom AWS Batch custom AMI with a larger storage.</p>
 </div>
 <div class="section" id="custom-ami">
 <h3>Custom AMI<a class="headerlink" href="#custom-ami" title="Permalink to this headline">¶</a></h3>
@@ -496,8 +498,16 @@ and <a class="reference external" href="https://www.projectatomic.io/blog/2016/0
 <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Computing environment</a>.</p>
 </div>
 <div class="section" id="aws-cli-installation">
-<h3>AWS CLI installation<a class="headerlink" href="#aws-cli-installation" title="Permalink to this headline">¶</a></h3>
-<p>The AWS cli tool needs to be installed by using a self-contained package manager such as <a class="reference external" href="https://conda.io">Conda</a>.</p>
+<span id="aws-cli"></span><h3>AWS CLI installation<a class="headerlink" href="#aws-cli-installation" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <a class="reference external" href="https://aws.amazon.com/cli">AWS CLI tool</a> must to be installed in your custom AMI
+by using a self-contained package manager such as <a class="reference external" href="https://conda.io">Conda</a>.</p>
+</div>
+<p>The reason is that when the AWS CLI tool executes using Conda it will use the version of python supplied by Conda.
+If you don't use Conda and install the AWS CLI using something like <a class="reference external" href="https://pypi.org/project/pip/">pip</a> the <code class="docutils literal"><span class="pre">aws</span></code>
+command will attempt to run using the version of python found in the running container which won't be able to find
+the necessary dependencies.</p>
 <p>The following snippet shows how to install AWS CLI with <a class="reference external" href="https://conda.io/miniconda.html">Miniconda</a>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>sudo yum install -y wget
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
@@ -506,7 +516,7 @@ $HOME/miniconda/bin/conda install -c conda-forge -y awscli
 rm Miniconda3-latest-Linux-x86_64.sh
 </pre></div>
 </div>
-<p>When complete verifies that the AWS cli package works correctly:</p>
+<p>When complete verifies that the AWS CLI package works correctly:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>$ ./miniconda/bin/aws --version
 aws-cli/1.11.120 Python/3.6.3 Linux/4.9.43-17.39.amzn1.x86_64 botocore/1.5.83
 </pre></div>
@@ -523,8 +533,22 @@ configuration as shown below:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id5">
-<h3>Pipeline execution<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="custom-job-definition">
+<h3>Custom job definition<a class="headerlink" href="#custom-job-definition" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow automatically creates the Batch <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/job_definitions.html">Job definitions</a>
+needed to execute your pipeline processes. Therefore it's not required to define them before run your workflow.</p>
+<p>However you may still need to specify a custom <cite>Job Definition</cite> to fine control the configuration settings
+of a specific job e.g. to define custom mount paths or other Batch Job special settings.</p>
+<p>To do that first create a <em>Job Definition</em> in the AWS Console (or with other means). Note the name of the <em>Job Definition</em>
+you created. You can then associate a process execution with this <em>Job definition</em> by using the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a>
+directive and specifing, in place of the container image name, the Job definition name prefixed by the
+<code class="docutils literal"><span class="pre">job-definition://</span></code> string, as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;job-definition://your-job-definition-name&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Pipeline execution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads.</p>
 <p>Pipeline input data should to be stored in the Input data <a class="reference external" href="https://aws.amazon.com/s3/">S3 storage</a>. In the same
@@ -548,7 +572,13 @@ in which your Batch environment has been created.</p>
 <p>This may happen when Batch is unable to execute the process script. A common cause of this problem is that the
 Docker container image you have specified uses a non standard <a class="reference external" href="https://docs.docker.com/engine/reference/builder/#entrypoint">entrypoint</a>
 which does not allow the execution of the BASH launcher script required by Nextflow to run the job.</p>
-<p>Check also the Job execution log in the AWS Batch dashboard for further error details.</p>
+<p>This may also happen if the AWS CLI doesn't run correctly.</p>
+<p>Other places to check for error information:</p>
+<ul class="simple">
+<li>The <code class="docutils literal"><span class="pre">.nextflow.log</span></code> file.</li>
+<li>The Job execution log in the AWS Batch dashboard.</li>
+<li>The <a class="reference external" href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> logs found in the <code class="docutils literal"><span class="pre">/aws/batch/job</span></code> log group.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -594,7 +624,7 @@ which does not allow the execution of the BASH launcher script required by Nextf
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.31.0',
+            VERSION:'0.31.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

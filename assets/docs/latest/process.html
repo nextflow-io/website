@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.31.0 documentation</title>
+  <title>Processes &mdash; Nextflow 0.31.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.31.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.31.1 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -96,6 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#input-of-type-env">Input of type 'env'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-type-set">Input of type 'set'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-repeaters">Input repeaters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#understand-how-multiple-input-channels-work">Understand how multiple input channels work</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a><ul>
@@ -953,6 +954,69 @@ against the same library files.</p>
 create a channel combining the input values as needed to trigger the process execution multiple times.
 In this regard, see the <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>, <a class="reference internal" href="operator.html#operator-cross"><span class="std std-ref">cross</span></a> and <a class="reference internal" href="operator.html#operator-phase"><span class="std std-ref">phase</span></a> operators.</p>
 </div>
+</div>
+<div class="section" id="understand-how-multiple-input-channels-work">
+<span id="process-understand-how-multiple-input-channels-work"></span><h3>Understand how multiple input channels work<a class="headerlink" href="#understand-how-multiple-input-channels-work" title="Permalink to this headline">¶</a></h3>
+<p>A key feature of processes is the ability to handle inputs from multiple channels.</p>
+<p>When two or more channels are declared as process inputs, the process stops until
+there's a complete input configuration ie. it receives an input value from all the channels declared
+as input.</p>
+<p>When this condition is verified, it consumes the input values coming from the respective channels,
+and spawns a task execution, then repeat the same logic until one or more channels have no more content.</p>
+<p>This means channel values are consumed serially one after another and the first empty channel
+cause the process execution to stop even if there are other values in other channels.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">echo</span> <span class="n">true</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+  <span class="n">val</span> <span class="n">y</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">script</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   echo $x and $y</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The process <code class="docutils literal"><span class="pre">foo</span></code> is executed two times because the first input channel only provides two values and therefore
+the <code class="docutils literal"><span class="pre">c</span></code> element is discarded. It prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">and</span> <span class="n">a</span>
+<span class="mi">2</span> <span class="ow">and</span> <span class="n">b</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A different semantic is a applied when using <em>Value channel</em> a.k.a. <em>Singleton channel</em>.</p>
+</div>
+<p>This kind of channel is created by the <a class="reference internal" href="channel.html#channel-value"><span class="std std-ref">Channel.value</span></a> factory method or implicitly
+when a process input specifies a simple value in the <code class="docutils literal"><span class="pre">from</span></code> clause.</p>
+<p>By definition, a <em>Value channel</em> is bound to a single value and it can be read unlimited times without
+consuming its content.</p>
+<p>These properties make that when mixing a <em>value channel</em> with one or more (queue) channels,
+it does not affect the process termination which only depends by the other channels and its
+content is applied repeatedly.</p>
+<p>To better understand this behavior compare the previous example with the following one:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
+  <span class="n">echo</span> <span class="n">true</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">Channel.value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">val</span> <span class="n">y</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">script</span><span class="p">:</span>
+   <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">   echo $x and $y</span>
+<span class="sd">   &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above snippet executes the <code class="docutils literal"><span class="pre">bar</span></code> process three times because the first input is a <em>value channel</em>, therefore
+its content can be read as many times as needed. The process termination is determined by the content of the second
+channel. It prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">and</span> <span class="n">a</span>
+<span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span>
+<span class="mi">1</span> <span class="ow">and</span> <span class="n">c</span>
+</pre></div>
+</div>
+<p>See also: <a class="reference internal" href="channel.html#channel-types"><span class="std std-ref">Channel types</span></a>.</p>
 </div>
 </div>
 <div class="section" id="outputs">
@@ -2457,7 +2521,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.31.0',
+            VERSION:'0.31.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
