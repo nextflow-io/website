@@ -574,8 +574,7 @@ by Nextflow.</p>
 </div>
 <div class="section" id="scope-manifest">
 <span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">manifest</span></code> configuration scope allows you to define some meta-data information needed when publishing your
-pipeline project on GitHub, BitBucket or GitLab.</p>
+<p>The <code class="docutils literal"><span class="pre">manifest</span></code> configuration scope allows you to define some meta-data information needed when publishing your pipeline project on GitHub, BitBucket or GitLab, or when running your pipeline.</p>
 <p>The following settings are available:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -603,6 +602,9 @@ pipeline project on GitHub, BitBucket or GitLab.</p>
 <tr class="row-even"><td>defaultBranch</td>
 <td>Git repository default branch (default: <code class="docutils literal"><span class="pre">master</span></code>)</td>
 </tr>
+<tr class="row-odd"><td>nextflowVersion</td>
+<td>Minimum required Nextflow version to run the pipeline</td>
+</tr>
 </tbody>
 </table>
 <p>The above options can be used by prefixing them with the <code class="docutils literal"><span class="pre">manifest</span></code> scope or surrounding them by curly
@@ -616,6 +618,19 @@ brackets. For example:</p>
 </div>
 <p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a>
 documentation page.</p>
+<div class="section" id="nextflow-version">
+<h4>Nextflow version<a class="headerlink" href="#nextflow-version" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">nextflowVersion</span></code> setting allows you to specify a minimum required version to run the pipeline.
+This may be useful to ensure that a specific version is used:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>nextflowVersion = &#39;1.2.3&#39;        // exact match
+nextflowVersion = &#39;1.2+&#39;         // 1.2 or later (excluding 2 and later)
+nextflowVersion = &#39;&gt;=1.2&#39;        // 1.2 or later
+nextflowVersion = &#39;&gt;=1.2, &lt;=1.5&#39; // any version in the 1.2 .. 1.5 range
+nextflowVersion = &#39;!&gt;=1.2&#39;       // with ! prefix, stop execution if current version
+                                    does not match required version.
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="scope-trace">
 <span id="config-trace"></span><h3>Scope <cite>trace</cite><a class="headerlink" href="#scope-trace" title="Permalink to this headline">¶</a></h3>
