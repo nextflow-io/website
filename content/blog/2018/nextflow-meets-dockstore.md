@@ -19,7 +19,7 @@ This is exactly what the [Dockstore](https://dockstore.org/) project is designed
 
 ### Dockstore in a nutshell
 
-Dockstore is an open platform that collects and catalogs scientific data analysis tools and workflows, starting from the genomics community. It's developed by the [OICR](https://oicr.on.ca/) in collaboration with [UCSC](https://ucscgenomics.soe.ucsc.edu/) and it is based on the [GA4GH](https://www.ga4gh.org/) open standards and the FAIR principles i.e. the idea to make research data and applications findable, accessible, interoperable and reusable ([FAIR](https://www.nature.com/articles/sdata201618)).
+Dockstore is an open platform that collects and catalogs scientific data analysis tools and workflows, starting from the genomics community. It’s developed by the [OICR](https://oicr.on.ca/) in collaboration with [UCSC](https://ucscgenomics.soe.ucsc.edu/) and it is based on the [GA4GH](https://www.ga4gh.org/) open standards and the FAIR principles i.e. the idea to make research data and applications findable, accessible, interoperable and reusable ([FAIR](https://www.nature.com/articles/sdata201618)).
 
 <img src='/img/dockstore.png' alt="Dockstore logo" style='float:right; width: 150pt; padding: .5em;' />
 
