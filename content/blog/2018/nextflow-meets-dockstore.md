@@ -8,12 +8,12 @@ icon=paolo.jpg
 ~~~~~~
 
 <div class='text-muted' style='margin-bottom:2em'>
-<i>This post is coauthored with Denis Yuen, lead of Dockstore project at Ontario Institute for Cancer Research</i>
+<i>This post is co-authored with Denis Yuen, lead of the Dockstore project at the Ontario Institute for Cancer Research</i>
 </div>
 
 One key feature of Nextflow is the ability to automatically pull and execute a workflow project directly from a Git-based source code management platform such as GitHub. We realised this was critical to allow users to properly track code changes and releases and, above all, to enable the seamless sharing of workflow projects. 
 
-Nextflow never wanted to implement its own centralised workflow registry because we thought that in order for a registry to be viable and therefore useful, it should be technology agnostic and it should be driven by a consensus among a wide user community. 
+Nextflow never wanted to implement its own centralised workflow registry because we thought that in order for a registry to be viable and therefore useful, it should be technology agnostic and it should be driven by a consensus among the wider user community. 
 
 This is exactly what the [Dockstore](https://dockstore.org/) project is designed for and for this reason we are thrilled to announce that Dockstore has just released the support for Nextflow workflows in its latest release. 
 
@@ -24,7 +24,7 @@ Dockstore is an open platform that collects and catalogs scientific data analysi
 <img src='/img/dockstore.png' alt="Dockstore logo" style='float:right; width: 150pt; padding: .5em;' />
 
 
-In Dockstore’s initial release of support for Nextflow, users will be able to register and display Nextflow workflows. Many of Dockstore’s cross-language features will be available such as [searching](https://dockstore.org/search?descriptorType=nfl&searchMode=files) , displaying metadata information on authorship from Nextflow’s config ([author and description](https://www.nextflow.io/docs/latest/config.html?highlight=author#scope-manifest)), displaying the [Docker images](https://dockstore.org/workflows/github.com/nf-core/hlatyping:1.1.1?tab=tools) used by a workflow, and limited support for displaying a visualization of [workflow structure](https://dockstore.org/workflows/github.com/nf-core/hlatyping:1.1.1?tab=dag).
+In Dockstore’s initial release of support for Nextflow, users will be able to register and display Nextflow workflows. Many of Dockstore’s cross-language features will be available such as [searching](https://dockstore.org/search?descriptorType=nfl&searchMode=files), displaying metadata information on authorship from Nextflow’s config ([author and description](https://www.nextflow.io/docs/latest/config.html?highlight=author#scope-manifest)), displaying the [Docker images](https://dockstore.org/workflows/github.com/nf-core/hlatyping:1.1.1?tab=tools) used by a workflow, and limited support for displaying a visualization of the [workflow structure](https://dockstore.org/workflows/github.com/nf-core/hlatyping:1.1.1?tab=dag).
 
 The Dockstore team will initially work to on-board the high-quality [nf-core](https://github.com/nf-core) workflows curated by the Nextflow community. However, all developers that develop Nextflow workflows will be able to login, contribute, and maintain workflows starting with our standard [workflow tutorials](https://docs.dockstore.org/docs/publisher-tutorials/workflows/).
 
