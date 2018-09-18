@@ -11,11 +11,11 @@ icon=paolo.jpg
 <i>This post is co-authored with Denis Yuen, lead of the Dockstore project at the Ontario Institute for Cancer Research</i>
 </div>
 
-One key feature of Nextflow is the ability to automatically pull and execute a workflow project directly from a Git-based source code management platform such as GitHub. We realised this was critical to allow users to properly track code changes and releases and, above all, to enable the seamless sharing of workflow projects. 
+One key feature of Nextflow is the ability to automatically pull and execute a workflow application directly from a sharing platform such as GitHub. We realised this was critical to allow users to properly track code changes and releases and, above all, to enable the [seamless sharing of workflow projects](/blog/2016/best-practice-for-reproducibility.html). 
 
 Nextflow never wanted to implement its own centralised workflow registry because we thought that in order for a registry to be viable and therefore useful, it should be technology agnostic and it should be driven by a consensus among the wider user community. 
 
-This is exactly what the [Dockstore](https://dockstore.org/) project is designed for and for this reason we are thrilled to announce that Dockstore has just released the support for Nextflow workflows in its latest release. 
+This is exactly what the [Dockstore](https://dockstore.org/) project is designed for and for this reason we are thrilled to announce that Dockstore has just released the support for Nextflow workflows in its latest release! 
 
 ### Dockstore in a nutshell
 
@@ -28,7 +28,9 @@ In Dockstore’s initial release of support for Nextflow, users will be able to 
 
 The Dockstore team will initially work to on-board the high-quality [nf-core](https://github.com/nf-core) workflows curated by the Nextflow community. However, all developers that develop Nextflow workflows will be able to login, contribute, and maintain workflows starting with our standard [workflow tutorials](https://docs.dockstore.org/docs/publisher-tutorials/workflows/).
 
-Moving forward, the Dockstore team hopes to engage more with the Nextflow community and integrate Nextflow code in order to streamline the process of publishing Nextflow workflows and draw better visualizations of Nextflow workflows. Dockstore also hopes to work with a cloud vendor to add browser based launch-with support for Nextflow workflows. Finally, support for Nextflow workflows in Dockstore will also enable the possibility of cloud platforms that implement [GA4GH WES](https://github.com/ga4gh/workflow-execution-service-schemas) to run Nextflow workflows. 
+Moving forward, the Dockstore team hopes to engage more with the Nextflow community and integrate Nextflow code in order to streamline the process of publishing Nextflow workflows and draw better visualizations of Nextflow workflows. Dockstore also hopes to work with a cloud vendor to add browser based launch-with support for Nextflow workflows. 
+
+Finally, support for Nextflow workflows in Dockstore will also enable the possibility of cloud platforms that implement [GA4GH WES](https://github.com/ga4gh/workflow-execution-service-schemas) to run Nextflow workflows. 
 
 
 ### Conclusion

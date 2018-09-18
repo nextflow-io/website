@@ -1,4 +1,4 @@
-title=Share Nextflow pipelines with Github
+title=Share Nextflow pipelines with GitHub
 date=2014-08-07
 type=post
 tags=git,github,reproducibility
