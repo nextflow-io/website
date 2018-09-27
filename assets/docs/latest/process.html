@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 0.31.1 documentation</title>
+  <title>Processes &mdash; Nextflow 0.32.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 0.31.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 0.32.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Pipeline script" href="script.html"/> 
 
@@ -1396,8 +1396,8 @@ directive to <code class="docutils literal"><span class="pre">false</span></code
 <p>The <code class="docutils literal"><span class="pre">cache</span></code> directive possible values are shown in the following table:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="15%" />
-<col width="85%" />
+<col width="8%" />
+<col width="93%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Value</th>
@@ -1409,10 +1409,13 @@ directive to <code class="docutils literal"><span class="pre">false</span></code
 <td>Disable cache feature.</td>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">true</span></code> (default)</td>
-<td>Cache process outputs. Input files are indexed by using the meta-data information (name, size and last update timestamp).</td>
+<td>Enable caching. Cache keys are created indexing input files meta-data information (name, size and last update timestamp attributes).</td>
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">'deep'</span></code></td>
-<td>Cache process outputs. Input files are indexed by their content.</td>
+<td>Enable caching. Cache keys are created indexing input files content.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">'lenient'</span></code></td>
+<td>Enable caching. Cache keys are created indexing input files path and size attributes (this policy provides a workaround for incorrect caching invalidation observed on shared file systems due to inconsistent files timestamps; requires version 0.32.x or later).</td>
 </tr>
 </tbody>
 </table>
@@ -1942,10 +1945,13 @@ and config maps when using the <a class="reference internal" href="executor.html
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">pullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></td>
-<td>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal"><span class="pre">pullPolicy:</span> <span class="pre">'Always'</span></code>.</td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
 <td>Specifies the user ID to be used to run the container.</td>
 </tr>
 </tbody>
@@ -2521,7 +2527,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'0.31.1',
+            VERSION:'0.32.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
