@@ -423,13 +423,13 @@ how to setup Batch queues.</p>
 <p>5 - Make sure the container image includes the <a class="reference external" href="https://aws.amazon.com/cli">AWS CLI tool</a> i.e. <code class="docutils literal"><span class="pre">aws</span></code>.
 Alternatively, it can also be installed in a custom AMI image. See the note below for details.</p>
 <p>An example <code class="docutils literal"><span class="pre">nextflow.config</span></code> file is shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>process.executor = &#39;awsbatch&#39;
-process.queue = &#39;my-batch-queue&#39;
-process.container = &#39;quay.io/biocontainers/salmon&#39;
-aws.region = &#39;eu-west-1&#39;
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;awsbatch&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;my-batch-queue&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;quay.io/biocontainers/salmon&#39;</span>
+<span class="n">aws</span><span class="o">.</span><span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;eu-west-1&#39;</span>
 
-// NOTE: the following line only if the `aws` tool is installed in a custom AMI
-executor.awscli = &#39;/home/ec2-home/miniconda/bin/aws&#39;
+<span class="o">//</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">this</span> <span class="n">setting</span> <span class="ow">is</span> <span class="n">only</span> <span class="n">required</span> <span class="k">if</span> <span class="n">the</span> <span class="n">AWS</span> <span class="n">CLI</span> <span class="n">tool</span> <span class="ow">is</span> <span class="n">installed</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">custom</span> <span class="n">AMI</span>
+<span class="n">executor</span><span class="o">.</span><span class="n">awscli</span> <span class="o">=</span> <span class="s1">&#39;/home/ec2-user/miniconda/bin/aws&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -529,9 +529,10 @@ Modifying this directory structure, after the installation, will cause the tool 
 <p>By default Nextflow will assume the AWS CLI tool is directly available in the container. To use an installation
 from the host image specify the <code class="docutils literal"><span class="pre">awscli</span></code> parameter in the Nextflow <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">executor</span></a>
 configuration as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">executor</span><span class="o">.</span><span class="n">awscli</span> <span class="o">=</span> <span class="s1">&#39;/home/ec2-home/miniconda/bin/aws&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">executor</span><span class="o">.</span><span class="n">awscli</span> <span class="o">=</span> <span class="s1">&#39;/home/ec2-user/miniconda/bin/aws&#39;</span>
 </pre></div>
 </div>
+<p>Replace the path above with the one matching the location where <code class="docutils literal"><span class="pre">aws</span></code> tool is installed in your AMI.</p>
 </div>
 <div class="section" id="custom-job-definition">
 <h3>Custom job definition<a class="headerlink" href="#custom-job-definition" title="Permalink to this headline">¶</a></h3>
