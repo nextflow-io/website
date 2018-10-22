@@ -1,4 +1,4 @@
-title=Industrial Personalised Immunotherapy Pipeline Development with Nextflow
+title=Nextflow at the heart of UK genomics
 date=2018-10-11
 type=col8
 tags=nextflow,nfhack18,workshop
