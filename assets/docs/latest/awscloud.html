@@ -100,11 +100,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#spot-prices">Spot prices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#awscloud-batch-config">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-ami">Custom AMI</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aws-cli-installation">AWS CLI installation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#custom-job-definition">Custom job definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-workloads">Hybrid workloads</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
@@ -409,8 +410,8 @@ version <cite>0.26.0</cite> or later.</p>
 workloads in the Amazon cloud infrastructure.</p>
 <p>Nextflow provides a built-in support for AWS Batch which allows the seamless deployment of a Nextflow pipeline
 in the cloud offloading the process executions as Batch jobs.</p>
-<div class="section" id="id2">
-<h3>Configuration<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="awscloud-batch-config">
+<span id="id2"></span><h3>Configuration<a class="headerlink" href="#awscloud-batch-config" title="Permalink to this headline">¶</a></h3>
 <p>1 - Make sure your pipeline processes specifies one or more Docker containers by using the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
 <p>2 - Container images need to be published in a Docker registry such as <a class="reference external" href="https://hub.docker.com/">Docker Hub</a>,
 <a class="reference external" href="https://quay.io/">Quay</a> or <a class="reference external" href="https://aws.amazon.com/ecr/">ECS Container Registry</a> that can be reached
@@ -553,10 +554,43 @@ directive and specifing, in place of the container image name, the Job definitio
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads.</p>
 <p>Pipeline input data should to be stored in the Input data <a class="reference external" href="https://aws.amazon.com/s3/">S3 storage</a>. In the same
-manner the pipeline execution must specifies a S3 bucket as working directory. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">my</span><span class="o">-</span><span class="n">pipeline</span> <span class="o">-</span><span class="n">w</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+manner the pipeline execution must specifies a S3 bucket where jobs intermediate results are stored with the
+<code class="docutils literal"><span class="pre">-bucket-dir</span></code> command line options. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">my</span><span class="o">-</span><span class="n">pipeline</span> <span class="o">-</span><span class="n">bucket</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The bucket path should include at least a top level directory name e.g. use <code class="docutils literal"><span class="pre">s3://my-bucket/work</span></code>
+not just <code class="docutils literal"><span class="pre">s3://my-bucket</span></code>.</p>
+</div>
+</div>
+<div class="section" id="hybrid-workloads">
+<h3>Hybrid workloads<a class="headerlink" href="#hybrid-workloads" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
+of hybrid workloads in which some jobs are execute in the local computer or local computing cluster and
+some jobs are offloaded to AWS Batch service.</p>
+<p>To enable this feature use one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> in your Nextflow configuration file to apply
+the AWS Batch <a class="reference external" href="awscloud-batch-config">configuration</a> only to a subset of processes in your workflow.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;eu-west-1&#39;</span>
+<span class="p">}</span>
+<span class="n">executor</span> <span class="p">{</span>
+  <span class="n">awscli</span> <span class="o">=</span> <span class="s1">&#39;/home/ec2-user/miniconda/bin/aws&#39;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">bigTask</span> <span class="p">{</span>
+      <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;awsbatch&#39;</span>
+      <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;my-batch-queue&#39;</span>
+      <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;my/image:tag&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet will deploy the execution with AWS Batch only for processes annotated
+with the <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> <code class="docutils literal"><span class="pre">bigTask</span></code>, the remaining process with run in the local computer.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
@@ -603,7 +637,8 @@ which does not allow the execution of the BASH launcher script required by Nextf
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2016, Nextflow authors.
+        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
   </div>

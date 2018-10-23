@@ -100,7 +100,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#trace-report">Trace report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#weblog-via-http">Weblog via HTTP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#weblog-via-http">Weblog via HTTP</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#weblog-submit-example-message">Weblog Submit example message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weblog-completed-example-message">Weblog Completed example message</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -188,7 +192,7 @@ and many other runtime metrics. You can see an example below:</p>
 <p class="last">Nextflow collect these metrics running a background process for each job in the target environment.
 Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code> in the system where
 the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
-message about that in the <a class="reference internal" href="#id2">Trace report</a> below.</p>
+message about that in the <a class="reference external" href="trace-report">Trace report</a> below.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -727,39 +731,27 @@ in your computer.</p>
 </div>
 <div class="section" id="weblog-via-http">
 <span id="weblog-service"></span><h2>Weblog via HTTP<a class="headerlink" href="#weblog-via-http" title="Permalink to this headline">¶</a></h2>
-<p>In order to enable Nextflow to send detailed trace reports via HTTP POST requests, add the following command line option:</p>
+<p>Nextflow is able to send detailed workflow execution metadata and runtime statistics to a HTTP endpoint.
+To enable this feature use  the <code class="docutils literal"><span class="pre">-with-weblog</span></code> as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">pipeline</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">weblog</span> <span class="p">[</span><span class="n">url</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Nextflow will then take trace information and send it as JSON object to the given URL. An example JSON message can look like this:</p>
+<p>Workflow events are sent as HTTP POST requests to the given URL. The message is formatted using the
+following JSON structure:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
-     <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;mighty_jones&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="s2">&quot;f6b21633-af1e-4fe2-8328-39e70b110c83&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;runStatus&quot;</span><span class="p">:</span> <span class="s2">&quot;process_started&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-05-14T08:28:48Z&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span>
-         <span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-         <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;RUNNING&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;e9/9efab9&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;printHello (3)&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="mi">2147483647</span><span class="p">,</span>
-         <span class="s2">&quot;submit&quot;</span><span class="p">:</span> <span class="mi">1526313056637</span><span class="p">,</span>
-         <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="mi">1526313056715</span><span class="p">,</span>
-         <span class="s2">&quot;process&quot;</span><span class="p">:</span> <span class="s2">&quot;printHello&quot;</span><span class="p">,</span>
-         <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
-         <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="p">[</span>
-
-         <span class="p">],</span>
-         <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="s2">&quot;nextflow/examples&quot;</span><span class="p">,</span>
-         <span class="o">...</span>
+     <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">run</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">uuid</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">started</span><span class="o">|</span><span class="n">process_submitted</span><span class="o">|</span><span class="n">process_started</span><span class="o">|</span><span class="n">process_completed</span><span class="o">|</span><span class="n">error</span><span class="o">|</span><span class="n">completed</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">UTC</span> <span class="n">timestamp</span><span class="o">&gt;</span><span class="p">,</span>
+     <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>The JSON object contains the following attributes:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="7%" />
+<col width="93%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Attribute</th>
@@ -768,23 +760,93 @@ in your computer.</p>
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>runName</td>
-<td>The worklow run name. Nextflow creates an own, if you do not provide one explicitly.</td>
+<td>The workflow execution run name.</td>
 </tr>
 <tr class="row-odd"><td>runId</td>
-<td>The unique workflow id Nextflow creates for every workflow.</td>
+<td>The workflow execution unique ID.</td>
 </tr>
-<tr class="row-even"><td>runStatus</td>
-<td>The current status of the workflow. One of <code class="docutils literal"><span class="pre">[&quot;started&quot;,</span> <span class="pre">&quot;process_submitted&quot;,</span> <span class="pre">&quot;process_started&quot;,</span> <span class="pre">&quot;process_completed&quot;,</span> <span class="pre">&quot;error&quot;,</span> <span class="pre">&quot;completed&quot;]</span></code>.</td>
+<tr class="row-even"><td>event</td>
+<td>The workflow execution event. One of <code class="docutils literal"><span class="pre">started</span></code>, <code class="docutils literal"><span class="pre">process_submitted</span></code>, <code class="docutils literal"><span class="pre">process_started</span></code>, <code class="docutils literal"><span class="pre">process_completed</span></code>, <code class="docutils literal"><span class="pre">error</span></code>, <code class="docutils literal"><span class="pre">completed</span></code>.</td>
 </tr>
 <tr class="row-odd"><td>utcTime</td>
 <td>The UTC timestamp in ISO 8601 format.</td>
 </tr>
-<tr class="row-even"><td>(trace)</td>
-<td>Provided only on process submission, process start, process complete and workflow error.</td>
+<tr class="row-even"><td>trace</td>
+<td>A process runtime information as described in the <a class="reference internal" href="#trace-fields"><span class="std std-ref">trace fields</span></a> section. This attribute is only provided for the following events: <code class="docutils literal"><span class="pre">process_submitted</span></code>, <code class="docutils literal"><span class="pre">process_started</span></code>, <code class="docutils literal"><span class="pre">process_completed</span></code>, <code class="docutils literal"><span class="pre">error</span></code>.</td>
 </tr>
 </tbody>
 </table>
-<p>The <code class="docutils literal"><span class="pre">trace</span></code> attribute contains a list of trace information fields, which you can look up in the <a class="reference internal" href="#trace-fields"><span class="std std-ref">trace fields</span></a> description.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The content of the <code class="docutils literal"><span class="pre">trace</span></code> attribute depends on the settings for the <a class="reference external" href="trace-report">Trace report</a> defined in the
+<code class="docutils literal"><span class="pre">nextflow.config</span></code> file. See the <a class="reference internal" href="config.html#config-trace"><span class="std std-ref">Trace configuration</span></a> section to learn more.</p>
+</div>
+<div class="section" id="weblog-submit-example-message">
+<h3>Weblog Submit example message<a class="headerlink" href="#weblog-submit-example-message" title="Permalink to this headline">¶</a></h3>
+<p>When a workflow execution is a started a message like the following is posted to the specified end-point:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;friendly_pesquet&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="s2">&quot;170aa09c-105f-49d0-99b4-8eb6a146e4a7&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;started&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-10-07T11:42:08Z&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="weblog-completed-example-message">
+<h3>Weblog Completed example message<a class="headerlink" href="#weblog-completed-example-message" title="Permalink to this headline">¶</a></h3>
+<p>Once a process is completed, a message like the following is posted to the specified end-point:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;friendly_pesquet&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="s2">&quot;170aa09c-105f-49d0-99b4-8eb6a146e4a7&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;process_completed&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-10-07T11:45:30Z&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;task_id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+      <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;COMPLETED&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;hash&quot;</span><span class="p">:</span> <span class="s2">&quot;a1/0024fd&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;make_ot_config&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;exit&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;submit&quot;</span><span class="p">:</span> <span class="mi">1538912529498</span><span class="p">,</span>
+      <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="mi">1538912529629</span><span class="p">,</span>
+      <span class="s2">&quot;process&quot;</span><span class="p">:</span> <span class="s2">&quot;make_ot_config&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;tag&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;module&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+      <span class="p">],</span>
+      <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="s2">&quot;nfcore/hlatyping:1.1.1&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;attempt&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;script&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    configbuilder --max-cpus 2 --solver glpk &gt; config.ini</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="p">,</span>
+      <span class="s2">&quot;scratch&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;workdir&quot;</span><span class="p">:</span> <span class="s2">&quot;/home/sven1103/git/hlatyping-workflow/work/a1/0024fd028375e2b601aaed44d112e3&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;queue&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;cpus&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="s2">&quot;memory&quot;</span><span class="p">:</span> <span class="mi">7516192768</span><span class="p">,</span>
+      <span class="s2">&quot;disk&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="mi">7200000</span><span class="p">,</span>
+      <span class="s2">&quot;env&quot;</span><span class="p">:</span> <span class="s2">&quot;PATH=/home/sven1103/git/hlatyping-workflow/bin:$PATH</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;error_action&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+      <span class="s2">&quot;complete&quot;</span><span class="p">:</span> <span class="mi">1538912730599</span><span class="p">,</span>
+      <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="mi">201101</span><span class="p">,</span>
+      <span class="s2">&quot;realtime&quot;</span><span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
+      <span class="s2">&quot;</span><span class="si">%c</span><span class="s2">pu&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+      <span class="s2">&quot;%mem&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+      <span class="s2">&quot;vmem&quot;</span><span class="p">:</span> <span class="mi">54259712</span><span class="p">,</span>
+      <span class="s2">&quot;rss&quot;</span><span class="p">:</span> <span class="mi">10469376</span><span class="p">,</span>
+      <span class="s2">&quot;peak_vmem&quot;</span><span class="p">:</span> <span class="mi">20185088</span><span class="p">,</span>
+      <span class="s2">&quot;peak_rss&quot;</span><span class="p">:</span> <span class="mi">574972928</span><span class="p">,</span>
+      <span class="s2">&quot;rchar&quot;</span><span class="p">:</span> <span class="mi">7597</span><span class="p">,</span>
+      <span class="s2">&quot;wchar&quot;</span><span class="p">:</span> <span class="mi">162</span><span class="p">,</span>
+      <span class="s2">&quot;syscr&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+      <span class="s2">&quot;syscw&quot;</span><span class="p">:</span> <span class="mi">4083712</span><span class="p">,</span>
+      <span class="s2">&quot;read_bytes&quot;</span><span class="p">:</span> <span class="mi">4096</span><span class="p">,</span>
+      <span class="s2">&quot;write_bytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+      <span class="s2">&quot;native_id&quot;</span><span class="p">:</span> <span class="mi">27185</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
@@ -807,7 +869,8 @@ in your computer.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2016, Nextflow authors.
+        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
   </div>
