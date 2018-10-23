@@ -1,7 +1,7 @@
 title=Clarification about the Nextflow license
 date=2018-07-20
 type=post
-tags=nextflow,gpl
+tags=nextflow,gpl,license
 status=published
 author=Paolo Di Tommaso
 icon=paolo.jpg

@@ -7,7 +7,7 @@
 	  <div class="container">
 	    <div class="row">
 		  <div class="col-xs-12">
-		    <h3>Blog <small>Posts or news stories regarding Nextflow, computational pipelines and parallel computing</small></h3>
+		    <h4 class='text-muted'>Blogging about Nextflow, computational workflows, containers and cloud computing</h4>
 		    <hr>
 		  </div>
 		</div>
@@ -27,10 +27,16 @@
 				  <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
 			    </ul>
 			    <hr>
-			    <p class="blg-text">	
-                  <#assign words = post.body?word_list>
+			    <p class="blg-text">
+						<#if post.title == "Nextflow workshop is coming!" >
+						<#assign MAX = 50>
+						<#else>
+						<#assign MAX = 150>
+      			</#if>
+
+						<#assign words = post.body?word_list>
 			      <#if words?size gt 150 > 
-			        <#assign body = words[0..149]?join(' ') >
+			        <#assign body = words[0..MAX-1]?join(' ') >
 			        ${body} .. (<a href="${post.uri}">click here to read more</a>) 
 			      <#else>
 			        <#assign body = words?join(' ') >

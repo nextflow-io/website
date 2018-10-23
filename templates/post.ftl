@@ -7,7 +7,7 @@
 	    <div class="row">
 		  <div class="col-sm-8">
 			<div class="blg-summary">
-			  <h3><a href="#"><#escape x as x?xml>${content.title}</#escape></a></h3>
+			  <h2><a href="#"><#escape x as x?xml>${content.title}</#escape></a></h2>
 			  <ul class="text-muted list-inline blg-header">
 				<li><i class="fa fa-user"></i> ${content.author}</li>
 				<li><i class="fa fa-calendar"></i> ${content.date?string("dd MMMM yyyy")}</li>
