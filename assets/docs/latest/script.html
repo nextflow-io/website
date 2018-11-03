@@ -309,7 +309,7 @@ different conditions. The simplest way to do this is to use the <code class="doc
 </div>
 <div class="section" id="string-interpolation">
 <span id="id2"></span><h3>String interpolation<a class="headerlink" href="#string-interpolation" title="Permalink to this headline">¶</a></h3>
-<p>There is an important difference between single- and double-quoted strings:
+<p>There is an important difference between single-quoted and double-quoted strings:
 Double-quoted strings support variable interpolations, while single-quoted strings do not.</p>
 <p>In practice, double-quoted strings can contain the value of an arbitrary variable by prefixing its name with the <code class="docutils literal"><span class="pre">$</span></code> character,
 or the value of any expression by using the <code class="docutils literal"><span class="pre">${expression}</span></code> syntax, similar to Bash/shell scripts:</p>
@@ -366,8 +366,9 @@ Thus, you can define a chunk of code and then pass it around as if it were a str
 </pre></div>
 </div>
 <p>The curly brackets around the expression <code class="docutils literal"><span class="pre">it</span> <span class="pre">*</span> <span class="pre">it</span></code> tells the script interpreter to treat this expression as code.
-In this case, the designator <code class="docutils literal"><span class="pre">it</span></code> refers to whatever value is passed to the function when it is called. This compiled function is
-assigned to the variable <code class="docutils literal"><span class="pre">square</span></code>, much like variable assignments shown previously. Now we can do something like this:</p>
+The <cite>it</cite> identifier is an implicit variable that represents the value that is passed to the function when it is invoked.</p>
+<p>Once compiled the function object is assigned to the variable <code class="docutils literal"><span class="pre">square</span></code> as any other variable assignments shown previously.
+Now we can do something like this:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">square</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -391,7 +392,7 @@ for each key-value pair in the <code class="docutils literal"><span class="pre">
     <span class="n">println</span> <span class="s2">&quot;$key = $value&quot;</span>
 <span class="p">}</span>
 
-<span class="p">[</span> <span class="s2">&quot;Yue&quot;</span> <span class="p">:</span> <span class="s2">&quot;Wu&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span> <span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">,</span> <span class="s2">&quot;sudha&quot;</span> <span class="p">:</span> <span class="s2">&quot;Kumari&quot;</span> <span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="n">printMapClosure</span><span class="p">)</span>
+<span class="p">[</span> <span class="s2">&quot;Yue&quot;</span> <span class="p">:</span> <span class="s2">&quot;Wu&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span> <span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">,</span> <span class="s2">&quot;Sudha&quot;</span> <span class="p">:</span> <span class="s2">&quot;Kumari&quot;</span> <span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="n">printMapClosure</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Prints:</p>
@@ -1144,5 +1145,15 @@ showing how to stream or copy the content of files.</p>
   </script>
    
 
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
 </body>
 </html>

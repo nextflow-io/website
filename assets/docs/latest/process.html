@@ -221,7 +221,7 @@ a script that is executed by it. A basic process looks like the following exampl
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>more specifically a process may contain five definition blocks, respectively: directives,
+<p>A process may contain five definition blocks, respectively: directives,
 inputs, outputs, when clause and finally the process script. The syntax is defined as follows:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="o">&lt;</span> <span class="n">name</span> <span class="o">&gt;</span> <span class="p">{</span>
 
@@ -247,9 +247,9 @@ inputs, outputs, when clause and finally the process script. The syntax is defin
 <p>The <cite>script</cite> block is a string statement that defines the command that is executed by the process to carry out its task.</p>
 <p>A process contains one and only one script block, and it must be the last statement when the process contains
 input and output declarations.</p>
-<p>The entered string is executed as a <a class="reference external" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">BASH</a> script in the
+<p>The entered string is executed as a <a class="reference external" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> script in the
 <cite>host</cite> system. It can be any command, script or combination of them, that you would normally use in terminal shell
-or in a common BASH script.</p>
+or in a common Bash script.</p>
 <p>The only limitation to the commands that can be used in the script statement is given by the availability of those
 programs in the target execution system.</p>
 <p>The script block can be a simple string or multi-line string. The latter simplifies the writing of non trivial scripts
@@ -267,14 +267,14 @@ composed by multiple commands spanning over multiple lines. For example:</p>
 </div>
 <p>As explained in the script tutorial section, strings can be defined by using a single-quote
 or a double-quote, and multi-line strings are defined by three single-quote or three double-quote characters.</p>
-<p>There is a subtle but important difference between them. Like in BASH, strings delimited by a <code class="docutils literal"><span class="pre">&quot;</span></code> character support
+<p>There is a subtle but important difference between them. Like in Bash, strings delimited by a <code class="docutils literal"><span class="pre">&quot;</span></code> character support
 variable substitutions, while strings delimited by <code class="docutils literal"><span class="pre">'</span></code> do not.</p>
 <p>In the above code fragment the <code class="docutils literal"><span class="pre">$db</span></code> variable is replaced by the actual value defined somewhere in the
 pipeline script.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Since Nextflow uses the same BASH syntax for variable substitutions in strings, you need to manage them
-carefully depending on if you want to evaluate a variable in the Nextflow context - or - in the BASH environment execution.</p>
+<p class="last">Since Nextflow uses the same Bash syntax for variable substitutions in strings, you need to manage them
+carefully depending on if you want to evaluate a variable in the Nextflow context - or - in the Bash environment execution.</p>
 </div>
 <p>When you need to access a system environment variable  in your script you have two options. The first choice is as
 easy as defining your script block by using a single-quote string. For example:</p>
@@ -304,20 +304,20 @@ prefixing them with a back-slash <code class="docutils literal"><span class="pre
 </div>
 <p>In this example the <code class="docutils literal"><span class="pre">$MAX</span></code> variable has to be defined somewhere before, in the pipeline script.
 <cite>Nextflow</cite> replaces it with the actual value before executing the script. Instead, the <code class="docutils literal"><span class="pre">$DB</span></code> variable
-must exist in the script execution environment and the BASH interpreter will replace it with the actual value.</p>
+must exist in the script execution environment and the Bash interpreter will replace it with the actual value.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Alternatively you can use the <a class="reference internal" href="#process-shell"><span class="std std-ref">Shell</span></a> block definition which allows a script to contain both
-BASH and Nextflow variables without having to escape the first.</p>
+Bash and Nextflow variables without having to escape the first.</p>
 </div>
 <div class="section" id="scripts-a-la-carte">
 <h3>Scripts <cite>à la carte</cite><a class="headerlink" href="#scripts-a-la-carte" title="Permalink to this headline">¶</a></h3>
-<p>The process script is interpreted by Nextflow as a BASH script by default, but you are not limited to it.</p>
+<p>The process script is interpreted by Nextflow as a Bash script by default, but you are not limited to it.</p>
 <p>You can use your favourite scripting language (e.g. Perl, Python, Ruby, R, etc), or even mix them in the same pipeline.</p>
 <p>A pipeline may be composed by processes that execute very different tasks. Using <cite>Nextflow</cite> you can choose the scripting
 language that better fits the task carried out by a specified process. For example for some processes <cite>R</cite> could be
 more useful than <cite>Perl</cite>, in other you may need to use <cite>Python</cite> because it provides better access to a library or an API, etc.</p>
-<p>To use a scripting other than BASH, simply start your process script with the corresponding
+<p>To use a scripting other than Bash, simply start your process script with the corresponding
 <a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> declaration. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">perlStuff</span> <span class="p">{</span>
 
@@ -421,8 +421,8 @@ echo &quot;process completed&quot;
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Note that the dollar character (<code class="docutils literal"><span class="pre">$</span></code>) is interpreted as a Nextflow variable placeholder, when the script is run as a
-Nextflow template, while it is evaluated as a BASH variable when it is run alone. This can be very useful to test
-your script autonomously, i.e. independently from Nextflow execution. You only need to provide a BASH environment
+Nextflow template, while it is evaluated as a Bash variable when it is run alone. This can be very useful to test
+your script autonomously, i.e. independently from Nextflow execution. You only need to provide a Bash environment
 variable for each the Nextflow variable existing in your script. For example, it would be possible to execute the above
 script entering the following command in the shell terminal: <code class="docutils literal"><span class="pre">STR='foo'</span> <span class="pre">bash</span> <span class="pre">templates/my_script.sh</span></code></p>
 </div>
@@ -436,7 +436,7 @@ script entering the following command in the shell terminal: <code class="docuti
 <p>The <code class="docutils literal"><span class="pre">shell</span></code> block is a string statement that defines the <em>shell</em> command executed by the process to carry out its task.
 It is an alternative to the <a class="reference internal" href="#process-script"><span class="std std-ref">Script</span></a> definition with an important difference, it uses
 the exclamation mark <code class="docutils literal"><span class="pre">!</span></code> character as the variable placeholder for Nextflow variables in place of the usual dollar character.</p>
-<p>In this way it is possible to use both Nextflow and BASH variables in the same piece of code without having to escape
+<p>In this way it is possible to use both Nextflow and Bash variables in the same piece of code without having to escape
 the latter and making process scripts more readable and easy to maintain. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">myTask</span> <span class="p">{</span>
 
@@ -451,7 +451,7 @@ the latter and making process scripts more readable and easy to maintain. For ex
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above trivial example the <code class="docutils literal"><span class="pre">$USER</span></code> variable is managed by the BASH interpreter, while <code class="docutils literal"><span class="pre">!{str}</span></code> is handled
+<p>In the above trivial example the <code class="docutils literal"><span class="pre">$USER</span></code> variable is managed by the Bash interpreter, while <code class="docutils literal"><span class="pre">!{str}</span></code> is handled
 as a process input variable managed by Nextflow.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -586,8 +586,8 @@ Thus the above example can be written as shown below:</p>
 </div>
 <div class="section" id="input-of-files">
 <h3>Input of files<a class="headerlink" href="#input-of-files" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">file</span></code> qualifier allows you to receive a value as a file in the process execution context. This means that
-Nextflow will stage it in the process execution directory, and you can access it in the script by using the name
+<p>The <code class="docutils literal"><span class="pre">file</span></code> qualifier allows the handling of file values in the process execution context. This means that
+Nextflow will stage it in the process execution directory, and it can be access in the script by using the name
 specified in the input declaration. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
 
@@ -1355,12 +1355,12 @@ and have the following syntax:</p>
 </ul>
 <div class="section" id="afterscript">
 <h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">afterScript</span></code> directive allows you to execute a custom (BASH) snippet immediately <em>after</em> the main process has run.
+<p>The <code class="docutils literal"><span class="pre">afterScript</span></code> directive allows you to execute a custom (Bash) snippet immediately <em>after</em> the main process has run.
 This may be useful to clean up your staging area.</p>
 </div>
 <div class="section" id="beforescript">
 <h3>beforeScript<a class="headerlink" href="#beforescript" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">beforeScript</span></code> directive allows you to execute a custom (BASH) snippet <em>before</em> the main process script is run.
+<p>The <code class="docutils literal"><span class="pre">beforeScript</span></code> directive allows you to execute a custom (Bash) snippet <em>before</em> the main process script is run.
 This may be useful to initialise the underlying cluster environment or for other custom initialisation.</p>
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
@@ -2554,5 +2554,15 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
   </script>
    
 
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
 </body>
 </html>

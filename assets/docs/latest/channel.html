@@ -290,8 +290,8 @@ creates a channel emitting three entries each of which is a list containing two 
 </div>
 <div class="section" id="value">
 <span id="channel-value"></span><h3>value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
-<p>This method creates a dataflow <cite>variable</cite> that is a channel to which one entry, at most, can be bound. An optional
-not <code class="docutils literal"><span class="pre">null</span></code> value can be specified as a parameters, which is bound to the newly created channel. For example:</p>
+<p>The <cite>value</cite> factory method is used to create a <em>value</em> channel. An optional not <code class="docutils literal"><span class="pre">null</span></code> argument
+can be specified to bind the channel to a specific value. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 <span class="n">expl2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="s1">&#39;Hello there&#39;</span> <span class="p">)</span>
 <span class="n">expl3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span> <span class="p">)</span>
@@ -335,7 +335,7 @@ in all its sub-folders. While the second one only emits the files which have the
 Finally the last example emits two files: <code class="docutils literal"><span class="pre">data/file_1.fq</span></code> and <code class="docutils literal"><span class="pre">data/file_2.fq</span></code>.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">As in Linux BASH the <code class="docutils literal"><span class="pre">*</span></code> wildcard does not match against hidden files (i.e. files whose name start with a <code class="docutils literal"><span class="pre">.</span></code> character).</p>
+<p class="last">As in Linux Bash the <code class="docutils literal"><span class="pre">*</span></code> wildcard does not match against hidden files (i.e. files whose name start with a <code class="docutils literal"><span class="pre">.</span></code> character).</p>
 </div>
 <p>In order to include hidden files, you need to start your pattern with a period character or specify the <code class="docutils literal"><span class="pre">hidden:</span> <span class="pre">true</span></code> option. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">expl1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/path/.*&#39;</span> <span class="p">)</span>
@@ -458,6 +458,9 @@ For example:</p>
 </tr>
 <tr class="row-odd"><td>flat</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> the matching files are produced as sole elements in the emitted tuples (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+<tr class="row-even"><td>checkIfExists</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> throws an exception of the specified path do not exist in the file system (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
 </tr>
 </tbody>
 </table>
@@ -682,5 +685,15 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
   </script>
    
 
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
 </body>
 </html>
