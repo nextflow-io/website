@@ -32,12 +32,18 @@
                         <li><a href="/example2.html">Mixing scripting languages</a></li>
                         <li><a href="/example3.html">BLAST pipeline</a></li>
                         <li><a href="/example4.html">RNA-Seq pipeline</a></li>
-                        <li><a href="https://github.com/nextflow-io/examples" target="_blank">More examples..</a></li>
+                        <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
                     </ul>
                 </li>
 
-                <li class="show animated flipInX">
-                    <a href="/docs/latest/index.html" target="_blank">Documentation</a>
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developers<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/docs/latest/index.html">Reference documentation</a></li>
+                        <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
+                        <li><a href="https://groups.google.com/forum/#!forum/nextflow">Discussion forum</a></li>
+                    </ul>
                 </li>
 
                 <li class="show animated flipInX">
