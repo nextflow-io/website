@@ -18,6 +18,10 @@ The test was carried on during the ARM, Atos and Cavium BioData Hackathon challe
 
 During the two-day Hackathon, Team GoGut successfully and easily ported YAMP onto ARM’s latest mobile architecture, the ARM Cavium ThunderX2, showing that the analysis of microbial sequences, and of biological data at large, can be successfully taken out of centralised data centres, and that Nextflow offers a mature solution also for mobile applications.
 
+### Deck 
+
+<a href='https://github.com/alesssia/talks/blob/master/NextflowWorkshop18/ViscontiNextflow18.pdf'><img src='/img/deck.png' width='60pt' /></a>
+
 ### Bio 
 
 [Alessia Visconti](https://www.researchgate.net/profile/Alessia_Visconti) is a research fellow in Computational Biology at the Department of Twin Research and Genetic Epidemiology, King’s College London. Her research activity deals with the study of the genomics and epigenomics of human diseases, with a focus on melanoma, cognition and neurodevelopmental disorders, and IgA nephropathy. Recently, she became interested in the human microbiome and its connections to human health and diseases.

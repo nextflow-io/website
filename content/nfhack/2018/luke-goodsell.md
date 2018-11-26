@@ -16,6 +16,10 @@ Cancer immunotherapy is a promising means of treatment that uses the patient's o
  
 This presentation will describe how the Achilles bioinformatics team used Nextflow (and other tools) to adapt a research-focussed sequence-processing pipeline into an efficient, reliable, portable and risk-managed system suitable for delivering a clinical personalised immunotherapy. This will include tips and tricks for developing modular Nextflow workflows and for ensuring early detection of errors.
 
+### Deck
+
+<a href='/misc/nfhack18/luke.pdf'><img src='/img/deck.png' width='60pt' /></a>
+
 ### Bio 
 
 [Luke Goodsell](https://www.linkedin.com/in/luke-goodsell-910a2793/) leads the Bioinformatics Software Development team at Achilles Therapeutics, where he has worked for 2 years. Before that he worked as a Computational Biologist at Oxford Gene Technology after completing his PhD in Structural, Computational and Chemical Biology. He is interested in applying data analysis techniques and software engineering experience to identify answers to bioinformatics questions and implementing robust, dependable software that uses those findings.

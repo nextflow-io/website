@@ -16,6 +16,9 @@ In order to fulfil this duty, the JRC has implemented a tool called METSCAN that
 
 We are now exploring with Nexflow a new framework based on new workflows in order to improve MetScan and make the complete tool/pipeline independent of the local HW/SW platform. This idea might be a starting point for assessing the validation of Bioinformatics pipelines under the European Regulation, as part of the concept of Regulatory Bioinformatics, which is proposed to be applied into other fields like clinical trials and medicine workflows.
 
+### Deck
+
+<a href='/misc/nfhack18/antonio.pdf'><img src='/img/deck.png' width='60pt' /></a>
 
 ### Bio 
 

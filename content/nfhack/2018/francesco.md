@@ -18,6 +18,9 @@ In this talk, agile pipelines development with Nextflow will be presented from t
 
 The ensemble of Nextflow features allows the Bioinformatics Team to transition without pain from a development stage, where pipelines are designed locally or on very small datasets, to a production phase where full datasets are processed with complete pipeline versions on the AWS cloud. A perspective on pipeline unit testing will be also presented, as a topic of possible broader interest for the Nextflow community.
 
+### Deck
+
+<a href='/misc/nfhack18/francesco.pdf'><img src='/img/deck.png' width='60pt' /></a>
 
 ### Bio 
 

@@ -12,6 +12,11 @@ status=published
 
 A current effort is emerging inside the [IARC](https://www.iarc.fr/) to enable researchers to produce accurate cancer genomics results. This involves both a state-of-the-art method selection but also an efficient way to use them. To ensure this, IARC bioinformaticians are actively developing cancer genomics pipelines emphasizing performance, easy usage, reproducibility and computational efficiency. Our approach for that consists in using the Nextflow language to write our pipelines, and the combination of Docker, Singularity and Conda to distribute them and install dependencies. In this talk I will describe the global architecture of our cancer genomics pipelines. Then, I will focus my talk on one of the most complicated pipeline we have developed, which is used to estimate intra-tumor heterogeneity from whole-genome sequencing of multiple tumor regions of a cancer patient.
 
+### Deck
+
+<a href='/misc/nfhack18/tiffany.pdf'><img src='/img/deck.png' width='60pt' /></a>
+
+
 ### Bio 
 
 [Tiffany Delhomme](https://www.researchgate.net/profile/Tiffany_Delhomme2) is currently working at the Section of Genetics, International Agency for Research on Cancer, in the Genetics Cancer Susceptibility Group. She is a PhD candidate trying to decipher cancer genomics issues using computational/statistical methods.

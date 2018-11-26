@@ -23,6 +23,10 @@ FlowCraft further extends the capabilities of Nextflow by providing an Inspectio
 
 The final aim of this project is to have a flexible, extensible and modular system built on top of Nextflow for building, monitoring and reporting scientific pipelines in any omics field. Flowcraft can be found at [this link](https://github.com/assemblerflow/flowcraft/) and the complete user guide is hosted at [this link](http://flowcraft.readthedocs.io/en/latest/).
 
+### Deck
+
+<a href='https://slides.com/diogosilva-1/nextflow-workshop-2018#/'><img src='/img/deck.png' width='60pt' /></a>
+
 
 ### Bio 
 

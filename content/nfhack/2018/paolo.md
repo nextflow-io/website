@@ -12,6 +12,9 @@ status=published
 
 This presentation will give an overview of the current state of Nextflow technology, the achieved milestones, the upcoming changes and the open challenges facing the reproducibility of of in-silico genomic data analysis.
 
+### Deck
+
+<a href='https://speakerdeck.com/pditommaso/the-state-of-nextflow'><img src='/img/deck.png' width='60pt' /></a>
 
 ### Bio 
 

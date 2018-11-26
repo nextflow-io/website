@@ -12,6 +12,10 @@ status=published
 
 [QCloud](https://qcloud.crg.eu) is a web-based system to support proteomics laboratories in daily quality assessment using a user-friendly interface, easy setup, automated data processing and archiving, and unbiased instrument evaluation. QCloud supports the most common targeted and untargeted proteomics workflows, it accepts data formats from different vendors and it enables a user-selected vocabulary to report incidences and annotate the acquired data.
 
+### Deck
+
+<a href='/misc/nfhack18/roger.pdf'><img src='/img/deck.png' width='60pt' /></a>
+
 ### Bio 
 
 Roger graduated at the Universitat Autònoma de Barcelona in Physics. Then he worked as a software engineer in several research centers until he started to work as a bioinformatician at the IRB in 2013. Finally, he moved to the Proteomics Unit at the CRG in 2015 until today.
