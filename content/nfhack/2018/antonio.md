@@ -18,7 +18,7 @@ We are now exploring with Nexflow a new framework based on new workflows in orde
 
 ### Deck
 
-<a href='/misc/nfhack18/antonio.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='/misc/nfhack18/antonio.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

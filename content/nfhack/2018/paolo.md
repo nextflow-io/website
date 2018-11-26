@@ -14,7 +14,7 @@ This presentation will give an overview of the current state of Nextflow technol
 
 ### Deck
 
-<a href='https://speakerdeck.com/pditommaso/the-state-of-nextflow'><img src='/img/deck.png' width='60pt' /></a>
+<a href='https://speakerdeck.com/pditommaso/the-state-of-nextflow'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

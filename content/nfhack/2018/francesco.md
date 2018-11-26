@@ -20,7 +20,7 @@ The ensemble of Nextflow features allows the Bioinformatics Team to transition w
 
 ### Deck
 
-<a href='/misc/nfhack18/francesco.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='/misc/nfhack18/francesco.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

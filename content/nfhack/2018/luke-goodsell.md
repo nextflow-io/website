@@ -18,7 +18,7 @@ This presentation will describe how the Achilles bioinformatics team used Nextfl
 
 ### Deck
 
-<a href='/misc/nfhack18/luke.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='/misc/nfhack18/luke.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

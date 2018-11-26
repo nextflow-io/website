@@ -14,7 +14,7 @@ The [Wellcome Sanger Institute](https://www.sanger.ac.uk/) is one of the biggest
 
 ### Deck
 
-<a href='https://speakerdeck.com/wikiselev/nextflow-at-the-heart-of-uk-genomics'><img src='/img/deck.png' width='60pt' /></a>
+<a href='https://speakerdeck.com/wikiselev/nextflow-at-the-heart-of-uk-genomics'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

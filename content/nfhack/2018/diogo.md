@@ -25,7 +25,7 @@ The final aim of this project is to have a flexible, extensible and modular syst
 
 ### Deck
 
-<a href='https://slides.com/diogosilva-1/nextflow-workshop-2018#/'><img src='/img/deck.png' width='60pt' /></a>
+<a href='https://slides.com/diogosilva-1/nextflow-workshop-2018#/'><img src='/img/deck.png' width='45pt' /></a>
 
 
 ### Bio 

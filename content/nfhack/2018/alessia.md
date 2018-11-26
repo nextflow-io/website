@@ -20,7 +20,7 @@ During the two-day Hackathon, Team GoGut successfully and easily ported YAMP ont
 
 ### Deck 
 
-<a href='https://github.com/alesssia/talks/blob/master/NextflowWorkshop18/ViscontiNextflow18.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='https://github.com/alesssia/talks/blob/master/NextflowWorkshop18/ViscontiNextflow18.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

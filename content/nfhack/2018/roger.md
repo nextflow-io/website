@@ -14,7 +14,7 @@ status=published
 
 ### Deck
 
-<a href='/misc/nfhack18/roger.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='/misc/nfhack18/roger.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

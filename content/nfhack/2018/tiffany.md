@@ -14,7 +14,7 @@ A current effort is emerging inside the [IARC](https://www.iarc.fr/) to enable r
 
 ### Deck
 
-<a href='/misc/nfhack18/tiffany.pdf'><img src='/img/deck.png' width='60pt' /></a>
+<a href='/misc/nfhack18/tiffany.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 
 ### Bio 
