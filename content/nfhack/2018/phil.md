@@ -18,7 +18,9 @@ Shared pipelines will give increased reproducibility between groups and greater 
 
 There has been fantastic feedback from the user community about nf-core. The first twitter post in February 2018 was seen by nearly four thousand people and the account now has over 140 followers. There are currently seven pipelines available (at the time of writing) with many more on the way.
 
+### Deck
 
+<a href='/misc/nfhack18/phil.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 

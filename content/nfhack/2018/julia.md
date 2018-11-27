@@ -12,6 +12,9 @@ status=published
 
 The ability to generate recombinant proteins facilitates several steps in drug discovery research, e.g. investigating drug-target-interactions or assessing a compound’s efficacy and safety. For this, the target’s exact protein sequence is required. Public databases such as Ensembl, UniProt and RefSeq are an important source of sequence information. However, many sequences for non-human organisms are predicted by computational pipelines and may thus be incomplete or contain errors. We present a Nextflow pipeline which exploits paired-end RNA-Seq reads for sequence validation and refinement by making use of sequence homology relationships across different species. We applied the pipeline to refine and validate the orthologues of all known human protein sequences in six species.
 
+### Deck
+
+<a href='/misc/nfhack18/julia.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 
