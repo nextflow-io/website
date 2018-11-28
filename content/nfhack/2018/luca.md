@@ -12,6 +12,9 @@ status=published
 
 An update on all the latest technical developments from AWS's Engineering team that we’re building for the research and engineering community. We’ll deep dive on some that are particularly relevant to to Nextflow's users and developers and ask for input from the audience to help us understand what other things we can engineer with the advice and insights from people in the audience.
 
+### Deck
+
+<a href='/misc/nfhack18/luca.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 
