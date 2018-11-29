@@ -12,6 +12,9 @@ status=published
 
 [Genomics Medicine Ireland](https://genomicsmed.ie/) (GMI) is an Irish life sciences company performing large-scale studies in the Irish population using whole genome sequencing (WGS) and additional omics technologies. It works in collaboration with the healthcare system, patients, researchers and industry to advance understanding of the genetic basis of multiple diseases, to aid in the discovery of new diagnostics and therapeutics. In order to do this, our data analysis pipelines must be reproducible and easily scale to large numbers of samples. At GMI, we have created multiple Nextflow pipelines, which also employ the use of containerisation technologies and Conda environments to ensure full reproducibility. These include pipelines to perform analysis of genotyping arrays, concordance analysis of genotyping and sequencing data, copy number variation calling and downstream processing of files for a validated secondary analysis pipeline. In summary, the ability to rapidly prototype workflows using any tool, resume execution upon failure, scale easily and maintain a consistent environment across runs make Nextflow well suited to our work.
 
+### Deck
+
+<a href='/misc/nfhack18/simone.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
 ### Bio 
 
