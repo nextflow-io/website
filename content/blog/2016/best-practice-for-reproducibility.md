@@ -16,7 +16,7 @@ performed to many differing standards, or [lack of thereof](http://journals.plos
 We all agree it is not good enough to simply note down the software version number. 
 But what practical measures can be taken?
 
-The recent publication describing *Kallisto* [(Bray et al. 2016)](http://dx.doi.org/10.1038/nbt.3519) 
+The recent publication describing *Kallisto* [(Bray et al. 2016)](https://doi.org/10.1038/nbt.3519) 
 provides an excellent high profile example of the growing efforts to ensure reproducible 
 science in computational biology. The authors provide a GitHub [repository](https://github.com/pachterlab/kallisto_paper_analysis) 
 that *“contains all the analysis to reproduce the results in the kallisto paper”*. 
