@@ -33,6 +33,11 @@
 						<#else>
 						<#assign MAX = 150>
       			</#if>
+						<#if post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
+						<#assign MAX = 108>
+						<#else>
+						<#assign MAX = 150>
+      			</#if>
 
 						<#assign words = post.body?word_list>
 			      <#if words?size gt 150 > 

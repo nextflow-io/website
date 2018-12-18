@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Get started &mdash; Nextflow 18.12.0-edge documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 18.12.0-edge documentation" href="index.html"/>
+        <link rel="next" title="Basic concepts" href="basic.html"/>
+        <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Get started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#your-first-script">Your first script</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modify-and-resume">Modify and resume</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-parameters">Pipeline parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Get started</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="get-started">
+<span id="getstart-page"></span><h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="requirements">
+<span id="getstart-requirement"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p><cite>Nextflow</cite> can be used on any POSIX compatible system (Linux, OS X, etc).
+It requires Bash and <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java 8 (or later)</a> to be installed.</p>
+<p>Windows systems may be supported using a POSIX compatibility layer like <a class="reference external" href="http://www.cygwin.com">Cygwin</a> (unverified) or,
+alternatively, installing it into a Linux VM using virtualization software like <a class="reference external" href="http://www.virtualbox.org">VirtualBox</a>
+or <a class="reference external" href="http://www.vmware.com/">VMware</a>.</p>
+</div>
+<div class="section" id="installation">
+<span id="getstart-install"></span><h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p><cite>Nextflow</cite> is distributed as a self-contained executable package, which means that it does not require any special installation procedure.</p>
+<p>It only needs two easy steps:</p>
+<ol class="arabic simple">
+<li>Download the executable package by copying and pasting the following command in your terminal
+window: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.
+It will create the <code class="docutils literal"><span class="pre">nextflow</span></code> main executable file in the current directory.</li>
+<li>Optionally, move the <code class="docutils literal"><span class="pre">nextflow</span></code> file to a directory accessible by your <code class="docutils literal"><span class="pre">$PATH</span></code> variable
+(this is only required to avoid remembering and typing the full path to <code class="docutils literal"><span class="pre">nextflow</span></code> each time you need to run it).</li>
+</ol>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In the case you don't have <code class="docutils literal"><span class="pre">wget</span></code> installed you can use the <code class="docutils literal"><span class="pre">curl</span></code> utility instead by entering
+the following command: <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-s</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code></p>
+</div>
+</div>
+<div class="section" id="your-first-script">
+<span id="getstart-first"></span><h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
+<p>Copy the following example into your favourite text editor and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+
+<span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
+
+<span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">file</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span> <span class="n">mode</span> <span class="n">flatten</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+
+<span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
+
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span> <span class="n">result</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">result</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>
+    <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This script defines two processes. The first splits a string in file chunks containing 6 characters,
+and the second receives these files and transforms their contents to uppercase letters.
+The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and the final output is printed by the
+<code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
+<p>Execute the script by entering the following command in your terminal:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
+</pre></div>
+</div>
+<p>It will output something similar to the text shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 18.10.1
+[warm up] executor &gt; local
+[22/7548fa] Submitted process &gt; splitLetters (1)
+[e2/008ee9] Submitted process &gt; convertToUpper (1)
+[1e/165130] Submitted process &gt; convertToUpper (2)
+HELLO
+WORLD!
+</pre></div>
+</div>
+<p>You can see that the first process is executed once, and the second twice. Finally the result string is printed.</p>
+<p>It's worth noting that the process <code class="docutils literal"><span class="pre">convertToUpper</span></code> is executed in parallel, so there's no guarantee that the instance
+processing the first split (the chunk <cite>Hello</cite>) will be executed before before the one processing the second split (the chunk <cite>world!</cite>).</p>
+<p>Thus, it is perfectly possible that you will get the final result printed out in a different order:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>WORLD!
+HELLO
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The hexadecimal numbers, like <code class="docutils literal"><span class="pre">22/7548fa</span></code>, identify the unique process execution. These numbers are
+also the prefix of the directories where each process is executed. You can inspect the files produced by them
+changing to the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code> and using these numbers to find the process-specific execution path.</p>
+</div>
+<div class="section" id="modify-and-resume">
+<span id="getstart-resume"></span><h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow keeps track of all the processes executed in your pipeline. If you modify some parts of your script,
+only the processes that are actually changed will be re-executed. The execution of the processes that are not changed
+will be skipped and the cached result used instead.</p>
+<p>This helps a lot when testing or modifying part of your pipeline without having to re-execute it from scratch.</p>
+<p>For the sake of this tutorial, modify the <code class="docutils literal"><span class="pre">convertToUpper</span></code> process in the previous example, replacing the
+process script with the string <code class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process looks like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
+
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span> <span class="n">result</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    rev $x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then save the file with the same name, and execute it by adding the <code class="docutils literal"><span class="pre">-resume</span></code> option to the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">-</span><span class="n">resume</span>
+</pre></div>
+</div>
+<p>It will print output similar to this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 18.10.1
+[warm up] executor &gt; local
+[22/7548fa] Cached process &gt; splitLetters (1)
+[d0/7b79a3] Submitted process &gt; convertToUpper (1)
+[b0/c99ef9] Submitted process &gt; convertToUpper (2)
+olleH
+!dlrow
+</pre></div>
+</div>
+<p>You will see that the execution of the process <code class="docutils literal"><span class="pre">splitLetters</span></code> is actually skipped (the process ID is the same), and
+its results are retrieved from the cache. The second process is executed as expected, printing the reversed strings.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The pipeline results are cached by default in the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code>. Depending on your script, this folder
+can take of lot of disk space. If your are sure you won't resume your pipeline execution, clean this folder periodically.</p>
+</div>
+</div>
+<div class="section" id="pipeline-parameters">
+<span id="getstart-params"></span><h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Pipeline parameters are simply declared by prepending to a variable name the prefix <code class="docutils literal"><span class="pre">params</span></code>, separated by dot character.
+Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
+<p>For the sake of this tutorial, you can try to execute the previous example specifying a different input
+string parameter, as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">--</span><span class="nb">str</span> <span class="s1">&#39;Hola mundo&#39;</span>
+</pre></div>
+</div>
+<p>The string specified on the command line will override the default value of the parameter. The output
+will look like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="n">E</span> <span class="n">X</span> <span class="n">T</span> <span class="n">F</span> <span class="n">L</span> <span class="n">O</span> <span class="n">W</span>  <span class="o">~</span>  <span class="n">version</span> <span class="mf">18.10</span><span class="o">.</span><span class="mi">1</span>
+<span class="p">[</span><span class="n">warm</span> <span class="n">up</span><span class="p">]</span> <span class="n">executor</span> <span class="o">&gt;</span> <span class="n">local</span>
+<span class="p">[</span><span class="mi">6</span><span class="n">d</span><span class="o">/</span><span class="mi">54</span><span class="n">ab39</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">splitLetters</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">[</span><span class="n">a1</span><span class="o">/</span><span class="mi">88716</span><span class="n">d</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">convertToUpper</span> <span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">7</span><span class="n">d</span><span class="o">/</span><span class="mi">3561</span><span class="n">b6</span><span class="p">]</span> <span class="n">Submitted</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="n">convertToUpper</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">odnu</span>
+<span class="n">m</span> <span class="n">aloH</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basic.html" class="btn btn-neutral float-right" title="Basic concepts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Nextflow&#39;s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'18.12.0-edge',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>

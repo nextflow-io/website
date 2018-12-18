@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Amazon S3 storage &mdash; Nextflow 18.12.0-edge documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 18.12.0-edge documentation" href="index.html"/>
+        <link rel="next" title="Google Cloud" href="google.html"/>
+        <link rel="prev" title="Amazon Cloud" href="awscloud.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon S3 storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#s3-path">S3 path</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-credentials">Security credentials</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#aws-access-and-secret-keys">AWS access and secret keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#iam-roles-amazon-ec2-instances">IAM roles Amazon EC2 instances</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Amazon S3 storage</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="amazon-s3-storage">
+<span id="amazons3-page"></span><h1>Amazon S3 storage<a class="headerlink" href="#amazon-s3-storage" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow includes the support for Amazon S3 storage. Files stored in a S3 bucket can be accessed
+transparently in your pipeline script like any other file in the local file system.</p>
+<div class="section" id="s3-path">
+<h2>S3 path<a class="headerlink" href="#s3-path" title="Permalink to this headline">¶</a></h2>
+<p>In order to access a S3 file you only need to prefix the file path with the <code class="docutils literal"><span class="pre">s3</span></code> schema and the <cite>bucket</cite> name
+where it is stored.</p>
+<p>For example if you need to access the file <code class="docutils literal"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal"><span class="pre">my-bucket</span></code>,
+that file can be accessed using the following fully qualified path:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sequences</span><span class="o">.</span><span class="n">fa</span>
+</pre></div>
+</div>
+<p>The usual file operations can be applied on a path handle created using the above notation. For example the content
+of a S3 file can be printed as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://my-bucket/data/sequences.fa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<p>See section <a class="reference internal" href="script.html#script-file-io"><span class="std std-ref">Files and I/O</span></a> to learn more about available file operations.</p>
+</div>
+<div class="section" id="security-credentials">
+<h2>Security credentials<a class="headerlink" href="#security-credentials" title="Permalink to this headline">¶</a></h2>
+<p>Amazon access credentials can be provided in two ways:</p>
+<ol class="arabic simple">
+<li>Using AWS access and secret keys in your pipeline configuration.</li>
+<li>Using IAM roles to grant access to S3 storage on Amazon EC2 instances.</li>
+</ol>
+<div class="section" id="aws-access-and-secret-keys">
+<h3>AWS access and secret keys<a class="headerlink" href="#aws-access-and-secret-keys" title="Permalink to this headline">¶</a></h3>
+<p>The AWS access and secret keys can be specified by using the <code class="docutils literal"><span class="pre">aws</span></code> section in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration.
+file as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+  <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS access key&gt;&#39;</span>
+  <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS secret key&gt;&#39;</span>
+  <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS region identifier&gt;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If the access credentials are not found in the above file, Nextflow looks for AWS credentials in a number of different
+places, including environment variables and local AWS configuration files.</p>
+<p>Nextflow looks for AWS credentials in the following order:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file in the pipeline execution directory</li>
+<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></li>
+<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_KEY</span></code></li>
+<li>the <cite>default</cite> profile in the AWS credentials file located at <code class="docutils literal"><span class="pre">~/.aws/credentials</span></code></li>
+<li>the <cite>default</cite> profile in the AWS client configuration file located at <code class="docutils literal"><span class="pre">~/.aws/config</span></code></li>
+<li>the temporary AWS credentials provided by an IAM instance role. See <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation for details.</li>
+</ol>
+</div></blockquote>
+<p>More information regarding <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials</a>
+are available in Amazon documentation.</p>
+</div>
+<div class="section" id="iam-roles-amazon-ec2-instances">
+<h3>IAM roles Amazon EC2 instances<a class="headerlink" href="#iam-roles-amazon-ec2-instances" title="Permalink to this headline">¶</a></h3>
+<p>When running your pipeline into a Ec2 instance, IAM roles can be used to grant access to AWS resources.</p>
+<p>In this scenario, you only need to launch the Ec2 instance specifying a IAM role which includes a
+<cite>S3 full access</cite> policy. Nextflow will detected and acquire automatically the access grant to the S3 storage,
+without any further configuration.</p>
+<p>Learn more about <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/roles-usingrole-ec2instance.html">Using IAM Roles to Delegate Permissions to Applications that Run on Amazon EC2</a> on Amazon
+documentation.</p>
+</div>
+</div>
+<div class="section" id="advanced-configuration">
+<h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Read <a class="reference internal" href="config.html#config-aws"><span class="std std-ref">AWS configuration</span></a> section to learn more about advanced S3 client configuration options.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="google.html" class="btn btn-neutral float-right" title="Google Cloud" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="awscloud.html" class="btn btn-neutral" title="Amazon Cloud" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'18.12.0-edge',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>
