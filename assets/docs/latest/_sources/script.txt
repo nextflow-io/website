@@ -1,14 +1,15 @@
-.. _pipeline-page:
+.. _script-page:
 
-*****************
-Pipeline script
-*****************
+******************
+Nextflow scripting
+******************
 
 
-The Nextflow scripting language is an extension of the Groovy programming language whose syntax has been
-specialized to ease the writing of computational pipelines in a declarative manner.
+The Nextflow scripting language is an extension of the Groovy programming language.
+Groovy is a powerful programming language for the Java virtual machine. The Nextflow
+syntax has been specialized to ease the writing of computational pipelines in a declarative manner.
 
-This means that Nextflow can execute any piece of Groovy code or use any library for the JVM platform.
+Nextflow can execute any piece of Groovy code or use any library for the JVM platform.
 
 For a detailed description of the Groovy programming language, reference these links:
 
@@ -452,7 +453,9 @@ checkIfExists   When ``true`` throws an exception of the specified path do not e
   `Path <http://docs.oracle.com/javase/7/docs/api/java/nio/file/Path.html>`_ object, which allows
   you to use the usual methods you would in a Java program.
 
-See also: :ref:`Channel.fromPath <channel-path>` .
+See also: :ref:`Channel.fromPath <channel-path>`.
+
+.. _glob: http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
 
 Basic read/write
 ------------------
@@ -871,4 +874,47 @@ showing how to stream or copy the content of files.
 
 .. note:: Write and list operations are not supported for HTTP/S and FTP files.
 
-.. _glob: http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob
+
+Counting records
+----------------
+
+countLines
+^^^^^^^^^^
+
+The ``countLines`` methods counts the lines in a text files.
+::
+
+    def sample = file('/data/sample.txt')
+    println sample.countLines()
+
+
+Files whose name ends with the ``.gz`` suffix are expected to be GZIP compressed and
+automatically uncompressed.
+
+countFasta
+^^^^^^^^^^
+
+The ``countFasta`` method counts the number of records in `FASTA <https://en.wikipedia.org/wiki/FASTA_format>`_
+formatted file.
+::
+
+    def sample = file('/data/sample.fasta')
+    println sample.countFasta()
+
+Files whose name ends with the ``.gz`` suffix are expected to be GZIP compressed and
+automatically uncompressed.
+
+countFastq
+^^^^^^^^^^
+
+The ``countFastq`` method counts the number of records in a `FASTQ <https://en.wikipedia.org/wiki/FASTQ_format>`_
+formatted file.
+::
+
+    def sample = file('/data/sample.fastq')
+    println sample.countFastq()
+
+Files whose name ends with the ``.gz`` suffix are expected to be GZIP compressed and
+automatically uncompressed.
+
+

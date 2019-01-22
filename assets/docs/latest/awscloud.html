@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon Cloud &mdash; Nextflow 18.10.1 documentation</title>
+  <title>Amazon Cloud &mdash; Nextflow 19.01.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 18.10.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon S3 storage" href="amazons3.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -77,7 +77,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
@@ -112,6 +112,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
@@ -182,7 +183,7 @@ deploy it and run your pipeline in the AWS infrastructure in a few commands.</p>
 <p>The above attributes define the virtual machine ID and type to be used and the VPC subnet ID to be applied
 in you cluster. Replace these values with the ones of your choice.</p>
 <p>Nextflow only requires a Linux image that provides support for <a class="reference external" href="http://cloudinit.readthedocs.io/">Cloud-init</a>
-bootstrapping mechanism and includes a Java runtime (version 8) and a Docker engine (version 1.11 or higher).</p>
+bootstrapping mechanism and includes a Java runtime (version 8) and a Docker engine (version 1.11 or later).</p>
 <p>For your convenience the following pre-configured Amazon Linux AMI is available in the <em>EU Ireland</em> region:
 <code class="docutils literal"><span class="pre">ami-4b7daa32</span></code>.</p>
 <div class="section" id="aws-credentials">
@@ -250,7 +251,7 @@ configuration attributes, as shown below:</p>
 <p class="last">When the selected instance provides more than one ephemeral storage volume, Nextflow automatically groups all
 of them together in a single logical volume and mounts it to the specified path. Therefore the resulting instance
 storage size is equals to the sum of the sizes of all ephemeral volumes provided by the actual instance
-(this feature requires Nextflow version 0.27.0 or higher).</p>
+(this feature requires Nextflow version 0.27.0 or later).</p>
 </div>
 <p>If you want to mount a specific instance storage volume, specify the corresponding device name by using
 the <code class="docutils literal"><span class="pre">instanceStorageDevice</span></code> setting in the above configuration. See the Amazon documentation for details on
@@ -510,7 +511,7 @@ If you don't use Conda and install the AWS CLI using something like <a class="re
 command will attempt to run using the version of python found in the running container which won't be able to find
 the necessary dependencies.</p>
 <p>The following snippet shows how to install AWS CLI with <a class="reference external" href="https://conda.io/miniconda.html">Miniconda</a>:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>sudo yum install -y wget
+<div class="highlight-default"><div class="highlight"><pre><span></span>sudo yum install -y bzip2 wget
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 bash Miniconda3-latest-Linux-x86_64.sh -b -f -p $HOME/miniconda
 $HOME/miniconda/bin/conda install -c conda-forge -y awscli
@@ -553,8 +554,8 @@ directive and specifing, in place of the container image name, the Job definitio
 <h3>Pipeline execution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads.</p>
-<p>Pipeline input data should to be stored in the Input data <a class="reference external" href="https://aws.amazon.com/s3/">S3 storage</a>. In the same
-manner the pipeline execution must specifies a S3 bucket where jobs intermediate results are stored with the
+<p>Pipeline input data can be stored to be stored either locally or in a <a class="reference external" href="https://aws.amazon.com/s3/">S3</a> bucket.
+The pipeline execution must specifies a Google Storage bucket where jobs intermediate results are stored with the
 <code class="docutils literal"><span class="pre">-bucket-dir</span></code> command line options. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">my</span><span class="o">-</span><span class="n">pipeline</span> <span class="o">-</span><span class="n">bucket</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
@@ -660,7 +661,7 @@ which does not allow the execution of the Bash launcher script required by Nextf
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'18.10.1',
+            VERSION:'19.01.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 18.10.1 documentation</title>
+  <title>Executors &mdash; Nextflow 19.01.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 18.10.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -77,7 +77,7 @@
                 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Pipeline script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
@@ -92,12 +92,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-pipelines">Google Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
@@ -328,6 +330,18 @@ script or the <code class="docutils literal"><span class="pre">nextflow.config</
 running workloads. Moreover a S3 bucket must be used as pipeline work directory.</p>
 <p>See the <a class="reference internal" href="awscloud.html#awscloud-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
 </div>
+<div class="section" id="google-pipelines">
+<span id="google-pipelines-executor"></span><h2>Google Pipelines<a class="headerlink" href="#google-pipelines" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://cloud.google.com/genomics/">Genomics Pipelines</a> is a managed computing service that allows the execution of
+containerized workloads in the Google Cloud Platform infrastructure.</p>
+<p>Nextflow provides built-in support for Genomics Pipelines API which allows the seamless deployment of a Nextflow pipeline
+in the cloud, offloading the process executions as pipelines (it requires Nextflow 19.1.0 or later).</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline work directory must be located in a Google Storage
+bucket.</p>
+<p>To enable this executor set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-pipelines'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>See the <a class="reference internal" href="google.html#google-pipelines"><span class="std std-ref">Google Pipelines</span></a> page for further configuration details.</p>
+</div>
 <div class="section" id="ga4gh-tes">
 <span id="ga4ghtes-executor"></span><h2>GA4GH TES<a class="headerlink" href="#ga4gh-tes" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
@@ -419,7 +433,7 @@ data is exchanged using a local or shared file system.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'18.10.1',
+            VERSION:'19.01.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

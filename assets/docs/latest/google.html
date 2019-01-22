@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Google Cloud &mdash; Nextflow 19.01.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+        <link rel="next" title="Conda environments" href="conda.html"/>
+        <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Google Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nextflow">Nextflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#credentials">Credentials</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#compute-engine">Compute Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#user-ssh-key-management">User &amp; SSH key management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#storage">Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pipeline-execution">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-shutdown">Cluster shutdown</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#preemptible-instances">Preemptible instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cluster-auto-scaling">Cluster auto-scaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitation">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#google-pipelines">Genomics Pipelines</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#google-pipelines-config">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Limitation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Google Cloud</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="google-cloud">
+<span id="google-page"></span><h1>Google Cloud<a class="headerlink" href="#google-cloud" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow provides out-of-the-box support for the <a class="reference external" href="https://cloud.google.com/">Google Cloud Platform</a>
+enabling the seamless deployment and execution of Nextflow pipelines over Google cloud services.</p>
+<p>The execution can be done either deploying a Nextflow managed cluster using <a class="reference external" href="https://cloud.google.com/compute/">Google Compute Engine</a>
+instances or via the <a class="reference external" href="https://cloud.google.com/genomics/">Genomics Pipelines</a> managed service.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental feature and it may change in a future release. It requires Nextflow
+version <code class="docutils literal"><span class="pre">18.12.0-edge</span></code> or later.</p>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nextflow">
+<h3>Nextflow<a class="headerlink" href="#nextflow" title="Permalink to this headline">¶</a></h3>
+<p>The support for Google Cloud requires Nextflow version <code class="docutils literal"><span class="pre">18.12.0-edge</span></code>. To install it define the following variables
+in your system environment:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">18.12</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">edge</span>
+<span class="n">export</span> <span class="n">NXF_MODE</span><span class="o">=</span><span class="n">google</span>
+</pre></div>
+</div>
+<p>Then run the following command:</p>
+<blockquote>
+<div>curl <a class="reference external" href="https://get.nextflow.io">https://get.nextflow.io</a> | bash</div></blockquote>
+<p>Complete the installation copying the <code class="docutils literal"><span class="pre">nextflow</span></code> launcher script in a directory in your system <code class="docutils literal"><span class="pre">PATH</span></code> (optional).</p>
+</div>
+<div class="section" id="credentials">
+<h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline">¶</a></h3>
+<p>To allow the deployment in the Google Cloud you need to configure the security credentials using
+a <em>Security account key</em> JSON file.</p>
+<p>Nextflow looks for this file using the <code class="docutils literal"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable that
+has to be defined in the launching environment.</p>
+<p>If you don't have it, download the credentials file from the Google Cloud Console following these steps:</p>
+<ul class="simple">
+<li>Open the <a class="reference external" href="https://console.cloud.google.com">Google Cloud Console</a></li>
+<li>Go to APIs &amp; Services → Credentials</li>
+<li>Click on the <em>Create credentials</em> (blue) drop-down and choose <em>Service account key</em>, in the following page</li>
+<li>Select an existing <em>Service account</em> or create a new one if needed</li>
+<li>Select JSON as <em>Key type</em></li>
+<li>Click the <em>Create</em> button and download the JSON file giving a name of your choice e.g. <code class="docutils literal"><span class="pre">creds.json</span></code>.</li>
+</ul>
+<p>Finally define the following variable replacing the path in the example with the one of your
+credentials file just downloaded:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="o">/</span><span class="n">creds</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="compute-engine">
+<h2>Compute Engine<a class="headerlink" href="#compute-engine" title="Permalink to this headline">¶</a></h2>
+<p>When using this feature Nextflow allows you set up an ephemeral computing cluster in the Google Cloud platform
+and use it to deploy your pipeline execution.</p>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>Cloud configuration attributes are provided in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file as shown in the example below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;google&#39;</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;rare-lattice-222412/global/images/seqvm-1&#39;</span>
+    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-highcpu-8&#39;</span>
+<span class="p">}</span>
+
+<span class="n">google</span> <span class="p">{</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;us-central1-f&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above attributes define the image ID and instance type to be used along with the project and zone to be used.
+Replace these values with the ones of your choice.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Make sure to specify the <code class="docutils literal"><span class="pre">google</span></code> as cloud driver value as shown in the above example.</p>
+</div>
+<p>Nextflow requires a Linux image that provides support for <a class="reference external" href="http://cloudinit.readthedocs.io/">Cloud-init</a>
+bootstrapping mechanism and includes the Java runtime (version 8 or later) and the Docker engine (version 1.11 or later).</p>
+<p>The very first time you will need to create a custom machine image containing these two software packages and use it
+to deploy your pipeline execution.</p>
+<p>Refer to the Google cloud documentation to learn <a class="reference external" href="https://cloud.google.com/compute/docs/images/create-delete-deprecate-private-images">how to create a custom image</a>.</p>
+</div>
+<div class="section" id="user-ssh-key-management">
+<h3>User &amp; SSH key management<a class="headerlink" href="#user-ssh-key-management" title="Permalink to this headline">¶</a></h3>
+<p>By default Nextflow creates in each GCE instance a user with the same name as the one in your local computer and install
+the SSH public key available at the path <code class="docutils literal"><span class="pre">$HOME/.ssh/id_rsa.pub</span></code>.</p>
+<p>A different user/key can be specified as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">driver</span> <span class="o">=</span> <span class="s1">&#39;google&#39;</span>
+    <span class="n">userName</span> <span class="o">=</span> <span class="s1">&#39;the-user-name&#39;</span>
+    <span class="n">keyFile</span> <span class="o">=</span> <span class="s1">&#39;/path/to/ssh/key.pub&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="storage">
+<h3>Storage<a class="headerlink" href="#storage" title="Permalink to this headline">¶</a></h3>
+<p>Both input data and the pipeline work directory must be located in one or more <a class="reference external" href="https://cloud.google.com/storage/">Google Storage</a> buckets.
+Make sure your security credentials allows you to access these buckets.</p>
+</div>
+<div class="section" id="cluster-deployment">
+<h3>Cluster deployment<a class="headerlink" href="#cluster-deployment" title="Permalink to this headline">¶</a></h3>
+<p>Once you have defined the configuration settings in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file you can create the cloud cluster by
+using the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">cloud</span> <span class="n">create</span> <span class="n">my</span><span class="o">-</span><span class="n">cluster</span> <span class="o">-</span><span class="n">c</span> <span class="o">&lt;</span><span class="n">num</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">nodes</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>The string <code class="docutils literal"><span class="pre">my-cluster</span></code> identifies the cluster instance. Replace it with a name of your choice.</p>
+<p>Finally replace <code class="docutils literal"><span class="pre">&lt;num-of-nodes&gt;</span></code> with the actual number of instances that will make-up the cluster. One node is
+created as master, the remaining as workers. If the option <code class="docutils literal"><span class="pre">-c</span></code> is omitted only the <strong>master</strong> node is created.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">You will be charged accordingly the type and the number of instances chosen.</p>
+</div>
+<p>The console will display the configuration that you have defined and ask you to confirm creation of the cluster with the
+configuration displayed. It will take some time for the cluster to deploy. You should be able to track the status of the
+deployed in the administration console for the Google Cloud Platform under VM instances in the Compute Engine section.</p>
+</div>
+<div class="section" id="pipeline-execution">
+<h3>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Permalink to this headline">¶</a></h3>
+<p>Once the master node is available, Nextflow will display the SSH command to connect to the master node. Use
+that command to connect to the cluster.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>On MacOS, use the following command to avoid being asked for a pass-phrase even
+you haven't defined one:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">ssh</span><span class="o">-</span><span class="n">add</span> <span class="o">-</span><span class="n">K</span> <span class="p">[</span><span class="n">private</span> <span class="n">key</span> <span class="n">file</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<p>The suggested approach is to run your pipeline downloading it from a public repository such as GitHub and to pack the
+binaries dependencies in a Docker container as described in the <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a> section.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Before running any Nextflow command, make sure the file <code class="docutils literal"><span class="pre">READY</span></code> has been created in the home directory.
+If you can't find it, it means that the initialisation process is still on-going. Wait a few seconds until it completes.</p>
+</div>
+<p>Then, you can run Nextflow as usual. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">rnaseq</span><span class="o">-</span><span class="n">nf</span> <span class="o">-</span><span class="n">profile</span> <span class="n">gcp</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">work</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Make sure to use a Google Storage bucket as the Nextflow work directory and as a location for pipeline input data.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">nextflow</span></code> launcher script is created in the instance <code class="docutils literal"><span class="pre">HOME</span></code> directory.</p>
+</div>
+</div>
+<div class="section" id="cluster-shutdown">
+<h3>Cluster shutdown<a class="headerlink" href="#cluster-shutdown" title="Permalink to this headline">¶</a></h3>
+<p>When completed, shutdown the cluster instances by using the following command:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">cloud</span> <span class="n">shutdown</span> <span class="n">my</span><span class="o">-</span><span class="n">cluster</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal"><span class="pre">my-cluster</span></code> with the name used in your execution.</p>
+</div>
+<div class="section" id="preemptible-instances">
+<h3>Preemptible instances<a class="headerlink" href="#preemptible-instances" title="Permalink to this headline">¶</a></h3>
+<p>An optional parameter allows you to set the instance to be preemptible. Both master and worker instances can be set to
+be preemptible. The following example shows a cluster configuration with a preemptible setting:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;rare-lattice-222412/global/images/seqvm-1&#39;</span>
+    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-highcpu-8&#39;</span>
+    <span class="n">preemptible</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Setting an instance to preemptible allows the administrator to kill the VM at will and may affect the pricing of the
+instance.</p>
+</div>
+<div class="section" id="cluster-auto-scaling">
+<h3>Cluster auto-scaling<a class="headerlink" href="#cluster-auto-scaling" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow integration for Google Cloud Engine provides a native support auto-scaling that allows the computing cluster
+to scale up or scale down i.e., add or remove computing nodes dynamically at runtime.</p>
+<p>This is a critical feature, especially for pipelines crunching non-homogeneous datasets, because it allows the cluster
+to adapt dynamically to the actual workload computing resources needed as they change over time.</p>
+<p>Cluster auto-scaling is enabled by adding the autoscale option group in the configuration file as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;rare-lattice-222412/global/images/seqvm-1&#39;</span>
+    <span class="n">autoscale</span> <span class="p">{</span>
+        <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+        <span class="n">maxInstances</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above example enables automatic cluster scale-out i.e. new instances are automatically launched and added to the
+cluster when tasks remain too long in wait status because there aren't enough computing resources available. The
+<code class="docutils literal"><span class="pre">maxInstances</span></code> attribute defines the upper limit to which the cluster can grow.</p>
+<p>By default unused instances are not removed when they are not utilised. If you want to enable automatic cluster scale-down
+specify the <code class="docutils literal"><span class="pre">terminateWhenIdle</span></code> attribute in the <code class="docutils literal"><span class="pre">autoscale</span></code> configuration group.</p>
+<p>It is also possible to define a different machine image IDs, type and spot price for instances launched by the Nextflow
+autoscaler. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;your-project/global/images/xxx&#39;</span>
+    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-highcpu-8&#39;</span>
+    <span class="n">preemptible</span> <span class="o">=</span> <span class="n">false</span>
+    <span class="n">autoscale</span> <span class="p">{</span>
+        <span class="n">enable</span> <span class="o">=</span> <span class="n">true</span>
+        <span class="n">preemptible</span> <span class="o">=</span> <span class="n">true</span>
+        <span class="n">minInstances</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">maxInstances</span> <span class="o">=</span> <span class="mi">10</span>
+        <span class="n">imageId</span> <span class="o">=</span> <span class="s1">&#39;your-project/global/images/yyy&#39;</span>
+        <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-highcpu-8&#39;</span>
+        <span class="n">terminateWhenIdle</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By doing so it is possible to create a cluster with a single node i.e. the master node. The autoscaler will then
+automatically add the missing instances, up to the number defined by the <code class="docutils literal"><span class="pre">minInstances</span></code> attributes.</p>
+</div>
+<div class="section" id="limitation">
+<h3>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Pipeline input data must and work directory must be located on <a class="reference external" href="https://cloud.google.com/storage/">Google Storage</a>.
+Other local or remote data sources are not supported at this time.</li>
+<li>The compute nodes local storage is the default assigned by the Compute Engine service for the chosen machine (instance) type.
+Currently it is not possible to specify a custom disk size for local storage.</li>
+</ul>
+</div>
+<div class="section" id="advanced-configuration">
+<h3>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Read <a class="reference internal" href="config.html#config-cloud"><span class="std std-ref">Cloud configuration</span></a> section to learn more about advanced cloud configuration options.</p>
+</div>
+</div>
+<div class="section" id="google-pipelines">
+<span id="id2"></span><h2>Genomics Pipelines<a class="headerlink" href="#google-pipelines" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://cloud.google.com/genomics/">Genomics Pipelines</a> is a managed computing service that allows the execution of
+containerized workloads in the Google Cloud Platform infrastructure.</p>
+<p>Nextflow provides built-in support for Genomics Pipelines API which allows the seamless deployment of a Nextflow pipeline
+in the cloud, offloading the process executions through the Pipelines service.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This API works well for coarse-grained workloads i.e. long running jobs. It's not suggested the use
+this feature for pipelines spawning many short lived tasks.</p>
+</div>
+<div class="section" id="google-pipelines-config">
+<span id="id4"></span><h3>Configuration<a class="headerlink" href="#google-pipelines-config" title="Permalink to this headline">¶</a></h3>
+<p>Make sure to have defined in your environment the <code class="docutils literal"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable.
+See the section <a class="reference internal" href="#requirements">Requirements</a> for details.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Make sure to have enabled Genomics API to use this feature. To learn how to enable it
+follow <a class="reference external" href="https://cloud.google.com/genomics/docs/quickstart">this link</a>.</p>
+</div>
+<p>Create a <code class="docutils literal"><span class="pre">nextflow.config</span></code> file in the project root directory. The config must specify the following parameters:</p>
+<ul class="simple">
+<li>Google Pipelines as Nextflow executor i.e. <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-pipelines'</span></code>.</li>
+<li>The Docker container images to be used to run pipeline tasks e.g. <code class="docutils literal"><span class="pre">process.container</span> <span class="pre">=</span> <span class="pre">'biocontainers/salmon:0.8.2--1'</span></code>.</li>
+<li>The Google Compute Engine machine instance type i.e. <code class="docutils literal"><span class="pre">cloud.instanceType</span> <span class="pre">=</span> <span class="pre">'n1-standard-1'</span></code>.
+See the list of available machine types at the <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">this link</a>.</li>
+<li>The Google Cloud <cite>project</cite> to run in e.g. <code class="docutils literal"><span class="pre">google.project</span> <span class="pre">=</span> <span class="pre">'rare-lattice-222412'</span></code>.</li>
+<li>The Google Cloud <cite>region</cite> or <cite>zone</cite>. You need to specify either one, <strong>not</strong> both. Multiple regions or zones can be
+specified by separating them with a comma e.g. <code class="docutils literal"><span class="pre">google.zone</span> <span class="pre">=</span> <span class="pre">'us-central1-f,us-central-1-b'</span></code>.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;google-pipelines&#39;</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;your/container:latest&#39;</span>
+<span class="p">}</span>
+
+<span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-standard-1&#39;</span>
+<span class="p">}</span>
+
+<span class="n">google</span> <span class="p">{</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A container image must be specified to deploy the process execution. You can use a different Docker image for
+each process using one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a>.</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Pipeline execution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
+locally or in a Google Storage bucket.</p>
+<p>The pipeline execution must specify a Google Storage bucket where the workflow's intermediate results are stored using
+the <code class="docutils literal"><span class="pre">-work-dir</span></code> command line options. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span> <span class="ow">or</span> <span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Any input data <strong>not</strong> stored in a Google Storage bucket will automatically be transferred to the
+pipeline work bucket. Use this feature with caution being careful to avoid unnecessary data transfers.</p>
+</div>
+</div>
+<div class="section" id="hybrid-execution">
+<h3>Hybrid execution<a class="headerlink" href="#hybrid-execution" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
+of hybrid workloads in which some jobs are executed in the local computer or local computing cluster and
+some other jobs are offloaded to Google Pipelines service.</p>
+<p>To enable this feature use one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> in your Nextflow configuration file to apply
+the Google Pipelines <em>executor</em> only to a subset of processes in your workflow.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">bigTask</span> <span class="p">{</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;google-pipelines&#39;</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;my/image:tag&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">cloud</span> <span class="p">{</span>
+    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-ultramem-160&#39;</span>
+<span class="p">}</span>
+
+<span class="n">google</span> <span class="p">{</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then deploy the workflow execution using the <code class="docutils literal"><span class="pre">-bucket-dir</span></code> to specify a Google Storage path
+for the jobs computed by the Google Pipeline service and, optionally, the <code class="docutils literal"><span class="pre">-work-dir</span></code> to
+specify the local storage for the jobs computed locally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span> <span class="ow">or</span> <span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">bucket</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Limitation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>All processes use the same instance (machine) type specified in the configuration.
+Make sure to use an instance type having enough resources to fulfill the computing resources
+needed (i.e. cpus, memory and local storage) for the jobs in your pipeline.</li>
+<li>Currently it's not possible to specify a disk type and size different from the default ones assigned
+by the service depending the chosen instance type.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Make sure to have enabled Compute Engine API, Genomics API and Cloud Storage Service in the
+<a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services Dashboard</a> page.</li>
+<li>Make sure to have enough compute resources to run your pipeline in your project
+<a class="reference external" href="https://console.cloud.google.com/iam-admin/quotas">Quotas</a> (i.e. Compute Engine CPUs,
+Compute Engine Persistent Disk, Compute Engine In-use IP addresses, etc).</li>
+<li>Make sure your security credentials allows you to access any Google Storage bucket
+where input data and temporary files are stored.</li>
+</ul>
+<p>Google Pipelines debugging information can be enabled using the <code class="docutils literal"><span class="pre">-trace</span></code> command line option
+as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="o">-</span><span class="n">trace</span> <span class="n">nextflow</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">pipelines</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your_project_or_script_name</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="conda.html" class="btn btn-neutral float-right" title="Conda environments" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="amazons3.html" class="btn btn-neutral" title="Amazon S3 storage" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'19.01.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>
