@@ -968,6 +968,12 @@ Some caveats on glob pattern behavior:
 * When a two stars pattern ``**`` is used to recourse across directories, only file paths are matched
   i.e. directories are not included in the result list.
 
+.. warning:: Although the input files matching a glob output declaration are not included in the
+   resulting output channel, these files may still be transferred from the task scratch directory
+   to the target task work directory. Therefore, to avoid unnecessary file copies it is recommended
+   to avoid the usage of loose wildcards when defining output files e.g. ``file '*'`` .
+   Instead, use a prefix or a postfix naming notation to restrict the set of matching files to
+   only the expected ones e.g. ``file 'prefix_*.sorted.bam'``. 
 
 .. tip::
     By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
@@ -1978,7 +1984,7 @@ In more detail, it affects the process execution in two main ways:
    the ``storeDir`` directive. When the files exist the process execution is skipped and these files are used as
    the actual process result.
 
-#. Whenever a process is successfully completed the files listed in the `output` declaration block are copied into the directory
+#. Whenever a process is successfully completed the files listed in the `output` declaration block are moved into the directory
    specified by the ``storeDir`` directive.
 
 The following example shows how to use the ``storeDir`` directive to create a directory containing a BLAST database

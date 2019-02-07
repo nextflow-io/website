@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tracing &amp; visualisation &mdash; Nextflow 18.12.0-edge documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 19.02.0-edge documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 18.12.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.02.0-edge documentation" href="index.html"/>
         <link rel="next" title="Pipeline sharing" href="sharing.html"/>
         <link rel="prev" title="Kubernetes" href="kubernetes.html"/> 
 
@@ -94,7 +94,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-report">Execution report</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#resources">Resources</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resource-usage">Resource Usage</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tasks">Tasks</a></li>
 </ul>
 </li>
@@ -174,14 +174,14 @@ execution. For example:</p>
 other workflow metadata. You can see an example below:</p>
 <img alt="_images/report-summary-min.png" src="_images/report-summary-min.png" />
 </div>
-<div class="section" id="resources">
-<h3>Resources<a class="headerlink" href="#resources" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="resource-usage">
+<h3>Resource Usage<a class="headerlink" href="#resource-usage" title="Permalink to this headline">¶</a></h3>
 <p>The <cite>Resources</cite> sections plots the distributions of resource usages for each workflow process
-using the interactive <a class="reference external" href="https://www.highcharts.com/">HighCharts</a> plotting library.</p>
-<p>Plots are shown for CPU, memory, time and disk read+write. The first three have two tabs with
-the raw values and a percentage representation showing what proportion of the allocated resources
-were used. This is helpful to check that job pipeline requests are efficient.</p>
-<img alt="_images/report-resources-min.png" src="_images/report-resources-min.png" />
+using the interactive <a class="reference external" href="https://plot.ly/javascript/">plotly.js</a> plotting library.</p>
+<p>Plots are shown for CPU, memory, job duration and disk I/O. They have two (or three) tabs with the raw values and a percentage representation showing what proportion of the requested resources
+were used. These plots are very helpful to check that job pipeline requests are efficient.</p>
+<img alt="_images/report-resource-cpu.png" src="_images/report-resource-cpu.png" />
+<p>Learn more about how resource usage are computed in the <a class="reference internal" href="metrics.html#metrics-page"><span class="std std-ref">Metrics documentation</span></a>.</p>
 </div>
 <div class="section" id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
@@ -191,8 +191,8 @@ and many other runtime metrics. You can see an example below:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Nextflow collect these metrics running a background process for each job in the target environment.
-Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code> in the system where
-the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
+Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code>, <code class="docutils literal"><span class="pre">tail</span></code> in the
+system where the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
 message about that in the <a class="reference external" href="trace-report">Trace report</a> below.</p>
 </div>
 <div class="admonition warning">
@@ -622,43 +622,37 @@ For example:</p>
 <tr class="row-even"><td>vmem</td>
 <td>Virtual memory size of the process. Equivalent to <code class="docutils literal"><span class="pre">ps</span> <span class="pre">-o</span> <span class="pre">vsize</span></code> .</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> peak_rss</td>
+<tr class="row-odd"><td>peak_rss</td>
 <td>Peak of real memory. This data is read from field <code class="docutils literal"><span class="pre">VmHWM</span></code> in <code class="docutils literal"><span class="pre">/proc/$pid/status</span></code> file.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> peak_vmem</td>
+<tr class="row-even"><td>peak_vmem</td>
 <td>Peak of virtual memory. This data is read from field <code class="docutils literal"><span class="pre">VmPeak</span></code> in <code class="docutils literal"><span class="pre">/proc/$pid/status</span></code> file.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> rchar</td>
+<tr class="row-odd"><td>rchar</td>
 <td>Number of bytes the process read, using any read-like system call from files, pipes, tty, etc. This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> wchar</td>
+<tr class="row-even"><td>wchar</td>
 <td>Number of bytes the process wrote, using any write-like system call. This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> syscr</td>
+<tr class="row-odd"><td>syscr</td>
 <td>Number of read-like system call invocations that the process performed. This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> syscw</td>
+<tr class="row-even"><td>syscw</td>
 <td>Number of write-like system call invocations that the process performed. This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><sup>*</sup> read_bytes</td>
+<tr class="row-odd"><td>read_bytes</td>
 <td>Number of bytes the process directly read from disk. This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
-<tr class="row-even"><td><sup>*</sup> write_bytes</td>
+<tr class="row-even"><td>write_bytes</td>
 <td>Number of bytes the process originally dirtied in the page-cache (assuming they will go to disk later). This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Fields marked with (*) are not available when running the tracing on Mac OSX. Also note that the Mac OSX default <code class="docutils literal"><span class="pre">date</span></code> utility,
-has a time resolution limited to seconds. For a more detailed time tracing it is suggested to install
-<a class="reference external" href="http://www.gnu.org/software/coreutils/">GNU coreutils</a> package that includes the standard one.</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
 <p class="last">These numbers provide an estimation of the resources used by running tasks. They should not be intended as an alternative
-to low level performance analysis provided by other tools and they may not be fully accurate, in particular for very short tasks
-(taking less than one minute).</p>
+to low level performance analysis provided by other tools and they may not be fully accurate, in particular for very short-lived tasks
+(running for less than one second).</p>
 </div>
 <p>Trace report layout and other configuration settings can be specified by using the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration file.</p>
 <p>Please read <a class="reference internal" href="config.html#config-trace"><span class="std std-ref">Trace scope</span></a> section to learn more about it.</p>
@@ -870,7 +864,7 @@ following JSON structure:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -893,7 +887,7 @@ following JSON structure:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'18.12.0-edge',
+            VERSION:'19.02.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -902,6 +896,7 @@ following JSON structure:</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

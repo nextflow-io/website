@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 18.12.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 19.02.0-edge documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 18.12.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.02.0-edge documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Nextflow scripting" href="script.html"/> 
 
@@ -1169,6 +1169,15 @@ the <code class="docutils literal"><span class="pre">letters</span></code> chann
 <li>When a two stars pattern <code class="docutils literal"><span class="pre">**</span></code> is used to recourse across directories, only file paths are matched
 i.e. directories are not included in the result list.</li>
 </ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Although the input files matching a glob output declaration are not included in the
+resulting output channel, these files may still be transferred from the task scratch directory
+to the target task work directory. Therefore, to avoid unnecessary file copies it is recommended
+to avoid the usage of loose wildcards when defining output files e.g. <code class="docutils literal"><span class="pre">file</span> <span class="pre">'*'</span></code> .
+Instead, use a prefix or a postfix naming notation to restrict the set of matching files to
+only the expected ones e.g. <code class="docutils literal"><span class="pre">file</span> <span class="pre">'prefix_*.sorted.bam'</span></code>.</p>
+</div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
@@ -2219,7 +2228,7 @@ RAM virtual disk.</p>
 <li>The process is executed only if the files declared in the <cite>output</cite> clause do not exist in the directory specified by
 the <code class="docutils literal"><span class="pre">storeDir</span></code> directive. When the files exist the process execution is skipped and these files are used as
 the actual process result.</li>
-<li>Whenever a process is successfully completed the files listed in the <cite>output</cite> declaration block are copied into the directory
+<li>Whenever a process is successfully completed the files listed in the <cite>output</cite> declaration block are moved into the directory
 specified by the <code class="docutils literal"><span class="pre">storeDir</span></code> directive.</li>
 </ol>
 <p>The following example shows how to use the <code class="docutils literal"><span class="pre">storeDir</span></code> directive to create a directory containing a BLAST database
@@ -2506,7 +2515,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -2529,7 +2538,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'18.12.0-edge',
+            VERSION:'19.02.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -2538,6 +2547,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
