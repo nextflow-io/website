@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Tracing &amp; visualisation &mdash; Nextflow 19.02.0-edge documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 19.03.0-edge documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.02.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.03.0-edge documentation" href="index.html"/>
         <link rel="next" title="Pipeline sharing" href="sharing.html"/>
         <link rel="prev" title="Kubernetes" href="kubernetes.html"/> 
 
@@ -191,7 +191,7 @@ and many other runtime metrics. You can see an example below:</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Nextflow collect these metrics running a background process for each job in the target environment.
-Make sure the following tools are available <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">awk</span></code>, <code class="docutils literal"><span class="pre">tail</span></code> in the
+Make sure the following tools are available <code class="docutils literal"><span class="pre">awk</span></code>, <code class="docutils literal"><span class="pre">date</span></code>, <code class="docutils literal"><span class="pre">grep</span></code>, <code class="docutils literal"><span class="pre">egrep</span></code>, <code class="docutils literal"><span class="pre">ps</span></code>, <code class="docutils literal"><span class="pre">sed</span></code>, <code class="docutils literal"><span class="pre">tail</span></code>, <code class="docutils literal"><span class="pre">tee</span></code> in the
 system where the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
 message about that in the <a class="reference external" href="trace-report">Trace report</a> below.</p>
 </div>
@@ -646,6 +646,12 @@ For example:</p>
 <tr class="row-even"><td>write_bytes</td>
 <td>Number of bytes the process originally dirtied in the page-cache (assuming they will go to disk later). This data is read from file <code class="docutils literal"><span class="pre">/proc/$pid/io</span></code>.</td>
 </tr>
+<tr class="row-odd"><td>vol_ctxt</td>
+<td>Number of voluntary context switches.</td>
+</tr>
+<tr class="row-even"><td>inv_ctxt</td>
+<td>Number of involuntary context switches.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition note">
@@ -887,7 +893,7 @@ following JSON structure:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.02.0-edge',
+            VERSION:'19.03.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

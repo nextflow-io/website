@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Singularity containers &mdash; Nextflow 19.02.0-edge documentation</title>
+  <title>Singularity containers &mdash; Nextflow 19.03.0-edge documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.02.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.03.0-edge documentation" href="index.html"/>
         <link rel="next" title="Apache Ignite" href="ignite.html"/>
         <link rel="prev" title="Docker containers" href="docker.html"/> 
 
@@ -215,9 +215,9 @@ how to enable Nextflow auto mounts.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When a process input is a <em>symbolic link</em> file, make sure the linked file <strong>must</strong> is stored in a host folder
-that is accessible from a bind path defined in your Singularity installation. Otherwise the process execution
-will fail because the launched container won't be able to access the linked file.</p>
+<p class="last">When a process input is a <em>symbolic link</em> file, make sure the linked file <strong>is</strong> stored in a host folder that is
+accessible from a bind path defined in your Singularity installation. Otherwise the process execution will fail
+because the launched container won't be able to access the linked file.</p>
 </div>
 </div>
 <div class="section" id="multiple-containers">
@@ -263,7 +263,7 @@ For example:</p>
 relative to the workflow launching directory.</p>
 </div>
 <p>To pull images from the Singularity Hub or a third party Docker registry simply prefix the image name
-with the <code class="docutils literal"><span class="pre">shub://</span></code> or <code class="docutils literal"><span class="pre">docker://</span></code> pseudo-protocol as required by the Singularity tool. For example:</p>
+with the <code class="docutils literal"><span class="pre">shub://</span></code>, <code class="docutils literal"><span class="pre">docker://</span></code> or <code class="docutils literal"><span class="pre">docker-daemon://</span></code> pseudo-protocol as required by the Singularity tool. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;docker://quay.io/biocontainers/multiqc:1.3--py35_2&#39;</span>
 <span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
@@ -272,10 +272,12 @@ with the <code class="docutils literal"><span class="pre">shub://</span></code> 
 <p class="first admonition-title">Note</p>
 <p class="last">As of Nextflow v0.27 you no longer need to specify <cite>docker://</cite> to pull from a Docker repository. Nextflow will automatically add it to your image name when Singularity is enabled. Additionally, the Docker engine will not work with containers specified as <cite>docker://</cite>.</p>
 </div>
-<p>Nextflow version 18.10 introduced support for the <a class="reference external" href="https://cloud.sylabs.io/library/">Singularity Libary</a> repository. This feature also requires Singularity 3.0:</p>
+<p>Nextflow version 18.10 introduced support for the <a class="reference external" href="https://cloud.sylabs.io/library/">Singularity Library</a> repository. This feature also requires Singularity 3.0:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;library://library/default/alpine:3.8&#39;</span>
 </pre></div>
 </div>
+<p>The pseudo-protocol allow to import Singularity using a local Docker installation instead of downloading
+the container image from the Docker registry. It requires Nextflow 19.04.0 or later and Singularity 3.0.3 or later.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This feature requires the availability of the <code class="docutils literal"><span class="pre">singularity</span></code> tool in the computer
@@ -344,7 +346,7 @@ configuration page.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.02.0-edge',
+            VERSION:'19.03.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
