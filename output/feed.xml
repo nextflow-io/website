@@ -6,9 +6,68 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Tue, 18 Dec 2018 14:48:34 +0100</pubDate>
-    <lastBuildDate>Tue, 18 Dec 2018 14:48:34 +0100</lastBuildDate>
+    <pubDate>Tue, 19 Mar 2019 12:36:34 +0100</pubDate>
+    <lastBuildDate>Tue, 19 Mar 2019 12:36:34 +0100</lastBuildDate>
 
+    <item>
+      <title>Edge release 19.03: The Sequence Read Archive &amp; more!</title>
+      <link>https://www.nextflow.io/blog/2019/release-19.03.0-edge.html</link>
+      <pubDate>Tue, 19 Mar 2019 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">blog/2019/release-19.03.0-edge.html</guid>
+      	<description>
+	&lt;p&gt;It&apos;s time for the monthly Nextflow release for March, &lt;em&gt;edge&lt;/em&gt; version 19.03. This is another great release with some cool new features, bug fixes and improvements.&lt;/p&gt;&lt;h3&gt;SRA channel factory&lt;/h3&gt;&lt;p&gt;This sees the introduction of the long-awaited sequence read archive (SRA) channel factory. The &lt;a href=&quot;https://www.ncbi.nlm.nih.gov/sra&quot;&gt;SRA&lt;/a&gt; is a key public repository for sequencing data and run in coordination between The National Center for Biotechnology Information (NCBI), The European Bioinformatics Institute (EBI) and the DNA Data Bank of Japan (DDBJ).&lt;/p&gt;&lt;p&gt;This feature originates all the way back in &lt;a href=&quot;https://github.com/nextflow-io/nextflow/issues/89&quot;&gt;2015&lt;/a&gt; and was worked on during a 2018 Nextflow hackathon. It was brought to fore again thanks to the release of Phil Ewels&apos; excellent &lt;a href=&quot;https://ewels.github.io/sra-explorer/&quot;&gt;SRA Explorer&lt;/a&gt;. The SRA channel factory allows users to pull read data in FASTQ format directly from SRA by referencing a study, accession ID or even a keyword. It works in a similar way to &lt;a href=&quot;https://www.nextflow.io/docs/latest/channel.html#fromfilepairs&quot;&gt;&lt;code&gt;fromFilePairs&lt;/code&gt;&lt;/a&gt;, returning a sample ID and files (single or pairs of files) for each sample.&lt;/p&gt;&lt;p&gt;The code snippet below creates a channel containing 24 samples from a chromatin dynamics study and runs FASTQC on the resulting files.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .fromSRA(&amp;#39;SRP043510&amp;#39;)
+    .set{reads}
+
+process fastqc {
+    input:
+    set sample_id, file(reads_file) from reads
+
+    output:
+    file(&amp;quot;fastqc_${sample_id}_logs&amp;quot;) into fastqc_ch
+
+    script:
+    &amp;quot;&amp;quot;&amp;quot;
+    mkdir fastqc_${sample_id}_logs
+    fastqc -o fastqc_${sample_id}_logs -f fastq -q ${reads_file}
+    &amp;quot;&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;See the &lt;a href=&quot;https://www.nextflow.io/docs/edge/channel.html#fromsra&quot;&gt;documentation&lt;/a&gt; for more details. When combined with downstream processes, you can quickly open a firehose of data on your workflow!&lt;/p&gt;&lt;h3&gt;Edge release&lt;/h3&gt;&lt;p&gt;Note that this is a monthly edge release. To use it simply execute the following command prior to running Nextflow: &lt;code&gt;
+export NXF_VER=19.03.0-edge
+&lt;/code&gt;&lt;/p&gt;&lt;h3&gt;If you need help&lt;/h3&gt;&lt;p&gt;Please don’t hesitate to use our very active &lt;a href=&quot;https://gitter.im/nextflow-io/nextflow&quot;&gt;Gitter&lt;/a&gt; channel or create a thread in the &lt;a href=&quot;https://groups.google.com/forum/#!forum/nextflow&quot;&gt;Google discussion group&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Reporting Issues&lt;/h3&gt;&lt;p&gt;Experiencing issues introduced by this release? Please report them in our &lt;a href=&quot;https://github.com/nextflow-io/nextflow/issues&quot;&gt;issue tracker&lt;/a&gt;. Make sure to fill in the fields of the issue template.&lt;/p&gt;&lt;h3&gt;Contributions&lt;/h3&gt;&lt;p&gt;Special thanks to the contributors of this release:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Akira Sekiguchi - &lt;a href=&quot;https://github.com/pachiras&quot;&gt;pachiras&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Jon Haitz Legarreta Gorroño - &lt;a href=&quot;https://github.com/jhlegarreta&quot;&gt;jhlegarreta&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Jonathan Leitschuh - &lt;a href=&quot;https://github.com/JLLeitschuh&quot;&gt;JLLeitschuh&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Kevin Sayers - &lt;a href=&quot;https://github.com/KevinSayers&quot;&gt;KevinSayers&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Lukas Jelonek - &lt;a href=&quot;https://github.com/lukasjelonek&quot;&gt;lukasjelonek&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Paolo Di Tommaso - &lt;a href=&quot;https://github.com/pditommaso&quot;&gt;pditommaso&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Toni Hermoso Pulido - &lt;a href=&quot;https://github.com/toniher&quot;&gt;toniher&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Philippe Hupé &lt;a href=&quot;https://github.com/phupe&quot;&gt;phupe&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/phue&quot;&gt;phue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;Complete changes&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;Fix Nextflow hangs submitting jobs to AWS batch #1024&lt;/li&gt;
+  &lt;li&gt;Fix process builder incomplete output [2fe1052c]&lt;/li&gt;
+  &lt;li&gt;Fix Grid executor reports invalid queue status #1045&lt;/li&gt;
+  &lt;li&gt;Fix Script execute permission is lost in container #1060&lt;/li&gt;
+  &lt;li&gt;Fix K8s serviceAccount is not honoured #1049&lt;/li&gt;
+  &lt;li&gt;Fix K8s kuberun login path #1072&lt;/li&gt;
+  &lt;li&gt;Fix K8s imagePullSecret and imagePullPolicy #1062&lt;/li&gt;
+  &lt;li&gt;Fix Google Storage docs #1023&lt;/li&gt;
+  &lt;li&gt;Fix Env variable NXF_CONDA_CACHEDIR is ignored #1051&lt;/li&gt;
+  &lt;li&gt;Fix failing task due to legacy sleep command [3e150b56]&lt;/li&gt;
+  &lt;li&gt;Fix SplitText operator should accept a closure parameter #1021&lt;/li&gt;
+  &lt;li&gt;Add Channel.fromSRA factory method #1070&lt;/li&gt;
+  &lt;li&gt;Add voluntary/involuntary context switches to metrics #1047&lt;/li&gt;
+  &lt;li&gt;Add noHttps option to singularity config #1041&lt;/li&gt;
+  &lt;li&gt;Add docker-daemon Singularity support #1043 [dfef1391]&lt;/li&gt;
+  &lt;li&gt;Use peak_vmem and peak_rss as default output in the trace file instead of rss and vmem #1020&lt;/li&gt;
+  &lt;li&gt;Improve ansi log rendering #996 [33038a18]&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;Breaking changes:&lt;/h3&gt;&lt;p&gt;None known.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Bringing Nextflow to Google Cloud Platform with WuXi NextCODE</title>
       <link>https://www.nextflow.io/blog/2018/bringing-nextflow-to-google-cloud-wuxinextcode.html</link>
