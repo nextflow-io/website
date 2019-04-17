@@ -968,6 +968,12 @@ Some caveats on glob pattern behavior:
 * When a two stars pattern ``**`` is used to recourse across directories, only file paths are matched
   i.e. directories are not included in the result list.
 
+.. warning:: Although the input files matching a glob output declaration are not included in the
+   resulting output channel, these files may still be transferred from the task scratch directory
+   to the target task work directory. Therefore, to avoid unnecessary file copies it is recommended
+   to avoid the usage of loose wildcards when defining output files e.g. ``file '*'`` .
+   Instead, use a prefix or a postfix naming notation to restrict the set of matching files to
+   only the expected ones e.g. ``file 'prefix_*.sorted.bam'``. 
 
 .. tip::
     By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
@@ -1484,20 +1490,22 @@ defined globally in the ``nextflow.config`` file.
 The ``executor`` directive allows you to configure what executor has to be used by the process, overriding the default
 configuration. The following values can be used:
 
-============== ==================
-Name            Executor
-============== ==================
-``local``      The process is executed in the computer where `Nextflow` is launched.
-``sge``        The process is executed using the Sun Grid Engine / `Open Grid Engine <http://gridscheduler.sourceforge.net/>`_.
-``uge``        The process is executed using the `Univa Grid Engine <https://en.wikipedia.org/wiki/Univa_Grid_Engine/>`_ job scheduler.
-``lsf``        The process is executed using the `Platform LSF <http://en.wikipedia.org/wiki/Platform_LSF>`_ job scheduler.
-``slurm``      The process is executed using the SLURM job scheduler.
-``pbs``        The process is executed using the `PBS/Torque <http://en.wikipedia.org/wiki/Portable_Batch_System>`_ job scheduler.
-``condor``     The process is executed using the `HTCondor <https://research.cs.wisc.edu/htcondor/>`_ job scheduler.
-``nqsii``      The process is executed using the `NQSII <https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster>`_ job scheduler.
-``ignite``     The process is executed using the `Apache Ignite <https://ignite.apache.org/>`_ cluster.
-``k8s``        The process is executed using the `Kubernetes <https://kubernetes.io/>`_ cluster.
-============== ==================
+=====================  ==================
+Name                   Executor
+=====================  ==================
+``local``              The process is executed in the computer where `Nextflow` is launched.
+``sge``                The process is executed using the Sun Grid Engine / `Open Grid Engine <http://gridscheduler.sourceforge.net/>`_.
+``uge``                The process is executed using the `Univa Grid Engine <https://en.wikipedia.org/wiki/Univa_Grid_Engine/>`_ job scheduler.
+``lsf``                The process is executed using the `Platform LSF <http://en.wikipedia.org/wiki/Platform_LSF>`_ job scheduler.
+``slurm``              The process is executed using the SLURM job scheduler.
+``pbs``                The process is executed using the `PBS/Torque <http://en.wikipedia.org/wiki/Portable_Batch_System>`_ job scheduler.
+``condor``             The process is executed using the `HTCondor <https://research.cs.wisc.edu/htcondor/>`_ job scheduler.
+``nqsii``              The process is executed using the `NQSII <https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster>`_ job scheduler.
+``ignite``             The process is executed using the `Apache Ignite <https://ignite.apache.org/>`_ cluster.
+``k8s``                The process is executed using the `Kubernetes <https://kubernetes.io/>`_ cluster.
+``awsbatch``           The process is executed using the `AWS Batch <https://aws.amazon.com/batch/>`_ service.
+``google-pipelines``   The process is executed using the `Google Genomics Pipelines <https://cloud.google.com/genomics/>`_ service.
+=====================  ==================
 
 The following example shows how to set the process's executor::
 
@@ -1742,6 +1750,7 @@ The ``pod`` directive allows the definition of the following options:
 ``imagePullPolicy: <V>``                          Specifies the strategy to be used to pull the container image e.g. ``imagePullPolicy: 'Always'``.
 ``imagePullSecret: <V>``                          Specifies the secret name to access a private container image registry. See `Kubernetes documentation <https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod>`_ for details.
 ``runAsUser: <UID>``                              Specifies the user ID to be used to run the container.
+``nodeSelector: <V>``                             Specifies which node the process will run on. See `Kubernetes nodeSelector <https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector>`_ for details.
 ================================================= =================================================
 
 When defined in the Nextflow configuration file, a pod setting can be defined using the canonical
@@ -2010,7 +2019,7 @@ for each species specified by an input parameter::
     In these cases you may use the `publishDir`_ directive instead.
 
 .. note:: The use of AWS S3 path is supported however it requires the installation of the `AWS CLI tool <https://aws.amazon.com/cli/>`_
-  (ie. ``aws``) in the target computing node.
+  (i.e. ``aws``) in the target computing node.
 
 .. _process-stageInMode:
 

@@ -30,17 +30,18 @@ other workflow metadata. You can see an example below:
 .. image:: images/report-summary-min.png
 
 
-Resources
----------
+Resource Usage
+---------------
 
 The `Resources` sections plots the distributions of resource usages for each workflow process
-using the interactive `HighCharts <https://www.highcharts.com/>`_ plotting library.
+using the interactive `plotly.js  <https://plot.ly/javascript/>`_ plotting library.
 
-Plots are shown for CPU, memory, time and disk read+write. The first three have two tabs with
-the raw values and a percentage representation showing what proportion of the allocated resources
-were used. This is helpful to check that job pipeline requests are efficient.
+Plots are shown for CPU, memory, job duration and disk I/O. They have two (or three) tabs with the raw values and a percentage representation showing what proportion of the requested resources
+were used. These plots are very helpful to check that job pipeline requests are efficient.
 
-.. image:: images/report-resources-min.png
+.. image:: images/report-resource-cpu.png
+
+Learn more about how resource usage are computed in the :ref:`Metrics documentation <metrics-page>`.
 
 Tasks
 -----
@@ -52,8 +53,8 @@ and many other runtime metrics. You can see an example below:
 
 
 .. note:: Nextflow collect these metrics running a background process for each job in the target environment.
-  Make sure the following tools are available ``ps``, ``date``, ``sed``, ``grep``, ``egrep``, ``awk`` in the system where
-  the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
+  Make sure the following tools are available ``awk``, ``date``, ``grep``, ``egrep``, ``ps``, ``sed``, ``tail``, ``tee`` in the
+  system where the jobs are executed. Moreover some of these metrics are not reported when using a Mac OSX system. See the note
   message about that in the `Trace report`_ below.
 
 .. warning:: A common problem when using a third party container image is that it does not ship one or more of the
@@ -100,7 +101,6 @@ task_id hash      native_id   name          status      exit     submit         
 98      de/d6c0a6 2099      matrix (1)      COMPLETED   0        2014-10-23 17:14:27.139 30s         1s          0.0%    4.8 MB      42 MB       240.6 MB    79 KB
 ======= ========= ========= =============== =========== ======== ======================= =========== =========== ======= =========== =========== =========== ===========
 
-
 .. _trace-fields:
 
 The following table shows the fields that can be included in the execution report:
@@ -133,23 +133,21 @@ queue                   The queue that the executor attempted to run the process
 %mem                    Percentage of memory used by the process.
 rss                     Real memory (resident set) size of the process. Equivalent to ``ps -o rss`` .
 vmem                    Virtual memory size of the process. Equivalent to ``ps -o vsize`` .
-:sup:`*` peak_rss       Peak of real memory. This data is read from field ``VmHWM`` in ``/proc/$pid/status`` file.
-:sup:`*` peak_vmem      Peak of virtual memory. This data is read from field ``VmPeak`` in ``/proc/$pid/status`` file.
-:sup:`*` rchar          Number of bytes the process read, using any read-like system call from files, pipes, tty, etc. This data is read from file ``/proc/$pid/io``.
-:sup:`*` wchar          Number of bytes the process wrote, using any write-like system call. This data is read from file ``/proc/$pid/io``.
-:sup:`*` syscr          Number of read-like system call invocations that the process performed. This data is read from file ``/proc/$pid/io``.
-:sup:`*` syscw          Number of write-like system call invocations that the process performed. This data is read from file ``/proc/$pid/io``.
-:sup:`*` read_bytes     Number of bytes the process directly read from disk. This data is read from file ``/proc/$pid/io``.
-:sup:`*` write_bytes    Number of bytes the process originally dirtied in the page-cache (assuming they will go to disk later). This data is read from file ``/proc/$pid/io``.
+peak_rss                Peak of real memory. This data is read from field ``VmHWM`` in ``/proc/$pid/status`` file.
+peak_vmem               Peak of virtual memory. This data is read from field ``VmPeak`` in ``/proc/$pid/status`` file.
+rchar                   Number of bytes the process read, using any read-like system call from files, pipes, tty, etc. This data is read from file ``/proc/$pid/io``.
+wchar                   Number of bytes the process wrote, using any write-like system call. This data is read from file ``/proc/$pid/io``.
+syscr                   Number of read-like system call invocations that the process performed. This data is read from file ``/proc/$pid/io``.
+syscw                   Number of write-like system call invocations that the process performed. This data is read from file ``/proc/$pid/io``.
+read_bytes              Number of bytes the process directly read from disk. This data is read from file ``/proc/$pid/io``.
+write_bytes             Number of bytes the process originally dirtied in the page-cache (assuming they will go to disk later). This data is read from file ``/proc/$pid/io``.
+vol_ctxt                Number of voluntary context switches.
+inv_ctxt                Number of involuntary context switches.
 ======================= ===============
 
-.. note:: Fields marked with (*) are not available when running the tracing on Mac OSX. Also note that the Mac OSX default ``date`` utility,
-  has a time resolution limited to seconds. For a more detailed time tracing it is suggested to install
-  `GNU coreutils <http://www.gnu.org/software/coreutils/>`_ package that includes the standard one.
-
-.. warning:: These numbers provide an estimation of the resources used by running tasks. They should not be intended as an alternative
-  to low level performance analysis provided by other tools and they may not be fully accurate, in particular for very short tasks
-  (taking less than one minute).
+.. note:: These numbers provide an estimation of the resources used by running tasks. They should not be intended as an alternative
+  to low level performance analysis provided by other tools and they may not be fully accurate, in particular for very short-lived tasks
+  (running for less than one second).
 
 Trace report layout and other configuration settings can be specified by using the ``nextflow.config`` configuration file.
 
@@ -238,7 +236,8 @@ following JSON structure::
         "runId": <uuid>,
         "event": <started|process_submitted|process_started|process_completed|error|completed>,
         "utcTime": <UTC timestamp>,
-        "trace": { ... }
+        "trace": { ... },
+        "metadata": { ... }
    }
 
 The JSON object contains the following attributes:
@@ -251,6 +250,7 @@ runId              The workflow execution unique ID.
 event              The workflow execution event. One of ``started``, ``process_submitted``, ``process_started``, ``process_completed``, ``error``, ``completed``.
 utcTime            The UTC timestamp in ISO 8601 format.
 trace              A process runtime information as described in the :ref:`trace fields<trace-fields>` section. This attribute is only provided for the following events: ``process_submitted``, ``process_started``, ``process_completed``, ``error``.
+metadata           The workflow metadata including the :ref:`config manifest<config-manifest>`. For a list of all fields, have a look at the bottom message examples. This attribute is only provided for the following events: ``started``, ``completed``.
 ================== ================
 
 .. warning::
@@ -258,17 +258,108 @@ trace              A process runtime information as described in the :ref:`trace
   ``nextflow.config`` file. See the :ref:`Trace configuration<config-trace>` section to learn more.
 
 
-Weblog Submit example message
------------------------------
+Weblog Started example message
+------------------------------
 
-When a workflow execution is a started a message like the following is posted to the specified end-point::
+When a workflow execution is started, a message like the following is posted to the specified end-point. Be aware that the
+properties in the parameter scope will look different for your workflow. This is an example output from the ``nf-core/hlatyping``
+pipeline with the weblog feature enabled::
 
 
   {
     "runName": "friendly_pesquet",
     "runId": "170aa09c-105f-49d0-99b4-8eb6a146e4a7",
     "event": "started",
-    "utcTime": "2018-10-07T11:42:08Z"
+    "utcTime": "2018-10-07T11:42:08Z",
+    "metadata": {
+            "params": {
+                "container": "nfcore/hlatyping:1.1.4",
+                "help": false,
+                "outdir": "results",
+                "bam": true,
+                "singleEnd": false,
+                "single-end": false,
+                "reads": "data/test*{1,2}.fq.gz",
+                "seqtype": "dna",
+                "solver": "glpk",
+                "igenomes_base": "./iGenomes",
+                "multiqc_config": "/Users/sven1103/.nextflow/assets/nf-core/hlatyping/conf/multiqc_config.yaml",
+                "clusterOptions": false,
+                "cluster-options": false,
+                "enumerations": 1,
+                "beta": 0.009,
+                "prefix": "hla_run",
+                "base_index": "/Users/sven1103/.nextflow/assets/nf-core/hlatyping/data/indices/yara/hla_reference_",
+                "index": "/Users/sven1103/.nextflow/assets/nf-core/hlatyping/data/indices/yara/hla_reference_dna",
+                "custom_config_version": "master",
+                "custom_config_base": "https://raw.githubusercontent.com/nf-core/configs/master"
+            },
+            "workflow": {
+                "start": "2019-03-25T12:09:52Z",
+                "projectDir": "/Users/sven1103/.nextflow/assets/nf-core/hlatyping",
+                "manifest": {
+                    "nextflowVersion": ">=18.10.1",
+                    "defaultBranch": "master",
+                    "version": "1.1.4",
+                    "homePage": "https://github.com/nf-core/hlatyping",
+                    "gitmodules": null,
+                    "description": "Precision HLA typing from next-generation sequencing data.",
+                    "name": "nf-core/hlatyping",
+                    "mainScript": "main.nf",
+                    "author": null
+                },
+                "complete": null,
+                "profile": "docker,test",
+                "homeDir": "/Users/sven1103",
+                "workDir": "/Users/sven1103/git/nextflow/work",
+                "container": "nfcore/hlatyping:1.1.4",
+                "commitId": "4bcced898ee23600bd8c249ff085f8f88db90e7c",
+                "errorMessage": null,
+                "repository": "https://github.com/nf-core/hlatyping.git",
+                "containerEngine": "docker",
+                "scriptFile": "/Users/sven1103/.nextflow/assets/nf-core/hlatyping/main.nf",
+                "userName": "sven1103",
+                "launchDir": "/Users/sven1103/git/nextflow",
+                "runName": "shrivelled_cantor",
+                "configFiles": [
+                    "/Users/sven1103/.nextflow/assets/nf-core/hlatyping/nextflow.config"
+                ],
+                "sessionId": "7f344978-999c-480d-8439-741bc7520f6a",
+                "errorReport": null,
+                "scriptId": "2902f5aa7f297f2dccd6baebac7730a2",
+                "revision": "master",
+                "exitStatus": null,
+                "commandLine": "./launch.sh run nf-core/hlatyping -profile docker,test -with-weblog 'http://localhost:4567'",
+                "nextflow": {
+                              "version": "19.03.0-edge",
+                              "build": 5137,
+                              "timestamp": "2019-03-28T14:46:55Z"
+                            },
+                },
+                "stats": {
+                    "computeTimeFmt": "(a few seconds)",
+                    "cachedCount": 0,
+                    "cachedDuration": 0,
+                    "failedDuration": 0,
+                    "succeedDuration": 0,
+                    "failedCount": 0,
+                    "cachedPct": 0.0,
+                    "cachedCountFmt": "0",
+                    "succeedCountFmt": "0",
+                    "failedPct": 0.0,
+                    "failedCountFmt": "0",
+                    "ignoredCountFmt": "0",
+                    "ignoredCount": 0,
+                    "succeedPct": 0.0,
+                    "succeedCount": 0,
+                    "ignoredPct": 0.0
+                },
+                "resume": false,
+                "success": false,
+                "scriptName": "main.nf",
+                "duration": null
+            }
+        }
   }
 
 

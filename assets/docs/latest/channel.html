@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 19.01.0 documentation</title>
+  <title>Channels &mdash; Nextflow 19.04.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -30,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.04.0 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -91,6 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#value">value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#frompath">fromPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fromfilepairs">fromFilePairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fromsra">fromSRA</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#watchpath">watchPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#empty">empty</a></li>
 </ul>
@@ -240,6 +243,7 @@ factory methods.</p>
 <li><a class="reference internal" href="#from">from</a></li>
 <li><a class="reference internal" href="#frompath">fromPath</a></li>
 <li><a class="reference internal" href="#fromfilepairs">fromFilePairs</a></li>
+<li><a class="reference internal" href="#fromsra">fromSRA</a></li>
 <li><a class="reference internal" href="#value">value</a></li>
 <li><a class="reference internal" href="#watchpath">watchPath</a></li>
 </ul>
@@ -474,6 +478,80 @@ For example:</p>
 <p class="last">(requires version 0.31.x or later)</p>
 </div>
 </div>
+<div class="section" id="fromsra">
+<span id="channel-fromsra"></span><h3>fromSRA<a class="headerlink" href="#fromsra" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">fromSRA</span></code> method queries the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/sra">NCBI SRA</a> database and returns a channel emitting
+the FASTQ files matching the specified criteria i.e project or accession number(s). For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromSRA</span><span class="p">(</span><span class="s1">&#39;SRP043510&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>It returns:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">SRR1448794</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR144</span><span class="o">/</span><span class="mi">004</span><span class="o">/</span><span class="n">SRR1448794</span><span class="o">/</span><span class="n">SRR1448794</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">[</span><span class="n">SRR1448795</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR144</span><span class="o">/</span><span class="mi">005</span><span class="o">/</span><span class="n">SRR1448795</span><span class="o">/</span><span class="n">SRR1448795</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">[</span><span class="n">SRR1448792</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR144</span><span class="o">/</span><span class="mi">002</span><span class="o">/</span><span class="n">SRR1448792</span><span class="o">/</span><span class="n">SRR1448792</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">[</span><span class="n">SRR1448793</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR144</span><span class="o">/</span><span class="mi">003</span><span class="o">/</span><span class="n">SRR1448793</span><span class="o">/</span><span class="n">SRR1448793</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">[</span><span class="n">SRR1910483</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR191</span><span class="o">/</span><span class="mi">003</span><span class="o">/</span><span class="n">SRR1910483</span><span class="o">/</span><span class="n">SRR1910483</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">[</span><span class="n">SRR1910482</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">SRR191</span><span class="o">/</span><span class="mi">002</span><span class="o">/</span><span class="n">SRR1910482</span><span class="o">/</span><span class="n">SRR1910482</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]</span>
+<span class="p">(</span><span class="n">remaining</span> <span class="n">omitted</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Multiple accession IDs can be specified using a list object:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ERR908507&#39;</span><span class="p">,</span> <span class="s1">&#39;ERR908506&#39;</span><span class="p">,</span> <span class="s1">&#39;ERR908505&#39;</span><span class="p">]</span>
+<span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromSRA</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">ERR908507</span><span class="p">,</span> <span class="p">[</span><span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908507</span><span class="o">/</span><span class="n">ERR908507_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908507</span><span class="o">/</span><span class="n">ERR908507_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">ERR908506</span><span class="p">,</span> <span class="p">[</span><span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908506</span><span class="o">/</span><span class="n">ERR908506_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908506</span><span class="o">/</span><span class="n">ERR908506_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">ERR908505</span><span class="p">,</span> <span class="p">[</span><span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908505</span><span class="o">/</span><span class="n">ERR908505_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908505</span><span class="o">/</span><span class="n">ERR908505_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Read pairs are implicitly managed are returned as a list of files.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Behind the scene it's uses the NCBI <a class="reference external" href="https://www.ncbi.nlm.nih.gov/books/NBK25499/#chapter4.ESearch">ESearch</a>
+API, therefore the <code class="docutils literal"><span class="pre">fromSRA</span></code> method allow the usage of any query term supported by this API.</p>
+</div>
+<p>Table of optional parameters available:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>apiKey</td>
+<td>NCBI user API key.</td>
+</tr>
+<tr class="row-odd"><td>cache</td>
+<td>Enable/disable the caching API requests (default: <code class="docutils literal"><span class="pre">true</span></code>).</td>
+</tr>
+<tr class="row-even"><td>max</td>
+<td>Maximum number of entries that can be retried (default: unlimited) .</td>
+</tr>
+</tbody>
+</table>
+<p>To access the NCBI search service the <a class="reference external" href="https://ncbiinsights.ncbi.nlm.nih.gov/2017/11/02/new-api-keys-for-the-e-utilities">NCBI API keys</a>
+should be provided either:</p>
+<ul class="simple">
+<li>Using the <code class="docutils literal"><span class="pre">apiKey</span></code> optional parameter e.g. <code class="docutils literal"><span class="pre">Channel.fromSRA(ids,</span> <span class="pre">apiKey:'0123456789abcdef')</span></code>.</li>
+<li>Exporting the <code class="docutils literal"><span class="pre">NCBI_API_KEY</span></code> variable in your environment e.g. <code class="docutils literal"><span class="pre">export</span> <span class="pre">NCBI_API_KEY=0123456789abcdef</span></code>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires Nextflow version 19.04.0 or later.</p>
+</div>
+</div>
 <div class="section" id="watchpath">
 <span id="channel-watch"></span><h3>watchPath<a class="headerlink" href="#watchpath" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">watchPath</span></code> method watches a folder for one or more files matching a specified pattern. As soon as
@@ -637,7 +715,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -660,7 +738,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.01.0',
+            VERSION:'19.04.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -669,6 +747,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

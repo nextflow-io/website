@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 19.01.0 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 19.04.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -30,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.04.0 documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -176,21 +178,22 @@ instances or via the <a class="reference external" href="https://cloud.google.co
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">This is an experimental feature and it may change in a future release. It requires Nextflow
-version <code class="docutils literal"><span class="pre">18.12.0-edge</span></code> or later.</p>
+version <code class="docutils literal"><span class="pre">19.01.0</span></code> or later.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="nextflow">
 <h3>Nextflow<a class="headerlink" href="#nextflow" title="Permalink to this headline">¶</a></h3>
-<p>The support for Google Cloud requires Nextflow version <code class="docutils literal"><span class="pre">18.12.0-edge</span></code>. To install it define the following variables
+<p>The support for Google Cloud requires Nextflow version <code class="docutils literal"><span class="pre">19.01.0</span></code>. To install it define the following variables
 in your system environment:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">18.12</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">edge</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">19.01</span><span class="o">.</span><span class="mi">0</span>
 <span class="n">export</span> <span class="n">NXF_MODE</span><span class="o">=</span><span class="n">google</span>
 </pre></div>
 </div>
 <p>Then run the following command:</p>
-<blockquote>
-<div>curl <a class="reference external" href="https://get.nextflow.io">https://get.nextflow.io</a> | bash</div></blockquote>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">get</span><span class="o">.</span><span class="n">nextflow</span><span class="o">.</span><span class="n">io</span> <span class="o">|</span> <span class="n">bash</span>
+</pre></div>
+</div>
 <p>Complete the installation copying the <code class="docutils literal"><span class="pre">nextflow</span></code> launcher script in a directory in your system <code class="docutils literal"><span class="pre">PATH</span></code> (optional).</p>
 </div>
 <div class="section" id="credentials">
@@ -307,7 +310,8 @@ If you can't find it, it means that the initialisation process is still on-going
 </div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Make sure to use a Google Storage bucket as the Nextflow work directory and as a location for pipeline input data.</p>
+<p class="last">Make sure to specify a Google Storage path, containing at a bucket sub-directory, as the Nextflow work directory
+and as a location for pipeline input data.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -490,6 +494,11 @@ specify the local storage for the jobs computed locally:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span> <span class="ow">or</span> <span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">bucket</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The Google Storage path needs to contain at least sub-directory. Don't use only the
+bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket</span></code>.</p>
+</div>
 </div>
 <div class="section" id="id7">
 <h3>Limitation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
@@ -540,7 +549,7 @@ as shown below:</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -563,7 +572,7 @@ as shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.01.0',
+            VERSION:'19.04.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -572,6 +581,7 @@ as shown below:</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

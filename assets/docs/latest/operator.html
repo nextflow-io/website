@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 19.01.0 documentation</title>
+  <title>Operators &mdash; Nextflow 19.04.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -30,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.04.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -217,7 +219,7 @@
 <span id="operator-page"></span><h1>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow <cite>operators</cite> are methods that allow you to connect channels to each other or to transform values
 emitted by a channel applying some user provided rules.</p>
-<p>Operators can be separated in to five groups:</p>
+<p>Operators can be separated in to seven groups:</p>
 <ul class="simple">
 <li><a class="reference internal" href="#filtering-operators">Filtering operators</a></li>
 <li><a class="reference internal" href="#transforming-operators">Transforming operators</a></li>
@@ -227,6 +229,18 @@ emitted by a channel applying some user provided rules.</p>
 <li><a class="reference internal" href="#maths-operators">Maths operators</a></li>
 <li><a class="reference internal" href="#other-operators">Other operators</a></li>
 </ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The operators <a class="reference internal" href="#operator-print"><span class="std std-ref">print</span></a>, <a class="reference internal" href="#operator-println"><span class="std std-ref">println</span></a>, <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <code class="docutils literal"><span class="pre">operator-subscribe</span></code>
+consume a channel and therefore need to be the last operator in a chain of combined operators. For example, you can't
+connect operators in a way like:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="o">~/^</span><span class="n">a</span><span class="o">.*/</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="filtering-operators">
 <h2>Filtering operators<a class="headerlink" href="#filtering-operators" title="Permalink to this headline">¶</a></h2>
 <p>Given a channel, filtering operators allow you to select only the items that comply with a given rule.</p>
@@ -1872,7 +1886,7 @@ For example:</p>
 <span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>See also <a class="reference internal" href="#cross">cross</a>, <a class="reference internal" href="#spread">spread</a> and <a class="reference internal" href="#phase">phase</a>.</p>
+<p>See also <a class="reference internal" href="#join">join</a>, <a class="reference internal" href="#cross">cross</a>, <a class="reference internal" href="#spread">spread</a> and <a class="reference internal" href="#phase">phase</a>.</p>
 </div>
 <div class="section" id="concat">
 <span id="operator-concat"></span><h3>concat<a class="headerlink" href="#concat" title="Permalink to this headline">¶</a></h3>
@@ -2424,7 +2438,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -2447,7 +2461,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.01.0',
+            VERSION:'19.04.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -2456,6 +2470,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

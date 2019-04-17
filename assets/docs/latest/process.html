@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 19.01.0 documentation</title>
+  <title>Processes &mdash; Nextflow 19.04.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -30,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.04.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Nextflow scripting" href="script.html"/> 
 
@@ -1169,6 +1171,15 @@ the <code class="docutils literal"><span class="pre">letters</span></code> chann
 <li>When a two stars pattern <code class="docutils literal"><span class="pre">**</span></code> is used to recourse across directories, only file paths are matched
 i.e. directories are not included in the result list.</li>
 </ul>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Although the input files matching a glob output declaration are not included in the
+resulting output channel, these files may still be transferred from the task scratch directory
+to the target task work directory. Therefore, to avoid unnecessary file copies it is recommended
+to avoid the usage of loose wildcards when defining output files e.g. <code class="docutils literal"><span class="pre">file</span> <span class="pre">'*'</span></code> .
+Instead, use a prefix or a postfix naming notation to restrict the set of matching files to
+only the expected ones e.g. <code class="docutils literal"><span class="pre">file</span> <span class="pre">'prefix_*.sorted.bam'</span></code>.</p>
+</div>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
@@ -1659,8 +1670,8 @@ defined globally in the <code class="docutils literal"><span class="pre">nextflo
 configuration. The following values can be used:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col width="14%" />
+<col width="86%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -1697,6 +1708,12 @@ configuration. The following values can be used:</p>
 </tr>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">k8s</span></code></td>
 <td>The process is executed using the <a class="reference external" href="https://kubernetes.io/">Kubernetes</a> cluster.</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">awsbatch</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://aws.amazon.com/batch/">AWS Batch</a> service.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">google-pipelines</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://cloud.google.com/genomics/">Google Genomics Pipelines</a> service.</td>
 </tr>
 </tbody>
 </table>
@@ -1954,6 +1971,9 @@ and config maps when using the <a class="reference internal" href="executor.html
 </tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
 <td>Specifies the user ID to be used to run the container.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</td>
 </tr>
 </tbody>
 </table>
@@ -2254,7 +2274,7 @@ In these cases you may use the <a class="reference internal" href="#publishdir">
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The use of AWS S3 path is supported however it requires the installation of the <a class="reference external" href="https://aws.amazon.com/cli/">AWS CLI tool</a>
-(ie. <code class="docutils literal"><span class="pre">aws</span></code>) in the target computing node.</p>
+(i.e. <code class="docutils literal"><span class="pre">aws</span></code>) in the target computing node.</p>
 </div>
 </div>
 <div class="section" id="stageinmode">
@@ -2506,7 +2526,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -2529,7 +2549,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.01.0',
+            VERSION:'19.04.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -2538,6 +2558,7 @@ This time the value of <code class="docutils literal"><span class="pre">task.att
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

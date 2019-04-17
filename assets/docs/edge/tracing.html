@@ -13,6 +13,8 @@
 
   
   
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
 
   
 
@@ -102,7 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#weblog-via-http">Weblog via HTTP</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#weblog-submit-example-message">Weblog Submit example message</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weblog-started-example-message">Weblog Started example message</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#weblog-completed-example-message">Weblog Completed example message</a></li>
 </ul>
 </li>
@@ -744,7 +746,8 @@ following JSON structure:</p>
      <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">uuid</span><span class="o">&gt;</span><span class="p">,</span>
      <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">started</span><span class="o">|</span><span class="n">process_submitted</span><span class="o">|</span><span class="n">process_started</span><span class="o">|</span><span class="n">process_completed</span><span class="o">|</span><span class="n">error</span><span class="o">|</span><span class="n">completed</span><span class="o">&gt;</span><span class="p">,</span>
      <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">UTC</span> <span class="n">timestamp</span><span class="o">&gt;</span><span class="p">,</span>
-     <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
+     <span class="s2">&quot;trace&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">},</span>
+     <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="o">...</span> <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -775,6 +778,9 @@ following JSON structure:</p>
 <tr class="row-even"><td>trace</td>
 <td>A process runtime information as described in the <a class="reference internal" href="#trace-fields"><span class="std std-ref">trace fields</span></a> section. This attribute is only provided for the following events: <code class="docutils literal"><span class="pre">process_submitted</span></code>, <code class="docutils literal"><span class="pre">process_started</span></code>, <code class="docutils literal"><span class="pre">process_completed</span></code>, <code class="docutils literal"><span class="pre">error</span></code>.</td>
 </tr>
+<tr class="row-odd"><td>metadata</td>
+<td>The workflow metadata including the <a class="reference internal" href="config.html#config-manifest"><span class="std std-ref">config manifest</span></a>. For a list of all fields, have a look at the bottom message examples. This attribute is only provided for the following events: <code class="docutils literal"><span class="pre">started</span></code>, <code class="docutils literal"><span class="pre">completed</span></code>.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition warning">
@@ -782,14 +788,105 @@ following JSON structure:</p>
 <p class="last">The content of the <code class="docutils literal"><span class="pre">trace</span></code> attribute depends on the settings for the <a class="reference external" href="trace-report">Trace report</a> defined in the
 <code class="docutils literal"><span class="pre">nextflow.config</span></code> file. See the <a class="reference internal" href="config.html#config-trace"><span class="std std-ref">Trace configuration</span></a> section to learn more.</p>
 </div>
-<div class="section" id="weblog-submit-example-message">
-<h3>Weblog Submit example message<a class="headerlink" href="#weblog-submit-example-message" title="Permalink to this headline">¶</a></h3>
-<p>When a workflow execution is a started a message like the following is posted to the specified end-point:</p>
+<div class="section" id="weblog-started-example-message">
+<h3>Weblog Started example message<a class="headerlink" href="#weblog-started-example-message" title="Permalink to this headline">¶</a></h3>
+<p>When a workflow execution is started, a message like the following is posted to the specified end-point. Be aware that the
+properties in the parameter scope will look different for your workflow. This is an example output from the <code class="docutils literal"><span class="pre">nf-core/hlatyping</span></code>
+pipeline with the weblog feature enabled:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;friendly_pesquet&quot;</span><span class="p">,</span>
   <span class="s2">&quot;runId&quot;</span><span class="p">:</span> <span class="s2">&quot;170aa09c-105f-49d0-99b4-8eb6a146e4a7&quot;</span><span class="p">,</span>
   <span class="s2">&quot;event&quot;</span><span class="p">:</span> <span class="s2">&quot;started&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-10-07T11:42:08Z&quot;</span>
+  <span class="s2">&quot;utcTime&quot;</span><span class="p">:</span> <span class="s2">&quot;2018-10-07T11:42:08Z&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="s2">&quot;params&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="s2">&quot;nfcore/hlatyping:1.1.4&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;help&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;outdir&quot;</span><span class="p">:</span> <span class="s2">&quot;results&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;bam&quot;</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+              <span class="s2">&quot;singleEnd&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;single-end&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;reads&quot;</span><span class="p">:</span> <span class="s2">&quot;data/test*{1,2}.fq.gz&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;seqtype&quot;</span><span class="p">:</span> <span class="s2">&quot;dna&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;solver&quot;</span><span class="p">:</span> <span class="s2">&quot;glpk&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;igenomes_base&quot;</span><span class="p">:</span> <span class="s2">&quot;./iGenomes&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;multiqc_config&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping/conf/multiqc_config.yaml&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;clusterOptions&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;cluster-options&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;enumerations&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+              <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="mf">0.009</span><span class="p">,</span>
+              <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;hla_run&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;base_index&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping/data/indices/yara/hla_reference_&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;index&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping/data/indices/yara/hla_reference_dna&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;custom_config_version&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;custom_config_base&quot;</span><span class="p">:</span> <span class="s2">&quot;https://raw.githubusercontent.com/nf-core/configs/master&quot;</span>
+          <span class="p">},</span>
+          <span class="s2">&quot;workflow&quot;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-25T12:09:52Z&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;projectDir&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;manifest&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;nextflowVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;&gt;=18.10.1&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;defaultBranch&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.1.4&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;homePage&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/nf-core/hlatyping&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;gitmodules&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+                  <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Precision HLA typing from next-generation sequencing data.&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;nf-core/hlatyping&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;mainScript&quot;</span><span class="p">:</span> <span class="s2">&quot;main.nf&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;author&quot;</span><span class="p">:</span> <span class="n">null</span>
+              <span class="p">},</span>
+              <span class="s2">&quot;complete&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s2">&quot;profile&quot;</span><span class="p">:</span> <span class="s2">&quot;docker,test&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;homeDir&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;workDir&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/git/nextflow/work&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;container&quot;</span><span class="p">:</span> <span class="s2">&quot;nfcore/hlatyping:1.1.4&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;commitId&quot;</span><span class="p">:</span> <span class="s2">&quot;4bcced898ee23600bd8c249ff085f8f88db90e7c&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;errorMessage&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s2">&quot;repository&quot;</span><span class="p">:</span> <span class="s2">&quot;https://github.com/nf-core/hlatyping.git&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;containerEngine&quot;</span><span class="p">:</span> <span class="s2">&quot;docker&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;scriptFile&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping/main.nf&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;userName&quot;</span><span class="p">:</span> <span class="s2">&quot;sven1103&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;launchDir&quot;</span><span class="p">:</span> <span class="s2">&quot;/Users/sven1103/git/nextflow&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;runName&quot;</span><span class="p">:</span> <span class="s2">&quot;shrivelled_cantor&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;configFiles&quot;</span><span class="p">:</span> <span class="p">[</span>
+                  <span class="s2">&quot;/Users/sven1103/.nextflow/assets/nf-core/hlatyping/nextflow.config&quot;</span>
+              <span class="p">],</span>
+              <span class="s2">&quot;sessionId&quot;</span><span class="p">:</span> <span class="s2">&quot;7f344978-999c-480d-8439-741bc7520f6a&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;errorReport&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s2">&quot;scriptId&quot;</span><span class="p">:</span> <span class="s2">&quot;2902f5aa7f297f2dccd6baebac7730a2&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;revision&quot;</span><span class="p">:</span> <span class="s2">&quot;master&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;exitStatus&quot;</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+              <span class="s2">&quot;commandLine&quot;</span><span class="p">:</span> <span class="s2">&quot;./launch.sh run nf-core/hlatyping -profile docker,test -with-weblog &#39;http://localhost:4567&#39;&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;nextflow&quot;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;19.03.0-edge&quot;</span><span class="p">,</span>
+                            <span class="s2">&quot;build&quot;</span><span class="p">:</span> <span class="mi">5137</span><span class="p">,</span>
+                            <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-03-28T14:46:55Z&quot;</span>
+                          <span class="p">},</span>
+              <span class="p">},</span>
+              <span class="s2">&quot;stats&quot;</span><span class="p">:</span> <span class="p">{</span>
+                  <span class="s2">&quot;computeTimeFmt&quot;</span><span class="p">:</span> <span class="s2">&quot;(a few seconds)&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;cachedCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;cachedDuration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;failedDuration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;succeedDuration&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;failedCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;cachedPct&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="s2">&quot;cachedCountFmt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;succeedCountFmt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;failedPct&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="s2">&quot;failedCountFmt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;ignoredCountFmt&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+                  <span class="s2">&quot;ignoredCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;succeedPct&quot;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+                  <span class="s2">&quot;succeedCount&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s2">&quot;ignoredPct&quot;</span><span class="p">:</span> <span class="mf">0.0</span>
+              <span class="p">},</span>
+              <span class="s2">&quot;resume&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>
+              <span class="s2">&quot;scriptName&quot;</span><span class="p">:</span> <span class="s2">&quot;main.nf&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">null</span>
+          <span class="p">}</span>
+      <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>

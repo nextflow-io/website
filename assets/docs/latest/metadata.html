@@ -8,10 +8,12 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Workflow introspection &mdash; Nextflow 19.01.0 documentation</title>
+  <title>Workflow introspection &mdash; Nextflow 19.04.0 documentation</title>
   
 
   
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
   
 
   
@@ -30,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.04.0 documentation" href="index.html"/>
         <link rel="next" title="Mail &amp; Notifications" href="mail.html"/>
         <link rel="prev" title="Pipeline sharing" href="sharing.html"/> 
 
@@ -98,7 +100,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#nextflow-metadata">Nextflow metadata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#completion-handler">Completion handler</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#error-handler">Error handler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#notification-message">Notification message</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#decoupling-metadata">Decoupling metadata</a></li>
 </ul>
 </li>
@@ -316,6 +317,7 @@ to access the workflow termination status and other useful information. For exam
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>If you want an e-mail notification on completion, check <a class="reference internal" href="mail.html#mail-page"><span class="std std-ref">Mail &amp; Notifications</span></a>.</p>
 </div>
 <div class="section" id="error-handler">
 <span id="metadata-error-handler"></span><h2>Error handler<a class="headerlink" href="#error-handler" title="Permalink to this headline">¶</a></h2>
@@ -332,30 +334,6 @@ For example:</p>
 However the first is called as soon as the error is raised, while the second just before the pipeline execution
 is going terminate. When using the <code class="docutils literal"><span class="pre">finish</span></code> <a class="reference internal" href="process.html#process-page-error-strategy"><span class="std std-ref">errorStrategy</span></a>, between the two there could be
 a significant time gap depending by the time required to complete any pending job.</p>
-</div>
-</div>
-<div class="section" id="notification-message">
-<h2>Notification message<a class="headerlink" href="#notification-message" title="Permalink to this headline">¶</a></h2>
-<p>Nextflow does not provide a built-in mechanism to send emails or other messages. However the <code class="docutils literal"><span class="pre">mail</span></code> standard Linux
-tool (or an equivalent one) can easily be used to send a notification message when the workflow execution is completed,
-as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="o">.</span><span class="n">onComplete</span> <span class="p">{</span>
-    <span class="k">def</span> <span class="nf">subject</span> <span class="o">=</span> <span class="s1">&#39;My pipeline execution&#39;</span>
-    <span class="k">def</span> <span class="nf">recipient</span> <span class="o">=</span> <span class="s1">&#39;me@gmail.com&#39;</span>
-
-    <span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">recipient</span><span class="p">]</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    Pipeline execution summary</span>
-<span class="s2">    ---------------------------</span>
-<span class="s2">    Completed at: $</span><span class="si">{workflow.complete}</span><span class="s2"></span>
-<span class="s2">    Duration    : $</span><span class="si">{workflow.duration}</span><span class="s2"></span>
-<span class="s2">    Success     : $</span><span class="si">{workflow.success}</span><span class="s2"></span>
-<span class="s2">    workDir     : $</span><span class="si">{workflow.workDir}</span><span class="s2"></span>
-<span class="s2">    exit status : $</span><span class="si">{workflow.exitStatus}</span><span class="s2"></span>
-<span class="s2">    Error report: ${workflow.errorReport ?: &#39;-&#39;}</span>
-<span class="s2">    &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
 </div>
 </div>
 <div class="section" id="decoupling-metadata">
@@ -403,7 +381,7 @@ configuration file.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2018, Centre for Genomic Regulation (CRG).
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
       Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
 
     </p>
@@ -426,7 +404,7 @@ configuration file.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.01.0',
+            VERSION:'19.04.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -435,6 +413,7 @@ configuration file.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
