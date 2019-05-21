@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; Nextflow 19.03.0-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 19.05.0-edge documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
 
   
-    <link rel="top" title="Nextflow 19.03.0-edge documentation" href="index.html"/>
-        <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
+    <link rel="top" title="Nextflow 19.05.0-edge documentation" href="index.html"/>
+        <link rel="next" title="DSL 2" href="dsl2.html"/>
         <link rel="prev" title="Executors" href="executor.html"/> 
 
   
@@ -116,6 +116,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -777,6 +778,32 @@ to specify your bucket credentials. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p id="config-aws-batch">Advanced Batch configuration options can be set by using the <code class="docutils literal"><span class="pre">batch</span></code> attribute. The following properties can be used:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>cliPath</td>
+<td>The path where the AWS command line tool is installed in the host AMI.</td>
+</tr>
+<tr class="row-odd"><td>jobRole</td>
+<td>The AWS Job Role ARN that needs to be used to execute the Batch Job.</td>
+</tr>
+<tr class="row-even"><td>maxParallelTransfers</td>
+<td>Max parallel upload/download transfer operations <em>per job</em> (default: <code class="docutils literal"><span class="pre">16</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>volumes</td>
+<td>One or more container mounts. Mounts can be specified as simple e.g. <cite>/some/path</cite> or canonical format e.g. <code class="docutils literal"><span class="pre">/host/path:/mount/path[:ro|rw]</span></code>. Multiple mounts can be specifid separating them with a comma or using a list object.</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="scope-cloud">
 <span id="config-cloud"></span><h3>Scope <cite>cloud</cite><a class="headerlink" href="#scope-cloud" title="Permalink to this headline">¶</a></h3>
@@ -1183,6 +1210,26 @@ with a comma character, for example:</p>
 </pre></div>
 </div>
 </div>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p>When using the <em>profiles</em> feature in your config file do NOT set attributes in the same scope both
+inside and outside a <code class="docutils literal"><span class="pre">profiles</span></code> context. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">profiles</span> <span class="p">{</span>
+  <span class="n">foo</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;2 GB&#39;</span>
+  <span class="p">}</span>
+
+  <span class="n">bar</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;4 GB&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p class="last">In the above example the <code class="docutils literal"><span class="pre">process.cpus</span></code> attribute is not correctly applied because the <code class="docutils literal"><span class="pre">process</span></code> scope it's also
+used in the <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code> profile contexts.</p>
+</div>
 <p>The above feature requires version 0.28.x or higher.</p>
 </div>
 <div class="section" id="environment-variables">
@@ -1278,7 +1325,7 @@ the Java virtual machine used by it.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="awscloud.html" class="btn btn-neutral float-right" title="Amazon Cloud" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dsl2.html" class="btn btn-neutral float-right" title="DSL 2" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="executor.html" class="btn btn-neutral" title="Executors" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -1313,7 +1360,7 @@ the Java virtual machine used by it.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.03.0-edge',
+            VERSION:'19.05.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
