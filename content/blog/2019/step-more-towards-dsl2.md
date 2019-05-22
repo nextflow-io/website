@@ -7,13 +7,13 @@ author=Paolo Di Tommaso
 icon=paolo.jpg
 ~~~~~~
 
-The ability to create components, libraries or module files have been 
+The ability to create components, libraries or module files has been 
 among the most requested feature ever over the years! 
 
-For this reason, We are very happy to announce that, finally, a preview implementation has been merged on master branch of the  project and included in the
+For this reason, we are very happy to announce that, finally, a preview implementation has been merged on master branch of the project and included in the
 [19.05.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v19.05.0-edge) release. 
 
-The module implementation has opened the possibility for many fantastic improvements to Nextflow and its syntax. We are extremely excited as it results in a radical new way of writing Nextflow applications! For this reason we are referring to these changes as DSL 2.
+The module implementation has opened the possibility for many fantastic improvements to Nextflow and its syntax. We are extremely excited as it results in a radical new way of writing Nextflow applications! So much so, that we are referring to these changes as DSL 2.
 
 #### Enabling DSL 2 syntax
 
@@ -125,7 +125,7 @@ parallelised and distributed computation.
 #### Conclusion
 
 This wave of improvements brings a radically new experience when it comes to 
-writing Nextlfow data analysis applications. We are releasing it as a preview 
+writing Nextflow data analysis applications. We are releasing it as a preview 
 technology to allow users to try, test and stabilise it. We are also 
 working to other important enhancements that will be included soon, 
 such as remote modules, sub-workflows compositions, simplified file path 
