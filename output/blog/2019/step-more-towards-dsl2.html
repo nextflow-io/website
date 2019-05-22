@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - A step more towards Nextflow DSL 2</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -102,27 +102,87 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: release</h3>
-                <hr>
-                <ul>
-                        <h4>May 2019</h4>
-                        <ul>
-        
-                    <li>22 - <a href="/blog/2019/one-more-step-towards-modules.html">One more step towards Nextflow modules</a></li>
-                            </ul>
-                            <h4>April 2019</h4>
-                            <ul>
-        
-                    <li>18 - <a href="/blog/2019/release-19.04.0-stable.html">Nextflow 19.04.0 stable release is out!</a></li>
-                            </ul>
-                            <h4>March 2019</h4>
-                            <ul>
-        
-                    <li>19 - <a href="/blog/2019/release-19.03.0-edge.html">Edge release 19.03: The Sequence Read Archive & more!</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">A step more towards Nextflow DSL 2</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 22 May 2019</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>The ability to create components, libraries or module files has been among the most requested feature ever over the years. </p><p>For this reason, today we are very happy to announce that a preview implementation of the <a href="https://github.com/nextflow-io/nextflow/issues/984">modules feature</a> has been merged on master branch of the project and included in the <a href="https://github.com/nextflow-io/nextflow/releases/tag/v19.05.0-edge">19.05.0-edge</a> release. </p><p>The implementation of this feature has opened the possibility for many fantastic improvements to Nextflow and its syntax. We are extremely excited as it results in a radical new way of writing Nextflow applications! So much so, that we are referring to these changes as DSL 2.</p><h4>Enabling DSL 2 syntax</h4><p>Since this is still a preview technology and, above all, to not break any existing applications, to enable the new syntax you will need to add the following line at the beginning of your workflow script: </p>
+<pre><code>nextflow.preview.dsl=2
+</code></pre><h4>Module files</h4><p>A module file simply consists of one or more <code>process</code> definitions, written with the usual syntax. The <em>only</em> difference is that the <code>from</code> and <code>into</code> clauses in the <code>input:</code> and <code>output:</code> definition blocks has to be omitted. For example: </p>
+<pre><code>process INDEX {
+  input:
+    file transcriptome 
+  output:
+    file &#39;index&#39; 
+  script:
+    &quot;&quot;&quot;
+    salmon index --threads $task.cpus -t $transcriptome -i index
+    &quot;&quot;&quot;
+}
+</code></pre><p>The above snippet defines a process component that can be imported in the main application script using the <code>include</code> statement shown below. </p><p>Also, module files can declare optional parameters using the usual <code>params</code> idiom, as it can be done in any standard script file.</p><p>This approach, which is consistent with the current Nextflow syntax, makes very easy to migrate existing code to the new modules system, reducing it to a mere copy &amp; pasting exercise in most cases. </p><p>You can see a complete module file <a href="https://github.com/nextflow-io/rnaseq-nf/blob/66ebeea/modules/rnaseq.nf">here</a>. </p><h3>Module inclusion</h3><p>A module file can be included into a Nextflow script using the <code>include</code> statement. With this it becomes possible to reference any process defined in the module using the usual syntax for a function invocation, and specifying the expected input channels as they were function arguments. </p>
+<pre><code>nextflow.preview.dsl=2
+include &#39;modules/rnaseq&#39;
 
-            </div>
+read_pairs_ch = Channel.fromFilePairs( params.reads, checkIfExists: true )
+transcriptome_file = file( params.transcriptome )
+
+INDEX( transcriptome_file )
+FASTQC( read_pairs_ch )
+QUANT( INDEX.out, read_pairs_ch )
+MULTIQC( QUANT.out.mix(FASTQC.out).collect(), multiqc_file )
+</code></pre><p>Notably, each process defines its own namespace in the script scope which allows the access of the process output channel(s) using the <code>.out</code> attribute. This can be used then as any other Nextflow channel variable in your pipeline script.</p><p>The <code>include</code> statement gives also the possibility to include only a <a href="https://www.nextflow.io/docs/edge/dsl2.html#selective-inclusion">specific process</a> or to include a process with a different <a href="https://www.nextflow.io/docs/edge/dsl2.html#module-aliases">name alias</a>. </p><h3>Channel smart forking</h3><p>One of the most important changes of the new syntax is that any channel can be read as many times as you need removing the requirement to duplicate them using the <code>into</code> operator. </p><p>For example, in the above snippet, the <code>read_pairs_ch</code> channel has been used twice, as input both for the <code>FASTQC</code> and <code>QUANT</code> processes. Nextflow forks it behind the scene for you. </p><p>This makes the writing of workflow scripts much more fluent, readable and ... fun! No more channel names proliferation!</p><h3>Nextflow pipes!</h3><p>Finally, maybe our favourite one. The new DSL introduces the <code>|</code> (pipe) operator which allows for the composition of Nextflow channels, processes and operators together seamlessly in a much more expressive way. </p><p>Consider the following example: </p>
+<pre><code>process align {
+  input:
+    file seq
+  output:
+    file &#39;result&#39;
+
+  &quot;&quot;&quot;
+    t_coffee -in=${seq} -out result
+  &quot;&quot;&quot;
+}
+
+Channel.fromPath(params.in) | splitFasta | align | view { it.text }
+</code></pre><p>In the last line, the <code>fromPath</code> channel is piped to the <a href="https://www.nextflow.io/docs/latest/operator.html#splitfasta"><code>splitFasta</code></a> operator whose result is used as input by the <code>align</code> process. Then the output is finally printed by the <a href="https://www.nextflow.io/docs/latest/operator.html#view"><code>view</code></a> operator.</p><p>This syntax finally realizes the Nextflow vision of empowering developers to write complex data analysis applications with a simple but powerful language that mimics the expressiveness of the Unix pipe model but at the same time makes it possible to handle complex data structures and patterns as is required for highly parallelised and distributed computational workflows. </p><h4>Conclusion</h4><p>This wave of improvements brings a radically new experience when it comes to writing Nextflow workflows. We are releasing it as a preview technology to allow users to try, test, provide their feedback and give us the possibility stabilise it. </p><p>We are also working to other important enhancements that will be included soon, such as remote modules, sub-workflows composition, simplified file path wrangling and more. Stay tuned!</p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/release.html" class="background-color bg-hover-color">release</a>
+				<a href="/tags/dsl2.html" class="background-color bg-hover-color">dsl2</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -161,6 +221,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

@@ -6,9 +6,55 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Fri, 3 May 2019 15:31:45 +0200</pubDate>
-    <lastBuildDate>Fri, 3 May 2019 15:31:45 +0200</lastBuildDate>
+    <pubDate>Wed, 22 May 2019 15:45:45 +0200</pubDate>
+    <lastBuildDate>Wed, 22 May 2019 15:45:45 +0200</lastBuildDate>
 
+    <item>
+      <title>One more step towards Nextflow modules</title>
+      <link>https://www.nextflow.io/blog/2019/one-more-step-towards-modules.html</link>
+      <pubDate>Wed, 22 May 2019 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">blog/2019/one-more-step-towards-modules.html</guid>
+      	<description>
+	&lt;p&gt;The ability to create components, libraries or module files has been among the most requested feature ever over the years. &lt;/p&gt;&lt;p&gt;For this reason, today we are very happy to announce that a preview implementation of the &lt;a href=&quot;https://github.com/nextflow-io/nextflow/issues/984&quot;&gt;modules feature&lt;/a&gt; has been merged on master branch of the project and included in the &lt;a href=&quot;https://github.com/nextflow-io/nextflow/releases/tag/v19.05.0-edge&quot;&gt;19.05.0-edge&lt;/a&gt; release. &lt;/p&gt;&lt;p&gt;The implementation of this feature has opened the possibility for many fantastic improvements to Nextflow and its syntax. We are extremely excited as it results in a radical new way of writing Nextflow applications! So much so, that we are referring to these changes as DSL 2.&lt;/p&gt;&lt;h4&gt;Enabling DSL 2 syntax&lt;/h4&gt;&lt;p&gt;Since this is still a preview technology and, above all, to not break any existing applications, to enable the new syntax you will need to add the following line at the beginning of your workflow script: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow.preview.dsl=2
+&lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;Module files&lt;/h4&gt;&lt;p&gt;A module file simply consists of one or more &lt;code&gt;process&lt;/code&gt; definitions, written with the usual syntax. The &lt;em&gt;only&lt;/em&gt; difference is that the &lt;code&gt;from&lt;/code&gt; and &lt;code&gt;into&lt;/code&gt; clauses in the &lt;code&gt;input:&lt;/code&gt; and &lt;code&gt;output:&lt;/code&gt; definition blocks has to be omitted. For example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;process INDEX {
+  input:
+    file transcriptome 
+  output:
+    file &amp;#39;index&amp;#39; 
+  script:
+    &amp;quot;&amp;quot;&amp;quot;
+    salmon index --threads $task.cpus -t $transcriptome -i index
+    &amp;quot;&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above snippet defines a process component that can be imported in the main application script using the &lt;code&gt;include&lt;/code&gt; statement shown below. &lt;/p&gt;&lt;p&gt;Also, module files can declare optional parameters using the usual &lt;code&gt;params&lt;/code&gt; idiom, as it can be done in any standard script file.&lt;/p&gt;&lt;p&gt;This approach, which is consistent with the current Nextflow syntax, makes very easy to migrate existing code to the new modules system, reducing it to a mere copy &amp;amp; pasting exercise in most cases. &lt;/p&gt;&lt;p&gt;You can see a complete module file &lt;a href=&quot;https://github.com/nextflow-io/rnaseq-nf/blob/66ebeea/modules/rnaseq.nf&quot;&gt;here&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;Module inclusion&lt;/h3&gt;&lt;p&gt;A module file can be included into a Nextflow script using the &lt;code&gt;include&lt;/code&gt; statement. With this it becomes possible to reference any process defined in the module using the usual syntax for a function invocation, and specifying the expected input channels as they were function arguments. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow.preview.dsl=2
+include &amp;#39;modules/rnaseq&amp;#39;
+
+read_pairs_ch = Channel.fromFilePairs( params.reads, checkIfExists: true )
+transcriptome_file = file( params.transcriptome )
+
+INDEX( transcriptome_file )
+FASTQC( read_pairs_ch )
+QUANT( INDEX.out, read_pairs_ch )
+MULTIQC( QUANT.out.mix(FASTQC.out).collect(), multiqc_file )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Notably, each process defines its own namespace in the script scope which allows the access of the process output channel(s) using the &lt;code&gt;.out&lt;/code&gt; attribute. This can be used then as any other Nextflow channel variable in your pipeline script.&lt;/p&gt;&lt;p&gt;The &lt;code&gt;include&lt;/code&gt; statement gives also the possibility to include only a &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#selective-inclusion&quot;&gt;specific process&lt;/a&gt; or to include a process with a different &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#module-aliases&quot;&gt;name alias&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;Channel smart forking&lt;/h3&gt;&lt;p&gt;One of the most important changes of the new syntax is that any channel can be read as many times as you need removing the requirement to duplicate them using the &lt;code&gt;into&lt;/code&gt; operator. &lt;/p&gt;&lt;p&gt;For example, in the above snippet, the &lt;code&gt;read_pairs_ch&lt;/code&gt; channel has been used twice, as input both for the &lt;code&gt;FASTQC&lt;/code&gt; and &lt;code&gt;QUANT&lt;/code&gt; processes. Nextflow forks it behind the scene for you. &lt;/p&gt;&lt;p&gt;This makes the writing of workflow scripts much more fluent, readable and ... fun! No more channel names proliferation!&lt;/p&gt;&lt;h3&gt;Nextflow pipes!&lt;/h3&gt;&lt;p&gt;Finally, maybe our favourite one. The new DSL introduces the &lt;code&gt;|&lt;/code&gt; (pipe) operator which allows for the composition of Nextflow channels, processes and operators together seamlessly in a much more expressive way. &lt;/p&gt;&lt;p&gt;Consider the following example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;process align {
+  input:
+    file seq
+  output:
+    file &amp;#39;result&amp;#39;
+
+  &amp;quot;&amp;quot;&amp;quot;
+    t_coffee -in=${seq} -out result
+  &amp;quot;&amp;quot;&amp;quot;
+}
+
+Channel.fromPath(params.in) | splitFasta | align | view { it.text }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the last line, the &lt;code&gt;fromPath&lt;/code&gt; channel is piped to the &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#splitfasta&quot;&gt;&lt;code&gt;splitFasta&lt;/code&gt;&lt;/a&gt; operator whose result is used as input by the &lt;code&gt;align&lt;/code&gt; process. Then the output is finally printed by the &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#view&quot;&gt;&lt;code&gt;view&lt;/code&gt;&lt;/a&gt; operator.&lt;/p&gt;&lt;p&gt;This syntax finally realizes the Nextflow vision of empowering developers to write complex data analysis applications with a simple but powerful language that mimics the expressiveness of the Unix pipe model but at the same time makes it possible to handle complex data structures and patterns as is required for highly parallelised and distributed computational workflows. &lt;/p&gt;&lt;h4&gt;Conclusion&lt;/h4&gt;&lt;p&gt;This wave of improvements brings a radically new experience when it comes to writing Nextflow workflows. We are releasing it as a preview technology to allow users to try, test, provide their feedback and give us the possibility stabilise it. &lt;/p&gt;&lt;p&gt;We are also working to other important enhancements that will be included soon, such as remote modules, sub-workflows composition, simplified file path wrangling and more. Stay tuned!&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Nextflow 19.04.0 stable release is out!</title>
       <link>https://www.nextflow.io/blog/2019/release-19.04.0-stable.html</link>
