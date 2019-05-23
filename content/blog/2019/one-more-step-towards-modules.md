@@ -77,7 +77,7 @@ Notably, each process defines its own namespace in the script scope which allows
 The `include` statement gives also the possibility to include only a [specific process](https://www.nextflow.io/docs/edge/dsl2.html#selective-inclusion)
 or to include a process with a different [name alias](https://www.nextflow.io/docs/edge/dsl2.html#module-aliases). 
 
-### Channel smart forking 
+### Smart channel forking 
 
 One of the most important changes of the new syntax is that any channel can be read as many 
 times as you need removing the requirement to duplicate them using the `into` operator. 
