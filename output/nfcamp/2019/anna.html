@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Nextflow - FA-nf - A Bioinformatics pipeline for functional annotation implemented in Nextflow</title>
+    <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developers<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/docs/latest/index.html">Reference documentation</a></li>
+                        <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
+                        <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
+                        <li><a href="https://groups.google.com/forum/#!forum/nextflow">Discussion forum</a></li>
+                        <li><a href="https://gitter.im/nextflow-io/nextflow">Gitter chat</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About Us</a>
+                </li>
+                   
+            </ul>
+            <ul class="list-inline pull-right hidden-xs">
+                <li style='position: relative; top: 10px; right: 75px' >
+                	<a href='http://www.crg.eu/' target='_blank' style='padding: 0'><img src='/img/crg_logo.png' height='45'/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Body -->
+<div class="wrapper">
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-8">
+    <h2>FA-nf - A Bioinformatics pipeline for functional annotation implemented in Nextflow</h2><h3>Anna Vlasova</h3><p><em>Bioinformatician, Research Institute of Molecular Pathology (IMP), Austria</em></p><h3>Toni Hermoso</h3><p><em>Bioinformatician, Centre for Genomics Regulation, Spain</em></p><p>With the advantages of NGS technologies it became possible to obtain a whole genome sequence and its genome assembly of any novel organism at a relatively low cost and short time. To be able to work with this novel genome assembly, scientists need to know positions of the genic elements, especially protein-coding genes, and their putative function. Therefore, function annotation (FA) is an important step in de-novo genome processing and can provide important information about putative role of concrete gene. Such annotation usually includes assigning functional domains, i.e. from Pfam or Panther, ontology terms (GO), and specific elements, i.e. cleavage sites. </p><p>There are two main outcomes from functional annotation: the first one is an annotation itself, which allows scientists to perform various analysis to understand better genome function. The second one, is an additional quality check for genome assembly and predicted genes. Therefore, it is possible to identify suspicious genes which may belong to another species due to contamination, or non-functional overpredicted genes, erroneously annotated.</p><p>Here we will present a pipeline for a functional annotation of novel proteins from non-model organisms implemented in Nextflow. The pipeline allows to put together different widely-used tools in the field of functional annotation, including some Java applications and REST API services scripts. This software diversity and complexity is handled thanks to software containers (Docker or Singularity), allowing an easier maintenance and versioning of bundled programs. Data exchange and resulting reports are stored in a database, which can be either sitting on the very filesystem as a single database file using SQLite, or through a preset MySQL DBMS server. For that latter case, we also managed to set up a HPC-compatible MySQL on-demand approach that enabled parallel and subsequent processes of the pipeline to query a single MySQL server instance from different cluster nodes.</p><p>The provided output is compatible with commonly-used standard resources for downstream analysis, such as UCSC genome browser or Bioconductor packages. This pipeline was used in many genomic projects we collaborated with, among others, those of melon, common bean, wasp, and Iberian lynx.</p><h3>Bio</h3><p>Anna Vlasova, Bioinformatician at Institute of Molecular Pathology, Vienna, Austria. Toni Hermoso Pulido, Bioinformatics Core Facility, Centre for Genomic Regulation, Barcelona. Degree in Biochemistry and PhD in Biotechnology at Autonomous University of Barcelona. Since 2009 he joined CRG as a member of the just established Bioinformatics Core Facility where he has been supporting scientific web services and databases, research training and data analyses at the centre.</p><h3>Registration</h3><p>To attend Nextflow Camp 2019 register at <a href="https://www.crg.eu/en/event/coursescrg-nextflow-2019">this link</a>.</p>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- / wrapper -->	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+<style type="text/css">
+  .gitter-chat-embed { z-index: 9999 }
+  .gitter-open-chat-button { background-color: #1b95e0; border-color: #004e7f }
+  .gitter-open-chat-button:focus { background-color: #0c7abf; border-color: #004e7f}
+  .gitter-open-chat-button:hover { background-color: #0c7abf; border-color: #004e7f }  
+</style>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nextflow-io/nextflow'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</body>
+</html>
