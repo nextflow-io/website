@@ -24,8 +24,9 @@ This pipeline was used in many genomic projects we collaborated with, among othe
 
 ### Bio 
 
-Anna Vlasova, Bioinformatician at Institute of Molecular Pathology, Vienna, Austria. 
-Toni Hermoso Pulido, Bioinformatics Core Facility, Centre for Genomic Regulation, Barcelona. Degree in Biochemistry and PhD in Biotechnology at Autonomous University of Barcelona. Since 2009 he joined CRG as a member of the just established Bioinformatics Core Facility where he has been supporting scientific web services and databases, research training and data analyses at the centre.
+**Anna Vlasova**, Bioinformatician at Institute of Molecular Pathology, Vienna, Austria. 
+
+**Toni Hermoso Pulido**, Bioinformatics Core Facility, Centre for Genomic Regulation, Barcelona. Degree in Biochemistry and PhD in Biotechnology at Autonomous University of Barcelona. Since 2009 he joined CRG as a member of the just established Bioinformatics Core Facility where he has been supporting scientific web services and databases, research training and data analyses at the centre.
 
 ### Registration 
 

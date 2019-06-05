@@ -31,9 +31,9 @@ We will talk about why and how we did this and ask for feedback on how our appro
 
 ### Bio
 
-Anthony Underwood is the bioinformatics implementation manager for the NIHR Global Health Research Unit in Genomic Surveillance of Antimicrobial Resistance (https://ghru.pathogensurveillance.net/), a project that aims to provide pathways for Low and Medium income countries to access genomic technologies for pathogen surveillance. His background is in bioinformatics for public health microbiology.
+**Anthony Underwood** is the bioinformatics implementation manager for the NIHR Global Health Research Unit in Genomic Surveillance of Antimicrobial Resistance (https://ghru.pathogensurveillance.net/), a project that aims to provide pathways for Low and Medium income countries to access genomic technologies for pathogen surveillance. His background is in bioinformatics for public health microbiology.
 
-Ben Taylor is a senior software developer in the Centre for Genomic Pathogen Surveillance developing software that optimises common bioinformatics processes and delivers them through user-friendly interfaces. He’s previously worked for the UK Government and private companies to make it easier to use Cloud Infrastructure.
+**Ben Taylor** is a senior software developer in the Centre for Genomic Pathogen Surveillance developing software that optimises common bioinformatics processes and delivers them through user-friendly interfaces. He’s previously worked for the UK Government and private companies to make it easier to use Cloud Infrastructure.
 
 ### Registration 
 
