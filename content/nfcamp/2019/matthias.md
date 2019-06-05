@@ -8,7 +8,7 @@ status=published
 ## Robust and reproducible pipelines to support routine clinical diagnostic and research projects in oncology
 
 ### Matthias Monfort
-*Engineer student, Institut Curie, France* 
+*Research Engineer, Institut Curie, France* 
 
 Institut Curie is a European Comprehensive Cancer Center which comprises a research center and three cancer hospitals. The bioinformatics platform support both research and patient care in particular by providing different kinds of analysis pipelines to address different use cases. 
 
@@ -24,7 +24,10 @@ To address some of the concerns mentioned above (portability, scalability, repro
 
 ### Bio
 
-I validated the bioinformatics diploma of the Uni. of Bordeaux by doing a 6 months internship in Eileen Furlong's laboratory at EMBL Heidelberg under the joint supervision of Charles Girardot. I joined the Furlong team right after as a bioinformatician and software developer. We released Dynamix (2017), a genome browser plugin for automated genome browsing. I joined Emmanuel Barillot's Cancer System Biology Unit at the Curie institute of Paris in nov. 2018 under Philippe Hupé's supervision (Bio-IT/HPC platform) where I industrialise data processing and analysis workflow used both for research purposes and assisted medical diagnosis.  
+Matthias validated the bioinformatics master of the University of Bordeaux by doing a 6 months internship in Eileen Furlong's laboratory at EMBL Heidelberg under the joint supervision of Charles Girardot. He then joined the Furlong team right after as a bioinformatician and software developer. Dynamix, his master project, is a genome browser plugin for automated genome browsing and was released in Bioinformatics (2017). 
+
+Matthias joined Emmanuel Barillot's team, in the Cancer System Biology Unit at the Curie institute of Paris, in november 2018 and currently works for the Bio-IT/HPC platform under Philippe Hupé's supervision. The platform picked Nextflow to industrialise data processing and analysis workflows, used both for research purposes as well as assisted medical diagnosis.
+
 
 ### Registration 
 

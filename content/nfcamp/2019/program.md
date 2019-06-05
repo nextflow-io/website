@@ -39,7 +39,8 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 <tr> 
 <td valign='top'>10.20 - 10.37</td> 
 <td valign='top'><a href='/nfcamp/2019/anthony.html'>Pay As You Go Cloud Bioinformatics for Pathogens</a><br>
-    <i><b>Anthony Underwood & Ben Taylor</b><br>
+    <i><b>Anthony Underwood</b><br>
+    <b>Ben Taylor</b><br>
     Centre for Genomic Pathogen Surveillance, Wellcome Trust Sanger Institute, UK</i></td>
 </tr>
 
@@ -128,17 +129,10 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 <tr> 
 
 <tr> 
-<td valign='top'>9.30 - 10.055</td> 
-<td valign='top'><a href='/nfcamp/2019/paolo.html'>Nextflow on the edge</a><br>
+<td valign='top'>9.30 - 10.05</td> 
+<td valign='top'>Nextflow on the edge<br>
     <i><b>Paolo Di Tommaso</b><br>
     Seqera Labs, Centre for Genomic Regulation, Spain</i></td>
-</tr> 
-
-<tr> 
-<td valign='top'>10.05 - 10.40</td> 
-<td valign='top'><a href='/nfcamp/2019/venkat.html'>U-DAWS: Developing and maintaining reproducible workflows for bioinformatics data</a><br>
-    <i><b>Venkat Malladi</b><br>
-    UT Southwestern, USA</i></td>
 </tr> 
 
 <tr> 
@@ -185,13 +179,17 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 <tr> 
 <td valign='top'>14.20 - 14.40</td> 
 <td valign='top'><a href='/nfcamp/2019/anna.html'>FA-nf - A Bioinformatics pipeline for functional annotation implemented in Nextflow</a><br>
-    <i><b>Anna Vlasova & Toni Hermoso</b><br>
-    Institute of Molecular Pathology, Austria & Centre for Genomic Regulation, Spain</i></td>
+    <i>
+    <b>Anna Vlasova</b><br>
+    Institute of Molecular Pathology, Austria<br>
+    <b> Toni Hermoso</b><br>
+    Centre for Genomic Regulation, Spain    
+    </i></td>
 </tr> 
 
 <tr> 
 <td valign='top'>14.40 - 15.30</td> 
-<td valign='top'><a href='/nfcamp/2019/zamin.html'>Shareable and scalable pathogen genomics with nextflow, containers and Clockwork</a><br>
+<td valign='top'>Tutorial - <a href='/nfcamp/2019/zamin.html'>Shareable and scalable pathogen genomics with nextflow, containers and Clockwork</a><br>
     <i><b>Zamin Iqbal</b><br>
     European Bioinformatics Institute (EMBL-EBI), UK</i></td>
 </tr> 
@@ -208,14 +206,15 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 </tr> 
 
 <tr> 
-<td valign='top'>16.20 - 17.15</td> 
-<td valign='top'><a href='/nfcamp/2019/alper.html'>DolphinNext: A graphical user interface for distributed data processing of high throughput genomics</a><br>
+<td valign='top'>16.20 - 17.45</td> 
+<td valign='top'>Tutorial - <a href='/nfcamp/2019/alper.html'>DolphinNext: A graphical user interface for distributed data processing of high throughput genomics</a><br>
     <i><b>Alper Kucukural</b><br>
+    <b>Onur Yukselen</b><br>
     UMass Medical School, USA</i></td>
 </tr> 
 
 <tr> 
-<td valign='top'>18.00 - 18.10</td> 
+<td valign='top'>17.45 - 18.00</td> 
 <td valign='top'>
     <i>Closing remarks</i></td>
 </tr>
