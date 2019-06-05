@@ -220,3 +220,8 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 </tr>
 
 </table>
+
+
+### Registration 
+
+To attend Nextflow Camp 2019 register at [this link](https://www.crg.eu/en/event/coursescrg-nextflow-2019).
