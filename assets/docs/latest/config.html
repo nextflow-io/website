@@ -1183,6 +1183,26 @@ with a comma character, for example:</p>
 </pre></div>
 </div>
 </div>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p>When using the <em>profiles</em> feature in your config file do NOT set attributes in the same scope both
+inside and outside a <code class="docutils literal"><span class="pre">profiles</span></code> context. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">cpus</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">profiles</span> <span class="p">{</span>
+  <span class="n">foo</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;2 GB&#39;</span>
+  <span class="p">}</span>
+
+  <span class="n">bar</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="s1">&#39;4 GB&#39;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p class="last">In the above example the <code class="docutils literal"><span class="pre">process.cpus</span></code> attribute is not correctly applied because the <code class="docutils literal"><span class="pre">process</span></code> scope it's also
+used in the <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code> profile contexts.</p>
+</div>
 <p>The above feature requires version 0.28.x or higher.</p>
 </div>
 <div class="section" id="environment-variables">
