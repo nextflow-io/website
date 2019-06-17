@@ -1,13 +1,13 @@
-title=Running Nextflow on AWS Batch
+title=Shareable and scalable pathogen genomics with Nextflow, containers and Clockwork
 date=2019-05-28
 type=col8
 tags=nextflow,nfcamp,2019,workshop
 status=published
 ~~~~~~
 
-## Running Nextflow on AWS Batch
+## Shareable and scalable pathogen genomics with Nextflow, containers and Clockwork
 
-### Zamon Iqbal
+### Zamin Iqbal
 *Research Group Leader, European Bioinformatics Institute (EMBL-EBI), UK*
 
 
