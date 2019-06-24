@@ -6,9 +6,60 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Wed, 22 May 2019 15:45:45 +0200</pubDate>
-    <lastBuildDate>Wed, 22 May 2019 15:45:45 +0200</lastBuildDate>
+    <pubDate>Mon, 24 Jun 2019 14:26:40 +0100</pubDate>
+    <lastBuildDate>Mon, 24 Jun 2019 14:26:40 +0100</lastBuildDate>
 
+    <item>
+      <title>Demystifying Nextflow resume</title>
+      <link>https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html</link>
+      <pubDate>Mon, 24 Jun 2019 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">blog/2019/demystifying-nextflow-resume.html</guid>
+      	<description>
+	&lt;p&gt;&lt;em&gt;This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Task execution caching and checkpointing is an essential feature of any modern workflow manager and Nextflow provides an automated caching mechanism with every workflow execution. When using the &lt;code&gt;-resume&lt;/code&gt; flag, successfully completed tasks are skipped and the previously cached results are used in downstream tasks. But understanding the specifics of how it works and debugging situations when the behaviour is not as expected is a common source of frustration.&lt;/p&gt;&lt;p&gt;The mechanism works by assigning a unique ID to each task. This unique ID is used to create a separate execution directory, called the working directory, where the tasks are executed and the results stored. A task’s unique ID is generated as a 128-bit hash number obtained from a composition of the task’s: &lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Inputs values&lt;/li&gt;
+  &lt;li&gt;Input files&lt;/li&gt;
+  &lt;li&gt;Command line string&lt;/li&gt;
+  &lt;li&gt;Container ID&lt;/li&gt;
+  &lt;li&gt;Conda environment&lt;/li&gt;
+  &lt;li&gt;Environment modules&lt;/li&gt;
+  &lt;li&gt;Any executed scripts in the bin directory&lt;/li&gt;
+&lt;/ul&gt;&lt;h3&gt;How does resume work?&lt;/h3&gt;&lt;p&gt;The &lt;code&gt;-resume&lt;/code&gt; command line option allows for the continuation of a workflow execution. It can be used in its most basic form with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run nextflow-io/hello -resume
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In practice, every execution starts from the beginning. However, when using resume, before launching a task, Nextflow uses the unique ID to check if:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the working directory exists&lt;/li&gt;
+  &lt;li&gt;it contains a valid command exit status&lt;/li&gt;
+  &lt;li&gt;it contains the expected output files.&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;If these conditions are satisfied, the task execution is skipped and the previously computed outputs are applied. When a task requires recomputation, ie. the conditions above are not fulfilled, the downstream tasks are automatically invalidated.&lt;/p&gt;&lt;h3&gt;The working directory&lt;/h3&gt;&lt;p&gt;By default, the task work directories are created in the directory from where the pipeline is launched. This is often a scratch storage area that can be cleaned up once the computation is completed. A different location for the execution work directory can be specified using the command line option &lt;code&gt;-w&lt;/code&gt; e.g.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run &amp;lt;script&amp;gt; -w /some/scratch/dir
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note that if you delete or move the pipeline work directory, this will prevent to use the resume feature in subsequent runs. &lt;/p&gt;&lt;p&gt;Also note that the pipeline work directory is intended to be used as a temporary scratch area. The final workflow outputs are expected to be stored in a different location specified using the &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#publishdir&quot;&gt;&lt;code&gt;publishDir&lt;/code&gt; directive&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;How is the hash calculated on input files?&lt;/h3&gt;&lt;p&gt;The hash provides a convenient way for Nextflow to determine if a task requires recomputation. For each input file, the hash code is computed with:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The complete file path&lt;/li&gt;
+  &lt;li&gt;The file size&lt;/li&gt;
+  &lt;li&gt;The last modified timestamp&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Therefore, even just performing a touch on a file will invalidate the task execution.&lt;/p&gt;&lt;h3&gt;How to ensure resume works as expected?&lt;/h3&gt;&lt;p&gt;It is good practice to organize each experiment in its own folder. An experiment’s input parameters can be specified using a Nextflow config file which also makes it simple to track and replicate an experiment over time. Note that you should avoid launching two (or more) Nextflow instances in the same directory concurrently.&lt;/p&gt;&lt;p&gt;The nextflow log command lists the executions run in the current folder:&lt;/p&gt;
+&lt;style&gt;
+pre {
+    white-space: pre;
+    overflow-x: auto;
+}
+&lt;/style&gt;
+&lt;pre&gt;
+$ nextflow log
+
+TIMESTAMP            DURATION  RUN NAME          STATUS  REVISION ID  SESSION ID                            COMMAND                                    
+2019-05-06 12:07:32  1.2s      focused_carson    ERR     a9012339ce   7363b3f0-09ac-495b-a947-28cf430d0b85  nextflow run hello                         
+2019-05-06 12:08:33  21.1s     mighty_boyd       OK      a9012339ce   7363b3f0-09ac-495b-a947-28cf430d0b85  nextflow run rnaseq-nf -with-docker        
+2019-05-06 12:31:15  1.2s      insane_celsius    ERR     b9aefc67b4   4dc656d2-c410-44c8-bc32-7dd0ea87bebf  nextflow run rnaseq-nf                     
+2019-05-06 12:31:24  17s       stupefied_euclid  OK      b9aefc67b4   4dc656d2-c410-44c8-bc32-7dd0ea87bebf  nextflow run rnaseq-nf -resume -with-docker
+&lt;/pre&gt;&lt;p&gt;You can use the resume command with either the session ID or the run name to recover a specific execution. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run rnaseq-nf -resume mighty_boyd
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow run naseq-nf -resume 4dc656d2-c410-44c8-bc32-7dd0ea87bebf
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;Stay tuned for part two where we will discuss resume in more detail with respect to provenance and troubleshooting techniques!&lt;/em&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>One more step towards Nextflow modules</title>
       <link>https://www.nextflow.io/blog/2019/one-more-step-towards-modules.html</link>
