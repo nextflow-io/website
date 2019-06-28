@@ -99,7 +99,7 @@ process makeTranscript {
 In order to run this pipeline in your computer you will required: 
 
 * Unix-like operating system 
-* Java 7 (or higher)
+* Java 8 (or higher)
 * Docker 
 
 
