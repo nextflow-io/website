@@ -93,7 +93,7 @@ sequences
 In order to run this pipeline in your computer you will required: 
 
 * Unix-like operating system 
-* Java 7 (or higher)
+* Java 8 (or higher)
 * Docker 
 
 Install Nextflow entering the following command in the shell terminal:
