@@ -7,7 +7,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting.*
+*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part two [here](blog/2019/troubleshooting-nextflow-resume.html)*
 
 Task execution caching and checkpointing is an essential feature of any modern workflow manager and Nextflow provides an automated caching mechanism with every workflow execution. When using the `-resume` flag, successfully completed tasks are skipped and the previously cached results are used in downstream tasks. But understanding the specifics of how it works and debugging situations when the behaviour is not as expected is a common source of frustration.
 
