@@ -9,16 +9,25 @@ icon=evan.jpg
 
 *This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](blog/2019/demystifying-nextflow-resume.html)*
 
-#### Troubleshooting resume
+### Troubleshooting resume
+
 If your workflow execution is not resumed as expected, there exists several strategies to debug the problem.
 
-* **Input file changed:** Make sure that there has been no change in your input files. Don’t forget the unique task hash is computed by taking into account the complete file path, the last modified timestamp and the file size. If any of these change, the workflow will be re-executed,  even if the input content is the same. 
+#### Modified input file(s)
 
-* **A process modifies an input:** A process should never alter input files. When this happens, the future execution of tasks will be invalidated for the same reason explained in the previous point.
+Make sure that there has been no change in your input files. Don’t forget the unique task hash is computed by taking into account the complete file path, the last modified timestamp and the file size. If any of these change, the workflow will be re-executed,  even if the input content is the same. 
 
-* **Inconsistent file attributes:** Some shared file system, such as NFS, may report inconsistent file timestamp i.e. a different timestamp for the same file even if it has not been modified. There is an option to use the [lenient mode of caching](https://www.nextflow.io/docs/latest/process.html#cache) to avoid this problem.
+#### A process modifying one or more inputs
 
-* **A race condition in a global variable:** Nextflow is designed to simplify parallel programming without taking care of race conditions and the access of shared resources. One of the few cases in which a race condition may arise is when using a global variable with two (or more) operators. For example:
+A process should never alter input files. When this happens, the future execution of tasks will be invalidated for the same reason explained in the previous point.
+
+#### Inconsistent input file attributes
+
+Some shared file system, such as NFS, may report inconsistent file timestamp i.e. a different timestamp for the same file even if it has not been modified. There is an option to use the [lenient mode of caching](https://www.nextflow.io/docs/latest/process.html#cache) to avoid this problem.
+
+#### Race condition in a global variable
+
+Nextflow does its best to simplify parallel programming and to prevent race conditions and the access of shared resources. One of the few cases in which a race condition may arise is when using a global variable with two (or more) operators. For example:
 
 ```
 Channel
@@ -48,7 +57,9 @@ Channel
     .println { "ch2 = $it" }
 ```
 
-* **Non-deterministic input channels:** While dataflow channel ordering is guaranteed i.e. data is read in the same order in which it’s written in the channel, when a process declares as input two or more channels, each of which is the output of a different process, the overall input ordering is not consistent across different executions.
+#### Non-deterministic input channels
+
+While dataflow channel ordering is guaranteed i.e. data is read in the same order in which it’s written in the channel, when a process declares as input two or more channels, each of which is the output of a different process, the overall input ordering is not consistent across different executions.
 
 Consider the following snippet:
 
@@ -94,81 +105,32 @@ process gather {
 }
 ```
 
-#### Execution provenance
+#### Still in trouble
 
-When provided with a run name or session ID, the log command can return useful information about a pipeline execution. This can be composed to track the provenance of a workflow result.
+These are most frequent causes of problems with the Nextflow resume mechanism. If you are still not able to solve 
+your problem, identify the first process not resuming correctly, then run twice your script using `-dump-hashes` and 
+compare the resulting `.nextflow.log` files (the first will be named `.nextflow.log.1`). 
 
-When supplying a run name or session ID, the log command lists all the work directories used to compute the final result. For example:
+Unfortunately the information reported `-dump-hashes` are quite cryptic but using a good diff tool to compare the two 
+log files it can provide some valuable information to identify the reason that is causing the caching to be invalided.  
 
-```
-$ nextflow log tiny_fermat
+#### The golden rule
 
-/data/.../work/7b/3753ff13b1fa5348d2d9b6f512153a
-/data/.../work/c1/56a36d8f498c99ac6cba31e85b3e0c
-/data/.../work/f7/659c65ef60582d9713252bcfbcc310
-/data/.../work/82/ba67e3175bd9e6479d4310e5a92f99
-/data/.../work/e5/2816b9d4e7b402bfdd6597c2c2403d
-/data/.../work/3b/3485d00b0115f89e4c202eacf82eba
-```
+Never try to debug this kind of problem with production data! This issue is annoying, but when it happens
+it can be replicated in a consistent manner with any data.
 
-Using the option `-f` (fields) it’s possible to specify which metadata should be printed by the log command. For example:
-
-```
-$ nextflow log tiny_fermat -f 'process,exit,hash,duration'
-
-index	0	7b/3753ff	2s
-fastqc	0	c1/56a36d	9.3s
-fastqc	0	f7/659c65	9.1s
-quant	0	82/ba67e3	2.7s
-quant	0	e5/2816b9	3.2s
-multiqc	0	3b/3485d0	6.3s
-```
-
-The complete list of available fields can be retrieved with the command:
-
-```
-$ nextflow log -l
-```
-
-The option `-F` allows the specification of filtering criteria to print only a subset of tasks. For example:
-
-```
-$ nextflow log tiny_fermat -F 'process =~ /fastqc/'
-
-/data/.../work/c1/56a36d8f498c99ac6cba31e85b3e0c
-/data/.../work/f7/659c65ef60582d9713252bcfbcc310
-```
-
-This can be useful to locate specific tasks work directories.
-
-Finally, the `-t` option allows for the creation of a basic custom HTML provenance report that can be generated by providing a template file, in any format of your choice. For example:
-
-```
-<div>
-<h2>${name}</h2>
-<div>
-Script:
-<pre>${script}</pre>
-</div>
-
-<ul>
-    <li>Exit: ${exit}</li>
-    <li>Status: ${status}</li>
-    <li>Work dir: ${workdir}</li>
-    <li>Container: ${container}</li>
-</ul>
-</div>
-```
-
-By saving the above snippet in a file named template.html, you can run the following command:
-
-```
-$ nextflow log tiny_fermat -t template.html > provenance.html
-```
+Therefore, we won't get tired to suggest Nextflow developers to always include in their pipeline project 
+a small synthetic dataset to easily execute and test the complete pipeline execution in a few seconds. 
+This is the golden rule to debug and troubleshot execution problem and to avoid to get stuck with production data.
 
 #### Resume by default?
 Given the majority of users always apply resume, we recently discussed having resume applied by the default. 
 
-Is there any situation where you do not use resume? Would a flag specifying ‘-no-cache’ be enough to satisfy these use cases? 
+Is there any situation where you do not use resume? Would a flag specifying `-no-cache` be enough to satisfy these use cases? 
 
 We want to hear your thoughts on this. Help steer Nextflow development and vote on the twitter poll.
+
+[put tweet here]
+
+*In a following post in this series it will be showed how to produce a (pseudo) provenance report using 
+the Nextflow built-in command line.*
