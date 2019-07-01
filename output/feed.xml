@@ -6,16 +6,80 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Mon, 24 Jun 2019 14:26:40 +0100</pubDate>
-    <lastBuildDate>Mon, 24 Jun 2019 14:26:40 +0100</lastBuildDate>
+    <pubDate>Mon, 1 Jul 2019 09:58:01 +0200</pubDate>
+    <lastBuildDate>Mon, 1 Jul 2019 09:58:01 +0200</lastBuildDate>
 
+    <item>
+      <title>Troubleshooting Nextflow resume</title>
+      <link>https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html</link>
+      <pubDate>Mon, 1 Jul 2019 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">blog/2019/troubleshooting-nextflow-resume.html</guid>
+      	<description>
+	&lt;p&gt;&lt;em&gt;This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one &lt;a href=&quot;blog/2019/demystifying-nextflow-resume.html&quot;&gt;here&lt;/a&gt;&lt;/em&gt;.&lt;/p&gt;&lt;h3&gt;Troubleshooting resume&lt;/h3&gt;&lt;p&gt;If your workflow execution is not resumed as expected, there exists several strategies to debug the problem.&lt;/p&gt;&lt;h4&gt;Modified input file(s)&lt;/h4&gt;&lt;p&gt;Make sure that there has been no change in your input files. Don’t forget the unique task hash is computed by taking into account the complete file path, the last modified timestamp and the file size. If any of these change, the workflow will be re-executed, even if the input content is the same. &lt;/p&gt;&lt;h4&gt;A process modifying one or more inputs&lt;/h4&gt;&lt;p&gt;A process should never alter input files. When this happens, the future execution of tasks will be invalidated for the same reason explained in the previous point.&lt;/p&gt;&lt;h4&gt;Inconsistent input file attributes&lt;/h4&gt;&lt;p&gt;Some shared file system, such as NFS, may report inconsistent file timestamp i.e. a different timestamp for the same file even if it has not been modified. There is an option to use the &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#cache&quot;&gt;lenient mode of caching&lt;/a&gt; to avoid this problem.&lt;/p&gt;&lt;h4&gt;Race condition in a global variable&lt;/h4&gt;&lt;p&gt;Nextflow does its best to simplify parallel programming and to prevent race conditions and the access of shared resources. One of the few cases in which a race condition may arise is when using a global variable with two (or more) operators. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .from(1,2,3)
+    .map { it -&amp;gt; X=it; X+=2 }
+    .println { &amp;quot;ch1 = $it&amp;quot; }
+
+Channel
+    .from(1,2,3)
+    .map { it -&amp;gt; X=it; X*=2 }
+    .println { &amp;quot;ch2 = $it&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The problem with this snippet is that the &lt;code&gt;X&lt;/code&gt; variable in the closure definition is defined in the global scope. Since operators are executed in parallel, the &lt;code&gt;X&lt;/code&gt; value can, therefore, be overwritten by the other &lt;code&gt;map&lt;/code&gt; invocation.&lt;/p&gt;&lt;p&gt;The correct implementation requires the use of the &lt;code&gt;def&lt;/code&gt; keyword to declare the variable local.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .from(1,2,3)
+    .map { it -&amp;gt; def X=it; X+=2 }
+    .view { &amp;quot;ch1 = $it&amp;quot; }
+
+Channel
+    .from(1,2,3)
+    .map { it -&amp;gt; def X=it; X*=2 }
+    .view { &amp;quot;ch2 = $it&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;Non-deterministic input channels&lt;/h4&gt;&lt;p&gt;While dataflow channel ordering is guaranteed i.e. data is read in the same order in which it’s written in the channel, when a process declares as input two or more channels, each of which is the output of a different process, the overall input ordering is not consistent across different executions.&lt;/p&gt;&lt;p&gt;Consider the following snippet:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;process foo {
+  input: set val(pair), file(reads) from reads_ch
+  output: set val(pair), file(&amp;#39;*.bam&amp;#39;) into bam_ch
+  &amp;quot;&amp;quot;&amp;quot;
+  your_command --here
+  &amp;quot;&amp;quot;&amp;quot;
+}
+
+process bar {
+  input: set val(pair), file(reads) from reads_ch
+  output: set val(pair), file(&amp;#39;*.bai&amp;#39;) into bai_ch
+  &amp;quot;&amp;quot;&amp;quot;
+  other_command --here
+  &amp;quot;&amp;quot;&amp;quot;
+}
+
+process gather {
+  input:
+  set val(pair), file(bam) from bam_ch
+  set val(pair), file(bai) from bai_ch
+  &amp;quot;&amp;quot;&amp;quot;
+  merge_command $bam $bai
+  &amp;quot;&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The inputs declared in the gather process can be delivered in any order as the execution order of the process &lt;code&gt;foo&lt;/code&gt; and &lt;code&gt;bar&lt;/code&gt; is not deterministic due to parallel executions.&lt;/p&gt;&lt;p&gt;Therefore, the input of the third process needs to be synchronized using the &lt;code&gt;join&lt;/code&gt; operator or a similar approach. The third process should be written as:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;process gather {
+  input:
+  set val(pair), file(bam), file(bai) from bam_ch.join(bai_ch)
+  &amp;quot;&amp;quot;&amp;quot;
+  merge_command $bam $bai
+  &amp;quot;&amp;quot;&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4&gt;Still in trouble?&lt;/h4&gt;&lt;p&gt;These are most frequent causes of problems with the Nextflow resume mechanism. If you are still not able to resolve your problem, identify the first process not resuming correctly, then run your script twice using &lt;code&gt;-dump-hashes&lt;/code&gt;. You can then compare the resulting &lt;code&gt;.nextflow.log&lt;/code&gt; files (the first will be named &lt;code&gt;.nextflow.log.1&lt;/code&gt;). &lt;/p&gt;&lt;p&gt;Unfortunately, the information reported by &lt;code&gt;-dump-hashes&lt;/code&gt; can be quite cryptic, however, with the help of a good &lt;em&gt;diff&lt;/em&gt; tool it is possible to compare the two log files to identify the reason for the cache to be invalidated. &lt;/p&gt;&lt;h4&gt;The golden rule&lt;/h4&gt;&lt;p&gt;Never try to debug this kind of problem with production data! This issue can be annoying, but when it happens it should be able to be replicated in a consistent manner with any data.&lt;/p&gt;&lt;p&gt;Therefore, we always suggest Nextflow developers include in their pipeline project a small synthetic dataset to easily execute and test the complete pipeline execution in a few seconds. This is the golden rule for debugging and troubleshooting execution problems avoids getting stuck with production data.&lt;/p&gt;&lt;h4&gt;Resume by default?&lt;/h4&gt;&lt;p&gt;Given the majority of users always apply resume, we recently discussed having resume applied by the default. &lt;/p&gt;&lt;p&gt;Is there any situation where you do not use resume? Would a flag specifying &lt;code&gt;-no-cache&lt;/code&gt; be enough to satisfy these use cases? &lt;/p&gt;&lt;p&gt;We want to hear your thoughts on this. Help steer Nextflow development and vote in the twitter poll below.&lt;/p&gt;
+&lt;blockquote class=&quot;twitter-tweet&quot; data-partner=&quot;tweetdeck&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Should -resume⏯️ be the default when launching a Nextflow pipeline?&lt;/p&gt;&amp;mdash; Nextflow (@nextflowio) &lt;a href=&quot;https://twitter.com/nextflowio/status/1145599932268785665?ref_src=twsrc%5Etfw&quot;&gt;July 1, 2019&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;&lt;p&gt;&lt;br&gt; &lt;em&gt;In the following post of this series, we will show how to produce a provenance report using a built-in Nextflow command.&lt;/em&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Demystifying Nextflow resume</title>
       <link>https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html</link>
-      <pubDate>Mon, 24 Jun 2019 00:00:00 +0100</pubDate>
+      <pubDate>Mon, 24 Jun 2019 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">blog/2019/demystifying-nextflow-resume.html</guid>
       	<description>
-	&lt;p&gt;&lt;em&gt;This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Task execution caching and checkpointing is an essential feature of any modern workflow manager and Nextflow provides an automated caching mechanism with every workflow execution. When using the &lt;code&gt;-resume&lt;/code&gt; flag, successfully completed tasks are skipped and the previously cached results are used in downstream tasks. But understanding the specifics of how it works and debugging situations when the behaviour is not as expected is a common source of frustration.&lt;/p&gt;&lt;p&gt;The mechanism works by assigning a unique ID to each task. This unique ID is used to create a separate execution directory, called the working directory, where the tasks are executed and the results stored. A task’s unique ID is generated as a 128-bit hash number obtained from a composition of the task’s: &lt;/p&gt;
+	&lt;p&gt;&lt;em&gt;This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part two &lt;a href=&quot;blog/2019/troubleshooting-nextflow-resume.html&quot;&gt;here&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;&lt;p&gt;Task execution caching and checkpointing is an essential feature of any modern workflow manager and Nextflow provides an automated caching mechanism with every workflow execution. When using the &lt;code&gt;-resume&lt;/code&gt; flag, successfully completed tasks are skipped and the previously cached results are used in downstream tasks. But understanding the specifics of how it works and debugging situations when the behaviour is not as expected is a common source of frustration.&lt;/p&gt;&lt;p&gt;The mechanism works by assigning a unique ID to each task. This unique ID is used to create a separate execution directory, called the working directory, where the tasks are executed and the results stored. A task’s unique ID is generated as a 128-bit hash number obtained from a composition of the task’s: &lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;Inputs values&lt;/li&gt;
   &lt;li&gt;Input files&lt;/li&gt;
@@ -90,7 +154,7 @@ INDEX( transcriptome_file )
 FASTQC( read_pairs_ch )
 QUANT( INDEX.out, read_pairs_ch )
 MULTIQC( QUANT.out.mix(FASTQC.out).collect(), multiqc_file )
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Notably, each process defines its own namespace in the script scope which allows the access of the process output channel(s) using the &lt;code&gt;.out&lt;/code&gt; attribute. This can be used then as any other Nextflow channel variable in your pipeline script.&lt;/p&gt;&lt;p&gt;The &lt;code&gt;include&lt;/code&gt; statement gives also the possibility to include only a &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#selective-inclusion&quot;&gt;specific process&lt;/a&gt; or to include a process with a different &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#module-aliases&quot;&gt;name alias&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;Channel smart forking&lt;/h3&gt;&lt;p&gt;One of the most important changes of the new syntax is that any channel can be read as many times as you need removing the requirement to duplicate them using the &lt;code&gt;into&lt;/code&gt; operator. &lt;/p&gt;&lt;p&gt;For example, in the above snippet, the &lt;code&gt;read_pairs_ch&lt;/code&gt; channel has been used twice, as input both for the &lt;code&gt;FASTQC&lt;/code&gt; and &lt;code&gt;QUANT&lt;/code&gt; processes. Nextflow forks it behind the scene for you. &lt;/p&gt;&lt;p&gt;This makes the writing of workflow scripts much more fluent, readable and ... fun! No more channel names proliferation!&lt;/p&gt;&lt;h3&gt;Nextflow pipes!&lt;/h3&gt;&lt;p&gt;Finally, maybe our favourite one. The new DSL introduces the &lt;code&gt;|&lt;/code&gt; (pipe) operator which allows for the composition of Nextflow channels, processes and operators together seamlessly in a much more expressive way. &lt;/p&gt;&lt;p&gt;Consider the following example: &lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Notably, each process defines its own namespace in the script scope which allows the access of the process output channel(s) using the &lt;code&gt;.out&lt;/code&gt; attribute. This can be used then as any other Nextflow channel variable in your pipeline script.&lt;/p&gt;&lt;p&gt;The &lt;code&gt;include&lt;/code&gt; statement gives also the possibility to include only a &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#selective-inclusion&quot;&gt;specific process&lt;/a&gt; or to include a process with a different &lt;a href=&quot;https://www.nextflow.io/docs/edge/dsl2.html#module-aliases&quot;&gt;name alias&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;Smart channel forking&lt;/h3&gt;&lt;p&gt;One of the most important changes of the new syntax is that any channel can be read as many times as you need removing the requirement to duplicate them using the &lt;code&gt;into&lt;/code&gt; operator. &lt;/p&gt;&lt;p&gt;For example, in the above snippet, the &lt;code&gt;read_pairs_ch&lt;/code&gt; channel has been used twice, as input both for the &lt;code&gt;FASTQC&lt;/code&gt; and &lt;code&gt;QUANT&lt;/code&gt; processes. Nextflow forks it behind the scene for you. &lt;/p&gt;&lt;p&gt;This makes the writing of workflow scripts much more fluent, readable and ... fun! No more channel names proliferation!&lt;/p&gt;&lt;h3&gt;Nextflow pipes!&lt;/h3&gt;&lt;p&gt;Finally, maybe our favourite one. The new DSL introduces the &lt;code&gt;|&lt;/code&gt; (pipe) operator which allows for the composition of Nextflow channels, processes and operators together seamlessly in a much more expressive way. &lt;/p&gt;&lt;p&gt;Consider the following example: &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;process align {
   input:
     file seq
