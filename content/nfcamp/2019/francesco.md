@@ -1,4 +1,4 @@
-title=Nextflow and human microbiome: from data to insights
+title=Nextflow and the human microbiome: from data to insights
 date=2019-05-28
 type=col8
 tags=nextflow,nfcamp,2019,workshop
