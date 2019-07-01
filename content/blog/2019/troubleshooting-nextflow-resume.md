@@ -7,7 +7,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](blog/2019/demystifying-nextflow-resume.html)*
+*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](blog/2019/demystifying-nextflow-resume.html)*.
 
 ### Troubleshooting resume
 
@@ -41,20 +41,20 @@ Channel
     .println { "ch2 = $it" }
 ```
 
-The problem with this snippet is that the X variable in the closure definition is defined in the global scope. Since operators are executed in parallel, the X value can, therefore, be overwritten by the other map invocation.
+The problem with this snippet is that the `X` variable in the closure definition is defined in the global scope. Since operators are executed in parallel, the `X` value can, therefore, be overwritten by the other `map` invocation.
 
-The correct implementation requires the use of the def keyword to declare the variable local.
+The correct implementation requires the use of the `def` keyword to declare the variable local.
 
 ```
 Channel
     .from(1,2,3)
     .map { it -> def X=it; X+=2 }
-    .println { "ch1 = $it" }
+    .view { "ch1 = $it" }
 
 Channel
     .from(1,2,3)
     .map { it -> def X=it; X*=2 }
-    .println { "ch2 = $it" }
+    .view { "ch2 = $it" }
 ```
 
 #### Non-deterministic input channels
@@ -90,10 +90,9 @@ process gather {
 }
 ```
 
-The inputs declared in the gather process can be delivered in any order as the execution order of the process foo and bar is not deterministic due to parallel executions.
+The inputs declared in the gather process can be delivered in any order as the execution order of the process `foo` and `bar` is not deterministic due to parallel executions.
 
-Therefore, the input of the third process needs to be synchronized using the join operator or a similar approach. The third process should be written as:
-
+Therefore, the input of the third process needs to be synchronized using the `join` operator or a similar approach. The third process should be written as:
 
 ```
 process gather {
@@ -110,18 +109,19 @@ process gather {
 These are most frequent causes of problems with the Nextflow resume mechanism. If you are still not able to resolve 
 your problem, identify the first process not resuming correctly, then run your script twice using `-dump-hashes`. You can then compare the resulting `.nextflow.log` files (the first will be named `.nextflow.log.1`). 
 
-Unfortunately, the information reported by `-dump-hashes` can be quite cryptic, however, with the help of a good diff tool it is possible to compare the two log files to identify the reason for the cache to be invalidated.  
+Unfortunately, the information reported by `-dump-hashes` can be quite cryptic, however, with the help of a good *diff* tool it is possible to compare the two log files to identify the reason for the cache to be invalidated.  
 
 #### The golden rule
 
 Never try to debug this kind of problem with production data! This issue can be annoying, but when it happens
-it ahould be able to be replicated in a consistent manner with any data.
+it should be able to be replicated in a consistent manner with any data.
 
 Therefore, we always suggest Nextflow developers include in their pipeline project 
 a small synthetic dataset to easily execute and test the complete pipeline execution in a few seconds. 
-This is the golden rule for debugginh and troubleshooting execution problems avoids getting stuck with production data.
+This is the golden rule for debugging and troubleshooting execution problems avoids getting stuck with production data.
 
 #### Resume by default?
+
 Given the majority of users always apply resume, we recently discussed having resume applied by the default. 
 
 Is there any situation where you do not use resume? Would a flag specifying `-no-cache` be enough to satisfy these use cases? 
@@ -131,4 +131,5 @@ We want to hear your thoughts on this. Help steer Nextflow development and vote 
 <blockquote class="twitter-tweet" data-partner="tweetdeck"><p lang="en" dir="ltr">Should -resume⏯️ be the default when launching a Nextflow pipeline?</p>&mdash; Nextflow (@nextflowio) <a href="https://twitter.com/nextflowio/status/1145599932268785665?ref_src=twsrc%5Etfw">July 1, 2019</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+<br>
 *In the following post of this series, we will show how to produce a provenance report using a built-in Nextflow command.*
