@@ -200,10 +200,20 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
     <i>Coffee break</i></td>
 </tr>
 
+
 <tr> 
-<td valign='top'>16.00 - 16.20</td> 
-<td valign='top'> TBD </td>
-</tr> 
+<td valign='top'>16.00 - 16.10</td> 
+<td valign='top'><a href='/nfcamp/2019/olga.html'>Nextflow at Chan Zuckerberg Biohub</a><br>
+    <i><b>Olga Botvinnik</b><br>
+    Chan Zuckerberg Biohub, USA</i></td>
+</tr>
+
+<tr> 
+<td valign='top'>16.10 - 16.20</td> 
+<td valign='top'><a href='/nfcamp/2019/luca.html'>Parallel and scalable workflow for the analysis of RNA modifications using Oxford Nanopore direct RNA sequencing</a><br>
+    <i><b>Luca Cozzuto</b><br>
+    Centre for Genomic Regulation (CRG), Spain</i></td>
+</tr>
 
 <tr> 
 <td valign='top'>16.20 - 17.45</td> 
