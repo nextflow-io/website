@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>DSL 2 &mdash; Nextflow 19.07.0 documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
+        <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
+        <link rel="prev" title="Configuration" href="config.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Nextflow
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DSL 2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#function">Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#process">Process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process-definition">Process definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-invocation">Process invocation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-composition">Process composition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-outputs">Process outputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modules-include">Modules include</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#selective-inclusion">Selective inclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-aliases">Module aliases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-parameters">Module parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#channel-forking">Channel forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deprecated-methods-and-operators">Deprecated methods and operators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Nextflow</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>DSL 2</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dsl-2">
+<span id="dsl2-page"></span><h1>DSL 2<a class="headerlink" href="#dsl-2" title="Permalink to this headline">¶</a></h1>
+<p>Nextflow implements an experimental syntax that implements new features and enhancements that
+simplifies the implementation of data analysis applications.</p>
+<p>To enable this feature you need to defined the following directive at the beginning of
+your workflow script:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">THIS IS AN EXPERIMENT FEATURE UNDER DEVELOPMENT. SYNTAX MAY CHANGE IN FUTURE RELEASE.</p>
+</div>
+<div class="section" id="function">
+<h2>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow allows the definition of custom function in the workflow script using the following syntax:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>def &lt;function name&gt; ( arg1, arg, .. ) {
+    &lt;function body&gt;
+}
+</pre></div>
+</div>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s1">&#39;Hello world&#39;</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">alpha</span> <span class="o">+</span> <span class="n">omega</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above snippet defines two simple functions, that can be invoked in the workflow script as <cite>foo()</cite> which
+returns the <code class="docutils literal"><span class="pre">Hello</span> <span class="pre">world</span></code> string and <code class="docutils literal"><span class="pre">bar(10,20)</span></code> which return the sum of two parameters.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Functions implicitly return the result of the function last evaluated statement.</p>
+</div>
+<p>The keyword <code class="docutils literal"><span class="pre">return</span></code> can be used to explicitly exit from a function returning the specified value.
+for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fib</span><span class="p">(</span> <span class="n">x</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">else</span>
+        <span class="n">fib</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process">
+<h2>Process<a class="headerlink" href="#process" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="process-definition">
+<h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline">¶</a></h3>
+<p>The new DSL separates the definition of a process by its invocation. The process definition follows the usual
+for syntax as described in the <a class="reference internal" href="process.html#process-page"><span class="std std-ref">process documentation</span></a>. The only difference is that the
+<code class="docutils literal"><span class="pre">from</span></code> and <code class="docutils literal"><span class="pre">into</span></code> channel declaration has to be omitted.</p>
+<p>Then processes can be invoked as a function, passing the expected input channels as parameters.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+
+<span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+    <span class="n">output</span><span class="p">:</span>
+      <span class="n">file</span> <span class="s1">&#39;foo.txt&#39;</span>
+    <span class="n">script</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      your_command &gt; foo.txt</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+ <span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+      <span class="n">file</span> <span class="n">x</span>
+    <span class="n">output</span><span class="p">:</span>
+      <span class="n">file</span> <span class="s1">&#39;bar.txt&#39;</span>
+    <span class="n">script</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      another_command $x &gt; bar.txt</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="p">)</span>
+<span class="n">foo</span><span class="p">()</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process-invocation">
+<h3>Process invocation<a class="headerlink" href="#process-invocation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="process-composition">
+<h3>Process composition<a class="headerlink" href="#process-composition" title="Permalink to this headline">¶</a></h3>
+<p>Processes having matching input-output declaration can be composed so that the output
+of the first process is passed as input to the following process. Take in consideration
+the previous process definition, it's possible to write the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process-outputs">
+<h3>Process outputs<a class="headerlink" href="#process-outputs" title="Permalink to this headline">¶</a></h3>
+<p>A process output can also be accessed using the <code class="docutils literal"><span class="pre">output</span></code> attribute for the respective
+process object. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">()</span>
+<span class="n">bar</span><span class="p">(</span> <span class="n">foo</span><span class="o">.</span><span class="n">output</span> <span class="p">)</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When a process defines two or more output channels, each of them can be accessed
+using the array element operator e.g. <code class="docutils literal"><span class="pre">output[0]</span></code>, etc or using the <code class="docutils literal"><span class="pre">first</span></code>, <code class="docutils literal"><span class="pre">second</span></code>, etc
+sub-properties e.g. <code class="docutils literal"><span class="pre">output.first</span></code>.</p>
+</div>
+</div>
+<div class="section" id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<p>The new DSL allows the definition module scripts that
+can be included and shared across workflow applications.</p>
+<p>A module can contain the definition of function, process and workflow definitions
+as described above.</p>
+<div class="section" id="modules-include">
+<h3>Modules include<a class="headerlink" href="#modules-include" title="Permalink to this headline">¶</a></h3>
+<p>A module script can be included from another Nextflow script using the <code class="docutils literal"><span class="pre">include</span></code> keyword.
+Then it's possible to reference of components (eg. functions, processes and workflow ) defined in the module
+from the importing script.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">include</span> <span class="s1">&#39;modules/libx&#39;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
+<span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Nextflow implicitly looks for the module script <code class="docutils literal"><span class="pre">modules/libx.nf</span></code> resolving the path
+against the main script location.</p>
+</div>
+<div class="section" id="selective-inclusion">
+<h3>Selective inclusion<a class="headerlink" href="#selective-inclusion" title="Permalink to this headline">¶</a></h3>
+<p>The module inclusion implicitly imports all the components defined in the module script.
+It's possible to selective include only a specific component by its name using the
+inclusion extended syntax as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">include</span> <span class="n">my_pipeline</span> <span class="kn">from</span> <span class="s1">&#39;modules/libx&#39;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
+<span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The module component can be included using a name alias as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">include</span> <span class="n">my_pipeline</span> <span class="k">as</span> <span class="n">my_tool</span> <span class="kn">from</span> <span class="s1">&#39;modules/libx&#39;</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
+<span class="n">my_tool</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-aliases">
+<h3>Module aliases<a class="headerlink" href="#module-aliases" title="Permalink to this headline">¶</a></h3>
+<p>When including a module component it's possible to specify a name alias.
+This allows the import and the invocation of the same component multiple times
+in your script using different names. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+
+<span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;modules/my-library&#39;</span>
+<span class="n">include</span> <span class="k">for</span> <span class="k">as</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;modules/my-library&#39;</span>
+
+<span class="n">foo</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span>
+<span class="n">bar</span><span class="p">(</span><span class="n">other_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="module-parameters">
+<h3>Module parameters<a class="headerlink" href="#module-parameters" title="Permalink to this headline">¶</a></h3>
+<p>A module script can define one or more parameters as any other Nextflow script.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+
+<span class="k">def</span> <span class="nf">sayHello</span><span class="p">()</span> <span class="p">{</span>
+    <span class="s2">&quot;$params.foo $params.bar&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, parameters can be specified when the module is imported with the <code class="docutils literal"><span class="pre">include</span></code> statement:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+
+<span class="n">include</span> <span class="s1">&#39;modules/library.nf&#39;</span> <span class="n">params</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="s1">&#39;mundo&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="channel-forking">
+<h2>Channel forking<a class="headerlink" href="#channel-forking" title="Permalink to this headline">¶</a></h2>
+<p>Using the new DSL Nextflow channels are automatically forked when connecting two or more consumers.
+This means that, for example, a process output can be used by two or more processes without the
+need to fork them using the <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator, making the writing of workflow script
+much fluent and readable.</p>
+</div>
+<div class="section" id="pipes">
+<h2>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow processes and operators can be composed using the <code class="docutils literal"><span class="pre">|</span></code> <em>pipe</em> operator. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
+    <span class="n">exec</span><span class="p">:</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data mundo&quot;</span>
+<span class="p">}</span>
+
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="s1">&#39;world&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">foo</span>
+</pre></div>
+</div>
+<p>The above snippet defines a process named <code class="docutils literal"><span class="pre">foo</span></code> then invoke it passing the content of the
+<code class="docutils literal"><span class="pre">data</span></code> channel.</p>
+<p>The <code class="docutils literal"><span class="pre">&amp;</span></code> <em>and</em> operator allow the feed of two or more processes with the content of the same
+channel e.g.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
+  <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
+  <span class="n">exec</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data mundo&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
+    <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
+    <span class="n">exec</span><span class="p">:</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span>
+<span class="p">}</span>
+
+
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="deprecated-methods-and-operators">
+<h2>Deprecated methods and operators<a class="headerlink" href="#deprecated-methods-and-operators" title="Permalink to this headline">¶</a></h2>
+<p>The following methods are not allowed any more when using Nextflow DSL 2:</p>
+<ul class="simple">
+<li><a class="reference internal" href="channel.html#channel-create"><span class="std std-ref">create</span></a></li>
+<li><a class="reference internal" href="channel.html#channel-bind1"><span class="std std-ref">bind</span></a></li>
+<li><a class="reference internal" href="channel.html#channel-bind2"><span class="std std-ref">operator &lt;&lt;</span></a></li>
+<li><a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a></li>
+<li><a class="reference internal" href="operator.html#operator-countby"><span class="std std-ref">countBy</span></a></li>
+<li><span class="xref std std-ref">operator-route</span></li>
+<li><a class="reference internal" href="operator.html#operator-separate"><span class="std std-ref">separate</span></a></li>
+<li><a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a></li>
+<li><a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="awscloud.html" class="btn btn-neutral float-right" title="Amazon Cloud" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
+      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
+            VERSION:'19.07.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+  <script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+  </script>
+</body>
+</html>

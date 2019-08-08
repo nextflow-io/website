@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 19.04.1 documentation</title>
+  <title>Channels &mdash; Nextflow 19.07.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.04.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -99,12 +99,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#binding-values">Binding values</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bind">bind( )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bind">bind</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operator">operator &lt;&lt;</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#observing-events">Observing events</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#subscribe">subscribe( )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#subscribe">subscribe</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#onnext-oncomplete-and-onerror">onNext, onComplete, and onError</a></li>
 </ul>
 </li>
@@ -113,6 +113,7 @@
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -612,7 +613,7 @@ Thus, whenever you use it in your script, the resulting pipeline will never fini
 <p>Since in <cite>Nextflow</cite> channels are implemented using <cite>dataflow</cite> variables or queues. Thus sending a message
 is equivalent to <cite>bind</cite> a value to object representing the communication channel.</p>
 <div class="section" id="bind">
-<h3>bind( )<a class="headerlink" href="#bind" title="Permalink to this headline">¶</a></h3>
+<span id="channel-bind1"></span><h3>bind<a class="headerlink" href="#bind" title="Permalink to this headline">¶</a></h3>
 <p>Channel objects provide a <cite>bind( )</cite> method which is the basic operation to send a message over the channel.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
@@ -621,8 +622,8 @@ For example:</p>
 </div>
 </div>
 <div class="section" id="operator">
-<h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h3>
-<p>The operator <code class="docutils literal"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <cite>bind( )</cite> method. Thus, the following example produce
+<span id="channel-bind2"></span><h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h3>
+<p>The operator <code class="docutils literal"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <cite>bind</cite> method. Thus, the following example produce
 an identical result as the previous one:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 <span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Hello world&#39;</span>
@@ -633,8 +634,8 @@ an identical result as the previous one:</p>
 <div class="section" id="observing-events">
 <h2>Observing events<a class="headerlink" href="#observing-events" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="subscribe">
-<span id="channel-subscribe"></span><h3>subscribe( )<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></code> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
+<span id="channel-subscribe"></span><h3>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">subscribe</span></code> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
 <span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span> <span class="p">)</span>
@@ -671,10 +672,10 @@ specifying the expected value type, as showed in the following example:</p>
 </div>
 <div class="section" id="onnext-oncomplete-and-onerror">
 <h3>onNext, onComplete, and onError<a class="headerlink" href="#onnext-oncomplete-and-onerror" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">subscribe()</span></code> method may accept one or more of the following event handlers:</p>
+<p>The <code class="docutils literal"><span class="pre">subscribe</span></code> method may accept one or more of the following event handlers:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">onNext</span></code>: registers a function that is invoked whenever the channel emits a value.
-This is the same as using the <code class="docutils literal"><span class="pre">subscribe(</span> <span class="pre">)</span></code> with a <cite>plain</cite> closure as describe in the examples above.</li>
+This is the same as using the <code class="docutils literal"><span class="pre">subscribe</span></code> with a <cite>plain</cite> closure as describe in the examples above.</li>
 <li><code class="docutils literal"><span class="pre">onComplete</span></code>: registers a function that is invoked after the <cite>last</cite> value is emitted by the channel.</li>
 <li><code class="docutils literal"><span class="pre">onError</span></code>: registers a function that it is invoked when an exception is raised while handling the
 <code class="docutils literal"><span class="pre">onNext</span></code> event. It will not make further calls to <code class="docutils literal"><span class="pre">onNext</span></code> or <code class="docutils literal"><span class="pre">onComplete</span></code>.
@@ -683,13 +684,13 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done.&#39;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
 <span class="mi">2</span>
 <span class="mi">3</span>
-<span class="n">Done</span><span class="o">.</span>
+<span class="n">Done</span>
 </pre></div>
 </div>
 </div>
@@ -738,7 +739,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.04.1',
+            VERSION:'19.07.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -1175,6 +1175,7 @@ The directives are:
 * `executor`_
 * `ext`_
 * `label`_
+* `machineType`_
 * `maxErrors`_
 * `maxForks`_
 * `maxRetries`_
@@ -1368,8 +1369,8 @@ You can use it to request non-standard resources or use settings that are specif
 out of the box by Nextflow.
 
 .. note:: This directive is taken in account only when using a grid based executor:
-  :ref:`sge-executor`, :ref:`lsf-executor`, :ref:`slurm-executor`, :ref:`pbs-executor` and
-  :ref:`condor-executor` executors.
+  :ref:`sge-executor`, :ref:`lsf-executor`, :ref:`slurm-executor`, :ref:`pbs-executor`, :ref:`pbspro-executor`,
+  :ref:`moab-executor` and :ref:`condor-executor` executors.
 
 .. _process-disk:
 
@@ -1505,6 +1506,8 @@ Name                   Executor
 ``lsf``                The process is executed using the `Platform LSF <http://en.wikipedia.org/wiki/Platform_LSF>`_ job scheduler.
 ``slurm``              The process is executed using the SLURM job scheduler.
 ``pbs``                The process is executed using the `PBS/Torque <http://en.wikipedia.org/wiki/Portable_Batch_System>`_ job scheduler.
+``pbspro``             The process is executed using the `PBS Pro <https://www.pbsworks.com/>`_ job scheduler.
+``moab``               The process is executed using the `Moab <http://www.adaptivecomputing.com/moab-hpc-basic-edition/>`_ job scheduler.
 ``condor``             The process is executed using the `HTCondor <https://research.cs.wisc.edu/htcondor/>`_ job scheduler.
 ``nqsii``              The process is executed using the `NQSII <https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster>`_ job scheduler.
 ``ignite``             The process is executed using the `Apache Ignite <https://ignite.apache.org/>`_ cluster.
@@ -1555,6 +1558,27 @@ This can be defined in the ``nextflow.config`` file as shown below::
     process.ext.version = '2.5.3'
 
 
+.. _process-machineType:
+
+machineType
+-----------
+
+The ``machineType`` can be used to specify a predefined Google Compute Platform `machine type <https://cloud.google.com/compute/docs/machine-types>`_
+when running using the :ref:`Google Pipeline <google-pipelines>` executor.
+
+This directive is optional and if specified overrides the cpus and memory directives::
+
+    process foo {
+      machineType 'n1-highmem-8'
+
+      """
+      <your script here>
+      """
+    }
+
+.. note:: This feature requires Nextflow 19.07.0 or later.
+    
+See also: `cpus`_ and `memory`_.
 
 .. _process-maxErrors:
 
@@ -1747,6 +1771,7 @@ The ``pod`` directive allows the definition of the following options:
 
 ================================================= =================================================
 ``label: <K>, value: <V>``                        Defines a pod label with key ``K`` and value ``V``.
+``annotation: <K>, value: <V>``                   Defines a pod annotation with key ``K`` and value ``V``.
 ``env: <E>, value: <V>``                          Defines an environment variable with name ``E`` and whose value is given by the ``V`` string.
 ``env: <E>, config: <C/K>``                       Defines an environment variable with name ``E`` and whose value is given by the entry associated to the key with name ``K`` in the `ConfigMap <https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/>`_ with name ``C``.
 ``env: <E>, secret: <S/K>``                       Defines an environment variable with name ``E`` and whose value is given by the entry associated to the key with name ``K`` in the `Secret <https://kubernetes.io/docs/concepts/configuration/secret/>`_ with name ``S``.

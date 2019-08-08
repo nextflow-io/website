@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 19.04.1 documentation</title>
+  <title>Processes &mdash; Nextflow 19.07.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.04.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Nextflow scripting" href="script.html"/> 
 
@@ -126,6 +126,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#errorstrategy">errorStrategy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#executor">executor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ext">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#machinetype">machineType</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxforks">maxForks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxretries">maxRetries</a></li>
@@ -154,6 +155,7 @@
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -1349,6 +1351,7 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#executor">executor</a></li>
 <li><a class="reference internal" href="#ext">ext</a></li>
 <li><a class="reference internal" href="#label">label</a></li>
+<li><a class="reference internal" href="#machinetype">machineType</a></li>
 <li><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li><a class="reference internal" href="#maxforks">maxForks</a></li>
 <li><a class="reference internal" href="#maxretries">maxRetries</a></li>
@@ -1531,8 +1534,8 @@ out of the box by Nextflow.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This directive is taken in account only when using a grid based executor:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> and
-<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
+<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>, <a class="reference internal" href="executor.html#pbspro-executor"><span class="std std-ref">PBS Pro</span></a>,
+<a class="reference internal" href="executor.html#moab-executor"><span class="std std-ref">Moab</span></a> and <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
 </div>
 </div>
 <div class="section" id="disk">
@@ -1705,6 +1708,12 @@ configuration. The following values can be used:</p>
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">pbs</span></code></td>
 <td>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> job scheduler.</td>
 </tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">pbspro</span></code></td>
+<td>The process is executed using the <a class="reference external" href="https://www.pbsworks.com/">PBS Pro</a> job scheduler.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">moab</span></code></td>
+<td>The process is executed using the <a class="reference external" href="http://www.adaptivecomputing.com/moab-hpc-basic-edition/">Moab</a> job scheduler.</td>
+</tr>
 <tr class="row-even"><td><code class="docutils literal"><span class="pre">condor</span></code></td>
 <td>The process is executed using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> job scheduler.</td>
 </tr>
@@ -1764,6 +1773,26 @@ This can be defined in the <code class="docutils literal"><span class="pre">next
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;2.5.3&#39;</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="machinetype">
+<span id="process-machinetype"></span><h3>machineType<a class="headerlink" href="#machinetype" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">machineType</span></code> can be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+when running using the <a class="reference internal" href="google.html#google-pipelines"><span class="std std-ref">Google Pipeline</span></a> executor.</p>
+<p>This directive is optional and if specified overrides the cpus and memory directives:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">machineType</span> <span class="s1">&#39;n1-highmem-8&#39;</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  &lt;your script here&gt;</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires Nextflow 19.07.0 or later.</p>
+</div>
+<p>See also: <a class="reference internal" href="#cpus">cpus</a> and <a class="reference internal" href="#memory">memory</a>.</p>
 </div>
 <div class="section" id="maxerrors">
 <span id="process-maxerrors"></span><h3>maxErrors<a class="headerlink" href="#maxerrors" title="Permalink to this headline">¶</a></h3>
@@ -1953,34 +1982,37 @@ and config maps when using the <a class="reference internal" href="executor.html
 <tr class="row-odd"><td><code class="docutils literal"><span class="pre">label:</span> <span class="pre">&lt;K&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Defines a pod label with key <code class="docutils literal"><span class="pre">K</span></code> and value <code class="docutils literal"><span class="pre">V</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">annotation:</span> <span class="pre">&lt;K&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<td>Defines a pod annotation with key <code class="docutils literal"><span class="pre">K</span></code> and value <code class="docutils literal"><span class="pre">V</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal"><span class="pre">V</span></code> string.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code>.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></td>
 <td>Defines an environment variable with name <code class="docutils literal"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal"><span class="pre">C</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>ConfigMap</cite> entries are exposed in that path.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal"><span class="pre">S</span></code> with key <code class="docutils literal"><span class="pre">K</span></code> is made available to the path <code class="docutils literal"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></td>
 <td>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</td>
 </tr>
-<tr class="row-even"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></td>
 <td>Specifies the user ID to be used to run the container.</td>
 </tr>
-<tr class="row-odd"><td><code class="docutils literal"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></td>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></td>
 <td>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</td>
 </tr>
 </tbody>
@@ -2574,7 +2606,7 @@ conditions:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.04.1',
+            VERSION:'19.07.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

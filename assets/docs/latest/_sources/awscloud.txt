@@ -302,7 +302,7 @@ An example ``nextflow.config`` file is shown below::
     aws.region = 'eu-west-1'
     
     // NOTE: this setting is only required if the AWS CLI tool is installed in a custom AMI
-    executor.awscli = '/home/ec2-user/miniconda/bin/aws'
+    aws.batch.cliPath = '/home/ec2-user/miniconda/bin/aws'
 
 .. note:: Nextflow requires to access the AWS command line tool (``aws``) from the container in which the job runs
   in order to stage the required input files and to copy back the resulting output files in the
@@ -402,12 +402,15 @@ When complete verifies that the AWS CLI package works correctly::
 
 
 By default Nextflow will assume the AWS CLI tool is directly available in the container. To use an installation
-from the host image specify the ``awscli`` parameter in the Nextflow :ref:`executor <awsbatch-executor>`
+from the host image specify the ``cliPath`` parameter in the :ref:`AWS Batch<config-aws-batch>`
 configuration as shown below::
 
-    executor.awscli = '/home/ec2-user/miniconda/bin/aws'
+    aws.batch.cliPath = '/home/ec2-user/miniconda/bin/aws'
 
 Replace the path above with the one matching the location where ``aws`` tool is installed in your AMI.
+
+.. note:: Using a version of Nextflow prior 19.07.x the config setting `executor.awscli` should be used
+  instead of `aws.batch.cliPath`.
 
 Custom job definition
 ---------------------
@@ -457,9 +460,9 @@ For example::
 
   aws {
       region = 'eu-west-1'
-  }
-  executor {
-    awscli = '/home/ec2-user/miniconda/bin/aws'
+      batch {
+        cliPath = '/home/ec2-user/miniconda/bin/aws'
+      }
   }
 
   process {
@@ -473,6 +476,37 @@ For example::
 
 The above configuration snippet will deploy the execution with AWS Batch only for processes annotated
 with the :ref:`process-label` ``bigTask``, the remaining process with run in the local computer.
+
+Volume mounts
+-------------
+
+User provided container volume mounts can be provided as shown below::
+
+  aws {
+    region = 'eu-west-1'
+    batch {
+        volumes = '/tmp'
+    }
+  }
+
+Multiple volumes can be specified using a comma separated paths. The usual Docker volume mount syntax
+can be used to specify complex volumes for which the container paths is different from the host paths
+or to specify *read-only* option. For example::
+
+  aws {
+    region = 'eu-west-1'
+    batch {
+        volumes = ['/tmp', '/host/path:/mnt/path:ro']
+    }
+  }
+
+
+The above snippet defines two volume mounts the jobs executed in your pipeline. The first mounting the
+host path ``/tmp`` in the same path in the container and using *read-write* access mode. The second
+mounts the path ``/host/path`` in the host environment to the ``/mnt/path`` in the container using the
+*read-only* access mode.
+
+.. note:: This feature requires Nextflow version 19.07.x or later.
 
 Troubleshooting
 ---------------
@@ -501,6 +535,7 @@ Other places to check for error information:
 - The Job execution log in the AWS Batch dashboard.
 - The `CloudWatch <https://aws.amazon.com/cloudwatch/>`_ logs found in the ``/aws/batch/job`` log group.
 
+Advanced configuration
+----------------------
 
-
-
+Read :ref:`AWS Batch configuration<config-aws-batch>` section to learn more about advanced Batch configuration options.

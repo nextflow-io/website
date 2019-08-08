@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Executors &mdash; Nextflow 19.04.1 documentation</title>
+  <title>Executors &mdash; Nextflow 19.07.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.04.1 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
         <link rel="next" title="Configuration" href="config.html"/>
         <link rel="prev" title="Operators" href="operator.html"/> 
 
@@ -89,6 +89,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pbs-pro">PBS Pro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moab">Moab</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
@@ -99,6 +101,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
@@ -248,6 +251,46 @@ by the scheduler.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">qsub</span></code> command is available, that is, in a common usage
 scenario, the cluster <cite>login</cite> node.</p>
 <p>To enable the PBS executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbs'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
+</ul>
+</div>
+<div class="section" id="pbs-pro">
+<span id="pbspro-executor"></span><h2>PBS Pro<a class="headerlink" href="#pbs-pro" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>PBS Pro</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.pbspro.org/">PBS Pro</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">qsub</span></code> command provided
+by the scheduler.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>login</cite> node.</p>
+<p>To enable the PBS Pro executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbspro'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
+<ul class="simple">
+<li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
+<li><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></li>
+<li><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></li>
+<li><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></li>
+<li><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></li>
+</ul>
+</div>
+<div class="section" id="moab">
+<span id="moab-executor"></span><h2>Moab<a class="headerlink" href="#moab" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>Moab</cite> executor allows you to run your pipeline script by using the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Moab_Cluster_Suite">Moab</a> resource manager by
+<a class="reference external" href="http://www.adaptivecomputing.com/">Adaptive Computing</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal"><span class="pre">msub</span></code> command provided
+by the resource manager.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal"><span class="pre">msub</span></code> command is available, that is, in a common usage
+scenario, the compute cluster <cite>login</cite> node.</p>
+<p>To enable the <cite>Moab</cite> executor simply set the property <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'moab'</span></code> in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The amount of resources requested by each job submission is defined by the following process directives:</p>
 <ul class="simple">
 <li><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></li>
@@ -435,7 +478,7 @@ data is exchanged using a local or shared file system.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.04.1',
+            VERSION:'19.07.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
