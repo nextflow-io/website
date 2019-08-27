@@ -1,4 +1,6 @@
-### Execution provenance
+### Execution provenance report
+
+*Continuing our series on understanding Nextflow resume, we wanted to delve deeper to show how you can report which tasks contribute to a given workflow output.*
 
 When provided with a run name or session ID, the log command can return useful information about a pipeline execution. This can be composed to track the provenance of a workflow result.
 
