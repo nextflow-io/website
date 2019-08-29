@@ -1,4 +1,4 @@
-title=Easy to go provenance report
+title=Easy provenance reporting
 date=2019-08-29
 type=post
 tags=nextflow,resume
@@ -9,7 +9,7 @@ icon=evan.jpg
 
 *Continuing our [series on understanding Nextflow resume](blog/2019/demystifying-nextflow-resume.html), we wanted to delve deeper to show how you can report which tasks contribute to a given workflow output.*
 
-### Easy to go provenance report
+### Easy provenance reports
 
 
 When provided with a run name or session ID, the log command can return useful information about a pipeline execution. This can be composed to track the provenance of a workflow result.
@@ -89,7 +89,7 @@ Open it in your browser, et voilà!
 This post introduces a little know Nextflow feature and it's intended to show how it can be used  
 to produce a custom execution report reporting some - basic - provenance information. 
 
-In future release we plan to support more formal provenance specification and execution tracking features.
+In future releases we plan to support a more formal provenance specification and execution tracking features.
 
 
 
