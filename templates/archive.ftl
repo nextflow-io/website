@@ -29,24 +29,23 @@
 			    <hr>
 			    <p class="blg-text">
 						<#if post.title == "Nextflow workshop is coming!" >
-						<#assign MAX = 50>
+							<#assign MAX = 50>
+						<#elseif post.title == "Execution provenance report" >
+							<#assign MAX = 70>
+						<#elseif post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
+							<#assign MAX = 108>
 						<#else>
-						<#assign MAX = 150>
-      			</#if>
-						<#if post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
-						<#assign MAX = 108>
-						<#else>
-						<#assign MAX = 150>
-      			</#if>
+							<#assign MAX = 150>
+						</#if>
 
 						<#assign words = post.body?word_list>
-			      <#if words?size gt 150 > 
-			        <#assign body = words[0..MAX-1]?join(' ') >
-			        ${body} .. (<a href="${post.uri}">click here to read more</a>) 
-			      <#else>
-			        <#assign body = words?join(' ') >
-			        ${body}
-			      </#if>
+						<#if words?size gt 150 > 
+							<#assign body = words[0..MAX-1]?join(' ') >
+							${body} .. (<a href="${post.uri}">click here to read more</a>) 
+						<#else>
+							<#assign body = words?join(' ') >
+							${body}
+						</#if>
 
 			    </p>
 			    
