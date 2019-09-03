@@ -37,22 +37,21 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 </tr>
 
 <tr> 
-<td valign='top'>10.20 - 10.37</td> 
-<td valign='top'><a href='/nfcamp/2019/anthony.html'>Pay As You Go Cloud Bioinformatics for Pathogens</a><br>
-    <i><b>Anthony Underwood</b><br>
-    <b>Ben Taylor</b><br>
-    Centre for Genomic Pathogen Surveillance, Wellcome Trust Sanger Institute, UK</i></td>
+<td valign='top'>10.20 - 10.45</td> 
+<td valign='top'><a href='#'>TBD</a><br>
+    <i><b>Evan Floden</b><br>
+    Seqera Labs, Centre for Genomic Regulation, Spain </i></td>
 </tr>
 
 <tr> 
-<td valign='top'>10.37 - 11.10</td> 
+<td valign='top'>10.45 - 11.15</td> 
 <td valign='top'>
     <i>Coffee break</i></td>
 </tr>
 
 <tr> 
-<td valign='top'>11.10 - 13.00</td> 
-<td valign='top'>Tutorial - <a href='/nfcamp/2019/phil2.html'>Getting started with nf-core</a><br>
+<td valign='top'>11.15 - 13.00</td> 
+<td valign='top'>Tutorial - <a href='/nfcamp/2019/phil-tutorial.html'>Getting started with nf-core</a><br>
     <i><b>Phil Ewels</b><br>
     Bioinformatics Team Leader, SciLifeLab, Sweden</i></td>
 </tr>
@@ -100,7 +99,7 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 
 <tr> 
 <td valign='top'>16.05 - 18.00</td> 
-<td valign='top'>Tutorial - <a href='/nfcamp/2019/lee2.html'>Running Nextflow on AWS Batch</a><br>
+<td valign='top'>Tutorial - <a href='/nfcamp/2019/lee-tutorial.html'>Running Nextflow on AWS Batch</a><br>
     <i><b>Lee Pang</b><br>
     Amazon Web Services, USA</i></td>
 </tr>
@@ -130,7 +129,7 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 
 <tr> 
 <td valign='top'>9.30 - 10.05</td> 
-<td valign='top'>Nextflow on the edge<br>
+<td valign='top'><a href='/nfcamp/2019/paolo.html'>What's new in Nextflow: DSL-2 and beyond</a><br>
     <i><b>Paolo Di Tommaso</b><br>
     Seqera Labs, Centre for Genomic Regulation, Spain</i></td>
 </tr> 
@@ -143,21 +142,22 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 </tr> 
 
 <tr> 
-<td valign='top'>10.40 - 11.10</td> 
+<td valign='top'>10.40 - 11.15</td> 
 <td valign='top'>
     <i>Coffee break</i></td>
 </tr>
 
 <tr> 
-<td valign='top'>10.05 - 10.40</td> 
-<td valign='top'>TBD<br>
-    <i><b>Evan Floden</b><br>
-    Seqera Labs, Centre for Genomic Regulation, Spain</i></td>
-</tr> 
+<td valign='top'>11.15 - 11.40</td> 
+<td valign='top'><a href='/nfcamp/2019/anthony.html'>Pay As You Go Cloud Bioinformatics for Pathogens</a><br>
+    <i><b>Anthony Underwood</b><br>
+    <b>Ben Taylor</b><br>
+    Centre for Genomic Pathogen Surveillance, Wellcome Trust Sanger Institute, UK</i></td>
+</tr>
 
 <tr> 
-<td valign='top'>11.45 - 13.00</td> 
-<td valign='top'>Tutorial - Nextflow modules<br>
+<td valign='top'>11.40 - 13.00</td> 
+<td valign='top'><a href='/nfcamp/2019/paolo-tutorial.html'>Tutorial - Deep dive into Nextflow DSL-2</a><br>
     <i><b>Paolo Di Tommaso</b><br>
     Seqera Labs, Centre for Genomic Regulation, Spain</i></td>
 </tr> 
