@@ -1,3 +1,10 @@
+title=Scientific workflows beyond the Ivory Tower
+date=2019-05-28
+type=col8
+tags=nextflow,nfcamp,2019,workshop
+status=published
+~~~~~~
+
 ## Scientific workflows beyond the Ivory Tower
 
 ### Evan Floden
