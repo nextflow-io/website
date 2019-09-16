@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 19.05.0-edge documentation</title>
+  <title>Operators &mdash; Nextflow 19.09.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.05.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -117,8 +117,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#combining-operators">Combining operators</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#into">into</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#tap">tap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#join">join</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#merge">merge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#mix">mix</a></li>
@@ -131,9 +129,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#forking-operators">Forking operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#branch">branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#choice">choice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fork">fork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#into">into</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tap">tap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#separate">separate</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#route">route</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#maths-operators">Maths operators</a><ul>
@@ -165,6 +166,7 @@
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -679,8 +681,8 @@ is specified.</td>
 <p>Sorting options:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="7%" />
-<col width="93%" />
+<col width="6%" />
+<col width="94%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Sort</th>
@@ -701,7 +703,7 @@ is specified.</td>
 <td>Similar to the previous, but the hash number is created on actual entries content e.g. when the item is a file the hash is created on the actual file content.</td>
 </tr>
 <tr class="row-even"><td><cite>custom</cite></td>
-<td>A custom sorting criteria can be specified by using either a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closure</span></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</td>
+<td>A custom sorting criteria used to order the tuples element holding list of values. It can be specified by using either a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closure</span></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</td>
 </tr>
 </tbody>
 </table>
@@ -1387,7 +1389,6 @@ The following example shows how to split text files into chunks of 10 lines and 
 <li><a class="reference internal" href="#collectfile">collectFile</a></li>
 <li><a class="reference internal" href="#combine">combine</a></li>
 <li><a class="reference internal" href="#concat">concat</a></li>
-<li><a class="reference internal" href="#into">into</a></li>
 <li><a class="reference internal" href="#join">join</a></li>
 <li><a class="reference internal" href="#merge">merge</a></li>
 <li><a class="reference internal" href="#mix">mix</a></li>
@@ -1395,95 +1396,6 @@ The following example shows how to split text files into chunks of 10 lines and 
 <li><a class="reference internal" href="#spread">spread</a></li>
 <li><a class="reference internal" href="#tap">tap</a></li>
 </ul>
-<div class="section" id="into">
-<span id="operator-into"></span><h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to two or more target channels in such a way the values emitted by
-the source channel are copied to the target channels. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">into</span><span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
-
- <span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
- <span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
-<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Note the use in this example of curly brackets and the <code class="docutils literal"><span class="pre">;</span></code> as channel names separator. This is needed
-because the actual parameter of <code class="docutils literal"><span class="pre">into</span></code> is a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> which defines the target channels
-to which the source one is connected.</p>
-</div>
-<p>A second version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
-a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
-source channel. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
-in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">into</span></code> operator.</p>
-</div>
-<p>See also <a class="reference internal" href="#tap">tap</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
-</div>
-<div class="section" id="tap">
-<h3>tap<a class="headerlink" href="#tap" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator combines the functions of <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators in such a way that
-it connects two channels, copying the values from the source into the <cite>tapped</cite> channel. At the same
-time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
-<p>The <code class="docutils literal"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
-as in the following example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
-
-<span class="n">Channel</span>
-    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">a</span>
-<span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">c</span>
-
-<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">aa</span>
-<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">bb</span>
-<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">cc</span>
-
-<span class="n">Result</span><span class="p">:</span> <span class="n">aa</span>
-<span class="n">Result</span><span class="p">:</span> <span class="n">bb</span>
-<span class="n">Result</span><span class="p">:</span> <span class="n">cc</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
-is that you won't need to previously create the target channel, because it is created implicitly by the operator itself.</p>
-<p>Using the closure syntax the above example can be rewritten as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
-
-
-<span class="n">log1</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">log2</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
-</div>
 <div class="section" id="join">
 <span id="operator-join"></span><h3>join<a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">join</span></code> operator creates a channel that joins together the items emitted by two channels for which exits
@@ -1567,7 +1479,7 @@ and the other which emits a series of even integers:</p>
 </div>
 </div>
 <div class="section" id="mix">
-<h3>mix<a class="headerlink" href="#mix" title="Permalink to this headline">¶</a></h3>
+<span id="operator-mix"></span><h3>mix<a class="headerlink" href="#mix" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">mix</span></code> operator combines the items emitted by two (or more) channels into a single channel.</p>
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">c1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
@@ -1739,8 +1651,8 @@ the items content will be grouped in file(s) having the same name as the source 
 <p>The following parameters can be used with the <code class="docutils literal"><span class="pre">collectFile</span></code> operator:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="8%" />
-<col width="92%" />
+<col width="5%" />
+<col width="95%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -1749,7 +1661,7 @@ the items content will be grouped in file(s) having the same name as the source 
 </thead>
 <tbody valign="top">
 <tr class="row-even"><td>keepHeader</td>
-<td>Prepend the resulting file with the header fetched in the first collected file. The header size (ie. lines) can be specified by using the <code class="docutils literal"><span class="pre">size</span></code> parameter (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+<td>Prepend the resulting file with the header fetched in the first collected file. The header size (ie. lines) can be specified by using the <code class="docutils literal"><span class="pre">skip</span></code> parameter (default: <code class="docutils literal"><span class="pre">false</span></code>), to determine how many lines to remove from all collected files except for the first (where no lines will be removed).</td>
 </tr>
 <tr class="row-odd"><td>name</td>
 <td>Name of the file where all received values are stored.</td>
@@ -1944,12 +1856,108 @@ or a <code class="docutils literal"><span class="pre">Collection</span></code> o
 <h2>Forking operators<a class="headerlink" href="#forking-operators" title="Permalink to this headline">¶</a></h2>
 <p>The forking operators are:</p>
 <ul class="simple">
+<li><a class="reference internal" href="#branch">branch</a></li>
 <li><a class="reference internal" href="#choice">choice</a></li>
+<li><a class="reference internal" href="#fork">fork</a></li>
+<li><a class="reference internal" href="#into">into</a></li>
 <li><a class="reference internal" href="#separate">separate</a></li>
-<li><a class="reference internal" href="#route">route</a></li>
+<li><a class="reference internal" href="#tap">tap</a></li>
 </ul>
+<div class="section" id="branch">
+<span id="operator-branch"></span><h3>branch<a class="headerlink" href="#branch" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental operator. Syntax and behavior may change.
+Required version <cite>19.08.0-edge</cite> or later.</p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">branch</span></code> operator allows you to forward the items emitted by a source channel to one
+or more output channels, <cite>choosing</cite> one out of them at a time.</p>
+<p>The selection criteria is defined by specifying a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that provides
+one or more boolean expression, each of which is identified by a unique label. On the first expression
+that evaluates to a <em>true</em> value, the current item is bound to a named channel as the label identifier.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">branch</span> <span class="p">{</span>
+        <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+        <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">10</span>
+    <span class="p">}</span>
+    <span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">result</span> <span class="p">}</span>
+
+ <span class="n">result</span><span class="o">.</span><span class="n">small</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;$it is small&quot;</span> <span class="p">}</span>
+ <span class="n">result</span><span class="o">.</span><span class="n">large</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;$it is large&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>It shows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">is</span> <span class="n">small</span>
+<span class="mi">2</span> <span class="ow">is</span> <span class="n">small</span>
+<span class="mi">3</span> <span class="ow">is</span> <span class="n">small</span>
+<span class="mi">40</span> <span class="ow">is</span> <span class="n">large</span>
+<span class="mi">50</span> <span class="ow">is</span> <span class="n">large</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above <em>small</em> and <em>large</em> strings maybe be printed interleaving each other
+due to the asynchronous execution of the <code class="docutils literal"><span class="pre">view</span></code> operator.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">A default fallback condition can be specified using <code class="docutils literal"><span class="pre">true</span></code> as last branch condition. See the example below.</p>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">branch</span> <span class="p">{</span>
+        <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+        <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">50</span>
+        <span class="n">other</span><span class="p">:</span> <span class="n">true</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<p>The value returned by each branch condition can be customised by specifying an optional expression statement(s)
+just after the condition expression. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+ <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">branch</span> <span class="p">{</span>
+     <span class="n">foo</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+         <span class="k">return</span> <span class="n">it</span><span class="o">+</span><span class="mi">2</span>
+
+     <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">50</span>
+         <span class="k">return</span> <span class="n">it</span><span class="o">-</span><span class="mi">2</span>
+
+     <span class="n">other</span><span class="p">:</span> <span class="n">true</span>
+         <span class="k">return</span> <span class="mi">0</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">When the <code class="docutils literal"><span class="pre">return</span></code> keyword is omitted the value of the last expression statement is
+implicitly returned.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The branch evaluation closure must be specified inline, ie. it <em>cannot</em> be assigned to a
+variable and passed as argument to the operator, how it can be done with other operators.</p>
+</div>
+<p>To create a branch criteria as variable that can be passed as an argument to more than one
+<code class="docutils literal"><span class="pre">branch</span></code> operator use the <code class="docutils literal"><span class="pre">branchCriteria</span></code> built-in method as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">criteria</span> <span class="o">=</span> <span class="n">branchCriteria</span> <span class="p">{</span>
+                <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+                <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">10</span>
+                <span class="p">}</span>
+
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">branch</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch1</span> <span class="p">}</span>
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">branch</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch2</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
 <div class="section" id="choice">
-<h3>choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
+<span id="operator-choice"></span><h3>choice<a class="headerlink" href="#choice" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The choice operator has been deprecated. Use <a class="reference internal" href="#branch">branch</a> instead.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">choice</span></code> operator allows you to forward the items emitted by a source channel to two
 (or more) output channels, <cite>choosing</cite> one out of them at a time.</p>
 <p>The destination channel is selected by using a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that must return the <cite>index</cite> number of the channel
@@ -1965,9 +1973,169 @@ source.choice( queue1, queue2 ) { a -&gt; a =~ /^Hello.*/ ? 0 : 1 }
 queue1.subscribe { println it }
 </pre></div>
 </div>
+<p>See also <a class="reference internal" href="#branch">branch</a> operator.</p>
+<blockquote>
+<div></div></blockquote>
+</div>
+<div class="section" id="fork">
+<span id="operator-fork"></span><h3>fork<a class="headerlink" href="#fork" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This is an experimental operator. Syntax and behavior may change.
+Required version <cite>19.08.0-edge</cite> or later.</p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">fork</span></code> operator allows you to forward the items emitted by a source channel to two
+or more output channels assigning each of them a separate value.</p>
+<p>The forking criteria is defined by specifying a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that specify the
+target channels labelled by a unique identifier followed by an expression statement that
+evaluates the value to be assigned to such channel.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">fork</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span>
+        <span class="n">foo</span><span class="p">:</span> <span class="n">it</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span>
+        <span class="p">}</span>
+    <span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">result</span> <span class="p">}</span>
+
+ <span class="n">result</span><span class="o">.</span><span class="n">foo</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;foo $it&quot;</span> <span class="p">}</span>
+ <span class="n">result</span><span class="o">.</span><span class="n">bar</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;bar $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>It shows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foo</span> <span class="mi">2</span>
+<span class="n">foo</span> <span class="mi">3</span>
+<span class="n">foo</span> <span class="mi">4</span>
+<span class="n">bar</span> <span class="mi">1</span>
+<span class="n">bar</span> <span class="mi">4</span>
+<span class="n">bar</span> <span class="mi">9</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The statement expression can be omitted when the value to be emitted is the same as
+the following one. If you need just need to forward the same value to multiple channel
+you can use the following the shorthand notation showed below.</p>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+     <span class="o">.</span><span class="n">fork</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">foo</span><span class="p">:</span> <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">result</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>As before creates two channels, however both of them receive the same source items.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The fork evaluation closure must be specified inline, ie. it <em>cannot</em> be assigned to a
+variable and passed as argument to the operator, how it can be done with other operators.</p>
+</div>
+<p>To create a fork criteria as variable that can be passed as an argument to more than one
+<code class="docutils literal"><span class="pre">fork</span></code> operator use the <code class="docutils literal"><span class="pre">forkCriteria</span></code> built-in method as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">criteria</span> <span class="o">=</span> <span class="n">forkCriteria</span> <span class="p">{</span>
+                <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+                <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">10</span>
+                <span class="p">}</span>
+
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch1</span> <span class="p">}</span>
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch2</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="into">
+<span id="operator-into"></span><h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">into</span></code> operator connects a source channel to two or more target channels in such a way the values emitted by
+the source channel are copied to the target channels. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+     <span class="o">.</span><span class="n">into</span><span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
+
+ <span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+ <span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
+<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
+<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
+<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
+<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
+<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Note the use in this example of curly brackets and the <code class="docutils literal"><span class="pre">;</span></code> as channel names separator. This is needed
+because the actual parameter of <code class="docutils literal"><span class="pre">into</span></code> is a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> which defines the target channels
+to which the source one is connected.</p>
+</div>
+<p>A second version of the <code class="docutils literal"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
+a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
+source channel. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
+in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">into</span></code> operator.</p>
+</div>
+<p>See also <a class="reference internal" href="#tap">tap</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
+</div>
+<div class="section" id="tap">
+<h3>tap<a class="headerlink" href="#tap" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator combines the functions of <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators in such a way that
+it connects two channels, copying the values from the source into the <cite>tapped</cite> channel. At the same
+time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
+as in the following example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+
+<span class="n">Channel</span>
+    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
+        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
+        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">a</span>
+<span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">b</span>
+<span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">c</span>
+
+<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">aa</span>
+<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">bb</span>
+<span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">cc</span>
+
+<span class="n">Result</span><span class="p">:</span> <span class="n">aa</span>
+<span class="n">Result</span><span class="p">:</span> <span class="n">bb</span>
+<span class="n">Result</span><span class="p">:</span> <span class="n">cc</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">tap</span></code> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
+is that you won't need to previously create the target channel, because it is created implicitly by the operator itself.</p>
+<p>Using the closure syntax the above example can be rewritten as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+
+
+<span class="n">log1</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </div>
 <div class="section" id="separate">
 <span id="operator-separate"></span><h3>separate<a class="headerlink" href="#separate" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <cite>separate</cite> operator has been deprecated. Use <a class="reference internal" href="#fork">fork</a> instead.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">separate</span></code> operator lets you copy the items emitted by the source channel into multiple
 channels, which each of these can receive a <cite>separate</cite> version of the same item.</p>
 <p>The operator applies a <cite>mapping function</cite> of your choosing to every item emitted by the source channel.
@@ -2048,42 +2216,7 @@ the output of <code class="docutils literal"><span class="pre">channel2</span></
 <p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
 in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">separate</span></code> operator.</p>
 </div>
-<p>See also: <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
-</div>
-<div class="section" id="route">
-<span id="operator-route"></span><h3>route<a class="headerlink" href="#route" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">This operator is deprecated. It will be removed in a future release.</p>
-</div>
-<p>The <code class="docutils literal"><span class="pre">route</span></code> operator allows you to forward the items emitted by the source channel
-to a channel which is associated with the item's key.</p>
-<p>The channel's keys are specified by using a map parameter as the operator argument,
-that associates each channel with a key identifier.</p>
-<p>The item's key is defined, by default, as the first entry in an array, a list or map object,
-or the value itself for any other data type.</p>
-<p>Optionally, a mapping function can be specified as a parameter in order to provide a custom
-rule to associate an item with a key, as shown in the example below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">r2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">r3</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-
-<span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="s1">&#39;ciao&#39;</span><span class="p">,</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">route</span> <span class="p">(</span> <span class="n">b</span><span class="p">:</span> <span class="n">r1</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="n">r2</span><span class="p">,</span> <span class="n">h</span><span class="p">:</span> <span class="n">r3</span> <span class="p">)</span> <span class="p">{</span> <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-
-    <span class="n">r3</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">hello</span>
-<span class="n">hola</span>
-<span class="n">hi</span>
-</pre></div>
-</div>
-<p>In the above example all the string items starting with the letter <code class="docutils literal"><span class="pre">b</span></code> are copied to the
-channel <code class="docutils literal"><span class="pre">r1</span></code>, the items that begin with <code class="docutils literal"><span class="pre">c</span></code> to the channel <code class="docutils literal"><span class="pre">r2</span></code> and the ones beginning
-with <code class="docutils literal"><span class="pre">h</span></code> are copied to the channel <code class="docutils literal"><span class="pre">r3</span></code>. Other items eventually existing are discarded.</p>
-<p>See also: <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a>  and <a class="reference internal" href="#separate">separate</a> operators.</p>
+<p>See also: <a class="reference internal" href="#fork">fork</a>, <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
 </div>
 </div>
 <div class="section" id="maths-operators">
@@ -2462,7 +2595,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.05.0-edge',
+            VERSION:'19.09.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

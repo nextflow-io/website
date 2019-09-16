@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 19.05.0-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 19.09.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.05.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -109,9 +109,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#google-pipelines">Genomics Pipelines</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#google-pipelines-config">Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-definition">Process definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Limitation</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
@@ -119,6 +120,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -421,8 +423,6 @@ follow <a class="reference external" href="https://cloud.google.com/genomics/doc
 <ul class="simple">
 <li>Google Pipelines as Nextflow executor i.e. <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-pipelines'</span></code>.</li>
 <li>The Docker container images to be used to run pipeline tasks e.g. <code class="docutils literal"><span class="pre">process.container</span> <span class="pre">=</span> <span class="pre">'biocontainers/salmon:0.8.2--1'</span></code>.</li>
-<li>The Google Compute Engine machine instance type i.e. <code class="docutils literal"><span class="pre">cloud.instanceType</span> <span class="pre">=</span> <span class="pre">'n1-standard-1'</span></code>.
-See the list of available machine types at the <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">this link</a>.</li>
 <li>The Google Cloud <cite>project</cite> to run in e.g. <code class="docutils literal"><span class="pre">google.project</span> <span class="pre">=</span> <span class="pre">'rare-lattice-222412'</span></code>.</li>
 <li>The Google Cloud <cite>region</cite> or <cite>zone</cite>. You need to specify either one, <strong>not</strong> both. Multiple regions or zones can be
 specified by separating them with a comma e.g. <code class="docutils literal"><span class="pre">google.zone</span> <span class="pre">=</span> <span class="pre">'us-central1-f,us-central-1-b'</span></code>.</li>
@@ -431,10 +431,6 @@ specified by separating them with a comma e.g. <code class="docutils literal"><s
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
     <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;google-pipelines&#39;</span>
     <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;your/container:latest&#39;</span>
-<span class="p">}</span>
-
-<span class="n">cloud</span> <span class="p">{</span>
-    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-standard-1&#39;</span>
 <span class="p">}</span>
 
 <span class="n">google</span> <span class="p">{</span>
@@ -449,8 +445,43 @@ specified by separating them with a comma e.g. <code class="docutils literal"><s
 each process using one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a>.</p>
 </div>
 </div>
-<div class="section" id="id6">
-<h3>Pipeline execution<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="process-definition">
+<h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline">¶</a></h3>
+<p>Processes can be defined as usual and by default the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used to instantiate a custom
+machine type with the specified compute resources.  If <code class="docutils literal"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.
+A persistent disk will be created with size corresponding to the <code class="docutils literal"><span class="pre">disk</span></code> directive.  If <code class="docutils literal"><span class="pre">disk</span></code> is not specified, the
+instance default is chosen to ensure reasonable I/O performance.</p>
+<p>The process <code class="docutils literal"><span class="pre">machineType</span></code> directive may optionally be used to specify a predifined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+If specified, this value overrides the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives.
+If the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used, the values must comply with the allowed custom machine type <a class="reference external" href="https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications">specifications</a> .  Extended memory is not directly supported, however high memory or cpu predefined
+instances may be utilized using the <code class="docutils literal"><span class="pre">machineType</span></code> directive</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">custom_resources_task</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="mi">8</span>
+    <span class="n">memory</span> <span class="s1">&#39;40 GB&#39;</span>
+    <span class="n">disk</span> <span class="s1">&#39;200 GB&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">predefined_resources_task</span> <span class="p">{</span>
+    <span class="n">machineType</span> <span class="s1">&#39;n1-highmem-8&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires Nextflow 19.07.0 or later.</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>Pipeline execution<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
 locally or in a Google Storage bucket.</p>
 <p>The pipeline execution must specify a Google Storage bucket where the workflow's intermediate results are stored using
@@ -479,10 +510,6 @@ For example:</p>
     <span class="p">}</span>
 <span class="p">}</span>
 
-<span class="n">cloud</span> <span class="p">{</span>
-    <span class="n">instanceType</span> <span class="o">=</span> <span class="s1">&#39;n1-ultramem-160&#39;</span>
-<span class="p">}</span>
-
 <span class="n">google</span> <span class="p">{</span>
     <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
     <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
@@ -501,13 +528,10 @@ specify the local storage for the jobs computed locally:</p>
 bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket</span></code>.</p>
 </div>
 </div>
-<div class="section" id="id7">
-<h3>Limitation<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>Limitation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>All processes use the same instance (machine) type specified in the configuration.
-Make sure to use an instance type having enough resources to fulfill the computing resources
-needed (i.e. cpus, memory and local storage) for the jobs in your pipeline.</li>
-<li>Currently it's not possible to specify a disk type and size different from the default ones assigned
+<li>Currently it's not possible to specify a disk type different from the default one assigned
 by the service depending the chosen instance type.</li>
 </ul>
 </div>
@@ -573,7 +597,7 @@ as shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.05.0-edge',
+            VERSION:'19.09.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

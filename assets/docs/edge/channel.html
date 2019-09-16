@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 19.05.0-edge documentation</title>
+  <title>Channels &mdash; Nextflow 19.09.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.05.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
         <link rel="next" title="Operators" href="operator.html"/>
         <link rel="prev" title="Processes" href="process.html"/> 
 
@@ -89,8 +89,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-factory">Channel factory</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#of">of</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#from">from</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#value">value</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fromlist">fromList</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#frompath">fromPath</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fromfilepairs">fromFilePairs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fromsra">fromSRA</a></li>
@@ -119,6 +121,7 @@
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -183,7 +186,7 @@ without having to wait for the receiving process.</li>
 <span id="id1"></span><h2>Channel types<a class="headerlink" href="#channel-types" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow distinguish two different kinds of channels: <cite>queue channels</cite> and <cite>value channels</cite>.</p>
 <div class="section" id="queue-channel">
-<h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline">¶</a></h3>
+<span id="channel-type-queue"></span><h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline">¶</a></h3>
 <p>A <cite>queue channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes or operators.</p>
 <p>A queue channel is usually created using a factory method such as a <a class="reference internal" href="#from">from</a>, <a class="reference internal" href="#frompath">fromPath</a>, etc.
 or chaining it with a channel operator such as <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc.</p>
@@ -198,7 +201,7 @@ output and more then one time as process input.</p>
 of them to connect a separate process.</p>
 </div>
 <div class="section" id="value-channel">
-<h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline">¶</a></h3>
+<span id="channel-type-value"></span><h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline">¶</a></h3>
 <p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> by definition is bound to a single value and it can be read
 unlimited times without consuming its content.</p>
 <div class="admonition tip">
@@ -250,13 +253,59 @@ factory methods.</p>
 </ul>
 <div class="section" id="create">
 <span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This method is deprecated.</p>
+</div>
 <p>Creates a new <cite>channel</cite> by using the <code class="docutils literal"><span class="pre">create</span></code> method, as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
+<div class="section" id="of">
+<span id="channel-of"></span><h3>of<a class="headerlink" href="#of" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">of</span></code> method allows you to create a channel emitting any sequence of values that are specified as the method argument,
+for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">)</span>
+<span class="n">ch</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;value: $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>The first line in this example creates a variable <code class="docutils literal"><span class="pre">ch</span></code> which holds a channel object. This channel emits the values
+specified as a parameter in the <code class="docutils literal"><span class="pre">of</span></code> method. Thus the second line prints the following:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">value</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">3</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">value</span><span class="p">:</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Range of values are expanded accordingly.</p>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="p">:</span>
+<span class="mi">23</span>
+<span class="n">X</span>
+<span class="n">Y</span>
+</pre></div>
+</div>
+<p>See also: <a class="reference internal" href="#fromlist">fromList</a> factory method.</p>
+</div>
 <div class="section" id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This method is deprecated. Use <a class="reference internal" href="#of">of</a> or <a class="reference internal" href="#fromlist">fromList</a> instead.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">from</span></code> method allows you to create a channel emitting any sequence of values that are specified as the method argument,
 for example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">)</span>
@@ -305,6 +354,24 @@ can be specified to bind the channel to a specific value. For example:</p>
 </div>
 <p>The first line in the example creates an 'empty' variable. The second line creates a channel and binds a string to it.
 Finally the last one creates a channel and binds a list object to it that will be emitted as a sole emission.</p>
+</div>
+<div class="section" id="fromlist">
+<span id="channel-fromlist"></span><h3>fromList<a class="headerlink" href="#fromlist" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">fromList</span></code> method allows you to create a channel emitting the values provided as a list of elements,
+for example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">fromList</span><span class="p">(</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;value: $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+<p>Prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span>
+<span class="n">b</span>
+<span class="n">c</span>
+<span class="n">d</span>
+</pre></div>
+</div>
+<p>See also: <a class="reference internal" href="#of">of</a> factory method.</p>
 </div>
 <div class="section" id="frompath">
 <span id="channel-path"></span><h3>fromPath<a class="headerlink" href="#frompath" title="Permalink to this headline">¶</a></h3>
@@ -739,7 +806,7 @@ The <code class="docutils literal"><span class="pre">onError</span></code> metho
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.05.0-edge',
+            VERSION:'19.09.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
