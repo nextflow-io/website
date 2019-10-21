@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 19.07.0 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 19.10.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -120,6 +120,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -447,8 +448,10 @@ each process using one or more <a class="reference internal" href="config.html#c
 <div class="section" id="process-definition">
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline">¶</a></h3>
 <p>Processes can be defined as usual and by default the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used to instantiate a custom
-machine type with the specified compute resources.  If <code class="docutils literal"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
-<p>The process <code class="docutils literal"><span class="pre">machineType</span></code> directive may optionally be used to specify a predifined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+machine type with the specified compute resources.  If <code class="docutils literal"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.
+A persistent disk will be created with size corresponding to the <code class="docutils literal"><span class="pre">disk</span></code> directive.  If <code class="docutils literal"><span class="pre">disk</span></code> is not specified, the
+instance default is chosen to ensure reasonable I/O performance.</p>
+<p>The process <code class="docutils literal"><span class="pre">machineType</span></code> directive may optionally be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
 If specified, this value overrides the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives.
 If the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used, the values must comply with the allowed custom machine type <a class="reference external" href="https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications">specifications</a> .  Extended memory is not directly supported, however high memory or cpu predefined
 instances may be utilized using the <code class="docutils literal"><span class="pre">machineType</span></code> directive</p>
@@ -456,6 +459,7 @@ instances may be utilized using the <code class="docutils literal"><span class="
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">custom_resources_task</span> <span class="p">{</span>
     <span class="n">cpus</span> <span class="mi">8</span>
     <span class="n">memory</span> <span class="s1">&#39;40 GB&#39;</span>
+    <span class="n">disk</span> <span class="s1">&#39;200 GB&#39;</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &lt;Your script here&gt;</span>
@@ -527,7 +531,7 @@ bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket
 <div class="section" id="id6">
 <h3>Limitation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>Currently it's not possible to specify a disk type and size different from the default ones assigned
+<li>Currently it's not possible to specify a disk type different from the default one assigned
 by the service depending the chosen instance type.</li>
 </ul>
 </div>
@@ -593,7 +597,7 @@ as shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.07.0',
+            VERSION:'19.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

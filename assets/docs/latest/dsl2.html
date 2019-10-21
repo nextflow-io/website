@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DSL 2 &mdash; Nextflow 19.07.0 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 19.10.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -89,9 +89,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#function">Function</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#process">Process</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#process-definition">Process definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#process-invocation">Process invocation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#process-composition">Process composition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#process-outputs">Process outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-named-output">Process named output</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-definition">Workflow definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-parameters">Workflow parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-inputs">Workflow inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-outputs">Workflow outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#implicit-workflow">Implicit workflow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-publish">Workflow publish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-composition">Workflow composition</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a><ul>
@@ -102,7 +112,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-forking">Channel forking</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pipes">Pipes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pipes">Pipes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-pipe-operator">The <em>pipe</em> operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-and-operator">The <em>and</em> operator</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#deprecated-methods-and-operators">Deprecated methods and operators</a></li>
 </ul>
 </li>
@@ -111,6 +125,7 @@
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -193,11 +208,11 @@ your workflow script:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above snippet defines two simple functions, that can be invoked in the workflow script as <cite>foo()</cite> which
+<p>The above snippet defines two simple functions, that can be invoked in the workflow script as <code class="docutils literal"><span class="pre">foo()</span></code> which
 returns the <code class="docutils literal"><span class="pre">Hello</span> <span class="pre">world</span></code> string and <code class="docutils literal"><span class="pre">bar(10,20)</span></code> which return the sum of two parameters.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">Functions implicitly return the result of the function last evaluated statement.</p>
+<p class="last">Functions implicitly return the result of the last evaluated statement.</p>
 </div>
 <p>The keyword <code class="docutils literal"><span class="pre">return</span></code> can be used to explicitly exit from a function returning the specified value.
 for example:</p>
@@ -217,13 +232,13 @@ for example:</p>
 <p>The new DSL separates the definition of a process by its invocation. The process definition follows the usual
 for syntax as described in the <a class="reference internal" href="process.html#process-page"><span class="std std-ref">process documentation</span></a>. The only difference is that the
 <code class="docutils literal"><span class="pre">from</span></code> and <code class="docutils literal"><span class="pre">into</span></code> channel declaration has to be omitted.</p>
-<p>Then processes can be invoked as a function, passing the expected input channels as parameters.</p>
-<p>For example:</p>
+<p>Then a process can be invoked as a function in the <code class="docutils literal"><span class="pre">workflow</span></code> scope, passing the expected
+input channels as parameters as it if were a custom function. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
 
 <span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
-      <span class="n">file</span> <span class="s1">&#39;foo.txt&#39;</span>
+      <span class="n">path</span> <span class="s1">&#39;foo.txt&#39;</span>
     <span class="n">script</span><span class="p">:</span>
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      your_command &gt; foo.txt</span>
@@ -232,7 +247,7 @@ for syntax as described in the <a class="reference internal" href="process.html#
 
  <span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-      <span class="n">file</span> <span class="n">x</span>
+      <span class="n">path</span> <span class="n">x</span>
     <span class="n">output</span><span class="p">:</span>
       <span class="n">file</span> <span class="s1">&#39;bar.txt&#39;</span>
     <span class="n">script</span><span class="p">:</span>
@@ -241,36 +256,234 @@ for syntax as described in the <a class="reference internal" href="process.html#
 <span class="sd">      &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="p">)</span>
-<span class="n">foo</span><span class="p">()</span>
-<span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">()</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">A process component can be invoked only once in the same workflow context.</p>
 </div>
-<div class="section" id="process-invocation">
-<h3>Process invocation<a class="headerlink" href="#process-invocation" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="process-composition">
 <h3>Process composition<a class="headerlink" href="#process-composition" title="Permalink to this headline">¶</a></h3>
-<p>Processes having matching input-output declaration can be composed so that the output
-of the first process is passed as input to the following process. Take in consideration
+<p>Processes having matching <em>input-output</em> declaration can be composed so that the output
+of the first process is passed as input to the following process. Taking in consideration
 the previous process definition, it's possible to write the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="process-outputs">
 <h3>Process outputs<a class="headerlink" href="#process-outputs" title="Permalink to this headline">¶</a></h3>
-<p>A process output can also be accessed using the <code class="docutils literal"><span class="pre">output</span></code> attribute for the respective
+<p>A process output can also be accessed using the <code class="docutils literal"><span class="pre">out</span></code> attribute for the respective
 process object. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foo</span><span class="p">()</span>
-<span class="n">bar</span><span class="p">(</span> <span class="n">foo</span><span class="o">.</span><span class="n">output</span> <span class="p">)</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">output</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">()</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">bar</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>When a process defines two or more output channels, each of them can be accessed
-using the array element operator e.g. <code class="docutils literal"><span class="pre">output[0]</span></code>, etc or using the <code class="docutils literal"><span class="pre">first</span></code>, <code class="docutils literal"><span class="pre">second</span></code>, etc
-sub-properties e.g. <code class="docutils literal"><span class="pre">output.first</span></code>.</p>
+using the array element operator e.g. <code class="docutils literal"><span class="pre">out[0]</span></code>, <code class="docutils literal"><span class="pre">out[1]</span></code>, etc. or using
+<em>named outputs</em> (see below).</p>
+</div>
+<div class="section" id="process-named-output">
+<h3>Process named output<a class="headerlink" href="#process-named-output" title="Permalink to this headline">¶</a></h3>
+<p>The process output definition allow the use of the <code class="docutils literal"><span class="pre">emit</span></code> option to define a name identifier
+that can be used to reference the channel in external scope. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="n">path</span> <span class="s1">&#39;*.bam&#39;</span> <span class="n">emit</span><span class="p">:</span> <span class="n">samples_bam</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">()</span>
+    <span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">samples_bam</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="workflow">
+<h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="workflow-definition">
+<h3>Workflow definition<a class="headerlink" href="#workflow-definition" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">workflow</span></code> keyword allows the definition of sub-workflow components that enclose the
+invocation of one or more processes and operators:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">()</span>
+    <span class="n">bar</span><span class="p">(</span> <span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">collect</span><span class="p">()</span> <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>For example, the above snippet defines a workflow component, named <code class="docutils literal"><span class="pre">my_pipeline</span></code>, that can be invoked from
+another workflow component definition as any other function or process i.e. <code class="docutils literal"><span class="pre">my_pipeline()</span></code>.</p>
+</div>
+<div class="section" id="workflow-parameters">
+<h3>Workflow parameters<a class="headerlink" href="#workflow-parameters" title="Permalink to this headline">¶</a></h3>
+<p>A workflow component can access any variable and parameter defined in the outer scope:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;/some/data/file&#39;</span>
+
+<span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span> <span class="n">params</span><span class="o">.</span><span class="n">data</span> <span class="p">)</span>
+        <span class="n">bar</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="p">())</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="workflow-inputs">
+<h3>Workflow inputs<a class="headerlink" href="#workflow-inputs" title="Permalink to this headline">¶</a></h3>
+<p>A workflow component can declare one or more input channels using the <code class="docutils literal"><span class="pre">get</span></code> keyword. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
+    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">main</span><span class="p">:</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">When the <code class="docutils literal"><span class="pre">get</span></code> is used the beginning of the workflow body needs to be identified with the
+<code class="docutils literal"><span class="pre">main</span></code> keyword.</p>
+</div>
+<p>Then, the input can be specified a argument on the workflow invocation statement:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">my_pipeline</span><span class="p">(</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;/some/data&#39;</span><span class="p">)</span> <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Workflow inputs are by definition <em>channel</em> data structure. If a basic data type is provided
+instead, ie. number, string, list, etc. it's implicitly converted to a <a class="reference internal" href="channel.html#channel-type-value"><span class="std std-ref">channel value</span></a> (ie. non-consumable).</p>
+</div>
+</div>
+<div class="section" id="workflow-outputs">
+<h3>Workflow outputs<a class="headerlink" href="#workflow-outputs" title="Permalink to this headline">¶</a></h3>
+<p>A workflow component can declare one or more out channels using the <code class="docutils literal"><span class="pre">emit</span></code> keyword. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
+    <span class="n">main</span><span class="p">:</span>
+      <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">emit</span><span class="p">:</span>
+      <span class="n">bar</span><span class="o">.</span><span class="n">out</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, the result of the <code class="docutils literal"><span class="pre">my_pipeline</span></code> execution can be accessed using the <code class="docutils literal"><span class="pre">out</span></code> property ie.
+<code class="docutils literal"><span class="pre">my_pipeline.out</span></code>. When is declared more than one output channels, use the array bracket notation
+to access each output component as described for the <a class="reference internal" href="#process-outputs">Process outputs</a> definition.</p>
+<p>Alternatively, the output channel can be accessed using the identifier name to which it's assigned
+in the <code class="docutils literal"><span class="pre">emit</span></code> declaration:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
+    <span class="n">main</span><span class="p">:</span>
+      <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">emit</span><span class="p">:</span>
+      <span class="n">my_data</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">out</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then, the result of the above snippet can accessed using the <code class="docutils literal"><span class="pre">my_pipeline.out.my_data</span></code>.</p>
+</div>
+<div class="section" id="implicit-workflow">
+<h3>Implicit workflow<a class="headerlink" href="#implicit-workflow" title="Permalink to this headline">¶</a></h3>
+<p>A workflow definition which does not declare any name is assumed to be the main workflow and it's
+implicitly executed. Therefore it's the entry point of the workflow application.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Implicit workflow definition is ignored when a script is included as module. This
+allow the writing a workflow script that can be used either as a library module and as
+application script.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">An alternative workflow entry can be specifying using the <code class="docutils literal"><span class="pre">-entry</span></code> command line option.</p>
+</div>
+</div>
+<div class="section" id="workflow-publish">
+<h3>Workflow publish<a class="headerlink" href="#workflow-publish" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">publish</span></code> clause in the workflow declaration allow the definition of one or more output channels
+whose content needs to be copied to a storage location of your choice. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">main</span><span class="p">:</span>
+      <span class="n">foo</span><span class="p">()</span>
+      <span class="n">bar</span><span class="p">()</span>
+    <span class="n">publish</span><span class="p">:</span>
+      <span class="n">foo</span><span class="o">.</span><span class="n">out</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;/some/data/dir&#39;</span>
+      <span class="n">bar</span><span class="o">.</span><span class="n">out</span> <span class="n">to</span><span class="p">:</span> <span class="s1">&#39;/some/other/dir&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <code class="docutils literal"><span class="pre">publish</span></code> clause is only allowed in a <em>implicit workflow</em> definition.</p>
+</div>
+<p>The <code class="docutils literal"><span class="pre">publish</span></code> clause works in similar manner to the process <a class="reference internal" href="process.html#process-publishdir"><span class="std std-ref">publishDir</span></a> directive,
+however the former allow you to specify a different target directory for each published channel.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">In the <code class="docutils literal"><span class="pre">publish</span></code> clause can be specified the same options as for the <a class="reference internal" href="process.html#process-publishdir"><span class="std std-ref">publishDir</span></a>
+directive i.e. <code class="docutils literal"><span class="pre">mode</span></code>, <code class="docutils literal"><span class="pre">overwrite</span></code>, <code class="docutils literal"><span class="pre">enabled</span></code>, etc.</p>
+</div>
+</div>
+<div class="section" id="workflow-composition">
+<h3>Workflow composition<a class="headerlink" href="#workflow-composition" title="Permalink to this headline">¶</a></h3>
+<p>Workflow defined in your script or import by a module inclusion can be invoked and composed
+as any other process in your application.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">flow1</span> <span class="p">{</span>
+    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">main</span><span class="p">:</span>
+        <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">emit</span><span class="p">:</span>
+        <span class="n">bar</span><span class="o">.</span><span class="n">out</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="n">flow2</span> <span class="p">{</span>
+    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">main</span><span class="p">:</span>
+        <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">baz</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">emit</span><span class="p">:</span>
+        <span class="n">baz</span><span class="o">.</span><span class="n">out</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">main</span><span class="p">:</span>
+      <span class="n">flow1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+      <span class="n">flow2</span><span class="p">(</span><span class="n">flow1</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Nested workflow execution determines an implicit scope. Therefore the same process can be
+invoked in two different workflow scopes, like for example <code class="docutils literal"><span class="pre">foo</span></code> in the above snippet that
+is used either in <code class="docutils literal"><span class="pre">flow1</span></code> and <code class="docutils literal"><span class="pre">flow2</span></code>. The workflow execution path along with the
+process names defines the process <em>fully qualified name</em> that is used to distinguish the
+two different process invocation i.e. <code class="docutils literal"><span class="pre">flow1:foo</span></code> and <code class="docutils literal"><span class="pre">flow2:foo</span></code> in the above example.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The process fully qualified name can be used as a valid <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">process selector</span></a> in the
+<code class="docutils literal"><span class="pre">nextflow.config</span></code> file and it has priority over the process simple name.</p>
+</div>
 </div>
 </div>
 <div class="section" id="modules">
@@ -278,22 +491,28 @@ sub-properties e.g. <code class="docutils literal"><span class="pre">output.firs
 <p>The new DSL allows the definition module scripts that
 can be included and shared across workflow applications.</p>
 <p>A module can contain the definition of function, process and workflow definitions
-as described above.</p>
+as described in the above sections.</p>
 <div class="section" id="modules-include">
 <h3>Modules include<a class="headerlink" href="#modules-include" title="Permalink to this headline">¶</a></h3>
 <p>A module script can be included from another Nextflow script using the <code class="docutils literal"><span class="pre">include</span></code> keyword.
-Then it's possible to reference of components (eg. functions, processes and workflow ) defined in the module
-from the importing script.</p>
+Then it's possible to reference the components (eg. functions, processes and workflow ) defined in the module
+from the including script.</p>
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">include</span> <span class="s1">&#39;modules/libx&#39;</span>
+<span class="n">include</span> <span class="s1">&#39;./modules/my-module&#39;</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
-<span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
+    <span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Nextflow implicitly looks for the module script <code class="docutils literal"><span class="pre">modules/libx.nf</span></code> resolving the path
-against the main script location.</p>
+<p>Nextflow implicitly looks for the script file <code class="docutils literal"><span class="pre">modules/my-module.nf</span></code> resolving the path
+against the <em>including</em> script location.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Relative paths must begin with the <code class="docutils literal"><span class="pre">./</span></code> prefix.</p>
+</div>
 </div>
 <div class="section" id="selective-inclusion">
 <h3>Selective inclusion<a class="headerlink" href="#selective-inclusion" title="Permalink to this headline">¶</a></h3>
@@ -301,39 +520,41 @@ against the main script location.</p>
 It's possible to selective include only a specific component by its name using the
 inclusion extended syntax as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">include</span> <span class="n">my_pipeline</span> <span class="kn">from</span> <span class="s1">&#39;modules/libx&#39;</span>
+<span class="n">include</span> <span class="n">my_pipeline</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
-<span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The module component can be included using a name alias as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">include</span> <span class="n">my_pipeline</span> <span class="k">as</span> <span class="n">my_tool</span> <span class="kn">from</span> <span class="s1">&#39;modules/libx&#39;</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
-<span class="n">my_tool</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
+    <span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="module-aliases">
 <h3>Module aliases<a class="headerlink" href="#module-aliases" title="Permalink to this headline">¶</a></h3>
-<p>When including a module component it's possible to specify a name alias.
-This allows the import and the invocation of the same component multiple times
+<p>When including a module component it's possible to specify a name <em>alias</em>.
+This allows the inclusion and the invocation of the same component multiple times
 in your script using different names. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
 
-<span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;modules/my-library&#39;</span>
-<span class="n">include</span> <span class="k">for</span> <span class="k">as</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;modules/my-library&#39;</span>
+<span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
+<span class="n">include</span> <span class="n">foo</span> <span class="k">as</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
 
-<span class="n">foo</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span>
-<span class="n">bar</span><span class="p">(</span><span class="n">other_data</span><span class="p">)</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">other_data</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The process configuration defined in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file will
+be resolved against the alias name. Following the above example the process <code class="docutils literal"><span class="pre">bar</span></code>
+ignores any process specific settings eventually defined for the process with name <code class="docutils literal"><span class="pre">foo</span></code>.</p>
 </div>
 </div>
 <div class="section" id="module-parameters">
 <h3>Module parameters<a class="headerlink" href="#module-parameters" title="Permalink to this headline">¶</a></h3>
-<p>A module script can define one or more parameters as any other Nextflow script.:</p>
+<p>A module script can define one or more parameters as any other Nextflow script:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
 
@@ -345,40 +566,66 @@ in your script using different names. For example:</p>
 <p>Then, parameters can be specified when the module is imported with the <code class="docutils literal"><span class="pre">include</span></code> statement:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
 
-<span class="n">include</span> <span class="s1">&#39;modules/library.nf&#39;</span> <span class="n">params</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="s1">&#39;mundo&#39;</span><span class="p">)</span>
+<span class="n">include</span> <span class="s1">&#39;./modules/my-module&#39;</span> <span class="n">params</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="s1">&#39;mundo&#39;</span><span class="p">)</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">All parameters in the current context can be passed to a module using the <code class="docutils literal"><span class="pre">params(params)</span></code> idiom.</p>
 </div>
 </div>
 </div>
 <div class="section" id="channel-forking">
 <h2>Channel forking<a class="headerlink" href="#channel-forking" title="Permalink to this headline">¶</a></h2>
-<p>Using the new DSL Nextflow channels are automatically forked when connecting two or more consumers.
-This means that, for example, a process output can be used by two or more processes without the
-need to fork them using the <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator, making the writing of workflow script
-much fluent and readable.</p>
+<p>Using the new DSL Nextflow channels are automatically forked when connecting two or more consumers.</p>
+<p>For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Ciao&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">set</span><span class="p">{</span> <span class="n">cheers</span> <span class="p">}</span>
+
+<span class="n">cheers</span>
+    <span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+
+<span class="n">cheers</span>
+    <span class="o">.</span><span class="n">map</span><span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The same is valid for the result (channel) of a process execution. Therefore a process output can be used by
+two or more processes without the need to fork them using the <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator, making the
+writing of workflow script much fluent and readable.</p>
 </div>
 <div class="section" id="pipes">
 <h2>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-pipe-operator">
+<h3>The <em>pipe</em> operator<a class="headerlink" href="#the-pipe-operator" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow processes and operators can be composed using the <code class="docutils literal"><span class="pre">|</span></code> <em>pipe</em> operator. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
     <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
     <span class="n">exec</span><span class="p">:</span>
-      <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data mundo&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data world&quot;</span>
 <span class="p">}</span>
 
-<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="s1">&#39;world&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">foo</span>
+<span class="n">workflow</span> <span class="p">{</span>
+   <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span><span class="s1">&#39;Hola&#39;</span><span class="p">,</span><span class="s1">&#39;Ciao&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="n">view</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>The above snippet defines a process named <code class="docutils literal"><span class="pre">foo</span></code> then invoke it passing the content of the
-<code class="docutils literal"><span class="pre">data</span></code> channel.</p>
+<code class="docutils literal"><span class="pre">data</span></code> channel. The result is piped to the <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a> operator which converts each string
+to uppercase and finally, the last <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> prints it.</p>
+</div>
+<div class="section" id="the-and-operator">
+<h3>The <em>and</em> operator<a class="headerlink" href="#the-and-operator" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">&amp;</span></code> <em>and</em> operator allow the feed of two or more processes with the content of the same
-channel e.g.:</p>
+channel(s) e.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
   <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
   <span class="n">exec</span><span class="p">:</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data mundo&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data world&quot;</span>
 <span class="p">}</span>
 
 <span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
@@ -388,9 +635,31 @@ channel e.g.:</p>
       <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span>
 <span class="p">}</span>
 
-
-<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span>
+<span class="n">workflow</span> <span class="p">{</span>
+   <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> <span class="o">|</span> <span class="n">mix</span> <span class="o">|</span> <span class="n">view</span>
+<span class="p">}</span>
 </pre></div>
+</div>
+<p>In the above snippet the channel emitting the <code class="docutils literal"><span class="pre">Hello</span></code> is piped with the <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>
+which reverse the string value. Then, the result is passed to either <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>
+processes which are executed in parallel. The result is pair of channels which content
+is merged into a single channel using the <a class="reference internal" href="operator.html#operator-mix"><span class="std std-ref">mix</span></a>. Finally the result is printed
+using the <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a>.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The break-line operator <code class="docutils literal"><span class="pre">\</span></code> can be use to split long pipes concatenation
+over multiple lines.</p>
+</div>
+<p>The above snippet can be written as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
+   <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> \
+     <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> \
+     <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> \
+     <span class="o">|</span> <span class="n">mix</span> \
+     <span class="o">|</span> <span class="n">view</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="deprecated-methods-and-operators">
@@ -400,9 +669,10 @@ channel e.g.:</p>
 <li><a class="reference internal" href="channel.html#channel-create"><span class="std std-ref">create</span></a></li>
 <li><a class="reference internal" href="channel.html#channel-bind1"><span class="std std-ref">bind</span></a></li>
 <li><a class="reference internal" href="channel.html#channel-bind2"><span class="std std-ref">operator &lt;&lt;</span></a></li>
+<li><a class="reference internal" href="operator.html#operator-choice"><span class="std std-ref">choice</span></a></li>
 <li><a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a></li>
 <li><a class="reference internal" href="operator.html#operator-countby"><span class="std std-ref">countBy</span></a></li>
-<li><span class="xref std std-ref">operator-route</span></li>
+<li>route</li>
 <li><a class="reference internal" href="operator.html#operator-separate"><span class="std std-ref">separate</span></a></li>
 <li><a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a></li>
 <li><a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a></li>
@@ -452,7 +722,7 @@ channel e.g.:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.07.0',
+            VERSION:'19.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

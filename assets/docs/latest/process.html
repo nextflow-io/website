@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 19.07.0 documentation</title>
+  <title>Processes &mdash; Nextflow 19.10.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Nextflow scripting" href="script.html"/> 
 
@@ -94,9 +94,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#input-of-files">Input of files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-input-files">Multiple input files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-input-file-names">Dynamic input file names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-of-type-path">Input of type 'path'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-type-stdin">Input of type 'stdin'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-type-env">Input of type 'env'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-type-set">Input of type 'set'</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-of-type-tuple">Input of type 'tuple'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-repeaters">Input repeaters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#understand-how-multiple-input-channels-work">Understand how multiple input channels work</a></li>
 </ul>
@@ -106,13 +108,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#output-files">Output files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-output-files">Multiple output files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-output-file-names">Dynamic output file names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-path">Output path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-stdout-special-file">Output 'stdout' special file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-set-of-values">Output 'set' of values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-tuple-of-values">Output 'tuple' of values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#optional-output">Optional Output</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#when">When</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#directives">Directives</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#accelerator">accelerator</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#afterscript">afterScript</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#beforescript">beforeScript</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cache">cache</a></li>
@@ -161,6 +166,7 @@
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -518,8 +524,8 @@ semantic rules associated to each qualifier and handle it properly depending on 
 <p>The qualifiers available are the ones listed in the following table:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="10%" />
+<col width="90%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Qualifier</th>
@@ -537,13 +543,16 @@ as the specified input name.</td>
 <tr class="row-even"><td>file</td>
 <td>Lets you handle the received value as a file, staging it properly in the execution context.</td>
 </tr>
-<tr class="row-odd"><td>stdin</td>
+<tr class="row-odd"><td>path</td>
+<td>Lets you handle the received value as a path, staging the file properly in the execution context.</td>
+</tr>
+<tr class="row-even"><td>stdin</td>
 <td>Lets you forward the received value to the process <cite>stdin</cite> special file.</td>
 </tr>
-<tr class="row-even"><td>set</td>
+<tr class="row-odd"><td>tuple</td>
 <td>Lets you handle a group of input values having one of the above qualifiers.</td>
 </tr>
-<tr class="row-odd"><td>each</td>
+<tr class="row-even"><td>each</td>
 <td>Lets you execute the process for each entry in the input collection.</td>
 </tr>
 </tbody>
@@ -787,6 +796,50 @@ own private temporary directory, and input files are automatically staged to thi
 This guarantees that input files with the same name won't overwrite each other.</p>
 </div>
 </div>
+<div class="section" id="input-of-type-path">
+<h3>Input of type 'path'<a class="headerlink" href="#input-of-type-path" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">path</span></code> input qualifier was introduced by Nextflow version 19.10.0 and it's a drop-in replacement
+for the <code class="docutils literal"><span class="pre">file</span></code> qualifier, therefore it's backward compatible with the syntax
+and the semantic for the input <code class="docutils literal"><span class="pre">file</span></code> described above.</p>
+<p>The important difference between <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">path</span></code> qualifier is that the first expects the
+values received as input to be <em>file</em> objects. When inputs is a different type, it automatically
+coverts to a string and saves it to a temporary files. This can be useful in some uses cases,
+but it turned out to be tricky in most common cases.</p>
+<p>The <code class="docutils literal"><span class="pre">path</span></code> qualifier instead interprets string values as the path location of the input file
+and automatically converts to a file object.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">path</span> <span class="n">x</span> <span class="kn">from</span> <span class="s1">&#39;/some/data/file.txt&#39;</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    your_command --in $x</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Provided input value should represent an absolute path location i.e. the string value
+<strong>must</strong> be prefixed with a <cite>/</cite> character or with a support URI protocol i.e. <code class="docutils literal"><span class="pre">file://</span></code>,
+<code class="docutils literal"><span class="pre">http://</span></code>, <code class="docutils literal"><span class="pre">s3://</span></code>, etc. and it cannot contain special characters (e.g. <code class="docutils literal"><span class="pre">\n</span></code>, etc.).</p>
+</div>
+<p>The option <code class="docutils literal"><span class="pre">stageAs</span></code> allow you to control how the file should be named in the task work
+directory, providing a specific name or a name pattern as described in the <a class="reference internal" href="#multiple-input-files">Multiple input files</a>
+section:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">path</span> <span class="n">x</span><span class="p">,</span> <span class="n">stageAs</span><span class="p">:</span> <span class="s1">&#39;data.txt&#39;</span> <span class="kn">from</span> <span class="s1">&#39;/some/data/file.txt&#39;</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    your_command --in data.txt</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <code class="docutils literal"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal"><span class="pre">file</span></code> to handle process input files
+when using Nextflow 19.10.0 or later.</p>
+</div>
+</div>
 <div class="section" id="input-of-type-stdin">
 <h3>Input of type 'stdin'<a class="headerlink" href="#input-of-type-stdin" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">stdin</span></code> input qualifier allows you the forwarding of the value received from a channel to the
@@ -840,14 +893,21 @@ hola world!
 </div>
 <div class="section" id="input-of-type-set">
 <h3>Input of type 'set'<a class="headerlink" href="#input-of-type-set" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">set</span></code> qualifier allows you to group multiple parameters in a single parameter definition. It can be useful
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <cite>set</cite> input type has been deprecated. See <cite>tuple</cite> instead.</p>
+</div>
+</div>
+<div class="section" id="input-of-type-tuple">
+<h3>Input of type 'tuple'<a class="headerlink" href="#input-of-type-tuple" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">tuple</span></code> qualifier allows you to group multiple parameters in a single parameter definition. It can be useful
 when a process receives, in input, tuples of values that need to be handled separately. Each element in the tuple
-is associated to a corresponding element with the <code class="docutils literal"><span class="pre">set</span></code> definition. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">tuple</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span>
+is associated to a corresponding element with the <code class="docutils literal"><span class="pre">tuple</span></code> definition. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="n">process</span> <span class="n">setExample</span> <span class="p">{</span>
+<span class="n">process</span> <span class="n">tupleExample</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="nb">set</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;latin.txt&#39;</span><span class="p">)</span>  <span class="kn">from</span> <span class="nn">tuple</span>
+    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;latin.txt&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">values</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    echo Processing $x</span>
@@ -857,9 +917,9 @@ is associated to a corresponding element with the <code class="docutils literal"
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example the <code class="docutils literal"><span class="pre">set</span></code> parameter is used to define the value <code class="docutils literal"><span class="pre">x</span></code> and the file <code class="docutils literal"><span class="pre">latin.txt</span></code>,
+<p>In the above example the <code class="docutils literal"><span class="pre">tuple</span></code> parameter is used to define the value <code class="docutils literal"><span class="pre">x</span></code> and the file <code class="docutils literal"><span class="pre">latin.txt</span></code>,
 which will receive a value from the same channel.</p>
-<p>In the <code class="docutils literal"><span class="pre">set</span></code> declaration items can be defined by using the following qualifiers: <code class="docutils literal"><span class="pre">val</span></code>, <code class="docutils literal"><span class="pre">env</span></code>, <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">stdin</span></code>.</p>
+<p>In the <code class="docutils literal"><span class="pre">tuple</span></code> declaration items can be defined by using the following qualifiers: <code class="docutils literal"><span class="pre">val</span></code>, <code class="docutils literal"><span class="pre">env</span></code>, <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">stdin</span></code>.</p>
 <p>A shorter notation can be used by applying the following substitution rules:</p>
 <table border="1" class="docutils">
 <colgroup>
@@ -893,17 +953,16 @@ which will receive a value from the same channel.</p>
 </tbody>
 </table>
 <p>Thus the previous example could be rewritten as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nb">tuple</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="n">process</span> <span class="n">setExample</span> <span class="p">{</span>
+<span class="n">process</span> <span class="n">tupleExample</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="nb">set</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;latin.txt&#39;</span> <span class="kn">from</span> <span class="nn">tuple</span>
+    <span class="nb">tuple</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;latin.txt&#39;</span> <span class="kn">from</span> <span class="nn">values</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    echo Processing $x</span>
 <span class="sd">    cat - latin.txt &gt; copy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -1043,8 +1102,8 @@ one or more channels over which outputs are sent. Finally some optional attribut
 <p>The qualifiers that can be used in the output declaration block are the ones listed in the following table:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="9%" />
+<col width="91%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Qualifier</th>
@@ -1058,10 +1117,13 @@ one or more channels over which outputs are sent. Finally some optional attribut
 <tr class="row-odd"><td>file</td>
 <td>Sends a file produced by the process with the name specified over the output channel.</td>
 </tr>
-<tr class="row-even"><td>stdout</td>
+<tr class="row-even"><td>path</td>
+<td>Sends a file produced by the process with the name specified over the output channel (replaces <code class="docutils literal"><span class="pre">file</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>stdout</td>
 <td>Sends the executed process <cite>stdout</cite> over the output channel.</td>
 </tr>
-<tr class="row-odd"><td>set</td>
+<tr class="row-even"><td>tuple</td>
 <td>Lets to send multiple values over the same output channel.</td>
 </tr>
 </tbody>
@@ -1183,13 +1245,10 @@ to avoid the usage of loose wildcards when defining output files e.g. <code clas
 Instead, use a prefix or a postfix naming notation to restrict the set of matching files to
 only the expected ones e.g. <code class="docutils literal"><span class="pre">file</span> <span class="pre">'prefix_*.sorted.bam'</span></code>.</p>
 </div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
+<p>By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
 It is also possible to emit each file as a sole item by adding the <code class="docutils literal"><span class="pre">mode</span> <span class="pre">flatten</span></code> attribute in the output file
 declaration.</p>
-</div>
-<p>By using the <cite>mode</cite> attribute the previous example can be re-written as show below:</p>
+<p>By using the <code class="docutils literal"><span class="pre">mode</span></code> attribute the previous example can be re-written as show below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
 
     <span class="n">output</span><span class="p">:</span>
@@ -1202,6 +1261,11 @@ declaration.</p>
 
 <span class="n">letters</span> <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;File: $</span><span class="si">{it.name}</span><span class="s2"> =&gt; $</span><span class="si">{it.text}</span><span class="s2">&quot;</span> <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The option <code class="docutils literal"><span class="pre">mode</span></code> is deprecated as of version 19.10.0. Use the operator <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>
+in the downstream process instead.</p>
 </div>
 <p>Read more about glob syntax at the following link <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">What is a glob?</a></p>
 </div>
@@ -1234,10 +1298,57 @@ structure or to guarantee a unique file name scheme, so that result files won't 
 and that they can be referenced univocally by downstream tasks.</p>
 <p>With Nextflow, in most cases, you don't need to take care of naming output files, because each task is executed
 in its own unique temporary directory, so files produced by different tasks can never override each other.
-Also meta-data can be associated with outputs by using the <a class="reference internal" href="#process-set"><span class="std std-ref">set output</span></a> qualifier, instead of
+Also meta-data can be associated with outputs by using the <a class="reference internal" href="#process-out-tuple"><span class="std std-ref">tuple output</span></a> qualifier, instead of
 including them in the output file name.</p>
 <p class="last">To sum up, the use of output files with static names over dynamic ones is preferable whenever possible,
 because it will result in a simpler and more portable code.</p>
+</div>
+</div>
+<div class="section" id="output-path">
+<span id="process-out-path"></span><h3>Output path<a class="headerlink" href="#output-path" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">path</span></code> output qualifier was introduced by Nextflow version 19.10.0 and it's a drop-in replacement
+for the <code class="docutils literal"><span class="pre">file</span></code> output qualifier, therefore it's backward compatible with the syntax
+and the semantic for the input <code class="docutils literal"><span class="pre">file</span></code> described above.</p>
+<p>The main advantage of <code class="docutils literal"><span class="pre">path</span></code> over the <code class="docutils literal"><span class="pre">file</span></code> qualifier is that it allows the specification
+of a number of output to fine-control the output files.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="6%" />
+<col width="94%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>glob</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> the specified name is interpreted as a glob pattern (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+</tr>
+<tr class="row-odd"><td>hidden</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> hidden files are included in the matching output files (default: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+</tr>
+<tr class="row-even"><td>followLinks</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> target files are return in place of any matching symlink (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+</tr>
+<tr class="row-odd"><td>type</td>
+<td>Type of paths returned, either <code class="docutils literal"><span class="pre">file</span></code>, <code class="docutils literal"><span class="pre">dir</span></code> or <code class="docutils literal"><span class="pre">any</span></code> (default: <code class="docutils literal"><span class="pre">any</span></code>, or <code class="docutils literal"><span class="pre">file</span></code> if the specified file name pattern contains a <cite>**</cite> - double star - symbol)</td>
+</tr>
+<tr class="row-even"><td>maxDepth</td>
+<td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Breaking change: the <code class="docutils literal"><span class="pre">file</span></code> qualifier interprets <code class="docutils literal"><span class="pre">:</span></code> as path separator, therefore <code class="docutils literal"><span class="pre">file</span> <span class="pre">'foo:bar'</span></code>
+captures both files <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code>. The <code class="docutils literal"><span class="pre">path</span></code> qualifier interprets it just a plain file name character,
+and therefore the output definition <code class="docutils literal"><span class="pre">path</span> <span class="pre">'foo:bar'</span></code> captures the output file with name <code class="docutils literal"><span class="pre">foo:bar</span></code>.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The <code class="docutils literal"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal"><span class="pre">file</span></code> to handle process output files
+when using Nextflow 19.10.0 or later.</p>
 </div>
 </div>
 <div class="section" id="output-stdout-special-file">
@@ -1258,37 +1369,45 @@ the channel specified in the output parameter declaration. For example:</p>
 </div>
 <div class="section" id="output-set-of-values">
 <span id="process-set"></span><h3>Output 'set' of values<a class="headerlink" href="#output-set-of-values" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">set</span></code> qualifier allows to send multiple values into a single channel. This feature is useful
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <cite>set</cite> output type has been deprecated. See <cite>tuple</cite> instead.</p>
+</div>
+</div>
+<div class="section" id="output-tuple-of-values">
+<span id="process-out-tuple"></span><h3>Output 'tuple' of values<a class="headerlink" href="#output-tuple-of-values" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">tuple</span></code> qualifier allows to send multiple values into a single channel. This feature is useful
 when you need to <cite>group together</cite> the results of multiple executions of the same process, as shown in the following
 example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span> <span class="s1">&#39;*.fa&#39;</span>
-<span class="n">species</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">query_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span> <span class="s1">&#39;*.fa&#39;</span>
+<span class="n">species_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span>
 
 <span class="n">process</span> <span class="n">blast</span> <span class="p">{</span>
 
 <span class="nb">input</span><span class="p">:</span>
-    <span class="n">val</span> <span class="n">species</span>
-    <span class="n">file</span> <span class="n">query</span>
+  <span class="n">val</span> <span class="n">species</span> <span class="kn">from</span> <span class="nn">query_ch</span>
+  <span class="n">file</span> <span class="n">query</span> <span class="kn">from</span> <span class="nn">species_ch</span>
 
 <span class="n">output</span><span class="p">:</span>
-    <span class="nb">set</span> <span class="n">val</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span> <span class="n">into</span> <span class="n">blastOuts</span>
+  <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span> <span class="n">into</span> <span class="n">blastOuts</span>
 
-
-<span class="s2">&quot;blast -db nr -query $query&quot;</span> <span class="o">&gt;</span> <span class="n">result</span>
-
+<span class="n">script</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  blast -db nr -query $query &gt; result</span>
+<span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <p>In the above example a <cite>BLAST</cite> task is executed for each pair of <code class="docutils literal"><span class="pre">species</span></code> and <code class="docutils literal"><span class="pre">query</span></code> that are received.
 When the task completes a new tuple containing the value for <code class="docutils literal"><span class="pre">species</span></code> and the file <code class="docutils literal"><span class="pre">result</span></code> is sent to the <code class="docutils literal"><span class="pre">blastOuts</span></code> channel.</p>
-<p>A <cite>set</cite> declaration can contain any combination of the following qualifiers, previously described: <code class="docutils literal"><span class="pre">val</span></code>, <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">stdout</span></code>.</p>
+<p>A <cite>tuple</cite> declaration can contain any combination of the following qualifiers, previously described: <code class="docutils literal"><span class="pre">val</span></code>, <code class="docutils literal"><span class="pre">file</span></code> and <code class="docutils literal"><span class="pre">stdout</span></code>.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
 <p class="last">Variable identifiers are interpreted as <cite>values</cite> while strings literals are interpreted as <cite>files</cite> by default,
-thus the above output <cite>set</cite> can be rewritten using a short notation as shown below.</p>
+thus the above output <cite>tuple</cite> can be rewritten using a short notation as shown below.</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
-    <span class="nb">set</span> <span class="n">species</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span> <span class="n">into</span> <span class="n">blastOuts</span>
+    <span class="nb">tuple</span> <span class="n">species</span><span class="p">,</span> <span class="s1">&#39;result&#39;</span> <span class="n">into</span> <span class="n">blastOuts</span>
 </pre></div>
 </div>
 <p>File names can be defined in a dynamic manner as explained in the <a class="reference internal" href="#process-dynoutname"><span class="std std-ref">Dynamic output file names</span></a> section.</p>
@@ -1337,6 +1456,7 @@ and have the following syntax:</p>
 <p>Some directives are generally available to all processes, some others depends on the <cite>executor</cite> currently defined.</p>
 <p>The directives are:</p>
 <ul class="simple">
+<li><a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">accelerator</a></li>
 <li><a class="reference internal" href="#afterscript">afterScript</a></li>
 <li><a class="reference internal" href="#beforescript">beforeScript</a></li>
 <li><a class="reference internal" href="#cache">cache</a></li>
@@ -1369,6 +1489,33 @@ and have the following syntax:</p>
 <li><a class="reference internal" href="#time">time</a></li>
 <li><a class="reference internal" href="#validexitstatus">validExitStatus</a></li>
 </ul>
+<div class="section" id="accelerator">
+<h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">accelerator</span></code> directive allows you to specify the hardware accelerator requirement for the task execution
+e.g. <em>GPU</em> processor. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+    <span class="n">accelerator</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="s1">&#39;nvidia-tesla-k80&#39;</span>
+
+    <span class="n">script</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    your_gpu_enabled --command --line</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above examples will request 4 GPUs of type <cite>nvidia-tesla-k80</cite>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This directive is only supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a>, <a class="reference internal" href="executor.html#google-pipelines-executor"><span class="std std-ref">Google Pipelines</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">The accelerator <code class="docutils literal"><span class="pre">type</span></code> option value depends by the target execution platform. Refers to the target
+platform documentation for details on the <a class="reference external" href="https://aws.amazon.com/batch/faqs/?#GPU_Scheduling_">available</a>
+<a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">accelerator</a>
+<a class="reference external" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">types</a>.</p>
+</div>
+</div>
 <div class="section" id="afterscript">
 <h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal"><span class="pre">afterScript</span></code> directive allows you to execute a custom (Bash) snippet immediately <em>after</em> the main process has run.
@@ -2088,6 +2235,9 @@ a custom strategy.
 Return the value <code class="docutils literal"><span class="pre">null</span></code> from the closure to <em>not</em> publish a file.
 This is useful when the process has multiple output files, but you want to publish only some of them.</td>
 </tr>
+<tr class="row-odd"><td>enabled</td>
+<td>Allow to enable or disable the publish rule depending the boolean value specified (default: <code class="docutils literal"><span class="pre">true</span></code>).</td>
+</tr>
 </tbody>
 </table>
 <p>Table of publish modes:</p>
@@ -2606,7 +2756,7 @@ conditions:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.07.0',
+            VERSION:'19.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

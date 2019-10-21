@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 19.07.0 documentation</title>
+  <title>Get started &mdash; Nextflow 19.10.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.07.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
         <link rel="next" title="Basic concepts" href="basic.html"/>
         <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
 
@@ -100,6 +100,7 @@
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -188,7 +189,7 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 <span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
 
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">file</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span> <span class="n">mode</span> <span class="n">flatten</span>
+    <span class="n">file</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
@@ -199,7 +200,7 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 <span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
 
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
+    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters.collect</span><span class="p">()</span>
 
     <span class="n">output</span><span class="p">:</span>
     <span class="n">stdout</span> <span class="n">result</span>
@@ -209,13 +210,13 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
-<span class="n">result</span><span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span> <span class="p">}</span>
+<span class="n">result</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>This script defines two processes. The first splits a string into 6-character chunks, writing each one to a file with the prefix <code class="docutils literal"><span class="pre">chunk_</span></code>,
 and the second receives these files and transforms their contents to uppercase letters.
 The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and the final output is printed by the
-<code class="docutils literal"><span class="pre">subscribe</span></code> operator.</p>
+<code class="docutils literal"><span class="pre">view</span></code> operator.</p>
 <p>Execute the script by entering the following command in your terminal:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
@@ -352,7 +353,7 @@ uojnoB
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.07.0',
+            VERSION:'19.10.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
