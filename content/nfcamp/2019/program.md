@@ -26,7 +26,10 @@ Draft program for the Nexflow Camp (times and activities may be changed in the f
 <td valign='top'>9.10 - 9.45</td> 
 <td valign='top'><a href='/nfcamp/2019/phil.html'>nf-core community updates</a><br>
     <i><b>Phil Ewels</b><br>
-    Bioinformatics Team Leader, SciLifeLab, Sweden</i></td>
+    Bioinformatics Team Leader, SciLifeLab, Sweden</i>
+    <br>
+        [<a href='https://www.slideshare.net/tallphil/nextflow-camp-2019-nfcore-community-updates' target='blank'>slides</a>]&nbsp;[<a href='https://youtu.be/PAp3gdEMSeQ' target='blank'>video</a>]
+    </td>
 </tr> 
 
 <tr> 
