@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DSL 2 &mdash; Nextflow 19.09.0-edge documentation</title>
+  <title>DSL 2 &mdash; Nextflow 19.11.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.11.0-edge documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -300,7 +300,7 @@ using the array element operator e.g. <code class="docutils literal"><span class
 that can be used to reference the channel in external scope. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;*.bam&#39;</span> <span class="n">emit</span><span class="p">:</span> <span class="n">samples_bam</span>
+    <span class="n">path</span> <span class="s1">&#39;*.bam&#39;</span><span class="p">,</span> <span class="n">emit</span><span class="p">:</span> <span class="n">samples_bam</span>
 
   <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  your_command --here</span>
@@ -346,9 +346,9 @@ another workflow component definition as any other function or process i.e. <cod
 </div>
 <div class="section" id="workflow-inputs">
 <h3>Workflow inputs<a class="headerlink" href="#workflow-inputs" title="Permalink to this headline">¶</a></h3>
-<p>A workflow component can declare one or more input channels using the <code class="docutils literal"><span class="pre">get</span></code> keyword. For example:</p>
+<p>A workflow component can declare one or more input channels using the <code class="docutils literal"><span class="pre">take</span></code> keyword. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
     <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -357,7 +357,7 @@ another workflow component definition as any other function or process i.e. <cod
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When the <code class="docutils literal"><span class="pre">get</span></code> is used the beginning of the workflow body needs to be identified with the
+<p class="last">When the <code class="docutils literal"><span class="pre">take</span></code> is used the beginning of the workflow body needs to be identified with the
 <code class="docutils literal"><span class="pre">main</span></code> keyword.</p>
 </div>
 <p>Then, the input can be specified a argument on the workflow invocation statement:</p>
@@ -446,7 +446,7 @@ directive i.e. <code class="docutils literal"><span class="pre">mode</span></cod
 <p>Workflow defined in your script or import by a module inclusion can be invoked and composed
 as any other process in your application.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">flow1</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
         <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -455,7 +455,7 @@ as any other process in your application.</p>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="n">flow2</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
         <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">baz</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -464,7 +464,7 @@ as any other process in your application.</p>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
       <span class="n">flow1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
       <span class="n">flow2</span><span class="p">(</span><span class="n">flow1</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -722,7 +722,7 @@ over multiple lines.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.09.0-edge',
+            VERSION:'19.11.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Pipeline sharing &mdash; Nextflow 19.09.0-edge documentation</title>
+  <title>Pipeline sharing &mdash; Nextflow 19.11.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.11.0-edge documentation" href="index.html"/>
         <link rel="next" title="Workflow introspection" href="metadata.html"/>
         <link rel="prev" title="Tracing &amp; visualisation" href="tracing.html"/> 
 
@@ -111,6 +111,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#scm-configuration-file">SCM configuration file</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bitbucket-credentials">BitBucket credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bitbucket-server-credentials">BitBucket Server credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#github-credentials">GitHub credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gitlab-credentials">GitLab credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gitea-credentials">Gitea credentials</a></li>
@@ -178,7 +179,7 @@
             
   <div class="section" id="pipeline-sharing">
 <span id="sharing-page"></span><h1>Pipeline sharing<a class="headerlink" href="#pipeline-sharing" title="Permalink to this headline">¶</a></h1>
-<p>Nextflow seamlessly integrates with <a class="reference external" href="http://bitbucket.org/">BitBucket</a> <a class="footnote-reference" href="#id2" id="id1">[1]</a>, <a class="reference external" href="http://github.com">GitHub</a>,
+<p>Nextflow seamlessly integrates with <a class="reference external" href="http://bitbucket.org/">BitBucket</a> <a class="footnote-reference" href="#id3" id="id1">[1]</a>, <a class="reference external" href="http://github.com">GitHub</a>,
 and <a class="reference external" href="http://gitlab.com">GitLab</a> hosted code repositories and sharing platforms. This feature allows you to manage your
 project code in a more consistent manner or use other people's Nextflow pipelines, published through BitBucket/GitHub/GitLab,
 in a quick and transparent way.</p>
@@ -378,6 +379,30 @@ or a custom identifier representing a private SCM server installation.</p>
     <span class="n">bitbucket</span> <span class="p">{</span>
         <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;me&#39;</span>
         <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;my-secret&#39;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="bitbucket-server-credentials">
+<h3>BitBucket Server credentials<a class="headerlink" href="#bitbucket-server-credentials" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://confluence.atlassian.com/bitbucketserver">BitBucket Server</a> is a self-hosted Git repository and management
+platform.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">BitBucket Server uses different API from the <a class="reference external" href="https://bitbucket.org/">BitBucket</a> cloud service. Make sure to
+use the right configuration whether you are using the cloud service or a self-hosted installation.</p>
+</div>
+<p>To access your local BitBucket Server create an entry in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a> specifying as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">providers</span> <span class="p">{</span>
+
+    <span class="n">mybitbucket</span> <span class="p">{</span>
+        <span class="n">platform</span> <span class="o">=</span> <span class="s1">&#39;bitbucketserver&#39;</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="s1">&#39;https://your.bitbucket.host.com&#39;</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;https://your.bitbucket.host.com&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;your-user&#39;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;your-password or your-token&#39;</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
@@ -604,7 +629,7 @@ your tasks.</p>
 <p>Read the <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to lean more on how to use Docker containers with Nextflow.</p>
 <p>This mix of technologies makes it possible to write self-contained and truly reproducible pipelines which require
 zero configuration and can be reproduced in any system having a Java VM and a Docker engine installed.</p>
-<table class="docutils footnote" frame="void" id="id2" rules="none">
+<table class="docutils footnote" frame="void" id="id3" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>BitBucket provides two types of version control system: <cite>Git</cite> and <cite>Mercurial</cite>. Nextflow supports only <cite>Git</cite> based repositories.</td></tr>
@@ -656,7 +681,7 @@ zero configuration and can be reproduced in any system having a Java VM and a Do
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.09.0-edge',
+            VERSION:'19.11.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

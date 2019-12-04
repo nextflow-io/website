@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 19.09.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 19.11.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.09.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 19.11.0-edge documentation" href="index.html"/>
         <link rel="next" title="Channels" href="channel.html"/>
         <link rel="prev" title="Nextflow scripting" href="script.html"/> 
 
@@ -110,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-output-file-names">Dynamic output file names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-path">Output path</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-stdout-special-file">Output 'stdout' special file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-env">Output 'env'</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-set-of-values">Output 'set' of values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-tuple-of-values">Output 'tuple' of values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#optional-output">Optional Output</a></li>
@@ -1120,10 +1121,13 @@ one or more channels over which outputs are sent. Finally some optional attribut
 <tr class="row-even"><td>path</td>
 <td>Sends a file produced by the process with the name specified over the output channel (replaces <code class="docutils literal"><span class="pre">file</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>stdout</td>
+<tr class="row-odd"><td>env</td>
+<td>Sends the variable defined in the process environment with the name specified over the output channel.</td>
+</tr>
+<tr class="row-even"><td>stdout</td>
 <td>Sends the executed process <cite>stdout</cite> over the output channel.</td>
 </tr>
-<tr class="row-even"><td>tuple</td>
+<tr class="row-odd"><td>tuple</td>
 <td>Lets to send multiple values over the same output channel.</td>
 </tr>
 </tbody>
@@ -1313,8 +1317,8 @@ and the semantic for the input <code class="docutils literal"><span class="pre">
 of a number of output to fine-control the output files.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="6%" />
-<col width="94%" />
+<col width="8%" />
+<col width="92%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -1337,6 +1341,9 @@ of a number of output to fine-control the output files.</p>
 <tr class="row-even"><td>maxDepth</td>
 <td>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</td>
 </tr>
+<tr class="row-odd"><td>includeInputs</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> any input files matching an output file glob pattern are included.</td>
+</tr>
 </tbody>
 </table>
 <div class="admonition warning">
@@ -1353,17 +1360,35 @@ when using Nextflow 19.10.0 or later.</p>
 </div>
 <div class="section" id="output-stdout-special-file">
 <span id="process-stdout"></span><h3>Output 'stdout' special file<a class="headerlink" href="#output-stdout-special-file" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">stdout</span></code> qualifier allows to <cite>capture</cite> the <cite>stdout</cite> output of the executed process and send it over
+<p>The <code class="docutils literal"><span class="pre">stdout</span></code> qualifier allows you to <cite>capture</cite> the <cite>stdout</cite> output of the executed process and send it over
 the channel specified in the output parameter declaration. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">echoSomething</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
     <span class="n">stdout</span> <span class="n">channel</span>
 
-    <span class="s2">&quot;echo Hello world!&quot;</span>
-
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    echo Hello world!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
 <span class="n">channel</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="output-env">
+<span id="process-env"></span><h3>Output 'env'<a class="headerlink" href="#output-env" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal"><span class="pre">env</span></code> qualifier allows you to capture a variable defined in the process execution environment
+and send it over the channel specified in the output parameter declaration:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">myTask</span> <span class="p">{</span>
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">env</span> <span class="n">FOO</span> <span class="n">into</span> <span class="n">target</span>
+    <span class="n">script</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    FOO=$(ls -la)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+
+<span class="n">target</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;directory content: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -2701,7 +2726,7 @@ network congestion. In these cases immediately re-executing the task will likely
 the identical error. A retry with an exponential backoff delay can better recover these error
 conditions:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="n">errorStrategy</span> <span class="p">{</span> <span class="n">sleep</span><span class="p">(</span><span class="n">Math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">attempt</span><span class="p">)</span> <span class="o">*</span> <span class="mi">200</span><span class="p">);</span> <span class="k">return</span> <span class="s1">&#39;retry&#39;</span> <span class="p">}</span>
+  <span class="n">errorStrategy</span> <span class="p">{</span> <span class="n">sleep</span><span class="p">(</span><span class="n">Math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">task</span><span class="o">.</span><span class="n">attempt</span><span class="p">)</span> <span class="o">*</span> <span class="mi">200</span> <span class="k">as</span> <span class="n">long</span><span class="p">);</span> <span class="k">return</span> <span class="s1">&#39;retry&#39;</span> <span class="p">}</span>
   <span class="n">maxRetries</span> <span class="mi">5</span>
   <span class="n">script</span><span class="p">:</span>
   <span class="sd">&#39;&#39;&#39;</span>
@@ -2756,7 +2781,7 @@ conditions:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.09.0-edge',
+            VERSION:'19.11.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

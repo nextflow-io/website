@@ -907,6 +907,7 @@ Qualifier   Semantic
 val         Sends variable's with the name specified over the output channel.
 file        Sends a file produced by the process with the name specified over the output channel.
 path        Sends a file produced by the process with the name specified over the output channel (replaces ``file``).
+env         Sends the variable defined in the process environment with the name specified over the output channel.
 stdout      Sends the executed process `stdout` over the output channel.
 tuple       Lets to send multiple values over the same output channel.
 =========== =============
@@ -1113,15 +1114,16 @@ and the semantic for the input ``file`` described above.
 The main advantage of ``path`` over the ``file`` qualifier is that it allows the specification
 of a number of output to fine-control the output files.
 
-=========== =====================
-Name        Description
-=========== =====================
-glob        When ``true`` the specified name is interpreted as a glob pattern (default: ``true``)
-hidden      When ``true`` hidden files are included in the matching output files (default: ``false``)
-followLinks When ``true`` target files are return in place of any matching symlink (default: ``true``)
-type        Type of paths returned, either ``file``, ``dir`` or ``any`` (default: ``any``, or ``file`` if the specified file name pattern contains a `**` - double star - symbol)
-maxDepth    Maximum number of directory levels to visit (default: `no limit`)
-=========== =====================
+============== =====================
+Name            Description
+============== =====================
+glob            When ``true`` the specified name is interpreted as a glob pattern (default: ``true``)
+hidden          When ``true`` hidden files are included in the matching output files (default: ``false``)
+followLinks     When ``true`` target files are return in place of any matching symlink (default: ``true``)
+type            Type of paths returned, either ``file``, ``dir`` or ``any`` (default: ``any``, or ``file`` if the specified file name pattern contains a `**` - double star - symbol)
+maxDepth        Maximum number of directory levels to visit (default: `no limit`)
+includeInputs   When ``true`` any input files matching an output file glob pattern are included.
+============== =====================
 
 
 .. warning::
@@ -1139,19 +1141,39 @@ maxDepth    Maximum number of directory levels to visit (default: `no limit`)
 Output 'stdout' special file
 ----------------------------
 
-The ``stdout`` qualifier allows to `capture` the `stdout` output of the executed process and send it over
+The ``stdout`` qualifier allows you to `capture` the `stdout` output of the executed process and send it over
 the channel specified in the output parameter declaration. For example::
 
     process echoSomething {
         output:
         stdout channel
 
-        "echo Hello world!"
-
+        """
+        echo Hello world!
+        """
     }
 
     channel.subscribe { print "I say..  $it" }
 
+
+.. _process-env:
+
+Output 'env'
+------------
+
+The ``env`` qualifier allows you to capture a variable defined in the process execution environment
+and send it over the channel specified in the output parameter declaration::
+
+    process myTask {
+        output:
+        env FOO into target
+        script:
+        '''
+        FOO=$(ls -la)
+        '''
+    }
+
+    target.view { "directory content: $it" }
 
 
 .. _process-set:
@@ -2411,7 +2433,7 @@ the identical error. A retry with an exponential backoff delay can better recove
 conditions::
 
     process foo {
-      errorStrategy { sleep(Math.pow(2, task.attempt) * 200); return 'retry' }
+      errorStrategy { sleep(Math.pow(2, task.attempt) * 200 as long); return 'retry' }
       maxRetries 5
       script:
       '''
