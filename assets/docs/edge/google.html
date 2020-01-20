@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 19.12.0-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 20.01.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.12.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.01.0-edge documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -113,24 +113,26 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud-life-sciences">Cloud Life Sciences</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#google-lifesciences-config">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">Process definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id13">Pipeline execution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Hybrid execution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Preemptible instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Hybrid execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id16">Troubleshooting</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -552,9 +554,8 @@ bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket
 by the service depending the chosen instance type.</li>
 </ul>
 </div>
-</div>
 <div class="section" id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Make sure to have enabled Compute Engine API, Genomics API and Cloud Storage Service in the
 <a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services Dashboard</a> page.</li>
@@ -570,6 +571,7 @@ as shown below:</p>
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="cloud-life-sciences">
 <span id="google-lifesciences"></span><h2>Cloud Life Sciences<a class="headerlink" href="#cloud-life-sciences" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://cloud.google.com/life-sciences/">Cloud Life Sciences</a> is a managed computing service that allows the execution of
@@ -578,7 +580,7 @@ containerized workloads in the Google Cloud Platform infrastructure.</p>
 in the cloud, offloading the process executions through the Google Cloud service.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This features requires Nextflow <code class="docutils literal"><span class="pre">19.12.0-edge</span></code> or later.</p>
+<p class="last">This features requires Nextflow <code class="docutils literal"><span class="pre">20.01.0-edge</span></code> or later.</p>
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -719,7 +721,25 @@ pipeline work bucket. Use this feature with caution being careful to avoid unnec
 </div>
 </div>
 <div class="section" id="id14">
-<h3>Hybrid execution<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<h3>Preemptible instances<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Preemptible instances are supported adding the following setting in the Nextflow config file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">google</span> <span class="p">{</span>
+    <span class="n">lifeSciences</span><span class="o">.</span><span class="n">preemptible</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since this type of virtual machines can be retired by the provider before the job completion, it is advisable
+to add the following retry strategy to your config file to instruct Nextflow to automatically re-execute a job
+if the virtual machine was terminated preemptively:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>process {
+  errorStrategy = { task.exitStatus==14 ? &#39;retry&#39; : &#39;terminate&#39; }
+  maxRetries = 5
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Hybrid execution<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
 of hybrid workloads in which some jobs are executed in the local computer or local computing cluster and
 some other jobs are offloaded to Google Pipelines service.</p>
@@ -751,16 +771,15 @@ specify the local storage for the jobs computed locally:</p>
 bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket</span></code>.</p>
 </div>
 </div>
-<div class="section" id="id15">
-<h3>Limitation<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id16">
+<h3>Limitation<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Currently it's not possible to specify a disk type different from the default one assigned
 by the service depending the chosen instance type.</li>
 </ul>
 </div>
-</div>
-<div class="section" id="id16">
-<h2>Troubleshooting<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>Troubleshooting<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Make sure to have enabled Compute Engine API, Life Sciences API and Cloud Storage Service in the
 <a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services Dashboard</a> page.</li>
@@ -769,11 +788,12 @@ by the service depending the chosen instance type.</li>
 Compute Engine Persistent Disk, Compute Engine In-use IP addresses, etc).</li>
 <li>Make sure your security credentials allows you to access any Google Storage bucket
 where input data and temporary files are stored.</li>
+<li>Check the directory <code class="docutils literal"><span class="pre">google/</span></code> created in the task work directory (in the bucket storage) created
+when on job failure and containing useful information of the job execution. The creation
+can be enabled as default setting the option <code class="docutils literal"><span class="pre">google.lifeSciences.debug</span> <span class="pre">=</span> <span class="pre">true</span></code> in the
+Nextflow config file</li>
+<li>Enable the optional SSH daemon in the job VM using the option <code class="docutils literal"><span class="pre">google.lifeSciences.sshDaemon</span> <span class="pre">=</span> <span class="pre">true</span></code></li>
 </ul>
-<p>Google Pipelines debugging information can be enabled using the <code class="docutils literal"><span class="pre">-trace</span></code> command line option
-as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="o">-</span><span class="n">trace</span> <span class="n">nextflow</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">pipelines</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your_project_or_script_name</span><span class="o">&gt;</span>
-</pre></div>
 </div>
 </div>
 </div>
@@ -820,7 +840,7 @@ as shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.12.0-edge',
+            VERSION:'20.01.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
