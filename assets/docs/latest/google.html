@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 19.10.0 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 20.01.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.01.0 documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -113,15 +113,26 @@
 <li class="toctree-l3"><a class="reference internal" href="#id5">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-life-sciences">Cloud Life Sciences</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#google-lifesciences-config">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Process definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Preemptible instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Hybrid execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Limitation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Troubleshooting</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -401,6 +412,10 @@ Currently it is not possible to specify a custom disk size for local storage.</l
 </div>
 <div class="section" id="google-pipelines">
 <span id="id2"></span><h2>Genomics Pipelines<a class="headerlink" href="#google-pipelines" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The support for Google Pipelines API is deprecated. The <a class="reference internal" href="#google-lifesciences">google-lifesciences</a> instead.</p>
+</div>
 <p><a class="reference external" href="https://cloud.google.com/genomics/">Genomics Pipelines</a> is a managed computing service that allows the execution of
 containerized workloads in the Google Cloud Platform infrastructure.</p>
 <p>Nextflow provides built-in support for Genomics Pipelines API which allows the seamless deployment of a Nextflow pipeline
@@ -423,7 +438,7 @@ follow <a class="reference external" href="https://cloud.google.com/genomics/doc
 <ul class="simple">
 <li>Google Pipelines as Nextflow executor i.e. <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-pipelines'</span></code>.</li>
 <li>The Docker container images to be used to run pipeline tasks e.g. <code class="docutils literal"><span class="pre">process.container</span> <span class="pre">=</span> <span class="pre">'biocontainers/salmon:0.8.2--1'</span></code>.</li>
-<li>The Google Cloud <cite>project</cite> to run in e.g. <code class="docutils literal"><span class="pre">google.project</span> <span class="pre">=</span> <span class="pre">'rare-lattice-222412'</span></code>.</li>
+<li>The Google Cloud <cite>project</cite> ID to run in e.g. <code class="docutils literal"><span class="pre">google.project</span> <span class="pre">=</span> <span class="pre">'rare-lattice-222412'</span></code>.</li>
 <li>The Google Cloud <cite>region</cite> or <cite>zone</cite>. You need to specify either one, <strong>not</strong> both. Multiple regions or zones can be
 specified by separating them with a comma e.g. <code class="docutils literal"><span class="pre">google.zone</span> <span class="pre">=</span> <span class="pre">'us-central1-f,us-central-1-b'</span></code>.</li>
 </ul>
@@ -438,6 +453,10 @@ specified by separating them with a comma e.g. <code class="docutils literal"><s
     <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure to specify in the above setting the project ID not the project name.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
@@ -535,9 +554,8 @@ bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket
 by the service depending the chosen instance type.</li>
 </ul>
 </div>
-</div>
 <div class="section" id="troubleshooting">
-<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Make sure to have enabled Compute Engine API, Genomics API and Cloud Storage Service in the
 <a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services Dashboard</a> page.</li>
@@ -551,6 +569,234 @@ where input data and temporary files are stored.</li>
 as shown below:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="o">-</span><span class="n">trace</span> <span class="n">nextflow</span><span class="o">.</span><span class="n">cloud</span><span class="o">.</span><span class="n">google</span><span class="o">.</span><span class="n">pipelines</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your_project_or_script_name</span><span class="o">&gt;</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="cloud-life-sciences">
+<span id="google-lifesciences"></span><h2>Cloud Life Sciences<a class="headerlink" href="#cloud-life-sciences" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://cloud.google.com/life-sciences/">Cloud Life Sciences</a> is a managed computing service that allows the execution of
+containerized workloads in the Google Cloud Platform infrastructure.</p>
+<p>Nextflow provides built-in support for Cloud Life Sciences API which allows the seamless deployment of a Nextflow pipeline
+in the cloud, offloading the process executions through the Google Cloud service.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This features requires Nextflow <code class="docutils literal"><span class="pre">20.01.0-edge</span></code> or later.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This API works well for coarse-grained workloads i.e. long running jobs. It's not suggested the use
+this feature for pipelines spawning many short lived tasks.</p>
+</div>
+<div class="section" id="google-lifesciences-config">
+<span id="id8"></span><h3>Configuration<a class="headerlink" href="#google-lifesciences-config" title="Permalink to this headline">¶</a></h3>
+<p>Make sure to have defined in your environment the <code class="docutils literal"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable.
+See the section <a class="reference internal" href="#requirements">Requirements</a> for details.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Make sure to have enabled Cloud Life Sciences API to use this feature. To learn how to enable it
+follow <a class="reference external" href="https://cloud.google.com/life-sciences/docs/quickstart">this link</a>.</p>
+</div>
+<p>Create a <code class="docutils literal"><span class="pre">nextflow.config</span></code> file in the project root directory. The config must specify the following parameters:</p>
+<ul class="simple">
+<li>Google Life Sciences as Nextflow executor i.e. <code class="docutils literal"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-lifesciences'</span></code>.</li>
+<li>The Docker container images to be used to run pipeline tasks e.g. <code class="docutils literal"><span class="pre">process.container</span> <span class="pre">=</span> <span class="pre">'biocontainers/salmon:0.8.2--1'</span></code>.</li>
+<li>The Google Cloud <cite>project</cite> ID to run in e.g. <code class="docutils literal"><span class="pre">google.project</span> <span class="pre">=</span> <span class="pre">'rare-lattice-222412'</span></code>.</li>
+<li>The Google Cloud <cite>region</cite> or <cite>zone</cite>. This is where the Compute Engine VMs will be started.
+You need to specify either one, <strong>not</strong> both. Multiple regions or zones can be specified by
+separating them with a comma e.g. <code class="docutils literal"><span class="pre">google.zone</span> <span class="pre">=</span> <span class="pre">'us-central1-f,us-central-1-b'</span></code>.</li>
+</ul>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;google-lifesciences&#39;</span>
+    <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;your/container:latest&#39;</span>
+<span class="p">}</span>
+
+<span class="n">google</span> <span class="p">{</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Make sure to specify in the above setting the project ID not the project name.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A container image must be specified to deploy the process execution. You can use a different Docker image for
+each process using one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a>.</p>
+</div>
+<p>The following configuration options are available:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>google.project</td>
+<td>The Google Project Id to use for the pipeline execution.</td>
+</tr>
+<tr class="row-odd"><td>google.region</td>
+<td>The Google <em>region</em> where the computation is executed in Compute Engine VMs. Multiple regions can be provided separating them by a comma. Do not specify if a zone is provided. See  <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">available Compute Engine regions and zones</a></td>
+</tr>
+<tr class="row-even"><td>google.zone</td>
+<td>The Google <em>zone</em> where the computation is executed in Compute Engine VMs. Multiple zones can be provided separating them by a comma. Do not specify if a region is provided. See  <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">available Compute Engine regions and zones</a></td>
+</tr>
+<tr class="row-odd"><td>google.location</td>
+<td>The Google <em>location</em> where the job executions are deployed to Cloud Life Sciences API. See  <a class="reference external" href="https://cloud.google.com/life-sciences/docs/concepts/locations">available Cloud Life Sciences API locations</a> (default: the same as the region or the zone specified).</td>
+</tr>
+<tr class="row-even"><td>google.lifeSciences.bootDiskSize</td>
+<td>Set the size of the virtual machine boot disk e.g <cite>50.GB</cite> (default: none).</td>
+</tr>
+<tr class="row-odd"><td>google.lifeSciences.copyImage</td>
+<td>The container image run to copy input and output files. It must include the <code class="docutils literal"><span class="pre">gsutil</span></code> tool (default: <code class="docutils literal"><span class="pre">google/cloud-sdk:alpine</span></code>).</td>
+</tr>
+<tr class="row-even"><td>google.lifeSciences.debug</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> copies the <cite>/google</cite> debug directory in that task bucket directory (defualt: <code class="docutils literal"><span class="pre">false</span></code>)</td>
+</tr>
+<tr class="row-odd"><td>google.lifeSciences.preemptible</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> enables the usage of <em>preemptible</em> virtual machines or <code class="docutils literal"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
+</tr>
+<tr class="row-even"><td>google.lifeSciences.sshDaemon</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> runs SSH daemon in the VM carrying out the job to which it's possible to connect for debugging purposes (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
+</tr>
+<tr class="row-odd"><td>google.lifeSciences.sshImage</td>
+<td>The container image used to run the SSH daemon (default: <code class="docutils literal"><span class="pre">gcr.io/cloud-genomics-pipelines/tools</span></code>).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id11">
+<h3>Process definition<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Processes can be defined as usual and by default the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used to instantiate a custom
+machine type with the specified compute resources.  If <code class="docutils literal"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.
+A persistent disk will be created with size corresponding to the <code class="docutils literal"><span class="pre">disk</span></code> directive.  If <code class="docutils literal"><span class="pre">disk</span></code> is not specified, the
+instance default is chosen to ensure reasonable I/O performance.</p>
+<p>The process <code class="docutils literal"><span class="pre">machineType</span></code> directive may optionally be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+If specified, this value overrides the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives.
+If the <code class="docutils literal"><span class="pre">cpus</span></code> and <code class="docutils literal"><span class="pre">memory</span></code> directives are used, the values must comply with the allowed custom machine type <a class="reference external" href="https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications">specifications</a> .  Extended memory is not directly supported, however high memory or cpu predefined
+instances may be utilized using the <code class="docutils literal"><span class="pre">machineType</span></code> directive</p>
+<p>Examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">custom_resources_task</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="mi">8</span>
+    <span class="n">memory</span> <span class="s1">&#39;40 GB&#39;</span>
+    <span class="n">disk</span> <span class="s1">&#39;200 GB&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">predefined_resources_task</span> <span class="p">{</span>
+    <span class="n">machineType</span> <span class="s1">&#39;n1-highmem-8&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires Nextflow 19.07.0 or later.</p>
+</div>
+</div>
+<div class="section" id="id14">
+<h3>Pipeline execution<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
+locally or in a Google Storage bucket.</p>
+<p>The pipeline execution must specify a Google Storage bucket where the workflow's intermediate results are stored using
+the <code class="docutils literal"><span class="pre">-work-dir</span></code> command line options. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span> <span class="ow">or</span> <span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p class="last">Any input data <strong>not</strong> stored in a Google Storage bucket will automatically be transferred to the
+pipeline work bucket. Use this feature with caution being careful to avoid unnecessary data transfers.</p>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>Preemptible instances<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Preemptible instances are supported adding the following setting in the Nextflow config file:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">google</span> <span class="p">{</span>
+    <span class="n">lifeSciences</span><span class="o">.</span><span class="n">preemptible</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Since this type of virtual machines can be retired by the provider before the job completion, it is advisable
+to add the following retry strategy to your config file to instruct Nextflow to automatically re-execute a job
+if the virtual machine was terminated preemptively:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>process {
+  errorStrategy = { task.exitStatus==14 ? &#39;retry&#39; : &#39;terminate&#39; }
+  maxRetries = 5
+}
+</pre></div>
+</div>
+</div>
+<div class="section" id="id16">
+<h3>Hybrid execution<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
+of hybrid workloads in which some jobs are executed in the local computer or local computing cluster and
+some other jobs are offloaded to Google Pipelines service.</p>
+<p>To enable this feature use one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> in your Nextflow configuration file to apply
+the Google Pipelines <em>executor</em> only to a subset of processes in your workflow.
+For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">bigTask</span> <span class="p">{</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;google-lifesciences&#39;</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;my/image:tag&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">google</span> <span class="p">{</span>
+    <span class="n">project</span> <span class="o">=</span> <span class="s1">&#39;your-project-id&#39;</span>
+    <span class="n">zone</span> <span class="o">=</span> <span class="s1">&#39;europe-west1-b&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Then deploy the workflow execution using the <code class="docutils literal"><span class="pre">-bucket-dir</span></code> to specify a Google Storage path
+for the jobs computed by the Google Pipeline service and, optionally, the <code class="docutils literal"><span class="pre">-work-dir</span></code> to
+specify the local storage for the jobs computed locally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">script</span> <span class="ow">or</span> <span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">bucket</span><span class="o">-</span><span class="nb">dir</span> <span class="n">gs</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">path</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The Google Storage path needs to contain at least sub-directory. Don't use only the
+bucket name e.g. <code class="docutils literal"><span class="pre">gs://my-bucket</span></code>.</p>
+</div>
+</div>
+<div class="section" id="id17">
+<h3>Limitation<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Currently it's not possible to specify a disk type different from the default one assigned
+by the service depending the chosen instance type.</li>
+</ul>
+</div>
+<div class="section" id="id18">
+<h3>Troubleshooting<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Make sure to have enabled Compute Engine API, Life Sciences API and Cloud Storage Service in the
+<a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services Dashboard</a> page.</li>
+<li>Make sure to have enough compute resources to run your pipeline in your project
+<a class="reference external" href="https://console.cloud.google.com/iam-admin/quotas">Quotas</a> (i.e. Compute Engine CPUs,
+Compute Engine Persistent Disk, Compute Engine In-use IP addresses, etc).</li>
+<li>Make sure your security credentials allows you to access any Google Storage bucket
+where input data and temporary files are stored.</li>
+<li>Check the directory <code class="docutils literal"><span class="pre">google/</span></code> created in the task work directory (in the bucket storage) created
+when on job failure and containing useful information of the job execution. The creation
+can be enabled as default setting the option <code class="docutils literal"><span class="pre">google.lifeSciences.debug</span> <span class="pre">=</span> <span class="pre">true</span></code> in the
+Nextflow config file</li>
+<li>Enable the optional SSH daemon in the job VM using the option <code class="docutils literal"><span class="pre">google.lifeSciences.sshDaemon</span> <span class="pre">=</span> <span class="pre">true</span></code></li>
+<li>Make sure you are choosing a <cite>location</cite> where  <a class="reference external" href="https://cloud.google.com/life-sciences/docs/concepts/locations">Cloud Life Sciences API is available</a>,
+and a <cite>region</cite> or <cite>zone</cite> where <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Compute Engine is available</a>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -597,7 +843,7 @@ as shown below:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.10.0',
+            VERSION:'20.01.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

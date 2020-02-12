@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 19.10.0 documentation</title>
+  <title>Operators &mdash; Nextflow 20.01.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.01.0 documentation" href="index.html"/>
         <link rel="next" title="Executors" href="executor.html"/>
         <link rel="prev" title="Channels" href="channel.html"/> 
 
@@ -131,7 +131,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#forking-operators">Forking operators</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#branch">branch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#choice">choice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#fork">fork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multimap">multiMap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#into">into</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tap">tap</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#separate">separate</a></li>
@@ -168,6 +168,7 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -1858,7 +1859,7 @@ or a <code class="docutils literal"><span class="pre">Collection</span></code> o
 <ul class="simple">
 <li><a class="reference internal" href="#branch">branch</a></li>
 <li><a class="reference internal" href="#choice">choice</a></li>
-<li><a class="reference internal" href="#fork">fork</a></li>
+<li><a class="reference internal" href="#multimap">multiMap</a></li>
 <li><a class="reference internal" href="#into">into</a></li>
 <li><a class="reference internal" href="#separate">separate</a></li>
 <li><a class="reference internal" href="#tap">tap</a></li>
@@ -1977,22 +1978,22 @@ queue1.subscribe { println it }
 <blockquote>
 <div></div></blockquote>
 </div>
-<div class="section" id="fork">
-<span id="operator-fork"></span><h3>fork<a class="headerlink" href="#fork" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
+<div class="section" id="multimap">
+<span id="operator-multimap"></span><h3>multiMap<a class="headerlink" href="#multimap" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p class="last">This is an experimental operator. Syntax and behavior may change.
-Required version <cite>19.08.0-edge</cite> or later.</p>
+Required version <cite>19.11.0-edge</cite> or later.</p>
 </div>
-<p>The <code class="docutils literal"><span class="pre">fork</span></code> operator allows you to forward the items emitted by a source channel to two
-or more output channels assigning each of them a separate value.</p>
-<p>The forking criteria is defined by specifying a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that specify the
+<p>The multiMap operator allows you to forward the items emitted by a source channel to two
+or more output channels mapping each input value as a separate element.</p>
+<p>The mapping criteria is defined by specifying a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that specify the
 target channels labelled by a unique identifier followed by an expression statement that
 evaluates the value to be assigned to such channel.</p>
 <p>For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">fork</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span>
+    <span class="o">.</span><span class="n">multiMap</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span>
         <span class="n">foo</span><span class="p">:</span> <span class="n">it</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span>
         <span class="p">}</span>
@@ -2002,7 +2003,7 @@ evaluates the value to be assigned to such channel.</p>
  <span class="n">result</span><span class="o">.</span><span class="n">bar</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;bar $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>It shows:</p>
+<p>It prints:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">foo</span> <span class="mi">2</span>
 <span class="n">foo</span> <span class="mi">3</span>
 <span class="n">foo</span> <span class="mi">4</span>
@@ -2019,25 +2020,25 @@ you can use the following the shorthand notation showed below.</p>
 </div>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-     <span class="o">.</span><span class="n">fork</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">foo</span><span class="p">:</span> <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">multiMap</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">foo</span><span class="p">:</span> <span class="n">bar</span><span class="p">:</span> <span class="n">it</span> <span class="p">}</span>
      <span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">result</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>As before creates two channels, however both of them receive the same source items.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The fork evaluation closure must be specified inline, ie. it <em>cannot</em> be assigned to a
+<p class="last">The multi-map evaluation closure must be specified inline, ie. it <em>cannot</em> be assigned to a
 variable and passed as argument to the operator, how it can be done with other operators.</p>
 </div>
-<p>To create a fork criteria as variable that can be passed as an argument to more than one
-<code class="docutils literal"><span class="pre">fork</span></code> operator use the <code class="docutils literal"><span class="pre">forkCriteria</span></code> built-in method as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">criteria</span> <span class="o">=</span> <span class="n">forkCriteria</span> <span class="p">{</span>
-                <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
-                <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">10</span>
+<p>To create a multi-map criteria as variable that can be passed as an argument to more than one
+<code class="docutils literal"><span class="pre">multiMap</span></code> operator use the <code class="docutils literal"><span class="pre">multiMapCriteria</span></code> built-in method as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">criteria</span> <span class="o">=</span> <span class="n">multiMapCriteria</span> <span class="p">{</span>
+                  <span class="n">small</span><span class="p">:</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">10</span>
+                  <span class="n">large</span><span class="p">:</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">10</span>
                 <span class="p">}</span>
 
-<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch1</span> <span class="p">}</span>
-<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fork</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch2</span> <span class="p">}</span>
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">multiMap</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch1</span> <span class="p">}</span>
+<span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">multiMap</span><span class="p">(</span><span class="n">criteria</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">ch2</span> <span class="p">}</span>
 </pre></div>
 </div>
 </div>
@@ -2134,7 +2135,7 @@ is that you won't need to previously create the target channel, because it is cr
 <span id="operator-separate"></span><h3>separate<a class="headerlink" href="#separate" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">The <cite>separate</cite> operator has been deprecated. Use <a class="reference internal" href="#fork">fork</a> instead.</p>
+<p class="last">The <cite>separate</cite> operator has been deprecated. Use <a class="reference internal" href="#multimap">multiMap</a> instead.</p>
 </div>
 <p>The <code class="docutils literal"><span class="pre">separate</span></code> operator lets you copy the items emitted by the source channel into multiple
 channels, which each of these can receive a <cite>separate</cite> version of the same item.</p>
@@ -2216,7 +2217,7 @@ the output of <code class="docutils literal"><span class="pre">channel2</span></
 <p class="last">The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
 in order to assign two variables at once using the list of channels returned by the <code class="docutils literal"><span class="pre">separate</span></code> operator.</p>
 </div>
-<p>See also: <a class="reference internal" href="#fork">fork</a>, <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
+<p>See also: <a class="reference internal" href="#multimap">multiMap</a>, <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
 </div>
 </div>
 <div class="section" id="maths-operators">
@@ -2595,7 +2596,7 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.10.0',
+            VERSION:'20.01.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

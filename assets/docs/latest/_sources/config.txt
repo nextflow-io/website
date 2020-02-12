@@ -302,7 +302,7 @@ The above configuration example can be rewritten using the dot notation as shown
 Scope `docker`
 --------------
 
-The ``docker`` configuration scope controls how `Docker <http://www.docker.io>`_ containers are executed by Nextflow.
+The ``docker`` configuration scope controls how `Docker <https://www.docker.com>`_ containers are executed by Nextflow.
 
 The following settings are available:
 
@@ -343,7 +343,7 @@ Read :ref:`docker-page` page to lean more how use Docker containers with Nextflo
 Scope `singularity`
 -------------------
 
-The ``singularity`` configuration scope controls how `Singularity <http://singularity.lbl.gov>`_ containers are executed
+The ``singularity`` configuration scope controls how `Singularity <https://sylabs.io/singularity/>`_ containers are executed
 by Nextflow.
 
 The following settings are available:
@@ -363,6 +363,42 @@ pullTimeout         The amount of time the Singularity pull can last, exceeding 
 
 
 Read :ref:`singularity-page` page to lean more how use Singularity containers with Nextflow.
+
+.. _config-podman:
+
+Scope `podman`
+--------------
+
+The ``podman`` configuration scope controls how `Podman <https://podman.io/>`_ containers are executed by Nextflow.
+
+The following settings are available:
+
+================== ================
+Name                Description
+================== ================
+enabled             Turn this flag to ``true`` to enable Podman execution (default: ``false``).
+envWhitelist        Comma separated list of environment variable names to be included in the container environment.
+temp                Mounts a path of your choice as the ``/tmp`` directory in the container. Use the special value ``auto`` to create a temporary directory each time a container is created.
+remove              Clean-up the container after the execution (default: ``true``).
+runOptions          This attribute can be used to provide any extra command line options supported by the ``podman run`` command.
+registry            The registry from where container images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. ``http://``.
+engineOptions       This attribute can be used to provide any option supported by the Docker engine i.e. ``podman [OPTIONS]``.
+mountFlags          Add the specified flags to the volume mounts e.g. `mountFlags = 'ro,Z'`
+================== ================
+
+The above options can be used by prefixing them with the ``podman`` scope or surrounding them by curly
+brackets, as shown below::
+
+    process.container = 'nextflow/examples'
+
+    podman {
+        enabled = true
+        temp = 'auto'
+    }
+
+
+
+Read :ref:`podman-page` page to lean more how use Podman containers with Nextflow.
 
 .. _config-manifest:
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>DSL 2 &mdash; Nextflow 19.10.0 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 20.01.0 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 19.10.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.01.0 documentation" href="index.html"/>
         <link rel="next" title="Amazon Cloud" href="awscloud.html"/>
         <link rel="prev" title="Configuration" href="config.html"/> 
 
@@ -106,7 +106,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#modules-include">Modules include</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#selective-inclusion">Selective inclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-inclusions">Multiple inclusions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aliases">Module aliases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-parameters">Module parameters</a></li>
 </ul>
@@ -127,6 +127,7 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -346,9 +347,9 @@ another workflow component definition as any other function or process i.e. <cod
 </div>
 <div class="section" id="workflow-inputs">
 <h3>Workflow inputs<a class="headerlink" href="#workflow-inputs" title="Permalink to this headline">¶</a></h3>
-<p>A workflow component can declare one or more input channels using the <code class="docutils literal"><span class="pre">get</span></code> keyword. For example:</p>
+<p>A workflow component can declare one or more input channels using the <code class="docutils literal"><span class="pre">take</span></code> keyword. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
     <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -357,7 +358,7 @@ another workflow component definition as any other function or process i.e. <cod
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">When the <code class="docutils literal"><span class="pre">get</span></code> is used the beginning of the workflow body needs to be identified with the
+<p class="last">When the <code class="docutils literal"><span class="pre">take</span></code> is used the beginning of the workflow body needs to be identified with the
 <code class="docutils literal"><span class="pre">main</span></code> keyword.</p>
 </div>
 <p>Then, the input can be specified a argument on the workflow invocation statement:</p>
@@ -417,6 +418,10 @@ application script.</p>
 </div>
 <div class="section" id="workflow-publish">
 <h3>Workflow publish<a class="headerlink" href="#workflow-publish" title="Permalink to this headline">¶</a></h3>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">This features has been retired and it will not be included in the final DSL2 release.</p>
+</div>
 <p>The <code class="docutils literal"><span class="pre">publish</span></code> clause in the workflow declaration allow the definition of one or more output channels
 whose content needs to be copied to a storage location of your choice. For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
@@ -446,7 +451,7 @@ directive i.e. <code class="docutils literal"><span class="pre">mode</span></cod
 <p>Workflow defined in your script or import by a module inclusion can be invoked and composed
 as any other process in your application.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">flow1</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
         <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -455,7 +460,7 @@ as any other process in your application.</p>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="n">flow2</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
         <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
         <span class="n">baz</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -464,7 +469,7 @@ as any other process in your application.</p>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
-    <span class="n">get</span><span class="p">:</span> <span class="n">data</span>
+    <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
       <span class="n">flow1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
       <span class="n">flow2</span><span class="p">(</span><span class="n">flow1</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
@@ -494,37 +499,36 @@ can be included and shared across workflow applications.</p>
 as described in the above sections.</p>
 <div class="section" id="modules-include">
 <h3>Modules include<a class="headerlink" href="#modules-include" title="Permalink to this headline">¶</a></h3>
-<p>A module script can be included from another Nextflow script using the <code class="docutils literal"><span class="pre">include</span></code> keyword.
-Then it's possible to reference the components (eg. functions, processes and workflow ) defined in the module
-from the including script.</p>
+<p>A component defined in a module script can be imported into another Nextflow script using the <code class="docutils literal"><span class="pre">include</span></code> keyword.</p>
 <p>For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">include</span> <span class="s1">&#39;./modules/my-module&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
-    <span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Nextflow implicitly looks for the script file <code class="docutils literal"><span class="pre">modules/my-module.nf</span></code> resolving the path
+<p>The above snippets includes a process with name <code class="docutils literal"><span class="pre">foo</span></code> defined in the module script in the main
+execution context, as such it can be invoked in the <code class="docutils literal"><span class="pre">workflow</span></code> scope.</p>
+<p>Nextflow implicitly looks for the script file <code class="docutils literal"><span class="pre">./some/module.nf</span></code> resolving the path
 against the <em>including</em> script location.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Relative paths must begin with the <code class="docutils literal"><span class="pre">./</span></code> prefix.</p>
 </div>
 </div>
-<div class="section" id="selective-inclusion">
-<h3>Selective inclusion<a class="headerlink" href="#selective-inclusion" title="Permalink to this headline">¶</a></h3>
-<p>The module inclusion implicitly imports all the components defined in the module script.
-It's possible to selective include only a specific component by its name using the
-inclusion extended syntax as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="n">include</span> <span class="n">my_pipeline</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
+<div class="section" id="multiple-inclusions">
+<h3>Multiple inclusions<a class="headerlink" href="#multiple-inclusions" title="Permalink to this headline">¶</a></h3>
+<p>A Nextflow script allows the inclusion of any number of modules. When multiple
+components need to be included from the some module script the component names can be
+specified in the same inclusion using the curly brackets notation as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/data/*.txt&#39;</span><span class="p">)</span>
-    <span class="n">my_pipeline</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -534,10 +538,8 @@ inclusion extended syntax as shown below:</p>
 <p>When including a module component it's possible to specify a name <em>alias</em>.
 This allows the inclusion and the invocation of the same component multiple times
 in your script using different names. For example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-
-<span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
-<span class="n">include</span> <span class="n">foo</span> <span class="k">as</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;./modules/my-module&#39;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="n">foo</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
+<span class="n">include</span> <span class="n">foo</span> <span class="k">as</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;./other/module&#39;</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
     <span class="n">foo</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span>
@@ -545,34 +547,57 @@ in your script using different names. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The process configuration defined in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file will
-be resolved against the alias name. Following the above example the process <code class="docutils literal"><span class="pre">bar</span></code>
-ignores any process specific settings eventually defined for the process with name <code class="docutils literal"><span class="pre">foo</span></code>.</p>
+<p>The same is possible when using the curly delimited  inclusion as shown below:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">foo</span> <span class="k">as</span> <span class="n">bar</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">some_data</span><span class="p">)</span>
+    <span class="n">bar</span><span class="p">(</span><span class="n">other_data</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="module-parameters">
 <h3>Module parameters<a class="headerlink" href="#module-parameters" title="Permalink to this headline">¶</a></h3>
-<p>A module script can define one or more parameters as any other Nextflow script:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span>
-<span class="n">params</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;world&#39;</span>
+<p>A module script can define one or more parameters using the same syntax of a Nextflow workflow script:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;world!&#39;</span>
 
 <span class="k">def</span> <span class="nf">sayHello</span><span class="p">()</span> <span class="p">{</span>
-    <span class="s2">&quot;$params.foo $params.bar&quot;</span>
+    <span class="n">println</span> <span class="s2">&quot;$params.foo $params.bar&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Then, parameters can be specified when the module is imported with the <code class="docutils literal"><span class="pre">include</span></code> statement:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">preview</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
+<p>Then, parameters are inherited from the including context. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;Hola&#39;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="s1">&#39;Mundo&#39;</span>
 
-<span class="n">include</span> <span class="s1">&#39;./modules/my-module&#39;</span> <span class="n">params</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="s1">&#39;mundo&#39;</span><span class="p">)</span>
+<span class="n">include</span> <span class="p">{</span><span class="n">sayHello</span><span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">sayHello</span><span class="p">()</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">All parameters in the current context can be passed to a module using the <code class="docutils literal"><span class="pre">params(params)</span></code> idiom.</p>
+<p>The above snippet prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Hola</span> <span class="n">mundo</span>
+</pre></div>
 </div>
+<p>The option <code class="docutils literal"><span class="pre">addParams</span></code> can be used to extend the module parameters without affecting the external
+scope. For example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span><span class="n">sayHello</span><span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span> <span class="n">addParams</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Ciao&#39;</span><span class="p">)</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">sayHello</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above snippet prints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Ciao world!
+</pre></div>
+</div>
+<p>Finally the include option <code class="docutils literal"><span class="pre">params</span></code> allows the specification of one or more parameters without
+inheriting any value from the external environment.</p>
 </div>
 </div>
 <div class="section" id="channel-forking">
@@ -722,7 +747,7 @@ over multiple lines.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'19.10.0',
+            VERSION:'20.01.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
