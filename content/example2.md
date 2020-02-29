@@ -27,7 +27,7 @@ params.range = 100
  */
 process perlTask {
     output:
-    stdout randNums
+    stdout into randNums
 
 	shell:
     '''
@@ -43,7 +43,6 @@ process perlTask {
 	'''
 }
 
-
 /*
  * A Python script task which parses the output of the previous script
  */
@@ -51,7 +50,7 @@ process pyTask {
     echo true
 
     input:
-    stdin randNums
+    stdin from randNums
 
     '''
     #!/usr/bin/env python
@@ -68,7 +67,6 @@ process pyTask {
 
     print "avg: %s - %s" % ( x/lines, y/lines )
 	'''
-
 }
 ]]>
 </script>
@@ -82,4 +80,4 @@ The first one executes a Perl code, because the script block definition starts
 with a PERL <em>shebang</em> declaration (line 14).
 
 In the same way the second process will execute a Python piece of code, by
-the simply fact the the script block starts with a Python <em>shebang</em> header (line 38).
+the simply fact the the script block starts with a Python <em>shebang</em> header (line 36).

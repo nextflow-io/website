@@ -114,7 +114,6 @@
 #!/usr/bin/env nextflow
 
 params.in = "$baseDir/data/sample.fa"
-sequences = file(params.in)
 
 /* 
  * split a fasta file in multiple files 
@@ -122,15 +121,14 @@ sequences = file(params.in)
 process splitSequences {
 
     input:
-    file 'input.fa' from sequences
+    path 'input.fa' from params.in
 
     output:
-    file 'seq_*' into records
+    path 'seq_*' into records
 
     """
     awk '/^>/{f="seq_"++d} {print > f}' < input.fa
     """
-
 }
 
 /* 
@@ -139,10 +137,10 @@ process splitSequences {
 process reverse {
 
     input:
-    file x from records
+    path x from records
     
     output:
-    stdout result
+    stdout into result
 
     """
     cat $x | rev
@@ -161,20 +159,19 @@ result.subscribe { println it }
 <ul>
   <li><p>Line 1: The script starts with a shebang declaration. This allows you to launch your pipeline,  as any other BASH script.</p></li>
   <li><p>Line 3: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value  <code>$HOME/sample.fa</code>.This value can be overridden when launching the pipeline,  by simply adding the option <code>--in &lt;value&gt;</code> to the script command line.</p></li>
-  <li><p>Line 4: Defines a variable sequences holding a reference for the file whose name is  specified by the <code>params.in</code> parameter.</p></li>
-  <li><p>Lines 9-21: The process that splits the provided file.</p></li>
-  <li><p>Line 11: Opens the input declaration block. The lines following this clause are interpreted as input definitions.</p></li>
-  <li><p>Line 12: Defines the process input file. This file is received from the variable sequences and will be named <code>input.fa</code>.</p></li>
-  <li><p>Line 14: Opens the output declaration block. Lines following this clause are interpreted as output definitions.</p></li>
-  <li><p>Line 15: Defines that the process outputs files whose names match the pattern <code>seq_*</code>. These files are sent over the channel records.</p></li>
-  <li><p>Lines 17-19: The actual script executed by the process to split the provided file.</p></li>
-  <li><p>Lines 26-37: Defines the second process, that receives the splits produced by the previous process and reverses their content.</p></li>
-  <li><p>Line 28: Opens the input declaration block. Lines following this clause are interpreted as input definitions.</p></li>
-  <li><p>Line 29: Defines the process input file. This file is received through the channel records.</p></li>
-  <li><p>Line 31: Opens the output declaration block. Lines following this clause are interpreted as output definitions.</p></li>
-  <li><p>Line 32: The standard output of the executed script is declared as the process output. This output is sent over the channel result.</p></li>
-  <li><p>Lines 34-36: The actual script executed by the process to reverse the content of the received files.</p></li>
-  <li><p>Line 42: Prints a result each time a new item is received on the result channel.</p></li>
+  <li><p>Lines 8-20: The process that splits the provided file.</p></li>
+  <li><p>Line 10: Opens the input declaration block. The lines following this clause are interpreted as input definitions.</p></li>
+  <li><p>Line 11: Declares the process input file. This file is taken from the <code>params.in</code> parameter and named <code>input.fa</code>.</p></li>
+  <li><p>Line 13: Opens the output declaration block. Lines following this clause are interpreted as output declarations.</p></li>
+  <li><p>Line 14: Defines that the process outputs files whose names match the pattern <code>seq_*</code>. These files are sent over the channel <code>records</code>.</p></li>
+  <li><p>Lines 16-18: The actual script executed by the process to split the provided file.</p></li>
+  <li><p>Lines 24-35: Defines the second process, that receives the splits produced by the previous process and reverses their content.</p></li>
+  <li><p>Line 26: Opens the input declaration block. Lines following this clause are interpreted as input declarations.</p></li>
+  <li><p>Line 27: Defines the process input file. This file is received through the channel <code>records</code>.</p></li>
+  <li><p>Line 29: Opens the output declaration block. Lines following this clause are interpreted as output declarations.</p></li>
+  <li><p>Line 30: The standard output of the executed script is declared as the process output. This output is sent over the channel <code>result</code>.</p></li>
+  <li><p>Lines 32-34: The actual script executed by the process to reverse the content of the received files.</p></li>
+  <li><p>Line 40: Prints a result each time a new item is received on the <code>result</code> channel.</p></li>
 </ul>
     </div>
 </div>

@@ -19,7 +19,6 @@ syntaxhighlighter=yes
 #!/usr/bin/env nextflow
 
 params.in = "$baseDir/data/sample.fa"
-sequences = file(params.in)
 
 /* 
  * split a fasta file in multiple files 
@@ -27,15 +26,14 @@ sequences = file(params.in)
 process splitSequences {
 
     input:
-    file 'input.fa' from sequences
+    path 'input.fa' from params.in
 
     output:
-    file 'seq_*' into records
+    path 'seq_*' into records
 
     """
     awk '/^>/{f="seq_"++d} {print > f}' < input.fa
     """
-
 }
 
 /* 
@@ -44,10 +42,10 @@ process splitSequences {
 process reverse {
 
     input:
-    file x from records
+    path x from records
     
     output:
-    stdout result
+    stdout into result
 
     """
     cat $x | rev
@@ -73,42 +71,39 @@ result.subscribe { println it }
 * Line 3: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value
  <code>$HOME/sample.fa</code>.This value can be overridden when launching the pipeline, 
  by simply adding the option <code>--in &lt;value&gt;</code> to the script command line.
-
-* Line 4: Defines a variable sequences holding a reference for the file whose name is
- specified by the <code>params.in</code> parameter.
  
-* Lines 9-21: The process that splits the provided file.
+* Lines 8-20: The process that splits the provided file.
  
-* Line 11: Opens the input declaration block. The lines following this clause are interpreted 
+* Line 10: Opens the input declaration block. The lines following this clause are interpreted 
 as input definitions.
 
-* Line 12: Defines the process input file. This file is received from the variable 
-sequences and will be named <code>input.fa</code>.
+* Line 11: Declares the process input file. This file is taken from the `params.in` parameter 
+and named <code>input.fa</code>.
 
-* Line 14: Opens the output declaration block. Lines following this clause are interpreted 
-as output definitions.
+* Line 13: Opens the output declaration block. Lines following this clause are interpreted 
+as output declarations.
 
-* Line 15: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
-These files are sent over the channel records.
+* Line 14: Defines that the process outputs files whose names match the pattern <code>seq_*</code>.
+These files are sent over the channel `records`.
 
-* Lines 17-19: The actual script executed by the process to split the provided file.
+* Lines 16-18: The actual script executed by the process to split the provided file.
   
-* Lines 26-37: Defines the second process, that receives the splits produced by the
+* Lines 24-35: Defines the second process, that receives the splits produced by the
 previous process and reverses their content.
 
-* Line 28: Opens the input declaration block. Lines following this clause are
-interpreted as input definitions.
+* Line 26: Opens the input declaration block. Lines following this clause are
+interpreted as input declarations.
 
-* Line 29: Defines the process input file. This file is received through the channel records.
+* Line 27: Defines the process input file. This file is received through the channel `records`.
 
-* Line 31: Opens the output declaration block. Lines following this clause are
-interpreted as output definitions.
+* Line 29: Opens the output declaration block. Lines following this clause are
+interpreted as output declarations.
 
-* Line 32: The standard output of the executed script is declared as the process
-output. This output is sent over the channel result.
+* Line 30: The standard output of the executed script is declared as the process
+output. This output is sent over the channel `result`.
 
-* Lines 34-36: The actual script executed by the process to reverse the content of the
+* Lines 32-34: The actual script executed by the process to reverse the content of the
 received files.
 
-* Line 42: Prints a result each time a new item is received on the result channel.
+* Line 40: Prints a result each time a new item is received on the `result` channel.
 
