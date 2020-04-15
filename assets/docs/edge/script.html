@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nextflow scripting &mdash; Nextflow 20.03.0-edge documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 20.04.0-edge documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 20.03.0-edge documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.04.0-edge documentation" href="index.html"/>
         <link rel="next" title="Processes" href="process.html"/>
         <link rel="prev" title="Basic concepts" href="basic.html"/> 
 
@@ -90,6 +90,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#strings">Strings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#string-interpolation">String interpolation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multi-line-strings">Multi-line strings</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implicit-variables">Implicit variables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#script-implicit-variables">Script implicit variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-implicit-variables">Configuration implicit variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-implicit-variables">Process implicit variables</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#closures">Closures</a></li>
@@ -363,6 +369,93 @@ a <cite>new line</cite> character from separating that line from the one that fo
 </div>
 <p>In the preceding example, <code class="docutils literal"><span class="pre">blastp</span></code> and its <code class="docutils literal"><span class="pre">-in</span></code>, <code class="docutils literal"><span class="pre">-out</span></code>, <code class="docutils literal"><span class="pre">-db</span></code> and <code class="docutils literal"><span class="pre">-html</span></code> switches and
 their arguments are effectively a single line.</p>
+</div>
+</div>
+<div class="section" id="implicit-variables">
+<span id="id3"></span><h2>Implicit variables<a class="headerlink" href="#implicit-variables" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="script-implicit-variables">
+<h3>Script implicit variables<a class="headerlink" href="#script-implicit-variables" title="Permalink to this headline">¶</a></h3>
+<p>The following variables are implicitly defined in the script global execution scope:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">baseDir</span></code></td>
+<td>The directory where the main workflow script is located (deprecated in favour of <code class="docutils literal"><span class="pre">projectDir</span></code> since <code class="docutils literal"><span class="pre">20.04.0</span></code>).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">launchDir</span></code></td>
+<td>The directory where the workflow is run (requires version <code class="docutils literal"><span class="pre">20.04.0</span></code> or later).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">moduleDir</span></code></td>
+<td>The directory where a module script is located for DSL2 modules or the same as <code class="docutils literal"><span class="pre">projectDir</span></code> for a non-module script (requires version <code class="docutils literal"><span class="pre">20.04.0</span></code> or later).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">nextflow</span></code></td>
+<td>Dictionary like object representing nextflow runtime information (see <a class="reference internal" href="metadata.html#metadata-nextflow"><span class="std std-ref">Nextflow metadata</span></a>).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">params</span></code></td>
+<td>Dictionary like object holding workflow parameters specifing in the config file or as command line options.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">projectDir</span></code></td>
+<td>The directory where the main script is located (requires version <code class="docutils literal"><span class="pre">20.04.0</span></code> or later).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">workDir</span></code></td>
+<td>The directory where tasks temporary files are created.</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">workflow</span></code></td>
+<td>Dictionary like object representing workflow runtime information (see <a class="reference internal" href="metadata.html#metadata-workflow"><span class="std std-ref">Runtime metadata</span></a>).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="configuration-implicit-variables">
+<h3>Configuration implicit variables<a class="headerlink" href="#configuration-implicit-variables" title="Permalink to this headline">¶</a></h3>
+<p>The following variables are implicitly defined in the Nextflow configuration file:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">baseDir</span></code></td>
+<td>The directory where the main workflow script is located (deprecated in favour of <code class="docutils literal"><span class="pre">projectDir</span></code> since <code class="docutils literal"><span class="pre">20.04.0</span></code>).</td>
+</tr>
+<tr class="row-odd"><td><code class="docutils literal"><span class="pre">launchDir</span></code></td>
+<td>The directory where the workflow is run (requires version <code class="docutils literal"><span class="pre">20.04.0</span></code> or later).</td>
+</tr>
+<tr class="row-even"><td><code class="docutils literal"><span class="pre">projectDir</span></code></td>
+<td>The directory where the main script is located (requires version <code class="docutils literal"><span class="pre">20.04.0</span></code> or later).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="process-implicit-variables">
+<h3>Process implicit variables<a class="headerlink" href="#process-implicit-variables" title="Permalink to this headline">¶</a></h3>
+<p>In the process definition scope it's available the <code class="docutils literal"><span class="pre">task</span></code> implicit variable which allow accessing
+the current task configuration directives. For examples:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">script</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  some_tool --cpus $task.cpus --mem $task.memory</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the above snippet the <code class="docutils literal"><span class="pre">task.cpus</span></code> report the value for the <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus directive</span></a> and
+the <code class="docutils literal"><span class="pre">task.memory</span></code> the current value for <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory directive</span></a> depending the actual
+setting given in the workflow configuration file.</p>
+<p>See <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">Process directives</span></a> for details.</p>
 </div>
 </div>
 <div class="section" id="closures">
@@ -1165,7 +1258,7 @@ automatically uncompressed.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.03.0-edge',
+            VERSION:'20.04.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
