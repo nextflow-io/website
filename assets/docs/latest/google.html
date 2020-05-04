@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 20.01.0 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 20.04.1 documentation</title>
   
 
   
@@ -32,7 +32,7 @@
   
 
   
-    <link rel="top" title="Nextflow 20.01.0 documentation" href="index.html"/>
+    <link rel="top" title="Nextflow 20.04.1 documentation" href="index.html"/>
         <link rel="next" title="Conda environments" href="conda.html"/>
         <link rel="prev" title="Amazon S3 storage" href="amazons3.html"/> 
 
@@ -189,10 +189,13 @@
 enabling the seamless deployment and execution of Nextflow pipelines over Google cloud services.</p>
 <p>The execution can be done either deploying a Nextflow managed cluster using <a class="reference external" href="https://cloud.google.com/compute/">Google Compute Engine</a>
 instances or via the <a class="reference external" href="https://cloud.google.com/genomics/">Genomics Pipelines</a> managed service.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature requires Nextflow version 19.01.0 or later.</p>
+</div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">This is an experimental feature and it may change in a future release. It requires Nextflow
-version <code class="docutils literal"><span class="pre">19.01.0</span></code> or later.</p>
+<p class="last">This feature is deprecated in favour of <a class="reference internal" href="#google-lifesciences"><span class="std std-ref">Cloud Life Sciences</span></a> executor.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
@@ -629,8 +632,8 @@ each process using one or more <a class="reference internal" href="config.html#c
 <p>The following configuration options are available:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="11%" />
-<col width="89%" />
+<col width="10%" />
+<col width="90%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Name</th>
@@ -662,10 +665,13 @@ each process using one or more <a class="reference internal" href="config.html#c
 <tr class="row-odd"><td>google.lifeSciences.preemptible</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> enables the usage of <em>preemptible</em> virtual machines or <code class="docutils literal"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal"><span class="pre">true</span></code>)</td>
 </tr>
-<tr class="row-even"><td>google.lifeSciences.sshDaemon</td>
+<tr class="row-even"><td>google.lifeSciences.usePrivateAddress</td>
+<td>When <code class="docutils literal"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal"><span class="pre">false</span></code>). Requires version <cite>20.03.0-edge</cite> or later.</td>
+</tr>
+<tr class="row-odd"><td>google.lifeSciences.sshDaemon</td>
 <td>When <code class="docutils literal"><span class="pre">true</span></code> runs SSH daemon in the VM carrying out the job to which it's possible to connect for debugging purposes (default: <code class="docutils literal"><span class="pre">false</span></code>).</td>
 </tr>
-<tr class="row-odd"><td>google.lifeSciences.sshImage</td>
+<tr class="row-even"><td>google.lifeSciences.sshImage</td>
 <td>The container image used to run the SSH daemon (default: <code class="docutils literal"><span class="pre">gcr.io/cloud-genomics-pipelines/tools</span></code>).</td>
 </tr>
 </tbody>
@@ -843,7 +849,7 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.01.0',
+            VERSION:'20.04.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
