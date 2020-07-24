@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Amazon S3 storage &mdash; Nextflow 20.04.1-edge documentation</title>
+  <title>Amazon S3 storage &mdash; Nextflow 20.06.0-edge documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Nextflow 20.04.1-edge documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nextflow 20.06.0-edge documentation" href="index.html"/>
         <link rel="next" title="Google Cloud" href="google.html"/>
         <link rel="prev" title="Amazon Cloud" href="awscloud.html"/> 
 
@@ -159,16 +162,16 @@
 transparently in your pipeline script like any other file in the local file system.</p>
 <div class="section" id="s3-path">
 <h2>S3 path<a class="headerlink" href="#s3-path" title="Permalink to this headline">¶</a></h2>
-<p>In order to access a S3 file you only need to prefix the file path with the <code class="docutils literal"><span class="pre">s3</span></code> schema and the <cite>bucket</cite> name
+<p>In order to access a S3 file you only need to prefix the file path with the <code class="docutils literal notranslate"><span class="pre">s3</span></code> schema and the <cite>bucket</cite> name
 where it is stored.</p>
-<p>For example if you need to access the file <code class="docutils literal"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal"><span class="pre">my-bucket</span></code>,
+<p>For example if you need to access the file <code class="docutils literal notranslate"><span class="pre">/data/sequences.fa</span></code> stored in a bucket with name <code class="docutils literal notranslate"><span class="pre">my-bucket</span></code>,
 that file can be accessed using the following fully qualified path:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sequences</span><span class="o">.</span><span class="n">fa</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">my</span><span class="o">-</span><span class="n">bucket</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">sequences</span><span class="o">.</span><span class="n">fa</span>
 </pre></div>
 </div>
 <p>The usual file operations can be applied on a path handle created using the above notation. For example the content
 of a S3 file can be printed as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://my-bucket/data/sequences.fa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://my-bucket/data/sequences.fa&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
 <p>See section <a class="reference internal" href="script.html#script-file-io"><span class="std std-ref">Files and I/O</span></a> to learn more about available file operations.</p>
@@ -177,14 +180,14 @@ of a S3 file can be printed as shown below:</p>
 <h2>Security credentials<a class="headerlink" href="#security-credentials" title="Permalink to this headline">¶</a></h2>
 <p>Amazon access credentials can be provided in two ways:</p>
 <ol class="arabic simple">
-<li>Using AWS access and secret keys in your pipeline configuration.</li>
-<li>Using IAM roles to grant access to S3 storage on Amazon EC2 instances.</li>
+<li><p>Using AWS access and secret keys in your pipeline configuration.</p></li>
+<li><p>Using IAM roles to grant access to S3 storage on Amazon EC2 instances.</p></li>
 </ol>
 <div class="section" id="aws-access-and-secret-keys">
 <h3>AWS access and secret keys<a class="headerlink" href="#aws-access-and-secret-keys" title="Permalink to this headline">¶</a></h3>
-<p>The AWS access and secret keys can be specified by using the <code class="docutils literal"><span class="pre">aws</span></code> section in the <code class="docutils literal"><span class="pre">nextflow.config</span></code> configuration.
+<p>The AWS access and secret keys can be specified by using the <code class="docutils literal notranslate"><span class="pre">aws</span></code> section in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> configuration.
 file as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
   <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS access key&gt;&#39;</span>
   <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;Your AWS secret key&gt;&#39;</span>
   <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS region identifier&gt;&#39;</span>
@@ -196,12 +199,12 @@ places, including environment variables and local AWS configuration files.</p>
 <p>Nextflow looks for AWS credentials in the following order:</p>
 <blockquote>
 <div><ol class="arabic simple">
-<li>the <code class="docutils literal"><span class="pre">nextflow.config</span></code> file in the pipeline execution directory</li>
-<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></li>
-<li>the environment variables <code class="docutils literal"><span class="pre">AWS_ACCESS_KEY</span></code> and <code class="docutils literal"><span class="pre">AWS_SECRET_KEY</span></code></li>
-<li>the <cite>default</cite> profile in the AWS credentials file located at <code class="docutils literal"><span class="pre">~/.aws/credentials</span></code></li>
-<li>the <cite>default</cite> profile in the AWS client configuration file located at <code class="docutils literal"><span class="pre">~/.aws/config</span></code></li>
-<li>the temporary AWS credentials provided by an IAM instance role. See <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation for details.</li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file in the pipeline execution directory</p></li>
+<li><p>the environment variables <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></p></li>
+<li><p>the environment variables <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_KEY</span></code></p></li>
+<li><p>the <cite>default</cite> profile in the AWS credentials file located at <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code></p></li>
+<li><p>the <cite>default</cite> profile in the AWS client configuration file located at <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code></p></li>
+<li><p>the temporary AWS credentials provided by an IAM instance role. See <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation for details.</p></li>
 </ol>
 </div></blockquote>
 <p>More information regarding <a class="reference external" href="http://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html">AWS Security Credentials</a>
@@ -265,7 +268,7 @@ documentation.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.04.1-edge',
+            VERSION:'20.06.0-edge',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -274,7 +277,8 @@ documentation.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

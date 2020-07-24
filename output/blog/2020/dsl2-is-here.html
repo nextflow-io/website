@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Nextflow - Nextflow DSL 2 is here!</title>
+    <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developers<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/docs/latest/index.html">Reference documentation</a></li>
+                        <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
+                        <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
+                        <li><a href="https://groups.google.com/forum/#!forum/nextflow">Discussion forum</a></li>
+                        <li><a href="https://gitter.im/nextflow-io/nextflow">Gitter chat</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About Us</a>
+                </li>
+                   
+            </ul>
+            <ul class="list-inline pull-right hidden-xs">
+                <li style='position: relative; top: 10px; right: 75px' >
+                	<a href='http://www.crg.eu/' target='_blank' style='padding: 0'><img src='/img/crg_logo.png' height='45'/></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+	
+    <!-- Body -->
+	<div class="wrapper"> <!-- wrapper -->
+	  <div class="container">
+	    <div class="row">
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">Nextflow DSL 2 is here!</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 24 July 2020</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>We are thrilled to announce the stable release of Nextflow DSL 2 as part of the latest 20.07.1 version! </p><p>Nextflow DSL 2 represents a major evolution of the Nextflow language and makes it possible to scale and modularise your data analysis pipeline while continuing to use the Dataflow programming paradigm that characterises the Nextflow processing model. </p><p>We spent more than one year collecting user feedback and making sure that DSL 2 would naturally fit the programming experience Nextflow developers are used to. </p><h4>DLS 2 in a nutshell</h4><p>Backward compatibility is a paramount value, for this reason the changes introduced in the syntax have been minimal and above all, guarantee the support of all existing applications. DSL 2 will be an opt-in feature for at least the next 12 to 18 months. After this transitory period, we plan to make it the default Nextflow execution mode. </p><p>As of today, to use DSL 2 in your Nextflow pipeline, you are required to use the following declaration at the top of your script: </p>
+<pre><code>nextflow.enable.dsl=2
+</code></pre><p>Note that the previous <code>nextflow.preview</code> directive is still available, however, when using the above declaration the use of the final syntax is enforced.</p><h4>Nextflow modules</h4><p>A module file is nothing more than a Nextflow script containing one or more <code>process</code> definitions that can be imported from another Nextflow script. </p><p>The only difference when compared with legacy syntax is that the process is not bound with specific input and output channels, as was previously required using the <code>from</code> and <code>into</code> keywords respectively. Consider this example of the new syntax:</p>
+<pre><code>process INDEX {
+  input:
+    path transcriptome 
+  output:
+    path &#39;index&#39; 
+  script:
+    &quot;&quot;&quot;
+    salmon index --threads $task.cpus -t $transcriptome -i index
+    &quot;&quot;&quot;
+}
+</code></pre><p>This allows the definition of workflow processes that can be included from any other script and invoked as a custom function within the new <code>workflow</code> scope. This effectively allows for the composition of the pipeline logic and enables reuse of workflow components. We anticipate this to improve both the speed that users can develop new pipelines, and the robustness of these pipelines through the use of validated modules. </p><p>Any process input can be provided as a function argument using the usual channel semantics familiar to Nextflow developers. Moreover process outputs can either be assigned to a variable or accessed using the implicit <code>.out</code> attribute in the scope implicitly defined by the process name itself. See the example below:</p>
+<pre><code>include { INDEX; FASTQC; QUANT; MULTIQC } from &#39;./some/module/script.nf&#39; 
+
+read_pairs_ch = channel.fromFilePairs( params.reads)
+
+workflow {
+  INDEX( params.transcriptome )
+  FASTQC( read_pairs_ch )
+  QUANT( INDEX.out, read_pairs_ch )
+  MULTIQC( QUANT.out.mix(FASTQC.out).collect(), multiqc_file )
+}
+</code></pre><p>Also enhanced is the ability to use channels as inputs multiple times without the need to duplicate them (previously done with the special into operator) which makes the resulting pipeline code more concise, fluent and therefore readable!</p><h4>Sub-workflows</h4><p>Notably, the DSL 2 syntax allows for the definition of reusable processes as well as sub-workflow libraries. The only requirement is to provide a <code>workflow</code> name that will be used to reference and declare the corresponding inputs and outputs using the new <code>take</code> and <code>emit</code> keywords. For example:</p>
+<pre><code>workflow RNASEQ {
+  take:
+    transcriptome
+    read_pairs_ch
+ 
+  main: 
+    INDEX(transcriptome)
+    FASTQC(read_pairs_ch)
+    QUANT(INDEX.out, read_pairs_ch)
+
+  emit: 
+     QUANT.out.mix(FASTQC.out).collect()
+}
+</code></pre><p>Now named sub-workflows can be used in the same way as processes, allowing you to easily include and reuse multi-step workflows as part of larger workflows. Find more details <a href="/docs/latest/dsl2.html">here</a>.</p><h4>More syntax sugar</h4><p>Another exciting feature of Nextflow DSL 2 is the ability to compose built-in operators, pipeline processes and sub-workflows with the pipe (|) operator! For example the last line in the above example could be written as: </p>
+<pre><code>emit:
+ QUANT.out | mix(FASTQC.out) | collect 
+</code></pre><p>This syntax finally realizes the Nextflow vision of empowering developers to write complex data analysis applications with a simple but powerful language that mimics the expressiveness of the Unix pipe model but at the same time makes it possible to handle complex data structures and patterns as is required for highly parallelised and distributed computational workflows.</p><p>Another change is the introduction of <code>channel</code> as an alternative name as a synonym of <code>Channel</code> type identifier and therefore allows the use of <code>channel.fromPath</code> instead of <code>Channel.fromPath</code> and so on. This is a small syntax sugar to keep the capitazionation consistent with the rest of the language.</p><p>Moreover, several process inputs and outputs syntax shortcuts were removed when using the final version of DSL 2 to make it more predictable. For example, with DSL1, in a tuple input or output declaration the component type could be omitted, for example: </p>
+<pre><code>input: 
+  tuple foo, &#39;bar&#39;
+</code></pre><p>The <code>foo</code> identifier was implicitly considered an input value declaration instead the string <code>&#39;bar&#39;</code> was considered a shortcut for <code>file(&#39;bar&#39;)</code>. However, this was a bit confusing especially for new users and therefore using DSL 2, the fully qualified version must be used: </p>
+<pre><code>input: 
+  tuple val(foo), path(&#39;bar&#39;)
+</code></pre><p>You can find more detailed migration notes at <a href="/docs/latest/dsl2.html#dsl2-migration-notes">this link</a>. </p><h4>What's next</h4><p>As always, reaching an important project milestone can be viewed as a major success, but at the same time the starting point for challenges and developments. Having a modularization mechanism opens new needs and possibilities. The first one of which will be focused on the ability to test and validate process modules independently using a unit-testing style approach. This will definitely help to make the resulting pipelines more resilient. </p><p>Another important area for the development of the Nextflow language will be the ability to better formalise pipeline inputs and outputs and further decouple for the process declaration. Nextflow currently strongly relies on the <code>publishDir</code> constructor for the generation of the workflow outputs. </p><p>However in the new <em>module</em> world, this approach results in <code>publishDir</code> being tied to a single process definition. The plan is instead to extend this concept in a more general and abstract manner, so that it will be possible to capture and redirect the result of any process and sub-workflow based on semantic annotations instead of hardcoding it at the task level.</p><h3>Conclusion</h3><p>We are extremely excited about today's release. This was a long awaited advancement and therefore we are very happy to make it available for general availability to all Nextflow users. We greatly appreciate all of the community feedback and ideas over the past year which have shaped DSL 2. </p><p>We are confident this represents a big step forward for the project and will enable the writing of a more scalable and complex data analysis pipeline and above all, a more enjoyable experience. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/release.html" class="background-color bg-hover-color">release</a>
+				<a href="/tags/modules.html" class="background-color bg-hover-color">modules</a>
+				<a href="/tags/dsl2.html" class="background-color bg-hover-color">dsl2</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
+		  <div class="col-sm-4">
+			<h3>Stay Tuned <small>Social Links</small></h3>
+			<hr>
+			<ul class="blg-social">
+			  <li>
+			    <a href="/feed.xml">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our RSS Feed.</span>
+				</a>
+			  </li>
+			  <li>
+			    <a href="https://twitter.com/nextflowio">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our Twitter Feed.</span>
+				</a>
+			  </li>
+			</ul>
+            <!--
+			<h3>Popular Stories</h3>
+			<hr>
+			<div class="block-inverse">
+			  <ul>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+				<li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+			  </ul>
+			</div>			
+            -->
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- / wrapper -->
+
+	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+<style type="text/css">
+  .gitter-chat-embed { z-index: 9999 }
+  .gitter-open-chat-button { background-color: #1b95e0; border-color: #004e7f }
+  .gitter-open-chat-button:focus { background-color: #0c7abf; border-color: #004e7f}
+  .gitter-open-chat-button:hover { background-color: #0c7abf; border-color: #004e7f }  
+</style>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nextflow-io/nextflow'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Basic concepts &mdash; Nextflow 20.04.1 documentation</title>
+  <title>Basic concepts &mdash; Nextflow 20.07.1 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Nextflow 20.04.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nextflow 20.07.1 documentation" href="index.html"/>
         <link rel="next" title="Nextflow scripting" href="script.html"/>
         <link rel="prev" title="Get started" href="getstarted.html"/> 
 
@@ -107,7 +110,6 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -168,7 +170,7 @@ The only way they can communicate is via asynchronous FIFO queues, called <cite>
 <p>Any process can define one or more channels as <cite>input</cite> and <cite>output</cite>. The interaction between these processes,
 and ultimately the pipeline execution flow itself, is implicitly defined by these input and output declarations.</p>
 <p>A Nextflow script looks like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Script</span> <span class="n">parameters</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Script</span> <span class="n">parameters</span>
 <span class="n">params</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;/some/data/sample.fa&quot;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="s2">&quot;/some/path/pdb&quot;</span>
 
@@ -201,10 +203,10 @@ and ultimately the pipeline execution flow itself, is implicitly defined by thes
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above example defines two processes. Their execution order is not determined by the fact that the <code class="docutils literal"><span class="pre">blastSearch</span></code>
-process comes before <code class="docutils literal"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around).</p>
-<p>Instead, because the first process defines the channel <code class="docutils literal"><span class="pre">top_hits_ch</span></code> in its output declarations, and the
-process <code class="docutils literal"><span class="pre">extractTopHits</span></code> defines the channel in its input declaration, a communication link is established.</p>
+<p>The above example defines two processes. Their execution order is not determined by the fact that the <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code>
+process comes before <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around).</p>
+<p>Instead, because the first process defines the channel <code class="docutils literal notranslate"><span class="pre">top_hits_ch</span></code> in its output declarations, and the
+process <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> defines the channel in its input declaration, a communication link is established.</p>
 <p>This linking via the channels means that <cite>extractTopHits</cite> is waiting for the output of <cite>blastSearch</cite>, and then
 runs <cite>reactively</cite> when the channel has contents.</p>
 <p>Read the <a class="reference internal" href="channel.html#channel-page"><span class="std std-ref">Channel</span></a> and <a class="reference internal" href="process.html#process-page"><span class="std std-ref">Process</span></a> sections to learn more about these features.</p>
@@ -215,24 +217,24 @@ runs <cite>reactively</cite> when the channel has contents.</p>
 that script is actually run on the target system.</p>
 <p>If not otherwise specified, processes are executed on the local computer. The local executor is very useful for pipeline
 development and testing purposes, but for real world computational pipelines an HPC or cloud platform is often required.</p>
-<p>In other words, <cite>Nextflow</cite> provides an abstraction between the pipeline's functional logic and the underlying execution system.
+<p>In other words, <cite>Nextflow</cite> provides an abstraction between the pipeline’s functional logic and the underlying execution system.
 Thus it is possible to write a pipeline once and to seamlessly run it on your computer, a grid platform, or the cloud,
 without modifying it, by simply defining the target execution platform in the configuration file.</p>
 <p>The following batch schedulers are supported:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://gridscheduler.sourceforge.net/">Open grid engine</a></li>
-<li><a class="reference external" href="http://www.univa.com/">Univa grid engine</a></li>
-<li><a class="reference external" href="http://www.ibm.com/systems/technicalcomputing/platformcomputing/products/lsf/">Platform LSF</a></li>
-<li><a class="reference external" href="https://computing.llnl.gov/linux/slurm/">Linux SLURM</a></li>
-<li><a class="reference external" href="http://www.pbsworks.com/gridengine/">PBS Works</a></li>
-<li><a class="reference external" href="http://www.adaptivecomputing.com/products/open-source/torque/">Torque</a></li>
-<li><a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a></li>
+<li><p><a class="reference external" href="http://gridscheduler.sourceforge.net/">Open grid engine</a></p></li>
+<li><p><a class="reference external" href="http://www.univa.com/">Univa grid engine</a></p></li>
+<li><p><a class="reference external" href="http://www.ibm.com/systems/technicalcomputing/platformcomputing/products/lsf/">Platform LSF</a></p></li>
+<li><p><a class="reference external" href="https://computing.llnl.gov/linux/slurm/">Linux SLURM</a></p></li>
+<li><p><a class="reference external" href="http://www.pbsworks.com/gridengine/">PBS Works</a></p></li>
+<li><p><a class="reference external" href="http://www.adaptivecomputing.com/products/open-source/torque/">Torque</a></p></li>
+<li><p><a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a></p></li>
 </ul>
 <p>The following cloud platforms are supported:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://aws.amazon.com/">Amazon Web Services (AWS)</a></li>
-<li><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform (GCP)</a></li>
-<li><a class="reference external" href="https://kubernetes.io/">Kubernetes</a></li>
+<li><p><a class="reference external" href="https://aws.amazon.com/">Amazon Web Services (AWS)</a></p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/">Google Cloud Platform (GCP)</a></p></li>
+<li><p><a class="reference external" href="https://kubernetes.io/">Kubernetes</a></p></li>
 </ul>
 <p>Read the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> to learn more about the Nextflow executors.</p>
 </div>
@@ -248,10 +250,10 @@ in that is simplifies the writing of code and is more approachable.</p>
 </div>
 <div class="section" id="configuration-options">
 <h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h2>
-<p>Pipeline configuration properties are defined in a file named <code class="docutils literal"><span class="pre">nextflow.config</span></code> in the pipeline execution directory.</p>
-<p>This file can be used to define which executor to use, the process's environment variables, pipeline parameters etc.</p>
+<p>Pipeline configuration properties are defined in a file named <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> in the pipeline execution directory.</p>
+<p>This file can be used to define which executor to use, the process’s environment variables, pipeline parameters etc.</p>
 <p>A basic configuration file might look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
   <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
   <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;cn-el6&#39;</span>
 <span class="p">}</span>
@@ -303,7 +305,7 @@ in that is simplifies the writing of code and is more approachable.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.04.1',
+            VERSION:'20.07.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -312,7 +314,8 @@ in that is simplifies the writing of code and is more approachable.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

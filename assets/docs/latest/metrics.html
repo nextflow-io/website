@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Metrics &mdash; Nextflow 20.04.1 documentation</title>
+  <title>Metrics &mdash; Nextflow 20.07.1 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Nextflow 20.04.1 documentation" href="index.html"/> 
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nextflow 20.07.1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -99,7 +102,6 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -149,9 +151,9 @@
 <h2>CPU Usage<a class="headerlink" href="#cpu-usage" title="Permalink to this headline">¶</a></h2>
 <p>The plot reports how much CPU resources were used by each process.</p>
 <img alt="_images/report-resource-cpu.png" src="_images/report-resource-cpu.png" />
-<p>Let's illustrate how this plot behaves with several examples.</p>
-<p>In the first example, let's consider the simple use case in which a process performs one task of pure computation using one CPU. Then, you expect the <cite>Raw Usage</cite> tab to report 100%. If the task is distributed over, 2, 3, 4, <cite>etc.</cite> CPUs, then the <cite>Raw Usage</cite> will be 200%, 300%, 400%, <cite>etc.</cite> respectively. The <cite>% Allocated</cite> tab just rescales the raw value usage with respect to the number of CPUs set with the <code class="docutils literal"><span class="pre">cpus</span></code> directive (if not set with the directive, the number of CPUs is set to 1, thus showing the same values as in the <cite>Raw Usage</cite> tab). Using the program <a class="reference external" href="https://people.seas.harvard.edu/~apw/stress/">stress</a>  as follows would report 100% in the <cite>Raw Usage</cite> tab  and 50% in the <cite>% Allocated</cite> tab since the process asked twice the number of CPUs needed by the process:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<p>Let’s illustrate how this plot behaves with several examples.</p>
+<p>In the first example, let’s consider the simple use case in which a process performs one task of pure computation using one CPU. Then, you expect the <cite>Raw Usage</cite> tab to report 100%. If the task is distributed over, 2, 3, 4, <cite>etc.</cite> CPUs, then the <cite>Raw Usage</cite> will be 200%, 300%, 400%, <cite>etc.</cite> respectively. The <cite>% Allocated</cite> tab just rescales the raw value usage with respect to the number of CPUs set with the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> directive (if not set with the directive, the number of CPUs is set to 1, thus showing the same values as in the <cite>Raw Usage</cite> tab). Using the program <a class="reference external" href="https://people.seas.harvard.edu/~apw/stress/">stress</a>  as follows would report 100% in the <cite>Raw Usage</cite> tab  and 50% in the <cite>% Allocated</cite> tab since the process asked twice the number of CPUs needed by the process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
 <span class="n">process</span> <span class="n">CpuUsageEx1</span> <span class="p">{</span>
 
@@ -164,7 +166,7 @@
 </pre></div>
 </div>
 <p>In the second example, some time will be spent performing pure computation and some time just waiting. Using the program <a class="reference external" href="https://people.seas.harvard.edu/~apw/stress/">stress</a>  and <cite>sleep</cite> as follows would report 75% in the <cite>Raw Usage</cite> tab:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
 <span class="n">process</span> <span class="n">CpuUsageEx2</span> <span class="p">{</span>
 
@@ -179,10 +181,10 @@
 </pre></div>
 </div>
 <p>Indeed, the percentage of the CPU that this process got is a weighted average taking into account the percentage of the CPU and duration of each individual program over the job duration (a.k.a. elapsed real time, real time or wall time ) as follows:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\frac{ 100\% \times 10s + 100\% \times 5s + 0\% \times 5s }{10s+5s+5s} = 75\%\]</div>
 <p>The third example is similar to the second one except that the pure computation stage is performed in a single step forked on 2 CPUs:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
 <span class="n">process</span> <span class="n">CpuUsageEx3</span> <span class="p">{</span>
 
@@ -196,30 +198,30 @@
 </pre></div>
 </div>
 <p>The <cite>Raw Usage</cite> tab would report 100% in the <cite>Raw Usage</cite> tab:</p>
-<div class="math">
+<div class="math notranslate nohighlight">
 \[\frac{ 200\% \times 10s }{10s+10s} = 100\%\]</div>
-<p>The <cite>% Allocated</cite> tab would report 50%, however, it would not be relevant to change the <code class="docutils literal"><span class="pre">cpus</span></code> directive from 2 to 1 as the process really uses 2 CPUs at it peak load.</p>
+<p>The <cite>% Allocated</cite> tab would report 50%, however, it would not be relevant to change the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> directive from 2 to 1 as the process really uses 2 CPUs at it peak load.</p>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
-<p class="last">The <a class="reference external" href="https://people.seas.harvard.edu/~apw/stress/">stress</a> program can be installed with <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">stress</span></code> or <code class="docutils literal"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">stress</span></code> depending on your linux distribution.</p>
+<p class="admonition-title">Hint</p>
+<p>The <a class="reference external" href="https://people.seas.harvard.edu/~apw/stress/">stress</a> program can be installed with <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">stress</span></code> or <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">yum</span> <span class="pre">install</span> <span class="pre">stress</span></code> depending on your linux distribution.</p>
 </div>
 </div>
 <div class="section" id="memory-usage">
 <h2>Memory Usage<a class="headerlink" href="#memory-usage" title="Permalink to this headline">¶</a></h2>
-<p>The plot has three tabs showing the usage of the physical memory (RAM), the virtual memory (vmem) and the percentage of RAM used by the process with respect to what was set in the <code class="docutils literal"><span class="pre">memory</span></code> directive. The peak usage during the execution of the process is reported for both physical and virtual memories.</p>
+<p>The plot has three tabs showing the usage of the physical memory (RAM), the virtual memory (vmem) and the percentage of RAM used by the process with respect to what was set in the <code class="docutils literal notranslate"><span class="pre">memory</span></code> directive. The peak usage during the execution of the process is reported for both physical and virtual memories.</p>
 <div class="admonition hint">
-<p class="first admonition-title">Hint</p>
+<p class="admonition-title">Hint</p>
 <p>To better understand the memory usage plot, it is important to know that:</p>
-<ul class="last simple">
-<li>the total amount of memory used be a processs is the <cite>virtual memory (vmem)</cite>. The <cite>vmem</cite> contains all memory areas whether they are in the physical memory (RAM), in the Swap space, on the disk or shared with other processes,</li>
-<li>the <cite>resident set size (RSS)</cite> is the amount of space of <cite>physical memory (RAM)</cite> held by a process,</li>
-<li>the relationship is: vmem <span class="math">\(\geq\)</span> RSS + Swap,</li>
-<li>the <code class="docutils literal"><span class="pre">memory</span></code> directive sets the RAM requested by the process.</li>
+<ul class="simple">
+<li><p>the total amount of memory used be a processs is the <cite>virtual memory (vmem)</cite>. The <cite>vmem</cite> contains all memory areas whether they are in the physical memory (RAM), in the Swap space, on the disk or shared with other processes,</p></li>
+<li><p>the <cite>resident set size (RSS)</cite> is the amount of space of <cite>physical memory (RAM)</cite> held by a process,</p></li>
+<li><p>the relationship is: vmem <span class="math notranslate nohighlight">\(\geq\)</span> RSS + Swap,</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">memory</span></code> directive sets the RAM requested by the process.</p></li>
 </ul>
 </div>
-<p>Let's illustrate how this plot behaves with one example which relies on two C programs.</p>
+<p>Let’s illustrate how this plot behaves with one example which relies on two C programs.</p>
 <p>The first program just allocates a variable of 1 GiB:</p>
-<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -329,7 +331,7 @@
 </pre></div>
 </td></tr></table></div>
 <p>The second program allocates a variable of 1 GiB and fills it with data:</p>
-<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-c notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -456,8 +458,8 @@
  <span class="p">}</span>
 </pre></div>
 </td></tr></table></div>
-<p>The first and second programs are executed in <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code> processes respectively as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<p>The first and second programs are executed in <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code> processes respectively as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
 <span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
 
@@ -480,26 +482,26 @@
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The <cite>Virtual (RAM + Disk swap)</cite> tab shows that both <code class="docutils literal"><span class="pre">foo</span></code> and <code class="docutils literal"><span class="pre">bar</span></code> processes use the same amount of virtual memory (~1 GiB):</p>
+<p>The <cite>Virtual (RAM + Disk swap)</cite> tab shows that both <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code> processes use the same amount of virtual memory (~1 GiB):</p>
 <img alt="_images/report-resource-memory-vmem.png" src="_images/report-resource-memory-vmem.png" />
-<p>However, the <cite>Physical (RAM)</cite> tab shows that only the <code class="docutils literal"><span class="pre">bar</span></code> process uses ~1 GiB of RAM while <code class="docutils literal"><span class="pre">foo</span></code> process uses  ~0 GiB:</p>
+<p>However, the <cite>Physical (RAM)</cite> tab shows that only the <code class="docutils literal notranslate"><span class="pre">bar</span></code> process uses ~1 GiB of RAM while <code class="docutils literal notranslate"><span class="pre">foo</span></code> process uses  ~0 GiB:</p>
 <img alt="_images/report-resource-memory-ram.png" src="_images/report-resource-memory-ram.png" />
-<p>As expected, the <cite>% RAM Allocated</cite> tab shows that 0% of the resource set in the <code class="docutils literal"><span class="pre">memory</span></code> directive was used for <code class="docutils literal"><span class="pre">foo</span></code> process while 67% (= 1 / 1.5) of the resource were used for <code class="docutils literal"><span class="pre">bar</span></code> process:</p>
+<p>As expected, the <cite>% RAM Allocated</cite> tab shows that 0% of the resource set in the <code class="docutils literal notranslate"><span class="pre">memory</span></code> directive was used for <code class="docutils literal notranslate"><span class="pre">foo</span></code> process while 67% (= 1 / 1.5) of the resource were used for <code class="docutils literal notranslate"><span class="pre">bar</span></code> process:</p>
 <img alt="_images/report-resource-memory-pctram.png" src="_images/report-resource-memory-pctram.png" />
 <div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Binary unit are used to report memory raw values. This means that 1KB = <span class="math">\(1024\)</span> bytes, 1 MB = <span class="math">\(1024^2\)</span> bytes, 1 GB = <span class="math">\(1024^3\)</span> bytes, <cite>etc.</cite></p>
+<p class="admonition-title">Warning</p>
+<p>Binary unit are used to report memory raw values. This means that 1KB = <span class="math notranslate nohighlight">\(1024\)</span> bytes, 1 MB = <span class="math notranslate nohighlight">\(1024^2\)</span> bytes, 1 GB = <span class="math notranslate nohighlight">\(1024^3\)</span> bytes, <cite>etc.</cite></p>
 </div>
 </div>
 <div class="section" id="job-duration">
 <h2>Job Duration<a class="headerlink" href="#job-duration" title="Permalink to this headline">¶</a></h2>
-<p>The plot has two tabs the job duration (a.k.a. elapsed real time, real time or wall time ) in the <cite>Raw Usage</cite> tag and the percentage  of requested time used in the <cite>% Allocated</cite> tab with respect to the duration set in the <code class="docutils literal"><span class="pre">time</span></code> directive of the process.</p>
+<p>The plot has two tabs the job duration (a.k.a. elapsed real time, real time or wall time ) in the <cite>Raw Usage</cite> tag and the percentage  of requested time used in the <cite>% Allocated</cite> tab with respect to the duration set in the <code class="docutils literal notranslate"><span class="pre">time</span></code> directive of the process.</p>
 <img alt="_images/report-resource-job-duration.png" src="_images/report-resource-job-duration.png" />
 </div>
 <div class="section" id="i-o-usage">
 <h2>I/O Usage<a class="headerlink" href="#i-o-usage" title="Permalink to this headline">¶</a></h2>
 <p>The plot has two tabs showing how many data were read and/or written each process. For example, the following processes read and write 1GB and 256MB of data respectively:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
   <span class="n">process</span> <span class="n">io_read_write_1G</span> <span class="p">{</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -555,7 +557,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.04.1',
+            VERSION:'20.07.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -564,7 +566,8 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

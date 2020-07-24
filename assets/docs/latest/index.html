@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nextflow&#39;s documentation! &mdash; Nextflow 20.04.1 documentation</title>
+  <title>Nextflow’s documentation! &mdash; Nextflow 20.07.1 documentation</title>
   
 
   
@@ -32,7 +32,10 @@
   
 
   
-    <link rel="top" title="Nextflow 20.04.1 documentation" href="#"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nextflow 20.07.1 documentation" href="#"/>
         <link rel="next" title="Get started" href="getstarted.html"/> 
 
   
@@ -100,7 +103,6 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -131,7 +133,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="#">Docs</a> &raquo;</li>
       
-    <li>Nextflow's documentation!</li>
+    <li>Nextflow’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -144,7 +146,7 @@
            <div itemprop="articleBody">
             
   <div class="section" id="nextflow-s-documentation">
-<h1>Nextflow's documentation!<a class="headerlink" href="#nextflow-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Nextflow’s documentation!<a class="headerlink" href="#nextflow-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
@@ -163,6 +165,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="script.html#language-basics">Language basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="script.html#implicit-variables">Implicit variables</a></li>
 <li class="toctree-l2"><a class="reference internal" href="script.html#closures">Closures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="script.html#regular-expressions">Regular expressions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="script.html#files-and-i-o">Files and I/O</a></li>
@@ -225,18 +228,20 @@
 <li class="toctree-l2"><a class="reference internal" href="dsl2.html#modules">Modules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dsl2.html#channel-forking">Channel forking</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dsl2.html#pipes">Pipes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dsl2.html#deprecated-methods-and-operators">Deprecated methods and operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dsl2.html#dsl2-migration-notes">DSL2 migration notes</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#aws-credentials">AWS credentials</a></li>
 <li class="toctree-l2"><a class="reference internal" href="awscloud.html#configuration">Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-deployment">Cluster deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#custom-ami">Custom AMI</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#aws-cli-installation">AWS CLI installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#custom-job-definition">Custom job definition</a></li>
 <li class="toctree-l2"><a class="reference internal" href="awscloud.html#pipeline-execution">Pipeline execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-shutdown">Cluster shutdown</a></li>
-<li class="toctree-l2"><a class="reference internal" href="awscloud.html#cluster-auto-scaling">Cluster auto-scaling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="awscloud.html#spot-prices">Spot prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#hybrid-workloads">Hybrid workloads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#volume-mounts">Volume mounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="awscloud.html#troubleshooting">Troubleshooting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="awscloud.html#advanced-configuration">Advanced configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="awscloud.html#aws-batch">AWS Batch</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a><ul>
@@ -247,8 +252,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="google.html#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="google.html#compute-engine">Compute Engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="google.html#google-pipelines">Genomics Pipelines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="google.html#cloud-life-sciences">Cloud Life Sciences</a></li>
 </ul>
 </li>
@@ -345,16 +348,6 @@
 <li class="toctree-l2"><a class="reference internal" href="example.html#more-examples">More examples</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-process-multiple-input-files-in-parallel">How do I process multiple input files in parallel?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-get-a-unique-id-based-on-the-file-name">How do I get a unique ID based on the file name?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-use-the-same-channel-multiple-times">How do I use the same channel multiple times?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-invoke-custom-scripts-and-tools">How do I invoke custom scripts and tools?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-iterate-over-a-process-n-times">How do I iterate over a process n times?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-iterate-over-nth-files-from-within-a-process">How do I iterate over nth files from within a process?</a></li>
-<li class="toctree-l2"><a class="reference internal" href="faq.html#how-do-i-use-a-specific-version-of-nextflow">How do I use a specific version of Nextflow?</a></li>
-</ul>
-</li>
 </ul>
 </div>
 </div>
@@ -399,7 +392,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.04.1',
+            VERSION:'20.07.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -408,7 +401,8 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

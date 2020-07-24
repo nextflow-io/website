@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Get started &mdash; Nextflow 20.04.1 documentation</title>
+  <title>Get started &mdash; Nextflow 20.07.1 documentation</title>
   
 
   
@@ -32,9 +32,12 @@
   
 
   
-    <link rel="top" title="Nextflow 20.04.1 documentation" href="index.html"/>
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Nextflow 20.07.1 documentation" href="index.html"/>
         <link rel="next" title="Basic concepts" href="basic.html"/>
-        <link rel="prev" title="Nextflow&#39;s documentation!" href="index.html"/> 
+        <link rel="prev" title="Nextflow’s documentation!" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -110,7 +113,6 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
@@ -168,22 +170,22 @@ the sharing of tasks input/output files.</p>
 <p><cite>Nextflow</cite> is distributed as a self-contained executable package, which means that it does not require any special installation procedure.</p>
 <p>It only needs two easy steps:</p>
 <ol class="arabic simple">
-<li>Download the executable package by copying and pasting the following command in your terminal
-window: <code class="docutils literal"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.
-It will create the <code class="docutils literal"><span class="pre">nextflow</span></code> main executable file in the current directory.</li>
-<li>Optionally, move the <code class="docutils literal"><span class="pre">nextflow</span></code> file to a directory accessible by your <code class="docutils literal"><span class="pre">$PATH</span></code> variable
-(this is only required to avoid remembering and typing the full path to <code class="docutils literal"><span class="pre">nextflow</span></code> each time you need to run it).</li>
+<li><p>Download the executable package by copying and pasting the following command in your terminal
+window: <code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">-qO-</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code>.
+It will create the <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> main executable file in the current directory.</p></li>
+<li><p>Optionally, move the <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> file to a directory accessible by your <code class="docutils literal notranslate"><span class="pre">$PATH</span></code> variable
+(this is only required to avoid remembering and typing the full path to <code class="docutils literal notranslate"><span class="pre">nextflow</span></code> each time you need to run it).</p></li>
 </ol>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">In the case you don't have <code class="docutils literal"><span class="pre">wget</span></code> installed you can use the <code class="docutils literal"><span class="pre">curl</span></code> utility instead by entering
-the following command: <code class="docutils literal"><span class="pre">curl</span> <span class="pre">-s</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code></p>
+<p class="admonition-title">Tip</p>
+<p>In the case you don’t have <code class="docutils literal notranslate"><span class="pre">wget</span></code> installed you can use the <code class="docutils literal notranslate"><span class="pre">curl</span></code> utility instead by entering
+the following command: <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">-s</span> <span class="pre">https://get.nextflow.io</span> <span class="pre">|</span> <span class="pre">bash</span></code></p>
 </div>
 </div>
 <div class="section" id="your-first-script">
 <span id="getstart-first"></span><h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline">¶</a></h2>
-<p>Copy the following example into your favourite text editor and save it to a file named <code class="docutils literal"><span class="pre">tutorial.nf</span></code></p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
+<p>Copy the following example into your favourite text editor and save it to a file named <code class="docutils literal notranslate"><span class="pre">tutorial.nf</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
 
 <span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
 
@@ -214,16 +216,16 @@ the following command: <code class="docutils literal"><span class="pre">curl</sp
 <span class="n">result</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">trim</span><span class="p">()</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>This script defines two processes. The first splits a string into 6-character chunks, writing each one to a file with the prefix <code class="docutils literal"><span class="pre">chunk_</span></code>,
+<p>This script defines two processes. The first splits a string into 6-character chunks, writing each one to a file with the prefix <code class="docutils literal notranslate"><span class="pre">chunk_</span></code>,
 and the second receives these files and transforms their contents to uppercase letters.
-The resulting strings are emitted on the <code class="docutils literal"><span class="pre">result</span></code> channel and the final output is printed by the
-<code class="docutils literal"><span class="pre">view</span></code> operator.</p>
+The resulting strings are emitted on the <code class="docutils literal notranslate"><span class="pre">result</span></code> channel and the final output is printed by the
+<code class="docutils literal notranslate"><span class="pre">view</span></code> operator.</p>
 <p>Execute the script by entering the following command in your terminal:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
 </div>
 <p>It will output something similar to the text shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
 executor &gt;  local (3)
 [69/c8ea4a] process &gt; splitLetters   [100%] 1 of 1 ✔
 [84/c8b7f1] process &gt; convertToUpper [100%] 2 of 2 ✔
@@ -232,18 +234,18 @@ WORLD!
 </pre></div>
 </div>
 <p>You can see that the first process is executed once, and the second twice. Finally the result string is printed.</p>
-<p>It's worth noting that the process <code class="docutils literal"><span class="pre">convertToUpper</span></code> is executed in parallel, so there's no guarantee that the instance
-processing the first split (the chunk <cite>Hello</cite>) will be executed before before the one processing the second split (the chunk <cite>world!</cite>).</p>
+<p>It’s worth noting that the process <code class="docutils literal notranslate"><span class="pre">convertToUpper</span></code> is executed in parallel, so there’s no guarantee that the instance
+processing the first split (the chunk <cite>Hello</cite>) will be executed before the one processing the second split (the chunk <cite>world!</cite>).</p>
 <p>Thus, it is perfectly possible that you will get the final result printed out in a different order:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>WORLD!
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>WORLD!
 HELLO
 </pre></div>
 </div>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">The hexadecimal numbers, like <code class="docutils literal"><span class="pre">22/7548fa</span></code>, identify the unique process execution. These numbers are
+<p class="admonition-title">Tip</p>
+<p>The hexadecimal numbers, like <code class="docutils literal notranslate"><span class="pre">22/7548fa</span></code>, identify the unique process execution. These numbers are
 also the prefix of the directories where each process is executed. You can inspect the files produced by them
-changing to the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code> and using these numbers to find the process-specific execution path.</p>
+changing to the directory <code class="docutils literal notranslate"><span class="pre">$PWD/work</span></code> and using these numbers to find the process-specific execution path.</p>
 </div>
 <div class="section" id="modify-and-resume">
 <span id="getstart-resume"></span><h3>Modify and resume<a class="headerlink" href="#modify-and-resume" title="Permalink to this headline">¶</a></h3>
@@ -251,9 +253,9 @@ changing to the directory <code class="docutils literal"><span class="pre">$PWD/
 only the processes that are actually changed will be re-executed. The execution of the processes that are not changed
 will be skipped and the cached result used instead.</p>
 <p>This helps a lot when testing or modifying part of your pipeline without having to re-execute it from scratch.</p>
-<p>For the sake of this tutorial, modify the <code class="docutils literal"><span class="pre">convertToUpper</span></code> process in the previous example, replacing the
-process script with the string <code class="docutils literal"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process looks like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
+<p>For the sake of this tutorial, modify the <code class="docutils literal notranslate"><span class="pre">convertToUpper</span></code> process in the previous example, replacing the
+process script with the string <code class="docutils literal notranslate"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
 
     <span class="nb">input</span><span class="p">:</span>
     <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
@@ -267,12 +269,12 @@ process script with the string <code class="docutils literal"><span class="pre">
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Then save the file with the same name, and execute it by adding the <code class="docutils literal"><span class="pre">-resume</span></code> option to the command line:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">-</span><span class="n">resume</span>
+<p>Then save the file with the same name, and execute it by adding the <code class="docutils literal notranslate"><span class="pre">-resume</span></code> option to the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">-</span><span class="n">resume</span>
 </pre></div>
 </div>
 <p>It will print output similar to this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
 executor &gt;  local (2)
 [69/c8ea4a] process &gt; splitLetters   [100%] 1 of 1, cached: 1 ✔
 [d0/e94f07] process &gt; convertToUpper [100%] 2 of 2 ✔
@@ -280,26 +282,26 @@ olleH
 !dlrow
 </pre></div>
 </div>
-<p>You will see that the execution of the process <code class="docutils literal"><span class="pre">splitLetters</span></code> is actually skipped (the process ID is the same), and
+<p>You will see that the execution of the process <code class="docutils literal notranslate"><span class="pre">splitLetters</span></code> is actually skipped (the process ID is the same), and
 its results are retrieved from the cache. The second process is executed as expected, printing the reversed strings.</p>
 <div class="admonition tip">
-<p class="first admonition-title">Tip</p>
-<p class="last">The pipeline results are cached by default in the directory <code class="docutils literal"><span class="pre">$PWD/work</span></code>. Depending on your script, this folder
-can take of lot of disk space. If you are sure you won't resume your pipeline execution, clean this folder periodically.</p>
+<p class="admonition-title">Tip</p>
+<p>The pipeline results are cached by default in the directory <code class="docutils literal notranslate"><span class="pre">$PWD/work</span></code>. Depending on your script, this folder
+can take of lot of disk space. If you are sure you won’t resume your pipeline execution, clean this folder periodically.</p>
 </div>
 </div>
 <div class="section" id="pipeline-parameters">
 <span id="getstart-params"></span><h3>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h3>
-<p>Pipeline parameters are simply declared by prepending to a variable name the prefix <code class="docutils literal"><span class="pre">params</span></code>, separated by dot character.
-Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal"><span class="pre">--paramName</span></code></p>
+<p>Pipeline parameters are simply declared by prepending to a variable name the prefix <code class="docutils literal notranslate"><span class="pre">params</span></code>, separated by dot character.
+Their value can be specified on the command line by prefixing the parameter name with a double <cite>dash</cite> character, i.e. <code class="docutils literal notranslate"><span class="pre">--paramName</span></code></p>
 <p>For the sake of this tutorial, you can try to execute the previous example specifying a different input
 string parameter, as shown below:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">--</span><span class="nb">str</span> <span class="s1">&#39;Bonjour le monde&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">tutorial</span><span class="o">.</span><span class="n">nf</span> <span class="o">--</span><span class="nb">str</span> <span class="s1">&#39;Bonjour le monde&#39;</span>
 </pre></div>
 </div>
 <p>The string specified on the command line will override the default value of the parameter. The output
 will look like this:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>N E X T F L O W  ~  version 19.04.0
 executor &gt;  local (4)
 [8b/16e7d7] process &gt; splitLetters   [100%] 1 of 1 ✔
 [eb/729772] process &gt; convertToUpper [100%] 3 of 3 ✔
@@ -322,7 +324,7 @@ uojnoB
         <a href="basic.html" class="btn btn-neutral float-right" title="Basic concepts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="Nextflow&#39;s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="Nextflow’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -354,7 +356,7 @@ uojnoB
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.04.1',
+            VERSION:'20.07.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
@@ -363,7 +365,8 @@ uojnoB
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
