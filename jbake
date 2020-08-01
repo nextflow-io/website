@@ -1,2 +1,4 @@
 set -x 
-docker run -p 8820:8820 -v $PWD:$PWD -w $PWD  nextflow/jbake:2.3.1 jbake "$@"
+[[ "$*" == *-s* ]] && PORT='-p 8820:8820' || PORT=''
+
+docker run  -v $PWD:$PWD -w $PWD $PORT nextflow/jbake:2.3.1 jbake "$@"
