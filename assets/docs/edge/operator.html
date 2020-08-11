@@ -1,57 +1,56 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 20.06.0-edge documentation</title>
+  <title>Operators &mdash; Nextflow 20.08.0-SNAPSHOT documentation</title>
   
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
 
   
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
-
+  
   
 
   
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="Nextflow 20.06.0-edge documentation" href="index.html"/>
-        <link rel="next" title="Executors" href="executor.html"/>
-        <link rel="prev" title="Channels" href="channel.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Executors" href="executor.html" />
+    <link rel="prev" title="Channels" href="channel.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -75,11 +74,15 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
@@ -179,44 +182,66 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 </ul>
 
             
           
         </div>
+        
       </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Nextflow</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Operators</li>
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Operators</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -238,15 +263,8 @@ emitted by a channel applying some user provided rules.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The operators <a class="reference internal" href="#operator-print"><span class="std std-ref">print</span></a>, <a class="reference internal" href="#operator-println"><span class="std std-ref">println</span></a>, <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <code class="docutils literal notranslate"><span class="pre">operator-subscribe</span></code>
-consume a channel and therefore need to be the last operator in a chain of combined operators. For example, you can’t
-connect operators in a way like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">it</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="o">~/^</span><span class="n">a</span><span class="o">.*/</span> <span class="p">)</span>
-</pre></div>
-</div>
+<p>The operators <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <code class="docutils literal notranslate"><span class="pre">operator-subscribe</span></code> are <em>terminal</em> operators
+and therefore need to be the last operator in a chain of combined operators.</p>
 </div>
 <div class="section" id="filtering-operators">
 <h2>Filtering operators<a class="headerlink" href="#filtering-operators" title="Permalink to this headline">¶</a></h2>
@@ -272,7 +290,7 @@ begins with <code class="docutils literal notranslate"><span class="pre">a</span
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="o">~/^</span><span class="n">a</span><span class="o">.*/</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
@@ -284,7 +302,7 @@ are returned:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;bc&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">4.5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">filter</span><span class="p">(</span> <span class="n">Number</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
@@ -297,7 +315,7 @@ a channel emitting numbers so that the <cite>odd</cite> values are returned:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">filter</span> <span class="p">{</span> <span class="n">it</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
@@ -319,7 +337,7 @@ This just is a language syntax-sugar for <code class="docutils literal notransla
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">unique</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
@@ -333,7 +351,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
     <span class="o">.</span><span class="n">unique</span> <span class="p">{</span> <span class="n">it</span> <span class="o">%</span> <span class="mi">2</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
@@ -385,26 +403,26 @@ a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For exampl
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">first</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 
 <span class="o">//</span> <span class="n">emits</span> <span class="n">the</span> <span class="n">first</span> <span class="n">String</span> <span class="n">value</span><span class="p">:</span> <span class="s1">&#39;a&#39;</span>
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">first</span><span class="p">(</span> <span class="n">String</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emits</span> <span class="n">the</span> <span class="n">first</span> <span class="n">item</span> <span class="n">matching</span> <span class="n">the</span> <span class="n">regular</span> <span class="n">expression</span><span class="p">:</span> <span class="s1">&#39;aa&#39;</span>
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;aa&#39;</span><span class="p">,</span> <span class="s1">&#39;aaa&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">first</span><span class="p">(</span> <span class="o">~/</span><span class="n">aa</span><span class="o">.*/</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emits</span> <span class="n">the</span> <span class="n">first</span> <span class="n">item</span> <span class="k">for</span> <span class="n">which</span> <span class="n">the</span> <span class="n">predicate</span> <span class="n">evaluates</span> <span class="n">to</span> <span class="n">true</span><span class="p">:</span> <span class="mi">4</span>
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">first</span> <span class="p">{</span> <span class="n">it</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -415,7 +433,7 @@ from the channel to which is applied. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
       <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">1.</span><span class="o">.</span><span class="mi">100</span> <span class="p">)</span>
       <span class="o">.</span><span class="n">randomSample</span><span class="p">(</span> <span class="mi">10</span> <span class="p">)</span>
-      <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+      <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above snippet will print 10 numbers in the range from 1 to 100.</p>
@@ -424,7 +442,7 @@ By setting it, the <code class="docutils literal notranslate"><span class="pre">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
       <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">1.</span><span class="o">.</span><span class="mi">100</span> <span class="p">)</span>
       <span class="o">.</span><span class="n">randomSample</span><span class="p">(</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">234</span> <span class="p">)</span>
-      <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+      <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above example will print 10 random numbers in the range between 1 and 100. At each run of the script, the same
@@ -457,7 +475,7 @@ sequence will be returned.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">last</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">6</span>
@@ -471,7 +489,7 @@ the condition specified is verified. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">until</span><span class="p">{</span> <span class="n">it</span><span class="o">==</span><span class="mi">5</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span>
@@ -548,7 +566,7 @@ this list is flattened so that each single item is emitted on its own.</p>
 <p>Associative arrays are handled in the same way, so that each array entry is emitted as a single <cite>key-value</cite> item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
        <span class="o">.</span><span class="n">flatMap</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="p">[</span> <span class="n">number</span><span class="p">:</span> <span class="n">it</span><span class="p">,</span> <span class="n">square</span><span class="p">:</span> <span class="n">it</span><span class="o">*</span><span class="n">it</span> <span class="p">]</span> <span class="p">}</span>
-       <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="n">it</span><span class="o">.</span><span class="n">value</span> <span class="p">}</span>
+       <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">key</span> <span class="o">+</span> <span class="s1">&#39;: &#39;</span> <span class="o">+</span> <span class="n">it</span><span class="o">.</span><span class="n">value</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">number</span><span class="p">:</span> <span class="mi">1</span>
@@ -573,7 +591,7 @@ as the sole output.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">reduce</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="n">println</span> <span class="s2">&quot;a: $a b: $b&quot;</span><span class="p">;</span> <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;result = $it&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;result = $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>It prints the following output:</p>
@@ -608,7 +626,7 @@ array that maps each key to the set of items identified by that key.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="s1">&#39;ciao&#39;</span><span class="p">,</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">groupBy</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">b</span><span class="p">:[</span><span class="s1">&#39;bonjour&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">:[</span><span class="s1">&#39;ciao&#39;</span><span class="p">],</span> <span class="n">h</span><span class="p">:[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span><span class="s1">&#39;hi&#39;</span><span class="p">]</span> <span class="p">]</span>
@@ -624,7 +642,7 @@ following these rules:</p>
 </ul>
 </div>
 <div class="section" id="grouptuple">
-<h3>groupTuple<a class="headerlink" href="#grouptuple" title="Permalink to this headline">¶</a></h3>
+<span id="operator-grouptuple"></span><h3>groupTuple<a class="headerlink" href="#grouptuple" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">groupTuple</span></code> operator collects tuples (or lists) of values emitted by the source channel grouping together the
 elements that share the same key. Finally it emits a new tuple object for each distinct key collected.</p>
 <p>In other words transform a sequence of tuple like <em>(K, V, W, ..)</em> into a new channel emitting a sequence of
@@ -633,7 +651,7 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">groupTuple</span><span class="p">()</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -647,7 +665,7 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">groupTuple</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Grouping by the second value in each tuple the result is:</p>
@@ -739,7 +757,7 @@ that has to be satisfied. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span> <span class="p">{</span> <span class="n">it</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emitted</span> <span class="n">values</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
@@ -756,7 +774,7 @@ a Java class, or a <cite>boolean predicate</cite> that need to be satisfied. For
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emits</span> <span class="n">bundles</span> <span class="n">starting</span> <span class="k">with</span> <span class="s1">&#39;2&#39;</span> <span class="ow">and</span> <span class="n">ending</span> <span class="k">with</span><span class="s1">&#39;4&#39;</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
@@ -769,7 +787,7 @@ made up of <code class="docutils literal notranslate"><span class="pre">n</span>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emitted</span> <span class="n">values</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
@@ -784,7 +802,7 @@ add the parameter <code class="docutils literal notranslate"><span class="pre">r
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emitted</span> <span class="n">values</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
@@ -799,7 +817,7 @@ but skips <cite>m</cite> values before starting to collect the values for the ne
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span><span class="mi">2</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="o">//</span> <span class="n">emitted</span> <span class="n">values</span>
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
@@ -818,7 +836,7 @@ add the parameter <code class="docutils literal notranslate"><span class="pre">r
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="o">.</span><span class="n">collate</span><span class="p">(</span> <span class="mi">3</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -831,7 +849,7 @@ If you want to avoid this, specify <code class="docutils literal notranslate"><s
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="o">.</span><span class="n">collate</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="n">false</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -843,7 +861,7 @@ are collected in tuples. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
   <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
   <span class="o">.</span><span class="n">collate</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="p">)</span>
-  <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+  <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
@@ -862,7 +880,7 @@ the resulting object as a sole emission. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">collect</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="c1"># outputs</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
@@ -873,7 +891,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">length</span><span class="p">()</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="c1"># outputs</span>
 <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
@@ -882,13 +900,13 @@ For example:</p>
 <p>See also: <a class="reference internal" href="#tolist">toList</a> and <a class="reference internal" href="#tosortedlist">toSortedList</a> operator.</p>
 </div>
 <div class="section" id="flatten">
-<h3>flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h3>
+<span id="operator-flatten"></span><h3>flatten<a class="headerlink" href="#flatten" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">flatten</span></code> operator transforms a channel in such a way that every item of type <code class="docutils literal notranslate"><span class="pre">Collection</span></code> or <code class="docutils literal notranslate"><span class="pre">Array</span></code>
 is flattened so that each single entry is emitted separately by the resulting channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]],</span> <span class="mi">4</span><span class="p">,</span> <span class="p">[</span><span class="mi">5</span><span class="p">,[</span><span class="mi">6</span><span class="p">]]</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
@@ -952,7 +970,7 @@ of all tuple elements in each item. For example:</p>
    <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="p">]</span>
    <span class="p">])</span>
    <span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-   <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+   <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above snippet prints:</p>
@@ -1007,9 +1025,7 @@ text entries. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;alpha,beta,gamma</span><span class="se">\n</span><span class="s1">10,20,30</span><span class="se">\n</span><span class="s1">70,80,90&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">splitCsv</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span>
-       <span class="n">println</span> <span class="s2">&quot;$</span><span class="si">{row[0]}</span><span class="s2"> - $</span><span class="si">{row[1]}</span><span class="s2"> - $</span><span class="si">{row[2]}</span><span class="s2">&quot;</span>
-    <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s2">&quot;$</span><span class="si">{row[0]}</span><span class="s2"> - $</span><span class="si">{row[1]}</span><span class="s2"> - $</span><span class="si">{row[2]}</span><span class="s2">&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>The above example shows hows CSV text is parsed and is split into single rows. Values can be accessed
@@ -1019,9 +1035,7 @@ allows you to reference each value by its name, as shown in the following exampl
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;alpha,beta,gamma</span><span class="se">\n</span><span class="s1">10,20,30</span><span class="se">\n</span><span class="s1">70,80,90&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">splitCsv</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span>
-       <span class="n">println</span> <span class="s2">&quot;$</span><span class="si">{row.alpha}</span><span class="s2"> - $</span><span class="si">{row.beta}</span><span class="s2"> - $</span><span class="si">{row.gamma}</span><span class="s2">&quot;</span>
-    <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s2">&quot;$</span><span class="si">{row.alpha}</span><span class="s2"> - $</span><span class="si">{row.beta}</span><span class="s2"> - $</span><span class="si">{row.gamma}</span><span class="s2">&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>It will print</p>
@@ -1034,9 +1048,7 @@ as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;alpha,beta,gamma</span><span class="se">\n</span><span class="s1">10,20,30</span><span class="se">\n</span><span class="s1">70,80,90&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">splitCsv</span><span class="p">(</span><span class="n">header</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;col1&#39;</span><span class="p">,</span> <span class="s1">&#39;col2&#39;</span><span class="p">,</span> <span class="s1">&#39;col3&#39;</span><span class="p">],</span> <span class="n">skip</span><span class="p">:</span> <span class="mi">1</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span>
-       <span class="n">println</span> <span class="s2">&quot;$</span><span class="si">{row.col1}</span><span class="s2"> - $</span><span class="si">{row.col2}</span><span class="s2"> - $</span><span class="si">{row.col3}</span><span class="s2">&quot;</span>
-    <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">row</span> <span class="o">-&gt;</span> <span class="s2">&quot;$</span><span class="si">{row.col1}</span><span class="s2"> - $</span><span class="si">{row.col2}</span><span class="s2"> - $</span><span class="si">{row.col3}</span><span class="s2">&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>Available parameters:</p>
@@ -1095,7 +1107,7 @@ each:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fa&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFasta</span><span class="p">(</span> <span class="n">by</span><span class="p">:</span> <span class="mi">10</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1112,7 +1124,7 @@ required the fields, as shown in the example below:</p>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fa&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFasta</span><span class="p">(</span> <span class="n">record</span><span class="p">:</span> <span class="p">[</span><span class="nb">id</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="n">seqString</span><span class="p">:</span> <span class="n">true</span> <span class="p">])</span>
      <span class="o">.</span><span class="n">filter</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">id</span> <span class="o">=~</span> <span class="o">/^</span><span class="n">ENST0</span><span class="o">.*/</span> <span class="p">}</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">println</span> <span class="n">record</span><span class="o">.</span><span class="n">seqString</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">seqString</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1209,7 +1221,7 @@ sequences each:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fastq&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span> <span class="n">by</span><span class="p">:</span> <span class="mi">10</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1225,7 +1237,7 @@ the required fields, or just specify <code class="docutils literal notranslate">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;misc/sample.fastq&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span> <span class="n">record</span><span class="p">:</span> <span class="n">true</span> <span class="p">)</span>
-     <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">readHeader</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">record</span> <span class="o">-&gt;</span> <span class="n">record</span><span class="o">.</span><span class="n">readHeader</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>Finally the <code class="docutils literal notranslate"><span class="pre">splitFastq</span></code> operator is able to split paired-end read pair FASTQ files. It must be applied to a channel
@@ -1233,7 +1245,7 @@ which emits tuples containing at least two elements that are the files to be spl
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/my/data/SRR*_{1,2}.fastq&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="p">:</span><span class="n">true</span><span class="p">)</span>
     <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">pe</span><span class="p">:</span><span class="n">true</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span><span class="n">true</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1322,7 +1334,7 @@ into chunks containing <cite>n</cite> lines, which will be emitted by the result
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="p">)</span>
      <span class="o">.</span><span class="n">splitText</span><span class="p">()</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It splits the content of the files with suffix <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, and prints it line by line.</p>
@@ -1342,7 +1354,7 @@ The following example shows how to split text files into chunks of 10 lines and 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
    <span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="p">)</span>
    <span class="o">.</span><span class="n">splitText</span><span class="p">(</span> <span class="n">by</span><span class="p">:</span> <span class="mi">10</span> <span class="p">)</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
-   <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="n">it</span> <span class="p">}</span>
+   <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1411,7 +1423,7 @@ a matching key. The key is defined, by default, as the first element in each ite
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="n">right</span><span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The resulting channel emits:</p>
@@ -1425,7 +1437,7 @@ a matching key. The key is defined, by default, as the first element in each ite
 is missing, by specifying the optional parameter <code class="docutils literal notranslate"><span class="pre">remainder</span></code> as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="n">right</span><span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">println</span><span class="p">()</span>
+<span class="n">left</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above example prints:</p>
@@ -1478,7 +1490,7 @@ and the other which emits a series of even integers:</p>
 
 <span class="n">odds</span>
     <span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">evens</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
@@ -1492,7 +1504,7 @@ and the other which emits a series of even integers:</p>
 
 <span class="n">odds</span>
     <span class="o">.</span><span class="n">merge</span><span class="p">(</span> <span class="n">evens</span> <span class="p">)</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -1544,7 +1556,7 @@ or the value itself for any other data type.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
 <span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -1557,7 +1569,7 @@ or the value itself for any other data type.</p>
 as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="n">sequence</span><span class="p">:</span> <span class="s1">&#39;aaaaaa&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">sequence</span><span class="p">:</span> <span class="s1">&#39;bbbbbb&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;zzzz&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;xxxxx&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;yyyyy&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">it</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span> <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">it</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -1569,7 +1581,7 @@ as shown in the following example:</p>
 is missing, by specifying the optional parameter <code class="docutils literal notranslate"><span class="pre">remainder</span></code> as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
 <span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span> <span class="p">)</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span> <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -1594,7 +1606,7 @@ or the value itself for any other data type. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">]</span> <span class="p">)</span>
 <span class="n">target</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="p">)</span>
 
-<span class="n">source</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">source</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It will output:</p>
@@ -1747,9 +1759,7 @@ can be specified:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="o">..</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
    <span class="o">.</span><span class="n">collectFile</span><span class="p">(</span><span class="n">name</span><span class="p">:</span><span class="s1">&#39;result&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="n">newLine</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
-   <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>
-       <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">text</span>
-   <span class="p">}</span>
+   <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">text</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>It will print:</p>
@@ -1767,7 +1777,7 @@ can be specified:</p>
      <span class="o">.</span><span class="n">collectFile</span><span class="p">(</span> <span class="n">name</span><span class="p">:</span><span class="s1">&#39;result.fa&#39;</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="p">}</span> <span class="p">)</span>  <span class="p">{</span>
         <span class="n">it</span><span class="o">.</span><span class="n">sequence</span>
       <span class="p">}</span>
-     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span><span class="o">.</span><span class="n">text</span> <span class="p">}</span>
+     <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">text</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1786,7 +1796,7 @@ object (as right operand). For example:</p>
 <span class="n">words</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span>
 <span class="n">numbers</span>
     <span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="c1"># outputs</span>
 <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">hello</span><span class="p">]</span>
@@ -1806,7 +1816,7 @@ For example:</p>
 
 <span class="n">left</span>
     <span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="c1"># outputs</span>
 <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="p">]</span>
@@ -1830,7 +1840,7 @@ only after <cite>all</cite> the items proceeding from the channel <cite>i th</ci
 <span class="n">b</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">c</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
 
-<span class="n">c</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">c</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It will output:</p>
@@ -1987,7 +1997,7 @@ queue2 = Channel.create()
 
 source.choice( queue1, queue2 ) { a -&gt; a =~ /^Hello.*/ ? 0 : 1 }
 
-queue1.subscribe { println it }
+queue1.view()
 </pre></div>
 </div>
 <p>See also <a class="reference internal" href="#branch">branch</a> operator.</p>
@@ -2065,8 +2075,8 @@ the source channel are copied to the target channels. For example:</p>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">into</span><span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
 
- <span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
- <span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+ <span class="n">foo</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+ <span class="n">bar</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
@@ -2087,8 +2097,8 @@ to which the source one is connected.</p>
 a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
 source channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">println</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
+<span class="n">bar</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2105,15 +2115,15 @@ it connects two channels, copying the values from the source into the <cite>tapp
 time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
 as in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
 
 <span class="n">Channel</span>
     <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
         <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
         <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
         <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">a</span>
@@ -2137,11 +2147,11 @@ is that you won’t need to previously create the target channel, because it is 
         <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
         <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
         <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
 
 
-<span class="n">log1</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">log2</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+<span class="n">log1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
@@ -2164,8 +2174,8 @@ list will be assigned to the output channel with the corresponding position inde
     <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">separate</span><span class="p">(</span> <span class="n">queue1</span><span class="p">,</span> <span class="n">queue2</span> <span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="p">}</span>
 
-<span class="n">queue1</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Channel 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">queue2</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Channel 2: $it&quot;</span> <span class="p">}</span>
+<span class="n">queue1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Channel 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">queue2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Channel 2: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span>
@@ -2186,8 +2196,8 @@ For example:</p>
    <span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">])</span>
    <span class="o">.</span><span class="n">separate</span><span class="p">(</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">delta</span> <span class="p">)</span>
 
-<span class="n">alpha</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;first : $it&quot;</span> <span class="p">}</span>
-<span class="n">delta</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;second: $it&quot;</span> <span class="p">}</span>
+<span class="n">alpha</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;first : $it&quot;</span> <span class="p">}</span>
+<span class="n">delta</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;second: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>It will output:</p>
@@ -2205,9 +2215,9 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
 <span class="p">(</span><span class="n">queue1</span><span class="p">,</span> <span class="n">queue2</span><span class="p">,</span> <span class="n">queue3</span><span class="p">)</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">separate</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="p">}</span>
 
-<span class="n">queue1</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Queue 1 &gt; $it&quot;</span> <span class="p">}</span>
-<span class="n">queue2</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Queue 2 &gt; $it&quot;</span> <span class="p">}</span>
-<span class="n">queue3</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Queue 3 &gt; $it&quot;</span> <span class="p">}</span>
+<span class="n">queue1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 1 &gt; $it&quot;</span> <span class="p">}</span>
+<span class="n">queue2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 2 &gt; $it&quot;</span> <span class="p">}</span>
+<span class="n">queue3</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 3 &gt; $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>The output will look like the following fragment:</p>
@@ -2254,7 +2264,7 @@ items emitted by the source channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
     <span class="o">.</span><span class="n">count</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">4</span>
 </pre></div>
 </div>
@@ -2264,19 +2274,19 @@ a literal value, a Java class, or a <cite>boolean predicate</cite> that needs to
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
     <span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
  <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">3</span>
 
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">count</span> <span class="p">(</span> <span class="o">~/</span><span class="n">c</span><span class="o">/</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">2</span>
 
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">count</span> <span class="p">{</span> <span class="n">it</span> <span class="o">&lt;=</span> <span class="s1">&#39;c&#39;</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">4</span>
 </pre></div>
 </div>
@@ -2289,7 +2299,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">countBy</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
@@ -2300,7 +2310,7 @@ that associates each item with the grouping key. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;halo&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">countBy</span> <span class="p">{</span> <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">h</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
@@ -2314,7 +2324,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Min value is $it&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Min value is $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Min</span> <span class="n">value</span> <span class="ow">is</span> <span class="mi">2</span>
@@ -2326,7 +2336,7 @@ item that has the minimum length:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="s2">&quot;hey&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">min</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;hi&quot;</span>
@@ -2337,7 +2347,7 @@ taking two parameters that represent two emitted items to be compared. For examp
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="s2">&quot;hey&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">min</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2348,7 +2358,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Max value is $it&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Max value is $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Max</span> <span class="n">value</span> <span class="ow">is</span> <span class="mi">8</span>
@@ -2360,7 +2370,7 @@ item that has the maximum length:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="s2">&quot;hey&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">max</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;hello&quot;</span>
@@ -2371,7 +2381,7 @@ taking two parameters that represent two emitted items to be compared. For examp
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">,</span><span class="s2">&quot;hi&quot;</span><span class="p">,</span><span class="s2">&quot;hey&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">max</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&lt;=&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">size</span><span class="p">()</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2382,7 +2392,7 @@ For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;The sum is $it&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;The sum is $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="nb">sum</span> <span class="ow">is</span> <span class="mi">21</span>
@@ -2393,7 +2403,7 @@ a function that, given an item, returns the value to be summed. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
         <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">5</span> <span class="p">)</span>
         <span class="o">.</span><span class="n">sum</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="s2">&quot;Square: $it&quot;</span> <span class="p">}</span>
+        <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Square: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Square</span><span class="p">:</span> <span class="mi">91</span>
@@ -2408,7 +2418,7 @@ example:</p>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">toInteger</span><span class="p">()</span>
     <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -2465,7 +2475,7 @@ of a chain of operator transformations, thus resulting in a more fluent and read
 <p>The <code class="docutils literal notranslate"><span class="pre">ifEmpty</span></code> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
 is applied is <em>empty</em> i.e. doesn’t emit any value. Otherwise it will emit the same sequence of entries as the original channel.</p>
 <p>Thus, the following example prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span> <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span> <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="mi">1</span>
 <span class="mi">2</span>
@@ -2473,7 +2483,7 @@ is applied is <em>empty</em> i.e. doesn’t emit any value. Otherwise it will em
 </pre></div>
 </div>
 <p>Instead, this one prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span><span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">empty</span><span class="p">()</span><span class="o">.</span><span class="n">ifEmpty</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 
 <span class="n">Hello</span>
 </pre></div>
@@ -2484,6 +2494,11 @@ will be emitted when the empty condition is satisfied.</p>
 </div>
 <div class="section" id="print">
 <span id="operator-print"></span><h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator is deprecated and not supported any more when using DLS2 syntax. Use
+<a class="reference internal" href="#view">view</a> instead.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator prints the items emitted by a channel to the standard output.
 An optional <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> parameter can be specified to customise how items are printed.
 For example:</p>
@@ -2500,6 +2515,11 @@ For example:</p>
 </div>
 <div class="section" id="println">
 <span id="operator-println"></span><h3>println<a class="headerlink" href="#println" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator is deprecated and not supported any more when using DLS2 syntax. Use
+<a class="reference internal" href="#view">view</a> instead.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator prints the items emitted by a channel to the console standard output appending
 a <em>new line</em> character to each of them. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2517,7 +2537,7 @@ a <em>new line</em> character to each of them. For example:</p>
 <p>An optional closure parameter can be specified to customise how items are printed. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
       <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">)</span>
-      <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="s2">&quot;~ $it&quot;</span> <span class="p">}</span>
+      <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;~ $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -2571,15 +2591,16 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="executor.html" class="btn btn-neutral float-right" title="Executors" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="executor.html" class="btn btn-neutral float-right" title="Executors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="channel.html" class="btn btn-neutral" title="Channels" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="channel.html" class="btn btn-neutral float-left" title="Channels" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -2588,12 +2609,19 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG).
-      Licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.
+        
+        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG)
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -2605,49 +2633,16 @@ In a common usage scenario channels are closed automatically by Nextflow, so you
   </div>
   
 
-
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'https://www.nextflow.io/docs/latest/index.html',
-            VERSION:'20.06.0-edge',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/language_data.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
-  <script>
-  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-364526-10', 'auto');
-  ga('send', 'pageview');
-  </script>
 </body>
 </html>
