@@ -521,7 +521,7 @@ The matching files are emitted as tuples in which the first element is the group
 pair and the second element is the list of files (sorted in lexicographical order). For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/my/data/SRR*_{1,2}.fastq&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It will produce an output similar to the following:</p>
@@ -542,7 +542,7 @@ given the current file as parameter, returns the grouping key.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/some/data/*&#39;</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span> <span class="n">file</span> <span class="o">-&gt;</span> <span class="n">file</span><span class="o">.</span><span class="n">extension</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">println</span> <span class="p">{</span> <span class="n">ext</span><span class="p">,</span> <span class="n">files</span> <span class="o">-&gt;</span> <span class="s2">&quot;Files with the extension $ext are $files&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="n">ext</span><span class="p">,</span> <span class="n">files</span> <span class="o">-&gt;</span> <span class="s2">&quot;Files with the extension $ext are $files&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <p>Table of optional parameters available:</p>
@@ -595,7 +595,7 @@ For example:</p>
 the FASTQ files matching the specified criteria i.e project or accession number(s). For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromSRA</span><span class="p">(</span><span class="s1">&#39;SRP043510&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>It returns:</p>
@@ -612,7 +612,7 @@ the FASTQ files matching the specified criteria i.e project or accession number(
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ERR908507&#39;</span><span class="p">,</span> <span class="s1">&#39;ERR908506&#39;</span><span class="p">,</span> <span class="s1">&#39;ERR908505&#39;</span><span class="p">]</span>
 <span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromSRA</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">ERR908507</span><span class="p">,</span> <span class="p">[</span><span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908507</span><span class="o">/</span><span class="n">ERR908507_1</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">,</span> <span class="n">ftp</span><span class="p">:</span><span class="o">//</span><span class="n">ftp</span><span class="o">.</span><span class="n">sra</span><span class="o">.</span><span class="n">ebi</span><span class="o">.</span><span class="n">ac</span><span class="o">.</span><span class="n">uk</span><span class="o">/</span><span class="n">vol1</span><span class="o">/</span><span class="n">fastq</span><span class="o">/</span><span class="n">ERR908</span><span class="o">/</span><span class="n">ERR908507</span><span class="o">/</span><span class="n">ERR908507_2</span><span class="o">.</span><span class="n">fastq</span><span class="o">.</span><span class="n">gz</span><span class="p">]]</span>
@@ -828,7 +828,7 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2013-2019, Centre for Genomic Regulation (CRG). 2020, Seqera Labs.
+        &copy; Copyright 2020, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG).
 
     </p>
   </div>
@@ -859,6 +859,18 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
 
   
   
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-364526-10', 'auto');
+    ga('send', 'pageview');
+    </script>
+
     
    
 
