@@ -6,9 +6,48 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Sat, 1 Aug 2020 14:33:58 +0000</pubDate>
-    <lastBuildDate>Sat, 1 Aug 2020 14:33:58 +0000</lastBuildDate>
+    <pubDate>Fri, 23 Oct 2020 10:27:01 +0000</pubDate>
+    <lastBuildDate>Fri, 23 Oct 2020 10:27:01 +0000</lastBuildDate>
 
+    <item>
+      <title>The Nextflow CLI - tricks and treats! </title>
+      <link>https://www.nextflow.io/blog/2020/cli-docs-release.html</link>
+      <pubDate>Thu, 22 Oct 2020 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2020/cli-docs-release.html</guid>
+      	<description>
+	&lt;p&gt;For most developers, the command line is synonymous with agility. While tools such as &lt;a href=&quot;https://tower.nf&quot;&gt;Nextflow Tower&lt;/a&gt; are opening up the ecosystem to a whole new set of users, the Nextflow CLI remains a bedrock for pipeline development. The CLI in Nextflow has been the core interface since the beginning; however, its full functionality was never extensively documented. Today we are excited to release the first iteration of the CLI documentation available on the &lt;a href=&quot;https://www.nextflow.io/docs/edge/cli.html&quot;&gt;Nextflow website&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;And given Halloween is just around the corner, in this blog post we&apos;ll take a look at 5 CLI tricks and examples which will make your life easier in designing, executing and debugging data pipelines. We are also giving away 5 limited-edition Nextflow hoodies and sticker packs so you can code in style this Halloween season!&lt;/p&gt;&lt;h3&gt;1. Invoke a remote pipeline execution with the latest revision&lt;/h3&gt;&lt;p&gt;Nextflow facilitates easy collaboration and re-use of existing pipelines in multiple ways. One of the simplest ways to do this is to use the URL of the Git repository.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run https://www.github.com/nextflow-io/hello
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When executing a pipeline using the run command, it first checks to see if it has been previously downloaded in the ~/.nextflow/assets directory, and if so, Nextflow uses this to execute the pipeline. If the pipeline is not already cached, Nextflow will download it, store it in the &lt;code&gt;$HOME/.nextflow/&lt;/code&gt; directory and then launch the execution. &lt;/p&gt;&lt;p&gt;How can we make sure that we always run the latest code from the remote pipeline? We simply need to add the &lt;code&gt;-latest&lt;/code&gt; option to the run command, and Nextflow takes care of the rest. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run nextflow-io/hello -latest 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;2. Query work directories for a specific execution&lt;/h3&gt;&lt;p&gt;For every invocation of Nextflow, all the metadata about an execution is stored including task directories, completion status and time etc. We can use the &lt;code&gt;nextflow log&lt;/code&gt; command to generate a summary of this information for a specific run. &lt;/p&gt;&lt;p&gt;To see a list of work directories associated with a particular execution (for example, &lt;code&gt;tiny_leavitt&lt;/code&gt;), use: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow log tiny_leavitt 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To filter out specific process-level information from the logs of any execution, we simply need to use the fields (-f) option and specify the fields. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow log tiny_leavitt –f &amp;#39;process, hash, status, duration&amp;#39; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The hash is the name of the work directory where the process was executed; therefore, the location of a process work directory would be something like &lt;code&gt;work/74/68ff183&lt;/code&gt;. &lt;/p&gt;&lt;p&gt;The log command also has other child options including &lt;code&gt;-before&lt;/code&gt; and &lt;code&gt;-after&lt;/code&gt; to help with the chronological inspection of logs. &lt;/p&gt;&lt;h3&gt;3. Top-level configuration&lt;/h3&gt;&lt;p&gt;Nextflow emphasizes customization of pipelines and exposes multiple options to facilitate this. The configuration is applied to multiple Nextflow commands and is therefore a top-level option. In practice, this means specifying configuration options &lt;em&gt;before&lt;/em&gt; the command. &lt;/p&gt;&lt;p&gt;Nextflow CLI provides two kinds of config overrides - the soft override and the hard override. &lt;/p&gt;&lt;p&gt;The top-level soft override &quot;-c&quot; option allows us to change the previous config in an additive manner, overriding only the fields included the configuration file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow -c my.config run nextflow-io/hello
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;On the other hand, the hard override &lt;code&gt;-C&lt;/code&gt; completely replaces and ignores any additional configurations. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow –C my.config nextflow-io/hello
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Moreover, we can also use the config command to inspect the final inferred configuration and view any profiles.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow config -show-profiles 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;4. Passing in an input parameter file&lt;/h3&gt;&lt;p&gt;Nextflow is designed to work across both research and production settings. In production especially, specifying multiple parameters for the pipeline on the command line becomes cumbersome. In these cases, environment variables or config files are commonly used which contain all input files, options and metadata. Love them or hate them, YAML and JSON are the standard formats for human and machines, respectively.&lt;/p&gt;&lt;p&gt;The Nextflow run option &lt;code&gt;-params-file&lt;/code&gt; can be used to pass in a file containing parameters in either format. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run nextflow-io/rnaseq -params-file run_42.yaml 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The YAML file could contain the following.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;reads      : &amp;quot;s3://gatk-data/run_42/reads/*_R{1,2}_*.fastq.gz&amp;quot;
+bwa_index  : &amp;quot;$baseDir/index/*.bwa-index.tar.gz&amp;quot;
+paired_end : true
+penalty    : 12
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;5. Specific workflow entry points&lt;/h3&gt;&lt;p&gt;The recently released &lt;a href=&quot;https://www.nextflow.io/blog/2020/dsl2-is-here.html&quot;&gt;DSL2&lt;/a&gt; adds powerful modularity to Nextflow and enables scripts to contain multiple workflows. By default, the unnamed workflow is assumed to be the main entry point for the script, however, with numerous named workflows, the entry point can be customized by using the &lt;code&gt;entry&lt;/code&gt; child-option of the run command. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run main.nf -entry workflow1 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This allows users to run a specific sub-workflow or a section of their entire workflow script. For more information, refer to the &lt;a href=&quot;https://www.nextflow.io/docs/latest/dsl2.html#implicit-workflow&quot;&gt;implicit workflow&lt;/a&gt; section of the documentation.&lt;/p&gt;&lt;p&gt;Additionally, as of version 20.09.1-edge, you can specify the script in a project to run other than &lt;code&gt;main.nf&lt;/code&gt; using the command line option &lt;code&gt;-main-script&lt;/code&gt;. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run http://github.com/my/pipeline -main-script my-analysis.nf 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Bonus trick! Web dashboard launched from the CLI&lt;/h3&gt;&lt;p&gt;The tricks above highlight the functionality of the Nextflow CLI. However, for long-running workflows, monitoring becomes all the more crucial. With Nextflow Tower, we can invoke any Nextflow pipeline execution from the CLI and use the integrated dashboard to follow the workflow execution wherever we are. Sign-in to &lt;a href=&quot;https://tower.nf&quot;&gt;Tower&lt;/a&gt; using your GitHub credentials, obtain your token from the Getting Started page and export them into your terminal, &lt;code&gt;~/.bashrc&lt;/code&gt; or include them in your &lt;code&gt;nextflow.config&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ export TOWER_ACCESS_TOKEN=my-secret-tower-key 
+$ export NXF_VER=20.07.1 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Next simply add the &quot;-with-tower&quot; child-option to any Nextflow run command. A URL with the monitoring dashboard will appear.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ nextflow run nextflow-io/hello -with-tower 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Nextflow Giveaway&lt;/h3&gt;&lt;p&gt;If you want to look stylish while you put the above tips into practice, or simply like free stuff, we are giving away five of our latest Nextflow hoodie and sticker packs. Retweet or like the Nextflow tweet about this article and we will draw and notify the winners on October 31st!&lt;/p&gt;&lt;h3&gt;About the Author&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://www.linkedin.com/in/abhi18av/&quot;&gt;Abhinav Sharma&lt;/a&gt; is a Bioinformatics Engineer at &lt;a href=&quot;https://www.seqera.io&quot;&gt;Seqera Labs&lt;/a&gt; interested in Data Science and Cloud Engineering. He enjoys working on all things Genomics, Bioinformatics and Nextflow.&lt;/p&gt;&lt;h3&gt;Acknowledgements&lt;/h3&gt;&lt;p&gt;Shout out to &lt;a href=&quot;https://github.com/KevinSayers&quot;&gt;Kevin Sayers&lt;/a&gt; and &lt;a href=&quot;https://github.com/apeltzer&quot;&gt;Alexander Peltzer&lt;/a&gt; for their earlier efforts in documenting the CLI and which inspired this work.&lt;/p&gt;&lt;p&gt;*The latest CLI docs can be found in the edge release docs at &lt;a href=&quot;https://www.nextflow.io/docs/edge/cli.html.*&quot;&gt;https://www.nextflow.io/docs/edge/cli.html.*&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Nextflow DSL 2 is here!</title>
       <link>https://www.nextflow.io/blog/2020/dsl2-is-here.html</link>

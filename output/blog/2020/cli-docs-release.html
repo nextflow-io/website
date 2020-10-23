@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Nextflow - The Nextflow CLI - tricks and treats! </title>
+    <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Developers<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/docs/latest/index.html">Reference documentation</a></li>
+                        <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
+                        <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
+                        <li><a href="https://groups.google.com/forum/#!forum/nextflow">Discussion forum</a></li>
+                        <li><a href="https://gitter.im/nextflow-io/nextflow">Gitter chat</a></li>
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About Us</a>
+                </li>
+                   
+            </ul>
+
+        </div>
+    </div>
+</div>
+	
+    <!-- Body -->
+	<div class="wrapper"> <!-- wrapper -->
+	  <div class="container">
+	    <div class="row">
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">The Nextflow CLI - tricks and treats! </a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Abhinav Sharma</li>
+				<li><i class="fa fa-calendar"></i> 22 October 2020</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>For most developers, the command line is synonymous with agility. While tools such as <a href="https://tower.nf">Nextflow Tower</a> are opening up the ecosystem to a whole new set of users, the Nextflow CLI remains a bedrock for pipeline development. The CLI in Nextflow has been the core interface since the beginning; however, its full functionality was never extensively documented. Today we are excited to release the first iteration of the CLI documentation available on the <a href="https://www.nextflow.io/docs/edge/cli.html">Nextflow website</a>.</p><p>And given Halloween is just around the corner, in this blog post we'll take a look at 5 CLI tricks and examples which will make your life easier in designing, executing and debugging data pipelines. We are also giving away 5 limited-edition Nextflow hoodies and sticker packs so you can code in style this Halloween season!</p><h3>1. Invoke a remote pipeline execution with the latest revision</h3><p>Nextflow facilitates easy collaboration and re-use of existing pipelines in multiple ways. One of the simplest ways to do this is to use the URL of the Git repository.</p>
+<pre><code>$ nextflow run https://www.github.com/nextflow-io/hello
+</code></pre><p>When executing a pipeline using the run command, it first checks to see if it has been previously downloaded in the ~/.nextflow/assets directory, and if so, Nextflow uses this to execute the pipeline. If the pipeline is not already cached, Nextflow will download it, store it in the <code>$HOME/.nextflow/</code> directory and then launch the execution. </p><p>How can we make sure that we always run the latest code from the remote pipeline? We simply need to add the <code>-latest</code> option to the run command, and Nextflow takes care of the rest. </p>
+<pre><code>$ nextflow run nextflow-io/hello -latest 
+</code></pre><h3>2. Query work directories for a specific execution</h3><p>For every invocation of Nextflow, all the metadata about an execution is stored including task directories, completion status and time etc. We can use the <code>nextflow log</code> command to generate a summary of this information for a specific run. </p><p>To see a list of work directories associated with a particular execution (for example, <code>tiny_leavitt</code>), use: </p>
+<pre><code>$ nextflow log tiny_leavitt 
+</code></pre><p>To filter out specific process-level information from the logs of any execution, we simply need to use the fields (-f) option and specify the fields. </p>
+<pre><code>$ nextflow log tiny_leavitt –f &#39;process, hash, status, duration&#39; 
+</code></pre><p>The hash is the name of the work directory where the process was executed; therefore, the location of a process work directory would be something like <code>work/74/68ff183</code>. </p><p>The log command also has other child options including <code>-before</code> and <code>-after</code> to help with the chronological inspection of logs. </p><h3>3. Top-level configuration</h3><p>Nextflow emphasizes customization of pipelines and exposes multiple options to facilitate this. The configuration is applied to multiple Nextflow commands and is therefore a top-level option. In practice, this means specifying configuration options <em>before</em> the command. </p><p>Nextflow CLI provides two kinds of config overrides - the soft override and the hard override. </p><p>The top-level soft override "-c" option allows us to change the previous config in an additive manner, overriding only the fields included the configuration file.</p>
+<pre><code>$ nextflow -c my.config run nextflow-io/hello
+</code></pre><p>On the other hand, the hard override <code>-C</code> completely replaces and ignores any additional configurations. </p>
+<pre><code>$ nextflow –C my.config nextflow-io/hello
+</code></pre><p>Moreover, we can also use the config command to inspect the final inferred configuration and view any profiles.</p>
+<pre><code>$ nextflow config -show-profiles 
+</code></pre><h3>4. Passing in an input parameter file</h3><p>Nextflow is designed to work across both research and production settings. In production especially, specifying multiple parameters for the pipeline on the command line becomes cumbersome. In these cases, environment variables or config files are commonly used which contain all input files, options and metadata. Love them or hate them, YAML and JSON are the standard formats for human and machines, respectively.</p><p>The Nextflow run option <code>-params-file</code> can be used to pass in a file containing parameters in either format. </p>
+<pre><code>$ nextflow run nextflow-io/rnaseq -params-file run_42.yaml 
+</code></pre><p>The YAML file could contain the following.</p>
+<pre><code>reads      : &quot;s3://gatk-data/run_42/reads/*_R{1,2}_*.fastq.gz&quot;
+bwa_index  : &quot;$baseDir/index/*.bwa-index.tar.gz&quot;
+paired_end : true
+penalty    : 12
+</code></pre><h3>5. Specific workflow entry points</h3><p>The recently released <a href="https://www.nextflow.io/blog/2020/dsl2-is-here.html">DSL2</a> adds powerful modularity to Nextflow and enables scripts to contain multiple workflows. By default, the unnamed workflow is assumed to be the main entry point for the script, however, with numerous named workflows, the entry point can be customized by using the <code>entry</code> child-option of the run command. </p>
+<pre><code>$ nextflow run main.nf -entry workflow1 
+</code></pre><p>This allows users to run a specific sub-workflow or a section of their entire workflow script. For more information, refer to the <a href="https://www.nextflow.io/docs/latest/dsl2.html#implicit-workflow">implicit workflow</a> section of the documentation.</p><p>Additionally, as of version 20.09.1-edge, you can specify the script in a project to run other than <code>main.nf</code> using the command line option <code>-main-script</code>. </p>
+<pre><code>$ nextflow run http://github.com/my/pipeline -main-script my-analysis.nf 
+</code></pre><h3>Bonus trick! Web dashboard launched from the CLI</h3><p>The tricks above highlight the functionality of the Nextflow CLI. However, for long-running workflows, monitoring becomes all the more crucial. With Nextflow Tower, we can invoke any Nextflow pipeline execution from the CLI and use the integrated dashboard to follow the workflow execution wherever we are. Sign-in to <a href="https://tower.nf">Tower</a> using your GitHub credentials, obtain your token from the Getting Started page and export them into your terminal, <code>~/.bashrc</code> or include them in your <code>nextflow.config</code>.</p>
+<pre><code>$ export TOWER_ACCESS_TOKEN=my-secret-tower-key 
+$ export NXF_VER=20.07.1 
+</code></pre><p>Next simply add the "-with-tower" child-option to any Nextflow run command. A URL with the monitoring dashboard will appear.</p>
+<pre><code>$ nextflow run nextflow-io/hello -with-tower 
+</code></pre><h3>Nextflow Giveaway</h3><p>If you want to look stylish while you put the above tips into practice, or simply like free stuff, we are giving away five of our latest Nextflow hoodie and sticker packs. Retweet or like the Nextflow tweet about this article and we will draw and notify the winners on October 31st!</p><h3>About the Author</h3><p><a href="https://www.linkedin.com/in/abhi18av/">Abhinav Sharma</a> is a Bioinformatics Engineer at <a href="https://www.seqera.io">Seqera Labs</a> interested in Data Science and Cloud Engineering. He enjoys working on all things Genomics, Bioinformatics and Nextflow.</p><h3>Acknowledgements</h3><p>Shout out to <a href="https://github.com/KevinSayers">Kevin Sayers</a> and <a href="https://github.com/apeltzer">Alexander Peltzer</a> for their earlier efforts in documenting the CLI and which inspired this work.</p><p>*The latest CLI docs can be found in the edge release docs at <a href="https://www.nextflow.io/docs/edge/cli.html.*">https://www.nextflow.io/docs/edge/cli.html.*</a></p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/docs.html" class="background-color bg-hover-color">docs</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
+		  <div class="col-sm-4">
+			<h3>Stay Tuned <small>Social Links</small></h3>
+			<hr>
+			<ul class="blg-social">
+			  <li>
+			    <a href="/feed.xml">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our RSS Feed.</span>
+				</a>
+			  </li>
+			  <li>
+			    <a href="https://twitter.com/nextflowio">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our Twitter Feed.</span>
+				</a>
+			  </li>
+			</ul>
+            <!--
+			<h3>Popular Stories</h3>
+			<hr>
+			<div class="block-inverse">
+			  <ul>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+				<li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+			  </ul>
+			</div>			
+            -->
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- / wrapper -->
+
+	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+<style type="text/css">
+  .gitter-chat-embed { z-index: 9999 }
+  .gitter-open-chat-button { background-color: #1b95e0; border-color: #004e7f }
+  .gitter-open-chat-button:focus { background-color: #0c7abf; border-color: #004e7f}
+  .gitter-open-chat-button:hover { background-color: #0c7abf; border-color: #004e7f }  
+</style>
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'nextflow-io/nextflow'
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+</body>
+</html>
