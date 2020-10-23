@@ -98,7 +98,7 @@ The recently released [DSL2](https://www.nextflow.io/blog/2020/dsl2-is-here.html
 
 This allows users to run a specific sub-workflow or a section of their entire workflow script. For more information, refer to the [implicit workflow](https://www.nextflow.io/docs/latest/dsl2.html#implicit-workflow) section of the documentation.
 
-Also, as for version 20.09.1-edge, you can specify a pipeline script other than `main.nf` using the command line option 
+Additionally, as of version 20.09.1-edge, you can specify the script in a project to run other than `main.nf` using the command line option 
 `-main-script`. 
 
     $ nextflow run http://github.com/my/pipeline -main-script my-analysis.nf 
