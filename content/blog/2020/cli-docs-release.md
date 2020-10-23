@@ -134,4 +134,4 @@ If you want to look stylish while you put the above tips into practice, or simpl
 Shout out to [Kevin Sayers](https://github.com/KevinSayers) and [Alexander Peltzer](https://github.com/apeltzer) for their earlier efforts in documenting the CLI and which inspired this work.
 
 
-*The latest CLI docs can be found in the edge release docs at https://www.nextflow.io/docs/edge/cli.html.*
+*The latest CLI docs can be found in the edge release docs at [https://www.nextflow.io/docs/latest/cli.html](https://www.nextflow.io/docs/latest/cli.html).*
