@@ -12,7 +12,7 @@ For most developers, the command line is synonymous with agility. While tools su
 And given Halloween is just around the corner, in this blog post we'll take a look at 5 CLI tricks and examples which will make your life easier in designing, executing and debugging data pipelines. We are also giving away 5 limited-edition Nextflow hoodies and sticker packs so you can code in style this Halloween season!
  
 
-#### 1: Invoke a remote pipeline execution with the latest revision 
+### 1. Invoke a remote pipeline execution with the latest revision 
 
 Nextflow facilitates easy collaboration and re-use of existing pipelines in multiple ways. One of the simplest ways to do this is to use the URL of the Git repository.
 
@@ -28,7 +28,7 @@ How can we make sure that we always run the latest code from the remote pipeline
 $ nextflow run nextflow-io/hello -latest 
 ```
 
-#### 2: Query work directories for a specific execution
+### 2. Query work directories for a specific execution
 
 For every invocation of Nextflow, all the metadata about an execution is stored including task directories, completion status and time etc. We can use the `nextflow log` command to generate a summary of this information for a specific run. 
 
@@ -49,7 +49,7 @@ The hash is the name of the work directory where the process was executed; there
 The log command also has other child options including `-before` and `-after` to help with the chronological inspection of logs. 
 
 
-#### 3: Top-level configuration
+### 3. Top-level configuration
 
 Nextflow emphasizes customization of pipelines and exposes multiple options to facilitate this. The configuration is applied to multiple Nextflow commands and is therefore a top-level option. In practice, this means specifying configuration options *before* the command. 
 
@@ -71,7 +71,7 @@ Moreover, we can also use the config command to inspect the final inferred confi
 $ nextflow config -show-profiles 
 ```
 
-#### 4: Passing in an input parameter file
+### 4. Passing in an input parameter file
 
 Nextflow is designed to work across both research and production settings. In production especially, specifying multiple parameters for the pipeline on the command line becomes cumbersome. In these cases, environment variables or config files are commonly used which contain all input files, options and metadata. Love them or hate them, YAML and JSON are the standard formats for human and machines, respectively.
 
@@ -90,7 +90,7 @@ paired_end : true
 penalty    : 12
 ```
 
-#### 5: Specific workflow entry points
+### 5. Specific workflow entry points
 
 The recently released [DSL2](https://www.nextflow.io/blog/2020/dsl2-is-here.html) adds powerful modularity to Nextflow and enables scripts to contain multiple workflows. By default, the unnamed workflow is assumed to be the main entry point for the script, however, with numerous named workflows, the entry point can be customized by using the `entry` child-option of the run command. 
 
@@ -98,8 +98,13 @@ The recently released [DSL2](https://www.nextflow.io/blog/2020/dsl2-is-here.html
 
 This allows users to run a specific sub-workflow or a section of their entire workflow script. For more information, refer to the [implicit workflow](https://www.nextflow.io/docs/latest/dsl2.html#implicit-workflow) section of the documentation.
 
+Also, as for version 20.09.1-edge, you can specify a pipeline script other than `main.nf` using the command line option 
+`-main-script`. 
 
-#### Bonus trick: Web dashboard launched from the CLI
+    $ nextflow run http://github.com/my/pipeline -main-script my-analysis.nf 
+    
+
+### Bonus trick! Web dashboard launched from the CLI
 
 The tricks above highlight the functionality of the Nextflow CLI. However, for long-running workflows, monitoring becomes all the more crucial. With Nextflow Tower, we can invoke any Nextflow pipeline execution from the CLI and use the integrated dashboard to follow the workflow execution wherever we are. Sign-in to [Tower](https://tower.nf) using your GitHub credentials, obtain your token from the Getting Started page and export them into your terminal, `~/.bashrc` or include them in your `nextflow.config`.
 
@@ -114,17 +119,17 @@ Next simply add the "-with-tower" child-option to any Nextflow run command. A UR
 $ nextflow run nextflow-io/hello -with-tower 
 ```
 
-#### Nextflow Giveaway 
+### Nextflow Giveaway 
 
 If you want to look stylish while you put the above tips into practice, or simply like free stuff, we are giving away five of our latest Nextflow hoodie and sticker packs. Retweet or like the Nextflow tweet about this article and we will draw and notify the winners on October 31st!
 
 
-#### About the Author
+### About the Author
 
 [Abhinav Sharma](https://www.linkedin.com/in/abhi18av/) is a Bioinformatics Engineer at [Seqera Labs](https://www.seqera.io) interested in Data Science and Cloud Engineering. He enjoys working on all things Genomics, Bioinformatics and Nextflow.
 
 
-#### Acknowledgements 
+### Acknowledgements 
 
 Shout out to [Kevin Sayers](https://github.com/KevinSayers) and [Alexander Peltzer](https://github.com/apeltzer) for their earlier efforts in documenting the CLI and which inspired this work.
 
