@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Operators &mdash; Nextflow 20.07.1 documentation</title>
+  <title>Operators &mdash; Nextflow 20.10.0 documentation</title>
   
 
   
@@ -182,7 +182,6 @@
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
 </ul>
 
             
@@ -2070,6 +2069,10 @@ variable and passed as argument to the operator, how it can be done with other o
 </div>
 <div class="section" id="into">
 <span id="operator-into"></span><h3>into<a class="headerlink" href="#into" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">into</span></code> operator is not available when using Nextflow DSL2 syntax.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">into</span></code> operator connects a source channel to two or more target channels in such a way the values emitted by
 the source channel are copied to the target channels. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2116,40 +2119,44 @@ it connects two channels, copying the values from the source into the <cite>tapp
 time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
 as in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 
 <span class="n">Channel</span>
-    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">tap</span><span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">of</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+
+<span class="n">log1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">a</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Result</span><span class="p">:</span> <span class="n">AA</span>
+<span class="n">Result</span><span class="p">:</span> <span class="n">BB</span>
+<span class="n">Result</span><span class="p">:</span> <span class="n">CC</span>
+
+<span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">a</span>
 <span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">b</span>
 <span class="n">Log</span> <span class="mi">1</span><span class="p">:</span> <span class="n">c</span>
 
 <span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">aa</span>
 <span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">bb</span>
 <span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">cc</span>
-
-<span class="n">Result</span><span class="p">:</span> <span class="n">aa</span>
-<span class="n">Result</span><span class="p">:</span> <span class="n">bb</span>
-<span class="n">Result</span><span class="p">:</span> <span class="n">cc</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
 is that you won’t need to previously create the target channel, because it is created implicitly by the operator itself.</p>
 <p>Using the closure syntax the above example can be rewritten as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
-        <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
-
+    <span class="o">.</span><span class="n">of</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
 
 <span class="n">log1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
 <span class="n">log2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
@@ -2161,7 +2168,7 @@ is that you won’t need to previously create the target channel, because it is 
 <span id="operator-separate"></span><h3>separate<a class="headerlink" href="#separate" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <cite>separate</cite> operator has been deprecated. Use <a class="reference internal" href="#multimap">multiMap</a> instead.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">separate</span></code> operator has been deprecated. Use <a class="reference internal" href="#multimap">multiMap</a> instead.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">separate</span></code> operator lets you copy the items emitted by the source channel into multiple
 channels, which each of these can receive a <cite>separate</cite> version of the same item.</p>
@@ -2497,7 +2504,7 @@ will be emitted when the empty condition is satisfied.</p>
 <span id="operator-print"></span><h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator is deprecated and not supported any more when using DLS2 syntax. Use
+<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator is deprecated and not supported any more when using DSL2 syntax. Use
 <a class="reference internal" href="#view">view</a> instead.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator prints the items emitted by a channel to the standard output.
@@ -2518,7 +2525,7 @@ For example:</p>
 <span id="operator-println"></span><h3>println<a class="headerlink" href="#println" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator is deprecated and not supported any more when using DLS2 syntax. Use
+<p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator is deprecated and not supported any more when using DSL2 syntax. Use
 <a class="reference internal" href="#view">view</a> instead.</p>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator prints the items emitted by a channel to the console standard output appending
