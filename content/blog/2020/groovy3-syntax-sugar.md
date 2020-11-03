@@ -1,13 +1,11 @@
-<!-- title=More syntax sugar for Nextflow developers!
-date=2020-11-02
+title=More syntax sugar for Nextflow developers!
+date=2020-11-03
 type=post
-tags=nextflow,dsl
+tags=nextflow,dsl2
 status=published
 author=Paolo Di Tommaso
 icon=paolo.jpg
-~~~~~~ -->
-
-# More syntax sugar for Nextflow developers  
+~~~~~~
 
 The latest Nextflow version 2020.10.0 is the first stable release running on Groovy 3. 
 
@@ -18,13 +16,13 @@ Along with this, the new Groovy runtime brings a whole lot of syntax enhancement
 the everyday life of pipeline developers. Let's see them more in detail. 
 
 
-## Improved not operator 
+### Improved not operator 
 
 The `!` (not) operator can now prefix the `in` and `instanceof` keywords. 
 This makes for more concise writing of some conditional expression, for example, the following snippet: 
 
 ```
-list =  [10,20,30]
+list = [10,20,30]
 
 if( !(x in list) ) {
   // .. 
@@ -37,7 +35,7 @@ else if( !(x instanceof String) ) {
 could be replaced by the following: 
 
 ```
-list =  [10,20,30]
+list = [10,20,30]
 
 if( x !in list ) {
    // .. 
@@ -51,7 +49,7 @@ Again, this is a small syntax change which makes the code a little more
 readable. 
 
 
-## Elvis assignment operator
+### Elvis assignment operator
 
 The elvis assignment operator `?=` allows the assignment of a value only if it was not 
 previously assigned (or if it evaluates to `null`). Consider the following example:  
@@ -76,6 +74,8 @@ if( some_variable != null ) {
   some_variable = 'Hello'
 }
 ```
+
+If you are wondering why it's called *Elvis* assigment, well it's simple, because there's also the [Elvis operator](https://groovy-lang.org/operators.html#_elvis_operator) that you should know (and use!) already. 😆 
 
 ### Java style lambda expressions
 
@@ -173,7 +173,7 @@ manner to how it was already possible using a closure. For example:
 Channel
  .of( 'a', 'b', 'c')
  .view( String::toUpperCase )
- ```
+```
 
 The above prints: 
 

@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - More syntax sugar for Nextflow developers!</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -98,27 +98,114 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: dsl2</h3>
-                <hr>
-                <ul>
-                        <h4>November 2020</h4>
-                        <ul>
-        
-                    <li>03 - <a href="/blog/2020/groovy3-syntax-sugar.html">More syntax sugar for Nextflow developers!</a></li>
-                            </ul>
-                            <h4>July 2020</h4>
-                            <ul>
-        
-                    <li>24 - <a href="/blog/2020/dsl2-is-here.html">Nextflow DSL 2 is here!</a></li>
-                            </ul>
-                            <h4>May 2019</h4>
-                            <ul>
-        
-                    <li>22 - <a href="/blog/2019/one-more-step-towards-modules.html">One more step towards Nextflow modules</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">More syntax sugar for Nextflow developers!</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 03 November 2020</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>The latest Nextflow version 2020.10.0 is the first stable release running on Groovy 3. </p><p>The first benefit of this change is that now Nextflow can be compiled and run on any modern Java virtual machine, from Java 8, all the way up to the latest Java 15! </p><p>Along with this, the new Groovy runtime brings a whole lot of syntax enhancements that can be useful in the everyday life of pipeline developers. Let's see them more in detail. </p><h3>Improved not operator</h3><p>The <code>!</code> (not) operator can now prefix the <code>in</code> and <code>instanceof</code> keywords. This makes for more concise writing of some conditional expression, for example, the following snippet: </p>
+<pre><code>list = [10,20,30]
 
-            </div>
+if( !(x in list) ) {
+  // .. 
+} 
+else if( !(x instanceof String) ) {
+  // .. 
+}
+</code></pre><p>could be replaced by the following: </p>
+<pre><code>list = [10,20,30]
+
+if( x !in list ) {
+   // .. 
+}
+else if( x !instanceof String ) {
+   // .. 
+}
+</code></pre><p>Again, this is a small syntax change which makes the code a little more readable. </p><h3>Elvis assignment operator</h3><p>The elvis assignment operator <code>?=</code> allows the assignment of a value only if it was not previously assigned (or if it evaluates to <code>null</code>). Consider the following example: </p>
+<pre><code>def opts = [foo: 1]
+
+opts.foo ?= 10 
+opts.bar ?= 20
+
+assert opts.foo == 1 
+assert opts.bar == 20
+</code></pre><p>In this snippet, the assignment <code>opts.foo ?= 10</code> would be ignored because the dictionary <code>opts</code> already contains a value for the <code>foo</code> attribute, while it is now assigned as expected. </p><p>In other words this is a shortcut for the following idiom: </p>
+<pre><code>if( some_variable != null ) {
+  some_variable = &#39;Hello&#39;
+}
+</code></pre><p>If you are wondering why it's called <em>Elvis</em> assigment, well it's simple, because there's also the <a href="https://groovy-lang.org/operators.html#_elvis_operator">Elvis operator</a> that you should know (and use!) already. 😆 </p><h3>Java style lambda expressions</h3><p>Groovy 3 supports the syntax for Java lambda expression. If you don't know what a Java lambda expression is don't worry; it's a concept very similar to a Groovy closure, though with slight differences both in the syntax and the semantic. In a few words, a Groovy closure can modify a variable in the outside scope, while a Java lambda cannot. </p><p>In terms of syntax, a Groovy closure is defined as: </p>
+<pre><code>{ it -&gt; SOME_EXPRESSION_HERE }
+</code></pre><p>While Java lambda expression looks like: </p>
+<pre><code>it -&gt; { SOME_EXPRESSION_HERE }
+</code></pre><p>which can be simplified to the following form when the expression is a single statement: </p>
+<pre><code>it -&gt; SOME_EXPRESSION_HERE
+</code></pre><p>The good news is that the two syntaxes are interoperable in many cases and we can use the <em>lambda</em> syntax to get rid-off of the curly bracket parentheses used by the Groovy notation to make our Nextflow script more readable. </p><p>For example, the following Nextflow idiom: </p>
+<pre><code>Channel
+    .of( 1,2,3 ) 
+    .map { it * it +1 }
+    .view { &quot;the value is $it&quot; }
+</code></pre><p>Can be rewritten using the lambda syntax as: </p>
+<pre><code>Channel
+    .of( 1,2,3 ) 
+    .map( it -&gt; it * it +1 )
+    .view( it -&gt; &quot;the value is $it&quot; )
+</code></pre><p>It is a bit more consistent. Note however that the <code>it -&gt;</code> implicit argument is now mandatory (while when using the closure syntax it could be omitted). Also, when the operator argument is not <em>single</em> value, the lambda requires the round parentheses to define the argument e.g. </p>
+<pre><code>Channel
+    .of( 1,2,3 ) 
+    .map( it -&gt; tuple(it * it,  it+1) )
+    .view( (a,b) -&gt; &quot;the values are $a and $b&quot; )
+</code></pre><h3>Full support for Java streams API</h3><p>Since version 8, Java provides a <a href="https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/">stream library</a> that is very powerful and implements some concepts and operators similar to Nextflow channels. </p><p>The main differences between the two are that Nextflow channels and the corresponding operators are <em>non-blocking</em> i.e. their evaluation is performed asynchronously without blocking your program execution, while Java streams are executed in a synchronous manner (at least by default).</p><p>A Java stream looks like the following: </p>
+<pre><code>assert (1..10).stream()
+                .filter(e -&gt; e % 2 == 0)
+                .map(e -&gt; e * 2)
+                .toList() == [4, 8, 12, 16, 20]
+
+</code></pre><p>Note, in the above example <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-">filter</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-">map</a> and <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toList--">toList</a> methods are Java stream operator not the <a href="https://www.nextflow.io/docs/latest/operator.html#filter">Nextflow</a> <a href="https://www.nextflow.io/docs/latest/operator.html#map">homonymous</a> <a href="https://www.nextflow.io/docs/latest/operator.html#tolist">ones</a>.</p><h3>Java style method reference</h3><p>The new runtime also allows for the use of the <code>::</code> operator to reference an object method. This can be useful to pass a method as an argument to a Nextflow operator in a similar manner to how it was already possible using a closure. For example:</p>
+<pre><code>Channel
+ .of( &#39;a&#39;, &#39;b&#39;, &#39;c&#39;)
+ .view( String::toUpperCase )
+</code></pre><p>The above prints: </p>
+<pre><code>  A
+  B
+  C
+</code></pre><p>Because to <a href="https://www.nextflow.io/docs/latest/operator.html#filter">view</a> operator applied the method <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--">toUpperCase</a> to each element emitted by the channel. </p><h3>Conclusion</h3><p>The new Groovy runtime brings a lot of syntax sugar for Nextflow pipelines and allows the use of modern Java runtime which delivers better performance and resource usage. </p><p>The ones listed above are only a small selection which may be useful to everyday Nextflow developers. If you are curious to learn more about all the changes in the new Groovy parser you can find more details in <a href="https://groovy-lang.org/releasenotes/groovy-3.0.html">this link</a>. </p><p>Finally, a big thanks to the Groovy community for their significant efforts in developing and maintaining this great programming environment. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/dsl2.html" class="background-color bg-hover-color">dsl2</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -157,6 +244,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>

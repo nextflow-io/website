@@ -6,9 +6,83 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Fri, 23 Oct 2020 11:09:10 +0000</pubDate>
-    <lastBuildDate>Fri, 23 Oct 2020 11:09:10 +0000</lastBuildDate>
+    <pubDate>Tue, 3 Nov 2020 10:20:39 +0000</pubDate>
+    <lastBuildDate>Tue, 3 Nov 2020 10:20:39 +0000</lastBuildDate>
 
+    <item>
+      <title>More syntax sugar for Nextflow developers!</title>
+      <link>https://www.nextflow.io/blog/2020/groovy3-syntax-sugar.html</link>
+      <pubDate>Tue, 3 Nov 2020 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2020/groovy3-syntax-sugar.html</guid>
+      	<description>
+	&lt;p&gt;The latest Nextflow version 2020.10.0 is the first stable release running on Groovy 3. &lt;/p&gt;&lt;p&gt;The first benefit of this change is that now Nextflow can be compiled and run on any modern Java virtual machine, from Java 8, all the way up to the latest Java 15! &lt;/p&gt;&lt;p&gt;Along with this, the new Groovy runtime brings a whole lot of syntax enhancements that can be useful in the everyday life of pipeline developers. Let&apos;s see them more in detail. &lt;/p&gt;&lt;h3&gt;Improved not operator&lt;/h3&gt;&lt;p&gt;The &lt;code&gt;!&lt;/code&gt; (not) operator can now prefix the &lt;code&gt;in&lt;/code&gt; and &lt;code&gt;instanceof&lt;/code&gt; keywords. This makes for more concise writing of some conditional expression, for example, the following snippet: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;list = [10,20,30]
+
+if( !(x in list) ) {
+  // .. 
+} 
+else if( !(x instanceof String) ) {
+  // .. 
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;could be replaced by the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;list = [10,20,30]
+
+if( x !in list ) {
+   // .. 
+}
+else if( x !instanceof String ) {
+   // .. 
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Again, this is a small syntax change which makes the code a little more readable. &lt;/p&gt;&lt;h3&gt;Elvis assignment operator&lt;/h3&gt;&lt;p&gt;The elvis assignment operator &lt;code&gt;?=&lt;/code&gt; allows the assignment of a value only if it was not previously assigned (or if it evaluates to &lt;code&gt;null&lt;/code&gt;). Consider the following example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;def opts = [foo: 1]
+
+opts.foo ?= 10 
+opts.bar ?= 20
+
+assert opts.foo == 1 
+assert opts.bar == 20
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In this snippet, the assignment &lt;code&gt;opts.foo ?= 10&lt;/code&gt; would be ignored because the dictionary &lt;code&gt;opts&lt;/code&gt; already contains a value for the &lt;code&gt;foo&lt;/code&gt; attribute, while it is now assigned as expected. &lt;/p&gt;&lt;p&gt;In other words this is a shortcut for the following idiom: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if( some_variable != null ) {
+  some_variable = &amp;#39;Hello&amp;#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you are wondering why it&apos;s called &lt;em&gt;Elvis&lt;/em&gt; assigment, well it&apos;s simple, because there&apos;s also the &lt;a href=&quot;https://groovy-lang.org/operators.html#_elvis_operator&quot;&gt;Elvis operator&lt;/a&gt; that you should know (and use!) already. 😆 &lt;/p&gt;&lt;h3&gt;Java style lambda expressions&lt;/h3&gt;&lt;p&gt;Groovy 3 supports the syntax for Java lambda expression. If you don&apos;t know what a Java lambda expression is don&apos;t worry; it&apos;s a concept very similar to a Groovy closure, though with slight differences both in the syntax and the semantic. In a few words, a Groovy closure can modify a variable in the outside scope, while a Java lambda cannot. &lt;/p&gt;&lt;p&gt;In terms of syntax, a Groovy closure is defined as: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{ it -&amp;gt; SOME_EXPRESSION_HERE }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;While Java lambda expression looks like: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;it -&amp;gt; { SOME_EXPRESSION_HERE }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;which can be simplified to the following form when the expression is a single statement: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;it -&amp;gt; SOME_EXPRESSION_HERE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The good news is that the two syntaxes are interoperable in many cases and we can use the &lt;em&gt;lambda&lt;/em&gt; syntax to get rid-off of the curly bracket parentheses used by the Groovy notation to make our Nextflow script more readable. &lt;/p&gt;&lt;p&gt;For example, the following Nextflow idiom: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .of( 1,2,3 ) 
+    .map { it * it +1 }
+    .view { &amp;quot;the value is $it&amp;quot; }
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Can be rewritten using the lambda syntax as: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .of( 1,2,3 ) 
+    .map( it -&amp;gt; it * it +1 )
+    .view( it -&amp;gt; &amp;quot;the value is $it&amp;quot; )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is a bit more consistent. Note however that the &lt;code&gt;it -&amp;gt;&lt;/code&gt; implicit argument is now mandatory (while when using the closure syntax it could be omitted). Also, when the operator argument is not &lt;em&gt;single&lt;/em&gt; value, the lambda requires the round parentheses to define the argument e.g. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+    .of( 1,2,3 ) 
+    .map( it -&amp;gt; tuple(it * it,  it+1) )
+    .view( (a,b) -&amp;gt; &amp;quot;the values are $a and $b&amp;quot; )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Full support for Java streams API&lt;/h3&gt;&lt;p&gt;Since version 8, Java provides a &lt;a href=&quot;https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/&quot;&gt;stream library&lt;/a&gt; that is very powerful and implements some concepts and operators similar to Nextflow channels. &lt;/p&gt;&lt;p&gt;The main differences between the two are that Nextflow channels and the corresponding operators are &lt;em&gt;non-blocking&lt;/em&gt; i.e. their evaluation is performed asynchronously without blocking your program execution, while Java streams are executed in a synchronous manner (at least by default).&lt;/p&gt;&lt;p&gt;A Java stream looks like the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;assert (1..10).stream()
+                .filter(e -&amp;gt; e % 2 == 0)
+                .map(e -&amp;gt; e * 2)
+                .toList() == [4, 8, 12, 16, 20]
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note, in the above example &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#filter-java.util.function.Predicate-&quot;&gt;filter&lt;/a&gt;, &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#map-java.util.function.Function-&quot;&gt;map&lt;/a&gt; and &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/util/stream/Collectors.html#toList--&quot;&gt;toList&lt;/a&gt; methods are Java stream operator not the &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#filter&quot;&gt;Nextflow&lt;/a&gt; &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#map&quot;&gt;homonymous&lt;/a&gt; &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#tolist&quot;&gt;ones&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Java style method reference&lt;/h3&gt;&lt;p&gt;The new runtime also allows for the use of the &lt;code&gt;::&lt;/code&gt; operator to reference an object method. This can be useful to pass a method as an argument to a Nextflow operator in a similar manner to how it was already possible using a closure. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Channel
+ .of( &amp;#39;a&amp;#39;, &amp;#39;b&amp;#39;, &amp;#39;c&amp;#39;)
+ .view( String::toUpperCase )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above prints: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;  A
+  B
+  C
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Because to &lt;a href=&quot;https://www.nextflow.io/docs/latest/operator.html#filter&quot;&gt;view&lt;/a&gt; operator applied the method &lt;a href=&quot;https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--&quot;&gt;toUpperCase&lt;/a&gt; to each element emitted by the channel. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;The new Groovy runtime brings a lot of syntax sugar for Nextflow pipelines and allows the use of modern Java runtime which delivers better performance and resource usage. &lt;/p&gt;&lt;p&gt;The ones listed above are only a small selection which may be useful to everyday Nextflow developers. If you are curious to learn more about all the changes in the new Groovy parser you can find more details in &lt;a href=&quot;https://groovy-lang.org/releasenotes/groovy-3.0.html&quot;&gt;this link&lt;/a&gt;. &lt;/p&gt;&lt;p&gt;Finally, a big thanks to the Groovy community for their significant efforts in developing and maintaining this great programming environment. &lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>The Nextflow CLI - tricks and treats! </title>
       <link>https://www.nextflow.io/blog/2020/cli-docs-release.html</link>

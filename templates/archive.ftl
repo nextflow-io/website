@@ -30,6 +30,8 @@
 			    <p class="blg-text">
 						<#if post.title == "Nextflow workshop is coming!" >
 							<#assign MAX = 50>
+						<#elseif post.title == "More syntax sugar for Nextflow developers!" >
+							<#assign MAX = 70>
 						<#elseif post.title == "Easy provenance reporting" >
 							<#assign MAX = 70>
 						<#elseif post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
