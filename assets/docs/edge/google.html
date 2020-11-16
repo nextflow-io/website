@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 20.10.0-SNAPSHOT documentation</title>
+  <title>Google Cloud &mdash; Nextflow 20.11.0-edge documentation</title>
   
 
   
@@ -204,11 +204,25 @@ in your system environment:</p>
 </div>
 <div class="section" id="credentials">
 <h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline">¶</a></h3>
-<p>To allow the deployment in the Google Cloud you need to configure the security credentials using
-a <em>Security account key</em> JSON file.</p>
-<p>Nextflow looks for this file using the <code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable that
-has to be defined in the launching environment.</p>
-<p>If you don’t have it, download the credentials file from the Google Cloud Console following these steps:</p>
+<p>Credentials for submitting requests to the Google LifeSciences API are picked up from your
+environment using <a class="reference external" href="https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http">Application Default Credentials</a>.
+Application Default Credentials are designed to use the credentials most natural to the
+environment in which a tool runs.</p>
+<p>The most common case will be to pick up your end-user Google credentials from your
+workstation. You can create these by running the command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">gcloud</span> <span class="n">auth</span> <span class="n">application</span><span class="o">-</span><span class="n">default</span> <span class="n">login</span>
+</pre></div>
+</div>
+<p>and running through the authentication flow. This will write a credential file to your gcloud
+configuration directory that will be used for any tool you run on your workstation that
+picks up default credentials.</p>
+<p>The next most common case would be when running on a Compute Engine VM. In this case,
+Application Default Credentials will pick up the Compute Engine Service Account
+credentials for that VM.</p>
+<p>See the <a class="reference external" href="https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http">Application Default Credentials</a> documentation for how to enable other use cases.</p>
+<p>Finally, the <code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> environment variable can be used to specify location
+of the Google credentials file.</p>
+<p>If you don’t have it, the credentials file can be download from the Google Cloud Console following these steps:</p>
 <ul class="simple">
 <li><p>Open the <a class="reference external" href="https://console.cloud.google.com">Google Cloud Console</a></p></li>
 <li><p>Go to APIs &amp; Services → Credentials</p></li>
@@ -217,7 +231,7 @@ has to be defined in the launching environment.</p>
 <li><p>Select JSON as <em>Key type</em></p></li>
 <li><p>Click the <em>Create</em> button and download the JSON file giving a name of your choice e.g. <code class="docutils literal notranslate"><span class="pre">creds.json</span></code>.</p></li>
 </ul>
-<p>Finally define the following variable replacing the path in the example with the one of your
+<p>Then, define the following variable replacing the path in the example with the one of your
 credentials file just downloaded:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="o">/</span><span class="n">creds</span><span class="o">.</span><span class="n">json</span>
 </pre></div>

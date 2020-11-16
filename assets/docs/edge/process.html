@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 20.10.0-SNAPSHOT documentation</title>
+  <title>Processes &mdash; Nextflow 20.11.0-edge documentation</title>
   
 
   
@@ -95,6 +95,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#native-execution">Native execution</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#stub">Stub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-generic-values">Input of generic values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-files">Input of files</a></li>
@@ -526,6 +527,45 @@ Simply starting the script definition block with the <code class="docutils liter
 <span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">c</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="stub">
+<span id="process-stub"></span><h2>Stub<a class="headerlink" href="#stub" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. It may change in future versions.</p>
+</div>
+<p>As of version 20.11.0-edge it’s possible to define a command <em>stub</em> that replaces the actual process command, when
+the <cite>-run-stun</cite> command line option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">INDEX</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+      <span class="n">path</span> <span class="n">transcriptome</span>
+    <span class="n">output</span><span class="p">:</span>
+      <span class="n">path</span> <span class="s1">&#39;index&#39;</span>
+
+    <span class="n">script</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      salmon index --threads $task.cpus -t $transcriptome -i index</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+    <span class="n">stub</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      mkdir index</span>
+<span class="sd">      touch index/seq.bin</span>
+<span class="sd">      touch index/info.json</span>
+<span class="sd">      touch index/refseq.bin</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This feature is meant to allow the fast prototyping and test of the workflow logic without using the real
+commands. The developer can use it to provide a dummy command which is expected to mimic the execution
+of the real one in a quicker manner. This can also be used as an alternative for the <em>dry-run</em> feature.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">stub</span></code> block can be defined before or after the process <code class="docutils literal notranslate"><span class="pre">script</span></code> definition.
+When the execution is run with the option <cite>-stub-run</cite> and a process is not implementing the <code class="docutils literal notranslate"><span class="pre">stub</span></code> command the
+real is executed.</p>
 </div>
 </div>
 <div class="section" id="inputs">
@@ -2147,7 +2187,7 @@ can be specified in a single <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 <p>This configuration depends on the parallel environment provided by your grid engine installation. Refer to your
-cluster documentation or contact your admin to lean more about this.</p>
+cluster documentation or contact your admin to learn more about this.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This setting is available when using the <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> executor.</p>
