@@ -53,9 +53,9 @@ This short YouTube video provides a general overview of Nextflow, the motivation
 
 ### 3. A simple RNA-Seq hands-on tutorial
 
-This hands-on tutorial will guide you through implementing a proof-of-concept RNA-seq pipeline. The goal is to become familiar with basic concepts, including how to define parameters, use channels for data and write processes to perform tasks. It includes all scripts, data and resources and is perfect for getting a flavor for Nextflow.
+This hands-on tutorial from Seqera Labs will guide you through implementing a proof-of-concept RNA-seq pipeline. The goal is to become familiar with basic concepts, including how to define parameters, use channels for data and write processes to perform tasks. It includes all scripts, data and resources and is perfect for getting a flavor for Nextflow.
 
-[Tutorial link on GitHub](https://github.com/nextflow-io/rnaseq-nf)
+[Tutorial link on GitHub](https://github.com/seqeralabs/nextflow-tutorial)
 
 
 ### 4. Full-immersion workshop
