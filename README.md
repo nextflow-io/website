@@ -25,7 +25,9 @@ Template are contained in the folder `templates`. To add a custom template
 add an entry in the `jbake.properties` file as shown here: `template.<type>.file=<type>.ftl`.
 
 
-Generate the web site pages entering the command: `jbake` and 
+Generate the web site pages entering the command: `./jbake` and 
 the resulting html are placed in the folder `output`.
 
-Launch the local web sever to test the result by entering the command: `jbake -s` 
+Launch the local web sever to test the result by entering the command: `./jbake -s`
+
+Note that the `jbake` command included in this repo is a docker command wrapper.
