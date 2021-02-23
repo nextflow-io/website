@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Google Cloud &mdash; Nextflow 20.11.0-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 21.02.0-edge documentation</title>
   
 
   
@@ -31,7 +31,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -40,7 +39,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Conda environments" href="conda.html" />
-    <link rel="prev" title="Amazon S3 storage" href="amazons3.html" /> 
+    <link rel="prev" title="Azure Cloud" href="azure.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -95,6 +94,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Google Cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#nextflow">Nextflow</a></li>
@@ -118,6 +118,7 @@
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -335,7 +336,13 @@ each process using one or more <a class="reference internal" href="config.html#c
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>preemptible</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p>google.lifeSciences.usePrivateAddress</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>). Requires version <cite>20.03.0-edge</cite> or later.</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>). Requires version <code class="docutils literal notranslate"><span class="pre">20.03.0-edge</span></code> or later.</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.lifeSciences.network</p></td>
+<td><p>Set network name to attach the VM’s network interface to. The value will be prefixed with global/networks/ unless it contains a /, in which case it is assumed to be a fully specified network resource URL. If unspecified, the global default network is used. Requires version <code class="docutils literal notranslate"><span class="pre">21.03.0-edge</span></code> or later.</p></td>
+</tr>
+<tr class="row-even"><td><p>google.lifeSciences.subnetwork</p></td>
+<td><p>Define the name of the subnetwork to attach the instance to must be specified here, when the specified network is configured for custom subnet creation. The value is prefixed with <cite>regions/subnetworks/</cite> unless it contains a <cite>/</cite>, in which case it is assumed to be a fully specified subnetwork resource URL. Requires version <code class="docutils literal notranslate"><span class="pre">21.03.0-edge</span></code> or later.</p></td>
 </tr>
 <tr class="row-odd"><td><p>google.lifeSciences.sshDaemon</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> runs SSH daemon in the VM carrying out the job to which it’s possible to connect for debugging purposes (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
@@ -451,7 +458,7 @@ bucket name e.g. <code class="docutils literal notranslate"><span class="pre">gs
 <h3>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Currently it’s not possible to specify a disk type different from the default one assigned
-by the service depending the chosen instance type.</p></li>
+by the service depending on the chosen instance type.</p></li>
 </ul>
 </div>
 <div class="section" id="troubleshooting">
@@ -487,7 +494,7 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
         <a href="conda.html" class="btn btn-neutral float-right" title="Conda environments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="amazons3.html" class="btn btn-neutral float-left" title="Amazon S3 storage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="azure.html" class="btn btn-neutral float-left" title="Azure Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

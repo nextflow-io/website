@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Nextflow scripting &mdash; Nextflow 20.11.0-edge documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 21.02.0-edge documentation</title>
   
 
   
@@ -31,7 +31,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -145,12 +144,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -486,7 +487,7 @@ the current task configuration directives. For examples:</p>
 </pre></div>
 </div>
 <p>In the above snippet the <code class="docutils literal notranslate"><span class="pre">task.cpus</span></code> report the value for the <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus directive</span></a> and
-the <code class="docutils literal notranslate"><span class="pre">task.memory</span></code> the current value for <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory directive</span></a> depending the actual
+the <code class="docutils literal notranslate"><span class="pre">task.memory</span></code> the current value for <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory directive</span></a> depending on the actual
 setting given in the workflow configuration file.</p>
 <p>See <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">Process directives</span></a> for details.</p>
 </div>
@@ -795,7 +796,7 @@ for the given file that allows you to read the content as single characters, lin
 processing the file. So, the previous example can be written more simply as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span>
     <span class="n">String</span> <span class="n">line</span>
-    <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
         <span class="n">println</span> <span class="n">line</span>
     <span class="p">}</span>
 <span class="p">}</span>

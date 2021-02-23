@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Processes &mdash; Nextflow 20.11.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 21.02.0-edge documentation</title>
   
 
   
@@ -31,7 +31,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -172,12 +171,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -536,7 +537,7 @@ Simply starting the script definition block with the <code class="docutils liter
 <p>This is an incubating feature. It may change in future versions.</p>
 </div>
 <p>As of version 20.11.0-edge it’s possible to define a command <em>stub</em> that replaces the actual process command, when
-the <cite>-run-stun</cite> command line option.</p>
+the <cite>-stub-run</cite> or <cite>-stub</cite> command line option.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">INDEX</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
       <span class="n">path</span> <span class="n">transcriptome</span>
@@ -571,8 +572,8 @@ real is executed.</p>
 <div class="section" id="inputs">
 <span id="process-input"></span><h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow processes are isolated from each other but can communicate between themselves sending values through channels.</p>
-<p>The <cite>input</cite> block defines which channels the process is expecting to receive inputs data from. You can only define one
-input block at a time and it must contain one or more inputs declarations.</p>
+<p>The <cite>input</cite> block defines from which channels the process expects to receive data. You can only define one
+input block at a time and it must contain one or more input declarations.</p>
 <p>The input block follows the syntax shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
   <span class="o">&lt;</span><span class="nb">input</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">input</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="kn">from</span> <span class="o">&lt;</span><span class="n">source</span> <span class="n">channel</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">attributes</span><span class="p">]</span>
@@ -1152,13 +1153,15 @@ channel. It prints:</p>
 </div>
 <div class="section" id="outputs">
 <h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>output</cite> declaration block allows to define the channels used by the process to send out the results produced.</p>
-<p>It can be defined at most one output block and it can contain one or more outputs declarations.
-The output block follows the syntax shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
-  <span class="o">&lt;</span><span class="n">output</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">into</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">channel</span><span class="o">&gt;</span><span class="p">[,</span><span class="n">channel</span><span class="p">,</span><span class="o">..</span><span class="p">]]</span> <span class="p">[</span><span class="n">attribute</span> <span class="p">[,</span><span class="o">..</span><span class="p">]]</span>
-</pre></div>
-</div>
+<p>The <cite>output</cite> declaration block allows you to define the channels used by the process to send out the results produced.
+You can only define one output block at a time and it must contain one or more output declarations.</p>
+<dl class="simple">
+<dt>The output block follows the syntax shown below::</dt><dd><dl class="simple">
+<dt>output:</dt><dd><p>&lt;output qualifier&gt; &lt;output name&gt; [into &lt;target channel&gt;[,channel,..]] [attribute [,..]]</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p>Output definitions start by an output <cite>qualifier</cite> and the output <cite>name</cite>, followed by the keyword <code class="docutils literal notranslate"><span class="pre">into</span></code> and
 one or more channels over which outputs are sent. Finally some optional attributes can be specified.</p>
 <div class="admonition note">
@@ -1178,7 +1181,7 @@ one or more channels over which outputs are sent. Finally some optional attribut
 </thead>
 <tbody>
 <tr class="row-even"><td><p>val</p></td>
-<td><p>Sends variable’s with the name specified over the output channel.</p></td>
+<td><p>Sends variables with the name specified over the output channel.</p></td>
 </tr>
 <tr class="row-odd"><td><p>file</p></td>
 <td><p>Sends a file produced by the process with the name specified over the output channel.</p></td>
@@ -1193,13 +1196,13 @@ one or more channels over which outputs are sent. Finally some optional attribut
 <td><p>Sends the executed process <cite>stdout</cite> over the output channel.</p></td>
 </tr>
 <tr class="row-odd"><td><p>tuple</p></td>
-<td><p>Lets to send multiple values over the same output channel.</p></td>
+<td><p>Sends multiple values over the same output channel.</p></td>
 </tr>
 </tbody>
 </table>
 <div class="section" id="output-values">
 <h3>Output values<a class="headerlink" href="#output-values" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows to output a <cite>value</cite> defined in the script context. In a common usage scenario,
+<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to output a <cite>value</cite> defined in the script context. In a common usage scenario,
 this is a value which has been defined in the <cite>input</cite> declaration block, as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;prot&#39;</span><span class="p">,</span><span class="s1">&#39;dna&#39;</span><span class="p">,</span> <span class="s1">&#39;rna&#39;</span><span class="p">]</span>
 
@@ -1219,7 +1222,7 @@ this is a value which has been defined in the <cite>input</cite> declaration blo
 <span class="n">receiver</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Received: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>Valid output values are value literals, input values identifiers, variables accessible in the process scope and
+<p>Valid output values are value literals, input value identifiers, variables accessible in the process scope and
 value expressions. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -1241,7 +1244,7 @@ value expressions. For example:</p>
 </div>
 <div class="section" id="output-files">
 <h3>Output files<a class="headerlink" href="#output-files" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows to output one or more files, produced by the process, over the specified channel.
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows you to output one or more files, produced by the process, over the specified channel.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">randomNum</span> <span class="p">{</span>
 
@@ -1264,13 +1267,13 @@ be able to receive it.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the channel specified as output has not been previously declared in the pipeline script, it
-will implicitly created by the output declaration itself.</p>
+will implicitly be created by the output declaration itself.</p>
 </div>
 </div>
 <div class="section" id="multiple-output-files">
 <h3>Multiple output files<a class="headerlink" href="#multiple-output-files" title="Permalink to this headline">¶</a></h3>
 <p>When an output file name contains a <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
-This allows to <em>capture</em> multiple files into a list object and output them as a sole emission. For example:</p>
+This allows you to <em>capture</em> multiple files into a list object and output them as a sole emission. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
 
     <span class="n">output</span><span class="p">:</span>
@@ -1301,7 +1304,7 @@ the <code class="docutils literal notranslate"><span class="pre">letters</span><
 <p>Some caveats on glob pattern behavior:</p>
 <ul class="simple">
 <li><p>Input files are not included in the list of possible matches.</p></li>
-<li><p>Glob pattern matches against both files and directories path.</p></li>
+<li><p>Glob pattern matches against both files and directory paths.</p></li>
 <li><p>When a two stars pattern <code class="docutils literal notranslate"><span class="pre">**</span></code> is used to recourse across directories, only file paths are matched
 i.e. directories are not included in the result list.</p></li>
 </ul>
@@ -1317,7 +1320,7 @@ only the expected ones e.g. <code class="docutils literal notranslate"><span cla
 <p>By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
 It is also possible to emit each file as a sole item by adding the <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">flatten</span></code> attribute in the output file
 declaration.</p>
-<p>By using the <code class="docutils literal notranslate"><span class="pre">mode</span></code> attribute the previous example can be re-written as show below:</p>
+<p>By using the <code class="docutils literal notranslate"><span class="pre">mode</span></code> attribute the previous example can be re-written as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
 
     <span class="n">output</span><span class="p">:</span>
@@ -1362,7 +1365,7 @@ on the actual value of the <code class="docutils literal notranslate"><span clas
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The management of output files is a very common misunderstanding when using Nextflow.
-With other tools, it is generally necessary to organize the outputs files into some kind of directory
+With other tools it is generally necessary to organize the output files into some kind of directory
 structure or to guarantee a unique file name scheme, so that result files won’t overwrite each other
 and that they can be referenced univocally by downstream tasks.</p>
 <p>With Nextflow, in most cases, you don’t need to take care of naming output files, because each task is executed
@@ -1379,7 +1382,7 @@ because it will result in a simpler and more portable code.</p>
 for the <code class="docutils literal notranslate"><span class="pre">file</span></code> output qualifier, therefore it’s backward compatible with the syntax
 and the semantic for the input <code class="docutils literal notranslate"><span class="pre">file</span></code> described above.</p>
 <p>The main advantage of <code class="docutils literal notranslate"><span class="pre">path</span></code> over the <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier is that it allows the specification
-of a number of output to fine-control the output files.</p>
+of a number of outputs to fine-control the output files.</p>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 8%" />
@@ -1414,7 +1417,7 @@ of a number of output to fine-control the output files.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Breaking change: the <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier interprets <code class="docutils literal notranslate"><span class="pre">:</span></code> as path separator, therefore <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">'foo:bar'</span></code>
-captures both files <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier interprets it just a plain file name character,
+captures both files <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier interprets it as just a plain file name character,
 and therefore the output definition <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">'foo:bar'</span></code> captures the output file with name <code class="docutils literal notranslate"><span class="pre">foo:bar</span></code>.</p>
 </div>
 <div class="admonition tip">
@@ -1427,18 +1430,19 @@ when using Nextflow 19.10.0 or later.</p>
 <span id="process-stdout"></span><h3>Output ‘stdout’ special file<a class="headerlink" href="#output-stdout-special-file" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stdout</span></code> qualifier allows you to <cite>capture</cite> the <cite>stdout</cite> output of the executed process and send it over
 the channel specified in the output parameter declaration. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">echoSomething</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">stdout</span> <span class="n">channel</span>
+    <span class="n">stdout</span> <span class="n">ch</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    echo Hello world!</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
-<span class="n">channel</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
+<span class="n">ch</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
+<p>In the above example <code class="docutils literal notranslate"><span class="pre">ch</span></code> represents an arbitrary channel variable that holds the process outputs.</p>
 </div>
 <div class="section" id="output-env">
 <span id="process-env"></span><h3>Output ‘env’<a class="headerlink" href="#output-env" title="Permalink to this headline">¶</a></h3>
@@ -1466,7 +1470,7 @@ and send it over the channel specified in the output parameter declaration:</p>
 </div>
 <div class="section" id="output-tuple-of-values">
 <span id="process-out-tuple"></span><h3>Output ‘tuple’ of values<a class="headerlink" href="#output-tuple-of-values" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows to send multiple values into a single channel. This feature is useful
+<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to send multiple values into a single channel. This feature is useful
 when you need to <cite>group together</cite> the results of multiple executions of the same process, as shown in the following
 example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span> <span class="s1">&#39;*.fa&#39;</span>
@@ -1516,7 +1520,7 @@ thus the above output <cite>tuple</cite> can be rewritten using a short notation
 <h2>When<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">when</span></code> declaration allows you to define a condition that must be verified in order to execute the process.
 This can be any expression that evaluates a boolean value.</p>
-<p>It is useful to enable/disable the process execution depending the state of various inputs and parameters. For example:</p>
+<p>It is useful to enable/disable the process execution depending on the state of various inputs and parameters. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">find</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
   <span class="n">file</span> <span class="n">proteins</span>
@@ -1635,7 +1639,7 @@ the pipeline is launched with the <a class="reference internal" href="getstarted
 along with the same inputs, will cause the process execution to be skipped, producing the stored data as
 the actual results.</p>
 <p>The caching feature generates a unique <cite>key</cite> by indexing the process script and inputs. This key is used
-identify univocally the outputs produced by the process execution.</p>
+to identify univocally the outputs produced by the process execution.</p>
 <p>The cache is enabled by default, you can disable it for a specific process by setting the <code class="docutils literal notranslate"><span class="pre">cache</span></code>
 directive to <code class="docutils literal notranslate"><span class="pre">false</span></code>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">noCacheThis</span> <span class="p">{</span>
@@ -1718,7 +1722,7 @@ path or the path of an existing environment directory. See the <a class="referen
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive is ignore for processes <a class="reference internal" href="#process-native"><span class="std std-ref">executed natively</span></a>.</p>
+<p>This directive is ignored for processes <a class="reference internal" href="#process-native"><span class="std std-ref">executed natively</span></a>.</p>
 </div>
 </div>
 <div class="section" id="containeroptions">
@@ -2326,7 +2330,7 @@ Return the value <code class="docutils literal notranslate"><span class="pre">nu
 This is useful when the process has multiple output files, but you want to publish only some of them.</p></td>
 </tr>
 <tr class="row-odd"><td><p>enabled</p></td>
-<td><p>Allow to enable or disable the publish rule depending the boolean value specified (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
+<td><p>Enable or disable the publish rule depending on the boolean value specified (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
@@ -2448,7 +2452,7 @@ in the configuration file to select and configure subset of processes having sim
 <div class="section" id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">scratch</span></code> directive allows you to execute the process in a temporary folder that is local to the execution node.</p>
-<p>This is useful when your pipeline is launched by using a <cite>grid</cite> executor, because it permits to decrease the NFS
+<p>This is useful when your pipeline is launched by using a <cite>grid</cite> executor, because it allows you to decrease the NFS
 overhead by running the pipeline processes in a temporary directory in the local disk of the actual execution node.
 Only the files declared as output in the process definition will be copied in the pipeline working area.</p>
 <p>In its basic form simply specify <code class="docutils literal notranslate"><span class="pre">true</span></code> at the directive value, as shown below:</p>
@@ -2617,7 +2621,7 @@ directory. The following values are allowed:</p>
 </div>
 <div class="section" id="tag">
 <span id="process-tag"></span><h3>tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">tag</span></code> directive allows you to associate each process executions with a custom label, so that it will be easier
+<p>The <code class="docutils literal notranslate"><span class="pre">tag</span></code> directive allows you to associate each process execution with a custom label, so that it will be easier
 to identify them in the log file or in the trace execution report. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="n">tag</span> <span class="s2">&quot;$code&quot;</span>

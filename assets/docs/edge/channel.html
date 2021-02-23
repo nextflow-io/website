@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Channels &mdash; Nextflow 20.11.0-edge documentation</title>
+  <title>Channels &mdash; Nextflow 21.02.0-edge documentation</title>
   
 
   
@@ -31,7 +31,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -125,12 +124,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -223,9 +224,9 @@ or chaining it with a channel operator such as <a class="reference internal" hre
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The definition implies that the same queue channel cannot be used more than one time as process
-output and more then one time as process input.</p>
+output and more than one time as process input.</p>
 </div>
-<p>In you need to connect a process output channel to more then one process or operator use the
+<p>In you need to connect a process output channel to more than one process or operator use the
 <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator to create two (or more) copies of the same channel and use each
 of them to connect a separate process.</p>
 </div>
@@ -260,7 +261,7 @@ inputs are only value channels.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The process in the above snippet declare a single input which implicitly is a value channel.
+<p>The process in the above snippet declares a single input which implicitly is a value channel.
 Therefore also the <code class="docutils literal notranslate"><span class="pre">result</span></code> output is a value channel that can be read by more than one process.</p>
 <p>See also: <a class="reference internal" href="process.html#process-understand-how-multiple-input-channels-work"><span class="std std-ref">Understand how multiple input channels work</span></a>.</p>
 </div>
@@ -745,7 +746,7 @@ an identical result as the previous one:</p>
 <h2>Observing events<a class="headerlink" href="#observing-events" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="subscribe">
 <span id="channel-subscribe"></span><h3>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method permits to execute a user define function each time a new value is emitted by the source channel.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
 <span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span> <span class="p">)</span>
@@ -762,10 +763,10 @@ an identical result as the previous one:</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Formally the user defined function is a <code class="docutils literal notranslate"><span class="pre">Closure</span></code> as defined by the Groovy programming language on which
-the <cite>Nextflow</cite> scripts are based on.</p>
+the <cite>Nextflow</cite> scripts are based.</p>
 </div>
 <p>If needed the closure parameter can be defined explicitly, using a name other than <code class="docutils literal notranslate"><span class="pre">it</span></code> and, optionally,
-specifying the expected value type, as showed in the following example:</p>
+specifying the expected value type, as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span>

@@ -6,9 +6,44 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Wed, 2 Dec 2020 09:03:03 +0000</pubDate>
-    <lastBuildDate>Wed, 2 Dec 2020 09:03:03 +0000</lastBuildDate>
+    <pubDate>Tue, 23 Feb 2021 13:24:04 +0000</pubDate>
+    <lastBuildDate>Tue, 23 Feb 2021 13:24:04 +0000</lastBuildDate>
 
+    <item>
+      <title>Introducing Nextflow for Azure Batch</title>
+      <link>https://www.nextflow.io/blog/2021/introducing-nextflow-for-azure-batch.html</link>
+      <pubDate>Mon, 22 Feb 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2021/introducing-nextflow-for-azure-batch.html</guid>
+      	<description>
+	&lt;p&gt;When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort as well as to empower users to scale their data analysis while facilitating the migration to the cloud.&lt;/p&gt;&lt;p&gt;Throughout the years, the computing services provided by cloud vendors have evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing which changed everything again. However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform. Through the concept of executors, emerging technologies and new platforms can be easily adapted with no changes required to user pipelines.&lt;/p&gt;&lt;p&gt;With this in mind, we could not be more excited to announce that over the past months we have been working with Microsoft to implement built-in support for &lt;a href=&quot;https://azure.microsoft.com/en-us/services/batch/&quot;&gt;Azure Batch&lt;/a&gt; into Nextflow. Today we are delighted to make it available to all users as a beta release. &lt;/p&gt;&lt;h3&gt;How does it work&lt;/h3&gt;&lt;p&gt;Azure Batch is a cloud-based computing service that allows the execution of highly scalable, container based, workloads in the Azure cloud.&lt;/p&gt;&lt;p&gt;The support for Nextflow comes in the form of a plugin which implements a new executor, not surprisingly named &lt;code&gt;azurebatch&lt;/code&gt;, which offloads the execution of the pipeline jobs to corresponding Azure Batch jobs. &lt;/p&gt;&lt;p&gt;Each job run consists in practical terms of a container execution which ships the job dependencies and carries out the job computation. As usual, each job is assigned a unique working directory allocated into a &lt;a href=&quot;https://azure.microsoft.com/en-us/services/storage/blobs/&quot;&gt;Azure Blob&lt;/a&gt; container.&lt;/p&gt;&lt;h3&gt;Let&apos;s get started!&lt;/h3&gt;&lt;p&gt;The support for Azure Batch requires the latest release of Nextflow from the &lt;em&gt;edge&lt;/em&gt; channel (version 21.02-edge or later). If you don&apos;t have this, you can install it using these commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export NXF_EDGE=1 
+curl get.nextflow.io | bash
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note for Windows users, as Nextflow is *nix based tool you will need to run it using the &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/wsl/install-win10&quot;&gt;Windows subsystem for Linux&lt;/a&gt;. Also make sure Java 8 or later is installed in the Linux environment.&lt;/p&gt;&lt;p&gt;Once Nextflow is installed, to run your data pipelines with Azure Batch, you will need to create an Azure Batch account in the region of your choice using the Azure Portal. In a similar manner, you will need an Azure Blob container.&lt;/p&gt;&lt;p&gt;With the Azure Batch and Blob storage container configured, your &lt;code&gt;nextflow.config&lt;/code&gt; file should be set up similar to the example below:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;plugins {
+  id &amp;#39;nf-azure&amp;#39;
+}
+
+process {
+  executor = &amp;#39;azurebatch&amp;#39;
+}
+
+azure {
+  batch {
+    location = &amp;#39;westeurope&amp;#39;
+    accountName = &amp;#39;&amp;lt;YOUR BATCH ACCOUNT NAME&amp;gt;&amp;#39;
+    accountKey = &amp;#39;&amp;lt;YOUR BATCH ACCOUNT KEY&amp;gt;&amp;#39;
+    autoPoolMode = true
+  }
+  storage {
+    accountName = &amp;quot;&amp;lt;YOUR STORAGE ACCOUNT NAME&amp;gt;&amp;quot;
+    accountKey = &amp;quot;&amp;lt;YOUR STORAGE ACCOUNT KEY&amp;gt;&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Using this configuration snippet, Nextflow will automatically create the virtual machine pool(s) required to deploy the pipeline execution in the Azure Batch service.&lt;/p&gt;&lt;p&gt;Now you will be able to launch the pipeline execution using the following command: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow run &amp;lt;pipeline name&amp;gt; -w az://my-container/work
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Replace &lt;code&gt;&amp;lt;pipeline name&amp;gt;&lt;/code&gt; with a pipeline name e.g. nextflow-io/rnaseq-nf and &lt;code&gt;my-container&lt;/code&gt; with a blob container in the storage account as defined in the above configuration.&lt;/p&gt;&lt;p&gt;For more details regarding the Nextflow configuration setting for Azure Batch refers to the Nextflow documentation at &lt;a href=&quot;/docs/edge/azure.html&quot;&gt;this link&lt;/a&gt;. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;The support for Azure Batch further expands the wide range of computing platforms supported by Nextflow and empowers Nextflow users to deploy their data pipelines in the cloud provider of their choice. Above all, it allows researchers to scale, collaborate and share their work without being locked into a specific platform.&lt;/p&gt;&lt;p&gt;We thank Microsoft, and in particular &lt;a href=&quot;https://www.linkedin.com/in/jermingchia/&quot;&gt;Jer-Ming Chia&lt;/a&gt; who works in the HPC and AI team for having supported and sponsored this open source contribution to the Nextflow framework.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Learning Nextflow in 2020</title>
       <link>https://www.nextflow.io/blog/2020/learning-nextflow-in-2020.html</link>
