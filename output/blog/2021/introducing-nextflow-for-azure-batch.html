@@ -103,12 +103,12 @@
 			  <h2><a href="#">Introducing Nextflow for Azure Batch</a></h2>
 			  <ul class="text-muted list-inline blg-header">
 				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
-				<li><i class="fa fa-calendar"></i> 19 February 2021</li>
+				<li><i class="fa fa-calendar"></i> 22 February 2021</li>
 				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
 			  </ul>
 			  <hr>
 			  <div class="blg-text">
-              <p>When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort and to empower users to scale their data analysis while facilitating the migration to the cloud.</p><p>Throughout the years, the computing services provided by cloud vendors evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing changed everything again. </p><p>However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform through the concept of executors that allow the easy adaptation to emerging technology and new platforms.</p><p>This is why, we could not be more excited to announce that over the past months we have been working with Microsoft to deliver built-in support for <a href="https://azure.microsoft.com/en-us/services/batch/">Azure Batch</a>. Today we are delighted to make it available as a beta release to all our users. </p><h3>How does it work</h3><p>Azure Batch is a cloud-based computing service that allows the execution of highly scalable, container based, workloads in the Azure cloud.</p><p>The support for Nextflow comes in the form of a plugin which implements a new executor, not surprisingly named <code>azurebatch</code>, which offloads the execution of the pipeline jobs to corresponding Azure Batch jobs. </p><p>Each job run consists in practical terms of a container execution which ships the job dependencies and carries out the job computation. As usual, each job is assigned a unique working directory allocated into a <a href="https://azure.microsoft.com/en-us/services/storage/blobs/">Azure Blob</a> container.</p><h3>Let's get started!</h3><p>The support for Azure Batch requires the latest release of Nextflow from the <em>edge</em> channel (version 21.02-edge or later). If you don't have this, you can install it using these commands:</p>
+              <p>When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort as well as to empower users to scale their data analysis while facilitating the migration to the cloud.</p><p>Throughout the years, the computing services provided by cloud vendors have evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing which changed everything again. However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform. Through the concept of executors, emerging technologies and new platforms can be easily adapted with no changes required to user pipelines.</p><p>With this in mind, we could not be more excited to announce that over the past months we have been working with Microsoft to implement built-in support for <a href="https://azure.microsoft.com/en-us/services/batch/">Azure Batch</a> into Nextflow. Today we are delighted to make it available to all users as a beta release. </p><h3>How does it work</h3><p>Azure Batch is a cloud-based computing service that allows the execution of highly scalable, container based, workloads in the Azure cloud.</p><p>The support for Nextflow comes in the form of a plugin which implements a new executor, not surprisingly named <code>azurebatch</code>, which offloads the execution of the pipeline jobs to corresponding Azure Batch jobs. </p><p>Each job run consists in practical terms of a container execution which ships the job dependencies and carries out the job computation. As usual, each job is assigned a unique working directory allocated into a <a href="https://azure.microsoft.com/en-us/services/storage/blobs/">Azure Blob</a> container.</p><h3>Let's get started!</h3><p>The support for Azure Batch requires the latest release of Nextflow from the <em>edge</em> channel (version 21.02-edge or later). If you don't have this, you can install it using these commands:</p>
 <pre><code>export NXF_EDGE=1 
 curl get.nextflow.io | bash
 </code></pre><p>Note for Windows users, as Nextflow is *nix based tool you will need to run it using the <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows subsystem for Linux</a>. Also make sure Java 8 or later is installed in the Linux environment.</p><p>Once Nextflow is installed, to run your data pipelines with Azure Batch, you will need to create an Azure Batch account in the region of your choice using the Azure Portal. In a similar manner, you will need an Azure Blob container.</p><p>With the Azure Batch and Blob storage container configured, your <code>nextflow.config</code> file should be set up similar to the example below:</p>
@@ -121,20 +121,20 @@ process {
 }
 
 azure {
-  storage {
-    accountName = &quot;&lt;YOUR STORAGE ACCOUNT NAME&gt;&quot;
-    accountKey = &quot;&lt;YOUR STORAGE ACCOUNT KEY&gt;&quot;
-  }
   batch {
     location = &#39;westeurope&#39;
     accountName = &#39;&lt;YOUR BATCH ACCOUNT NAME&gt;&#39;
     accountKey = &#39;&lt;YOUR BATCH ACCOUNT KEY&gt;&#39;
     autoPoolMode = true
   }
+  storage {
+    accountName = &quot;&lt;YOUR STORAGE ACCOUNT NAME&gt;&quot;
+    accountKey = &quot;&lt;YOUR STORAGE ACCOUNT KEY&gt;&quot;
+  }
 }
-</code></pre><p>Now you will be able to launch the pipeline execution using the following command: </p>
+</code></pre><p>Using this configuration snippet, Nextflow will automatically create the virtual machine pool(s) required to deploy the pipeline execution in the Azure Batch service.</p><p>Now you will be able to launch the pipeline execution using the following command: </p>
 <pre><code>nextflow run &lt;pipeline name&gt; -w az://my-container/work
-</code></pre><p>Replace <code>&lt;pipeline name&gt;</code> with a pipeline name e.g. nextflow-io/rnaseq-nf and <code>my-container</code> with a blob container in the storage account as defined in the above configuration.</p><h3>Conclusion</h3><p>The support for Azure Batch further expands the wide range of computing platforms supported by Nextflow and empowers Nextflow users to deploy their data pipelines in the cloud provider of their choice. Above all, it allows researchers to scale, collaborate and share their work without being locked into a specific platform.</p><p>We thank Microsoft, and in particular <a href="https://www.linkedin.com/in/jermingchia/">Jer-Ming Chia</a> who works in the HPC and AI team for having supported and sponsored this open source contribution to the Nextflow framework.</p>  
+</code></pre><p>Replace <code>&lt;pipeline name&gt;</code> with a pipeline name e.g. nextflow-io/rnaseq-nf and <code>my-container</code> with a blob container in the storage account as defined in the above configuration.</p><p>For more details regarding the Nextflow configuration setting for Azure Batch refers to the Nextflow documentation at <a href="/docs/edge/azure.html">this link</a>. </p><h3>Conclusion</h3><p>The support for Azure Batch further expands the wide range of computing platforms supported by Nextflow and empowers Nextflow users to deploy their data pipelines in the cloud provider of their choice. Above all, it allows researchers to scale, collaborate and share their work without being locked into a specific platform.</p><p>We thank Microsoft, and in particular <a href="https://www.linkedin.com/in/jermingchia/">Jer-Ming Chia</a> who works in the HPC and AI team for having supported and sponsored this open source contribution to the Nextflow framework.</p>  
 			  </div>
 			  
 			  <p class="tags">

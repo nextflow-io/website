@@ -8,13 +8,11 @@ icon=paolo.jpg
 ~~~~~~
 
 
-When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort and to empower users to scale their data analysis while facilitating the migration to the cloud.
+When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort as well as to empower users to scale their data analysis while facilitating the migration to the cloud.
 
-Throughout the years, the computing services provided by cloud vendors evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing changed everything again. 
+Throughout the years, the computing services provided by cloud vendors have evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing which changed everything again. However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform. Through the concept of executors, emerging technologies and new platforms can be easily adapted with no changes required to user pipelines.
 
-However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform through the concept of executors that allow the easy adaptation to emerging technology and new platforms.
-
-This is why, we could not be more excited to announce that over the past months we have been working with Microsoft to deliver built-in support for [Azure Batch](https://azure.microsoft.com/en-us/services/batch/). Today we are delighted to make it available as a beta release to all our users. 
+With this in mind, we could not be more excited to announce that over the past months we have been working with Microsoft to implement built-in support for [Azure Batch](https://azure.microsoft.com/en-us/services/batch/) into Nextflow. Today we are delighted to make it available to all users as a beta release. 
 
 
 ### How does it work
@@ -74,7 +72,7 @@ nextflow run <pipeline name> -w az://my-container/work
 Replace `<pipeline name>` with a pipeline name e.g. nextflow-io/rnaseq-nf and `my-container` with a blob container in the storage account as defined in the above configuration.
 
 For more details regarding the Nextflow configuration setting for Azure Batch 
-refers to the Nextlow documentation at [this link](xxxx). 
+refers to the Nextflow documentation at [this link](/docs/edge/azure.html). 
 
 ### Conclusion
 
