@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - 6 Tips for Setting Up Your Nextflow Dev Environment</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -98,22 +98,72 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: learning</h3>
-                <hr>
-                <ul>
-                        <h4>March 2021</h4>
-                        <ul>
-        
-                    <li>04 - <a href="/blog/2021/nextflow-developer-environment.html">6 Tips for Setting Up Your Nextflow Dev Environment</a></li>
-                            </ul>
-                            <h4>December 2020</h4>
-                            <ul>
-        
-                    <li>01 - <a href="/blog/2020/learning-nextflow-in-2020.html">Learning Nextflow in 2020</a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">6 Tips for Setting Up Your Nextflow Dev Environment</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Evan Floden</li>
+				<li><i class="fa fa-calendar"></i> 04 March 2021</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p><em>This blog follows up the Learning Nextflow in 2020 blog <a href="https://www.nextflow.io/blog/2020/learning-nextflow-in-2020.html">post</a>.</em></p><p>This guide is designed to walk you through a basic development setup for writing Nextflow pipelines.</p><h3>1. Installation</h3><p>Nextflow runs on any Linux compatible system and MacOS with Java installed. Windows users can rely on the <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">Windows Subsystem for Linux</a>. Installing Nextflow is straightforward. You just need to download the <code>nextflow</code> executable. In your terminal type the following commands:</p>
+<pre><code>$ curl get.nextflow.io | bash
+$ sudo mv nextflow /usr/local/bin
+</code></pre><p>The first line uses the curl command to download the nextflow executable, and the second line moves the executable to your PATH. Note <code>/usr/local/bin</code> is the default for MacOS, you might want to choose <code>~/bin</code> or <code>/usr/bin</code> depending on your PATH definition and operating system. </p><h3>2. Text Editor or IDE?</h3><p>Nextflow pipelines can be written in any plain text editor. I'm personally a bit of a Vim fan, however, the advent of the modern IDE provides a more immersive development experience. </p><p>My current choice is Visual Studio Code which provides a wealth of add-ons, the most obvious of these being syntax highlighting. With <a href="https://code.visualstudio.com/download">VSCode installed</a>, you can search for the Nextflow extension in the marketplace.</p><p><img alt='VSCode with Nextflow Syntax Highlighting' width='796' height='482' src='/img/vscode-nf-highlighting.png' /></p><p>Other syntax highlighting has been made available by the community including:</p>
+<ul>
+  <li><a href="https://atom.io/packages/language-nextflow">Atom</a></li>
+  <li><a href="https://github.com/LukeGoodsell/nextflow-vim">Vim</a></li>
+  <li><a href="https://github.com/Emiller88/nextflow-mode">Emacs</a></li>
+</ul><h3>3. The Nextflow REPL console</h3><p>The Nextflow console is a REPL (read-eval-print loop) environment that allows one to quickly test part of a script or segments of Nextflow code in an interactive manner. This can be particularly useful to quickly evaluate channels and operators behaviour and prototype small snippets that can be included in your pipeline scripts.</p><p>Start the Nextflow console with the following command: <code>
+$ nextflow console
+</code></p><p><img alt='Nextflow REPL console' width='796' height='549' src='/img/nf-repl-console.png' /></p><p>Use the <code>CTRL+R</code> keyboard shortcut to run (<code>⌘+R</code>on the Mac) and to evaluate your code. You can also evaluate by selecting code and use the <strong>Run selection</strong>.</p><h3>4. Containerize all the things</h3><p>Containers are a key component of developing scalable and reproducible pipelines. We can build Docker images that contain an OS, all libraries and the software we need for each process. Pipelines are typically developed using Docker containers and tooling as these can then be used on many different container engines such as Singularity and Podman. </p><p>Once you have <a href="https://docs.docker.com/engine/install/">downloaded and installed Docker</a>, try pull a public docker image:</p>
+<pre><code>$ docker pull quay.io/nextflow/rnaseq-nf
+</code></pre><p>To run a Nextflow pipeline using the latest tag of the image, we can use:</p>
+<pre><code>nextflow run nextflow-io/rnaseq-nf -with-docker quay.io/nextflow/rnaseq-nf:latest
+</code></pre><p>To learn more about building Docker containers, see the <a href="https://seqera.io/training/#_manage_dependencies_containers">Seqera Labs tutorial</a> on managing dependencies with containers. </p><p>Additionally, you can install the VSCode marketplace addon for Docker to manage and interactively run and test the containers and images on your machine. You can even connect to remote registries such as Dockerhub, Quay.io, AWS ECR, Google Cloud and Azure Container registries.</p><p><img alt='VSCode with Docker Extension' width='796' height='482' src='/img/vs-code-with-docker-extension.png' /></p><h3>5. Use Tower to monitor your pipelines</h3><p>When developing real-world pipelines, it can become inevitable that pipelines will require significant resources. For long-running workflows, monitoring becomes all the more crucial. With <a href="https://tower.nf">Nextflow Tower</a>, we can invoke any Nextflow pipeline execution from the CLI and use the integrated dashboard to follow the workflow run. </p><p>Sign-in to Tower using your GitHub credentials, obtain your token from the Getting Started page and export them into your terminal, <code>~/.bashrc</code>, or include them in your nextflow.config.</p>
+<pre><code>$ export TOWER_ACCESS_TOKEN=my-secret-tower-key 
+</code></pre><p>We can then add the <code>-with-tower</code> child-option to any Nextflow run command. A URL with the monitoring dashboard will appear.</p>
+<pre><code>$ nextflow run nextflow-io/rnaseq-nf -with-tower
+</code></pre><h3>6. nf-core tools</h3><p><a href="https://nf-co.re/">nf-core</a> is a community effort to collect a curated set of analysis pipelines built using Nextflow. The pipelines continue to come on in leaps and bounds and nf-core tools is a python package for helping with developing nf-core pipelines. It includes options for listing, creating, and even downloading pipelines for offline usage. </p><p>These tools are particularly useful for developers contributing to the community pipelines on <a href="https://github.com/nf-core/">GitHub</a> with linting and syncing options that keep pipelines up-to-date against nf-core guidelines.</p><p><code>nf-core tools</code> is a python package that can be installed in your development environment from Bioconda or PyPi.</p>
+<pre><code>$ conda install nf-core
+</code></pre><p>or</p>
+<pre><code>$ pip install nf-core
+</code></pre><p><img alt='nf-core tools' width='796' height='561' src='/img/nf-core-tools.png' /></p><h3>Conclusion</h3><p>Developer workspaces are evolving rapidly. While your own development environment may be highly dependent on personal preferences, community contributions are keeping Nextflow users at the forefront of the modern developer experience. </p><p>Solutions such as <a href="https://github.com/features/codespaces">GitHub Codespaces</a> and <a href="https://www.gitpod.io/">Gitpod</a> are now offering extendible, cloud-based options that may well be the future. I’m sure we can all look forward to a one-click, pre-configured, cloud-based, Nextflow developer environment sometime soon!</p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/development.html" class="background-color bg-hover-color">development</a>
+				<a href="/tags/learning.html" class="background-color bg-hover-color">learning</a>
+			  </p>
 
-            </div>
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -152,6 +202,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>
