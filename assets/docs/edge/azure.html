@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Azure Cloud &mdash; Nextflow 21.02.0-edge documentation</title>
+  <title>Azure Cloud &mdash; Nextflow 21.03.0-edge documentation</title>
   
 
   
@@ -224,6 +224,10 @@ of the <code class="docutils literal notranslate"><span class="pre">accountKey</
 <p>When creating the <cite>Shared Access Token</cite> make sure to allow the resource types <cite>Container</cite> and <cite>Object</cite> and allow
 the permissions: <cite>Read</cite>, <cite>Write</cite>, <cite>Delete</cite>, <cite>List</cite>, <cite>Add</cite>, <cite>Create</cite>.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The value of <code class="docutils literal notranslate"><span class="pre">sasToken</span></code> is the token stripped by the character ‘?’ from the beginning of the token.</p>
+</div>
 <p>Once the Blob Storage credentials are set you can access the files in the blob container like local files prepending
 the file path with the <code class="docutils literal notranslate"><span class="pre">az://</span></code> prefix followed by the container name. For example, having a container named <code class="docutils literal notranslate"><span class="pre">my-data</span></code>
 container a file named <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> you can access it in your Nextflow script using the following fully qualified
@@ -237,13 +241,17 @@ of containerised workloads in the Azure cloud infrastructure.</p>
 offloading the process executions as Batch jobs.</p>
 <div class="section" id="get-started">
 <h3>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h3>
-<p>1 - Create Batch account in Azure portal. Take note of the Batch account name and key.</p>
-<p>2 - Make sure to have a Azure Blob Storage account in the same location where the Batch account was created.</p>
-<p>3 - Make sure your pipeline processes specifies one or more Docker containers by using the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
-<p>4 - The container images need to be published into Docker registry such as <a class="reference external" href="https://hub.docker.com/">Docker Hub</a>,
+<p>1 - Create a Batch account in Azure portal. Take note of the account name and key.</p>
+<p>2 - Make sure to adjust your quotas on the pipeline’s needs. There are limits on certain resources associated with the
+Batch account. Many of these limits are default quotas applied by Azure at the subscription or account level.
+Quotas impact on the number of Pools, CPUs and Jobs you can create at any given time.</p>
+<p>3 - Create a Storage account and, within, an Azure Blob Container in the same location where the Batch account was created.
+Take note of the account name and key.</p>
+<p>4 - Associate the Blob Storage account with the Azure Batch account.</p>
+<p>5 - Make sure your pipeline processes specify one or more Docker containers by using the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
+<p>6 - The container images need to be published into Docker registry such as <a class="reference external" href="https://hub.docker.com/">Docker Hub</a>,
 <a class="reference external" href="https://quay.io/">Quay</a> or <a class="reference external" href="https://docs.microsoft.com/en-us/azure/container-registry/">Azure Container Registry</a>
 that can be reached by Azure Batch environment.</p>
-<p>5 - Specify the Azure Batch <a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">executor</span></a> in the pipeline configuration file.</p>
 <p>A minimal configuration looks like the following snippet:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="p">{</span>
   <span class="nb">id</span> <span class="s1">&#39;nf-azure&#39;</span>
@@ -259,7 +267,7 @@ that can be reached by Azure Batch environment.</p>
     <span class="n">accountKey</span> <span class="o">=</span> <span class="s2">&quot;&lt;YOUR STORAGE ACCOUNT KEY&gt;&quot;</span>
   <span class="p">}</span>
   <span class="n">batch</span> <span class="p">{</span>
-    <span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;westeurope&#39;</span>
+    <span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR LOCATION&gt;&#39;</span>
     <span class="n">accountName</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR BATCH ACCOUNT NAME&gt;&#39;</span>
     <span class="n">accountKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR BATCH ACCOUNT KEY&gt;&#39;</span>
     <span class="n">autoPoolMode</span> <span class="o">=</span> <span class="n">true</span>
@@ -267,9 +275,9 @@ that can be reached by Azure Batch environment.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Replace in the above example the location and the account placeholders with the value corresponding to your configuration and
+<p>In the above example, replace the location and the account placeholders with the value corresponding to your configuration and
 save it to a file named <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code>.</p>
-<p>Then launch the execution of the pipeline using the following command:</p>
+<p>Given the previous configuration, launch the execution of the pipeline using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">PIPELINE</span> <span class="n">NAME</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">w</span> <span class="n">az</span><span class="p">:</span><span class="o">//</span><span class="n">YOUR</span><span class="o">-</span><span class="n">CONTAINER</span><span class="o">/</span><span class="n">work</span>
 </pre></div>
 </div>
@@ -281,14 +289,18 @@ details about the configuration for the Azure Batch service.</p>
 <div class="section" id="pools-configuration">
 <h3>Pools configuration<a class="headerlink" href="#pools-configuration" title="Permalink to this headline">¶</a></h3>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code> the setting Nextflow automatically creates a <cite>pool</cite> of computing nodes to execute the
-jobs run by your pipeline. By default it only uses 1 compute node of <code class="docutils literal notranslate"><span class="pre">Standard_A3</span></code> type.</p>
+jobs run by your pipeline. By default it only uses 1 compute node of <code class="docutils literal notranslate"><span class="pre">Standard_D4_v3</span></code> type.</p>
 <p>The pool is not removed when the pipeline execution terminates, unless the configuration setting <code class="docutils literal notranslate"><span class="pre">deletePoolsOnCompletion=true</span></code>
 is added in your pipeline configuration file.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Don’t forget to clean up the Batch pools to avoid in extra charges in the Batch account or use the auto scaling feature.</p>
 </div>
-<p>Pool specific setting e.g. VM type and count should be provided in the <code class="docutils literal notranslate"><span class="pre">auto</span></code> pool configuration scope e.g.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure your Batch account has enough resources to satisfy the pipeline’s requirements and the pool configuration.</p>
+</div>
+<p>Pool specific settings, e.g. VM type and count, should be provided in the <code class="docutils literal notranslate"><span class="pre">auto</span></code> pool configuration scope, e.g.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
     <span class="n">batch</span> <span class="p">{</span>
         <span class="n">pools</span> <span class="p">{</span>
@@ -305,11 +317,11 @@ is added in your pipeline configuration file.</p>
 <div class="section" id="named-pools">
 <h3>Named pools<a class="headerlink" href="#named-pools" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have a more precise control on the computing nodes pools used in your pipeline using a different pool
-depending on the task in your pipeline, you can use the Nextflow <a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a> directive the specify the <em>name</em> of a
+depending on the task in your pipeline, you can use the Nextflow <a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a> directive to specify the <em>name</em> of a
 Azure Batch compute pool that has to be used to run that process’ tasks.</p>
 <p>The pool is expected to be already available in the Batch environment, unless the setting <code class="docutils literal notranslate"><span class="pre">allowPoolCreation=true</span></code> is
 provided in the <code class="docutils literal notranslate"><span class="pre">batch</span></code> setting in the pipeline configuration file. In the latter case Nextflow will create the pools on-demand.</p>
-<p>The configuration details for each pool can be configured using the a snippet as shown below in your configuration:</p>
+<p>The configuration details for each pool can be specified using a snippet as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
     <span class="n">batch</span> <span class="p">{</span>
         <span class="n">pools</span> <span class="p">{</span>
@@ -328,15 +340,15 @@ provided in the <code class="docutils literal notranslate"><span class="pre">bat
 </pre></div>
 </div>
 <p>The above example defines the configuration for two node pools. The first will provision 10 compute nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_D2_v2</span></code>,
-the second 5 nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_E2_v3</span></code>. See the <a class="reference internal" href="#advanced-settings">Advanced settings</a> below for the complete list of available.
+the second 5 nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_E2_v3</span></code>. See the <a class="reference internal" href="#advanced-settings">Advanced settings</a> below for the complete list of available
 configuration options.</p>
 </div>
 <div class="section" id="pool-autoscaling">
 <h3>Pool autoscaling<a class="headerlink" href="#pool-autoscaling" title="Permalink to this headline">¶</a></h3>
 <p>Azure Batch can automatically scale pools based on parameters that you define, saving you time and money. With automatic scaling,
 Batch dynamically adds nodes to a pool as task demands increase, and removes compute nodes as task demands decrease.</p>
-<p>To enable this feature for pools created by Nextflow add the option <code class="docutils literal notranslate"><span class="pre">autoScale</span> <span class="pre">=</span> <span class="pre">true</span></code> in the corresponding pool configuration scope.
-For example when using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code>, the setting looks like:</p>
+<p>To enable this feature for pools created by Nextflow, add the option <code class="docutils literal notranslate"><span class="pre">autoScale</span> <span class="pre">=</span> <span class="pre">true</span></code> to the corresponding pool configuration scope.
+For example, when using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code>, the setting looks like:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
     <span class="n">batch</span> <span class="p">{</span>
         <span class="n">pools</span> <span class="p">{</span>
@@ -368,10 +380,11 @@ $TargetDedicatedNodes = lifespan &lt; interval ? {{vmCount}} : targetPoolSize;
 $NodeDeallocationOption = taskcompletion;
 </pre></div>
 </div>
-<p>The above formula initialise a pool with the number of VMs specified by the <code class="docutils literal notranslate"><span class="pre">vmCount</span></code> option, it grows the pool on-demand,
-based on the number of pending tasks up to <code class="docutils literal notranslate"><span class="pre">maxVmCount</span></code> nodes. If no jobs are submitted for execution it scales to zero nodes automatically.</p>
+<p>The above formula initialises a pool with the number of VMs specified by the <code class="docutils literal notranslate"><span class="pre">vmCount</span></code> option, it scales up the pool on-demand,
+based on the number of pending tasks up to <code class="docutils literal notranslate"><span class="pre">maxVmCount</span></code> nodes. If no jobs are submitted for execution, it scales down
+to zero nodes automatically.</p>
 <p>If you need a different strategy you can provide your own formula using the <code class="docutils literal notranslate"><span class="pre">scaleFormula</span></code> option.
-<a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">Azure Batch</a> documentation for details.</p>
+See the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">Azure Batch</a> documentation for details.</p>
 </div>
 </div>
 <div class="section" id="advanced-settings">
@@ -379,8 +392,8 @@ based on the number of pending tasks up to <code class="docutils literal notrans
 <p>The following configuration options are available:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 19%" />
-<col style="width: 81%" />
+<col style="width: 18%" />
+<col style="width: 82%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -424,25 +437,28 @@ based on the number of pending tasks up to <code class="docutils literal notrans
 <tr class="row-odd"><td><p>azure.batch.deletePoolsOnCompletion</p></td>
 <td><p>Enable the automatic deletion of compute node pools upon pipeline completion (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.vmType</p></td>
+<tr class="row-even"><td><p>azure.batch.copyToolInstallMode</p></td>
+<td><p>Specify where the <cite>azcopy</cite> tool used by Nextflow. When <code class="docutils literal notranslate"><span class="pre">node</span></code> is specified it’s copied once during the pool creation. When <code class="docutils literal notranslate"><span class="pre">task</span></code> is provider, it’s installed for each task execution (default: <code class="docutils literal notranslate"><span class="pre">node</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.vmType</p></td>
 <td><p>Specify the virtual machine type used by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.vmCount</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.vmCount</p></td>
 <td><p>Specify the number of virtual machines provisioned by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.maxVmCount</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.maxVmCount</p></td>
 <td><p>Specify the max of virtual machine when using auto scale option.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.autoScale</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.autoScale</p></td>
 <td><p>Enable autoscaling feature for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.scaleFormula</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.scaleFormula</p></td>
 <td><p>Specify the scale formula for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. See Azure Batch <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">scaling documentation</a> for details.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.scaleInterval</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.scaleInterval</p></td>
 <td><p>Specify the interval at which to automatically adjust the Pool size according to the autoscale formula. The minimum and maximum value are 5 minutes and 168 hours respectively (default: <cite>10 mins</cite>)</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.schedulePolicy</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.schedulePolicy</p></td>
 <td><p>Specify the scheduling policy for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. It can be either <code class="docutils literal notranslate"><span class="pre">spread</span></code> or <code class="docutils literal notranslate"><span class="pre">pack</span></code> (default: <code class="docutils literal notranslate"><span class="pre">spread</span></code>).</p></td>
 </tr>
 </tbody>
