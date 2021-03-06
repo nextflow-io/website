@@ -30,6 +30,7 @@ The support for Azure Batch requires the latest release of Nextflow from the *ed
 ```
 export NXF_EDGE=1 
 curl get.nextflow.io | bash
+./nextflow -self-update
 ```
 
 Note for Windows users, as Nextflow is *nix based tool you will need to run it using the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Also make sure Java 8 or later is installed in the Linux environment.
