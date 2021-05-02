@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -79,16 +79,19 @@
 <li class="toctree-l3"><a class="reference internal" href="#view">view</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#pipeline-parameters">Pipeline parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -138,6 +141,12 @@ Usage: nextflow [options] COMMAND [arg...]
 <p>The top-level options are meant to be invoked in relation to the core
 Nextflow application and are applied to all commands. For options
 specific to any command, refer the CLI Commands section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nextflow options only use single dash prefix e.g. <code class="docutils literal notranslate"><span class="pre">-foo</span></code>. Do not confuse
+double dash notation e.g. <code class="docutils literal notranslate"><span class="pre">--foo</span></code> that is instead used for
+<a class="reference internal" href="#cli-params"><span class="std std-ref">Pipeline parameters</span></a>.</p>
+</div>
 <p>An overview of the top-level options.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow
 Usage: nextflow [options] COMMAND [arg...]
@@ -529,8 +538,8 @@ please refer to the <code class="docutils literal notranslate"><span class="pre"
 </tr>
 </tbody>
 </table>
-<p><strong>Examples</strong></p>
-<p>Clone the latest revision of a pipeline.</p>
+<p><strong>Examples</strong>
+Clone the latest revision of a pipeline.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow clone nextflow-io/hello
 nextflow-io/hello cloned to: hello
 </pre></div>
@@ -942,72 +951,76 @@ was stopped by an error.</p></td>
 <td></td>
 <td><p>Revision of the project to run (either a git branch, tag or commit SHA number)</p></td>
 </tr>
-<tr class="row-odd"><td><p>-test</p></td>
+<tr class="row-odd"><td><p>-stub, -stub-run</p></td>
+<td></td>
+<td><p>Execute the workflow replacing process scripts with command stubs.</p></td>
+</tr>
+<tr class="row-even"><td><p>-test</p></td>
 <td></td>
 <td><p>Test a script function with the name specified.</p></td>
 </tr>
-<tr class="row-even"><td><p>-user</p></td>
+<tr class="row-odd"><td><p>-user</p></td>
 <td></td>
 <td><p>Private repository user name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-v, -volume-mount</p></td>
+<tr class="row-even"><td><p>-v, -volume-mount</p></td>
 <td></td>
 <td><p>Volume claim mounts eg. <code class="docutils literal notranslate"><span class="pre">my-pvc:/mnt/path</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>-with-conda</p></td>
+<tr class="row-odd"><td><p>-with-conda</p></td>
 <td></td>
 <td><p>Use the specified Conda environment package or
 file (must end with <code class="docutils literal notranslate"><span class="pre">.yml|.yaml</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-dag</p></td>
+<tr class="row-even"><td><p>-with-dag</p></td>
 <td><p>dag.dot</p></td>
 <td><p>Create pipeline DAG file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-docker</p></td>
+<tr class="row-odd"><td><p>-with-docker</p></td>
 <td></td>
 <td><p>Enable process execution in a Docker container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-N, -with-notification</p></td>
+<tr class="row-even"><td><p>-N, -with-notification</p></td>
 <td></td>
 <td><p>Send a notification email on workflow completion to the specified recipients.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-podman</p></td>
+<tr class="row-odd"><td><p>-with-podman</p></td>
 <td></td>
 <td><p>Enable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-report</p></td>
+<tr class="row-even"><td><p>-with-report</p></td>
 <td><p>report.html</p></td>
 <td><p>Create processes execution html report.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-singularity</p></td>
+<tr class="row-odd"><td><p>-with-singularity</p></td>
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-timeline</p></td>
+<tr class="row-even"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-tower</p></td>
+<tr class="row-odd"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-trace</p></td>
+<tr class="row-even"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-weblog</p></td>
+<tr class="row-odd"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-docker</p></td>
+<tr class="row-even"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-podman</p></td>
+<tr class="row-odd"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-w, -work-dir</p></td>
+<tr class="row-even"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>
@@ -1481,7 +1494,7 @@ Launching `nextflow-io/hello` [grave_cajal] - revision: 1c3e9e7404 [v1.1]
 </pre></div>
 </div>
 <ul>
-<li><p>Invoke the nextflow pipeline execution with the integrated monitoring dashboard Tower. For more information, please refer to the <a class="reference external" href="https://www.tower.nf">tower.nf</a> website.</p>
+<li><p>Invoke the nextflow pipeline execution with the integrated monitoring dashboard Tower. For more information, please refer to the <a class="reference external" href="https://tower.nf">tower.nf</a> website.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run nextflow-io/hello -with-tower
 </pre></div>
 </div>
@@ -1602,6 +1615,30 @@ cheers = Channel.from &#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;H
      echo &#39;$x world!&#39;
      &quot;&quot;&quot;
  }
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pipeline-parameters">
+<span id="cli-params"></span><h2>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Pipeline script can use an arbitrary number of parameters that can be overridden either
+using the command line or the Nextflow configuration file. Any script parameter can be specified
+on the command line prefixing the parameter name with double dash characters e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">my</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">foo</span> <span class="n">Hello</span>
+</pre></div>
+</div>
+<p>Then, the parameter can be accessed in the pipeline script using the <code class="docutils literal notranslate"><span class="pre">params.foo</span></code> identifier.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the parameter name is formatted using the <cite>camelCase</cite> notation e.g. <code class="docutils literal notranslate"><span class="pre">fooBar</span></code>, a second parameter
+is created with the same value using the <cite>kebab-case</cite> notation e.g. <code class="docutils literal notranslate"><span class="pre">foo-bar</span></code>, and the other way around.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When a command line parameters includes one or more glob characters i.e. wildcards like <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code>,
+the parameter value needs to be enclosed with double-quote character to prevent Bash expansion and preserve
+the glob characters. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">my</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">files</span> <span class="s2">&quot;*.fasta&quot;</span>
 </pre></div>
 </div>
 </div>

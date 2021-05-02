@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amazon Cloud &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Amazon Cloud &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -66,12 +66,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -187,7 +189,7 @@ be enough for real world data analysis pipelines.</p>
 <div class="section" id="custom-ami">
 <h2>Custom AMI<a class="headerlink" href="#custom-ami" title="Permalink to this headline">¶</a></h2>
 <p>In the EC2 Dashboard, click the <cite>Launch Instance</cite> button, then choose <cite>AWS Marketplace</cite> in the left pane and enter
-<cite>ECS</cite> in the search box. In result list select <cite>Amazon ECS-Optimized Amazon Linux AMI</cite>, then continue as usual to
+<cite>ECS</cite> in the search box. In result list select <cite>Amazon ECS-Optimized Amazon Linux 2 AMI</cite>, then continue as usual to
 configure and launch the instance.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -197,35 +199,6 @@ large enough for the needs of your pipeline execution.</p>
 </div>
 <p>When the instance is running, SSH into it, install the AWS CLI tools as explained below or any other required tool
 that may be required.</p>
-<p>Also make sure the Docker configuration reflects the amount of storage you have specified when launching the instance
-as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker info | grep -i data
- Data file:
- Metadata file:
- Data Space Used: 500.2 MB
- Data Space Total: 1.061 TB
- Data Space Available: 1.06 TB
- Metadata Space Used: 733.2 kB
- Metadata Space Total: 1.074 GB
- Metadata Space Available: 1.073 GB
-</pre></div>
-</div>
-<p>The above example shows the Docker data configuration for a 1000GB EBS data volume. See the <a class="reference external" href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-ami-storage-config.html">ECS Storage documentation</a>
-for more details.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The maximum storage size of a single Docker container is by default 10GB, independently the amount of data space available
-in the underlying volume (see <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/dockerd/#dmbasesize">Base device size</a> for more details).</p>
-</div>
-<p>You can verify the current setting by using this command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker info | grep -i base
-  Base Device Size: 10.74 GB
-</pre></div>
-</div>
-<p>If your pipeline needs more storage for a single task execution, you will need to specify the <code class="docutils literal notranslate"><span class="pre">dm.basesize</span></code> setting
-with a proper value in the <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/docker-storage</span></code> configuration file.
-See <a class="reference external" href="https://forums.aws.amazon.com/message.jspa?messageID=811761#811761">here</a>
-and <a class="reference external" href="https://www.projectatomic.io/blog/2016/03/daemon_option_basedevicesize/">here</a> for details.</p>
 <p>Once done that, create a new AMI by using the <em>Create Image</em> option in the EC2 Dashboard or the AWS command line tool.</p>
 <p>The new AMI ID needs to be specified when creating the Batch
 <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Computing environment</a>.</p>

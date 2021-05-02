@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline sharing &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Pipeline sharing &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -51,12 +51,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -79,6 +81,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#github-credentials">GitHub credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gitlab-credentials">GitLab credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gitea-credentials">Gitea credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#azure-repos-credentials">Azure Repos credentials</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#private-server-configuration">Private server configuration</a></li>
@@ -427,6 +430,28 @@ have to provide all the credential information below:</p>
 <p>See <a class="reference external" href="https://docs.gitea.io/en-us/api-usage/">Gitea documentation</a> about how to enable API access on your
 server and how to issue a token.</p>
 </div>
+<div class="section" id="azure-repos-credentials">
+<h3>Azure Repos credentials<a class="headerlink" href="#azure-repos-credentials" title="Permalink to this headline">¶</a></h3>
+<p>Nextflow has a builtin support for <a class="reference external" href="https://azure.microsoft.com/en-us/services/devops/repos/">Azure Repos</a>, a Git source
+code management service hosted in the Azure cloud. To access your Azure Repos with Nextflow provide the repository credentials
+using the configuration snippet shown below:</p>
+<blockquote>
+<div><p>providers {</p>
+<blockquote>
+<div><dl class="simple">
+<dt>azurerepos {</dt><dd><p>user = ‘your-user-name’
+password = ‘your-personal-access-token’</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The Personal access token can be generated in the repository <cite>Clone Repository</cite> dialog.</p>
+</div>
+</div>
 </div>
 <div class="section" id="private-server-configuration">
 <h2>Private server configuration<a class="headerlink" href="#private-server-configuration" title="Permalink to this headline">¶</a></h2>
@@ -587,7 +612,7 @@ have created. For example:</p>
 </div>
 <p>In this way when you launch the pipeline execution, the Docker image will be automatically downloaded and used to run
 your tasks.</p>
-<p>Read the <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to lean more on how to use Docker containers with Nextflow.</p>
+<p>Read the <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to learn more on how to use Docker containers with Nextflow.</p>
 <p>This mix of technologies makes it possible to write self-contained and truly reproducible pipelines which require
 zero configuration and can be reproduced in any system having a Java VM and a Docker engine installed.</p>
 <dl class="footnote brackets">

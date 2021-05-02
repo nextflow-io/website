@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 20.10.0 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -54,6 +54,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#process-composition">Process composition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#process-outputs">Process outputs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#process-named-output">Process named output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-named-stdout">Process named stdout</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow">Workflow</a><ul>
@@ -84,12 +85,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -256,6 +259,33 @@ that can be used to reference the channel in the external scope. For example:</p
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
+<div class="section" id="process-named-stdout">
+<h3>Process named stdout<a class="headerlink" href="#process-named-stdout" title="Permalink to this headline">¶</a></h3>
+<p>The process can name stdout using the <code class="docutils literal notranslate"><span class="pre">emit</span></code> option:</p>
+<blockquote>
+<div><dl>
+<dt>process sayHello {</dt><dd><dl class="simple">
+<dt>input:</dt><dd><p>val cheers</p>
+</dd>
+<dt>output:</dt><dd><p>stdout emit: verbiage</p>
+</dd>
+</dl>
+<p>script:
+“””
+echo -n $cheers
+“””</p>
+</dd>
+</dl>
+<p>}</p>
+<dl class="simple">
+<dt>workflow {</dt><dd><p>things = channel.of(‘Hello world!’, ‘Yo, dude!’, ‘Duck!’)
+greetings = sayHello(things)
+greetings.verbiage.subscribe {println “$it” }</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="workflow">
@@ -496,6 +526,16 @@ in your script using different names. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hola</span> <span class="n">Mundo</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The module inherits the parameters define <em>before</em> the <code class="docutils literal notranslate"><span class="pre">include</span></code> statement, therefore any further
+parameter set later is ignored.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Define all pipeline parameters at the beginning of the script <em>before</em>
+any <code class="docutils literal notranslate"><span class="pre">include</span></code> declaration.</p>
+</div>
 <p>The option <code class="docutils literal notranslate"><span class="pre">addParams</span></code> can be used to extend the module parameters without affecting the external
 scope. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span><span class="n">sayHello</span><span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span> <span class="n">addParams</span><span class="p">(</span><span class="n">foo</span><span class="p">:</span> <span class="s1">&#39;Ciao&#39;</span><span class="p">)</span>
@@ -606,8 +646,8 @@ over multiple lines.</p>
 <li><p>DSL2 final version is activated using the declaration <code class="docutils literal notranslate"><span class="pre">nextflow.enable.dsl=2</span></code> in place of <code class="docutils literal notranslate"><span class="pre">nextflow.preview.dsl=2</span></code>.</p></li>
 <li><p>Process inputs of type <code class="docutils literal notranslate"><span class="pre">set</span></code> have to be replaced with <a class="reference internal" href="process.html#process-input-tuple"><span class="std std-ref">tuple</span></a>.</p></li>
 <li><p>Process outputs of type <code class="docutils literal notranslate"><span class="pre">set</span></code> have to be replaced with <a class="reference internal" href="process.html#process-out-tuple"><span class="std std-ref">tuple</span></a>.</p></li>
-<li><p>Process output option <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">flatten</span></code> is not available any more. Replace it using the <a class="reference internal" href="operator.html#operator-flatten"><span class="std std-ref">flatten</span></a> operator on the corresponding output channel.</p></li>
-<li><p>Anonymous and unwrapped includes are not supported any more. Replace it with a explicit module inclusion. For example:</p>
+<li><p>Process output option <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">flatten</span></code> is not available anymore. Replace it using the <a class="reference internal" href="operator.html#operator-flatten"><span class="std std-ref">flatten</span></a> operator on the corresponding output channel.</p></li>
+<li><p>Anonymous and unwrapped includes are not supported anymore. Replace it with a explicit module inclusion. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="s1">&#39;./some/library&#39;</span>
 <span class="n">include</span> <span class="n">bar</span> <span class="kn">from</span> <span class="s1">&#39;./other/library&#39;</span>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Processes &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -51,6 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#native-execution">Native execution</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#stub">Stub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-generic-values">Input of generic values</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#input-of-files">Input of files</a></li>
@@ -127,12 +128,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -355,7 +358,7 @@ the other branches will be executed.</p>
 <div class="section" id="template">
 <span id="process-template"></span><h3>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
 <p>Process script can be externalised by using <em>template</em> files which can be reused across different processes and tested
-independently by the overall pipeline execution.</p>
+independently from the overall pipeline execution.</p>
 <p>A template is simply a shell script file that Nextflow is able to execute by using the <code class="docutils literal notranslate"><span class="pre">template</span></code> function
 as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">template_example</span> <span class="p">{</span>
@@ -445,6 +448,45 @@ Simply starting the script definition block with the <code class="docutils liter
 <span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">c</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="section" id="stub">
+<span id="process-stub"></span><h2>Stub<a class="headerlink" href="#stub" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. It may change in future versions.</p>
+</div>
+<p>As of version 20.11.0-edge it’s possible to define a command <em>stub</em> that replaces the actual process command, when
+the <cite>-stub-run</cite> or <cite>-stub</cite> command line option.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">INDEX</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+      <span class="n">path</span> <span class="n">transcriptome</span>
+    <span class="n">output</span><span class="p">:</span>
+      <span class="n">path</span> <span class="s1">&#39;index&#39;</span>
+
+    <span class="n">script</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      salmon index --threads $task.cpus -t $transcriptome -i index</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+
+    <span class="n">stub</span><span class="p">:</span>
+      <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      mkdir index</span>
+<span class="sd">      touch index/seq.bin</span>
+<span class="sd">      touch index/info.json</span>
+<span class="sd">      touch index/refseq.bin</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This feature is meant to allow the fast prototyping and test of the workflow logic without using the real
+commands. The developer can use it to provide a dummy command which is expected to mimic the execution
+of the real one in a quicker manner. This can also be used as an alternative for the <em>dry-run</em> feature.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">stub</span></code> block can be defined before or after the process <code class="docutils literal notranslate"><span class="pre">script</span></code> definition.
+When the execution is run with the option <cite>-stub-run</cite> and a process is not implementing the <code class="docutils literal notranslate"><span class="pre">stub</span></code> command the
+real is executed.</p>
 </div>
 </div>
 <div class="section" id="inputs">
@@ -1308,18 +1350,19 @@ when using Nextflow 19.10.0 or later.</p>
 <span id="process-stdout"></span><h3>Output ‘stdout’ special file<a class="headerlink" href="#output-stdout-special-file" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stdout</span></code> qualifier allows you to <cite>capture</cite> the <cite>stdout</cite> output of the executed process and send it over
 the channel specified in the output parameter declaration. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">echoSomething</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">stdout</span> <span class="n">channel</span>
+    <span class="n">stdout</span> <span class="n">ch</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    echo Hello world!</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
-<span class="n">channel</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
+<span class="n">ch</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
+<p>In the above example <code class="docutils literal notranslate"><span class="pre">ch</span></code> represents an arbitrary channel variable that holds the process outputs.</p>
 </div>
 <div class="section" id="output-env">
 <span id="process-env"></span><h3>Output ‘env’<a class="headerlink" href="#output-env" title="Permalink to this headline">¶</a></h3>
@@ -1510,7 +1553,7 @@ This may be useful to initialise the underlying cluster environment or for other
 </div>
 </div>
 <div class="section" id="cache">
-<h3>cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h3>
+<span id="process-cache"></span><h3>cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive allows you to store the process results to a local cache. When the cache is enabled <em>and</em>
 the pipeline is launched with the <a class="reference internal" href="getstarted.html#getstart-resume"><span class="std std-ref">resume</span></a> option, any following attempt to execute the process,
 along with the same inputs, will cause the process execution to be skipped, producing the stored data as
@@ -2068,7 +2111,7 @@ can be specified in a single <code class="docutils literal notranslate"><span cl
 </pre></div>
 </div>
 <p>This configuration depends on the parallel environment provided by your grid engine installation. Refer to your
-cluster documentation or contact your admin to lean more about this.</p>
+cluster documentation or contact your admin to learn more about this.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This setting is available when using the <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> executor.</p>
@@ -2119,7 +2162,7 @@ and config maps when using the <a class="reference internal" href="executor.html
 <td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
-<td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root.</p></td>
+<td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with <cite>readOnly: true</cite>, but is read/write by default.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</p></td>

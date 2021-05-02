@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Operators &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Operators &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -126,12 +126,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -170,7 +172,7 @@
 <span id="operator-page"></span><h1>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow <cite>operators</cite> are methods that allow you to connect channels to each other or to transform values
 emitted by a channel applying some user provided rules.</p>
-<p>Operators can be separated in to seven groups:</p>
+<p>Operators can be separated into seven groups:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#filtering-operators">Filtering operators</a></p></li>
 <li><p><a class="reference internal" href="#transforming-operators">Transforming operators</a></p></li>
@@ -182,13 +184,13 @@ emitted by a channel applying some user provided rules.</p>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The operators <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <code class="docutils literal notranslate"><span class="pre">operator-subscribe</span></code> are <em>terminal</em> operators
-and therefore need to be the last operator in a chain of combined operators.</p>
+<p>The operators <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> are <em>final</em> operators
+and therefore, if used, they must be the last operator in a chain of combined operators.</p>
 </div>
 <div class="section" id="filtering-operators">
 <h2>Filtering operators<a class="headerlink" href="#filtering-operators" title="Permalink to this headline">¶</a></h2>
 <p>Given a channel, filtering operators allow you to select only the items that comply with a given rule.</p>
-<p>The available filter operators are:</p>
+<p>The available filtering operators are:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#distinct">distinct</a></p></li>
 <li><p><a class="reference internal" href="#filter">filter</a></p></li>
@@ -246,7 +248,7 @@ a channel emitting numbers so that the <cite>odd</cite> values are returned:</p>
 <p class="admonition-title">Tip</p>
 <p>In the above example the filter condition is wrapped in curly brackets,
 instead of round brackets, since it specifies a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> as the operator’s argument.
-This just is a language syntax-sugar for <code class="docutils literal notranslate"><span class="pre">filter({</span> <span class="pre">it.toString().size()</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">})</span></code></p>
+This is just a language syntax-sugar for <code class="docutils literal notranslate"><span class="pre">filter({</span> <span class="pre">it</span> <span class="pre">%</span> <span class="pre">2</span> <span class="pre">==</span> <span class="pre">1</span> <span class="pre">})</span></code></p>
 </div>
 </div>
 <div class="section" id="unique">
@@ -551,8 +553,8 @@ array that maps each key to the set of items identified by that key.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">b</span><span class="p">:[</span><span class="s1">&#39;bonjour&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">:[</span><span class="s1">&#39;ciao&#39;</span><span class="p">],</span> <span class="n">h</span><span class="p">:[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span><span class="s1">&#39;hi&#39;</span><span class="p">]</span> <span class="p">]</span>
 </pre></div>
 </div>
-<p>The <cite>mapping</cite> function is an optional parameter. When omitted the values are grouped
-following these rules:</p>
+<p>The <cite>mapping</cite> function is an optional parameter. When omitted, the values are grouped
+according to these rules:</p>
 <ul class="simple">
 <li><p>Any value of type <code class="docutils literal notranslate"><span class="pre">Map</span></code> is associated with the value of its first entry, or <code class="docutils literal notranslate"><span class="pre">null</span></code> when the map itself is empty.</p></li>
 <li><p>Any value of type <code class="docutils literal notranslate"><span class="pre">Map.Entry</span></code> is associated with the value of its <code class="docutils literal notranslate"><span class="pre">key</span></code> attribute.</p></li>
@@ -564,7 +566,7 @@ following these rules:</p>
 <span id="operator-grouptuple"></span><h3>groupTuple<a class="headerlink" href="#grouptuple" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">groupTuple</span></code> operator collects tuples (or lists) of values emitted by the source channel grouping together the
 elements that share the same key. Finally it emits a new tuple object for each distinct key collected.</p>
-<p>In other words transform a sequence of tuple like <em>(K, V, W, ..)</em> into a new channel emitting a sequence of
+<p>In other words, the operator transforms a sequence of tuple like <em>(K, V, W, ..)</em> into a new channel emitting a sequence of
 <em>(K, list(V), list(W), ..)</em></p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -579,15 +581,16 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="n">D</span><span class="p">]]</span>
 </pre></div>
 </div>
-<p>By default the first entry in the tuple is used a the grouping key. A different key can be chosen by using the
-<code class="docutils literal notranslate"><span class="pre">by</span></code> parameter and specifying the index of entry to be used as key (the index is zero-based). For example:</p>
+<p>By default the first entry in the tuple is used as grouping key. A different key can be chosen by using the
+<code class="docutils literal notranslate"><span class="pre">by</span></code> parameter and specifying the index of the entry to be used as key (the index is zero-based). For example,
+grouping by the second value in each tuple:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
      <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
      <span class="o">.</span><span class="n">groupTuple</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
      <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Grouping by the second value in each tuple the result is:</p>
+<p>The result is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">A</span><span class="p">]</span>
 <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">B</span><span class="p">]</span>
 <span class="p">[[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">C</span><span class="p">]</span>
@@ -645,7 +648,7 @@ is specified.</p></td>
 <td><p>Order the grouped items by the hash number associated to each entry.</p></td>
 </tr>
 <tr class="row-odd"><td><p>deep</p></td>
-<td><p>Similar to the previous, but the hash number is created on actual entries content e.g. when the item is a file the hash is created on the actual file content.</p></td>
+<td><p>Similar to the previous, but the hash number is created on actual entries content e.g. when the item is a file, the hash is created on the actual file content.</p></td>
 </tr>
 <tr class="row-even"><td><p><cite>custom</cite></p></td>
 <td><p>A custom sorting criteria used to order the tuples element holding list of values. It can be specified by using either a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closure</span></a> or a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html">Comparator</a> object.</p></td>
@@ -654,9 +657,9 @@ is specified.</p></td>
 </table>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You should always specify the number of expected element in each tuple using the <code class="docutils literal notranslate"><span class="pre">size</span></code> attribute
+<p>You should always specify the number of expected elements in each tuple using the <code class="docutils literal notranslate"><span class="pre">size</span></code> attribute
 to allow the <code class="docutils literal notranslate"><span class="pre">groupTuple</span></code> operator to stream the collected values as soon as possible. However there
-are use cases in which each tuple has a different size depending on grouping key. In this case use the
+are use cases in which each tuple has a different size depending on the grouping key. In this case use the
 built-in function <code class="docutils literal notranslate"><span class="pre">groupKey</span></code> that allows you to create a special grouping key object to which it’s possible
 to associate the group size for a given key.</p>
 </div>
@@ -702,7 +705,7 @@ a Java class, or a <cite>boolean predicate</cite> that need to be satisfied. For
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n</span> <span class="pre">)</span></code>: transform the source channel in such a way that it emits tuples
-made up of <code class="docutils literal notranslate"><span class="pre">n</span></code> elements. An incomplete tuple is discarded. For example:</p>
+made up of <cite>n</cite> elements. An incomplete tuple is discarded. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="n">size</span><span class="p">:</span> <span class="mi">2</span> <span class="p">)</span>
@@ -716,7 +719,7 @@ made up of <code class="docutils literal notranslate"><span class="pre">n</span>
 </div>
 </li>
 </ul>
-<p>If you want to emit the last items in a tuple containing less than <code class="docutils literal notranslate"><span class="pre">n</span></code> elements, simply
+<p>If you want to emit the last items in a tuple containing less than <cite>n</cite> elements, simply
 add the parameter <code class="docutils literal notranslate"><span class="pre">remainder</span></code> specifying <code class="docutils literal notranslate"><span class="pre">true</span></code>, for example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span> <span class="p">)</span>
@@ -731,8 +734,8 @@ add the parameter <code class="docutils literal notranslate"><span class="pre">r
 </pre></div>
 </div>
 <ul>
-<li><p><code class="docutils literal notranslate"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n,</span> <span class="pre">skip:</span> <span class="pre">m</span> <span class="pre">)</span></code>: as in the previous example, it emits tuples containing <code class="docutils literal notranslate"><span class="pre">n</span></code> elements,
-but skips <cite>m</cite> values before starting to collect the values for the next tuple (including the first emission). For example:</p>
+<li><p><code class="docutils literal notranslate"><span class="pre">buffer(</span> <span class="pre">size:</span> <span class="pre">n,</span> <span class="pre">skip:</span> <span class="pre">m</span> <span class="pre">)</span></code>: as in the previous example, it emits tuples containing <cite>n</cite> elements,
+but skips <code class="docutils literal notranslate"><span class="pre">m</span></code> values before starting to collect the values for the next tuple (including the first emission). For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">buffer</span><span class="p">(</span> <span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span><span class="mi">2</span> <span class="p">)</span>
@@ -745,7 +748,7 @@ but skips <cite>m</cite> values before starting to collect the values for the ne
 </div>
 </li>
 </ul>
-<p>If you want to emit the remaining items in a tuple containing less than <code class="docutils literal notranslate"><span class="pre">n</span></code> elements, simply
+<p>If you want to emit the remaining items in a tuple containing less than <cite>n</cite> elements, simply
 add the parameter <code class="docutils literal notranslate"><span class="pre">remainder</span></code> specifying <code class="docutils literal notranslate"><span class="pre">true</span></code>, as shown in the previous example.</p>
 <p>See also: <a class="reference internal" href="#collate">collate</a> operator.</p>
 </div>
@@ -845,7 +848,7 @@ and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">toList</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="s1">&#39;Done&#39;</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
@@ -861,7 +864,7 @@ and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">toSortedList</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="s1">&#39;Done&#39;</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
@@ -1337,7 +1340,7 @@ The following example shows how to split text files into chunks of 10 lines and 
 </ul>
 <div class="section" id="join">
 <span id="operator-join"></span><h3>join<a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">join</span></code> operator creates a channel that joins together the items emitted by two channels for which exits
+<p>The <code class="docutils literal notranslate"><span class="pre">join</span></code> operator creates a channel that joins together the items emitted by two channels for which exists
 a matching key. The key is defined, by default, as the first element in each item emitted.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;P&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
@@ -1609,28 +1612,31 @@ the items content will be grouped in file(s) having the same name as the source 
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">keepHeader</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cache</span></code></p></td>
+<td><p>Controls the caching ability of the <code class="docutils literal notranslate"><span class="pre">collectFile</span></code> operator when using the <em>resume</em> feature. It follows the same semantic of the <a class="reference internal" href="process.html#process-cache"><span class="std std-ref">cache</span></a> directive (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">keepHeader</span></code></p></td>
 <td><p>Prepend the resulting file with the header fetched in the first collected file. The header size (ie. lines) can be specified by using the <code class="docutils literal notranslate"><span class="pre">skip</span></code> parameter (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>), to determine how many lines to remove from all collected files except for the first (where no lines will be removed).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
 <td><p>Name of the file where all received values are stored.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">newLine</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">newLine</span></code></p></td>
 <td><p>Appends a <code class="docutils literal notranslate"><span class="pre">newline</span></code> character automatically after each entry (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">seed</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seed</span></code></p></td>
 <td><p>A value or a map of values used to initialise the files content.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">skip</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">skip</span></code></p></td>
 <td><p>Skip the first <cite>n</cite> lines eg. <code class="docutils literal notranslate"><span class="pre">skip:</span> <span class="pre">1</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sort</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sort</span></code></p></td>
 <td><p>Defines sorting criteria of content in resulting file(s). See below for sorting options.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">storeDir</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">storeDir</span></code></p></td>
 <td><p>Folder where the resulting file(s) are be stored.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tempDir</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tempDir</span></code></p></td>
 <td><p>Folder where temporary files, used by the collecting process, are stored.</p></td>
 </tr>
 </tbody>
@@ -1953,9 +1959,11 @@ evaluates the value to be assigned to such channel.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span> <span class="mi">2</span>
 <span class="n">foo</span> <span class="mi">3</span>
 <span class="n">foo</span> <span class="mi">4</span>
+<span class="n">foo</span> <span class="mi">5</span>
 <span class="n">bar</span> <span class="mi">1</span>
 <span class="n">bar</span> <span class="mi">4</span>
 <span class="n">bar</span> <span class="mi">9</span>
+<span class="n">bar</span> <span class="mi">16</span>
 </pre></div>
 </div>
 <div class="admonition tip">

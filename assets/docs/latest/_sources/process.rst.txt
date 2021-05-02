@@ -216,7 +216,7 @@ Template
 --------
 
 Process script can be externalised by using *template* files which can be reused across different processes and tested
-independently by the overall pipeline execution.
+independently from the overall pipeline execution.
 
 A template is simply a shell script file that Nextflow is able to execute by using the ``template`` function
 as shown below::
@@ -320,6 +320,46 @@ Will display::
     Hello Mr. a
     Hello Mr. c
 
+
+.. _process-stub:
+
+Stub
+====
+
+.. warning::
+    This is an incubating feature. It may change in future versions.
+
+As of version 20.11.0-edge it's possible to define a command *stub* that replaces the actual process command, when
+the `-stub-run` or `-stub` command line option. ::
+
+    process INDEX {
+        input:
+          path transcriptome
+        output:
+          path 'index'
+
+        script:
+          """
+          salmon index --threads $task.cpus -t $transcriptome -i index
+          """
+
+        stub:
+          """
+          mkdir index
+          touch index/seq.bin
+          touch index/info.json
+          touch index/refseq.bin
+          """
+    }
+
+This feature is meant to allow the fast prototyping and test of the workflow logic without using the real
+commands. The developer can use it to provide a dummy command which is expected to mimic the execution
+of the real one in a quicker manner. This can also be used as an alternative for the *dry-run* feature.
+
+.. tip::
+    The ``stub`` block can be defined before or after the process ``script`` definition.
+    When the execution is run with the option `-stub-run` and a process is not implementing the ``stub`` command the
+    real is executed.
 
 
 .. _process-input:
@@ -1143,17 +1183,18 @@ Output 'stdout' special file
 The ``stdout`` qualifier allows you to `capture` the `stdout` output of the executed process and send it over
 the channel specified in the output parameter declaration. For example::
 
-    process echoSomething {
+    process sayHello {
         output:
-        stdout channel
+        stdout ch
 
         """
         echo Hello world!
         """
     }
 
-    channel.subscribe { print "I say..  $it" }
+    ch.view { print "I say..  $it" }
 
+In the above example ``ch`` represents an arbitrary channel variable that holds the process outputs.
 
 .. _process-env:
 
@@ -1370,6 +1411,7 @@ For example::
 
     }
 
+.. _process-cache:
 
 cache
 -----
@@ -1894,7 +1936,7 @@ The ``penv`` directive  allows you to define the `parallel environment` to be us
     }
 
 This configuration depends on the parallel environment provided by your grid engine installation. Refer to your
-cluster documentation or contact your admin to lean more about this.
+cluster documentation or contact your admin to learn more about this.
 
 .. note:: This setting is available when using the :ref:`sge-executor` executor.
 
@@ -1930,7 +1972,7 @@ The ``pod`` directive allows the definition of the following options:
 ``env: <E>, secret: <S/K>``                       Defines an environment variable with name ``E`` and whose value is given by the entry associated to the key with name ``K`` in the `Secret <https://kubernetes.io/docs/concepts/configuration/secret/>`_ with name ``S``.
 ``config: <C/K>, mountPath: </absolute/path>``    The content of the `ConfigMap <https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/>`_ with name ``C`` with key ``K`` is made available to the path ``/absolute/path``. When the key component is omitted the path is interpreted as a directory and all the `ConfigMap` entries are exposed in that path.
 ``secret: <S/K>, mountPath: </absolute/path>``    The content of the `Secret <https://kubernetes.io/docs/concepts/configuration/secret/>`_ with name ``S`` with key ``K`` is made available to the path ``/absolute/path``. When the key component is omitted the path is interpreted as a directory and all the `Secret` entries are exposed in that path.
-``volumeClaim: <V>, mountPath: </absolute/path>`` Mounts a `Persistent volume claim <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>`_ with name ``V`` to the specified path location. Use the optional `subPath` parameter to mount a directory inside the referenced volume instead of its root.
+``volumeClaim: <V>, mountPath: </absolute/path>`` Mounts a `Persistent volume claim <https://kubernetes.io/docs/concepts/storage/persistent-volumes/>`_ with name ``V`` to the specified path location. Use the optional `subPath` parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with `readOnly: true`, but is read/write by default.
 ``imagePullPolicy: <V>``                          Specifies the strategy to be used to pull the container image e.g. ``imagePullPolicy: 'Always'``.
 ``imagePullSecret: <V>``                          Specifies the secret name to access a private container image registry. See `Kubernetes documentation <https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod>`_ for details.
 ``runAsUser: <UID>``                              Specifies the user ID to be used to run the container.

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Docker containers &mdash; Nextflow 21.04.0 documentation</title>
+  <title>Charliecloud containers &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -18,8 +18,8 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Shifter Containers" href="shifter.html" />
-    <link rel="prev" title="Conda environments" href="conda.html" /> 
+    <link rel="next" title="Apache Ignite" href="ignite.html" />
+    <link rel="prev" title="Podman containers" href="podman.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,17 +54,18 @@
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker containers</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Charliecloud containers</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#charliecloud-docker-hub">Charliecloud &amp; Docker Hub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multiple-containers">Multiple containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -90,7 +91,7 @@
 <div role="navigation" aria-label="Breadcrumbs">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Docker containers</li>
+      <li>Charliecloud containers</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -99,43 +100,54 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="docker-containers">
-<span id="docker-page"></span><h1>Docker containers<a class="headerlink" href="#docker-containers" title="Permalink to this headline">¶</a></h1>
-<p>Nextflow integration with <a class="reference external" href="http://www.docker.io">Docker containers</a> technology allows you to write self-contained
-and truly reproducible computational pipelines.</p>
-<p>By using this feature any process in a Nextflow script can be transparently executed into a Docker container. This may
+  <div class="section" id="charliecloud-containers">
+<span id="charliecloud-page"></span><h1>Charliecloud containers<a class="headerlink" href="#charliecloud-containers" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://hpc.github.io/charliecloud">Charliecloud</a> is an alternative Container engine to Docker, that is better
+suited for use in HPC environments. Its main advantage is that it can be used with unpriviledged permissions,
+making use of user namespaces in the Linux kernel. Charliecloud is able to pull from Docker registries.</p>
+<p>By using this feature any process in a Nextflow script can be transparently executed into a Charliecloud container. This may
 be extremely useful to package the binary dependencies of a script into a standard and portable format that can be
-executed on any platform supporting the Docker engine.</p>
+executed on any platform supporting the Charliecloud engine.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.03.0-edge</span></code> or later and Charliecloud <a href="#id1"><span class="problematic" id="id2">``</span></a>v0.22` or later.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. The use in production environment is not recommended.</p>
+</div>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
-<p>You will need Docker installed on your execution environment e.g. your computer or a distributed cluster, depending
-on where you want to run your pipeline.</p>
-<p>If you are running Docker on Mac OSX make sure you are mounting your local <code class="docutils literal notranslate"><span class="pre">/Users</span></code> directory into the Docker VM as
-explained in this excellent tutorial: <a class="reference external" href="http://viget.com/extend/how-to-use-docker-on-os-x-the-missing-guide">How to use Docker on OSX</a>.</p>
+<p>You will need Charliecloud version <code class="docutils literal notranslate"><span class="pre">0.22</span></code> or later installed on your execution environment e.g. your computer or a
+distributed cluster, depending on where you want to run your pipeline.</p>
 </div>
 <div class="section" id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
-<p>You won’t need to modify your Nextflow script in order to run it with Docker. Simply specify the Docker image from
-where the containers are started by using the <code class="docutils literal notranslate"><span class="pre">-with-docker</span></code> command line option. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">docker</span> <span class="p">[</span><span class="n">docker</span> <span class="n">image</span><span class="p">]</span>
+<p>You won’t need to modify your Nextflow script in order to run it with Charliecloud. Simply specify the docker image from
+where the containers are started by using the <code class="docutils literal notranslate"><span class="pre">-with-charliecloud</span></code> command line option. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">charliecloud</span> <span class="p">[</span><span class="n">container</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Every time your script launches a process execution, Nextflow will run it into a Docker container created by using the
-specified image. In practice Nextflow will automatically wrap your processes and run them by executing the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code>
-command with the image you have provided.</p>
+<p>Every time your script launches a process execution, Nextflow will run it into a charliecloud container created by using the
+specified container image. In practice Nextflow will automatically wrap your processes and run them by executing the <code class="docutils literal notranslate"><span class="pre">ch-run</span></code>
+command with the container you have provided.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A Docker image can contain any tool or piece of software you may need to carry out a process execution. Moreover the
+<p>A container image can contain any tool or piece of software you may need to carry out a process execution. Moreover the
 container is run in such a way that the process result files are created in the hosting file system, thus
 it behaves in a completely transparent manner without requiring extra steps or affecting the flow in your pipeline.</p>
 </div>
-<p>If you want to avoid entering the Docker image as a command line parameter, you can define it in the Nextflow configuration
+<p>If you want to avoid entering the Container image as a command line parameter, you can define it in the Nextflow configuration
 file. For example you can add the following lines in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples:latest&#39;</span>
-<span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;/path/to/container&#39;</span>
+<span class="n">charliecloud</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>In the above example replace <code class="docutils literal notranslate"><span class="pre">nextflow/examples:latest</span></code> with any Docker image of your choice.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If an absolute is provided, the container needs to be in the Charliecloud flat directory format.
+See section below for compatibility with Docker registries.</p>
+</div>
 <p>Read the <a class="reference internal" href="config.html#config-page"><span class="std std-ref">Configuration</span></a> page to learn more about the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file and how to use it to configure
 your pipeline execution.</p>
 <div class="admonition warning">
@@ -146,29 +158,31 @@ in the same folder where the symlink is located, or any its sub-folder. Otherwis
 launched container won’t be able to access the linked file.</p>
 </div>
 </div>
-<div class="section" id="multiple-containers">
-<h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to specify a different Docker image for each process definition in your pipeline script. Let’s
-suppose you have two processes named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. You can specify two different Docker images for them
-in the Nextflow script as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="n">container</span> <span class="s1">&#39;image_name_1&#39;</span>
-
-  <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">  do this</span>
-<span class="sd">  &#39;&#39;&#39;</span>
-<span class="p">}</span>
-
-<span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
-  <span class="n">container</span> <span class="s1">&#39;image_name_2&#39;</span>
-
-  <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">  do that</span>
-<span class="sd">  &#39;&#39;&#39;</span>
-<span class="p">}</span>
+<div class="section" id="charliecloud-docker-hub">
+<h2>Charliecloud &amp; Docker Hub<a class="headerlink" href="#charliecloud-docker-hub" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow is able to transparently pull remote container images stored in any Docker compatible registry and converts
+them to the Charliecloud compatible format.</p>
+<p>By default when a container name is specified, Nextflow checks if a container with that name exists in the local file
+system. If it exists, it’s used to execute the container. If a matching file does not exist,
+Nextflow automatically tries to pull an image with the specified name from the Docker Hub.</p>
+<p>To pull images from a third party Docker registry simply provide the URL to the image. If no URL is provided,
+Docker Hub is assumed. For example this can be used to pull an image from quay.io and convert it automatically
+to the Charliecloud container format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;https://quay.io/biocontainers/multiqc:1.3--py35_2&#39;</span>
+<span class="n">charliecloud</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>Alternatively, the same containers definitions can be provided by using the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file as shown below:</p>
+<p>Whereas this would pull from Docker Hub:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples:latest&#39;</span>
+<span class="n">charliecloud</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-containers">
+<h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to specify a different container for each process definition in your pipeline script. For example,
+let’s suppose you have two processes named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. You can specify two different containers
+in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
     <span class="n">withName</span><span class="p">:</span><span class="n">foo</span> <span class="p">{</span>
         <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_1&#39;</span>
@@ -177,7 +191,7 @@ in the Nextflow script as shown below:</p>
         <span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;image_name_2&#39;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-<span class="n">docker</span> <span class="p">{</span>
+<span class="n">charliecloud</span> <span class="p">{</span>
     <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">}</span>
 </pre></div>
@@ -186,7 +200,8 @@ in the Nextflow script as shown below:</p>
 </div>
 <div class="section" id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
-<p>Docker advanced configuration settings are described in <a class="reference internal" href="config.html#config-docker"><span class="std std-ref">Scope docker</span></a> section in the Nextflow configuration page.</p>
+<p>Charliecloud advanced configuration settings are described in <a class="reference internal" href="config.html#config-charliecloud"><span class="std std-ref">Scope charliecloud</span></a> section in the Nextflow
+configuration page.</p>
 </div>
 </div>
 
@@ -195,8 +210,8 @@ in the Nextflow script as shown below:</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="conda.html" class="btn btn-neutral float-left" title="Conda environments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="shifter.html" class="btn btn-neutral float-right" title="Shifter Containers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="podman.html" class="btn btn-neutral float-left" title="Podman containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ignite.html" class="btn btn-neutral float-right" title="Apache Ignite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

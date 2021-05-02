@@ -19,13 +19,31 @@ in your system environment::
 Credentials
 -----------
 
-To allow the deployment in the Google Cloud you need to configure the security credentials using
-a *Security account key* JSON file.
+Credentials for submitting requests to the Google LifeSciences API are picked up from your
+environment using `Application Default Credentials <https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http>`_.
+Application Default Credentials are designed to use the credentials most natural to the
+environment in which a tool runs.
 
-Nextflow looks for this file using the ``GOOGLE_APPLICATION_CREDENTIALS`` variable that
-has to be defined in the launching environment.
+The most common case will be to pick up your end-user Google credentials from your
+workstation. You can create these by running the command::
 
-If you don't have it, download the credentials file from the Google Cloud Console following these steps:
+    gcloud auth application-default login 
+
+and running through the authentication flow. This will write a credential file to your gcloud
+configuration directory that will be used for any tool you run on your workstation that
+picks up default credentials.
+
+The next most common case would be when running on a Compute Engine VM. In this case,
+Application Default Credentials will pick up the Compute Engine Service Account
+credentials for that VM.
+
+See the `Application Default Credentials <https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http>`_ documentation for how to enable other use cases.
+
+
+Finally, the ``GOOGLE_APPLICATION_CREDENTIALS`` environment variable can be used to specify location
+of the Google credentials file.
+
+If you don't have it, the credentials file can be download from the Google Cloud Console following these steps:
 
 * Open the `Google Cloud Console <https://console.cloud.google.com>`_
 * Go to APIs & Services → Credentials
@@ -34,11 +52,10 @@ If you don't have it, download the credentials file from the Google Cloud Consol
 * Select JSON as *Key type*
 * Click the *Create* button and download the JSON file giving a name of your choice e.g. ``creds.json``.
 
-Finally define the following variable replacing the path in the example with the one of your
+Then, define the following variable replacing the path in the example with the one of your
 credentials file just downloaded::
 
     export GOOGLE_APPLICATION_CREDENTIALS=/path/your/file/creds.json
-
 
 .. _google-lifesciences:
 
@@ -111,7 +128,9 @@ google.lifeSciences.bootDiskSize               Set the size of the virtual machi
 google.lifeSciences.copyImage                  The container image run to copy input and output files. It must include the ``gsutil`` tool (default: ``google/cloud-sdk:alpine``).
 google.lifeSciences.debug                      When ``true`` copies the `/google` debug directory in that task bucket directory (default: ``false``)
 google.lifeSciences.preemptible                When ``true`` enables the usage of *preemptible* virtual machines or ``false`` otherwise (default: ``true``)
-google.lifeSciences.usePrivateAddress          When ``true`` the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: ``false``). Requires version `20.03.0-edge` or later.
+google.lifeSciences.usePrivateAddress          When ``true`` the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: ``false``). Requires version ``20.03.0-edge`` or later.
+google.lifeSciences.network                    Set network name to attach the VM's network interface to. The value will be prefixed with global/networks/ unless it contains a /, in which case it is assumed to be a fully specified network resource URL. If unspecified, the global default network is used. Requires version ``21.03.0-edge`` or later.
+google.lifeSciences.subnetwork                 Define the name of the subnetwork to attach the instance to must be specified here, when the specified network is configured for custom subnet creation. The value is prefixed with `regions/subnetworks/` unless it contains a `/`, in which case it is assumed to be a fully specified subnetwork resource URL. Requires version ``21.03.0-edge`` or later.
 google.lifeSciences.sshDaemon                  When ``true`` runs SSH daemon in the VM carrying out the job to which it's possible to connect for debugging purposes (default: ``false``).
 google.lifeSciences.sshImage                   The container image used to run the SSH daemon (default: ``gcr.io/cloud-genomics-pipelines/tools``).
 ============================================== =================
@@ -184,6 +203,7 @@ if the virtual machine was terminated preemptively::
       maxRetries = 5
     }
 
+.. tip:: For an exhaustive list of all possible error codes, please refer to the official Google LifeSciences `documentation <https://cloud.google.com/life-sciences/docs/troubleshooting#error_codes>`_.
 
 Hybrid execution
 ----------------

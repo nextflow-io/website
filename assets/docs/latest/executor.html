@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executors &mdash; Nextflow 20.10.0 documentation</title>
+  <title>Executors &mdash; Nextflow 21.04.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#azure-batch">Azure Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#google-life-sciences">Google Life Sciences</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oar">OAR</a></li>
@@ -68,12 +69,14 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -330,6 +333,18 @@ script or the <code class="docutils literal notranslate"><span class="pre">nextf
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads. Moreover a S3 bucket must be used as pipeline work directory.</p>
 <p>See the <a class="reference internal" href="awscloud.html#awscloud-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
+</div>
+<div class="section" id="azure-batch">
+<span id="azurebatch-executor"></span><h2>Azure Batch<a class="headerlink" href="#azure-batch" title="Permalink to this headline">¶</a></h2>
+<p>Nextflow supports <a class="reference external" href="https://azure.microsoft.com/en-us/services/batch/">Azure Batch</a> service which allows submitting jobs in the cloud
+without having to spin out and manage a cluster of virtual machines. Azure Batch uses Docker containers to run tasks,
+which makes deploying pipelines much simpler.</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'azurebatch'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>The pipeline can be launched either in a local computer or a cloud virtual machine. The latter is suggested for heavy or long
+running workloads. Moreover a Azure Blob storage container must be used as pipeline work directory.</p>
+<p>See the <a class="reference internal" href="azure.html#azure-batch"><span class="std std-ref">Azure Batch</span></a> page for further configuration details.</p>
 </div>
 <div class="section" id="google-life-sciences">
 <span id="google-lifesciences-executor"></span><h2>Google Life Sciences<a class="headerlink" href="#google-life-sciences" title="Permalink to this headline">¶</a></h2>
