@@ -6,9 +6,37 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Sun, 2 May 2021 18:05:48 +0000</pubDate>
-    <lastBuildDate>Sun, 2 May 2021 18:05:48 +0000</lastBuildDate>
+    <pubDate>Thu, 13 May 2021 15:39:49 +0000</pubDate>
+    <lastBuildDate>Thu, 13 May 2021 15:39:49 +0000</lastBuildDate>
 
+    <item>
+      <title>5 Nextflow Tips for HPC Users</title>
+      <link>https://www.nextflow.io/blog/2021/5_tips_for_hpc_users.html</link>
+      <pubDate>Thu, 13 May 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2021/5_tips_for_hpc_users.html</guid>
+      	<description>
+	&lt;p&gt;Nextflow is a powerful tool for developing scientific workflows for use on HPC systems. It provides a simple solution to deploy parallelized workloads at scale using an elegant reactive/functional programming model in a portable manner. &lt;/p&gt;&lt;p&gt;It supports the most popular workload managers such as Grid Engine, Slurm, LSF and PBS, among other out-of-the-box executors, and comes with sensible defaults for each. However, each HPC system is a complex machine with its own characteristics and constraints. For this reason you should always consult your system administrator before running a new piece of software or a compute intensive pipeline that spawns a large number of jobs. &lt;/p&gt;&lt;p&gt;In this series of posts, we will be sharing the top tips we have learned along the way that should help you get results faster while keeping in the good books of your sys admins.&lt;/p&gt;&lt;h3&gt;1. Don&apos;t forget the executor&lt;/h3&gt;&lt;p&gt;Nextflow, by default, spawns parallel task executions in the computer on which it is running. This is generally useful for development purposes, however, when using an HPC system you should specify the executor matching your system. This instructs Nextflow to submit pipeline tasks as jobs into your HPC workload manager. This can be done adding the following setting to the &lt;code&gt;nextflow.config&lt;/code&gt; file in the launching directory, for example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;executor.slurm = &amp;#39;slurm&amp;#39; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;With the above setting Nextflow will submit the job executions to your Slurm cluster spawning a &lt;code&gt;sbatch&lt;/code&gt; command for each job in your pipeline. Find the executor matching your system at &lt;a href=&quot;https://www.nextflow.io/docs/latest/executor.html&quot;&gt;this link&lt;/a&gt;. Even better, to prevent the undesired use of the local executor in a specific environment, define the &lt;em&gt;default&lt;/em&gt; executor to be used by Nextflow using the following system variable: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export NXF_EXECUTOR=slurm
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;2. Nextflow as a job&lt;/h3&gt;&lt;p&gt;Quite surely your sys admin has already warned you that the login/head node should only be used to submit job executions and not run compute intensive tasks. When running a Nextflow pipeline, the driver application submits and monitors the job executions on your cluster (provided you have correctly specified the executor as stated in point 1), and therefore it should not run compute intensive tasks. &lt;/p&gt;&lt;p&gt;However, it&apos;s never a good practice to launch a long running job in the login node, and therefore a good practice consists of running Nextflow itself as a cluster job. This can be done by wrapping the &lt;code&gt;nextflow run&lt;/code&gt; command in a shell script and submitting it as any other job. An average pipeline may require 2 CPUs and 2 GB of resources allocation. &lt;/p&gt;&lt;p&gt;Note: the queue where the Nextflow driver job is submitted should allow the spawning of the pipeline jobs to carry out the pipeline execution.&lt;/p&gt;&lt;h3&gt;3. Use the queueSize directive&lt;/h3&gt;&lt;p&gt;The &lt;code&gt;queueSize&lt;/code&gt; directive is part of the executor configuration in the &lt;code&gt;nextflow.config&lt;/code&gt; file, and defines how many processes are queued at a given time. By default, Nextflow will submit up to 100 jobs at a time for execution. Increase or decrease this setting depending your HPC system quota and throughput. For example:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;executor {
+    name = &amp;#39;slurm&amp;#39;
+    queueSize = 50
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;4. Specify the max heap size&lt;/h3&gt;&lt;p&gt;The Nextflow runtime runs on top of the Java virtual machine which, by design, tries to allocate as much memory as is available. This is not a good practice in HPC systems which are designed to share compute resources across many users and applications. To avoid this, specify the maximum amount of memory that can be used by the Java VM using the -Xms and -Xmx Java flags. These can be specified using the &lt;code&gt;NXF_OPTS&lt;/code&gt; environment variable. &lt;/p&gt;&lt;p&gt;For example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export NXF_OPTS=&amp;quot;-Xms500M -Xmx2G&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above setting instructs Nextflow to allocate a Java heap in the range of 500 MB and 2 GB of RAM.&lt;/p&gt;&lt;h3&gt;5. Limit the Nextflow submit rate&lt;/h3&gt;&lt;p&gt;Nextflow attempts to submit the job executions as quickly as possible, which is generally not a problem. However, in some HPC systems the submission throughput is constrained or it should be limited to avoid degrading the overall system performance. To prevent this problem you can use &lt;code&gt;submitRateLimit&lt;/code&gt; to control the Nextflow job submission throughput. This directive is part of the &lt;code&gt;executor&lt;/code&gt; configuration scope, and defines the number of tasks that can be submitted per a unit of time. The default for the &lt;code&gt;submitRateLimit&lt;/code&gt; is unlimited. You can specify the &lt;code&gt;submitRateLimit&lt;/code&gt; like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;executor {
+    submitRateLimit = &amp;#39;10 sec&amp;#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;You can also more explicitly specify it as a rate of # processes / time unit: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;executor {
+    submitRateLimit = &amp;#39;10/2min&amp;#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Nextflow aims to give you control over every aspect of your workflow. These options allow you to shape how Nextflow communicates with your HPC system. This can make workflows more robust while avoiding overloading the executor. Some systems have hard limits, and if you do not take them into account, it will stop any jobs from being scheduled. &lt;/p&gt;&lt;p&gt;Stay tuned for part two where we will discuss background executions, retry strategies, maxForks and other tips. &lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>6 Tips for Setting Up Your Nextflow Dev Environment</title>
       <link>https://www.nextflow.io/blog/2021/nextflow-developer-environment.html</link>
