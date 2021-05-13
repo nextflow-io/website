@@ -69,7 +69,7 @@ You can specify the `submitRateLimit` like this:
 
 ```
 executor {
-    submitRateLimit = ‘10 sec’
+    submitRateLimit = '10 sec'
 }
 ```
 
@@ -77,7 +77,7 @@ You  can also more explicitly specify it as a rate of # processes / time unit:
 
 ```
 executor {
-    submitRateLimit = ‘10/2min’
+    submitRateLimit = '10/2min'
 }
 ```
 
