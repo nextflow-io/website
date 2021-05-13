@@ -14,12 +14,12 @@ It supports the most popular workload managers such as GridEngine, Slurm, LSF an
 In this series of posts, we will be sharing the top tips we have learnt along the way that should help you get your results faster while keeping in the good books of your sysadmins.
 
 
-### 1. Don't forget the executor  
+### 1. Don't forget the executor
 
 Nextflow, by default, spawns parallel task executions in the computer in which it is running. This is generally useful for development purposes, however when using an HPC system you should specify the executor matching your system. This instructs Nextflow to submit pipeline tasks as jobs into your HPC workload manager. This can be done adding the following setting to the `nextflow.config` file in the launching directory, for example:
 
 ```
-executor.slurm = 'slurm' 
+executor.slurm = 'slurm'
 ```
 
 With the above setting Nextflow will submit the job executions to your Slurm cluster spawning a `sbatch` command for each job in your pipeline. Find the executor matching your system at [this link](https://www.nextflow.io/docs/latest/executor.html).
@@ -74,7 +74,7 @@ You can specify the `submitRateLimit` like this:
 
 ```
 executor {
-	submitRateLimit = ‘10 sec’
+	submitRateLimit = '10 sec'
 }
 ```
 
@@ -82,7 +82,7 @@ You  can also more explicitly specify it as a rate of # processes / time unit:
 
 ```
 executor {
-	submitRateLimit = ‘10/2min’
+	submitRateLimit = '10/2min'
 }
 ```
 
