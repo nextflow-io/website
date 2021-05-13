@@ -28,7 +28,7 @@ Even better, to prevent the undesired use of the local executor in a specific en
 export NXF_EXECUTOR=slurm
 ```
 
-### 2. Nextflow as a job, AKA don’t run on the head/login node! 
+### 2. Nextflow as a job
 
 Quite surely your sys admin has already warned you that the login/head node should only be used to submit job executions and not run compute intensive tasks. 
 When running a Nextflow pipeline, the driver application submits and monitors the job executions on your cluster (provided you have correctly specified the executor as stated in point 1), and therefore it should not run compute intensive tasks. 
@@ -37,7 +37,7 @@ However, it's never a good practice to launch a long running job in the login no
 
 Note: the queue where the Nextflow driver job is submitted should allow the spawning of the pipeline jobs to carry out the pipeline execution.
 
-### 3. Specify queueSize
+### 3. Use the queueSize directive
 
 The `queueSize` directive is part of the executor configuration in the `nextflow.config` file, and defines how many processes are queued at a given time. By default, Nextflow will submit up to  100 jobs at a time for execution. Increase or decrease this setting depending your HPC system quota and throughput. For example:
  
@@ -61,7 +61,7 @@ export NXF_OPTS="-Xms500M -Xmx2G"
 
 The above setting instructs Nextflow to allocate a Java heap in the range of 500 MB and 2 GB of RAM.
 
-### 5. Specify the submit rate limit 
+### 5. Limit the Nextflow submit rate 
 
 Nextflow attempts to submit the job executions as quickly as possible, which is generally not a problem. However, in some HPC systems the submission throughput is constrained or it should be limited to avoid degrading the overall system performance.
 To prevent this problem you can use `submitRateLimit` to control the Nextflow job submission throughput. This directive is part of the `executor` configuration scope, and defines the number of tasks that can be submitted per a unit of time. The default for the `submitRateLimit` is unlimited. 
