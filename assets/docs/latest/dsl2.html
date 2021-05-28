@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 21.04.0 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 21.04.1 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -263,29 +263,24 @@ that can be used to reference the channel in the external scope. For example:</p
 <div class="section" id="process-named-stdout">
 <h3>Process named stdout<a class="headerlink" href="#process-named-stdout" title="Permalink to this headline">¶</a></h3>
 <p>The process can name stdout using the <code class="docutils literal notranslate"><span class="pre">emit</span></code> option:</p>
-<blockquote>
-<div><dl>
-<dt>process sayHello {</dt><dd><dl class="simple">
-<dt>input:</dt><dd><p>val cheers</p>
-</dd>
-<dt>output:</dt><dd><p>stdout emit: verbiage</p>
-</dd>
-</dl>
-<p>script:
-“””
-echo -n $cheers
-“””</p>
-</dd>
-</dl>
-<p>}</p>
-<dl class="simple">
-<dt>workflow {</dt><dd><p>things = channel.of(‘Hello world!’, ‘Yo, dude!’, ‘Duck!’)
-greetings = sayHello(things)
-greetings.verbiage.subscribe {println “$it” }</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
+    <span class="nb">input</span><span class="p">:</span>
+        <span class="n">val</span> <span class="n">cheers</span>
+    <span class="n">output</span><span class="p">:</span>
+        <span class="n">stdout</span> <span class="n">emit</span><span class="p">:</span> <span class="n">verbiage</span>
+    <span class="n">script</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    echo -n $cheers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">things</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;Hello world!&#39;</span><span class="p">,</span> <span class="s1">&#39;Yo, dude!&#39;</span><span class="p">,</span> <span class="s1">&#39;Duck!&#39;</span><span class="p">)</span>
+    <span class="n">sayHello</span><span class="p">(</span><span class="n">things</span><span class="p">)</span>
+    <span class="n">sayHello</span><span class="o">.</span><span class="n">out</span><span class="o">.</span><span class="n">verbiage</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="workflow">
