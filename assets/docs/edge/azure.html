@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Azure Cloud &mdash; Nextflow 21.04.0-edge documentation</title>
+  <title>Azure Cloud &mdash; Nextflow 21.05.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -58,7 +58,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#get-started">Get started</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pools-configuration">Pools configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#named-pools">Named pools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#requirements-on-pre-existing-named-pools">Requirements on pre-existing named pools</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pool-autoscaling">Pool autoscaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#private-container-registry">Private container registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
@@ -109,18 +111,10 @@
 <span id="azure-page"></span><h1>Azure Cloud<a class="headerlink" href="#azure-cloud" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>The support for Azure Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.02.0-edge</span></code> or later. If you don’t have it installed
+<p>The support for Azure Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.04.0</span></code> or later. If you don’t have it installed
 use the following command to download it in your computer:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_EDGE</span><span class="o">=</span><span class="mi">1</span>
-<span class="n">curl</span> <span class="n">get</span><span class="o">.</span><span class="n">nextflow</span><span class="o">.</span><span class="n">io</span> <span class="o">|</span> <span class="n">bash</span>
-<span class="o">./</span><span class="n">nextflow</span> <span class="o">-</span><span class="bp">self</span><span class="o">-</span><span class="n">update</span>
-</pre></div>
-</div>
-<p>Also the support for Azure Cloud requires adding the following setting at
-the beginning of your <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="p">{</span>
-  <span class="nb">id</span> <span class="s1">&#39;nf-azure&#39;</span>
-<span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">get</span><span class="o">.</span><span class="n">nextflow</span><span class="o">.</span><span class="n">io</span> <span class="o">|</span> <span class="n">bash</span>
+<span class="o">./</span><span class="n">nextflow</span> <span class="bp">self</span><span class="o">-</span><span class="n">update</span>
 </pre></div>
 </div>
 </div>
@@ -174,11 +168,7 @@ Take note of the account name and key.</p>
 <a class="reference external" href="https://quay.io/">Quay</a> or <a class="reference external" href="https://docs.microsoft.com/en-us/azure/container-registry/">Azure Container Registry</a>
 that can be reached by Azure Batch environment.</p>
 <p>A minimal configuration looks like the following snippet:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span> <span class="p">{</span>
-  <span class="nb">id</span> <span class="s1">&#39;nf-azure&#39;</span>
-<span class="p">}</span>
-
-<span class="n">process</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
   <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;azurebatch&#39;</span>
 <span class="p">}</span>
 
@@ -209,7 +199,7 @@ details about the configuration for the Azure Batch service.</p>
 </div>
 <div class="section" id="pools-configuration">
 <h3>Pools configuration<a class="headerlink" href="#pools-configuration" title="Permalink to this headline">¶</a></h3>
-<p>When using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code> the setting Nextflow automatically creates a <cite>pool</cite> of computing nodes to execute the
+<p>When using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code> setting Nextflow automatically creates a <cite>pool</cite> of computing nodes to execute the
 jobs run by your pipeline. By default it only uses 1 compute node of <code class="docutils literal notranslate"><span class="pre">Standard_D4_v3</span></code> type.</p>
 <p>The pool is not removed when the pipeline execution terminates, unless the configuration setting <code class="docutils literal notranslate"><span class="pre">deletePoolsOnCompletion=true</span></code>
 is added in your pipeline configuration file.</p>
@@ -238,7 +228,7 @@ is added in your pipeline configuration file.</p>
 <div class="section" id="named-pools">
 <h3>Named pools<a class="headerlink" href="#named-pools" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have a more precise control on the computing nodes pools used in your pipeline using a different pool
-depending on the task in your pipeline, you can use the Nextflow <a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a> directive to specify the <em>name</em> of a
+depending on the task in your pipeline, you can use the Nextflow <a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a> directive to specify the <em>ID</em> of a
 Azure Batch compute pool that has to be used to run that process’ tasks.</p>
 <p>The pool is expected to be already available in the Batch environment, unless the setting <code class="docutils literal notranslate"><span class="pre">allowPoolCreation=true</span></code> is
 provided in the <code class="docutils literal notranslate"><span class="pre">batch</span></code> setting in the pipeline configuration file. In the latter case Nextflow will create the pools on-demand.</p>
@@ -263,6 +253,14 @@ provided in the <code class="docutils literal notranslate"><span class="pre">bat
 <p>The above example defines the configuration for two node pools. The first will provision 10 compute nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_D2_v2</span></code>,
 the second 5 nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_E2_v3</span></code>. See the <a class="reference internal" href="#advanced-settings">Advanced settings</a> below for the complete list of available
 configuration options.</p>
+</div>
+<div class="section" id="requirements-on-pre-existing-named-pools">
+<h3>Requirements on pre-existing named pools<a class="headerlink" href="#requirements-on-pre-existing-named-pools" title="Permalink to this headline">¶</a></h3>
+<p>When Nextflow is configured to use a pool already available in the Batch account, the target pool must satisfy the following
+requirements:</p>
+<p>1 - the pool must be declared as <code class="docutils literal notranslate"><span class="pre">dockerCompatible</span></code> (<code class="docutils literal notranslate"><span class="pre">Container</span> <span class="pre">Type</span></code> property)</p>
+<p>2 - the task slots per node must match with the number of cores for the selected VM. Nextflow would return an error like
+“Azure Batch pool ‘ID’ slots per node does not match the VM num cores (slots: N, cores: Y)”.</p>
 </div>
 <div class="section" id="pool-autoscaling">
 <h3>Pool autoscaling<a class="headerlink" href="#pool-autoscaling" title="Permalink to this headline">¶</a></h3>
@@ -306,6 +304,23 @@ based on the number of pending tasks up to <code class="docutils literal notrans
 to zero nodes automatically.</p>
 <p>If you need a different strategy you can provide your own formula using the <code class="docutils literal notranslate"><span class="pre">scaleFormula</span></code> option.
 See the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">Azure Batch</a> documentation for details.</p>
+</div>
+<div class="section" id="private-container-registry">
+<h3>Private container registry<a class="headerlink" href="#private-container-registry" title="Permalink to this headline">¶</a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">21.05.0-edge</span></code>, a private container registry from where to pull Docker images can be optionally specified as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
+    <span class="n">batch</span> <span class="p">{</span>
+        <span class="n">registry</span> <span class="p">{</span>
+            <span class="n">server</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY SERVER&gt;&#39;</span> <span class="o">//</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">:</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="n">quay</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">ACCOUNT</span><span class="o">&gt;.</span><span class="n">azurecr</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span>
+            <span class="n">userName</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY USER NAME&gt;&#39;</span>
+            <span class="n">password</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY PASSWORD&gt;&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The private registry is not exclusive, rather it is an addition to the configuration.
+Public images from other registries are still pulled (if requested by a Task) when a private registry is configured.</p>
 </div>
 </div>
 <div class="section" id="advanced-settings">
@@ -381,6 +396,15 @@ See the <a class="reference external" href="https://docs.microsoft.com/en-us/azu
 </tr>
 <tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.schedulePolicy</p></td>
 <td><p>Specify the scheduling policy for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. It can be either <code class="docutils literal notranslate"><span class="pre">spread</span></code> or <code class="docutils literal notranslate"><span class="pre">pack</span></code> (default: <code class="docutils literal notranslate"><span class="pre">spread</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>azure.batch.registry.server</p></td>
+<td><p>Specify the container registry from which to pull the Docker images (default: <code class="docutils literal notranslate"><span class="pre">docker.io</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.batch.registry.userName</p></td>
+<td><p>Specify the username to connect to a private container registry (requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>azure.batch.registry.password</p></td>
+<td><p>Specify the password to connect to a private container registry (requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
