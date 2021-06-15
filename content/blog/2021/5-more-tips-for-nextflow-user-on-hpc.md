@@ -1,5 +1,5 @@
 title=Five more tips for Nextflow user on HPC
-date=2021-06-11
+date=2021-06-15
 type=post
 tags=nextflow,hpc
 status=published

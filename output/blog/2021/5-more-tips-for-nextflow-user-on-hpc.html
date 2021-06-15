@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
-    <title>Nextflow</title>
+    <title>Nextflow - Five more tips for Nextflow user on HPC</title>
     <meta name="keywords" content="dataflow, data-flow, dataflow programming model, flow-based programming, pipeline, computational pipeline, bioinformatics, bioinformatics pipeline, RNAseq, next gen sequencing, next generation sequencing, parallel computing, cloud computing, distributed computing, grid computing, cluster computing, Sun Grid Engine, SGE, Oracle Grid Engine"/>
 
     <!-- Bootstrap core CSS -->
@@ -98,39 +98,67 @@
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
 	    <div class="row">
-            <div class="col-sm-8">
-                <h3>Tag: hpc</h3>
-                <hr>
-                <ul>
-                        <h4>June 2021</h4>
-                        <ul>
-        
-                    <li>15 - <a href="/blog/2021/5-more-tips-for-nextflow-user-on-hpc.html">Five more tips for Nextflow user on HPC</a></li>
-                            </ul>
-                            <h4>May 2021</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2021/5_tips_for_hpc_users.html">5 Nextflow Tips for HPC Users</a></li>
-                            </ul>
-                            <h4>February 2016</h4>
-                            <ul>
-        
-                    <li>11 - <a href="/blog/2016/error-recovery-and-automatic-resources-management.html">Error recovery and automatic resource management with Nextflow</a></li>
-        
-                    <li>04 - <a href="/blog/2016/developing-bioinformatics-pipeline-across-multiple-environments.html">Developing a bioinformatics pipeline across multiple environments</a></li>
-                            </ul>
-                            <h4>November 2015</h4>
-                            <ul>
-        
-                    <li>13 - <a href="/blog/2015/mpi-like-execution-with-nextflow.html">MPI-like distributed execution with Nextflow</a></li>
-                            </ul>
-                            <h4>November 2014</h4>
-                            <ul>
-        
-                    <li>06 - <a href="/blog/2014/using-docker-in-hpc-cluster.html">Using Docker for scientific data analysis in an HPC cluster   </a></li>
-                </ul>              
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">Five more tips for Nextflow user on HPC</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Kevin Sayers</li>
+				<li><i class="fa fa-calendar"></i> 15 June 2021</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>In May we blogged about <a href="/blog/2021/5_tips_for_hpc_users.html">Five Nextflow Tips for HPC Users</a> and now we continue the series with five additional tips for deploying Nextflow with on HPC batch schedulers.</p><h3>1. Use the scratch directive</h3><p>To allow the pipeline tasks to share data with each other, Nextflow requires a shared file system path as a working directory. When using this model, a common recommendation is to use the node's local scratch storage as the job working directory to avoid unnecessary use of the network shared file system and achieve better performance.</p><p>Nextflow implements this best-practice which can be enabled by adding the following setting in your <code>nextflow.config</code> file.</p>
+<pre><code>process.scratch = true
+</code></pre><p>When using this option, Nextflow: * Creates a unique directory in the computing node's local <code>/tmp</code> or the path assigned by your cluster via the <code>TMPDIR</code> environment variable. * Creates a <a href="https://en.wikipedia.org/wiki/Symbolic_link">symlink</a> for each input file required by the job execution. * Runs the job in the local scratch path. Copies the job output files into the job shared work directory assigned by Nextflow.</p><h3>2. Use -bg option to launch the execution in the background</h3><p>In some circumstances, you may need to run your Nextflow pipeline in the background without losing the execution output. In this scenario use the <code>-bg</code> command line option as shown below. </p>
+<pre><code>nextflow run &lt;pipeline&gt; -bg &gt; my-file.log
+</code></pre><p>This can be very useful when launching the execution from an SSH connected terminal and ensures that any connection issues don't stop the pipeline. You can use <code>ps</code> and <code>kill</code> to find and stop the execution.</p><h3>3. Disable interactive logging</h3><p>Nextflow has rich terminal logging which uses ANSI escape codes to update the pipeline execution counters interactively. However, this is not very useful when submitting the pipeline execution as a cluster job or in the background. In this case, disable the rich ANSI logging using the command line option <code>-ansi-log false</code> or the environment variable <code>NXF_ANSI_LOG=false</code>.</p><h3>4. Cluster native options</h3><p>Nextlow has portable directives for common resource requests such as <a href="https://www.nextflow.io/docs/latest/process.html#cpus">cpus</a>, <a href="https://www.nextflow.io/docs/latest/process.html#memory">memory</a> and <a href="https://www.nextflow.io/docs/latest/process.html#disk">disk</a> allocation. </p><p>These directives allow you to specify the request for a certain number of computing resources e.g CPUs, memory, or disk and Nextflow converts these values to the native setting of the target execution platform specified in the pipeline configuration.</p><p>However, there can be settings that are only available on some specific cluster technology or vendors. </p><p>The <a href="https://www.nextflow.io/docs/latest/process.html#clusterOptions">clusterOptions</a> directive allows you to specify any option of your resource manager for which there isn't direct support in Nextflow. </p><h3>5. Retry failing jobs increasing resource allocation</h3><p>A common scenario is that instances of the same process may require different computing resources. For example, requesting an amount of memory that is too low for some processes will result in those tasks failing. You could specify a higher limit which would accommodate the task with the highest memory utilization, but you then run the risk of decreasing your job’s execution priority. </p><p>Nextflow provides a mechanism that allows you to modify the amount of computing resources requested in the case of a process failure and attempt to re-execute it using a higher limit. For example:</p>
+<pre><code>process foo {
 
-            </div>
+  memory { 2.GB * task.attempt }
+  time { 1.hour * task.attempt }
+
+  errorStrategy { task.exitStatus in 137..140 ? &#39;retry&#39; : &#39;terminate&#39; }
+  maxRetries 3
+
+  script:
+  &quot;&quot;&quot;
+  your_job_command --here
+  &quot;&quot;&quot;
+}
+</code></pre><p>In the above example the memory and execution time limits are defined dynamically. The first time the process is executed the task.attempt is set to 1, thus it will request 2 GB of memory and one hour of maximum execution time.</p><p>If the task execution fails, reporting an exit status in the range between 137 and 140, the task is re-submitted (otherwise it terminates immediately). This time the value of task.attempt is 2, thus increasing the amount of the memory to four GB and the time to 2 hours, and so on.</p><p>NOTE: These exit statuses are not standard and can change depending on the resource manager you are using. Consult your cluster administrator or scheduler administration guide for details on the exit statuses used by your cluster in similar error conditions. </p><h3>Conclusion</h3><p>Nextflow aims to give you control over every aspect of your workflow. These Nextflow options allow you to shape how Nextflow submits your processes to your executor, that can make your workflow more robust by avoiding the overloading of the executor. Some systems have hard limits which if you do not take into account, no processes will be executed. Being aware of these configuration values and how to use them is incredibly helpful when working with larger workflows. </p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/hpc.html" class="background-color bg-hover-color">hpc</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
 		  <div class="col-sm-4">
 			<h3>Stay Tuned <small>Social Links</small></h3>
 			<hr>
@@ -169,6 +197,7 @@
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
+
 	
 <div class="footer-wrapper"> <!-- footer wrapper -->
     <hr>
