@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 21.05.0-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 21.06.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -98,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 </ul>
 
         </div>
@@ -1368,90 +1369,94 @@ facilitates rapid iterations, inspections of any pipeline as well as debugging.<
 <td></td>
 <td><p>Load script parameters from a JSON/YAML file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-process.</p></td>
+<tr class="row-odd"><td><p>-plugins</p></td>
+<td></td>
+<td><p>Comma separated list of plugin ids to be applied in the pipeline execution.</p></td>
+</tr>
+<tr class="row-even"><td><p>-process.</p></td>
 <td><p>{}</p></td>
 <td><p>Set process options. Syntax <code class="docutils literal notranslate"><span class="pre">-process.key=value</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>-profile</p></td>
+<tr class="row-odd"><td><p>-profile</p></td>
 <td></td>
 <td><p>Choose a configuration profile.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-qs, -queue-size</p></td>
+<tr class="row-even"><td><p>-qs, -queue-size</p></td>
 <td></td>
 <td><p>Max number of processes that can be executed in parallel by each executor.</p></td>
 </tr>
-<tr class="row-even"><td><p>-resume</p></td>
+<tr class="row-odd"><td><p>-resume</p></td>
 <td></td>
 <td><p>Execute the script using the cached results, useful to continue executions that
 was stopped by an error.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-r, -revision</p></td>
+<tr class="row-even"><td><p>-r, -revision</p></td>
 <td></td>
 <td><p>Revision of the project to run
 (either a git <code class="docutils literal notranslate"><span class="pre">branch</span></code>, <code class="docutils literal notranslate"><span class="pre">tag</span></code> or commit <code class="docutils literal notranslate"><span class="pre">SHA</span></code> number).</p></td>
 </tr>
-<tr class="row-even"><td><p>-test</p></td>
+<tr class="row-odd"><td><p>-test</p></td>
 <td></td>
 <td><p>Test a script function with the name specified.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-user</p></td>
+<tr class="row-even"><td><p>-user</p></td>
 <td></td>
 <td><p>Private repository user name.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-conda</p></td>
+<tr class="row-odd"><td><p>-with-conda</p></td>
 <td></td>
 <td><p>Use the specified Conda environment package or
 file (must end with <code class="docutils literal notranslate"><span class="pre">.yml|.yaml</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-dag</p></td>
+<tr class="row-even"><td><p>-with-dag</p></td>
 <td><p>dag.dot</p></td>
 <td><p>Create pipeline DAG file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-docker</p></td>
+<tr class="row-odd"><td><p>-with-docker</p></td>
 <td></td>
 <td><p>Enable process execution in a Docker container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-N, -with-notification</p></td>
+<tr class="row-even"><td><p>-N, -with-notification</p></td>
 <td></td>
 <td><p>Send a notification email on workflow completion to the specified recipients.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-podman</p></td>
+<tr class="row-odd"><td><p>-with-podman</p></td>
 <td></td>
 <td><p>Enable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-report</p></td>
+<tr class="row-even"><td><p>-with-report</p></td>
 <td><p>report.html</p></td>
 <td><p>Create processes execution html report.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-singularity</p></td>
+<tr class="row-odd"><td><p>-with-singularity</p></td>
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-timeline</p></td>
+<tr class="row-even"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-tower</p></td>
+<tr class="row-odd"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-trace</p></td>
+<tr class="row-even"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-weblog</p></td>
+<tr class="row-odd"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-docker</p></td>
+<tr class="row-even"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-podman</p></td>
+<tr class="row-odd"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-w, -work-dir</p></td>
+<tr class="row-even"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>

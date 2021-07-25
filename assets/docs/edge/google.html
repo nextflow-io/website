@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Cloud &mdash; Nextflow 21.05.0-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 21.06.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -82,6 +82,7 @@
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 </ul>
 
         </div>
@@ -272,6 +273,24 @@ each process using one or more <a class="reference internal" href="config.html#c
 </tr>
 <tr class="row-odd"><td><p>google.lifeSciences.sshImage</p></td>
 <td><p>The container image used to run the SSH daemon (default: <code class="docutils literal notranslate"><span class="pre">gcr.io/cloud-genomics-pipelines/tools</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.lifeSciences.keepAliveOnFailure</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> and a task complete with an unexpected exit status the associated computing node is kept up for 1 hour. This options implies <code class="docutils literal notranslate"><span class="pre">sshDaemon=true</span></code> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.delayBetweenAttempts</p></td>
+<td><p>Delay between download attempts from Google Storage (default <cite>10 sec</cite>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.storage.maxParallelTransfers</p></td>
+<td><p>Max parallel upload/download transfer operations <em>per job</em> (default: <code class="docutils literal notranslate"><span class="pre">4</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.maxTransferAttempts</p></td>
+<td><p>Max number of downloads attempts from Google Storage (default: <cite>1</cite>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.storage.parallelThreadCount</p></td>
+<td><p>Defines the value for the option <code class="docutils literal notranslate"><span class="pre">GSUtil:parallel_thread_count</span></code> used by <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> for transfer input and output data (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.downloadMaxComponents</p></td>
+<td><p>Defines the value for the option <code class="docutils literal notranslate"><span class="pre">GSUtil:sliced_object_download_max_components</span></code> used by <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> for transfer input and output data (default: <code class="docutils literal notranslate"><span class="pre">8</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Azure Cloud &mdash; Nextflow 21.05.0-edge documentation</title>
+  <title>Azure Cloud &mdash; Nextflow 21.06.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
@@ -79,6 +79,7 @@
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 </ul>
 
         </div>
@@ -362,10 +363,10 @@ Public images from other registries are still pulled (if requested by a Task) wh
 <td><p>The batch service location e.g. <code class="docutils literal notranslate"><span class="pre">westeurope</span></code>. This is not needed when the endpoint is specified.</p></td>
 </tr>
 <tr class="row-even"><td><p>azure.batch.autoPoolMode</p></td>
-<td><p>Enable the automatic creation of batch pools depending on the pipeline resources demand (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
+<td><p>Enable the automatic creation of batch pools depending on the pipeline resources demand (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>azure.batch.allowPoolCreation</p></td>
-<td><p>Enable the automatic creation of batch pools specified in the Nextflow configuration file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+<td><p>Enable the automatic creation of batch pools specified in the Nextflow configuration file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p>azure.batch.deleteJobsOnCompletion</p></td>
 <td><p>Enable the automatic deletion of jobs created by the pipeline execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
@@ -374,7 +375,7 @@ Public images from other registries are still pulled (if requested by a Task) wh
 <td><p>Enable the automatic deletion of compute node pools upon pipeline completion (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p>azure.batch.copyToolInstallMode</p></td>
-<td><p>Specify where the <cite>azcopy</cite> tool used by Nextflow. When <code class="docutils literal notranslate"><span class="pre">node</span></code> is specified it’s copied once during the pool creation. When <code class="docutils literal notranslate"><span class="pre">task</span></code> is provider, it’s installed for each task execution (default: <code class="docutils literal notranslate"><span class="pre">node</span></code>)</p></td>
+<td><p>Specify where the <cite>azcopy</cite> tool used by Nextflow. When <code class="docutils literal notranslate"><span class="pre">node</span></code> is specified it’s copied once during the pool creation. When <code class="docutils literal notranslate"><span class="pre">task</span></code> is provider, it’s installed for each task execution (default: <code class="docutils literal notranslate"><span class="pre">node</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.vmType</p></td>
 <td><p>Specify the virtual machine type used by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
@@ -392,10 +393,16 @@ Public images from other registries are still pulled (if requested by a Task) wh
 <td><p>Specify the scale formula for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. See Azure Batch <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">scaling documentation</a> for details.</p></td>
 </tr>
 <tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.scaleInterval</p></td>
-<td><p>Specify the interval at which to automatically adjust the Pool size according to the autoscale formula. The minimum and maximum value are 5 minutes and 168 hours respectively (default: <cite>10 mins</cite>)</p></td>
+<td><p>Specify the interval at which to automatically adjust the Pool size according to the autoscale formula. The minimum and maximum value are 5 minutes and 168 hours respectively (default: <cite>10 mins</cite>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.schedulePolicy</p></td>
 <td><p>Specify the scheduling policy for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. It can be either <code class="docutils literal notranslate"><span class="pre">spread</span></code> or <code class="docutils literal notranslate"><span class="pre">pack</span></code> (default: <code class="docutils literal notranslate"><span class="pre">spread</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.privileged</p></td>
+<td><p>Enable the task to run with elevated access. Ignored if <cite>runAs</cite> is set (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.runAs</p></td>
+<td><p>Specify the username under which the task is run. The user must already exist on each node of the pool.</p></td>
 </tr>
 <tr class="row-even"><td><p>azure.batch.registry.server</p></td>
 <td><p>Specify the container registry from which to pull the Docker images (default: <code class="docutils literal notranslate"><span class="pre">docker.io</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
