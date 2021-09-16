@@ -6,9 +6,54 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Mon, 6 Sep 2021 15:59:25 +0000</pubDate>
-    <lastBuildDate>Mon, 6 Sep 2021 15:59:25 +0000</lastBuildDate>
+    <pubDate>Thu, 16 Sep 2021 15:03:50 +0000</pubDate>
+    <lastBuildDate>Thu, 16 Sep 2021 15:03:50 +0000</lastBuildDate>
 
+    <item>
+      <title>Introducing Nextflow support for SQL databases</title>
+      <link>https://www.nextflow.io/blog/2021/nextflow-sql-support.html</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2021/nextflow-sql-support.html</guid>
+      	<description>
+	&lt;p&gt;The recent tweet introducing the &lt;a href=&quot;https://twitter.com/PaoloDiTommaso/status/1433120149888974854&quot;&gt;Nextflow support for SQL databases&lt;/a&gt; raised a lot of positive reaction. In this post, I want to describe more in detail how this extension works. &lt;/p&gt;&lt;p&gt;Nextflow was designed with the idea to streamline the deployment of complex data pipelines in a scalable, portable and reproducible manner across different computing platforms. To make this all possible, it was decided the resulting pipeline and the runtime should be self-contained i.e. to not depend on separate services such as database servers. &lt;/p&gt;&lt;p&gt;This makes the resulting pipelines easier to configure, deploy, and allows for testing them using &lt;a href=&quot;https://en.wikipedia.org/wiki/Continuous_integration&quot;&gt;CI services&lt;/a&gt;, which is a critical best practice for delivering high-quality and stable software.&lt;/p&gt;&lt;p&gt;Another important consequence is that Nextflow pipelines do not retain the pipeline state on separate storage. Said in a different way, the idea was - and still is - to promote stateless pipeline execution in which the computed results are only determined by the pipeline inputs and the code itself, which is consistent with the &lt;em&gt;functional&lt;/em&gt; dataflow paradigm on which Nextflow is based. &lt;/p&gt;&lt;p&gt;However, the ability to access SQL data sources can be very useful in data pipelines, for example, to ingest input metadata or to store task executions logs. &lt;/p&gt;&lt;h3&gt;How does it work?&lt;/h3&gt;&lt;p&gt;The support for SQL databases in Nextflow is implemented as an optional plugin component. This plugin provides two new operations into your Nextflow script: &lt;/p&gt;&lt;p&gt;1) &lt;code&gt;fromQuery&lt;/code&gt; performs a SQL query against the specified database and returns a Nextflow channel emitting them. This channel can be used in your pipeline as any other Nextflow channel to trigger the process execution with the corresponding values. 2) &lt;code&gt;sqlInsert&lt;/code&gt; takes the values emitted by a Nextflow channel and inserts them into a database table. &lt;/p&gt;&lt;p&gt;The plugin supports out-of-the-box popular database servers such as MySQL, PostgreSQL and MariaDB. It should be noted that the technology is based on the Java JDBC database standard, therefore it could easily support any database technology implementing a driver for this standard interface. &lt;/p&gt;&lt;p&gt;Disclaimer: This plugin is a preview technology. Some features, syntax and configuration settings can change in future releases.&lt;/p&gt;&lt;h3&gt;Let&apos;s get started!&lt;/h3&gt;&lt;p&gt;The use of the SQL plugin requires the use of Nextflow 21.08.0-edge or later. If are using an older version, check &lt;a href=&quot;https://www.nextflow.io/docs/latest/getstarted.html#stable-edge-releases&quot;&gt;this page&lt;/a&gt; on how to update to the latest edge release.&lt;/p&gt;&lt;p&gt;To enable the use of the database plugin, add the following snippet in your pipeline configuration file. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;plugins {
+  id &amp;#39;nf-sqldb@0.1.0&amp;#39;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is then required to specify the connection &lt;em&gt;coordinates&lt;/em&gt; of the database service you want to connect to in your pipeline. This is done by adding a snippet similar to the following in your configuration file: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sql {
+    db {
+        &amp;#39;my-db&amp;#39; {
+              url = &amp;#39;jdbc:mysql://localhost:3306/demo&amp;#39;
+              user = &amp;#39;my-user&amp;#39;
+              password = &amp;#39;my-password&amp;#39;
+            }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the above example, replace &lt;code&gt;my-db&lt;/code&gt; with a name of your choice (this name will be used in the script to reference the corresponding database connection coordinates). Also, provide a &lt;code&gt;url&lt;/code&gt;, &lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt; matching your database server. &lt;/p&gt;&lt;p&gt;Your script should then look like the following: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow.enable.dsl=2
+
+process myProcess {
+  input:
+    tuple val(sample_id), path(sample_in) 
+  output:
+    tuple val(sample_id), path(&amp;#39;sample.out&amp;#39;) 
+
+  &amp;quot;&amp;quot;&amp;quot;
+  your_command --input $sample_id &amp;gt; sample.out
+  &amp;quot;&amp;quot;&amp;quot;
+}
+
+workflow {
+
+  query = &amp;#39;select SAMPLE_ID, SAMPLE_FILE from SAMPLES&amp;#39;
+  channel.sql.fromQuery(query, db: &amp;#39;my-db&amp;#39;) \
+    | myProcess \
+    | sqlInsert(table: &amp;#39;RESULTS&amp;#39;, db: &amp;#39;my-db&amp;#39;)
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above example shows how to perform a simple database query, pipe the results to a fictitious process named &lt;code&gt;myProcess&lt;/code&gt; and finally store the process outputs into a database table named &lt;code&gt;RESULTS&lt;/code&gt;. &lt;/p&gt;&lt;p&gt;It is worth noting that Nextflow allows the use of any number of database instances in your pipeline, simply defining them in the configuration file using the syntax shown above. This could be useful to fetch database data from one data source and store the results into a different one. &lt;/p&gt;&lt;p&gt;Also, this makes it straightforward to write &lt;a href=&quot;https://en.wikipedia.org/wiki/Extract,_transform,_load&quot;&gt;ETL&lt;/a&gt; scripts that span across multiple data sources. &lt;/p&gt;&lt;p&gt;Find more details about the SQL plugin for Nextflow at &lt;a href=&quot;https://github.com/nextflow-io/nf-sqldb&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;What about the self-contained property?&lt;/h2&gt;&lt;p&gt;You may wonder if adding this capability breaks the self-contained property of Nextflow pipelines which allows them to be run in a single command and to be tested with continuous integration services e.g. GitHub Action. &lt;/p&gt;&lt;p&gt;The good news is that it does not ... or at least it should not if used properly. &lt;/p&gt;&lt;p&gt;In fact, the SQL plugin includes the &lt;a href=&quot;http://www.h2database.com/html/features.html&quot;&gt;H2&lt;/a&gt; embedded in-memory SQL database that is used by default when no other database is provided in the Nextflow configuration file and can be used for developing and testing your pipeline without the need for a separate database service. &lt;/p&gt;&lt;p&gt;Tip: Other than this, H2 also provides the capability to access and query CSV/TSV files as SQL tables. Read more about this feature at &lt;a href=&quot;http://www.h2database.com/html/tutorial.html?highlight=csv&amp;search=csv#csv&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;The use of this plugin adds to Nextflow the capability to query and store data into the SQL databases. Currently, the most popular SQL technologies are supported such as MySQL, PostgreSQL and MariaDB. In the future, support for other database technologies e.g. MongoDB, DynamoDB could be added. &lt;/p&gt;&lt;p&gt;Notably, the support for SQL data-stores has been implemented preserving the core Nextflow capabilities to allow portable and self-contained pipeline scripts that can be developed locally, tested through CI services, and deployed at scale into production environments. &lt;/p&gt;&lt;p&gt;If you have any questions or suggestions, please feel free to comment in the project discussion group at &lt;a href=&quot;https://github.com/nextflow-io/nf-sqldb/discussions&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Credits to &lt;a href=&quot;https://twitter.com/fstrozzi&quot;&gt;Francesco Strozzi&lt;/a&gt; &amp;amp; &lt;a href=&quot;https://twitter.com/bonnalr&quot;&gt;Raoul J.P. Bonnal&lt;/a&gt; for having contributed to this work 🙏.&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Five more tips for Nextflow user on HPC</title>
       <link>https://www.nextflow.io/blog/2021/5-more-tips-for-nextflow-user-on-hpc.html</link>
