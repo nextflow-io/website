@@ -7,7 +7,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](blog/2019/demystifying-nextflow-resume.html)*.
+*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](/blog/2019/demystifying-nextflow-resume.html)*.
 
 ### Troubleshooting resume
 
