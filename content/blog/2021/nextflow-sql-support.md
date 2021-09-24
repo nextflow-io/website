@@ -1,7 +1,7 @@
 title=Introducing Nextflow support for SQL databases
 date=2021-09-16
 type=post
-tags=nextflow,sql
+tags=nextflow,plugins,sql
 status=published
 author=Paolo Di Tommaso
 icon=paolo.jpg
