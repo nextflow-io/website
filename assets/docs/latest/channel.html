@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Channels &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -124,7 +127,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="channels">
+  <section id="channels">
 <span id="channel-page"></span><h1>Channels<a class="headerlink" href="#channels" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow is based on the Dataflow programming model in which processes communicate through channels.</p>
 <p>A channel has two major properties:</p>
@@ -133,10 +136,10 @@
 without having to wait for the receiving process.</p></li>
 <li><p>Receiving data is a blocking operation which stops the receiving process until the message has arrived.</p></li>
 </ol>
-<div class="section" id="channel-types">
+<section id="channel-types">
 <span id="id1"></span><h2>Channel types<a class="headerlink" href="#channel-types" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow distinguish two different kinds of channels: <cite>queue channels</cite> and <cite>value channels</cite>.</p>
-<div class="section" id="queue-channel">
+<section id="queue-channel">
 <span id="channel-type-queue"></span><h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline">¶</a></h3>
 <p>A <cite>queue channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes or operators.</p>
 <p>A queue channel is usually created using a factory method such as a <a class="reference internal" href="#from">from</a>, <a class="reference internal" href="#frompath">fromPath</a>, etc.
@@ -150,8 +153,8 @@ output and more than one time as process input.</p>
 <p>If you need to connect a process output channel to more than one process or operator use the
 <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator to create two (or more) copies of the same channel and use each
 of them to connect a separate process.</p>
-</div>
-<div class="section" id="value-channel">
+</section>
+<section id="value-channel">
 <span id="channel-type-value"></span><h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline">¶</a></h3>
 <p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> by definition is bound to a single value and it can be read
 unlimited times without consuming its content.</p>
@@ -185,9 +188,9 @@ inputs are only value channels.</p>
 <p>The process in the above snippet declares a single input which implicitly is a value channel.
 Therefore also the <code class="docutils literal notranslate"><span class="pre">result</span></code> output is a value channel that can be read by more than one process.</p>
 <p>See also: <a class="reference internal" href="process.html#process-understand-how-multiple-input-channels-work"><span class="std std-ref">Understand how multiple input channels work</span></a>.</p>
-</div>
-</div>
-<div class="section" id="channel-factory">
+</section>
+</section>
+<section id="channel-factory">
 <span id="id2"></span><h2>Channel factory<a class="headerlink" href="#channel-factory" title="Permalink to this headline">¶</a></h2>
 <p>Channels may be created implicitly by the process output(s) declaration or explicitly using the following channel
 factory methods.</p>
@@ -207,7 +210,7 @@ factory methods.</p>
 <p>As of version 20.07.0 the prefix <code class="docutils literal notranslate"><span class="pre">channel.</span></code> has been introduced as an alias of <code class="docutils literal notranslate"><span class="pre">Channel.</span></code>, therefore factory
 methods can be used either with the syntaxes <code class="docutils literal notranslate"><span class="pre">channel.from()</span></code> and <code class="docutils literal notranslate"><span class="pre">Channel.from()</span></code>, and so on.</p>
 </div>
-<div class="section" id="create">
+<section id="create">
 <span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -217,8 +220,8 @@ methods can be used either with the syntaxes <code class="docutils literal notra
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="of">
+</section>
+<section id="of">
 <span id="channel-of"></span><h3>of<a class="headerlink" href="#of" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">of</span></code> method allows you to create a channel emitting any sequence of values that are specified as the method argument,
 for example:</p>
@@ -239,7 +242,7 @@ specified as a parameter in the <code class="docutils literal notranslate"><span
 <p>Range of values are expanded accordingly.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mf">1.</span><span class="o">.</span><span class="mi">23</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mf">1..23</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -259,8 +262,8 @@ specified as a parameter in the <code class="docutils literal notranslate"><span
 <p>This feature requires Nextflow version 19.10.0 of later.</p>
 </div>
 <p>See also: <a class="reference internal" href="#fromlist">fromList</a> factory method.</p>
-</div>
-<div class="section" id="from">
+</section>
+<section id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -282,7 +285,7 @@ specified as a parameter in the <code class="docutils literal notranslate"><span
 </pre></div>
 </div>
 <p>The following example shows how to create a channel from a <cite>range</cite> of numbers or strings:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zeroToNine</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">0.</span><span class="o">.</span><span class="mi">9</span> <span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">zeroToNine</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mf">0..9</span> <span class="p">)</span>
 <span class="n">strings</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;A&#39;</span><span class="o">..</span><span class="s1">&#39;Z&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
@@ -303,8 +306,8 @@ creates a channel emitting three entries each of which is a list containing two 
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="value">
+</section>
+<section id="value">
 <span id="channel-value"></span><h3>value<a class="headerlink" href="#value" title="Permalink to this headline">¶</a></h3>
 <p>The <cite>value</cite> factory method is used to create a <em>value</em> channel. An optional not <code class="docutils literal notranslate"><span class="pre">null</span></code> argument
 can be specified to bind the channel to a specific value. For example:</p>
@@ -315,8 +318,8 @@ can be specified to bind the channel to a specific value. For example:</p>
 </div>
 <p>The first line in the example creates an ‘empty’ variable. The second line creates a channel and binds a string to it.
 Finally the last one creates a channel and binds a list object to it that will be emitted as a sole emission.</p>
-</div>
-<div class="section" id="fromlist">
+</section>
+<section id="fromlist">
 <span id="channel-fromlist"></span><h3>fromList<a class="headerlink" href="#fromlist" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">fromList</span></code> method allows you to create a channel emitting the values provided as a list of elements,
 for example:</p>
@@ -337,8 +340,8 @@ for example:</p>
 <p class="admonition-title">Note</p>
 <p>This feature requires Nextflow version 19.10.0 of later.</p>
 </div>
-</div>
-<div class="section" id="frompath">
+</section>
+<section id="frompath">
 <span id="channel-path"></span><h3>fromPath<a class="headerlink" href="#frompath" title="Permalink to this headline">¶</a></h3>
 <p>You can create a channel emitting one or more file paths by using the <code class="docutils literal notranslate"><span class="pre">fromPath</span></code> method and specifying a path string
 as an argument. For example:</p>
@@ -435,8 +438,8 @@ and directory starting with a <code class="docutils literal notranslate"><span c
 </div>
 <p>(requires version 0.31.x or later)</p>
 </div>
-</div>
-<div class="section" id="fromfilepairs">
+</section>
+<section id="fromfilepairs">
 <span id="channel-filepairs"></span><h3>fromFilePairs<a class="headerlink" href="#fromfilepairs" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">fromFilePairs</span></code> method creates a channel emitting the file pairs matching a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> pattern provided by the user.
 The matching files are emitted as tuples in which the first element is the grouping key of the matching
@@ -510,8 +513,8 @@ For example:</p>
 </div>
 <p>(requires version 0.31.x or later)</p>
 </div>
-</div>
-<div class="section" id="fromsra">
+</section>
+<section id="fromsra">
 <span id="channel-fromsra"></span><h3>fromSRA<a class="headerlink" href="#fromsra" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">fromSRA</span></code> method queries the <a class="reference external" href="https://www.ncbi.nlm.nih.gov/sra">NCBI SRA</a> database and returns a channel emitting
 the FASTQ files matching the specified criteria i.e project or accession number(s). For example:</p>
@@ -584,8 +587,8 @@ should be provided either:</p>
 <p class="admonition-title">Note</p>
 <p>This feature requires Nextflow version 19.04.0 or later.</p>
 </div>
-</div>
-<div class="section" id="watchpath">
+</section>
+<section id="watchpath">
 <span id="channel-watch"></span><h3>watchPath<a class="headerlink" href="#watchpath" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">watchPath</span></code> method watches a folder for one or more files matching a specified pattern. As soon as
 there is a file that meets the specified condition, it is emitted over the channel that is returned by the <code class="docutils literal notranslate"><span class="pre">watchPath</span></code>
@@ -633,18 +636,18 @@ second argument that specifies what event(s) to watch. The supported events are:
 Thus, whenever you use it in your script, the resulting pipeline will never finish.</p>
 </div>
 <p>See also: <a class="reference internal" href="#frompath">fromPath</a> factory method.</p>
-</div>
-<div class="section" id="empty">
+</section>
+<section id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn’t emit any value.</p>
 <p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a> operators.</p>
-</div>
-</div>
-<div class="section" id="binding-values">
+</section>
+</section>
+<section id="binding-values">
 <h2>Binding values<a class="headerlink" href="#binding-values" title="Permalink to this headline">¶</a></h2>
 <p>Since in <cite>Nextflow</cite> channels are implemented using <cite>dataflow</cite> variables or queues. Thus sending a message
 is equivalent to <cite>bind</cite> a value to object representing the communication channel.</p>
-<div class="section" id="bind">
+<section id="bind">
 <span id="channel-bind1"></span><h3>bind<a class="headerlink" href="#bind" title="Permalink to this headline">¶</a></h3>
 <p>Channel objects provide a <cite>bind( )</cite> method which is the basic operation to send a message over the channel.
 For example:</p>
@@ -652,8 +655,8 @@ For example:</p>
 <span class="n">myChannel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="operator">
+</section>
+<section id="operator">
 <span id="channel-bind2"></span><h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline">¶</a></h3>
 <p>The operator <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <cite>bind</cite> method. Thus, the following example produce
 an identical result as the previous one:</p>
@@ -661,11 +664,11 @@ an identical result as the previous one:</p>
 <span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Hello world&#39;</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="observing-events">
+</section>
+</section>
+<section id="observing-events">
 <h2>Observing events<a class="headerlink" href="#observing-events" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="subscribe">
+<section id="subscribe">
 <span id="channel-subscribe"></span><h3>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
@@ -701,8 +704,8 @@ specifying the expected value type, as shown in the following example:</p>
 </pre></div>
 </div>
 <p>Read <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closures</span></a> paragraph to learn more about <cite>closure</cite> feature.</p>
-</div>
-<div class="section" id="onnext-oncomplete-and-onerror">
+</section>
+<section id="onnext-oncomplete-and-onerror">
 <h3>onNext, onComplete, and onError<a class="headerlink" href="#onnext-oncomplete-and-onerror" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method may accept one or more of the following event handlers:</p>
 <ul class="simple">
@@ -725,9 +728,9 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
 <span class="n">Done</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

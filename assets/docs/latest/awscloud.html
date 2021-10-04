@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Amazon Cloud &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -109,9 +112,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="amazon-cloud">
+  <section id="amazon-cloud">
 <span id="awscloud-page"></span><h1>Amazon Cloud<a class="headerlink" href="#amazon-cloud" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="aws-credentials">
+<section id="aws-credentials">
 <h2>AWS credentials<a class="headerlink" href="#aws-credentials" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow will use the AWS credentials defined in your environment, using the standard AWS variables shown below:</p>
 <blockquote>
@@ -133,7 +136,7 @@ it spares you from managing/distributing AWS keys explicitly.
 Read the <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation
 and <a class="reference external" href="https://aws.amazon.com/blogs/security/granting-permission-to-launch-ec2-instances-with-iam-roles-passrole-permission/">this blog post</a> for more details.</p>
 </div>
-<div class="section" id="aws-batch">
+<section id="aws-batch">
 <span id="awscloud-batch"></span><h3>AWS Batch<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -143,9 +146,9 @@ and <a class="reference external" href="https://aws.amazon.com/blogs/security/gr
 workloads in the Amazon cloud infrastructure.</p>
 <p>Nextflow provides a built-in support for AWS Batch which allows the seamless deployment of a Nextflow pipeline
 in the cloud offloading the process executions as Batch jobs.</p>
-</div>
-</div>
-<div class="section" id="configuration">
+</section>
+</section>
+<section id="configuration">
 <span id="awscloud-batch-config"></span><h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>1 - Make sure your pipeline processes specifies one or more Docker containers by using the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
 <p>2 - Container images need to be published in a Docker registry such as <a class="reference external" href="https://hub.docker.com/">Docker Hub</a>,
@@ -186,8 +189,8 @@ to it.</p>
 be enough for real world data analysis pipelines.</p>
 </div>
 <p>See the section below to learn how to create a custom AWS Batch custom AMI with a larger storage.</p>
-</div>
-<div class="section" id="custom-ami">
+</section>
+<section id="custom-ami">
 <h2>Custom AMI<a class="headerlink" href="#custom-ami" title="Permalink to this headline">¶</a></h2>
 <p>In the EC2 Dashboard, click the <cite>Launch Instance</cite> button, then choose <cite>AWS Marketplace</cite> in the left pane and enter
 <cite>ECS</cite> in the search box. In result list select <cite>Amazon ECS-Optimized Amazon Linux 2 AMI</cite>, then continue as usual to
@@ -203,8 +206,8 @@ that may be required.</p>
 <p>Once done that, create a new AMI by using the <em>Create Image</em> option in the EC2 Dashboard or the AWS command line tool.</p>
 <p>The new AMI ID needs to be specified when creating the Batch
 <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html">Computing environment</a>.</p>
-</div>
-<div class="section" id="aws-cli-installation">
+</section>
+<section id="aws-cli-installation">
 <span id="aws-cli"></span><h2>AWS CLI installation<a class="headerlink" href="#aws-cli-installation" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -245,8 +248,8 @@ configuration as shown below:</p>
 <p>Using a version of Nextflow prior 19.07.x the config setting <cite>executor.awscli</cite> should be used
 instead of <cite>aws.batch.cliPath</cite>.</p>
 </div>
-</div>
-<div class="section" id="custom-job-definition">
+</section>
+<section id="custom-job-definition">
 <h2>Custom job definition<a class="headerlink" href="#custom-job-definition" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow automatically creates the Batch <a class="reference external" href="http://docs.aws.amazon.com/batch/latest/userguide/job_definitions.html">Job definitions</a>
 needed to execute your pipeline processes. Therefore it’s not required to define them before run your workflow.</p>
@@ -259,8 +262,8 @@ directive and specifing, in place of the container image name, the Job definitio
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;job-definition://your-job-definition-name&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="pipeline-execution">
+</section>
+<section id="pipeline-execution">
 <h2>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Permalink to this headline">¶</a></h2>
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads.</p>
@@ -275,8 +278,8 @@ The pipeline execution must specifies a AWS Storage bucket where jobs intermedia
 <p>The bucket path should include at least a top level directory name e.g. use <code class="docutils literal notranslate"><span class="pre">s3://my-bucket/work</span></code>
 not just <code class="docutils literal notranslate"><span class="pre">s3://my-bucket</span></code>.</p>
 </div>
-</div>
-<div class="section" id="hybrid-workloads">
+</section>
+<section id="hybrid-workloads">
 <h2>Hybrid workloads<a class="headerlink" href="#hybrid-workloads" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
 of hybrid workloads in which some jobs are execute in the local computer or local computing cluster and
@@ -302,8 +305,8 @@ For example:</p>
 </div>
 <p>The above configuration snippet will deploy the execution with AWS Batch only for processes annotated
 with the <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> <code class="docutils literal notranslate"><span class="pre">bigTask</span></code>, the remaining process with run in the local computer.</p>
-</div>
-<div class="section" id="volume-mounts">
+</section>
+<section id="volume-mounts">
 <h2>Volume mounts<a class="headerlink" href="#volume-mounts" title="Permalink to this headline">¶</a></h2>
 <p>User provided container volume mounts can be provided as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
@@ -333,8 +336,8 @@ mounts the path <code class="docutils literal notranslate"><span class="pre">/ho
 <p class="admonition-title">Note</p>
 <p>This feature requires Nextflow version 19.07.x or later.</p>
 </div>
-</div>
-<div class="section" id="troubleshooting">
+</section>
+<section id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
 <p><strong>Problem</strong>: The Pipeline execution terminates with an AWS error message similar to the one shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">JobQueue</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">queue</span><span class="o">&gt;</span> <span class="ow">not</span> <span class="n">found</span>
@@ -356,12 +359,12 @@ which does not allow the execution of the Bash launcher script required by Nextf
 <li><p>The Job execution log in the AWS Batch dashboard.</p></li>
 <li><p>The <a class="reference external" href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> logs found in the <code class="docutils literal notranslate"><span class="pre">/aws/batch/job</span></code> log group.</p></li>
 </ul>
-</div>
-<div class="section" id="advanced-configuration">
+</section>
+<section id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
 <p>Read <a class="reference internal" href="config.html#config-aws-batch"><span class="std std-ref">AWS Batch configuration</span></a> section to learn more about advanced Batch configuration options.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

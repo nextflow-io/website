@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conda environments &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -105,7 +108,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="conda-environments">
+  <section id="conda-environments">
 <span id="conda-page"></span><h1>Conda environments<a class="headerlink" href="#conda-environments" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://conda.io/">Conda</a> is an open source package and environment management
 system that simplifies the installation and the configuration of complex software packages
@@ -115,12 +118,12 @@ using Conda recipes and environment files.</p>
 <p>This allows Nextflow applications to use popular tool collections
 such as <a class="reference external" href="https://bioconda.github.io">Bioconda</a> whilst taking advantage of the configuration
 flexibility provided by Nextflow.</p>
-<div class="section" id="prerequisites">
+<section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>This feature requires Nextflow version 0.30.x or higher and the Conda or
 <a class="reference external" href="https://conda.io/miniconda.html">Miniconda</a> package manager installed on your system.</p>
-</div>
-<div class="section" id="how-it-works">
+</section>
+<section id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow  automatically creates and activates the Conda environment(s) given the dependencies
 specified by each process.</p>
@@ -142,7 +145,7 @@ accessible from all computing nodes.</p>
 <p>The Conda environment feature is not supported by executors which use
 a remote object storage as a work directory eg. AWS Batch.</p>
 </div>
-<div class="section" id="use-conda-package-names">
+<section id="use-conda-package-names">
 <h3>Use Conda package names<a class="headerlink" href="#use-conda-package-names" title="Permalink to this headline">¶</a></h3>
 <p>Conda package names can specified using the <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive. Multiple package names can be specified
 by separating them with a blank space.
@@ -162,8 +165,8 @@ activated when the process is executed.</p>
 specified after the package name as shown here <code class="docutils literal notranslate"><span class="pre">bwa=0.7.15</span></code>.</p>
 <p>The name of the channel where a package is located can be specified prefixing the package with
 the channel name as shown here <code class="docutils literal notranslate"><span class="pre">bioconda::bwa=0.7.15</span></code>.</p>
-</div>
-<div class="section" id="use-conda-environment-files">
+</section>
+<section id="use-conda-environment-files">
 <h3>Use Conda environment files<a class="headerlink" href="#use-conda-environment-files" title="Permalink to this headline">¶</a></h3>
 <p>Conda environments can also be defined using one or more Conda environment files. This is a file that
 lists the required packages and channels structured using the YAML format. For example:</p>
@@ -173,8 +176,8 @@ lists the required packages and channels structured using the YAML format. For e
   <span class="o">-</span> <span class="n">bioconda</span>
   <span class="o">-</span> <span class="n">defaults</span>
 <span class="n">dependencies</span><span class="p">:</span>
-  <span class="o">-</span> <span class="n">star</span><span class="o">=</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">4</span><span class="n">a</span>
-  <span class="o">-</span> <span class="n">bwa</span><span class="o">=</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">15</span>
+  <span class="o">-</span> <span class="n">star</span><span class="o">=</span><span class="mf">2.5.4</span><span class="n">a</span>
+  <span class="o">-</span> <span class="n">bwa</span><span class="o">=</span><span class="mf">0.7.15</span>
 </pre></div>
 </div>
 <p>Read the Conda documentation for more details about how to create <a class="reference external" href="https://conda.io/docs/user-guide/tasks/manage-environments.html#creating-an-environment-file-manually">environment files</a>.</p>
@@ -195,8 +198,8 @@ it won’t be properly recognised.</p>
 </div>
 <p>Alternatively it is also possible to provide the dependencies using a plain text file,
 just listing each package name as a separate line. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bioconda</span><span class="p">::</span><span class="n">star</span><span class="o">=</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">4</span><span class="n">a</span>
-<span class="n">bioconda</span><span class="p">::</span><span class="n">bwa</span><span class="o">=</span><span class="mf">0.7</span><span class="o">.</span><span class="mi">15</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bioconda</span><span class="p">::</span><span class="n">star</span><span class="o">=</span><span class="mf">2.5.4</span><span class="n">a</span>
+<span class="n">bioconda</span><span class="p">::</span><span class="n">bwa</span><span class="o">=</span><span class="mf">0.7.15</span>
 <span class="n">bioconda</span><span class="p">::</span><span class="n">multiqc</span><span class="o">=</span><span class="mf">1.4</span>
 </pre></div>
 </div>
@@ -204,8 +207,8 @@ just listing each package name as a separate line. For example:</p>
 <p class="admonition-title">Note</p>
 <p>Like before the extension matter, make sure such file ends with the <code class="docutils literal notranslate"><span class="pre">.txt</span></code> extension.</p>
 </div>
-</div>
-<div class="section" id="use-existing-conda-environments">
+</section>
+<section id="use-existing-conda-environments">
 <h3>Use existing Conda environments<a class="headerlink" href="#use-existing-conda-environments" title="Permalink to this headline">¶</a></h3>
 <p>If you already have a local Conda environment, you can use it in your workflow specifying the
 installation directory of such environment by using the <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive:</p>
@@ -218,9 +221,9 @@ installation directory of such environment by using the <code class="docutils li
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="best-practices">
+</section>
+</section>
+<section id="best-practices">
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline">¶</a></h2>
 <p>When a <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive is used in any <code class="docutils literal notranslate"><span class="pre">process</span></code> definition within the workflow script, Conda tool is required for
 the workflow execution.</p>
@@ -240,13 +243,13 @@ recommended to allow the execution via a command line option and to enhance the 
 </div>
 <p>The above configuration snippet allows the execution either with Conda or Docker specifying <code class="docutils literal notranslate"><span class="pre">-profile</span> <span class="pre">conda</span></code> or
 <code class="docutils literal notranslate"><span class="pre">-profile</span> <span class="pre">docker</span></code> when running the workflow script.</p>
-</div>
-<div class="section" id="advanced-settings">
+</section>
+<section id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
 <p>Conda advanced configuration settings are described in the <a class="reference internal" href="config.html#config-conda"><span class="std std-ref">Conda</span></a> section on the Nextflow
 configuration page.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

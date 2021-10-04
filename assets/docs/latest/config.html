@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -137,9 +140,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="configuration">
+  <section id="configuration">
 <span id="config-page"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="configuration-file">
+<section id="configuration-file">
 <h2>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline">¶</a></h2>
 <p>When a pipeline script is launched, Nextflow looks for configuration files in multiple locations.
 Since each configuration file can contain conflicting settings, the sources are ranked to decide which
@@ -161,7 +164,7 @@ first override the same ones that may appear in the second one, and so on.</p>
 <p>If you want to ignore any default configuration files and use only the custom one use the command line option
 <code class="docutils literal notranslate"><span class="pre">-C</span> <span class="pre">&lt;config</span> <span class="pre">file&gt;</span></code>.</p>
 </div>
-<div class="section" id="config-syntax">
+<section id="config-syntax">
 <h3>Config syntax<a class="headerlink" href="#config-syntax" title="Permalink to this headline">¶</a></h3>
 <p>A Nextflow configuration file is a simple text file containing a set of properties defined using the syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="o">=</span> <span class="n">value</span>
@@ -170,8 +173,8 @@ first override the same ones that may appear in the second one, and so on.</p>
 <p>Please note, string values need to be wrapped in quotation characters while numbers and boolean values (<code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>) do not.
 Also note that values are typed, meaning for example that, <code class="docutils literal notranslate"><span class="pre">1</span></code> is different from <code class="docutils literal notranslate"><span class="pre">'1'</span></code>, since the first is interpreted
 as the number one, while the latter is interpreted as a string value.</p>
-</div>
-<div class="section" id="config-variables">
+</section>
+<section id="config-variables">
 <h3>Config Variables<a class="headerlink" href="#config-variables" title="Permalink to this headline">¶</a></h3>
 <p>Configuration properties can be used as variables in the configuration file itself, by using the usual
 <code class="docutils literal notranslate"><span class="pre">$propertyName</span></code> or <code class="docutils literal notranslate"><span class="pre">${expression}</span></code> syntax.</p>
@@ -187,13 +190,13 @@ reference must be wrapped in double-quote chars instead of single-quote chars.</
 not defined in the Nextflow configuration file(s) is supposed to be a reference to an environment variable with that name.
 So, in the above example the property <code class="docutils literal notranslate"><span class="pre">customPath</span></code> is defined as the current system <code class="docutils literal notranslate"><span class="pre">PATH</span></code> to which
 the string <code class="docutils literal notranslate"><span class="pre">/my/app/folder</span></code> is appended.</p>
-</div>
-<div class="section" id="config-comments">
+</section>
+<section id="config-comments">
 <h3>Config comments<a class="headerlink" href="#config-comments" title="Permalink to this headline">¶</a></h3>
 <p>Configuration files use the same conventions for comments used by the Groovy or Java programming languages. Thus, use <code class="docutils literal notranslate"><span class="pre">//</span></code> to comment
 a single line or <code class="docutils literal notranslate"><span class="pre">/*</span></code> .. <code class="docutils literal notranslate"><span class="pre">*/</span></code> to comment a block on multiple lines.</p>
-</div>
-<div class="section" id="config-include">
+</section>
+<section id="config-include">
 <h3>Config include<a class="headerlink" href="#config-include" title="Permalink to this headline">¶</a></h3>
 <p>A configuration file can include one or more configuration files using the keyword <code class="docutils literal notranslate"><span class="pre">includeConfig</span></code>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
@@ -204,9 +207,9 @@ a single line or <code class="docutils literal notranslate"><span class="pre">/*
 </pre></div>
 </div>
 <p>When a relative path is used, it is resolved against the actual location of the including file.</p>
-</div>
-</div>
-<div class="section" id="config-scopes">
+</section>
+</section>
+<section id="config-scopes">
 <h2>Config scopes<a class="headerlink" href="#config-scopes" title="Permalink to this headline">¶</a></h2>
 <p>Configuration settings can be organized in different scopes by dot prefixing the property names with a scope
 identifier or grouping the properties in the same scope using the curly brackets notation. This is shown in the
@@ -220,7 +223,7 @@ following example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="scope-env">
+<section id="scope-env">
 <span id="config-env"></span><h3>Scope <cite>env</cite><a class="headerlink" href="#scope-env" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> scope allows the definition one or more variable that will be exported in the environment where the
 workflow tasks will be executed.</p>
@@ -234,8 +237,8 @@ workflow tasks will be executed.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="scope-params">
+</section>
+<section id="scope-params">
 <h3>Scope <cite>params</cite><a class="headerlink" href="#scope-params" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">params</span></code> scope allows you to define parameters that will be accessible in the pipeline script. Simply prefix the
 parameter names with the <code class="docutils literal notranslate"><span class="pre">params</span></code> scope or surround them by curly brackets, as shown below:</p>
@@ -250,8 +253,8 @@ parameter names with the <code class="docutils literal notranslate"><span class=
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="scope-process">
+</section>
+<section id="scope-process">
 <span id="config-process"></span><h3>Scope <cite>process</cite><a class="headerlink" href="#scope-process" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">process</span></code> configuration scope allows you to provide the default configuration for the processes in your pipeline.</p>
 <p>You can specify here any property described in the <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">process directive</span></a> and the executor sections.
@@ -265,7 +268,7 @@ For examples:</p>
 </div>
 <p>By using this configuration all processes in your pipeline will be executed through the SGE cluster, with the specified
 settings.</p>
-<div class="section" id="process-selectors">
+<section id="process-selectors">
 <span id="config-process-selectors"></span><h4>Process selectors<a class="headerlink" href="#process-selectors" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive as
 shown below:</p>
@@ -297,8 +300,8 @@ For example:</p>
 does include special characters (e.g. <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">!</span></code>, etc) or it’s not a keyword or a built-in type identifier.
 In case of doubt, you can enclose the label names or the process names with single or double quote characters.</p>
 </div>
-</div>
-<div class="section" id="selector-expressions">
+</section>
+<section id="selector-expressions">
 <span id="config-selector-expressions"></span><h4>Selector expressions<a class="headerlink" href="#selector-expressions" title="Permalink to this headline">¶</a></h4>
 <p>Both label and process name selectors allow the use of a regular expression in order to apply the same configuration
 to all processes matching the specified pattern condition. For example:</p>
@@ -323,8 +326,8 @@ and <code class="docutils literal notranslate"><span class="pre">bar</span></cod
 <p>The above configuration snippet sets 2 cpus for the processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label and 4 cpus to all processes
 <em>not</em> annotated with that label. Finally it sets the use of <code class="docutils literal notranslate"><span class="pre">long</span></code> queue to all process whose name does <em>not</em> start
 with <code class="docutils literal notranslate"><span class="pre">align</span></code>.</p>
-</div>
-<div class="section" id="selectors-priority">
+</section>
+<section id="selectors-priority">
 <span id="config-selectors-priority"></span><h4>Selectors priority<a class="headerlink" href="#selectors-priority" title="Permalink to this headline">¶</a></h4>
 <p>When mixing generic process configuration and selectors the following priority rules are applied (from lower to higher):</p>
 <ol class="arabic simple">
@@ -344,9 +347,9 @@ with <code class="docutils literal notranslate"><span class="pre">align</span></
 <p>Using the above configuration snippet, all workflow processes use 4 cpus if not otherwise specified in the workflow
 script. Moreover processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label use 8 cpus. Finally the process named <code class="docutils literal notranslate"><span class="pre">bar</span></code>
 uses 32 cpus.</p>
-</div>
-</div>
-<div class="section" id="scope-executor">
+</section>
+</section>
+<section id="scope-executor">
 <span id="config-executor"></span><h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
 <table class="docutils align-default">
@@ -428,8 +431,8 @@ executor.$local.cpus = 8
 executor.$local.memory = &#39;32 GB&#39;
 </pre></div>
 </div>
-</div>
-<div class="section" id="scope-docker">
+</section>
+<section id="scope-docker">
 <span id="config-docker"></span><h3>Scope <cite>docker</cite><a class="headerlink" href="#scope-docker" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">docker</span></code> configuration scope controls how <a class="reference external" href="https://www.docker.com">Docker</a> containers are executed by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -493,8 +496,8 @@ brackets, as shown below:</p>
 </pre></div>
 </div>
 <p>Read <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to learn more how use Docker containers with Nextflow.</p>
-</div>
-<div class="section" id="scope-singularity">
+</section>
+<section id="scope-singularity">
 <span id="config-singularity"></span><h3>Scope <cite>singularity</cite><a class="headerlink" href="#scope-singularity" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">singularity</span></code> configuration scope controls how <a class="reference external" href="https://sylabs.io/singularity/">Singularity</a> containers are executed
 by Nextflow.</p>
@@ -537,8 +540,8 @@ by Nextflow.</p>
 </tbody>
 </table>
 <p>Read <a class="reference internal" href="singularity.html#singularity-page"><span class="std std-ref">Singularity containers</span></a> page to learn more how use Singularity containers with Nextflow.</p>
-</div>
-<div class="section" id="scope-podman">
+</section>
+<section id="scope-podman">
 <span id="config-podman"></span><h3>Scope <cite>podman</cite><a class="headerlink" href="#scope-podman" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">podman</span></code> configuration scope controls how <a class="reference external" href="https://podman.io/">Podman</a> containers are executed by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -590,8 +593,8 @@ brackets, as shown below:</p>
 </pre></div>
 </div>
 <p>Read <a class="reference internal" href="podman.html#podman-page"><span class="std std-ref">Podman containers</span></a> page to learn more how use Podman containers with Nextflow.</p>
-</div>
-<div class="section" id="scope-charliecloud">
+</section>
+<section id="scope-charliecloud">
 <span id="config-charliecloud"></span><h3>Scope <cite>charliecloud</cite><a class="headerlink" href="#scope-charliecloud" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> configuration scope controls how <a class="reference external" href="https://hpc.github.io/charliecloud/">Charliecloud</a> containers are executed by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -636,8 +639,8 @@ brackets, as shown below:</p>
 </pre></div>
 </div>
 <p>Read <a class="reference internal" href="charliecloud.html#charliecloud-page"><span class="std std-ref">Charliecloud containers</span></a> page to learn more how use Charliecloud containers with Nextflow.</p>
-</div>
-<div class="section" id="scope-manifest">
+</section>
+<section id="scope-manifest">
 <span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">manifest</span></code> configuration scope allows you to define some meta-data information needed when publishing your pipeline project on GitHub, BitBucket or GitLab, or when running your pipeline.</p>
 <p>The following settings are available:</p>
@@ -696,7 +699,7 @@ brackets. For example:</p>
 </div>
 <p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a>
 documentation page.</p>
-<div class="section" id="nextflow-version">
+<section id="nextflow-version">
 <h4>Nextflow version<a class="headerlink" href="#nextflow-version" title="Permalink to this headline">¶</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">nextflowVersion</span></code> setting allows you to specify a minimum required version to run the pipeline.
 This may be useful to ensure that a specific version is used:</p>
@@ -708,9 +711,9 @@ nextflowVersion = &#39;!&gt;=1.2&#39;       // with ! prefix, stop execution if 
                                     does not match required version.
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="scope-trace">
+</section>
+</section>
+<section id="scope-trace">
 <span id="config-trace"></span><h3>Scope <cite>trace</cite><a class="headerlink" href="#scope-trace" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> scope allows you to control the layout of the execution trace file generated by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -755,8 +758,8 @@ brackets. For example:</p>
 </pre></div>
 </div>
 <p>To learn more about the execution report that can be generated by Nextflow read <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace report</span></a> documentation page.</p>
-</div>
-<div class="section" id="scope-dag">
+</section>
+<section id="scope-dag">
 <span id="config-dag"></span><h3>Scope <cite>dag</cite><a class="headerlink" href="#scope-dag" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope allows you to control the layout of the execution graph file generated by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -788,8 +791,8 @@ brackets. For example:</p>
 </pre></div>
 </div>
 <p>To learn more about the execution graph that can be generated by Nextflow read <a class="reference internal" href="tracing.html#dag-visualisation"><span class="std std-ref">DAG visualisation</span></a> documentation page.</p>
-</div>
-<div class="section" id="scope-aws">
+</section>
+<section id="scope-aws">
 <span id="config-aws"></span><h3>Scope <cite>aws</cite><a class="headerlink" href="#scope-aws" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">aws</span></code> scope allows you to configure the access to Amazon S3 storage. Use the attributes <code class="docutils literal notranslate"><span class="pre">accessKey</span></code> and <code class="docutils literal notranslate"><span class="pre">secretKey</span></code>
 to specify your bucket credentials. For example:</p>
@@ -921,15 +924,15 @@ to specify your bucket credentials. For example:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="scope-cloud">
+</section>
+<section id="scope-cloud">
 <span id="config-cloud"></span><h3>Scope <cite>cloud</cite><a class="headerlink" href="#scope-cloud" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cloud</span></code> configuration scope has been retired.</p>
 </div>
-</div>
-<div class="section" id="scope-conda">
+</section>
+<section id="scope-conda">
 <span id="config-conda"></span><h3>Scope <cite>conda</cite><a class="headerlink" href="#scope-conda" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> scope allows for the definition of the configuration settings that control the creation of a Conda environment
 by the Conda package manager.</p>
@@ -956,8 +959,8 @@ by the Conda package manager.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="scope-k8s">
+</section>
+<section id="scope-k8s">
 <span id="config-k8s"></span><h3>Scope <cite>k8s</cite><a class="headerlink" href="#scope-k8s" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> scope allows the definition of the configuration settings that control the deployment and execution of
 workflow applications in a Kubernetes cluster.</p>
@@ -1018,8 +1021,8 @@ workflow applications in a Kubernetes cluster.</p>
 </tbody>
 </table>
 <p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes</span></a> documentation for more details.</p>
-</div>
-<div class="section" id="scope-timeline">
+</section>
+<section id="scope-timeline">
 <span id="config-timeline"></span><h3>Scope <cite>timeline</cite><a class="headerlink" href="#scope-timeline" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">timeline</span></code> scope allows you to enable/disable the processes execution timeline report generated by Nextflow.</p>
 <p>The following settings are available:</p>
@@ -1045,8 +1048,8 @@ workflow applications in a Kubernetes cluster.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="scope-mail">
+</section>
+<section id="scope-mail">
 <span id="config-mail"></span><h3>Scope <cite>mail</cite><a class="headerlink" href="#scope-mail" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">mail</span></code> scope allows you to define the mail server configuration settings needed to send email messages.</p>
 <table class="docutils align-default">
@@ -1108,8 +1111,8 @@ See the <a class="reference external" href="https://javaee.github.io/javamail/do
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="scope-notification">
+</section>
+<section id="scope-notification">
 <span id="config-notification"></span><h3>Scope <cite>notification</cite><a class="headerlink" href="#scope-notification" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">notification</span></code> scope allows you to define the automatic sending of a notification email message
 when the workflow execution terminates.</p>
@@ -1144,8 +1147,8 @@ when the workflow execution terminates.</p>
 <p>The notification message is sent my using the STMP server defined in the configuration <a class="reference internal" href="#config-mail"><span class="std std-ref">mail scope</span></a>.</p>
 <p>If no mail configuration is provided, it tries to send the notification message by using the external mail command
 eventually provided by the underlying system (eg. <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> or <code class="docutils literal notranslate"><span class="pre">mail</span></code>).</p>
-</div>
-<div class="section" id="scope-report">
+</section>
+<section id="scope-report">
 <span id="config-report"></span><h3>Scope <cite>report</cite><a class="headerlink" href="#scope-report" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">report</span></code> scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
 <table class="docutils align-default">
@@ -1170,8 +1173,8 @@ eventually provided by the underlying system (eg. <code class="docutils literal 
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="scope-tower">
+</section>
+<section id="scope-tower">
 <span id="config-tower"></span><h3>Scope <cite>tower</cite><a class="headerlink" href="#scope-tower" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">tower</span></code> configuration scope controls the settings for the <a class="reference external" href="https://tower.nf">Nextflow Tower</a> monitoring and tracing service.</p>
 <p>The following settings are available:</p>
@@ -1209,8 +1212,8 @@ brackets, as shown below:</p>
 <p class="admonition-title">Tip</p>
 <p>Your <code class="docutils literal notranslate"><span class="pre">accessToken</span></code> can be obtained from your Tower instance in the page <em>Your Token</em>.</p>
 </div>
-</div>
-<div class="section" id="scope-weblog">
+</section>
+<section id="scope-weblog">
 <span id="config-weblog"></span><h3>Scope <cite>weblog</cite><a class="headerlink" href="#scope-weblog" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">weblog</span></code> scope allows you to send detailed <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">trace scope</span></a> information as HTTP POST request to a webserver, shipped as a JSON object.</p>
 <p>Detailed information about the JSON fields can be found in the <a class="reference internal" href="tracing.html#weblog-service"><span class="std std-ref">weblog description</span></a>.</p>
@@ -1233,9 +1236,9 @@ brackets, as shown below:</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="section" id="config-profiles">
+</section>
+</section>
+<section id="config-profiles">
 <span id="id1"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline">¶</a></h2>
 <p>Configuration files can contain the definition of one or more <em>profiles</em>. A profile is a set of configuration attributes
 that can be activated/chosen when launching a pipeline execution by using the <code class="docutils literal notranslate"><span class="pre">-profile</span></code> command line option.</p>
@@ -1294,8 +1297,8 @@ inside and outside a <code class="docutils literal notranslate"><span class="pre
 used in the <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code> profile contexts.</p>
 </div>
 <p>The above feature requires version 0.28.x or higher.</p>
-</div>
-<div class="section" id="environment-variables">
+</section>
+<section id="environment-variables">
 <span id="config-env-vars"></span><h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
 <p>The following environment variables control the configuration of the Nextflow runtime and
 the Java virtual machine used by it.</p>
@@ -1390,8 +1393,8 @@ the Java virtual machine used by it.</p>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

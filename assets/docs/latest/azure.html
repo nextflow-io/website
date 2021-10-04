@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Azure Cloud &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -60,6 +63,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#named-pools">Named pools</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#requirements-on-pre-existing-named-pools">Requirements on pre-existing named pools</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pool-autoscaling">Pool autoscaling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#private-container-registry">Private container registry</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
@@ -107,9 +111,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="azure-cloud">
+  <section id="azure-cloud">
 <span id="azure-page"></span><h1>Azure Cloud<a class="headerlink" href="#azure-cloud" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
+<section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>The support for Azure Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.04.0</span></code> or later. If you don’t have it installed
 use the following command to download it in your computer:</p>
@@ -117,8 +121,8 @@ use the following command to download it in your computer:</p>
 <span class="o">./</span><span class="n">nextflow</span> <span class="bp">self</span><span class="o">-</span><span class="n">update</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="azure-blob-storage">
+</section>
+<section id="azure-blob-storage">
 <span id="azure-blobstorage"></span><h2>Azure Blob Storage<a class="headerlink" href="#azure-blob-storage" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow has built-in support for <a class="reference external" href="https://azure.microsoft.com/en-us/services/storage/blobs/">Azure Blob Storage</a>.
 Files stored in a Azure blob container can be accessed transparently in your pipeline script like any other file
@@ -147,14 +151,14 @@ the permissions: <cite>Read</cite>, <cite>Write</cite>, <cite>Delete</cite>, <ci
 the file path with the <code class="docutils literal notranslate"><span class="pre">az://</span></code> prefix followed by the container name. For example, having a container named <code class="docutils literal notranslate"><span class="pre">my-data</span></code>
 container a file named <code class="docutils literal notranslate"><span class="pre">foo.txt</span></code> you can access it in your Nextflow script using the following fully qualified
 file path <code class="docutils literal notranslate"><span class="pre">az://my-data/foo.txt</span></code>.</p>
-</div>
-<div class="section" id="azure-batch">
+</section>
+<section id="azure-batch">
 <span id="id2"></span><h2>Azure Batch<a class="headerlink" href="#azure-batch" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/">Azure Batch</a> is a managed computing service that allows the execution
 of containerised workloads in the Azure cloud infrastructure.</p>
 <p>Nextflow provides a built-in support for Azure Batch which allows the seamless deployment of a Nextflow pipeline in the cloud
 offloading the process executions as Batch jobs.</p>
-<div class="section" id="get-started">
+<section id="get-started">
 <h3>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h3>
 <p>1 - Create a Batch account in Azure portal. Take note of the account name and key.</p>
 <p>2 - Make sure to adjust your quotas on the pipeline’s needs. There are limits on certain resources associated with the
@@ -196,8 +200,8 @@ save it to a file named <code class="docutils literal notranslate"><span class="
 container in the storage account defined in the above configuration.</p>
 <p>See the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/quick-create-portal">Batch documentation</a> for further
 details about the configuration for the Azure Batch service.</p>
-</div>
-<div class="section" id="pools-configuration">
+</section>
+<section id="pools-configuration">
 <h3>Pools configuration<a class="headerlink" href="#pools-configuration" title="Permalink to this headline">¶</a></h3>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">autoPoolMode</span></code> setting Nextflow automatically creates a <cite>pool</cite> of computing nodes to execute the
 jobs run by your pipeline. By default it only uses 1 compute node of <code class="docutils literal notranslate"><span class="pre">Standard_D4_v3</span></code> type.</p>
@@ -224,8 +228,8 @@ is added in your pipeline configuration file.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="named-pools">
+</section>
+<section id="named-pools">
 <h3>Named pools<a class="headerlink" href="#named-pools" title="Permalink to this headline">¶</a></h3>
 <p>If you want to have a more precise control on the computing nodes pools used in your pipeline using a different pool
 depending on the task in your pipeline, you can use the Nextflow <a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a> directive to specify the <em>ID</em> of a
@@ -253,16 +257,16 @@ provided in the <code class="docutils literal notranslate"><span class="pre">bat
 <p>The above example defines the configuration for two node pools. The first will provision 10 compute nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_D2_v2</span></code>,
 the second 5 nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_E2_v3</span></code>. See the <a class="reference internal" href="#advanced-settings">Advanced settings</a> below for the complete list of available
 configuration options.</p>
-</div>
-<div class="section" id="requirements-on-pre-existing-named-pools">
+</section>
+<section id="requirements-on-pre-existing-named-pools">
 <h3>Requirements on pre-existing named pools<a class="headerlink" href="#requirements-on-pre-existing-named-pools" title="Permalink to this headline">¶</a></h3>
 <p>When Nextflow is configured to use a pool already available in the Batch account, the target pool must satisfy the following
 requirements:</p>
 <p>1 - the pool must be declared as <code class="docutils literal notranslate"><span class="pre">dockerCompatible</span></code> (<code class="docutils literal notranslate"><span class="pre">Container</span> <span class="pre">Type</span></code> property)</p>
 <p>2 - the task slots per node must match with the number of cores for the selected VM. Nextflow would return an error like
 “Azure Batch pool ‘ID’ slots per node does not match the VM num cores (slots: N, cores: Y)”.</p>
-</div>
-<div class="section" id="pool-autoscaling">
+</section>
+<section id="pool-autoscaling">
 <h3>Pool autoscaling<a class="headerlink" href="#pool-autoscaling" title="Permalink to this headline">¶</a></h3>
 <p>Azure Batch can automatically scale pools based on parameters that you define, saving you time and money. With automatic scaling,
 Batch dynamically adds nodes to a pool as task demands increase, and removes compute nodes as task demands decrease.</p>
@@ -304,9 +308,30 @@ based on the number of pending tasks up to <code class="docutils literal notrans
 to zero nodes automatically.</p>
 <p>If you need a different strategy you can provide your own formula using the <code class="docutils literal notranslate"><span class="pre">scaleFormula</span></code> option.
 See the <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">Azure Batch</a> documentation for details.</p>
+</section>
+<section id="private-container-registry">
+<h3>Private container registry<a class="headerlink" href="#private-container-registry" title="Permalink to this headline">¶</a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">21.05.0-edge</span></code>, a private container registry from where to pull Docker images can be optionally specified as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
+    <span class="n">registry</span> <span class="p">{</span>
+        <span class="n">server</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY SERVER&gt;&#39;</span> <span class="o">//</span> <span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">:</span> <span class="n">docker</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="n">quay</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">ACCOUNT</span><span class="o">&gt;.</span><span class="n">azurecr</span><span class="o">.</span><span class="n">io</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span>
+        <span class="n">userName</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY USER NAME&gt;&#39;</span>
+        <span class="n">password</span> <span class="o">=</span>  <span class="s1">&#39;&lt;YOUR REGISTRY PASSWORD&gt;&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 </div>
+<p>The private registry is not exclusive, rather it is an addition to the configuration.
+Public images from other registries are still pulled (if requested by a Task) when a private registry is configured.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using containers hosted into a private registry, the registry name must also be provided in the container name
+specified via the <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive using the format: <code class="docutils literal notranslate"><span class="pre">[server]/[your-organization]/[your-image]:[tag]</span></code>.
+Read more about image fully qualified image names in the <a class="reference external" href="https://docs.docker.com/engine/reference/commandline/pull/#pull-from-a-different-registry">Docker documentation</a>.</p>
 </div>
-<div class="section" id="advanced-settings">
+</section>
+</section>
+<section id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
 <p>The following configuration options are available:</p>
 <table class="docutils align-default">
@@ -382,8 +407,8 @@ See the <a class="reference external" href="https://docs.microsoft.com/en-us/azu
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DSL 2 &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -128,7 +131,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="dsl-2">
+  <section id="dsl-2">
 <span id="dsl2-page"></span><h1>DSL 2<a class="headerlink" href="#dsl-2" title="Permalink to this headline">¶</a></h1>
 <p>Nextflow provides a syntax extension that implements that allow the definition of module libraries and
 simplifies the writing of complex data analysis pipelines.</p>
@@ -137,7 +140,7 @@ your workflow script:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">enable</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
 </pre></div>
 </div>
-<div class="section" id="function">
+<section id="function">
 <h2>Function<a class="headerlink" href="#function" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow allows the definition of custom function in the workflow script using the following syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">(</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="o">..</span> <span class="p">)</span> <span class="p">{</span>
@@ -171,10 +174,10 @@ for example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="process">
+</section>
+<section id="process">
 <h2>Process<a class="headerlink" href="#process" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="process-definition">
+<section id="process-definition">
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline">¶</a></h3>
 <p>The new DSL separates the definition of a process from its invocation. The process definition follows the usual
 syntax as described in the <a class="reference internal" href="process.html#process-page"><span class="std std-ref">process documentation</span></a>. The only difference is that the
@@ -214,8 +217,8 @@ input channels as parameters as it if were a custom function. For example:</p>
 <p class="admonition-title">Warning</p>
 <p>A process component can be invoked only once in the same workflow context.</p>
 </div>
-</div>
-<div class="section" id="process-composition">
+</section>
+<section id="process-composition">
 <h3>Process composition<a class="headerlink" href="#process-composition" title="Permalink to this headline">¶</a></h3>
 <p>Processes having matching <em>input-output</em> declaration can be composed so that the output
 of the first process is passed as input to the following process. Taking in consideration
@@ -225,8 +228,8 @@ the previous process definition, it’s possible to write the following:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="process-outputs">
+</section>
+<section id="process-outputs">
 <h3>Process outputs<a class="headerlink" href="#process-outputs" title="Permalink to this headline">¶</a></h3>
 <p>A process output can also be accessed using the <code class="docutils literal notranslate"><span class="pre">out</span></code> attribute for the respective
 process object. For example:</p>
@@ -240,8 +243,8 @@ process object. For example:</p>
 <p>When a process defines two or more output channels, each of them can be accessed
 using the array element operator e.g. <code class="docutils literal notranslate"><span class="pre">out[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">out[1]</span></code>, etc. or using
 <em>named outputs</em> (see below).</p>
-</div>
-<div class="section" id="process-named-output">
+</section>
+<section id="process-named-output">
 <h3>Process named output<a class="headerlink" href="#process-named-output" title="Permalink to this headline">¶</a></h3>
 <p>The process output definition allows the use of the <code class="docutils literal notranslate"><span class="pre">emit</span></code> option to define a name identifier
 that can be used to reference the channel in the external scope. For example:</p>
@@ -260,8 +263,8 @@ that can be used to reference the channel in the external scope. For example:</p
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="process-named-stdout">
+</section>
+<section id="process-named-stdout">
 <h3>Process named stdout<a class="headerlink" href="#process-named-stdout" title="Permalink to this headline">¶</a></h3>
 <p>The process can name stdout using the <code class="docutils literal notranslate"><span class="pre">emit</span></code> option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
@@ -282,11 +285,11 @@ that can be used to reference the channel in the external scope. For example:</p
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="workflow">
+</section>
+</section>
+<section id="workflow">
 <h2>Workflow<a class="headerlink" href="#workflow" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="workflow-definition">
+<section id="workflow-definition">
 <h3>Workflow definition<a class="headerlink" href="#workflow-definition" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">workflow</span></code> keyword allows the definition of sub-workflow components that enclose the
 invocation of one or more processes and operators:</p>
@@ -298,8 +301,8 @@ invocation of one or more processes and operators:</p>
 </div>
 <p>For example, the above snippet defines a workflow component, named <code class="docutils literal notranslate"><span class="pre">my_pipeline</span></code>, that can be invoked from
 another workflow component definition as any other function or process i.e. <code class="docutils literal notranslate"><span class="pre">my_pipeline()</span></code>.</p>
-</div>
-<div class="section" id="workflow-parameters">
+</section>
+<section id="workflow-parameters">
 <h3>Workflow parameters<a class="headerlink" href="#workflow-parameters" title="Permalink to this headline">¶</a></h3>
 <p>A workflow component can access any variable and parameter defined in the outer scope:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="s1">&#39;/some/data/file&#39;</span>
@@ -312,8 +315,8 @@ another workflow component definition as any other function or process i.e. <cod
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="workflow-inputs">
+</section>
+<section id="workflow-inputs">
 <h3>Workflow inputs<a class="headerlink" href="#workflow-inputs" title="Permalink to this headline">¶</a></h3>
 <p>A workflow component can declare one or more input channels using the <code class="docutils literal notranslate"><span class="pre">take</span></code> keyword. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
@@ -341,8 +344,8 @@ another workflow component definition as any other function or process i.e. <cod
 instead, ie. number, string, list, etc. it’s implicitly converted to a <a class="reference internal" href="channel.html#channel-type-value"><span class="std std-ref">channel value</span></a>
 (ie. non-consumable).</p>
 </div>
-</div>
-<div class="section" id="workflow-outputs">
+</section>
+<section id="workflow-outputs">
 <h3>Workflow outputs<a class="headerlink" href="#workflow-outputs" title="Permalink to this headline">¶</a></h3>
 <p>A workflow component can declare one or more out channels using the <code class="docutils literal notranslate"><span class="pre">emit</span></code> keyword. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
@@ -369,8 +372,8 @@ in the <code class="docutils literal notranslate"><span class="pre">emit</span><
 </pre></div>
 </div>
 <p>Then, the result of the above snippet can accessed using <code class="docutils literal notranslate"><span class="pre">my_pipeline.out.my_data</span></code>.</p>
-</div>
-<div class="section" id="implicit-workflow">
+</section>
+<section id="implicit-workflow">
 <h3>Implicit workflow<a class="headerlink" href="#implicit-workflow" title="Permalink to this headline">¶</a></h3>
 <p>A workflow definition which does not declare any name is assumed to be the main workflow and it’s
 implicitly executed. Therefore it’s the entry point of the workflow application.</p>
@@ -384,8 +387,8 @@ application script.</p>
 <p class="admonition-title">Tip</p>
 <p>An alternative workflow entry can be specified using the <code class="docutils literal notranslate"><span class="pre">-entry</span></code> command line option.</p>
 </div>
-</div>
-<div class="section" id="workflow-composition">
+</section>
+<section id="workflow-composition">
 <h3>Workflow composition<a class="headerlink" href="#workflow-composition" title="Permalink to this headline">¶</a></h3>
 <p>Workflows defined in your script or imported by a module inclusion can be invoked and composed
 as any other process in your application.</p>
@@ -428,15 +431,15 @@ two different process invocations i.e. <code class="docutils literal notranslate
 <p>The process fully qualified name can be used as a valid <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">process selector</span></a> in the
 <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file and it has priority over the process simple name.</p>
 </div>
-</div>
-</div>
-<div class="section" id="modules">
+</section>
+</section>
+<section id="modules">
 <h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <p>The new DSL allows the definition module scripts that
 can be included and shared across workflow applications.</p>
 <p>A module can contain the definition of a function, process and workflow definitions
 as described in the above sections.</p>
-<div class="section" id="modules-include">
+<section id="modules-include">
 <h3>Modules include<a class="headerlink" href="#modules-include" title="Permalink to this headline">¶</a></h3>
 <p>A component defined in a module script can be imported into another Nextflow script using the <code class="docutils literal notranslate"><span class="pre">include</span></code> keyword.</p>
 <p>For example:</p>
@@ -456,8 +459,8 @@ against the <em>including</em> script location.</p>
 <p class="admonition-title">Note</p>
 <p>Relative paths must begin with the <code class="docutils literal notranslate"><span class="pre">./</span></code> prefix.</p>
 </div>
-</div>
-<div class="section" id="multiple-inclusions">
+</section>
+<section id="multiple-inclusions">
 <h3>Multiple inclusions<a class="headerlink" href="#multiple-inclusions" title="Permalink to this headline">¶</a></h3>
 <p>A Nextflow script allows the inclusion of any number of modules. When multiple
 components need to be included from the some module script, the component names can be
@@ -471,8 +474,8 @@ specified in the same inclusion using the curly brackets notation as shown below
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="module-aliases">
+</section>
+<section id="module-aliases">
 <h3>Module aliases<a class="headerlink" href="#module-aliases" title="Permalink to this headline">¶</a></h3>
 <p>When including a module component it’s possible to specify a name <em>alias</em>.
 This allows the inclusion and the invocation of the same component multiple times
@@ -495,8 +498,8 @@ in your script using different names. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="module-parameters">
+</section>
+<section id="module-parameters">
 <h3>Module parameters<a class="headerlink" href="#module-parameters" title="Permalink to this headline">¶</a></h3>
 <p>A module script can define one or more parameters using the same syntax of a Nextflow workflow script:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">foo</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
@@ -547,9 +550,9 @@ scope. For example:</p>
 </div>
 <p>Finally the include option <code class="docutils literal notranslate"><span class="pre">params</span></code> allows the specification of one or more parameters without
 inheriting any value from the external environment.</p>
-</div>
-</div>
-<div class="section" id="channel-forking">
+</section>
+</section>
+<section id="channel-forking">
 <h2>Channel forking<a class="headerlink" href="#channel-forking" title="Permalink to this headline">¶</a></h2>
 <p>Using the new DSL, Nextflow channels are automatically forked when connecting two or more consumers.</p>
 <p>For example:</p>
@@ -569,10 +572,10 @@ inheriting any value from the external environment.</p>
 <p>The same is valid for the result (channel) of a process execution. Therefore a process output can be used by
 two or more processes without the need to fork them using the <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator, making the
 writing of workflow scripts more fluent and readable.</p>
-</div>
-<div class="section" id="pipes">
+</section>
+<section id="pipes">
 <h2>Pipes<a class="headerlink" href="#pipes" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="the-pipe-operator">
+<section id="the-pipe-operator">
 <h3>The <em>pipe</em> operator<a class="headerlink" href="#the-pipe-operator" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow processes and operators can be composed using the <code class="docutils literal notranslate"><span class="pre">|</span></code> <em>pipe</em> operator. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
@@ -590,8 +593,8 @@ writing of workflow scripts more fluent and readable.</p>
 <p>The above snippet defines a process named <code class="docutils literal notranslate"><span class="pre">foo</span></code> then invoke it passing the content of the
 <code class="docutils literal notranslate"><span class="pre">data</span></code> channel. The result is piped to the <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a> operator which converts each string
 to uppercase and finally, the last <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> operator prints it.</p>
-</div>
-<div class="section" id="the-and-operator">
+</section>
+<section id="the-and-operator">
 <h3>The <em>and</em> operator<a class="headerlink" href="#the-and-operator" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> <em>and</em> operator allows feeding of two or more processes with the content of the same
 channel(s) e.g.:</p>
@@ -634,9 +637,9 @@ over multiple lines.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="dsl2-migration-notes">
+</section>
+</section>
+<section id="dsl2-migration-notes">
 <h2>DSL2 migration notes<a class="headerlink" href="#dsl2-migration-notes" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>DSL2 final version is activated using the declaration <code class="docutils literal notranslate"><span class="pre">nextflow.enable.dsl=2</span></code> in place of <code class="docutils literal notranslate"><span class="pre">nextflow.preview.dsl=2</span></code>.</p></li>
@@ -731,8 +734,8 @@ over multiple lines.</p>
 <li><p>Operator <a class="reference internal" href="operator.html#operator-spread"><span class="std std-ref">spread</span></a> has been deprecated with DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>.</p></li>
 <li><p>Operator route has been deprecated by DSL2 syntax.</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

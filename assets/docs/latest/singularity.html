@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Singularity containers &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,7 +105,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="singularity-containers">
+  <section id="singularity-containers">
 <span id="singularity-page"></span><h1>Singularity containers<a class="headerlink" href="#singularity-containers" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="http://singularity.lbl.gov/">Singularity</a> is a container engine alternative to Docker. The main advantages
 of Singularity is that it can be used with unprivileged permissions and doesn’t require a separate daemon process.
@@ -114,12 +117,12 @@ of the processes in your pipeline by running them in isolated containers along a
 <p>Moreover the support provided by Nextflow for different container technologies, allows the same pipeline to be
 transparently executed both with Docker or Singularity containers, depending on the available engine in the target
 execution platforms.</p>
-<div class="section" id="prerequisites">
+<section id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>You will need Singularity installed on your execution environment e.g. your computer or a distributed cluster, depending
 on where you want to run your pipeline.</p>
-</div>
-<div class="section" id="images">
+</section>
+<section id="images">
 <h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
 <p>Singularity makes use of a container image file, which physically contains the container. Refer to the <a class="reference external" href="https://www.sylabs.io/docs/">Singularity
 documentation</a> to learn how create Singularity images.</p>
@@ -134,8 +137,8 @@ mount paths defined in the container file system.</p>
 <p>If your Singularity installation support the <cite>user bind control</cite> feature,
 enable the Nextflow support for that by defining the <code class="docutils literal notranslate"><span class="pre">singularity.autoMounts</span> <span class="pre">=</span> <span class="pre">true</span></code> setting in the Nextflow
 configuration file.</p>
-</div>
-<div class="section" id="how-it-works">
+</section>
+<section id="how-it-works">
 <h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
 <p>The integration for Singularity follows the same execution model implemented for Docker. You won’t need to modify your
 Nextflow script in order to run it with Singularity. Simply specify the Singularity image
@@ -174,8 +177,8 @@ how to enable Nextflow auto mounts.</p>
 accessible from a bind path defined in your Singularity installation. Otherwise the process execution will fail
 because the launched container won’t be able to access the linked file.</p>
 </div>
-</div>
-<div class="section" id="multiple-containers">
+</section>
+<section id="multiple-containers">
 <h2>Multiple containers<a class="headerlink" href="#multiple-containers" title="Permalink to this headline">¶</a></h2>
 <p>It is possible to specify a different Singularity image for each process definition in your pipeline script. For example,
 let’s suppose you have two processes named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. You can specify two different Singularity images
@@ -194,8 +197,8 @@ specifing them in the <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 <p>Read the <a class="reference internal" href="config.html#config-process"><span class="std std-ref">Process scope</span></a> section to learn more about processes configuration.</p>
-</div>
-<div class="section" id="singularity-docker-hub">
+</section>
+<section id="singularity-docker-hub">
 <h2>Singularity &amp; Docker Hub<a class="headerlink" href="#singularity-docker-hub" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow is able to transparently pull remote container images stored in the <a class="reference external" href="https://singularity-hub.org/">Singularity-Hub</a>,
 <a class="reference external" href="https://cloud.sylabs.io/library/">Singularity Library</a>, or any Docker compatible registry.</p>
@@ -251,13 +254,13 @@ to all computing nodes.</p>
 <p>When pulling Docker images Singularity may be unable to determine the container size if the image was
 stored by using an old Docker format, resulting in a pipeline execution error. See the Singularity documentation for details.</p>
 </div>
-</div>
-<div class="section" id="advanced-settings">
+</section>
+<section id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline">¶</a></h2>
 <p>Singularity advanced configuration settings are described in <a class="reference internal" href="config.html#config-singularity"><span class="std std-ref">Scope singularity</span></a> section in the Nextflow
 configuration page.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

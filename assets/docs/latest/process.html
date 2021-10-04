@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Processes &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -171,7 +174,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="processes">
+  <section id="processes">
 <span id="process-page"></span><h1>Processes<a class="headerlink" href="#processes" title="Permalink to this headline">¶</a></h1>
 <p>In Nextflow a <cite>process</cite> is the basic processing <cite>primitive</cite> to execute a user script.</p>
 <p>The process definition starts with keyword the <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process <cite>body</cite>
@@ -207,7 +210,7 @@ inputs, outputs, when clause and finally the process script. The syntax is defin
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="section" id="script">
+<section id="script">
 <span id="process-script"></span><h2>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>script</cite> block is a string statement that defines the command that is executed by the process to carry out its task.</p>
 <p>A process contains one and only one script block, and it must be the last statement when the process contains
@@ -275,7 +278,7 @@ must exist in the script execution environment and the Bash interpreter will rep
 <p>Alternatively you can use the <a class="reference internal" href="#process-shell"><span class="std std-ref">Shell</span></a> block definition which allows a script to contain both
 Bash and Nextflow variables without having to escape the first.</p>
 </div>
-<div class="section" id="scripts-a-la-carte">
+<section id="scripts-a-la-carte">
 <h3>Scripts <cite>à la carte</cite><a class="headerlink" href="#scripts-a-la-carte" title="Permalink to this headline">¶</a></h3>
 <p>The process script is interpreted by Nextflow as a Bash script by default, but you are not limited to it.</p>
 <p>You can use your favourite scripting language (e.g. Perl, Python, Ruby, R, etc), or even mix them in the same pipeline.</p>
@@ -314,8 +317,8 @@ more portable it is wise to use the <code class="docutils literal notranslate"><
 path of it. Thus, the <cite>shebang</cite> declaration for a Perl script, for example,
 would look like: <code class="docutils literal notranslate"><span class="pre">#!/usr/bin/env</span> <span class="pre">perl</span></code> instead of the one in the above pipeline fragment.</p>
 </div>
-</div>
-<div class="section" id="conditional-scripts">
+</section>
+<section id="conditional-scripts">
 <h3>Conditional scripts<a class="headerlink" href="#conditional-scripts" title="Permalink to this headline">¶</a></h3>
 <p>Complex process scripts may need to evaluate conditions on the input parameters or use traditional flow control
 statements (i.e. <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">switch</span></code>, etc) in order to execute specific script commands, depending on the current
@@ -355,8 +358,8 @@ script string to be executed. It’s much easier to use than to explain, for exa
 <p>In the above example the process will execute the script fragment depending on the value of the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameter.
 By default it will execute the <code class="docutils literal notranslate"><span class="pre">tcoffee</span></code> command, changing the <code class="docutils literal notranslate"><span class="pre">mode</span></code> variable to <code class="docutils literal notranslate"><span class="pre">mafft</span></code> or <code class="docutils literal notranslate"><span class="pre">clustalo</span></code> value,
 the other branches will be executed.</p>
-</div>
-<div class="section" id="template">
+</section>
+<section id="template">
 <span id="process-template"></span><h3>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
 <p>Process script can be externalised by using <em>template</em> files which can be reused across different processes and tested
 independently from the overall pipeline execution.</p>
@@ -391,8 +394,8 @@ your script autonomously, i.e. independently from Nextflow execution. You only n
 variable for each the Nextflow variable existing in your script. For example, it would be possible to execute the above
 script entering the following command in the shell terminal: <code class="docutils literal notranslate"><span class="pre">STR='foo'</span> <span class="pre">bash</span> <span class="pre">templates/my_script.sh</span></code></p>
 </div>
-</div>
-<div class="section" id="shell">
+</section>
+<section id="shell">
 <span id="process-shell"></span><h3>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">shell</span></code> block is a string statement that defines the <em>shell</em> command executed by the process to carry out its task.
 It is an alternative to the <a class="reference internal" href="#process-script"><span class="std std-ref">Script</span></a> definition with an important difference, it uses
@@ -425,8 +428,8 @@ variable while <code class="docutils literal notranslate"><span class="pre">!str
 defined in the script template.</p></li>
 </ul>
 </div>
-</div>
-<div class="section" id="native-execution">
+</section>
+<section id="native-execution">
 <span id="process-native"></span><h3>Native execution<a class="headerlink" href="#native-execution" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow processes can execute native code other than system scripts as shown in the previous paragraphs.</p>
 <p>This means that instead of specifying the process command to be executed as a string script, you can
@@ -449,9 +452,9 @@ Simply starting the script definition block with the <code class="docutils liter
 <span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">c</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="stub">
+</section>
+</section>
+<section id="stub">
 <span id="process-stub"></span><h2>Stub<a class="headerlink" href="#stub" title="Permalink to this headline">¶</a></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -489,8 +492,8 @@ of the real one in a quicker manner. This can also be used as an alternative for
 When the execution is run with the option <cite>-stub-run</cite> and a process is not implementing the <code class="docutils literal notranslate"><span class="pre">stub</span></code> command the
 real is executed.</p>
 </div>
-</div>
-<div class="section" id="inputs">
+</section>
+<section id="inputs">
 <span id="process-input"></span><h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow processes are isolated from each other but can communicate between themselves sending values through channels.</p>
 <p>The <cite>input</cite> block defines from which channels the process expects to receive data. You can only define one
@@ -545,7 +548,7 @@ as the specified input name.</p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="input-of-generic-values">
+<section id="input-of-generic-values">
 <h3>Input of generic values<a class="headerlink" href="#input-of-generic-values" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to receive data of any type as input. It can be accessed in the process script
 by using the specified input name, as shown in the following example:</p>
@@ -586,8 +589,8 @@ Thus the above example can be written as shown below:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="input-of-files">
+</section>
+<section id="input-of-files">
 <h3>Input of files<a class="headerlink" href="#input-of-files" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows the handling of file values in the process execution context. This means that
 Nextflow will stage it in the process execution directory, and it can be access in the script by using the name
@@ -655,8 +658,8 @@ In other words, <cite>Nextflow</cite> helps you write pipeline tasks that are se
 environment. This is also the reason why you should avoid whenever possible to use absolute or relative paths
 referencing files in your pipeline processes.</p>
 </div>
-</div>
-<div class="section" id="multiple-input-files">
+</section>
+<section id="multiple-input-files">
 <h3>Multiple input files<a class="headerlink" href="#multiple-input-files" title="Permalink to this headline">¶</a></h3>
 <p>A process can declare as input file a channel that emits a collection of values, instead of a simple value.</p>
 <p>In this case, the script variable defined by the input file parameter will hold a list of files. You can
@@ -758,8 +761,8 @@ The normal file input constructs introduced in the <a class="reference internal"
 multiple files as well. To handle multiple input files preserving the original file names, use the <code class="docutils literal notranslate"><span class="pre">*</span></code> wildcard as
 name pattern or a variable identifier.</p>
 </div>
-</div>
-<div class="section" id="dynamic-input-file-names">
+</section>
+<section id="dynamic-input-file-names">
 <h3>Dynamic input file names<a class="headerlink" href="#dynamic-input-file-names" title="Permalink to this headline">¶</a></h3>
 <p>When the input file name is specified by using the <code class="docutils literal notranslate"><span class="pre">name</span></code> file clause or the short <cite>string</cite> notation, you
 are allowed to use other input values as variables in the file name string. For example:</p>
@@ -783,8 +786,8 @@ with the current execution context.</p>
 own private temporary directory, and input files are automatically staged to this directory by Nextflow.
 This guarantees that input files with the same name won’t overwrite each other.</p>
 </div>
-</div>
-<div class="section" id="input-of-type-path">
+</section>
+<section id="input-of-type-path">
 <h3>Input of type ‘path’<a class="headerlink" href="#input-of-type-path" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> input qualifier was introduced by Nextflow version 19.10.0 and it’s a drop-in replacement
 for the <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier, therefore it’s backward compatible with the syntax
@@ -827,8 +830,8 @@ section:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code> to handle process input files
 when using Nextflow 19.10.0 or later.</p>
 </div>
-</div>
-<div class="section" id="input-of-type-stdin">
+</section>
+<section id="input-of-type-stdin">
 <h3>Input of type ‘stdin’<a class="headerlink" href="#input-of-type-stdin" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stdin</span></code> input qualifier allows you the forwarding of the value received from a channel to the
 <a class="reference external" href="http://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29">standard input</a>
@@ -853,8 +856,8 @@ of the command executed by the process. For example:</p>
 <span class="n">hello</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="input-of-type-env">
+</section>
+<section id="input-of-type-env">
 <h3>Input of type ‘env’<a class="headerlink" href="#input-of-type-env" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> qualifier allows you to define an environment variable in the process execution context based
 on the value received from the channel. For example:</p>
@@ -878,15 +881,15 @@ bonjour world!
 hola world!
 </pre></div>
 </div>
-</div>
-<div class="section" id="input-of-type-set">
+</section>
+<section id="input-of-type-set">
 <span id="process-input-set"></span><h3>Input of type ‘set’<a class="headerlink" href="#input-of-type-set" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <cite>set</cite> input type has been deprecated. See <cite>tuple</cite> instead.</p>
 </div>
-</div>
-<div class="section" id="input-of-type-tuple">
+</section>
+<section id="input-of-type-tuple">
 <span id="process-input-tuple"></span><h3>Input of type ‘tuple’<a class="headerlink" href="#input-of-type-tuple" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to group multiple parameters in a single parameter definition. It can be useful
 when a process receives, in input, tuples of values that need to be handled separately. Each element in the tuple
@@ -933,7 +936,7 @@ which will receive a value from the same channel.</p>
 <td><p>x:’name’</p></td>
 </tr>
 <tr class="row-even"><td><p>stdin</p></td>
-<td><p>‘-‘</p></td>
+<td><p>‘-’</p></td>
 </tr>
 <tr class="row-odd"><td><p>env(x)</p></td>
 <td><p>(not supported)</p></td>
@@ -955,8 +958,8 @@ which will receive a value from the same channel.</p>
 </pre></div>
 </div>
 <p>File names can be defined in <em>dynamic</em> manner as explained in the <a class="reference internal" href="#dynamic-input-file-names">Dynamic input file names</a> section.</p>
-</div>
-<div class="section" id="input-repeaters">
+</section>
+<section id="input-repeaters">
 <h3>Input repeaters<a class="headerlink" href="#input-repeaters" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">each</span></code> qualifier allows you to repeat the execution of a process for each item in a collection,
 every time a new data is received. For example:</p>
@@ -1007,8 +1010,8 @@ against the same library files.</p>
 create a channel combining the input values as needed to trigger the process execution multiple times.
 In this regard, see the <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>, <a class="reference internal" href="operator.html#operator-cross"><span class="std std-ref">cross</span></a> and <a class="reference internal" href="operator.html#operator-phase"><span class="std std-ref">phase</span></a> operators.</p>
 </div>
-</div>
-<div class="section" id="understand-how-multiple-input-channels-work">
+</section>
+<section id="understand-how-multiple-input-channels-work">
 <span id="process-understand-how-multiple-input-channels-work"></span><h3>Understand how multiple input channels work<a class="headerlink" href="#understand-how-multiple-input-channels-work" title="Permalink to this headline">¶</a></h3>
 <p>A key feature of processes is the ability to handle inputs from multiple channels.</p>
 <p>When two or more channels are declared as process inputs, the process stops until
@@ -1070,9 +1073,9 @@ channel. It prints:</p>
 </pre></div>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-types"><span class="std std-ref">Channel types</span></a>.</p>
-</div>
-</div>
-<div class="section" id="outputs">
+</section>
+</section>
+<section id="outputs">
 <h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h2>
 <p>The <cite>output</cite> declaration block allows you to define the channels used by the process to send out the results produced.
 You can only define one output block at a time and it must contain one or more output declarations.</p>
@@ -1121,7 +1124,7 @@ one or more channels over which outputs are sent. Finally some optional attribut
 </tr>
 </tbody>
 </table>
-<div class="section" id="output-values">
+<section id="output-values">
 <h3>Output values<a class="headerlink" href="#output-values" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to output a <cite>value</cite> defined in the script context. In a common usage scenario,
 this is a value which has been defined in the <cite>input</cite> declaration block, as shown in the following example:</p>
@@ -1162,8 +1165,8 @@ value expressions. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="output-files">
+</section>
+<section id="output-files">
 <h3>Output files<a class="headerlink" href="#output-files" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows you to output one or more files, produced by the process, over the specified channel.
 For example:</p>
@@ -1190,8 +1193,8 @@ be able to receive it.</p>
 <p>If the channel specified as output has not been previously declared in the pipeline script, it
 will implicitly be created by the output declaration itself.</p>
 </div>
-</div>
-<div class="section" id="multiple-output-files">
+</section>
+<section id="multiple-output-files">
 <h3>Multiple output files<a class="headerlink" href="#multiple-output-files" title="Permalink to this headline">¶</a></h3>
 <p>When an output file name contains a <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
 This allows you to <em>capture</em> multiple files into a list object and output them as a sole emission. For example:</p>
@@ -1261,8 +1264,8 @@ declaration.</p>
 in the downstream process instead.</p>
 </div>
 <p>Read more about glob syntax at the following link <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">What is a glob?</a></p>
-</div>
-<div class="section" id="dynamic-output-file-names">
+</section>
+<section id="dynamic-output-file-names">
 <span id="process-dynoutname"></span><h3>Dynamic output file names<a class="headerlink" href="#dynamic-output-file-names" title="Permalink to this headline">¶</a></h3>
 <p>When an output file name needs to be expressed dynamically, it is possible to define it using a dynamic evaluated
 string which references values defined in the input declaration block or in the script global context.
@@ -1296,8 +1299,8 @@ including them in the output file name.</p>
 <p>To sum up, the use of output files with static names over dynamic ones is preferable whenever possible,
 because it will result in a simpler and more portable code.</p>
 </div>
-</div>
-<div class="section" id="output-path">
+</section>
+<section id="output-path">
 <span id="process-out-path"></span><h3>Output path<a class="headerlink" href="#output-path" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> output qualifier was introduced by Nextflow version 19.10.0 and it’s a drop-in replacement
 for the <code class="docutils literal notranslate"><span class="pre">file</span></code> output qualifier, therefore it’s backward compatible with the syntax
@@ -1346,8 +1349,8 @@ and therefore the output definition <code class="docutils literal notranslate"><
 <p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code> to handle process output files
 when using Nextflow 19.10.0 or later.</p>
 </div>
-</div>
-<div class="section" id="output-stdout-special-file">
+</section>
+<section id="output-stdout-special-file">
 <span id="process-stdout"></span><h3>Output ‘stdout’ special file<a class="headerlink" href="#output-stdout-special-file" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stdout</span></code> qualifier allows you to <cite>capture</cite> the <cite>stdout</cite> output of the executed process and send it over
 the channel specified in the output parameter declaration. For example:</p>
@@ -1364,8 +1367,8 @@ the channel specified in the output parameter declaration. For example:</p>
 </pre></div>
 </div>
 <p>In the above example <code class="docutils literal notranslate"><span class="pre">ch</span></code> represents an arbitrary channel variable that holds the process outputs.</p>
-</div>
-<div class="section" id="output-env">
+</section>
+<section id="output-env">
 <span id="process-env"></span><h3>Output ‘env’<a class="headerlink" href="#output-env" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> qualifier allows you to capture a variable defined in the process execution environment
 and send it over the channel specified in the output parameter declaration:</p>
@@ -1381,15 +1384,15 @@ and send it over the channel specified in the output parameter declaration:</p>
 <span class="n">target</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;directory content: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="output-set-of-values">
+</section>
+<section id="output-set-of-values">
 <span id="process-set"></span><h3>Output ‘set’ of values<a class="headerlink" href="#output-set-of-values" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <cite>set</cite> output type has been deprecated. See <cite>tuple</cite> instead.</p>
 </div>
-</div>
-<div class="section" id="output-tuple-of-values">
+</section>
+<section id="output-tuple-of-values">
 <span id="process-out-tuple"></span><h3>Output ‘tuple’ of values<a class="headerlink" href="#output-tuple-of-values" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to send multiple values into a single channel. This feature is useful
 when you need to <cite>group together</cite> the results of multiple executions of the same process, as shown in the following
@@ -1426,8 +1429,8 @@ thus the above output <cite>tuple</cite> can be rewritten using a short notation
 </pre></div>
 </div>
 <p>File names can be defined in a dynamic manner as explained in the <a class="reference internal" href="#process-dynoutname"><span class="std std-ref">Dynamic output file names</span></a> section.</p>
-</div>
-<div class="section" id="optional-output">
+</section>
+<section id="optional-output">
 <h3>Optional Output<a class="headerlink" href="#optional-output" title="Permalink to this headline">¶</a></h3>
 <p>In most cases a process is expected to generate output that is added to the output channel.  However, there are situations where it is valid for a process to <cite>not</cite> generate output. In these cases <code class="docutils literal notranslate"><span class="pre">optional</span> <span class="pre">true</span></code> may be added to the output declaration, which tells Nextflow not to fail the process if the declared output is not created.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
@@ -1435,9 +1438,9 @@ thus the above output <cite>tuple</cite> can be rewritten using a short notation
 </pre></div>
 </div>
 <p>In this example, the process is normally expected to generate an <code class="docutils literal notranslate"><span class="pre">output.txt</span></code> file, but in the cases where the file is legitimately missing, the process does not fail. <code class="docutils literal notranslate"><span class="pre">outChannel</span></code> is only populated by those processes that do generate <code class="docutils literal notranslate"><span class="pre">output.txt</span></code>.</p>
-</div>
-</div>
-<div class="section" id="when">
+</section>
+</section>
+<section id="when">
 <h2>When<a class="headerlink" href="#when" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">when</span></code> declaration allows you to define a condition that must be verified in order to execute the process.
 This can be any expression that evaluates a boolean value.</p>
@@ -1458,8 +1461,8 @@ This can be any expression that evaluates a boolean value.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="directives">
+</section>
+<section id="directives">
 <span id="process-directives"></span><h2>Directives<a class="headerlink" href="#directives" title="Permalink to this headline">¶</a></h2>
 <p>Using the <cite>directive</cite> declarations block you can provide optional settings that will affect the execution of the current
 process.</p>
@@ -1504,7 +1507,7 @@ and have the following syntax:</p>
 <li><p><a class="reference internal" href="#time">time</a></p></li>
 <li><p><a class="reference internal" href="#validexitstatus">validExitStatus</a></p></li>
 </ul>
-<div class="section" id="accelerator">
+<section id="accelerator">
 <h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">accelerator</span></code> directive allows you to specify the hardware accelerator requirement for the task execution
 e.g. <em>GPU</em> processor. For example:</p>
@@ -1530,13 +1533,13 @@ platform documentation for details on the available accelerators. <a class="refe
 <a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">Google</a>
 <a class="reference external" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">Kubernetes</a>.</p>
 </div>
-</div>
-<div class="section" id="afterscript">
+</section>
+<section id="afterscript">
 <h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">afterScript</span></code> directive allows you to execute a custom (Bash) snippet immediately <em>after</em> the main process has run.
 This may be useful to clean up your staging area.</p>
-</div>
-<div class="section" id="beforescript">
+</section>
+<section id="beforescript">
 <h3>beforeScript<a class="headerlink" href="#beforescript" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">beforeScript</span></code> directive allows you to execute a custom (Bash) snippet <em>before</em> the main process script is run.
 This may be useful to initialise the underlying cluster environment or for other custom initialisation.</p>
@@ -1552,8 +1555,8 @@ This may be useful to initialise the underlying cluster environment or for other
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="cache">
+</section>
+<section id="cache">
 <span id="process-cache"></span><h3>cache<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive allows you to store the process results to a local cache. When the cache is enabled <em>and</em>
 the pipeline is launched with the <a class="reference internal" href="getstarted.html#getstart-resume"><span class="std std-ref">resume</span></a> option, any following attempt to execute the process,
@@ -1597,8 +1600,8 @@ directive to <code class="docutils literal notranslate"><span class="pre">false<
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="conda">
+</section>
+<section id="conda">
 <span id="process-conda"></span><h3>conda<a class="headerlink" href="#conda" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive allows for the definition of the process dependencies using the <a class="reference external" href="https://conda.io">Conda</a>
 package manager.</p>
@@ -1618,8 +1621,8 @@ The name of the channel from where a specific package needs to be downloaded can
 Conda notation i.e. prefixing the package with the channel name as shown here <code class="docutils literal notranslate"><span class="pre">bioconda::bwa=0.7.15</span></code>.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directory also allows the specification of a Conda environment file
 path or the path of an existing environment directory. See the <a class="reference internal" href="conda.html#conda-page"><span class="std std-ref">Conda environments</span></a> page for further details.</p>
-</div>
-<div class="section" id="container">
+</section>
+<section id="container">
 <span id="process-container"></span><h3>container<a class="headerlink" href="#container" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">container</span></code> directive allows you to execute the process script in a <a class="reference external" href="http://docker.io">Docker</a> container.</p>
 <p>It requires the Docker daemon to be running in machine where the pipeline is executed, i.e. the local machine when using the
@@ -1645,8 +1648,8 @@ path or the path of an existing environment directory. See the <a class="referen
 <p class="admonition-title">Note</p>
 <p>This directive is ignored for processes <a class="reference internal" href="#process-native"><span class="std std-ref">executed natively</span></a>.</p>
 </div>
-</div>
-<div class="section" id="containeroptions">
+</section>
+<section id="containeroptions">
 <span id="process-containeroptions"></span><h3>containerOptions<a class="headerlink" href="#containeroptions" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">containerOptions</span></code> directive allows you to specify any container execution option supported by the underlying
 container engine (ie. Docker, Singularity, etc). This can be useful to provide container settings
@@ -1668,8 +1671,8 @@ only for a specific process e.g. mount a custom path:</p>
 <p class="admonition-title">Warning</p>
 <p>This feature is not supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
 </div>
-</div>
-<div class="section" id="cpus">
+</section>
+<section id="cpus">
 <span id="process-cpus"></span><h3>cpus<a class="headerlink" href="#cpus" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">cpus</span></code> directive allows you to define the number of (logical) CPU required by the process’ task.
 For example:</p>
@@ -1687,8 +1690,8 @@ For example:</p>
 <p>This directive is required for tasks that execute multi-process or multi-threaded commands/tools and it is meant
 to reserve enough CPUs when a pipeline task is executed through a cluster resource manager.</p>
 <p>See also: <a class="reference internal" href="#penv">penv</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a>, <a class="reference internal" href="#maxforks">maxForks</a></p>
-</div>
-<div class="section" id="clusteroptions">
+</section>
+<section id="clusteroptions">
 <span id="process-clusteroptions"></span><h3>clusterOptions<a class="headerlink" href="#clusteroptions" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">clusterOptions</span></code> directive allows the usage of any <cite>native</cite> configuration option accepted by your cluster submit command.
 You can use it to request non-standard resources or use settings that are specific to your cluster and not supported
@@ -1699,8 +1702,8 @@ out of the box by Nextflow.</p>
 <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>, <a class="reference internal" href="executor.html#pbspro-executor"><span class="std std-ref">PBS Pro</span></a>,
 <a class="reference internal" href="executor.html#moab-executor"><span class="std std-ref">Moab</span></a> and <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
 </div>
-</div>
-<div class="section" id="disk">
+</section>
+<section id="disk">
 <span id="process-disk"></span><h3>disk<a class="headerlink" href="#disk" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">disk</span></code> directive allows you to define how much local disk storage the process is allowed to use. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">big_job</span> <span class="p">{</span>
@@ -1749,8 +1752,8 @@ out of the box by Nextflow.</p>
 and the <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a> <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
-</div>
-<div class="section" id="echo">
+</section>
+<section id="echo">
 <span id="process-echo"></span><h3>echo<a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h3>
 <p>By default the <cite>stdout</cite> produced by the commands executed in all processes is ignored.
 Setting the <code class="docutils literal notranslate"><span class="pre">echo</span></code> directive to <code class="docutils literal notranslate"><span class="pre">true</span></code> you can forward the process <cite>stdout</cite> to the current top
@@ -1768,8 +1771,8 @@ running process <cite>stdout</cite> file, showing it in the shell terminal.</p>
 </pre></div>
 </div>
 <p>Without specifying <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">true</span></code> you won’t see the <code class="docutils literal notranslate"><span class="pre">Hello</span></code> string printed out when executing the above example.</p>
-</div>
-<div class="section" id="errorstrategy">
+</section>
+<section id="errorstrategy">
 <span id="process-page-error-strategy"></span><h3>errorStrategy<a class="headerlink" href="#errorstrategy" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">errorStrategy</span></code> directive allows you to define how an error condition is managed by the process. By default when
 an error status is returned by the executed script, the process stops immediately. This in turn forces the entire pipeline
@@ -1834,8 +1837,8 @@ or other parametric values can be defined using a dynamic <code class="docutils 
 directive. See the <a class="reference internal" href="#dynamic-directives">Dynamic directives</a> section for details.</p>
 </div>
 <p>See also: <a class="reference internal" href="#maxerrors">maxErrors</a>, <a class="reference internal" href="#maxretries">maxRetries</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
-</div>
-<div class="section" id="executor">
+</section>
+<section id="executor">
 <span id="process-executor"></span><h3>executor<a class="headerlink" href="#executor" title="Permalink to this headline">¶</a></h3>
 <p>The <cite>executor</cite> defines the underlying system where processes are executed. By default a process uses the executor
 defined globally in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
@@ -1912,8 +1915,8 @@ configuration. The following values can be used:</p>
 <p>Each executor provides its own set of configuration options that can set be in the <cite>directive</cite> declarations block.
 See <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> section to read about specific executor directives.</p>
 </div>
-</div>
-<div class="section" id="ext">
+</section>
+<section id="ext">
 <span id="process-ext"></span><h3>ext<a class="headerlink" href="#ext" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">ext</span></code> is a special directive used as <em>namespace</em> for user custom process directives. This can be useful for
 advanced configuration options. For example:</p>
@@ -1935,8 +1938,8 @@ This can be defined in the <code class="docutils literal notranslate"><span clas
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;2.5.3&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="machinetype">
+</section>
+<section id="machinetype">
 <span id="process-machinetype"></span><h3>machineType<a class="headerlink" href="#machinetype" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">machineType</span></code> can be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
 when running using the <span class="xref std std-ref">Google Pipeline</span> executor.</p>
@@ -1955,8 +1958,8 @@ when running using the <span class="xref std std-ref">Google Pipeline</span> exe
 <p>This feature requires Nextflow 19.07.0 or later.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a> and <a class="reference internal" href="#memory">memory</a>.</p>
-</div>
-<div class="section" id="maxerrors">
+</section>
+<section id="maxerrors">
 <span id="process-maxerrors"></span><h3>maxErrors<a class="headerlink" href="#maxerrors" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">maxErrors</span></code> directive allows you to specify the maximum number of times a process can fail when using the <code class="docutils literal notranslate"><span class="pre">retry</span></code> <cite>error strategy</cite>.
 By default this directive is disabled, you can set it as shown in the example below:</p>
@@ -1976,8 +1979,8 @@ By default this directive is disabled, you can set it as shown in the example be
 to control the number of times a process <strong>instance</strong> (aka task) can fail, use <code class="docutils literal notranslate"><span class="pre">maxRetries</span></code>.</p>
 </div>
 <p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> and <a class="reference internal" href="#maxretries">maxRetries</a>.</p>
-</div>
-<div class="section" id="maxforks">
+</section>
+<section id="maxforks">
 <span id="process-maxforks"></span><h3>maxForks<a class="headerlink" href="#maxforks" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">maxForks</span></code> directive allows you to define the maximum number of process instances that can be executed in parallel.
 By default this value is equals to the number of CPU cores available minus 1.</p>
@@ -1993,8 +1996,8 @@ By default this value is equals to the number of CPU cores available minus 1.</p
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="maxretries">
+</section>
+<section id="maxretries">
 <span id="process-maxretries"></span><h3>maxRetries<a class="headerlink" href="#maxretries" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">maxRetries</span></code> directive allows you to define the maximum number of times a process instance can be
 re-submitted in case of failure. This value is applied only when using the <code class="docutils literal notranslate"><span class="pre">retry</span></code> <cite>error strategy</cite>. By default
@@ -2017,8 +2020,8 @@ launch different execution instances), while the <code class="docutils literal n
 execution can be retried in case of an error.</p>
 </div>
 <p>See also: <a class="reference internal" href="#errorstrategy">errorStrategy</a> and <a class="reference internal" href="#maxerrors">maxErrors</a>.</p>
-</div>
-<div class="section" id="memory">
+</section>
+<section id="memory">
 <span id="process-memory"></span><h3>memory<a class="headerlink" href="#memory" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">memory</span></code> directive allows you to define how much memory the process is allowed to use. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">big_job</span> <span class="p">{</span>
@@ -2062,8 +2065,8 @@ execution can be retried in case of an error.</p>
 </tbody>
 </table>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
-</div>
-<div class="section" id="module">
+</section>
+<section id="module">
 <span id="process-module"></span><h3>module<a class="headerlink" href="#module" title="Permalink to this headline">¶</a></h3>
 <p><a class="reference external" href="http://modules.sourceforge.net/">Environment Modules</a> is a package manager that allows you to dynamically configure
 your execution environment and easily switch between multiple versions of the same software tool.</p>
@@ -2094,8 +2097,8 @@ can be specified in a single <code class="docutils literal notranslate"><span cl
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="penv">
+</section>
+<section id="penv">
 <span id="process-penv"></span><h3>penv<a class="headerlink" href="#penv" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">penv</span></code> directive  allows you to define the <cite>parallel environment</cite> to be used when submitting a parallel task to the
 <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> resource manager. For example:</p>
@@ -2118,8 +2121,8 @@ cluster documentation or contact your admin to learn more about this.</p>
 <p>This setting is available when using the <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> executor.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#time">time</a></p>
-</div>
-<div class="section" id="pod">
+</section>
+<section id="pod">
 <span id="process-pod"></span><h3>pod<a class="headerlink" href="#pod" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive allows the definition of pods specific settings, such as environment variables, secrets
 and config maps when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor.</p>
@@ -2192,8 +2195,8 @@ associative array syntax. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="publishdir">
+</section>
+<section id="publishdir">
 <span id="process-publishdir"></span><h3>publishDir<a class="headerlink" href="#publishdir" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive allows you to publish the process output files to a specified folder. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
@@ -2311,8 +2314,8 @@ need to be separated by a colon character. For example:</p>
 available in the published directory at the end of the process execution. For this reason files published by a process
 must not be accessed by other downstream processes.</p>
 </div>
-</div>
-<div class="section" id="queue">
+</section>
+<section id="queue">
 <span id="process-queue"></span><h3>queue<a class="headerlink" href="#queue" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">queue</span></code> directory allows you to set the <cite>queue</cite> where jobs are scheduled when using a grid based executor
 in your pipeline. For example:</p>
@@ -2344,8 +2347,8 @@ in your pipeline. For example:</p>
 <p>This directive is taken in account only by the following executors: <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>,
 <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a> and <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> executors.</p>
 </div>
-</div>
-<div class="section" id="label">
+</section>
+<section id="label">
 <span id="process-label"></span><h3>label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> directive allows the annotation of processes with mnemonic identifier of your choice.
 For example:</p>
@@ -2369,8 +2372,8 @@ and must end with an alphanumeric character.</p>
 <p>Labels are useful to organise workflow processes in separate groups which can be referenced
 in the configuration file to select and configure subset of processes having similar computing requirements.</p>
 <p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
-</div>
-<div class="section" id="scratch">
+</section>
+<section id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">scratch</span></code> directive allows you to execute the process in a temporary folder that is local to the execution node.</p>
 <p>This is useful when your pipeline is launched by using a <cite>grid</cite> executor, because it allows you to decrease the NFS
@@ -2435,8 +2438,8 @@ RAM virtual disk.</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="storedir">
+</section>
+<section id="storedir">
 <span id="process-storedir"></span><h3>storeDir<a class="headerlink" href="#storedir" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">storeDir</span></code> directive allows you to define a directory that is used as <cite>permanent</cite> cache for your process results.</p>
 <p>In more detail, it affects the process execution in two main ways:</p>
@@ -2481,8 +2484,8 @@ In these cases you may use the <a class="reference internal" href="#publishdir">
 <p>The use of AWS S3 path is supported however it requires the installation of the <a class="reference external" href="https://aws.amazon.com/cli/">AWS CLI tool</a>
 (i.e. <code class="docutils literal notranslate"><span class="pre">aws</span></code>) in the target computing node.</p>
 </div>
-</div>
-<div class="section" id="stageinmode">
+</section>
+<section id="stageinmode">
 <span id="process-stageinmode"></span><h3>stageInMode<a class="headerlink" href="#stageinmode" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stageInMode</span></code> directive defines how input files are staged-in to the process work directory. The following values
 are allowed:</p>
@@ -2511,8 +2514,8 @@ are allowed:</p>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="stageoutmode">
+</section>
+<section id="stageoutmode">
 <span id="process-stageoutmode"></span><h3>stageOutMode<a class="headerlink" href="#stageoutmode" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">stageOutMode</span></code> directive defines how output files are staged-out from the scratch directory to the process work
 directory. The following values are allowed:</p>
@@ -2539,8 +2542,8 @@ directory. The following values are allowed:</p>
 </tbody>
 </table>
 <p>See also: <a class="reference internal" href="#scratch">scratch</a>.</p>
-</div>
-<div class="section" id="tag">
+</section>
+<section id="tag">
 <span id="process-tag"></span><h3>tag<a class="headerlink" href="#tag" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">tag</span></code> directive allows you to associate each process execution with a custom label, so that it will be easier
 to identify them in the log file or in the trace execution report. For example:</p>
@@ -2563,8 +2566,8 @@ to identify them in the log file or in the trace execution report. For example:<
 </pre></div>
 </div>
 <p>See also <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace execution report</span></a></p>
-</div>
-<div class="section" id="time">
+</section>
+<section id="time">
 <span id="process-time"></span><h3>time<a class="headerlink" href="#time" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">time</span></code> directive allows you to define how long a process is allowed to run. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">big_job</span> <span class="p">{</span>
@@ -2610,8 +2613,8 @@ to identify them in the log file or in the trace execution report. For example:<
 <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> and <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> executors.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
-</div>
-<div class="section" id="validexitstatus">
+</section>
+<section id="validexitstatus">
 <span id="process-validexitstatus"></span><h3>validExitStatus<a class="headerlink" href="#validexitstatus" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -2635,8 +2638,8 @@ You can specify a single value or multiple values as shown in the following exam
 <p>In the above example, although the command script ends with a <code class="docutils literal notranslate"><span class="pre">1</span></code> exit status, the process
 will not return an error condition because the value <code class="docutils literal notranslate"><span class="pre">1</span></code> is declared as a <cite>valid</cite> status in
 the <code class="docutils literal notranslate"><span class="pre">validExitStatus</span></code> directive.</p>
-</div>
-<div class="section" id="dynamic-directives">
+</section>
+<section id="dynamic-directives">
 <h3>Dynamic directives<a class="headerlink" href="#dynamic-directives" title="Permalink to this headline">¶</a></h3>
 <p>A directive can be assigned <em>dynamically</em>, during the process execution, so that its actual value can be evaluated
 depending on the value of one, or more, process’ input values.</p>
@@ -2684,8 +2687,8 @@ which holds the directive values defined in the current process instance.</p>
  }
 </pre></div>
 </div>
-</div>
-<div class="section" id="dynamic-computing-resources">
+</section>
+<section id="dynamic-computing-resources">
 <h3>Dynamic computing resources<a class="headerlink" href="#dynamic-computing-resources" title="Permalink to this headline">¶</a></h3>
 <p>It’s a very common scenario that different instances of the same process may have very different needs in terms of computing resources.
 In such situations requesting, for example, an amount of memory too low will cause some tasks to fail.
@@ -2712,8 +2715,8 @@ time.</p>
 <p>If the task execution fail reporting an exit status in the range between 137 and 140, the task is re-submitted (otherwise terminates immediately).
 This time the value of <code class="docutils literal notranslate"><span class="pre">task.attempt</span></code> is <code class="docutils literal notranslate"><span class="pre">2</span></code>, thus increasing the amount of the memory to four GB and the time to 2 hours, and so on.</p>
 <p>The directive <a class="reference internal" href="#maxretries">maxRetries</a> set the maximum number of time the same task can be re-executed.</p>
-</div>
-<div class="section" id="dynamic-retry-with-backoff">
+</section>
+<section id="dynamic-retry-with-backoff">
 <h3>Dynamic Retry with backoff<a class="headerlink" href="#dynamic-retry-with-backoff" title="Permalink to this headline">¶</a></h3>
 <p>There are cases in which the required execution resources may be temporary unavailable e.g.
 network congestion. In these cases immediately re-executing the task will likely result in
@@ -2729,9 +2732,9 @@ conditions:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>

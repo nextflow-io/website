@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Google Cloud &mdash; Nextflow 21.04.3 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -111,20 +114,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="google-cloud">
+  <section id="google-cloud">
 <span id="google-page"></span><h1>Google Cloud<a class="headerlink" href="#google-cloud" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
+<section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="nextflow">
+<section id="nextflow">
 <h3>Nextflow<a class="headerlink" href="#nextflow" title="Permalink to this headline">¶</a></h3>
 <p>The support for Google Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">20.01.0</span></code>. To install it define the following variables
 in your system environment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">20.01</span><span class="o">.</span><span class="mi">0</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">20.01.0</span>
 <span class="n">export</span> <span class="n">NXF_MODE</span><span class="o">=</span><span class="n">google</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="credentials">
+</section>
+<section id="credentials">
 <h3>Credentials<a class="headerlink" href="#credentials" title="Permalink to this headline">¶</a></h3>
 <p>Credentials for submitting requests to the Google LifeSciences API are picked up from your
 environment using <a class="reference external" href="https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http">Application Default Credentials</a>.
@@ -158,9 +161,9 @@ credentials file just downloaded:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">GOOGLE_APPLICATION_CREDENTIALS</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">file</span><span class="o">/</span><span class="n">creds</span><span class="o">.</span><span class="n">json</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="cloud-life-sciences">
+</section>
+</section>
+<section id="cloud-life-sciences">
 <span id="google-lifesciences"></span><h2>Cloud Life Sciences<a class="headerlink" href="#cloud-life-sciences" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="https://cloud.google.com/life-sciences/">Cloud Life Sciences</a> is a managed computing service that allows the execution of
 containerized workloads in the Google Cloud Platform infrastructure.</p>
@@ -175,7 +178,7 @@ in the cloud, offloading the process executions through the Google Cloud service
 <p>This API works well for coarse-grained workloads i.e. long running jobs. It’s not suggested the use
 this feature for pipelines spawning many short lived tasks.</p>
 </div>
-<div class="section" id="configuration">
+<section id="configuration">
 <span id="google-lifesciences-config"></span><h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
 <p>Make sure to have defined in your environment the <code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable.
 See the section <a class="reference internal" href="#requirements">Requirements</a> for details.</p>
@@ -273,8 +276,8 @@ each process using one or more <a class="reference internal" href="config.html#c
 </tr>
 </tbody>
 </table>
-</div>
-<div class="section" id="process-definition">
+</section>
+<section id="process-definition">
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline">¶</a></h3>
 <p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to instantiate a custom
 machine type with the specified compute resources.  If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.
@@ -308,8 +311,8 @@ instances may be utilized using the <code class="docutils literal notranslate"><
 <p class="admonition-title">Note</p>
 <p>This feature requires Nextflow 19.07.0 or later.</p>
 </div>
-</div>
-<div class="section" id="pipeline-execution">
+</section>
+<section id="pipeline-execution">
 <h3>Pipeline execution<a class="headerlink" href="#pipeline-execution" title="Permalink to this headline">¶</a></h3>
 <p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
 locally or in a Google Storage bucket.</p>
@@ -323,8 +326,8 @@ the <code class="docutils literal notranslate"><span class="pre">-work-dir</span
 <p>Any input data <strong>not</strong> stored in a Google Storage bucket will automatically be transferred to the
 pipeline work bucket. Use this feature with caution being careful to avoid unnecessary data transfers.</p>
 </div>
-</div>
-<div class="section" id="preemptible-instances">
+</section>
+<section id="preemptible-instances">
 <h3>Preemptible instances<a class="headerlink" href="#preemptible-instances" title="Permalink to this headline">¶</a></h3>
 <p>Preemptible instances are supported adding the following setting in the Nextflow config file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">google</span> <span class="p">{</span>
@@ -345,8 +348,8 @@ if the virtual machine was terminated preemptively:</p>
 <p class="admonition-title">Tip</p>
 <p>For an exhaustive list of all possible error codes, please refer to the official Google LifeSciences <a class="reference external" href="https://cloud.google.com/life-sciences/docs/troubleshooting#error_codes">documentation</a>.</p>
 </div>
-</div>
-<div class="section" id="hybrid-execution">
+</section>
+<section id="hybrid-execution">
 <h3>Hybrid execution<a class="headerlink" href="#hybrid-execution" title="Permalink to this headline">¶</a></h3>
 <p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
 of hybrid workloads in which some jobs are executed in the local computer or local computing cluster and
@@ -378,15 +381,15 @@ specify the local storage for the jobs computed locally:</p>
 <p>The Google Storage path needs to contain at least sub-directory. Don’t use only the
 bucket name e.g. <code class="docutils literal notranslate"><span class="pre">gs://my-bucket</span></code>.</p>
 </div>
-</div>
-<div class="section" id="limitation">
+</section>
+<section id="limitation">
 <h3>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Currently it’s not possible to specify a disk type different from the default one assigned
 by the service depending on the chosen instance type.</p></li>
 </ul>
-</div>
-<div class="section" id="troubleshooting">
+</section>
+<section id="troubleshooting">
 <h3>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Make sure to have enabled Compute Engine API, Life Sciences API and Cloud Storage Service in the
@@ -404,9 +407,9 @@ Nextflow config file</p></li>
 <li><p>Make sure you are choosing a <cite>location</cite> where  <a class="reference external" href="https://cloud.google.com/life-sciences/docs/concepts/locations">Cloud Life Sciences API is available</a>,
 and a <cite>region</cite> or <cite>zone</cite> where <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Compute Engine is available</a>.</p></li>
 </ul>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
