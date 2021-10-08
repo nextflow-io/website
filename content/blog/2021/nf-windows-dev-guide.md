@@ -1,7 +1,7 @@
 title=Setting up a Nextflow Development and Runtime Environments on Windows
 date=2021-10-04
 description=This document provides a step-by-step guide to setting up a Nextflow development environment on Windows 10.
-image=img/share.png
+image=img/nf-windows-dev-guide-share.png
 tags=nextflow,learning
 status=published
 author=Evan Floden
