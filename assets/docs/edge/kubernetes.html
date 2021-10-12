@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kubernetes &mdash; Nextflow 21.06.0-edge documentation</title>
+  <title>Kubernetes &mdash; Nextflow 21.09.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -104,7 +107,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="kubernetes">
+  <section id="kubernetes">
 <span id="k8s-page"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://kubernetes.io/">Kubernetes</a> is a cloud-native open-source system for deployment, scaling, and management of
 containerized applications.</p>
@@ -112,7 +115,7 @@ containerized applications.</p>
 different cloud platforms and on-premises installations.</p>
 <p>The built-in support for Kubernetes provided by Nextflow streamlines the execution of containerised workflows in
 Kubernetes clusters.</p>
-<div class="section" id="concepts">
+<section id="concepts">
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
 <p>Kubernetes main abstraction is the <cite>pod</cite>. A <cite>pod</cite> defines the (desired) state of one or more containers i.e. required
 computing resources, storage, network configuration.</p>
@@ -122,8 +125,8 @@ allow containers to access to the underlying storage systems in a transparent an
 the workflow execution and submits a separate pod execution for each job that need to be carried out by the workflow
 application.</p>
 <img alt="_images/nextflow-k8s-min.png" src="_images/nextflow-k8s-min.png" />
-</div>
-<div class="section" id="requirements">
+</section>
+<section id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <p>At least a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes">Persistent Volume</a> with
 <code class="docutils literal notranslate"><span class="pre">ReadWriteMany</span></code> access mode has to be defined in the Kubernetes cluster (check the supported storage systems
@@ -132,8 +135,8 @@ at <a class="reference external" href="https://kubernetes.io/docs/concepts/stora
 <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">Persistent Volume Claim</a>, which
 will be used by Nextflow to run the application and store the scratch data and the pipeline final result.</p>
 <p>The workflow application has to be containerised using the usual Nextflow <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
-</div>
-<div class="section" id="execution">
+</section>
+<section id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
 <p>The workflow execution needs to be submitted from a computer able to connect to the Kubernetes cluster.</p>
 <p>Nextflow uses the Kubernetes configuration file available at the path <code class="docutils literal notranslate"><span class="pre">$HOME/.kube/config</span></code> or the file specified
@@ -157,8 +160,8 @@ execution. In the above example replace <code class="docutils literal notranslat
 specified in the Nextflow configuration file, see the <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration section</span></a> for details.</p>
 <p>Once the pod execution starts, the application in the foreground prints the console output produced by the running
 workflow pod.</p>
-</div>
-<div class="section" id="interactive-login">
+</section>
+<section id="interactive-login">
 <h2>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline">¶</a></h2>
 <p>For debugging purpose it’s possible to execute a Nextflow pod and launch an interactive shell using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="n">login</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
@@ -171,8 +174,8 @@ login session.</p>
 <p>The pod is automatically destroyed once the shell session terminates. Do not use to start long running
 workflow executions in background.</p>
 </div>
-</div>
-<div class="section" id="running-in-a-pod">
+</section>
+<section id="running-in-a-pod">
 <h2>Running in a pod<a class="headerlink" href="#running-in-a-pod" title="Permalink to this headline">¶</a></h2>
 <p>The main convenience of the <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> command is that it spares the user from manually creating a pod from
 where the main Nextflow application is launched. In this scenario, the user environment is not containerised.</p>
@@ -199,13 +202,17 @@ with the directory in the volume to be mounted (default: <code class="docutils l
 one specified in your Nextflow configuration file.
 Note also that the <code class="docutils literal notranslate"><span class="pre">run</span></code> command does not support the <code class="docutils literal notranslate"><span class="pre">-v</span></code> option.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is also possible to mount multiple volumes using the <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive, setting such as <code class="docutils literal notranslate"><span class="pre">k8s.pod</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">[volumeClaim:</span> <span class="pre">&quot;other-pvc&quot;,</span> <span class="pre">mountPath:</span> <span class="pre">&quot;/other&quot;</span> <span class="pre">]]</span></code></p>
 </div>
-<div class="section" id="pod-settings">
+</section>
+<section id="pod-settings">
 <h2>Pod settings<a class="headerlink" href="#pod-settings" title="Permalink to this headline">¶</a></h2>
 <p>The process <a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a> directive allows the definition of pods specific settings, such as environment variables,
 secrets and config maps when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor. See the <a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a> directive for more details.</p>
-</div>
-<div class="section" id="limitation">
+</section>
+<section id="limitation">
 <h2>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -214,13 +221,13 @@ provide a shortcut to simple pipeline deployment into a Kubernetes cluster.</p>
 <p>For stable pipeline deployment, Nextflow needs to be executed as a pod as mentioned in the <a class="reference internal" href="#running-in-a-pod">Running in a pod</a> section.
 In alternative take in consideration a managed provisioning service such as <a class="reference external" href="https://tower.nf">Nextflow Tower</a>.</p>
 </div>
-</div>
-<div class="section" id="advanced-configuration">
+</section>
+<section id="advanced-configuration">
 <h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
 <p>Read <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">executor</span></a> sections to learn more
 about advanced configuration options.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>

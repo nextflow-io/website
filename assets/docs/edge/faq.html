@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FAQ &mdash; Nextflow 21.06.0-edge documentation</title>
+  <title>FAQ &mdash; Nextflow 21.09.0-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -92,9 +95,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <div class="section" id="faq">
+  <section id="faq">
 <span id="faq-page"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="how-do-i-process-multiple-input-files-in-parallel">
+<section id="how-do-i-process-multiple-input-files-in-parallel">
 <h2>How do I process multiple input files in parallel?<a class="headerlink" href="#how-do-i-process-multiple-input-files-in-parallel" title="Permalink to this headline">¶</a></h2>
 <p>Q: <em>I have a collection of input files (e.g. carrots.fa, onions.fa, broccoli.fa). How can I specify that a process is performed on each input file in a parallel manner?</em></p>
 <p>A: The idea here is to create a <code class="docutils literal notranslate"><span class="pre">channel</span></code> that will trigger a process
@@ -130,8 +133,8 @@ them as follows:</p>
 into <code class="docutils literal notranslate"><span class="pre">carrots.aln</span></code>, <code class="docutils literal notranslate"><span class="pre">onions.aln</span></code> and <code class="docutils literal notranslate"><span class="pre">broccoli.aln</span></code>.</p>
 <p>These aligned files are now in the channel <code class="docutils literal notranslate"><span class="pre">vegetable_alns</span></code> and can be
 used as input for a further process.</p>
-</div>
-<div class="section" id="how-do-i-get-a-unique-id-based-on-the-file-name">
+</section>
+<section id="how-do-i-get-a-unique-id-based-on-the-file-name">
 <h2>How do I get a unique ID based on the file name?<a class="headerlink" href="#how-do-i-get-a-unique-id-based-on-the-file-name" title="Permalink to this headline">¶</a></h2>
 <p><em>Q: How do I get a unique identifier based on a dataset file names (e.g. broccoli from broccoli.fa) and have the results going to a specific folder (e.g. results/broccoli/)?</em></p>
 <p>A: First we can specify a results directory as shown below:</p>
@@ -168,8 +171,8 @@ and <code class="docutils literal notranslate"><span class="pre">datasetFile</sp
 contain the file <code class="docutils literal notranslate"><span class="pre">broccoli.aln</span></code>.</p>
 <p>If the input file has multiple extensions (e.g. <code class="docutils literal notranslate"><span class="pre">brocolli.tar.gz</span></code>), you will want to use
 <code class="docutils literal notranslate"><span class="pre">file.simpleName</span></code> instead, to strip all of them (available since Nextflow 0.25+).</p>
-</div>
-<div class="section" id="how-do-i-use-the-same-channel-multiple-times">
+</section>
+<section id="how-do-i-use-the-same-channel-multiple-times">
 <h2>How do I use the same channel multiple times?<a class="headerlink" href="#how-do-i-use-the-same-channel-multiple-times" title="Permalink to this headline">¶</a></h2>
 <p><em>Q: Can a channel be used in two input statements? For example, I want carrots.fa to be aligned by both ClustalW and T-Coffee.</em></p>
 <p>A: A channel can be consumed only by one process or operator (except if channel only ever contains one item). You must
@@ -216,8 +219,8 @@ First we create the channel emitting the input files:</p>
 fasta files (<code class="docutils literal notranslate"><span class="pre">broccoli.fa</span></code>, <code class="docutils literal notranslate"><span class="pre">onion.fa</span></code> and <code class="docutils literal notranslate"><span class="pre">carrots.fa</span></code>) six
 alignment processes (three x ClustalW) + (three x T-Coffee) will be
 executed as parallel processes.</p>
-</div>
-<div class="section" id="how-do-i-invoke-custom-scripts-and-tools">
+</section>
+<section id="how-do-i-invoke-custom-scripts-and-tools">
 <h2>How do I invoke custom scripts and tools?<a class="headerlink" href="#how-do-i-invoke-custom-scripts-and-tools" title="Permalink to this headline">¶</a></h2>
 <p><em>Q: I have executables in my code, how should I call them in Nextflow?</em></p>
 <p>A: Nextflow will automatically add the directory <code class="docutils literal notranslate"><span class="pre">bin</span></code> into the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
@@ -257,8 +260,8 @@ alignments are in the channel <code class="docutils literal notranslate"><span c
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-do-i-iterate-over-a-process-n-times">
+</section>
+<section id="how-do-i-iterate-over-a-process-n-times">
 <h2>How do I iterate over a process n times?<a class="headerlink" href="#how-do-i-iterate-over-a-process-n-times" title="Permalink to this headline">¶</a></h2>
 <p>To perform a process <em>n</em> times, we can specify the input to be
 <code class="docutils literal notranslate"><span class="pre">each</span> <span class="pre">x</span> <span class="pre">from</span> <span class="pre">y..z</span></code>. For example:</p>
@@ -284,8 +287,8 @@ alignments are in the channel <code class="docutils literal notranslate"><span c
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-do-i-iterate-over-nth-files-from-within-a-process">
+</section>
+<section id="how-do-i-iterate-over-nth-files-from-within-a-process">
 <h2>How do I iterate over nth files from within a process?<a class="headerlink" href="#how-do-i-iterate-over-nth-files-from-within-a-process" title="Permalink to this headline">¶</a></h2>
 <p><em>Q: For example, I have 100 files emitted by a channel. I wish to perform one process where I iterate over each file inside the process.</em></p>
 <p>A: The idea here to transform a channel emitting multiple items into a channel
@@ -313,16 +316,16 @@ the files by using a simple for-loop.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="how-do-i-use-a-specific-version-of-nextflow">
+</section>
+<section id="how-do-i-use-a-specific-version-of-nextflow">
 <h2>How do I use a specific version of Nextflow?<a class="headerlink" href="#how-do-i-use-a-specific-version-of-nextflow" title="Permalink to this headline">¶</a></h2>
 <p><em>Q: I need to specify a version of Nextflow to use, or I need to pull a snapshot release.</em></p>
 <p>A: Sometimes it is necessary to use a different version of Nextflow for a specific feature or testing purposes. Nextflow is able to automatically pull versions when the <code class="docutils literal notranslate"><span class="pre">NXF_VER</span></code> environment variable is defined on the commandline.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NXF_VER</span><span class="o">=</span><span class="mf">0.28</span><span class="o">.</span><span class="mi">0</span> <span class="n">nextflow</span> <span class="n">run</span> <span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">NXF_VER</span><span class="o">=</span><span class="mf">0.28.0</span> <span class="n">nextflow</span> <span class="n">run</span> <span class="n">main</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
