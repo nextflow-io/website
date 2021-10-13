@@ -1,14 +1,13 @@
----
-title=Setting up a Nextflow Development and Runtime Environments on Windows
-date=2021-10-04
+title=Setting up a Nextflow environment on Windows 10
+date=2021-10-13
+type=post
 description=This document provides a step-by-step guide to setting up a Nextflow development environment on Windows 10.
 image=img/nf-windows-dev-guide-share.png
-tags=nextflow,learning
+tags=windows,learning
 status=published
 author=Evan Floden
 icon=evan.jpg
 ~~~~~~
----
 
 For Windows users, getting access to a Linux-based Nextflow development and runtime environment used to be hard. Users would need to run virtual machines, access separate physical servers or cloud instances, or install packages such as [Cygwin](http://www.cygwin.com/) or [Wubi](https://wiki.ubuntu.com/WubiGuide). Fortunately, there is now an easier way to deploy a complete Nextflow development environment on Windows.
 
@@ -38,14 +37,14 @@ PowerShell is a big improvement over the Command Prompt in Windows 10. It brings
 
 * You can obtain PowerShell for Windows from GitHub at the URL https://github.com/PowerShell/PowerShell.
 * Download and install the latest stable version of PowerShell for Windows x64 - e.g., [powershell-7.1.3-win-x64.msi](https://github.com/PowerShell/PowerShell/releases/download/v7.1.3/PowerShell-7.1.3-win-x64.msi).
-* If you run into difficulties, Microsoft provides detailed instructions [here]([here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-7.1)).
+* If you run into difficulties, Microsoft provides detailed instructions [here](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-windows?view=powershell-7.1).
 
 
 ## Configure the Windows Subsystem for Linux (WSL)
 
 ### Enable the Windows Subsystem for Linux
 
-Make sure you are running Windows 10 Version 1903 with Build 18362 or higher. You can check your Windows version by select WIN-R (using the Windows key to run a command) and running the utility *winver*.
+Make sure you are running Windows 10 Version 1903 with Build 18362 or higher. You can check your Windows version by select WIN-R (using the Windows key to run a command) and running the utility `winver`.
 
 From within PowerShell, run the Windows Deployment Image and Service Manager (DISM) tool as an administrator to enable the Windows Subsystem for Linux. To run PowerShell with administrator privileges, right-click on the PowerShell icon from the Start menu or desktop and select “*Run as administrator*”.
 
@@ -59,6 +58,7 @@ Enabling feature(s)
 [==========================100.0%==========================]
 The operation completed successfully.
 ```
+
 You can learn more about DISM [here](https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/what-is-dism).
 
 ### Step 2: Enable the Virtual Machine Feature
@@ -101,15 +101,15 @@ If you normally install Linux on VM environments such as VirtualBox or VMware, t
 
 * Use this link to access and download a Linux Distribution for WSL through the Microsoft Store - https://aka.ms/wslstore.
 
-  ![Linux Distributions at the Microsoft Store](/img/ms-store.png)
+	![Linux Distributions at the Microsoft Store](/img/ms-store.png)
 
 * We selected the Ubuntu 20.04 LTS release. You can use a different distribution if you choose. Installation from the Microsoft Store is automated. Once the Linux distribution is installed, you can run a shell on Ubuntu (or your installed OS) from the Windows Start menu.
-* When you start Ubuntu Linux for the first time, you will be prompted to provide a UNIX username and password. The username that you select can be distinct from your Windows username. The UNIX user that you create will automatically have ***sudo*** privileges. Whenever a shell is started, it will default to this user.
+* When you start Ubuntu Linux for the first time, you will be prompted to provide a UNIX username and password. The username that you select can be distinct from your Windows username. The UNIX user that you create will automatically have `sudo` privileges. Whenever a shell is started, it will default to this user.
 * After setting your username and password, update your packages on Ubuntu from the Linux shell using the following command:
 
-  ```
-  $ sudo apt update && sudo apt upgrade
-  ```
+	```
+	$ sudo apt update && sudo apt upgrade
+	```
 
 * This is also a good time to add any additional Linux packages that you will want to use.
 
@@ -157,11 +157,11 @@ An explanation of how the Docker Desktop WSL 2 Back-end works is provided [here]
 * After installation, Docker Desktop can be run from the Windows start menu. The Docker Desktop user interface is shown below. Note that Docker containers launched under WSL can be managed from the Windows Docker Desktop GUI or Linux command line.
 * The installation process is straightforward, but if you run into difficulties, detailed instructions are available [here](https://docs.docker.com/docker-for-windows/install/).
 
-![Nextflow Visual Studio Code Extension](/img/docker-images.png)
+	![Nextflow Visual Studio Code Extension](/img/docker-images.png)
 
 The Docker Engineering team provides an architecture diagram explaining how Docker on Windows interacts with WSL. Additional details are available [here](https://code.visualstudio.com/blogs/2020/03/02/docker-in-wsl2).
 
-![Nextflow Visual Studio Code Extension](/img/docker-windows-arch.png)
+	![Nextflow Visual Studio Code Extension](/img/docker-windows-arch.png)
 
 
 ### Step 2: Verify the Docker installation
@@ -170,29 +170,25 @@ Now that Docker is installed, run a Docker container to verify that Docker and t
 
 * Run a Docker command from the Linux shell as shown below below. This command downloads a **centos** image from Docker Hub and allows us to interact with the container via an assigned pseudo-tty. Your Docker container may exit with exit code 139 when you run this and other Docker containers. If so, don’t worry – an easy fix to this issue is provided shortly.
 
-  ```
-  $ docker run -ti centos:6
-  [root@02ac0beb2d2c /]# hostname
-  02ac0beb2d2c
-  ```
+		$ docker run -ti centos:6
+		[root@02ac0beb2d2c /]# hostname
+		02ac0beb2d2c
 
-* You can run Docker commands in other Linux shell windows via the Windows Terminal environment to monitor and manage Docker containers and images. For example, running **docker ps** in another window shows the running CentOS Docker container.
+* You can run Docker commands in other Linux shell windows via the Windows Terminal environment to monitor and manage Docker containers and images. For example, running `docker ps` in another window shows the running CentOS Docker container.
 
-  ```
-  $ docker ps
-  CONTAINER ID IMAGE   COMMAND   CREATED    STATUS    NAMES
-  f5dad42617f1 centos:6 "/bin/bash" 2 minutes ago Up 2 minutes 	happy_hopper
-  ```
+		$ docker ps
+		CONTAINER ID IMAGE   COMMAND   CREATED    STATUS    NAMES
+		f5dad42617f1 centos:6 "/bin/bash" 2 minutes ago Up 2 minutes 	happy_hopper
 
 ### Step 3: Dealing with exit code 139
 
 You may encounter exit code 139 when running Docker containers. This is a known problem when running containers with specific base images within Docker Desktop. Good explanations of the problem and solution are provided [here](https://dev.to/damith/docker-desktop-container-crash-with-exit-code-139-on-windows-wsl-fix-438) and [here](https://unix.stackexchange.com/questions/478387/running-a-centos-docker-image-on-arch-linux-exits-with-code-139).
 
-The solution is to add two lines to a **.wslconfig file** in your Windows home directory. The **.wslconfig** file specifies kernel options that apply to all Linux distributions running under WSL 2.
+The solution is to add two lines to a `.wslconfig` file in your Windows home directory. The `.wslconfig` file specifies kernel options that apply to all Linux distributions running under WSL 2.
 
 Some of the Nextflow container images served from Docker Hub are affected by this bug since they have older base images, so it is a good idea to apply this fix.
 
-* Edit the **.wslconfig** file in your Windows home directory. You can do this using PowerShell as shown:
+* Edit the `.wslconfig` file in your Windows home directory. You can do this using PowerShell as shown:
 
 	```
 	PS C:\Users\<username> notepad .wslconfig
@@ -229,11 +225,11 @@ Download Visual Studio Code from https://code.visualstudio.com/Download and foll
 
 * Within VS Code and other Windows tools, you can access the Linux file system under WSL 2 by accessing the path `\\wsl$\<linux-environment>`. In our example, the path from Windows to access files from the root of our Ubuntu Linux instance is: [**\\wsl$\Ubuntu-20.04**](file://wsl$/Ubuntu-20.04).
 
-Note that the reverse is possible also – from within Linux, **/mnt/c** maps to the Windows C: drive. You can inspect **/etc/mtab** to see the mounted file systems available under Linux.
+Note that the reverse is possible also – from within Linux, `/mnt/c` maps to the Windows C: drive. You can inspect `/etc/mtab` to see the mounted file systems available under Linux.
 
 * It is a good idea to install Nextflow language support in VS Code. You can do this by selecting the Extensions icon from the left panel of the VS Code interface and searching the extensions library for Nextflow as shown. The Nextflow language support extension is on GitHub at https://github.com/nextflow-io/vscode-language-nextflow
 
-![Nextflow Visual Studio Code Extension](/img/nf-vscode-ext.png)
+	![Nextflow Visual Studio Code Extension](/img/nf-vscode-ext.png)
 
 ## Visual Studio Code Remote Development
 
@@ -241,7 +237,7 @@ Visual Studio Code Remote Development supports development on remote environment
 
 Windows users work within VS Code in the Windows environment. However, source code, developer tools, and debuggers all run Linux on WSL, as illustrated below.
 
-![The Remote Development Environment in VS Code](/img/vscode-remote-dev.png)
+	[The Remote Development Environment in VS Code](/img/vscode-remote-dev.png)
 
 An explanation of how VS Code Remote Development works is provided [here](https://code.visualstudio.com/docs/remote/remote-overview).
 
@@ -249,13 +245,13 @@ VS Code users see the Windows filesystem, plug-ins specific to VS Code on Window
 
 To open a new VS Code Window running in the context of the WSL Ubuntu-20.04 environment, click the green icon at the lower left of the VS Code window and select “New WSL Window using Distro ..” and select Ubuntu 20.04. You’ll notice that the environment changes to show that you are working in the WSL: Ubuntu-20.04 environment.
 
-![Selecting the Remote Dev Environment within VS Code](/img/remote-dev-side-by-side.png)
+	![Selecting the Remote Dev Environment within VS Code](/img/remote-dev-side-by-side.png)
 
 Selecting the Extensions icon, you can see that different VS Code Marketplace extensions run in different contexts. The Nextflow Language extension installed in the previous step is globally available. It works when developing on Windows or developing on WSL: Ubuntu-20.04.
 
 The Extensions tab in VS Code differentiates between locally installed plug-ins and those installed under WSL.
 
-![Local vs. Remote Extensions in VS Code](/img/vscode-extensions.png)
+	![Local vs. Remote Extensions in VS Code](/img/vscode-extensions.png)
 
 ## Installing Nextflow
 
@@ -285,23 +281,21 @@ Java is a prerequisite for running Nextflow. Instructions for installing Java on
 
 ### Step 2: Make sure curl is installed
 
-**curl** is a convenient way to obtain Nextflow. **curl** is included in the default Ubuntu repositories, so installation is straightforward. From the shell:
+`curl` is a convenient way to obtain Nextflow. `curl` is included in the default Ubuntu repositories, so installation is straightforward. 
 
-```
-$ sudo apt update
-$ sudo apt install curl
-```
+* From the shell:
 
-* Verify that **curl** works:
+		$ sudo apt update
+		$ sudo apt install curl
 
-	```
-	$ curl
-	curl: try 'curl --help' or 'curl --manual' for more information
-	```
+* Verify that `curl` works:
+
+		$ curl
+		curl: try 'curl --help' or 'curl --manual' for more information
 
 ### STEP 3: Download and install Nextflow
 
-* Use **curl** to retrieve Nextflow into a temporary directory and then install it in **/usr/bin** so that the Nextflow command is on your path:
+* Use `curl` to retrieve Nextflow into a temporary directory and then install it in `/usr/bin` so that the Nextflow command is on your path:
 
 	```
 	$ mkdir temp
@@ -327,73 +321,68 @@ $ sudo apt install curl
 
 * Make sure Nextflow runs:
 
-	```
-	$ **nextflow -version**
+		$ nextflow -version
 
-	   N E X T F L O W
-	   version 21.04.2 build 5558
-	   created 12-07-2021 07:54 UTC (03:54 EDT)
-	   cite doi:10.1038/nbt.3820
-	   http://nextflow.io
-	```
+			N E X T F L O W
+			version 21.04.2 build 5558
+			created 12-07-2021 07:54 UTC (03:54 EDT)
+			cite doi:10.1038/nbt.3820
+			http://nextflow.io
 
 * Run a simple Nextflow pipeline. The example below downloads and executes a sample hello world pipeline from GitHub - https://github.com/nextflow-io/hello.
 
-	```
-	$ nextflow run hello
-	N E X T F L O W ~ version 21.04.2
-	Launching `nextflow-io/hello` [distracted_pare] - revision: ec11eb0ec7 [master]
-	executor > local (4)
-	[06/c846d8] process > sayHello (3) [100%] 4 of 4 ✔
-	Ciao world!
+		$ nextflow run hello
+		N E X T F L O W ~ version 21.04.2
+		Launching `nextflow-io/hello` [distracted_pare] - revision: ec11eb0ec7 [master]
+		executor > local (4)
+		[06/c846d8] process > sayHello (3) [100%] 4 of 4 ✔
+		Ciao world!
 
-	Hola world!
+		Hola world!
 
-	Bonjour world!
+		Bonjour world!
 
-	Hello world!
-	```
+		Hello world!
+
 
 ### Step 5: Run a Containerized Workflow
 
 To validate that Nextflow works with containerized workflows, we can run a slightly more complicated example. A sample workflow involving NCBI Blast is available at https://github.com/nextflow-io/blast-example. Rather than installing Blast on our local Linux instance, it is much easier to pull a container preloaded with Blast and other software that the pipeline depends on.
 
-The **nextflow.config** file for the Blast example (below) specifies that process logic is encapsulated in the container **nextflow/examples** available from Docker Hub (https://hub.docker.com/r/nextflow/examples).
+The `nextflow.config` file for the Blast example (below) specifies that process logic is encapsulated in the container `nextflow/examples` available from Docker Hub (https://hub.docker.com/r/nextflow/examples).
 
 
-**On GitHub: nextflow-io/blast-example/nextflow.config**
+* On GitHub: [nextflow-io/blast-example/nextflow.config](https://github.com/nextflow-io/blast-example/blob/master/nextflow.config)
 
-```
-manifest {
- nextflowVersion = '>= 20.01.0'
-}
+		manifest {
+		nextflowVersion = '>= 20.01.0'
+		}
 
-process {
- container = 'nextflow/examples'
-}
-```
+		process {
+		container = 'nextflow/examples'
+		}
+
 
 * Run the *blast-example* pipeline that resides on GitHub directly from WLS and specify Docker as the container runtime using the command below:
 
-	```
-	$ nextflow run blast-example -with-docker
-	N E X T F L O W ~ version 21.04.2
-	Launching `nextflow-io/blast-example` [sharp_raman] - revision: 25922a0ae6 [master]
-	executor > local (2)
-	[aa/a9f056] process > blast (1)  [100%] 1 of 1 ✔
-	[b3/c41401] process > extract (1) [100%] 1 of 1 ✔
-	matching sequences:
-	>lcl|1ABO:B unnamed protein product
-	MNDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS
-	>lcl|1ABO:A unnamed protein product
-	MNDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS
-	>lcl|1YCS:B unnamed protein product
-	PEITGQVSLPPGKRTNLRKTGSERIAHGMRVKFNPLPLALLLDSSLEGEFDLVQRIIYEVDDPSLPNDEGITALHNAVCA
-	GHTEIVKFLVQFGVNVNAADSDGWTPLHCAASCNNVQVCKFLVESGAAVFAMTYSDMQTAADKCEEMEEGYTQCSQFLYG
-	VQEKMGIMNKGVIYALWDYEPQNDDELPMKEGDCMTIIHREDEDEIEWWWARLNDKEGYVPRNLLGLYPRIKPRQRSLA
-	>lcl|1IHD:C unnamed protein product
-	LPNITILATGGTIAGGGDSATKSNYTVGKVGVENLVNAVPQLKDIANVKGEQVVNIGSQDMNDNVWLTLAKKINTDCDKT
-	```
+		$ nextflow run blast-example -with-docker
+		N E X T F L O W ~ version 21.04.2
+		Launching `nextflow-io/blast-example` [sharp_raman] - revision: 25922a0ae6 [master]
+		executor > local (2)
+		[aa/a9f056] process > blast (1)  [100%] 1 of 1 ✔
+		[b3/c41401] process > extract (1) [100%] 1 of 1 ✔
+		matching sequences:
+		>lcl|1ABO:B unnamed protein product
+		MNDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS
+		>lcl|1ABO:A unnamed protein product
+		MNDPNLFVALYDFVASGDNTLSITKGEKLRVLGYNHNGEWCEAQTKNGQGWVPSNYITPVNS
+		>lcl|1YCS:B unnamed protein product
+		PEITGQVSLPPGKRTNLRKTGSERIAHGMRVKFNPLPLALLLDSSLEGEFDLVQRIIYEVDDPSLPNDEGITALHNAVCA
+		GHTEIVKFLVQFGVNVNAADSDGWTPLHCAASCNNVQVCKFLVESGAAVFAMTYSDMQTAADKCEEMEEGYTQCSQFLYG
+		VQEKMGIMNKGVIYALWDYEPQNDDELPMKEGDCMTIIHREDEDEIEWWWARLNDKEGYVPRNLLGLYPRIKPRQRSLA
+		>lcl|1IHD:C unnamed protein product
+		LPNITILATGGTIAGGGDSATKSNYTVGKVGVENLVNAVPQLKDIANVKGEQVVNIGSQDMNDNVWLTLAKKINTDCDKT
+
 
 * Nextflow executes the pipeline directly from the GitHub repository and automatically pulls the nextflow/examples container from Docker Hub if the image is unavailable locally. The pipeline then executes the two containerized workflow steps (blast and extract). The pipeline then collects the sequences into a single file and prints the result file content when pipeline execution completes.
 
@@ -403,9 +392,9 @@ Pipeline developers will probably want to use the Nextflow Console at some point
 
 The Nextflow Console is launched from the Linux command line. However, the Groovy-based interface requires an X-Windows environment to run. You can set up X-Windows with WSL using the procedure below. A good article on this same topic is provided [here](https://medium.com/javarevisited/using-wsl-2-with-x-server-linux-on-windows-a372263533c3).
 
-* Download an X-Windows server for Windows. In this example, we use the **VcXsrv Windows X Server** available from source forge at https://sourceforge.net/projects/vcxsrv/.
+* Download an X-Windows server for Windows. In this example, we use the *VcXsrv Windows X Server* available from source forge at https://sourceforge.net/projects/vcxsrv/.
 
-* Accept all the defaults when running the automated installer. The X-server will end up installed in *c:\Program Files\VcXsrv*.
+* Accept all the defaults when running the automated installer. The X-server will end up installed in `c:\Program Files\VcXsrv`.
 
 * The automated installation of VcXsrv will create an “XLaunch” shortcut on your desktop. It is a good idea to create your own shortcut with a customized command line so that you don’t need to interact with the XLaunch interface every time you start the X-server.
 
@@ -417,11 +406,11 @@ The Nextflow Console is launched from the Linux command line. However, the Groov
 
 * Inspecting the new shortcut properties, it should look something like this:
 
-![X-Server (vcxsrc) Properties](/img/xserver.png)
+	![X-Server (vcxsrc) Properties](/img/xserver.png)
 
 * Double-click on the new shortcut desktop icon to test it. Unfortunately, the X-server runs in the background. When running the X-server in multiwindow mode (which we recommend), it is not obvious whether the X-server is running.
 
-* One way to check that the X-server is running is to use the Microsoft Task Manager and look for the XcSrv process running in the background. You can also verify it is running by using the **netstat** command from with PowerShell on Windows to ensure that the X-server is up and listening on the appropriate ports. Using **netstat**, you should see output like the following:
+* One way to check that the X-server is running is to use the Microsoft Task Manager and look for the XcSrv process running in the background. You can also verify it is running by using the `netstat` command from with PowerShell on Windows to ensure that the X-server is up and listening on the appropriate ports. Using `netstat`, you should see output like the following:
 
 	```
 	PS C:\WINDOWS\system32> **netstat -abno | findstr 6000**
@@ -448,7 +437,7 @@ The Nextflow Console is launched from the Linux command line. However, the Groov
 	172.28.192.1:0.0
 	```
 
-* Add this command to the end of your **.bashrc** file in the Linux home directory to avoid needing to set the DISPLAY variable every time you open a new window. This way, if the IP address of the desktop or laptop changes, the DISPLAY variable will be updated accordingly.
+* Add this command to the end of your `.bashrc` file in the Linux home directory to avoid needing to set the DISPLAY variable every time you open a new window. This way, if the IP address of the desktop or laptop changes, the DISPLAY variable will be updated accordingly.
 
 	```
 	$ cd ~
@@ -471,7 +460,7 @@ Before testing X-Windows, do yourself a favor and temporarily disable the Window
 
 Depending on your installation, you may be running a specific Firewall. In this example, we temporarily disable the McAfee LiveSafe Firewall as shown:
 
-![Ensure that the Firewall is not interfering](/img/firewall.png)
+	![Ensure that the Firewall is not interfering](/img/firewall.png)
 
 * With the Firewall disabled, you can attempt to launch the xterm client from the Linux shell:
 
@@ -481,11 +470,11 @@ Depending on your installation, you may be running a specific Firewall. In this 
 
 * If everything is working correctly, you should see the new xterm client appear under Windows. The xterm is executing on Ubuntu under WSL but displays alongside other Windows on the Windows desktop. This is what is meant by “multiwindow” mode.
 
-  ![Launch an xterm to verify functionality](/img/xterm.png)
+	![Launch an xterm to verify functionality](/img/xterm.png)
 
 * Now that you know X-Windows is working correctly turn the Firewall back on, and adjust the settings to allow traffic to and from the required port. Ideally, you want to open only the minimal set of ports and services required. In the case of the McAfee Firewall, getting X-Windows to work required changing access to incoming and outgoing ports to “Open ports to Work and Home networks” for the vcxsrv.exe program only as shown:
 
-  ![Allowing access to XServer traffic](/img/xserver_setup.png)
+	![Allowing access to XServer traffic](/img/xserver_setup.png)
 
 * With the X-server running, the DISPLAY variable set, and the Windows Firewall configured correctly, we can now launch the Nextflow Console from the shell as shown:
 
@@ -494,7 +483,7 @@ Depending on your installation, you may be running a specific Firewall. In this 
 	```
 	The command above opens the Nextflow REPL console under X-Windows.
 
-  ![Nextflow REPL Console under X-Windows](/img/repl_console.png)
+	![Nextflow REPL Console under X-Windows](/img/repl_console.png)
 
 Inside the Nextflow console, you can enter Groovy code and run it interactively, a helpful feature when developing and debugging Nextflow pipelines.
 
@@ -512,7 +501,7 @@ Developers will probably want to use Git both from within a Windows context and 
 
 * Click on the Git installer from the Downloads directory, and click through the default installation options. During the install process, you will be asked to select the default editor to be used with Git. (VIM, Notepad++, etc.). Select Visual Studio Code (assuming that this is the IDE that you plan to use for Nextflow).
 
-  ![Installing Git on Windows](/img/git-install.png)
+	![Installing Git on Windows](/img/git-install.png)
 
 * The Git installer will prompt you for additional settings. If you are not sure, accept the defaults. When asked, adjust the PATH variable to use the recommended option, making the Git command line available from Git Bash, the Command Prompt, and PowerShell.
 
@@ -522,7 +511,7 @@ Developers will probably want to use Git both from within a Windows context and 
 
 * After installing Git, from within VS Code (in the context of the local host), select the Source Control icon from the left pane of the VS Code interface as shown. You can open local folders that contain a git repository or clone repositories from GitHub or your preferred source code management system.
 
-  ![Using Git within VS Code](/img/git-vscode.png)
+	![Using Git within VS Code](/img/git-vscode.png)
 
 * Documentation on using Git with Visual Studio Code is provided at https://code.visualstudio.com/docs/editor/versioncontrol
 
@@ -530,7 +519,7 @@ Developers will probably want to use Git both from within a Windows context and 
 
 * Open a Remote VS Code Window on ***WSL: Ubuntu 20.04\*** (By selecting the green icon on the lower-left corner of the VS code interface.)
 
-* Git should already be installed in **/usr/bin**, but you can validate this from the Ubuntu shell:
+* Git should already be installed in `/usr/bin`, but you can validate this from the Ubuntu shell:
 
 	```
 	$ git --version
@@ -539,25 +528,23 @@ Developers will probably want to use Git both from within a Windows context and 
 
 * To get started using Git with VS Code Remote on WSL, select the *Source Control icon* on the left panel of VS code. Assuming VS Code Remote detects that Git is installed on Linux, you should be able to *Clone a Repository*.
 
-* Select “Clone Repository,” and when prompted, clone the GitHub repo for the Blast example that we used earlier - https://github.com/nextflow-io/blast-example. Clone this repo into your home directory on Linux.
+* Select “Clone Repository,” and when prompted, clone the GitHub repo for the Blast example that we used earlier - https://github.com/nextflow-io/blast-example. Clone this repo into your home directory on Linux. You should see *blast-example* appear as a source code repository within VS code as shown:
 
-  You should see *blast-example* appear as a source code repository within VS code as shown:
-
-  ![Using Git within VS Code](/img/git-linux-1.png)
+	![Using Git within VS Code](/img/git-linux-1.png)
 
 * Select the *Explorer* panel in VS Code to see the cloned *blast-example* repo. Now we can explore and modify the pipeline code using the IDE.
 
-  ![Using Git within VS Code](/img/git-linux-2.png)
+	![Using Git within VS Code](/img/git-linux-2.png)
 
 * After making modifications to the pipeline, we can execute the *local copy* of the pipeline either from the Linux shell or directly via the Terminal window in VS Code as shown:
 
-  ![Using Git within VS Code](/img/git-linux-3.png)
+	![Using Git within VS Code](/img/git-linux-3.png)
 
 * With the Docker VS Code extension, users can select the Docker icon from the left code to view containers and images associated with the Nextflow pipeline.
 
 * Git commands are available from within VS Code by selecting the *Source Control* icon on the left panel and selecting the three dots (…) to the right of SOURCE CONTROL. Some operations such as pushing or committing code will require that VS Code be authenticated with your GitHub credentials.
 
-  ![Using Git within VS Code](/img/git-linux-4.png)
+	![Using Git within VS Code](/img/git-linux-4.png)
 
 ## Summary
 
