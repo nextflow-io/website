@@ -1,3 +1,4 @@
+---
 title=Setting up a Nextflow Development and Runtime Environments on Windows
 date=2021-10-04
 description=This document provides a step-by-step guide to setting up a Nextflow development environment on Windows 10.
@@ -7,6 +8,7 @@ status=published
 author=Evan Floden
 icon=evan.jpg
 ~~~~~~
+---
 
 For Windows users, getting access to a Linux-based Nextflow development and runtime environment used to be hard. Users would need to run virtual machines, access separate physical servers or cloud instances, or install packages such as [Cygwin](http://www.cygwin.com/) or [Wubi](https://wiki.ubuntu.com/WubiGuide). Fortunately, there is now an easier way to deploy a complete Nextflow development environment on Windows.
 
@@ -556,3 +558,11 @@ Developers will probably want to use Git both from within a Windows context and 
 * Git commands are available from within VS Code by selecting the *Source Control* icon on the left panel and selecting the three dots (…) to the right of SOURCE CONTROL. Some operations such as pushing or committing code will require that VS Code be authenticated with your GitHub credentials.
 
   ![Using Git within VS Code](/img/git-linux-4.png)
+
+## Summary
+
+With WSL2, Windows 10 is an excellent environment for developing and testing Nextflow pipelines. Users can take advantage of the power and convenience of a Linux command line environment while using Windows-based IDEs such as VS-Code with full support for containers.
+
+Pipelines developed in the Windows environment can easily be extended to compute environments in the cloud.
+
+While installing Nextflow itself is straightforward, installing and testing necessary components such as WSL, Docker, an IDE, and Git can be a little tricky. Hopefully readers will find this guide helpful.
