@@ -18,7 +18,7 @@ In this series of posts, we will be sharing the top tips we have learned along t
 Nextflow, by default, spawns parallel task executions in the computer on which it is running. This is generally useful for development purposes, however, when using an HPC system you should specify the executor matching your system. This instructs Nextflow to submit pipeline tasks as jobs into your HPC workload manager. This can be done adding the following setting to the `nextflow.config` file in the launching directory, for example:
 
 ```
-executor.slurm = 'slurm' 
+process.executor = 'slurm' 
 ```
 
 With the above setting Nextflow will submit the job executions to your Slurm cluster spawning a `sbatch` command for each job in your pipeline. Find the executor matching your system at [this link](https://www.nextflow.io/docs/latest/executor.html).
