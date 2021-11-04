@@ -1,7 +1,7 @@
-title=Integrating Nextflow with Git hosting solutions
+title=Configure Git private repositories with Nextflow
 date=2021-10-21
 type=post
-description=A step-by-step guide to integrating Nextflow with Git hosting solutions.
+description=A step-by-step guide to configure Nextflow with Git hosting solutions.
 image=img/nextflow-with-git-hosting.jpg
 tags=git,scm
 status=published
@@ -9,21 +9,39 @@ author=Abhinav Sharma
 icon=abhinav.jpg
 ~~~~~~
 
-Git has become the de-facto standard for source-code version control and has seen increasing adoption across the spectrum of software development. There are many hosting solutions available for Git repositories such as GitHub, GitLab, and others.
+Git has become the de-facto standard for source-code version control system and has seen increasing adoption across the spectrum of software development. 
 
-Nextflow natively integrates with Git version control to facilitate reproducibility and collaboration on pipelines. This is done through a special `scm` file placed in the `$HOME/.nextflow/` directory, containing the credentials and other details for accessing a particular Git hosting solution. You can refer to the Nextflow documentation for all the [SCM configuration file](https://www.nextflow.io/docs/edge/sharing.html) options.
+Nextflow provides builtin support for Git and most popular Git hosting platforms such 
+as GitHub, GitLab and Bitbucket between the others, which streamline managing versions 
+and track changes in your pipeline projects and facilitate the collaboration across 
+different users. 
+
+In order to access public repositories Nextflow does not require any special configuration, just use the *http* URL of the pipeline project you want to run 
+in the run command, for example: 
+
+```
+nextflow run https://github.com/nextflow-io/hello
+```
+
+However to allow Nextflow to access private repositories you will need to specifiy 
+the repository credentials, and the server hostname in the case of self-managed 
+Git server installations.
+
+## Configure access to private repositories
+
+This is done through a file name `scm` placed in the `$HOME/.nextflow/` directory, containing the credentials and other details for accessing a particular Git hosting solution. You can refer to the Nextflow documentation for all the [SCM configuration file](https://www.nextflow.io/docs/edge/sharing.html) options.
 
 All of these platforms have their own authentication mechanisms for Git operations which are captured in the `$HOME/.nextflow/scm` file with the following syntax:
 
 ```groovy
 providers {
-	<provider-1-name> {
+	'<provider-name-1>' {
     		user = value
     		password = value
     		...
 	}
 
-	<provider-2-name> {
+	'<provider-name-2>' {
     		user = value
     		password = value
     		...
@@ -31,15 +49,18 @@ providers {
 }
 ```
 
+Note: Make sure to enclose the provider name with `'` if it containes a `-` or a 
+blank character. 
+
 As of the 21.09.0-edge release, Nextflow integrates with the following Git providers:
 
 ## GitHub
 
-[GithHub](https://github.com) is one of the most well known Git providers and is home to some of the most popular open-source Nextflow pipelines from the [nf-core](https://github.com/nf-core/) community project.
+[GitHub](https://github.com) is one of the most well known Git providers and is home to some of the most popular open-source Nextflow pipelines from the [nf-core](https://github.com/nf-core/) community project.
 
 If you wish to use Nextflow code from a **public** repository hosted on GitHub.com, then you don't need to provide credentials  (`user` and `password`) to pull code from the repository. However, if you wish to interact with a private repository or are running into GitHub API rate limits for public repos, then you must provide elevated access to Nextflow by specifying your credentials in the `scm` file.
 
-It is worth noting that [GitHub recently phased out Git password authentication](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/#what-you-need-to-do-today) and now requires that users supply a more secure GitHub-generated *Personal Access Token* for authentication. With Nextflow, you can specify your `personal access token` in the `password` field.
+It is worth noting that [GitHub recently phased out Git password authentication](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/#what-you-need-to-do-today) and now requires that users supply a more secure GitHub-generated *Personal Access Token* for authentication. With Nextflow, you can specify your *personal access token* in the `password` field.
 
 ```groovy
 providers {
@@ -52,7 +73,7 @@ providers {
 
 To generate a `personal-access-token` for the GitHub platform, follow the instructions provided  [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). Ensure that the token has at a minimum all the permissions in the `repo` scope.
 
-Once you have provided your username and personal access token, as shown above, you can test the integration by pulling the repository code.
+Once you have provided your username and *personal access token*, as shown above, you can test the integration by pulling the repository code.
 
 ```
 nextflow pull https://github.com/user_name/private_repo
@@ -103,7 +124,7 @@ providers {
 }
 ```
 
-To generate a `personal access token` for Bitbucket Server, refer to the [Bitbucket Support documentation](https://confluence.atlassian.com/bitbucketserver/managing-personal-access-tokens-1005339986.html) from Atlassian.
+To generate a *personal access token* for Bitbucket Server, refer to the [Bitbucket Support documentation](https://confluence.atlassian.com/bitbucketserver/managing-personal-access-tokens-1005339986.html) from Atlassian.
 
 Once the configuration is saved, you can test the integration by pulling code from a private repository and specifying the `mybitbucketserver` Git provider using the `-hub` option.
 
@@ -119,7 +140,7 @@ NOTE: It is worth noting that [Atlassian is phasing out the Server offering](htt
 
 If you wish to run a  Nextflow pipeline from a public GitLab repository, there is no need to provide credentials  to pull code. However, if you wish to interact with a private repository, then you must give elevated access to Nextflow by specifying your credentials in the `scm` file.
 
-Please note that you need to specify your `personal access token` in the `password` field.
+Please note that you need to specify your *personal access token* in the `password` field.
 
 ```groovy
 providers {
@@ -151,7 +172,7 @@ For example, if you'd like to call your hosted Gitea server `mygiteaserver`, the
 providers {
 
 	mygiteaserver {
-    	    	platform = 'gitea'
+    		platform = 'gitea'
     		server = 'https://gitea.host.com'
     		user = 'me'
     		password = 'my-password'
@@ -159,7 +180,7 @@ providers {
 }
 ```
 
-To generate a `personal access token` for your Gitea server, please refer to the [official guide](https://docs.gitea.io/en-us/api-usage/).
+To generate a *personal access token* for your Gitea server, please refer to the [official guide](https://docs.gitea.io/en-us/api-usage/).
 
 Once the configuration is set, you can test the integration by pulling the repository code and specifying `mygiteaserver` as the Git provider using the `-hub` option.
 
@@ -176,7 +197,6 @@ If you'd like to use the `myazure` alias for the `azurerepos` provider, then you
 ```groovy
 providers {
 	myazure {
-
     		server = 'https://dev.azure.com'
     		platform = 'azurerepos'
     		user = 'me'
@@ -185,7 +205,7 @@ providers {
 }
 ```
 
-To generate a `personal access token` for your Azure Repos integration, please refer to the [official guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) on Azure.
+To generate a *personal access token* for your Azure Repos integration, please refer to the [official guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) on Azure.
 
 Once the configuration is set, you can test the integration by pulling the repository code and specifying `myazure` as the Git provider using the `-hub` option.
 
