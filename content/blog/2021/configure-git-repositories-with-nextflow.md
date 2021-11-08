@@ -3,7 +3,7 @@ date=2021-10-21
 type=post
 description=A step-by-step guide to configure Nextflow with Git hosting solutions.
 image=img/nextflow-with-git-hosting.jpg
-tags=git,scm
+tags=git,github
 status=published
 author=Abhinav Sharma
 icon=abhinav.jpg
@@ -211,7 +211,7 @@ providers {
     user = 'me'
     token = 'my-api-token'
   }
-  
+
 }
 ```
 
