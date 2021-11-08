@@ -6,9 +6,109 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Thu, 14 Oct 2021 20:31:29 +0000</pubDate>
-    <lastBuildDate>Thu, 14 Oct 2021 20:31:29 +0000</lastBuildDate>
+    <pubDate>Mon, 8 Nov 2021 15:09:48 +0000</pubDate>
+    <lastBuildDate>Mon, 8 Nov 2021 15:09:48 +0000</lastBuildDate>
 
+    <item>
+      <title>Configure Git private repositories with Nextflow</title>
+      <link>https://www.nextflow.io/blog/2021/configure-git-repositories-with-nextflow.html</link>
+      <pubDate>Thu, 21 Oct 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2021/configure-git-repositories-with-nextflow.html</guid>
+      	<description>
+	&lt;p&gt;Git has become the de-facto standard for source-code version control system and has seen increasing adoption across the spectrum of software development. &lt;/p&gt;&lt;p&gt;Nextflow provides builtin support for Git and most popular Git hosting platforms such as GitHub, GitLab and Bitbucket between the others, which streamline managing versions and track changes in your pipeline projects and facilitate the collaboration across different users. &lt;/p&gt;&lt;p&gt;In order to access public repositories Nextflow does not require any special configuration, just use the &lt;em&gt;http&lt;/em&gt; URL of the pipeline project you want to run in the run command, for example: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow run https://github.com/nextflow-io/hello
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;However to allow Nextflow to access private repositories you will need to specifiy the repository credentials, and the server hostname in the case of self-managed Git server installations.&lt;/p&gt;&lt;h2&gt;Configure access to private repositories&lt;/h2&gt;&lt;p&gt;This is done through a file name &lt;code&gt;scm&lt;/code&gt; placed in the &lt;code&gt;$HOME/.nextflow/&lt;/code&gt; directory, containing the credentials and other details for accessing a particular Git hosting solution. You can refer to the Nextflow documentation for all the &lt;a href=&quot;https://www.nextflow.io/docs/edge/sharing.html&quot;&gt;SCM configuration file&lt;/a&gt; options.&lt;/p&gt;&lt;p&gt;All of these platforms have their own authentication mechanisms for Git operations which are captured in the &lt;code&gt;$HOME/.nextflow/scm&lt;/code&gt; file with the following syntax:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  &amp;#39;&amp;lt;provider-name-1&amp;gt;&amp;#39; {
+    user = value
+    password = value
+    ...
+  }
+
+  &amp;#39;&amp;lt;provider-name-2&amp;gt;&amp;#39; {
+    user = value
+    password = value
+    ...
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note: Make sure to enclose the provider name with &lt;code&gt;&amp;#39;&lt;/code&gt; if it containes a &lt;code&gt;-&lt;/code&gt; or a blank character. &lt;/p&gt;&lt;p&gt;As of the 21.09.0-edge release, Nextflow integrates with the following Git providers:&lt;/p&gt;&lt;h2&gt;GitHub&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://github.com&quot;&gt;GitHub&lt;/a&gt; is one of the most well known Git providers and is home to some of the most popular open-source Nextflow pipelines from the &lt;a href=&quot;https://github.com/nf-core/&quot;&gt;nf-core&lt;/a&gt; community project.&lt;/p&gt;&lt;p&gt;If you wish to use Nextflow code from a &lt;strong&gt;public&lt;/strong&gt; repository hosted on GitHub.com, then you don&apos;t need to provide credentials (&lt;code&gt;user&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt;) to pull code from the repository. However, if you wish to interact with a private repository or are running into GitHub API rate limits for public repos, then you must provide elevated access to Nextflow by specifying your credentials in the &lt;code&gt;scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;It is worth noting that &lt;a href=&quot;https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/#what-you-need-to-do-today&quot;&gt;GitHub recently phased out Git password authentication&lt;/a&gt; and now requires that users supply a more secure GitHub-generated &lt;em&gt;Personal Access Token&lt;/em&gt; for authentication. With Nextflow, you can specify your &lt;em&gt;personal access token&lt;/em&gt; in the &lt;code&gt;password&lt;/code&gt; field.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  github {
+    user = &amp;#39;me&amp;#39;
+    password = &amp;#39;my-personal-access-token&amp;#39;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To generate a &lt;code&gt;personal-access-token&lt;/code&gt; for the GitHub platform, follow the instructions provided &lt;a href=&quot;https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token&quot;&gt;here&lt;/a&gt;. Ensure that the token has at a minimum all the permissions in the &lt;code&gt;repo&lt;/code&gt; scope.&lt;/p&gt;&lt;p&gt;Once you have provided your username and &lt;em&gt;personal access token&lt;/em&gt;, as shown above, you can test the integration by pulling the repository code.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://github.com/user_name/private_repo
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Bitbucket Cloud&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://bitbucket.org/&quot;&gt;Bitbucket&lt;/a&gt; is a publicly accessible Git solution hosted by Atlassian. Please note that if you are using an on-premises Bitbucket installation, you should follow the instructions for &lt;em&gt;Bitbucket Server&lt;/em&gt; in the following section.&lt;/p&gt;&lt;p&gt;If your Nextflow code is in a public Bitbucket repository, then you don&apos;t need to specify your credentials to pull code from the repository. However, if you wish to interact with a private repository, you need to provide elevated access to Nextflow by specifying your credentials in the &lt;code&gt;scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;Please note that Bitbucket Cloud requires your &lt;code&gt;app password&lt;/code&gt; in the &lt;code&gt;password&lt;/code&gt; field, which is different from your login password.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  bitbucket {
+    user = &amp;#39;me&amp;#39;
+    password = &amp;#39;my-app-password&amp;#39;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To generate an &lt;code&gt;app password&lt;/code&gt; for the Bitbucket platform, follow the instructions provided &lt;a href=&quot;https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/&quot;&gt;here&lt;/a&gt;. Ensure that the token has at least &lt;code&gt;Repositories: Read&lt;/code&gt; permission.&lt;/p&gt;&lt;p&gt;Once these settings are saved in &lt;code&gt;$HOME/.nextflow/scm&lt;/code&gt;, you can test the integration by pulling the repository code.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://bitbucket.org/user_name/private_repo
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Bitbucket Server&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.atlassian.com/software/bitbucket/enterprise&quot;&gt;Bitbucket Server&lt;/a&gt; is a Git hosting solution from Atlassian which is meant for teams that require a self-managed solution. If Nextflow code resides in an open Bitbucket repository, then you don&apos;t need to provide credentials to pull code from this repository. However, if you wish to interact with a private repository, you need to give elevated access to Nextflow by specifying your credentials in the &lt;code&gt;scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;For example, if you&apos;d like to call your hosted Bitbucket server as &lt;code&gt;mybitbucketserver&lt;/code&gt;, then you&apos;ll need to add the following snippet in your &lt;code&gt;~/$HOME/.nextflow/scm&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  mybitbucketserver {
+    platform = &amp;#39;bitbucketserver&amp;#39;
+    server = &amp;#39;https://your.bitbucket.host.com&amp;#39;
+    user = &amp;#39;me&amp;#39;
+    password = &amp;#39;my-password&amp;#39; // OR &amp;quot;my-token&amp;quot;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To generate a &lt;em&gt;personal access token&lt;/em&gt; for Bitbucket Server, refer to the &lt;a href=&quot;https://confluence.atlassian.com/bitbucketserver/managing-personal-access-tokens-1005339986.html&quot;&gt;Bitbucket Support documentation&lt;/a&gt; from Atlassian.&lt;/p&gt;&lt;p&gt;Once the configuration is saved, you can test the integration by pulling code from a private repository and specifying the &lt;code&gt;mybitbucketserver&lt;/code&gt; Git provider using the &lt;code&gt;-hub&lt;/code&gt; option.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://your.bitbucket.host.com/user_name/private_repo -hub mybitbucketserver
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;NOTE: It is worth noting that &lt;a href=&quot;https://www.atlassian.com/migration/assess/journey-to-cloud&quot;&gt;Atlassian is phasing out the Server offering&lt;/a&gt; in favor of cloud product &lt;a href=&quot;https://bitbucket.org&quot;&gt;bitbucket.org&lt;/a&gt;.&lt;/p&gt;&lt;h2&gt;GitLab&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://gitlab.com&quot;&gt;GitLab&lt;/a&gt; is a popular Git provider that offers features covering various aspects of the DevOps cycle.&lt;/p&gt;&lt;p&gt;If you wish to run a Nextflow pipeline from a public GitLab repository, there is no need to provide credentials to pull code. However, if you wish to interact with a private repository, then you must give elevated access to Nextflow by specifying your credentials in the &lt;code&gt;scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;Please note that you need to specify your &lt;em&gt;personal access token&lt;/em&gt; in the &lt;code&gt;password&lt;/code&gt; field.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  mygitlab {
+    user = &amp;#39;me&amp;#39;
+    password = &amp;#39;my-password&amp;#39; // or &amp;#39;my-personal-access-token&amp;#39;
+    token = &amp;#39;my-personal-access-token&amp;#39;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In addition, you can specify the &lt;code&gt;server&lt;/code&gt; fields for your self-hosted instance of GitLab, by default &lt;a href=&quot;https://gitlab.com&quot;&gt;https://gitlab.com&lt;/a&gt; is assumed as the server.&lt;/p&gt;&lt;p&gt;To generate a &lt;code&gt;personal-access-token&lt;/code&gt; for the GitLab platform follow the instructions provided &lt;a href=&quot;https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html&quot;&gt;here&lt;/a&gt;. Please ensure that the token has at least &lt;code&gt;read_repository&lt;/code&gt;, &lt;code&gt;read_api&lt;/code&gt; permissions.&lt;/p&gt;&lt;p&gt;Once the configuration is saved, you can test the integration by pulling the repository code using the &lt;code&gt;-hub&lt;/code&gt; option.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://gitlab.com/user_name/private_repo -hub mygitlab
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Gitea&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://gitea.com/&quot;&gt;Gitea server&lt;/a&gt; is an open source Git-hosting solution that can be self-hosted. If you have your Nextflow code in an open Gitea repository, there is no need to specify credentials to pull code from this repository. However, if you wish to interact with a private repository, you can give elevated access to Nextflow by specifying your credentials in the &lt;code&gt;scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;For example, if you&apos;d like to call your hosted Gitea server &lt;code&gt;mygiteaserver&lt;/code&gt;, then you&apos;ll need to add the following snippet in your &lt;code&gt;~/$HOME/.nextflow/scm&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  mygiteaserver {
+    platform = &amp;#39;gitea&amp;#39;
+    server = &amp;#39;https://gitea.host.com&amp;#39;
+    user = &amp;#39;me&amp;#39;
+    password = &amp;#39;my-password&amp;#39;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To generate a &lt;em&gt;personal access token&lt;/em&gt; for your Gitea server, please refer to the &lt;a href=&quot;https://docs.gitea.io/en-us/api-usage/&quot;&gt;official guide&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Once the configuration is set, you can test the integration by pulling the repository code and specifying &lt;code&gt;mygiteaserver&lt;/code&gt; as the Git provider using the &lt;code&gt;-hub&lt;/code&gt; option.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://git.host.com/user_name/private_repo -hub mygiteaserver
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Azure Repos&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://azure.microsoft.com/en-us/services/devops/repos/&quot;&gt;Azure Repos&lt;/a&gt; is a part of Microsoft Azure Cloud Suite. Nextflow integrates natively Azure Repos via the usual &lt;code&gt;~/$HOME/.nextflow/scm&lt;/code&gt; file.&lt;/p&gt;&lt;p&gt;If you&apos;d like to use the &lt;code&gt;myazure&lt;/code&gt; alias for the &lt;code&gt;azurerepos&lt;/code&gt; provider, then you&apos;ll need to add the following snippet in your &lt;code&gt;~/$HOME/.nextflow/scm&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;groovy&quot;&gt;providers {
+
+  myazure {
+    server = &amp;#39;https://dev.azure.com&amp;#39;
+    platform = &amp;#39;azurerepos&amp;#39;
+    user = &amp;#39;me&amp;#39;
+    token = &amp;#39;my-api-token&amp;#39;
+  }
+
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To generate a &lt;em&gt;personal access token&lt;/em&gt; for your Azure Repos integration, please refer to the &lt;a href=&quot;https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&amp;tabs=preview-page&quot;&gt;official guide&lt;/a&gt; on Azure.&lt;/p&gt;&lt;p&gt;Once the configuration is set, you can test the integration by pulling the repository code and specifying &lt;code&gt;myazure&lt;/code&gt; as the Git provider using the &lt;code&gt;-hub&lt;/code&gt; option.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow pull https://dev.azure.com/org_name/DefaultCollection/_git/repo_name -hub myazure
+&lt;/code&gt;&lt;/pre&gt;&lt;h2&gt;Conclusion&lt;/h2&gt;&lt;p&gt;Git is a popular, widely used software system for source code management. The native integration of Nextflow with various Git hosting solutions is an important feature to facilitate reproducible workflows that enable collaborative development and deployment of Nextflow pipelines.&lt;/p&gt;&lt;p&gt;Stay tuned for more integrations as we continue to improve our support for various source code management solutions!&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Setting up a Nextflow environment on Windows 10</title>
       <link>https://www.nextflow.io/blog/2021/setup-nextflow-on-windows.html</link>
