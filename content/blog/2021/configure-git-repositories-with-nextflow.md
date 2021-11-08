@@ -35,17 +35,19 @@ All of these platforms have their own authentication mechanisms for Git operatio
 
 ```groovy
 providers {
-	'<provider-name-1>' {
-    		user = value
-    		password = value
-    		...
-	}
 
-	'<provider-name-2>' {
-    		user = value
-    		password = value
-    		...
-	}
+  '<provider-name-1>' {
+    user = value
+    password = value
+    ...
+  }
+
+  '<provider-name-2>' {
+    user = value
+    password = value
+    ...
+  }
+
 }
 ```
 
@@ -64,10 +66,12 @@ It is worth noting that [GitHub recently phased out Git password authentication]
 
 ```groovy
 providers {
-	github {
-    		user = 'me'
-    		password = 'my-personal-access-token'
-	}
+
+  github {
+    user = 'me'
+    password = 'my-personal-access-token'
+  }
+
 }
 ```
 
@@ -90,10 +94,11 @@ Please note that Bitbucket Cloud requires your `app password` in the `password` 
 ```groovy
 providers {
 
-	bitbucket {
-    		user = 'me'
-    		password = 'my-app-password'
-	}
+  bitbucket {
+    user = 'me'
+    password = 'my-app-password'
+  }
+
 }
 ```
 
@@ -114,12 +119,12 @@ For example, if you'd like to call your hosted Bitbucket server as `mybitbuckets
 ```groovy
 providers {
 
-	mybitbucketserver {
-    		platform = 'bitbucketserver'
-    		server = 'https://your.bitbucket.host.com'
-    		user = 'me'
-    		password = 'my-password' // OR "my-token"
-	}
+  mybitbucketserver {
+    platform = 'bitbucketserver'
+    server = 'https://your.bitbucket.host.com'
+    user = 'me'
+    password = 'my-password' // OR "my-token"
+  }
 
 }
 ```
@@ -144,11 +149,13 @@ Please note that you need to specify your *personal access token* in the `passwo
 
 ```groovy
 providers {
-	mygitlab {
-    		user = 'me'
-    		password = 'my-password' // or 'my-personal-access-token'
-    		token = 'my-personal-access-token'
-	}
+
+  mygitlab {
+    user = 'me'
+    password = 'my-password' // or 'my-personal-access-token'
+    token = 'my-personal-access-token'
+  }
+
 }
 ```
 
@@ -171,12 +178,13 @@ For example, if you'd like to call your hosted Gitea server `mygiteaserver`, the
 ```groovy
 providers {
 
-	mygiteaserver {
-    		platform = 'gitea'
-    		server = 'https://gitea.host.com'
-    		user = 'me'
-    		password = 'my-password'
-	}
+  mygiteaserver {
+    platform = 'gitea'
+    server = 'https://gitea.host.com'
+    user = 'me'
+    password = 'my-password'
+  }
+
 }
 ```
 
@@ -196,12 +204,14 @@ If you'd like to use the `myazure` alias for the `azurerepos` provider, then you
 
 ```groovy
 providers {
-	myazure {
-    		server = 'https://dev.azure.com'
-    		platform = 'azurerepos'
-    		user = 'me'
-    		token = 'my-api-token'
-	}
+
+  myazure {
+    server = 'https://dev.azure.com'
+    platform = 'azurerepos'
+    user = 'me'
+    token = 'my-api-token'
+  }
+  
 }
 ```
 
