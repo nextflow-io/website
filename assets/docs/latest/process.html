@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 21.04.3 documentation</title>
+  <title>Processes &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -146,6 +146,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -378,6 +379,11 @@ as shown below:</p>
 </div>
 <p>Nextflow looks for the <code class="docutils literal notranslate"><span class="pre">my_script.sh</span></code> template file in the directory <code class="docutils literal notranslate"><span class="pre">templates</span></code> that must exist in the same folder
 where the Nextflow script file is located (any other location can be provided by using an absolute template path).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using <a class="reference internal" href="dsl2.html#dsl2-page"><span class="std std-ref">DSL2</span></a> Nextflow looks for the specified file name also in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory
+located in the same folder where the module script is placed. See <a class="reference internal" href="dsl2.html#module-templates"><span class="std std-ref">module templates</span></a>.</p>
+</div>
 <p>The template script can contain any piece of code that can be executed by the underlying system. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
 echo &quot;process started at `date`&quot;
@@ -1042,7 +1048,7 @@ the <code class="docutils literal notranslate"><span class="pre">c</span></code>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>A different semantic is a applied when using <em>Value channel</em> a.k.a. <em>Singleton channel</em>.</p>
+<p>A different semantic is applied when using <em>Value channel</em> a.k.a. <em>Singleton channel</em>.</p>
 </div>
 <p>This kind of channel is created by the <a class="reference internal" href="channel.html#channel-value"><span class="std std-ref">Channel.value</span></a> factory method or implicitly
 when a process input specifies a simple value in the <code class="docutils literal notranslate"><span class="pre">from</span></code> clause.</p>
@@ -2153,31 +2159,34 @@ and config maps when using the <a class="reference internal" href="executor.html
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> string.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">fieldPath:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> <a class="reference external" href="https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/">field path</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>ConfigMap</cite> entries are exposed in that path.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with <cite>readOnly: true</cite>, but is read/write by default.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></p></td>
 <td><p>Specifies the user ID to be used to run the container.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</p></td>
 </tr>
 </tbody>
@@ -2580,11 +2589,11 @@ to identify them in the log file or in the trace execution report. For example:<
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The following time unit suffix can be used when specifying the duration value:</p>
+<p>The following time unit suffixes can be used when specifying the duration value:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 35%" />
-<col style="width: 65%" />
+<col style="width: 70%" />
+<col style="width: 30%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Unit</p></th>
@@ -2592,20 +2601,24 @@ to identify them in the log file or in the trace execution report. For example:<
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>s</p></td>
+<tr class="row-even"><td><p><cite>ms</cite>, <cite>milli</cite>, <cite>millis</cite></p></td>
+<td><p>Milliseconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><cite>s</cite>, <cite>sec</cite>, <cite>second</cite>, <cite>seconds</cite></p></td>
 <td><p>Seconds</p></td>
 </tr>
-<tr class="row-odd"><td><p>m</p></td>
+<tr class="row-even"><td><p><cite>m</cite>, <cite>min</cite>, <cite>minute</cite>, <cite>minutes</cite></p></td>
 <td><p>Minutes</p></td>
 </tr>
-<tr class="row-even"><td><p>h</p></td>
+<tr class="row-odd"><td><p><cite>h</cite>, <cite>hour</cite>, <cite>hours</cite></p></td>
 <td><p>Hours</p></td>
 </tr>
-<tr class="row-odd"><td><p>d</p></td>
+<tr class="row-even"><td><p><cite>d</cite>, <cite>day</cite>, <cite>days</cite></p></td>
 <td><p>Days</p></td>
 </tr>
 </tbody>
 </table>
+<p>Multiple units can be used in a single declaration, for example: <code class="docutils literal notranslate"><span class="pre">'1day</span> <span class="pre">6hours</span> <span class="pre">3minutes</span> <span class="pre">30seconds'</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This directive is taken in account only when using one of the following grid based executors:
@@ -2667,6 +2680,16 @@ bigger than 100, jobs will be submitted to the queue <code class="docutils liter
 <li><p><a class="reference internal" href="#executor">executor</a></p></li>
 <li><p><a class="reference internal" href="#maxforks">maxForks</a></p></li>
 </ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Directives taking a string value containing one or more variables are always resolved in a dynamic manner, and therefore
+it’s semantically equivalent to the above above syntax. Therefore the above directive can also be written as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">queue</span> <span class="s2">&quot;${ entries &gt; 100 ? &#39;long&#39; : &#39;short&#39; }&quot;</span>
+</pre></div>
+</div>
+<p>Note however the latter syntax can be used both for directive main argument (like in the <code class="docutils literal notranslate"><span class="pre">queue</span></code> example) and for directive
+optional named attributes. Instead the closure based syntax is only resolved dynamically for the directive main argument.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You can retrieve the current value of a dynamic directive in the process script by using the implicit variable <code class="docutils literal notranslate"><span class="pre">task</span></code>

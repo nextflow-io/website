@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline sharing &mdash; Nextflow 21.04.3 documentation</title>
+  <title>Pipeline sharing &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -104,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -134,7 +135,7 @@
              
   <section id="pipeline-sharing">
 <span id="sharing-page"></span><h1>Pipeline sharing<a class="headerlink" href="#pipeline-sharing" title="Permalink to this headline">¶</a></h1>
-<p>Nextflow seamlessly integrates with <a class="reference external" href="http://bitbucket.org/">BitBucket</a> <a class="footnote-reference brackets" href="#id3" id="id1">1</a>, <a class="reference external" href="http://github.com">GitHub</a>,
+<p>Nextflow seamlessly integrates with <a class="reference external" href="http://bitbucket.org/">BitBucket</a> <a class="footnote-reference brackets" href="#id4" id="id1">1</a>, <a class="reference external" href="http://github.com">GitHub</a>,
 and <a class="reference external" href="http://gitlab.com">GitLab</a> hosted code repositories and sharing platforms. This feature allows you to manage your
 project code in a more consistent manner or use other people’s Nextflow pipelines, published through BitBucket/GitHub/GitLab,
 in a quick and transparent way.</p>
@@ -379,12 +380,12 @@ use the right configuration whether you are using the cloud service or a self-ho
 </section>
 <section id="github-credentials">
 <h3>GitHub credentials<a class="headerlink" href="#github-credentials" title="Permalink to this headline">¶</a></h3>
-<p>Create a <code class="docutils literal notranslate"><span class="pre">github</span></code> entry in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a> specifying your user name and password as shown below:</p>
+<p>Create a <code class="docutils literal notranslate"><span class="pre">github</span></code> entry in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a> specifying your user name and access token as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">providers</span> <span class="p">{</span>
 
     <span class="n">github</span> <span class="p">{</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;me&#39;</span>
-        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;my-secret&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;your-user-name&#39;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;your-personal-access-token;&#39;</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
@@ -392,8 +393,8 @@ use the right configuration whether you are using the cloud service or a self-ho
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>You can use use a <a class="reference external" href="https://github.com/blog/1509-personal-api-tokens">Personal API token</a> in place of your
-GitHub password.</p>
+<p>GitHub requires the use of the personal access token (PAT) in place of password field when accessing APIs.
+Learn more about PAT and how to create it at <a class="reference external" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">this link</a>.</p>
 </div>
 </section>
 <section id="gitlab-credentials">
@@ -410,6 +411,11 @@ that can be found in your GitLab <a class="reference external" href="https://git
 
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The GitLab <em>token</em> string can be used as the <code class="docutils literal notranslate"><span class="pre">password</span></code> value in the above setting.
+When doing that the <code class="docutils literal notranslate"><span class="pre">token</span></code> field can be omitted.</p>
 </div>
 </section>
 <section id="gitea-credentials">
@@ -484,6 +490,12 @@ in your <a class="reference internal" href="#scm-configuration-file">SCM configu
 <p>Or, in alternative, using the Git clone URL:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run http://gitlab.acme.org/foo/bar.git
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You must also specify the server API endpoint URL if it differs from the server
+base URL. For example, for GitHub Enterprise V3, add
+<code class="docutils literal notranslate"><span class="pre">endpoint</span> <span class="pre">=</span> <span class="pre">'https://git.your-domain.com/api/v3'</span></code>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -620,7 +632,7 @@ your tasks.</p>
 <p>This mix of technologies makes it possible to write self-contained and truly reproducible pipelines which require
 zero configuration and can be reproduced in any system having a Java VM and a Docker engine installed.</p>
 <dl class="footnote brackets">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
 <dd><p>BitBucket provides two types of version control system: <cite>Git</cite> and <cite>Mercurial</cite>. Nextflow supports only <cite>Git</cite> based repositories.</p>
 </dd>
 </dl>

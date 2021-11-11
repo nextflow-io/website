@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Singularity containers &mdash; Nextflow 21.04.3 documentation</title>
+  <title>Singularity containers &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -77,6 +77,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -244,6 +245,10 @@ where the workflow execution is launched (other than the computing nodes).</p>
 <p>Nextflow caches those images in the <code class="docutils literal notranslate"><span class="pre">singularity</span></code> directory in the pipeline work directory by default. However it is
 suggest to provide a centralised caching directory by using either the <code class="docutils literal notranslate"><span class="pre">NXF_SINGULARITY_CACHEDIR</span></code> environment variable
 or the <code class="docutils literal notranslate"><span class="pre">singularity.cacheDir</span></code> setting in the Nextflow config file.</p>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">21.09.0-edge</span></code>, when looking for a Singularity image file, Nextflow before checks the <em>library</em> directory,
+if the image file is not found, the <em>cache</em> directory is used as usual. The library directory can be defined either using
+the <code class="docutils literal notranslate"><span class="pre">NXF_SINGULARITY_LIBRARYDIR</span></code> environment variable or the <code class="docutils literal notranslate"><span class="pre">singularity.libraryDir</span></code> configuration setting (the latter
+overrides th</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When using a computing cluster the Singularity cache directory must be a shared folder accessible

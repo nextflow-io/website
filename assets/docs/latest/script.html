@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextflow scripting &mdash; Nextflow 21.04.3 documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -119,6 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -455,9 +456,9 @@ for each key-value pair in the <code class="docutils literal notranslate"><span 
 </pre></div>
 </div>
 <p>Prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Yue</span><span class="o">=</span><span class="n">Wu</span>
-<span class="n">Mark</span><span class="o">=</span><span class="n">Williams</span>
-<span class="n">Sudha</span><span class="o">=</span><span class="n">Kumari</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Yue</span> <span class="o">=</span> <span class="n">Wu</span>
+<span class="n">Mark</span> <span class="o">=</span> <span class="n">Williams</span>
+<span class="n">Sudha</span> <span class="o">=</span> <span class="n">Kumari</span>
 </pre></div>
 </div>
 <p>A closure has two other important features. First, it can access variables in the scope where it is defined,
@@ -956,7 +957,7 @@ println result ? &quot;OK&quot; : &quot;Cannot create directory: $myDir&quot;
 </section>
 <section id="copy-files">
 <h3>Copy files<a class="headerlink" href="#copy-files" title="Permalink to this headline">¶</a></h3>
-<p>The method <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> copies a file into a new file or into a directory, or copie a directory to a new
+<p>The method <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> copies a file into a new file or into a directory, or copies a directory to a new
 directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;new_name.txt&#39;</span><span class="p">)</span>
 </pre></div>
@@ -1031,7 +1032,7 @@ same caveat as that given for <code class="docutils literal notranslate"><span c
 operation succeeds, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>myFile = file(&#39;some/file.txt&#39;)
 result = myFile.delete()
-println result ? &quot;OK&quot; : &quot;Can delete: $myFile&quot;
+println result ? &quot;OK&quot; : &quot;Cannot delete: $myFile&quot;
 </pre></div>
 </div>
 <div class="admonition note">

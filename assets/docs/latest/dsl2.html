@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 21.04.3 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -74,6 +74,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#multiple-inclusions">Multiple inclusions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aliases">Module aliases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-parameters">Module parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-templates">Module templates</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-forking">Channel forking</a></li>
@@ -103,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -463,7 +465,7 @@ against the <em>including</em> script location.</p>
 <section id="multiple-inclusions">
 <h3>Multiple inclusions<a class="headerlink" href="#multiple-inclusions" title="Permalink to this headline">¶</a></h3>
 <p>A Nextflow script allows the inclusion of any number of modules. When multiple
-components need to be included from the some module script, the component names can be
+components need to be included from the same module script, the component names can be
 specified in the same inclusion using the curly brackets notation as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
 
@@ -527,7 +529,7 @@ in your script using different names. For example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The module inherits the parameters define <em>before</em> the <code class="docutils literal notranslate"><span class="pre">include</span></code> statement, therefore any further
+<p>The module inherits the parameters defined <em>before</em> the <code class="docutils literal notranslate"><span class="pre">include</span></code> statement, therefore any further
 parameter set later is ignored.</p>
 </div>
 <div class="admonition tip">
@@ -550,6 +552,61 @@ scope. For example:</p>
 </div>
 <p>Finally the include option <code class="docutils literal notranslate"><span class="pre">params</span></code> allows the specification of one or more parameters without
 inheriting any value from the external environment.</p>
+</section>
+<section id="module-templates">
+<span id="id1"></span><h3>Module templates<a class="headerlink" href="#module-templates" title="Permalink to this headline">¶</a></h3>
+<p>The module script can be defined in an external <a class="reference internal" href="process.html#process-template"><span class="std std-ref">template</span></a> file. With DSL2 the template file
+can be placed under the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory where the module script is located.</p>
+<p>For example, let’s suppose to have a project L with a module script defining 2 processes (P1 and P2) and both use templates.
+The template files can be made available under the local <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Project</span> <span class="n">L</span>
+        <span class="o">|-</span><span class="n">myModules</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">templates</span>
+                <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+                <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Then, we have a second project A with a workflow that includes P1 and P2:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">A</span>
+        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+</pre></div>
+</div>
+<p>Finally, we have a third project B with a workflow that includes again P1 and P2:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">B</span>
+        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+</pre></div>
+</div>
+<p>With the possibility to keep the template files inside the project L, A and B can use the modules defined in L without any changes.
+A future prject C would do the same, just cloning L (if not available on the system) and including its module script.</p>
+<p>Beside promoting sharing modules across pipelines, there are several advantages in keeping the module template under the script path::
+1 - module components are <em>self-contained</em>
+2 - module components can be tested independently from the pipeline(s) importing them
+3 - it is possible to create libraries of module components</p>
+<p>Ultimately, having multiple template locations allows a more structured organization within the same project. If a project
+has several module components, and all them use templates, the project could group module scripts and their templates as needed. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">baseDir</span>
+        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">Phase0</span><span class="o">-</span><span class="n">Modules</span>
+                <span class="o">|-</span><span class="n">mymodules1</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">mymodules2</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">templates</span>
+                        <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+                        <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+        <span class="o">|-</span><span class="n">Phase1</span><span class="o">-</span><span class="n">Modules</span>
+                <span class="o">|-</span><span class="n">mymodules3</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">mymodules4</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">templates</span>
+                        <span class="o">|-</span><span class="n">P3</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+                        <span class="o">|-</span><span class="n">P4</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+        <span class="o">|-</span><span class="n">Phase2</span><span class="o">-</span><span class="n">Modules</span>
+                <span class="o">|-</span><span class="n">mymodules5</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">mymodules6</span><span class="o">.</span><span class="n">nf</span>
+                <span class="o">|-</span><span class="n">templates</span>
+                        <span class="o">|-</span><span class="n">P5</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+                        <span class="o">|-</span><span class="n">P6</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+                        <span class="o">|-</span><span class="n">P7</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
 </section>
 </section>
 <section id="channel-forking">

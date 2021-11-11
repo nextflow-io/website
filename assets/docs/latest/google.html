@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Cloud &mdash; Nextflow 21.04.3 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 21.10.0 documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -86,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
@@ -120,11 +121,15 @@
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <section id="nextflow">
 <h3>Nextflow<a class="headerlink" href="#nextflow" title="Permalink to this headline">¶</a></h3>
-<p>The support for Google Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">20.01.0</span></code>. To install it define the following variables
+<p>The support for Google Cloud requires Nextflow version <code class="docutils literal notranslate"><span class="pre">20.01.0</span></code> or later. To install it define the following variables
 in your system environment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">NXF_VER</span><span class="o">=</span><span class="mf">20.01.0</span>
 <span class="n">export</span> <span class="n">NXF_MODE</span><span class="o">=</span><span class="n">google</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">21.04.0</span></code> or later the above variables are not required anymore and therefore should not be used.</p>
 </div>
 </section>
 <section id="credentials">
@@ -265,14 +270,35 @@ each process using one or more <a class="reference internal" href="config.html#c
 <tr class="row-odd"><td><p>google.lifeSciences.network</p></td>
 <td><p>Set network name to attach the VM’s network interface to. The value will be prefixed with global/networks/ unless it contains a /, in which case it is assumed to be a fully specified network resource URL. If unspecified, the global default network is used. Requires version <code class="docutils literal notranslate"><span class="pre">21.03.0-edge</span></code> or later.</p></td>
 </tr>
-<tr class="row-even"><td><p>google.lifeSciences.subnetwork</p></td>
+<tr class="row-even"><td><p>google.lifeSciences.serviceAccountEmail</p></td>
+<td><p>Define the Google service account email to use for the pipeline execution. If not specified, the default Compute Engine service account for the project will be used. Requires version <code class="docutils literal notranslate"><span class="pre">20.05.0-edge</span></code> or later.</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.lifeSciences.subnetwork</p></td>
 <td><p>Define the name of the subnetwork to attach the instance to must be specified here, when the specified network is configured for custom subnet creation. The value is prefixed with <cite>regions/subnetworks/</cite> unless it contains a <cite>/</cite>, in which case it is assumed to be a fully specified subnetwork resource URL. Requires version <code class="docutils literal notranslate"><span class="pre">21.03.0-edge</span></code> or later.</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.lifeSciences.sshDaemon</p></td>
+<tr class="row-even"><td><p>google.lifeSciences.sshDaemon</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> runs SSH daemon in the VM carrying out the job to which it’s possible to connect for debugging purposes (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>google.lifeSciences.sshImage</p></td>
+<tr class="row-odd"><td><p>google.lifeSciences.sshImage</p></td>
 <td><p>The container image used to run the SSH daemon (default: <code class="docutils literal notranslate"><span class="pre">gcr.io/cloud-genomics-pipelines/tools</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.lifeSciences.keepAliveOnFailure</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> and a task complete with an unexpected exit status the associated computing node is kept up for 1 hour. This options implies <code class="docutils literal notranslate"><span class="pre">sshDaemon=true</span></code> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires Nextflow version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.delayBetweenAttempts</p></td>
+<td><p>Delay between download attempts from Google Storage (default <cite>10 sec</cite>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.storage.maxParallelTransfers</p></td>
+<td><p>Max parallel upload/download transfer operations <em>per job</em> (default: <code class="docutils literal notranslate"><span class="pre">4</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.maxTransferAttempts</p></td>
+<td><p>Max number of downloads attempts from Google Storage (default: <cite>1</cite>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.storage.parallelThreadCount</p></td>
+<td><p>Defines the value for the option <code class="docutils literal notranslate"><span class="pre">GSUtil:parallel_thread_count</span></code> used by <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> for transfer input and output data (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.storage.downloadMaxComponents</p></td>
+<td><p>Defines the value for the option <code class="docutils literal notranslate"><span class="pre">GSUtil:sliced_object_download_max_components</span></code> used by <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> for transfer input and output data (default: <code class="docutils literal notranslate"><span class="pre">8</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.06.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
