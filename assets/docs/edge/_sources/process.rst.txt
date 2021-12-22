@@ -1533,7 +1533,7 @@ only for a specific process e.g. mount a custom path::
   }
 
 
-.. warning:: This feature is not supported by :ref:`awsbatch-executor` and :ref:`k8s-executor` executors.
+.. warning:: This feature is not supported by :ref:`k8s-executor` and :ref:`azurebatch-executor` executors.
 
 .. _process-cpus:
 
@@ -1973,6 +1973,7 @@ The ``pod`` directive allows the definition of the following options:
 ``label: <K>, value: <V>``                        Defines a pod label with key ``K`` and value ``V``.
 ``annotation: <K>, value: <V>``                   Defines a pod annotation with key ``K`` and value ``V``.
 ``env: <E>, value: <V>``                          Defines an environment variable with name ``E`` and whose value is given by the ``V`` string.
+``env: <E>, fieldPath: <V>``                      Defines an environment variable with name ``E`` and whose value is given by the ``V`` `field path <https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/>`_.
 ``env: <E>, config: <C/K>``                       Defines an environment variable with name ``E`` and whose value is given by the entry associated to the key with name ``K`` in the `ConfigMap <https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/>`_ with name ``C``.
 ``env: <E>, secret: <S/K>``                       Defines an environment variable with name ``E`` and whose value is given by the entry associated to the key with name ``K`` in the `Secret <https://kubernetes.io/docs/concepts/configuration/secret/>`_ with name ``S``.
 ``config: <C/K>, mountPath: </absolute/path>``    The content of the `ConfigMap <https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/>`_ with name ``C`` with key ``K`` is made available to the path ``/absolute/path``. When the key component is omitted the path is interpreted as a directory and all the `ConfigMap` entries are exposed in that path.
@@ -2044,6 +2045,7 @@ saveAs          A closure which, given the name of the file being published, ret
                 Return the value ``null`` from the closure to *not* publish a file.
                 This is useful when the process has multiple output files, but you want to publish only some of them.
 enabled         Enable or disable the publish rule depending on the boolean value specified (default: ``true``).
+tags            Allow to associate tags with the target file e.g. ``tag: [FOO: 'Hello world']`` (EXPERIMENTAL, currently only supported by files stored on AWS S3, requires version ``21.12.0-edge`` or later).
 =============== =================
 
 Table of publish modes:

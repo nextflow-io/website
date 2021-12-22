@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 21.09.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 21.12.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1675,7 +1675,7 @@ only for a specific process e.g. mount a custom path:</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This feature is not supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+<p>This feature is not supported by <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> and <a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">Azure Batch</span></a> executors.</p>
 </div>
 </section>
 <section id="cpus">
@@ -2159,31 +2159,34 @@ and config maps when using the <a class="reference internal" href="executor.html
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> string.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">fieldPath:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> <a class="reference external" href="https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/">field path</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></p></td>
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>ConfigMap</cite> entries are exposed in that path.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <cite>Secret</cite> entries are exposed in that path.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <cite>subPath</cite> parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with <cite>readOnly: true</cite>, but is read/write by default.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></p></td>
 <td><p>Specifies the user ID to be used to run the container.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</p></td>
 </tr>
 </tbody>
@@ -2230,8 +2233,8 @@ the file produced into the process working directory. This behavior can be modif
 <p>Table of optional parameters that can be used with the <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
+<col style="width: 7%" />
+<col style="width: 93%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -2261,6 +2264,9 @@ This is useful when the process has multiple output files, but you want to publi
 </tr>
 <tr class="row-odd"><td><p>enabled</p></td>
 <td><p>Enable or disable the publish rule depending on the boolean value specified (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>Allow to associate tags with the target file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL, currently only supported by files stored on AWS S3, requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>

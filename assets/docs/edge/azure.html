@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Azure Cloud &mdash; Nextflow 21.09.0-edge documentation</title>
+  <title>Azure Cloud &mdash; Nextflow 21.12.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -243,14 +243,6 @@ details about the configuration for the Azure Batch service.</p>
 jobs run by your pipeline. By default it only uses 1 compute node of <code class="docutils literal notranslate"><span class="pre">Standard_D4_v3</span></code> type.</p>
 <p>The pool is not removed when the pipeline execution terminates, unless the configuration setting <code class="docutils literal notranslate"><span class="pre">deletePoolsOnCompletion=true</span></code>
 is added in your pipeline configuration file.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Don’t forget to clean up the Batch pools to avoid in extra charges in the Batch account or use the auto scaling feature.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure your Batch account has enough resources to satisfy the pipeline’s requirements and the pool configuration.</p>
-</div>
 <p>Pool specific settings, e.g. VM type and count, should be provided in the <code class="docutils literal notranslate"><span class="pre">auto</span></code> pool configuration scope, e.g.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
     <span class="n">batch</span> <span class="p">{</span>
@@ -263,6 +255,25 @@ is added in your pipeline configuration file.</p>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Don’t forget to clean up the Batch pools to avoid in extra charges in the Batch account or use the auto scaling feature.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure your Batch account has enough resources to satisfy the pipeline’s requirements and the pool configuration.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Nextflow uses the same pool Id across pipeline executions, if the pool features have not changed.
+Therefore, when using <code class="docutils literal notranslate"><span class="pre">deletePoolsOnCompletion=true</span></code>, make sure the pool is completely removed from the Azure Batch account
+before re-running the pipeline. The following message is returned when the pool is still shutting down</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="n">executing</span> <span class="n">process</span> <span class="o">&gt;</span> <span class="s1">&#39;&lt;process name&gt; (1)&#39;</span>
+<span class="n">Caused</span> <span class="n">by</span><span class="p">:</span>
+    <span class="n">Azure</span> <span class="n">Batch</span> <span class="n">pool</span> <span class="s1">&#39;&lt;pool name&gt;&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active</span> <span class="n">state</span>
+</pre></div>
+</div>
 </div>
 </section>
 <section id="named-pools">

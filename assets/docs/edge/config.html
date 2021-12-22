@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 21.09.0-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 21.12.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -238,6 +238,12 @@ workflow tasks will be executed.</p>
      <span class="n">GAMMA</span> <span class="o">=</span> <span class="s2">&quot;/my/path:$PATH&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In the above example, variables like <cite>$HOME</cite> and <cite>$PATH</cite> are evaluated when the workflow is launched. If
+you want these variables to be evaluated during task execution, escape them with <cite>$</cite>. This difference is important
+for variables like <cite>$PATH</cite>, which may be very different in the workflow environment versus the task environment.</p>
 </div>
 </section>
 <section id="scope-params">
@@ -1343,8 +1349,8 @@ used in the <code class="docutils literal notranslate"><span class="pre">foo</sp
 the Java virtual machine used by it.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 89%" />
+<col style="width: 12%" />
+<col style="width: 88%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -1367,59 +1373,65 @@ the Java virtual machine used by it.</p>
 <tr class="row-even"><td><p>NXF_OPTS</p></td>
 <td><p>Provides extra options for the Java and Nextflow runtime. It must be a blank separated list of <code class="docutils literal notranslate"><span class="pre">-Dkey[=value]</span></code> properties.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_CLASSPATH</p></td>
+<tr class="row-odd"><td><p>NXF_JVM_ARGS</p></td>
+<td><p>Allows the setting Java VM options. This is similar to <code class="docutils literal notranslate"><span class="pre">NXF_OPTS</span></code> however it’s only applied the JVM running Nextflow and not to any java pre-launching commands (requires <code class="docutils literal notranslate"><span class="pre">21.12.1-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>NXF_CLASSPATH</p></td>
 <td><p>Allows the extension of the Java runtime classpath with extra JAR files or class folders.</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_ASSETS</p></td>
+<tr class="row-odd"><td><p>NXF_ASSETS</p></td>
 <td><p>Defines the directory where downloaded pipeline repositories are stored (default: <code class="docutils literal notranslate"><span class="pre">$NXF_HOME/assets</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_PID_FILE</p></td>
+<tr class="row-even"><td><p>NXF_PID_FILE</p></td>
 <td><p>Name of the file where the process PID is saved when Nextflow is launched in background.</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_WORK</p></td>
+<tr class="row-odd"><td><p>NXF_WORK</p></td>
 <td><p>Directory where working files are stored (usually your <em>scratch</em> directory)</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_TEMP</p></td>
+<tr class="row-even"><td><p>NXF_TEMP</p></td>
 <td><p>Directory where temporary files are stored</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_DEBUG</p></td>
+<tr class="row-odd"><td><p>NXF_DEBUG</p></td>
 <td><p>Defines scripts debugging level: <code class="docutils literal notranslate"><span class="pre">1</span></code> dump task environment variables in the task log file; <code class="docutils literal notranslate"><span class="pre">2</span></code> enables command script execution tracing; <code class="docutils literal notranslate"><span class="pre">3</span></code> enables command wrapper execution tracing.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_EXECUTOR</p></td>
+<tr class="row-even"><td><p>NXF_EXECUTOR</p></td>
 <td><p>Defines the default process executor e.g. <cite>sge</cite></p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_CONDA_CACHEDIR</p></td>
+<tr class="row-odd"><td><p>NXF_CONDA_CACHEDIR</p></td>
 <td><p>Directory where Conda environments are store. When using a computing cluster it must be a shared folder accessible from all computing nodes.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_SINGULARITY_CACHEDIR</p></td>
+<tr class="row-even"><td><p>NXF_SINGULARITY_CACHEDIR</p></td>
 <td><p>Directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible from all computing nodes.</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_SINGULARITY_LIBRARYDIR</p></td>
+<tr class="row-odd"><td><p>NXF_SINGULARITY_LIBRARYDIR</p></td>
 <td><p>Directory where remote Singularity images are retrieved. It should be a directory accessible to all computing nodes (requires: <code class="docutils literal notranslate"><span class="pre">21.09.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_CHARLIECLOUD_CACHEDIR</p></td>
+<tr class="row-even"><td><p>NXF_CHARLIECLOUD_CACHEDIR</p></td>
 <td><p>Directory where remote Charliecloud images are stored. When using a computing cluster it must be a shared folder accessible from all computing nodes.</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_JAVA_HOME</p></td>
+<tr class="row-odd"><td><p>NXF_JAVA_HOME</p></td>
 <td><p>Defines the path location of the Java VM installation used to run Nextflow. This variable overrides the <code class="docutils literal notranslate"><span class="pre">JAVA_HOME</span></code> variable if defined.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_OFFLINE</p></td>
+<tr class="row-even"><td><p>NXF_OFFLINE</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> disables the project automatic download and update from remote repositories (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_CLOUD_DRIVER</p></td>
+<tr class="row-odd"><td><p>NXF_CLOUD_DRIVER</p></td>
 <td><p>Defines the default cloud driver to be used if not specified in the config file or as command line option, either <code class="docutils literal notranslate"><span class="pre">aws</span></code> or <code class="docutils literal notranslate"><span class="pre">google</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_ANSI_LOG</p></td>
+<tr class="row-even"><td><p>NXF_ANSI_LOG</p></td>
 <td><p>Enables/disables ANSI console output (default <code class="docutils literal notranslate"><span class="pre">true</span></code> when ANSI terminal is detected).</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_ANSI_SUMMARY</p></td>
+<tr class="row-odd"><td><p>NXF_ANSI_SUMMARY</p></td>
 <td><p>Enables/disables ANSI completion summary: <cite>true|false</cite> (default: print summary if execution last more than 1 minute).</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_SCM_FILE</p></td>
+<tr class="row-even"><td><p>NXF_SCM_FILE</p></td>
 <td><p>Defines the path location of the SCM config file (requires version <code class="docutils literal notranslate"><span class="pre">20.10.0</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_PARAMS_FILE</p></td>
+<tr class="row-odd"><td><p>NXF_PARAMS_FILE</p></td>
 <td><p>Defines the path location of the pipeline parameters file (requires version <code class="docutils literal notranslate"><span class="pre">20.10.0</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>NXF_DISABLE_JOBS_CANCELLATION</p></td>
+<td><p>Disables the cancellation of child jobs on workflow execution termination (requires <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-odd"><td><p>JAVA_HOME</p></td>
 <td><p>Defines the path location of the Java VM installation used to run Nextflow.</p></td>
