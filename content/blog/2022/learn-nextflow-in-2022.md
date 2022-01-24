@@ -1,4 +1,4 @@
-title=Learn Nextflow in 2022
+title=Learning Nextflow in 2022
 date=2022-01-21
 type=post
 description=Resources for learning Nextflow: 2022 Revision
