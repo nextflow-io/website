@@ -9,9 +9,9 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow Software Carpentries course and an excellent write-up from 23andMe.
+A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow [Software Carpentries](https://software-carpentry.org) course and an excellent write-up by [23andMe](https://www.23andme.com).
 
-We have collated some links below from a diverse collection of resources to help you on your journey to learn Nextflow. Nextflow is a community-driven project - if you have any suggestions, please make a pull request to this page on GitHub. 
+We have collated some links below from a diverse collection of resources to help you on your journey to learn Nextflow. Nextflow is a community-driven project - if you have any suggestions, please make a pull request to [this page on GitHub](https://github.com/nextflow-io/website/tree/master/content/blog/2022/learn-nextflow-in-2022.md). 
 
 Without further ado, here is the definitive guide for learning Nextflow in 2022. These resources will support anyone in the journey from total beginner to Nextflow expert.
 
@@ -53,13 +53,13 @@ The following are some high-level motivations on why people choose to adopt Next
 
 This informative post begins with the basic concepts of Nextflow and builds towards how Nextflow is used at 23andMe. It includes a detailed use case for how 23andMe run their imputation pipeline in the cloud, processing over 1 million individuals per day with over 10,000 CPUs in a single compute environment.
 
-[Nextflow at 23andMe](https://medium.com/23andme-engineering/introduction-to-nextflow-4d0e3b6768d1)
+👉 [Nextflow at 23andMe](https://medium.com/23andme-engineering/introduction-to-nextflow-4d0e3b6768d1)
 
 ### 3. A simple RNA-Seq hands-on tutorial
 
 This hands-on tutorial from Seqera Labs will guide you through implementing a proof-of-concept RNA-seq pipeline. The goal is to become familiar with basic concepts, including how to define parameters, using channels to pass data around and writing processes to perform tasks. It includes all scripts, input data and resources and is perfect for getting a taste of Nextflow.
 
-[Tutorial link on GitHub](https://github.com/seqeralabs/nextflow-tutorial)
+👉 [Tutorial link on GitHub](https://github.com/seqeralabs/nextflow-tutorial)
 
 ### 4. Nextflow workshop from Seqera Labs
 
@@ -93,13 +93,13 @@ You can find the course in [The Carpentries incubator](https://carpentries-incub
 
 This on-demand webinar features Phil Ewels from SciLifeLab and nf-core, Brendan Boufler from Amazon Web Services and Evan Floden from Seqera Labs. The wide ranging dicussion covers the significance of scientific workflow, examples of Nextflow in production settings and how Nextflow can be integrated with other processes.
 
-[Watch the webinar](https://seqera.io/webinars-and-podcasts/managing-bioinformatics-pipelines-in-the-cloud-to-do-more-science/)
+👉 [Watch the webinar](https://seqera.io/webinars-and-podcasts/managing-bioinformatics-pipelines-in-the-cloud-to-do-more-science/)
 
 ### 7. Nextflow implementation patterns
 
 This advanced section discusses recurring patterns and solutions to many common implementation requirements. Code examples are available with notes to follow along, as well as a GitHub repository.
 
-[Nextflow Patterns](http://nextflow-io.github.io/patterns/index.html) & [GitHub repository](https://github.com/nextflow-io/patterns).
+👉 [Nextflow Patterns](http://nextflow-io.github.io/patterns/index.html) & [GitHub repository](https://github.com/nextflow-io/patterns).
 
 ### 8. nf-core tutorials
 
@@ -113,14 +113,14 @@ A tutorial covering the basics of using and creating nf-core pipelines. It provi
 * How to make new nf-core modules using the nf-core module template
 * How nf-core pipelines are reviewed and ultimately released
 
-[nf-core usage tutorials](https://nf-co.re/usage/usage_tutorials)
-[nf-core developer tutorials](https://nf-co.re/developers/developer_tutorials)
+👉 [nf-core usage tutorials](https://nf-co.re/usage/usage_tutorials)
+and [nf-core developer tutorials](https://nf-co.re/developers/developer_tutorials)
 
 ### 9. Awesome Nextflow 
 
 A collections of awesome Nextflow pipelines.
 
-[Awesome Nextflow](https://github.com/nextflow-io/awesome-nextflow) on GitHub
+👉 [Awesome Nextflow](https://github.com/nextflow-io/awesome-nextflow) on GitHub
 
 ### 10. Further resources
 
@@ -130,44 +130,44 @@ The following resources will help you dig deeper into Nextflow and other related
 
 The reference for the Nextflow language and runtime. These docs should be your first point of reference while developing Nextflow pipelines. The newest features are documented in edge documentation pages released every month with the latest stable releases every three months.
 
-Latest [stable](https://www.nextflow.io/docs/latest/index.html) & [edge](https://www.nextflow.io/docs/edge/index.html) documentation.
+👉 Latest [stable](https://www.nextflow.io/docs/latest/index.html) & [edge](https://www.nextflow.io/docs/edge/index.html) documentation.
 
 #### Seqera Labs docs
 
 An index of documentation, deployment guides, training materials and resources for all things Nextflow and Tower.
 
-[Seqera Labs docs](https://seqera.io/docs)
+👉 [Seqera Labs docs](https://seqera.io/docs)
 
 #### nf-core
 
 nf-core is a growing community of Nextflow users and developers. You can find curated sets of biomedical analysis pipelines written in Nextflow and built by domain experts. Each pipeline is stringently reviewed and has been implemented according to best practice guidelines. Be sure to sign up to the Slack channel.
 
 [nf-core website](https://nf-co.re)
-[nf-core Slack](https://nf-co.re/join)
+👉 [nf-core website](https://nf-co.re) and [nf-core Slack](https://nf-co.re/join)
 
 #### Nextflow Tower
 
 Nextflow Tower is a platform to easily monitor, launch and scale Nextflow pipelines on cloud providers and on-premise infrastructure. The documentation provides details on setting up compute environments, monitoring pipelines and launching using either the web graphic interface, CLI or API.
 
-[Nextflow Tower](https://tower.nf) and [user documentation](http://help.tower.nf).
+👉 [Nextflow Tower](https://tower.nf) and [user documentation](http://help.tower.nf).
 
 #### Nextflow Biotech Blueprint by AWS
 
 A quickstart for deploying a genomics analysis environment on Amazon Web Services (AWS) cloud, using Nextflow to create and orchestrate analysis workflows and AWS Batch to run the workflow processes.
 
-[Biotech Blueprint by AWS](https://aws.amazon.com/quickstart/biotech-blueprint/nextflow/)
+👉 [Biotech Blueprint by AWS](https://aws.amazon.com/quickstart/biotech-blueprint/nextflow/)
 
 #### Nextflow Data Pipelines on Azure Batch
 
 Nextflow on Azure requires at minimum two Azure services, Azure Batch and Azure Storage. Follow the guides below to set up both services on Azure, and to get your storage and batch account names and keys.
 
-[Azure Blog](https://techcommunity.microsoft.com/t5/azure-compute-blog/running-nextflow-data-pipelines-on-azure-batch/ba-p/2150383) and [GitHub repository](https://github.com/microsoft/Genomics-Quickstart/blob/main/03-Nextflow-Azure/README.md).
+👉 [Azure Blog](https://techcommunity.microsoft.com/t5/azure-compute-blog/running-nextflow-data-pipelines-on-azure-batch/ba-p/2150383) and [GitHub repository](https://github.com/microsoft/Genomics-Quickstart/blob/main/03-Nextflow-Azure/README.md).
 
 #### Running Nextflow by Google Cloud
 
 A step-by-step guide to launching Nextflow Pipelines in Google Cloud.
 
-[Nextflow on Google Cloud ](https://cloud.google.com/life-sciences/docs/tutorials/nextflow)
+👉 [Nextflow on Google Cloud](https://cloud.google.com/life-sciences/docs/tutorials/nextflow)
 
 ###  Community and support 
 
