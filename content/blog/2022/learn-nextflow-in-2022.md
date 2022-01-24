@@ -79,7 +79,7 @@ The workshop includes topics on:
 * DSL 2 & Modules
 * [GATK hands-on exercise](https://seqera.io/training/handson/)
 
-[Workshop](https://seqera.io/training) & [YouTube playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUv4W8ZRlmstkZwhb_fencI).
+👉 [Workshop](https://seqera.io/training) & [YouTube playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUv4W8ZRlmstkZwhb_fencI).
 
 ## 5. Software Carpentry workshop
 
@@ -87,7 +87,7 @@ The [Nextflow Software Carpentry](https://carpentries-incubator.github.io/workfl
 
 The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/carpentries-incubator/workflows-nextflow) where you can try the exercises in an online computing environment at your own pace, with the course material in another window alongside. 
 
-You can find the course in [The Carpentries incubator](https://carpentries-incubator.github.io/workflows-nextflow/index.html).
+👉 You can find the course in [The Carpentries incubator](https://carpentries-incubator.github.io/workflows-nextflow/index.html).
 
 ### 6. Managing Pipelines in the Cloud - GenomeWeb Webinar
 
@@ -142,7 +142,6 @@ An index of documentation, deployment guides, training materials and resources f
 
 nf-core is a growing community of Nextflow users and developers. You can find curated sets of biomedical analysis pipelines written in Nextflow and built by domain experts. Each pipeline is stringently reviewed and has been implemented according to best practice guidelines. Be sure to sign up to the Slack channel.
 
-[nf-core website](https://nf-co.re)
 👉 [nf-core website](https://nf-co.re) and [nf-core Slack](https://nf-co.re/join)
 
 #### Nextflow Tower
