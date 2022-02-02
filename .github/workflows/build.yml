@@ -1,0 +1,32 @@
+name: Tower Docs build
+# read more here
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Seqera website build
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: ubuntu-18.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Publish website
+        run: |
+          make build
+          make publish
+          make invalidate
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.NXF_AWS_ACCESS}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.NXF_AWS_ACCESS}}
