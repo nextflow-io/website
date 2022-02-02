@@ -9,7 +9,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow [Software Carpentries](https://software-carpentry.org) course and an excellent write-up by [23andMe](https://www.23andme.com).
+A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow [Software Carpentries](https://carpentries-incubator.github.io/workflows-nextflow/index.html) course and an excellent write-up by [23andMe](https://www.23andme.com).
 
 We have collated some links below from a diverse collection of resources to help you on your journey to learn Nextflow. Nextflow is a community-driven project - if you have any suggestions, please make a pull request to [this page on GitHub](https://github.com/nextflow-io/website/tree/master/content/blog/2022/learn-nextflow-in-2022.md). 
 
@@ -81,7 +81,7 @@ The workshop includes topics on:
 
 👉 [Workshop](https://seqera.io/training) & [YouTube playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUv4W8ZRlmstkZwhb_fencI).
 
-## 5. Software Carpentry workshop
+### 5. Software Carpentry workshop
 
 The [Nextflow Software Carpentry](https://carpentries-incubator.github.io/workflows-nextflow/index.html) workshop (in active development) motivates the use of Nextflow and [nf-core](https://nf-co.re/) as development tools for building and sharing reproducible data science workflows. The intended audience are those with little programming experience, and the course provides a foundation to comfortably write and run Nextflow and nf-core workflows. Adapted from the Seqera training material above, the workshop has been updated by Software Carpentries instructors within the nf-core community to fit [The Carpentries](https://carpentries.org/) style of training. The Carpentries emphasize feedback to improve teaching materials so we would like to hear back from you about what you thought was both well-explained and what needs improvement. Pull requests to the course material are very welcome.
 
