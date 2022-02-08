@@ -91,7 +91,7 @@ The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/car
 
 ### 6. Nextflow Tutorial - Variant Calling Edition
 
-The [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/) has been adapted from the [Nextflow Software Carpentry](https://carpentries-incubator.github.io/workflows-nextflow/index.html) training material above and [Data Carpentry: Wrangling Genomics Lesson](https://datacarpentry.org/wrangling-genomics/). Learners will have the chance to learn along with nextflow basics, nf-core, to convert a variant-calling bash-script into a nextflow workflow and modularize the pipeline using DSL2 modules and sub-workflows. 
+This [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/) has been adapted from the [Nextflow Software Carpentry training material](https://carpentries-incubator.github.io/workflows-nextflow/index.html) and [Data Carpentry: Wrangling Genomics Lesson](https://datacarpentry.org/wrangling-genomics/). Learners will have the chance to learn Nextflow and nf-core basics, to convert a variant-calling bash-script into a Nextflow workflow and to modularize the pipeline using DSL2 modules and sub-workflows. 
 
 The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/sateeshperi/nextflow_tutorial.git) where you can try the exercises in an online computing environment at your own pace, with the course material in another window alongside. 
 
