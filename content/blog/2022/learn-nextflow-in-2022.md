@@ -89,27 +89,19 @@ The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/car
 
 👉 You can find the course in [The Carpentries incubator](https://carpentries-incubator.github.io/workflows-nextflow/index.html).
 
-### 6. Nextflow Tutorial - Variant Calling Edition
-
-This [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/) has been adapted from the [Nextflow Software Carpentry training material](https://carpentries-incubator.github.io/workflows-nextflow/index.html) and [Data Carpentry: Wrangling Genomics Lesson](https://datacarpentry.org/wrangling-genomics/). Learners will have the chance to learn Nextflow and nf-core basics, to convert a variant-calling bash-script into a Nextflow workflow and to modularize the pipeline using DSL2 modules and sub-workflows. 
-
-The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/sateeshperi/nextflow_tutorial.git) where you can try the exercises in an online computing environment at your own pace, with the course material in another window alongside. 
-
-👉 You can find the course in [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/).
-
-### 7. Managing Pipelines in the Cloud - GenomeWeb Webinar
+### 6. Managing Pipelines in the Cloud - GenomeWeb Webinar
 
 This on-demand webinar features Phil Ewels from SciLifeLab and nf-core, Brendan Boufler from Amazon Web Services and Evan Floden from Seqera Labs. The wide ranging dicussion covers the significance of scientific workflow, examples of Nextflow in production settings and how Nextflow can be integrated with other processes.
 
 👉 [Watch the webinar](https://seqera.io/webinars-and-podcasts/managing-bioinformatics-pipelines-in-the-cloud-to-do-more-science/)
 
-### 8. Nextflow implementation patterns
+### 7. Nextflow implementation patterns
 
 This advanced section discusses recurring patterns and solutions to many common implementation requirements. Code examples are available with notes to follow along, as well as a GitHub repository.
 
 👉 [Nextflow Patterns](http://nextflow-io.github.io/patterns/index.html) & [GitHub repository](https://github.com/nextflow-io/patterns).
 
-### 9. nf-core tutorials
+### 8. nf-core tutorials
 
 A tutorial covering the basics of using and creating nf-core pipelines. It provides an overview of the nf-core framework including:
 
@@ -124,13 +116,13 @@ A tutorial covering the basics of using and creating nf-core pipelines. It provi
 👉 [nf-core usage tutorials](https://nf-co.re/usage/usage_tutorials)
 and [nf-core developer tutorials](https://nf-co.re/developers/developer_tutorials)
 
-### 10. Awesome Nextflow 
+### 9. Awesome Nextflow 
 
 A collections of awesome Nextflow pipelines.
 
 👉 [Awesome Nextflow](https://github.com/nextflow-io/awesome-nextflow) on GitHub
 
-### 11. Further resources
+### 10. Further resources
 
 The following resources will help you dig deeper into Nextflow and other related projects like the nf-core community who maintain curated pipelines and a very active Slack channel. There are plenty of Nextflow tutorials and videos online, and the following list is no way exhaustive. Please let us know if we are missing anything.
 
@@ -175,6 +167,14 @@ Nextflow on Azure requires at minimum two Azure services, Azure Batch and Azure 
 A step-by-step guide to launching Nextflow Pipelines in Google Cloud.
 
 👉 [Nextflow on Google Cloud](https://cloud.google.com/life-sciences/docs/tutorials/nextflow)
+
+#### Bonus: Nextflow Tutorial - Variant Calling Edition
+
+This [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/) has been adapted from the [Nextflow Software Carpentry training material](https://carpentries-incubator.github.io/workflows-nextflow/index.html) and [Data Carpentry: Wrangling Genomics Lesson](https://datacarpentry.org/wrangling-genomics/). Learners will have the chance to learn Nextflow and nf-core basics, to convert a variant-calling bash-script into a Nextflow workflow and to modularize the pipeline using DSL2 modules and sub-workflows. 
+
+The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/sateeshperi/nextflow_tutorial.git) where you can try the exercises in an online computing environment at your own pace, with the course material in another window alongside. 
+
+👉 You can find the course in [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/).
 
 ###  Community and support 
 
