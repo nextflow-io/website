@@ -9,7 +9,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow [Software Carpentries](https://carpentries-incubator.github.io/workflows-nextflow/index.html) course and an excellent write-up by [23andMe](https://www.23andme.com).
+A lot has happened since we last wrote about how best to learn Nextflow, over a year ago. Several new resources have been released including a new Nextflow [Software Carpentries](https://carpentries-incubator.github.io/workflows-nextflow/index.html) course and an excellent write-up by [23andMe](https://medium.com/23andme-engineering/introduction-to-nextflow-4d0e3b6768d1).
 
 We have collated some links below from a diverse collection of resources to help you on your journey to learn Nextflow. Nextflow is a community-driven project - if you have any suggestions, please make a pull request to [this page on GitHub](https://github.com/nextflow-io/website/tree/master/content/blog/2022/learn-nextflow-in-2022.md). 
 
