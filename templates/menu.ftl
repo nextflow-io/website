@@ -43,8 +43,8 @@
                         <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
-                        <li><a href="https://groups.google.com/forum/#!forum/nextflow">Discussion forum</a></li>
-                        <li><a href="https://gitter.im/nextflow-io/nextflow">Gitter chat</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
+                        <li><a href="https://join.slack.com/t/nextflow/shared_invite/zt-11iwlxtw5-R6SNBpVksOJAx5sPOXNrZg">Slack community chat</a></li>
                         <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>                       
                     </ul>
                 </li>

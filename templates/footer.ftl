@@ -68,17 +68,6 @@ while(x=eval(x));
   ga('create', 'UA-364526-10', 'auto');
   ga('send', 'pageview');
 </script>
-<style type="text/css">
-  .gitter-chat-embed { z-index: 9999 }
-  .gitter-open-chat-button { background-color: #1b95e0; border-color: #004e7f }
-  .gitter-open-chat-button:focus { background-color: #0c7abf; border-color: #004e7f}
-  .gitter-open-chat-button:hover { background-color: #0c7abf; border-color: #004e7f }  
-</style>
-<script>
-  ((window.gitter = {}).chat = {}).options = {
-    room: 'nextflow-io/nextflow'
-  };
-</script>
-<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
 </body>
 </html>
