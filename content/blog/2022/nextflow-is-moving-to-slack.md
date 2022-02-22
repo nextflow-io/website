@@ -1,5 +1,5 @@
 title=Nextflow’s community is moving to Slack!
-date=2022-02-17
+date=2022-02-22
 type=post
 description=Join us to receive insights, resources and connect with the community first hand.
 image=img/nextflow-is-moving-to-slack.jpg
