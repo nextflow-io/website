@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 21.12.1-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 22.02.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -52,40 +52,41 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#config-syntax">Config syntax</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#config-variables">Config Variables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#config-variables">Config variables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#config-comments">Config comments</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#config-include">Config include</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#config-scopes">Config scopes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#scope-env">Scope <cite>env</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-params">Scope <cite>params</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-process">Scope <cite>process</cite></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#process-selectors">Process selectors</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#selector-expressions">Selector expressions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#selectors-priority">Selectors priority</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-executor">Scope <cite>executor</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-docker">Scope <cite>docker</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-singularity">Scope <cite>singularity</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-podman">Scope <cite>podman</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-aws">Scope <cite>aws</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-charliecloud">Scope <cite>charliecloud</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-cloud">Scope <cite>cloud</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-conda">Scope <cite>conda</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-dag">Scope <cite>dag</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-docker">Scope <cite>docker</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-env">Scope <cite>env</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-executor">Scope <cite>executor</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-k8s">Scope <cite>k8s</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-mail">Scope <cite>mail</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-manifest">Scope <cite>manifest</cite></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#nextflow-version">Nextflow version</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-trace">Scope <cite>trace</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-dag">Scope <cite>dag</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-aws">Scope <cite>aws</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-cloud">Scope <cite>cloud</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-conda">Scope <cite>conda</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-k8s">Scope <cite>k8s</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-timeline">Scope <cite>timeline</cite></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-mail">Scope <cite>mail</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-notification">Scope <cite>notification</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-params">Scope <cite>params</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-podman">Scope <cite>podman</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-process">Scope <cite>process</cite></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#process-selectors">Process selectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#selector-expressions">Selector expressions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#selector-priority">Selector priority</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-report">Scope <cite>report</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-shifter">Scope <cite>shifter</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-singularity">Scope <cite>singularity</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-timeline">Scope <cite>timeline</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-tower">Scope <cite>tower</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-trace">Scope <cite>trace</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-weblog">Scope <cite>weblog</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#miscellaneous">Miscellaneous</a></li>
 </ul>
@@ -96,16 +97,12 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -177,7 +174,7 @@ Also note that values are typed, meaning for example that, <code class="docutils
 as the number one, while the latter is interpreted as a string value.</p>
 </section>
 <section id="config-variables">
-<h3>Config Variables<a class="headerlink" href="#config-variables" title="Permalink to this headline">¶</a></h3>
+<h3>Config variables<a class="headerlink" href="#config-variables" title="Permalink to this headline">¶</a></h3>
 <p>Configuration properties can be used as variables in the configuration file itself, by using the usual
 <code class="docutils literal notranslate"><span class="pre">$propertyName</span></code> or <code class="docutils literal notranslate"><span class="pre">${expression}</span></code> syntax.</p>
 <p>For example:</p>
@@ -225,581 +222,6 @@ following example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<section id="scope-env">
-<span id="config-env"></span><h3>Scope <cite>env</cite><a class="headerlink" href="#scope-env" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> scope allows the definition one or more variable that will be exported in the environment where the
-workflow tasks will be executed.</p>
-<p>Simply prefix your variable names with the <code class="docutils literal notranslate"><span class="pre">env</span></code> scope or surround them by curly brackets, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
-<span class="n">env</span><span class="o">.</span><span class="n">BETA</span> <span class="o">=</span> <span class="s2">&quot;$HOME/some/path&quot;</span>
-
-<span class="n">env</span> <span class="p">{</span>
-     <span class="n">DELTA</span> <span class="o">=</span> <span class="s1">&#39;one more&#39;</span>
-     <span class="n">GAMMA</span> <span class="o">=</span> <span class="s2">&quot;/my/path:$PATH&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>In the above example, variables like <cite>$HOME</cite> and <cite>$PATH</cite> are evaluated when the workflow is launched. If
-you want these variables to be evaluated during task execution, escape them with <cite>$</cite>. This difference is important
-for variables like <cite>$PATH</cite>, which may be very different in the workflow environment versus the task environment.</p>
-</div>
-</section>
-<section id="scope-params">
-<h3>Scope <cite>params</cite><a class="headerlink" href="#scope-params" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">params</span></code> scope allows you to define parameters that will be accessible in the pipeline script. Simply prefix the
-parameter names with the <code class="docutils literal notranslate"><span class="pre">params</span></code> scope or surround them by curly brackets, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">custom_param</span> <span class="o">=</span> <span class="mi">123</span>
-<span class="n">params</span><span class="o">.</span><span class="n">another_param</span> <span class="o">=</span> <span class="s1">&#39;string value .. &#39;</span>
-
-<span class="n">params</span> <span class="p">{</span>
-
-   <span class="n">alpha_1</span> <span class="o">=</span> <span class="n">true</span>
-   <span class="n">beta_2</span> <span class="o">=</span> <span class="s1">&#39;another string ..&#39;</span>
-
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="scope-process">
-<span id="config-process"></span><h3>Scope <cite>process</cite><a class="headerlink" href="#scope-process" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">process</span></code> configuration scope allows you to provide the default configuration for the processes in your pipeline.</p>
-<p>You can specify here any property described in the <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">process directive</span></a> and the executor sections.
-For examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-  <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
-  <span class="n">queue</span><span class="o">=</span><span class="s1">&#39;long&#39;</span>
-  <span class="n">clusterOptions</span> <span class="o">=</span> <span class="s1">&#39;-pe smp 10 -l virtual_free=64G,h_rt=30:00:00&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>By using this configuration all processes in your pipeline will be executed through the SGE cluster, with the specified
-settings.</p>
-<section id="process-selectors">
-<span id="config-process-selectors"></span><h4>Process selectors<a class="headerlink" href="#process-selectors" title="Permalink to this headline">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive as
-shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-    <span class="n">withLabel</span><span class="p">:</span> <span class="n">big_mem</span> <span class="p">{</span>
-        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">16</span>
-        <span class="n">memory</span> <span class="o">=</span> <span class="mf">64.</span><span class="n">GB</span>
-        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The above configuration example assigns 16 cpus, 64 Gb of memory and the <code class="docutils literal notranslate"><span class="pre">long</span></code> queue to all processes annotated
-with the <code class="docutils literal notranslate"><span class="pre">big_mem</span></code> label.</p>
-<p>In the same manner, the <code class="docutils literal notranslate"><span class="pre">withName</span></code> selector allows the configuration of a specific process in your pipeline by its name.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-    <span class="n">withName</span><span class="p">:</span> <span class="n">hello</span> <span class="p">{</span>
-        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
-        <span class="n">memory</span> <span class="o">=</span> <span class="mf">8.</span><span class="n">GB</span>
-        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;short&#39;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Either label and process names do not need to be enclosed with quote characters, provided the name
-does include special characters (e.g. <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">!</span></code>, etc) or it’s not a keyword or a built-in type identifier.
-In case of doubt, you can enclose the label names or the process names with single or double quote characters.</p>
-</div>
-</section>
-<section id="selector-expressions">
-<span id="config-selector-expressions"></span><h4>Selector expressions<a class="headerlink" href="#selector-expressions" title="Permalink to this headline">¶</a></h4>
-<p>Both label and process name selectors allow the use of a regular expression in order to apply the same configuration
-to all processes matching the specified pattern condition. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo|bar&#39;</span> <span class="p">{</span>
-        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
-        <span class="n">memory</span> <span class="o">=</span> <span class="mf">4.</span><span class="n">GB</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
-and <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
-<p>A process selector can be negated prefixing it with the special character <code class="docutils literal notranslate"><span class="pre">!</span></code>. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">}</span>
-    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;!foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">}</span>
-    <span class="n">withName</span><span class="p">:</span> <span class="s1">&#39;!align.*&#39;</span> <span class="p">{</span> <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span> <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The above configuration snippet sets 2 cpus for the processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label and 4 cpus to all processes
-<em>not</em> annotated with that label. Finally it sets the use of <code class="docutils literal notranslate"><span class="pre">long</span></code> queue to all process whose name does <em>not</em> start
-with <code class="docutils literal notranslate"><span class="pre">align</span></code>.</p>
-</section>
-<section id="selectors-priority">
-<span id="config-selectors-priority"></span><h4>Selectors priority<a class="headerlink" href="#selectors-priority" title="Permalink to this headline">¶</a></h4>
-<p>When mixing generic process configuration and selectors the following priority rules are applied (from lower to higher):</p>
-<ol class="arabic simple">
-<li><p>Process generic configuration.</p></li>
-<li><p>Process specific directive defined in the workflow script.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">withLabel</span></code> selector definition.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">withName</span></code> selector definition.</p></li>
-</ol>
-<p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-    <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="n">withLabel</span><span class="p">:</span> <span class="n">foo</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">8</span> <span class="p">}</span>
-    <span class="n">withName</span><span class="p">:</span> <span class="n">bar</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">32</span> <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Using the above configuration snippet, all workflow processes use 4 cpus if not otherwise specified in the workflow
-script. Moreover processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label use 8 cpus. Finally the process named <code class="docutils literal notranslate"><span class="pre">bar</span></code>
-uses 32 cpus.</p>
-</section>
-</section>
-<section id="scope-executor">
-<span id="config-executor"></span><h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 93%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>name</p></td>
-<td><p>The name of the executor to be used e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">sge</span></code>, etc.</p></td>
-</tr>
-<tr class="row-odd"><td><p>queueSize</p></td>
-<td><p>The number of tasks the executor will handle in a parallel manner (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>pollInterval</p></td>
-<td><p>Determines how often a poll occurs to check for a process termination.</p></td>
-</tr>
-<tr class="row-odd"><td><p>dumpInterval</p></td>
-<td><p>Determines how often the executor status is written in the application log file (default: <code class="docutils literal notranslate"><span class="pre">5min</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>queueStatInterval</p></td>
-<td><p>Determines how often the queue status is fetched from the cluster system. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">1min</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>exitReadTimeout</p></td>
-<td><p>Determines how long the executor waits before return an error status when a process is terminated but the <cite>exit</cite> file does not exist or it is empty. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">270</span> <span class="pre">sec</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>killBatchSize</p></td>
-<td><p>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>submitRateLimit</p></td>
-<td><p>Determines the max rate of job submission per time unit, for example <code class="docutils literal notranslate"><span class="pre">'10sec'</span></code> eg. max 10 jobs per second or <code class="docutils literal notranslate"><span class="pre">'50/2min'</span></code> i.e. 50 job submissions every 2 minutes (default: <cite>unlimited</cite>).</p></td>
-</tr>
-<tr class="row-even"><td><p>perJobMemLimit</p></td>
-<td><p>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>jobName</p></td>
-<td><p>Determines the name of jobs submitted to the underlying cluster executor e.g. <code class="docutils literal notranslate"><span class="pre">executor.jobName</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;$task.name</span> <span class="pre">-</span> <span class="pre">$task.hash&quot;</span> <span class="pre">}</span></code> Note: when using this option you need to make sure the resulting job name matches the validation constraints of the underlying batch scheduler.</p></td>
-</tr>
-<tr class="row-even"><td><p>cpus</p></td>
-<td><p>The maximum number of CPUs made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
-</tr>
-<tr class="row-odd"><td><p>memory</p></td>
-<td><p>The maximum amount of memory made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
-</tr>
-</tbody>
-</table>
-<p>The executor settings can be defined as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">executor</span> <span class="p">{</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
-    <span class="n">queueSize</span> <span class="o">=</span> <span class="mi">200</span>
-    <span class="n">pollInterval</span> <span class="o">=</span> <span class="s1">&#39;30 sec&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>When using two (or more) different executors in your pipeline, you can specify their settings separately by prefixing
-the executor name with the symbol <code class="docutils literal notranslate"><span class="pre">$</span></code> and using it as special scope identifier. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>executor {
-  $sge {
-      queueSize = 100
-      pollInterval = &#39;30sec&#39;
-  }
-
-  $local {
-      cpus = 8
-      memory = &#39;32 GB&#39;
-  }
-}
-</pre></div>
-</div>
-<p>The above configuration example can be rewritten using the dot notation as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>executor.$sge.queueSize = 100
-executor.$sge.pollInterval = &#39;30sec&#39;
-executor.$local.cpus = 8
-executor.$local.memory = &#39;32 GB&#39;
-</pre></div>
-</div>
-</section>
-<section id="scope-docker">
-<span id="config-docker"></span><h3>Scope <cite>docker</cite><a class="headerlink" href="#scope-docker" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">docker</span></code> configuration scope controls how <a class="reference external" href="https://www.docker.com">Docker</a> containers are executed by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Docker execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>envWhitelist</p></td>
-<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
-</tr>
-<tr class="row-even"><td><p>legacy</p></td>
-<td><p>Uses command line options removed since version 1.10.x (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>sudo</p></td>
-<td><p>Executes Docker run command as <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>tty</p></td>
-<td><p>Allocates a pseudo-tty (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>temp</p></td>
-<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
-</tr>
-<tr class="row-even"><td><p>remove</p></td>
-<td><p>Clean-up the container after the execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>). For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/#clean-up---rm">https://docs.docker.com/engine/reference/run/#clean-up—rm</a> .</p></td>
-</tr>
-<tr class="row-odd"><td><p>runOptions</p></td>
-<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/">https://docs.docker.com/engine/reference/run/</a> .</p></td>
-</tr>
-<tr class="row-even"><td><p>registry</p></td>
-<td><p>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>fixOwnership</p></td>
-<td><p>Fixes ownership of files created by the docker container.</p></td>
-</tr>
-<tr class="row-even"><td><p>engineOptions</p></td>
-<td><p>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>mountFlags</p></td>
-<td><p>Add the specified flags to the volume mounts e.g. <cite>mountFlags = ‘ro,Z’</cite></p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">docker</span></code> scope or surrounding them by curly
-brackets, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
-
-<span class="n">docker</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Read <a class="reference internal" href="docker.html#docker-page"><span class="std std-ref">Docker containers</span></a> page to learn more how use Docker containers with Nextflow.</p>
-</section>
-<section id="scope-singularity">
-<span id="config-singularity"></span><h3>Scope <cite>singularity</cite><a class="headerlink" href="#scope-singularity" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">singularity</span></code> configuration scope controls how <a class="reference external" href="https://sylabs.io/singularity/">Singularity</a> containers are executed
-by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Singularity execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>engineOptions</p></td>
-<td><p>This attribute can be used to provide any option supported by the Singularity engine i.e. <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>envWhitelist</p></td>
-<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
-</tr>
-<tr class="row-odd"><td><p>runOptions</p></td>
-<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">exec</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>noHttps</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to pull the Singularity image with http protocol (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>autoMounts</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed container. It requires the <cite>user bind control</cite> feature enabled in your Singularity installation (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>cacheDir</p></td>
-<td><p>The directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</p></td>
-</tr>
-<tr class="row-odd"><td><p>pullTimeout</p></td>
-<td><p>The amount of time the Singularity pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
-</tr>
-</tbody>
-</table>
-<p>Read <a class="reference internal" href="singularity.html#singularity-page"><span class="std std-ref">Singularity containers</span></a> page to learn more how use Singularity containers with Nextflow.</p>
-</section>
-<section id="scope-podman">
-<span id="config-podman"></span><h3>Scope <cite>podman</cite><a class="headerlink" href="#scope-podman" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">podman</span></code> configuration scope controls how <a class="reference external" href="https://podman.io/">Podman</a> containers are executed by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Podman execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>envWhitelist</p></td>
-<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
-</tr>
-<tr class="row-even"><td><p>temp</p></td>
-<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
-</tr>
-<tr class="row-odd"><td><p>remove</p></td>
-<td><p>Clean-up the container after the execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>runOptions</p></td>
-<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">run</span></code> command.</p></td>
-</tr>
-<tr class="row-odd"><td><p>registry</p></td>
-<td><p>The registry from where container images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p>engineOptions</p></td>
-<td><p>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p>mountFlags</p></td>
-<td><p>Add the specified flags to the volume mounts e.g. <cite>mountFlags = ‘ro,Z’</cite></p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">podman</span></code> scope or surrounding them by curly
-brackets, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
-
-<span class="n">podman</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Read <a class="reference internal" href="podman.html#podman-page"><span class="std std-ref">Podman containers</span></a> page to learn more how use Podman containers with Nextflow.</p>
-</section>
-<section id="scope-charliecloud">
-<span id="config-charliecloud"></span><h3>Scope <cite>charliecloud</cite><a class="headerlink" href="#scope-charliecloud" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> configuration scope controls how <a class="reference external" href="https://hpc.github.io/charliecloud/">Charliecloud</a> containers are executed by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Charliecloud execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>envWhitelist</p></td>
-<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
-</tr>
-<tr class="row-even"><td><p>temp</p></td>
-<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
-</tr>
-<tr class="row-odd"><td><p>runOptions</p></td>
-<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">ch-run</span></code> command.</p></td>
-</tr>
-<tr class="row-even"><td><p>cacheDir</p></td>
-<td><p>The directory where remote Charliecloud images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</p></td>
-</tr>
-<tr class="row-odd"><td><p>pullTimeout</p></td>
-<td><p>The amount of time the Charliecloud pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> scope or surrounding them by curly
-brackets, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
-
-<span class="n">charliecloud</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>Read <a class="reference internal" href="charliecloud.html#charliecloud-page"><span class="std std-ref">Charliecloud containers</span></a> page to learn more how use Charliecloud containers with Nextflow.</p>
-</section>
-<section id="scope-manifest">
-<span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">manifest</span></code> configuration scope allows you to define some meta-data information needed when publishing your pipeline project on GitHub, BitBucket or GitLab, or when running your pipeline.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 82%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>author</p></td>
-<td><p>Project author name (use a comma to separate multiple names).</p></td>
-</tr>
-<tr class="row-odd"><td><p>defaultBranch</p></td>
-<td><p>Git repository default branch (default: <code class="docutils literal notranslate"><span class="pre">master</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>recurseSubmodules</p></td>
-<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to pull submodules recursively from the Git repository</p></td>
-</tr>
-<tr class="row-odd"><td><p>description</p></td>
-<td><p>Free text describing the workflow project.</p></td>
-</tr>
-<tr class="row-even"><td><p>doi</p></td>
-<td><p>Project related publication DOI identifier.</p></td>
-</tr>
-<tr class="row-odd"><td><p>homePage</p></td>
-<td><p>Project home page URL.</p></td>
-</tr>
-<tr class="row-even"><td><p>mainScript</p></td>
-<td><p>Project main script (default: <code class="docutils literal notranslate"><span class="pre">main.nf</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>name</p></td>
-<td><p>Project short name.</p></td>
-</tr>
-<tr class="row-even"><td><p>nextflowVersion</p></td>
-<td><p>Minimum required Nextflow version.</p></td>
-</tr>
-<tr class="row-odd"><td><p>version</p></td>
-<td><p>Project version number.</p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">manifest</span></code> scope or surrounding them by curly
-brackets. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">manifest</span> <span class="p">{</span>
-    <span class="n">homePage</span> <span class="o">=</span> <span class="s1">&#39;http://foo.com&#39;</span>
-    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Pipeline does this and that&#39;</span>
-    <span class="n">mainScript</span> <span class="o">=</span> <span class="s1">&#39;foo.nf&#39;</span>
-    <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a>
-documentation page.</p>
-<section id="nextflow-version">
-<h4>Nextflow version<a class="headerlink" href="#nextflow-version" title="Permalink to this headline">¶</a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">nextflowVersion</span></code> setting allows you to specify a minimum required version to run the pipeline.
-This may be useful to ensure that a specific version is used:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nextflowVersion = &#39;1.2.3&#39;        // exact match
-nextflowVersion = &#39;1.2+&#39;         // 1.2 or later (excluding 2 and later)
-nextflowVersion = &#39;&gt;=1.2&#39;        // 1.2 or later
-nextflowVersion = &#39;&gt;=1.2, &lt;=1.5&#39; // any version in the 1.2 .. 1.5 range
-nextflowVersion = &#39;!&gt;=1.2&#39;       // with ! prefix, stop execution if current version
-                                    does not match required version.
-</pre></div>
-</div>
-</section>
-</section>
-<section id="scope-trace">
-<span id="config-trace"></span><h3>Scope <cite>trace</cite><a class="headerlink" href="#scope-trace" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> scope allows you to control the layout of the execution trace file generated by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 88%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the execution trace report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>fields</p></td>
-<td><p>Comma separated list of fields to be included in the report. The available fields are listed at <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">this page</span></a></p></td>
-</tr>
-<tr class="row-even"><td><p>file</p></td>
-<td><p>Trace file name (default: <code class="docutils literal notranslate"><span class="pre">trace.txt</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>sep</p></td>
-<td><p>Character used to separate values in each row (default: <code class="docutils literal notranslate"><span class="pre">\t</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>raw</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on raw number report generation i.e. date and time are reported as milliseconds and memory as number of bytes</p></td>
-</tr>
-<tr class="row-odd"><td><p>overwrite</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing trace file instead of rolling it.</p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">trace</span></code> scope or surrounding them by curly
-brackets. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-    <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;pipeline_trace.txt&#39;</span>
-    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;task_id,name,status,exit,realtime,</span><span class="si">%c</span><span class="s1">pu,rss&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>To learn more about the execution report that can be generated by Nextflow read <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace report</span></a> documentation page.</p>
-</section>
-<section id="scope-dag">
-<span id="config-dag"></span><h3>Scope <cite>dag</cite><a class="headerlink" href="#scope-dag" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope allows you to control the layout of the execution graph file generated by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 16%" />
-<col style="width: 84%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the execution graph report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>file</p></td>
-<td><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag.dot</span></code>).</p></td>
-</tr>
-</tbody>
-</table>
-<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope or surrounding them by curly
-brackets. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dag</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-    <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;pipeline_dag.html&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>To learn more about the execution graph that can be generated by Nextflow read <a class="reference internal" href="tracing.html#dag-visualisation"><span class="std std-ref">DAG visualisation</span></a> documentation page.</p>
-</section>
 <section id="scope-aws">
 <span id="config-aws"></span><h3>Scope <cite>aws</cite><a class="headerlink" href="#scope-aws" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">aws</span></code> scope allows you to configure the access to Amazon S3 storage. Use the attributes <code class="docutils literal notranslate"><span class="pre">accessKey</span></code> and <code class="docutils literal notranslate"><span class="pre">secretKey</span></code>
@@ -933,6 +355,52 @@ to specify your bucket credentials. For example:</p>
 </tbody>
 </table>
 </section>
+<section id="scope-charliecloud">
+<span id="config-charliecloud"></span><h3>Scope <cite>charliecloud</cite><a class="headerlink" href="#scope-charliecloud" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> configuration scope controls how <a class="reference external" href="https://hpc.github.io/charliecloud/">Charliecloud</a> containers are executed by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Charliecloud execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>envWhitelist</p></td>
+<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
+</tr>
+<tr class="row-even"><td><p>temp</p></td>
+<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
+</tr>
+<tr class="row-odd"><td><p>runOptions</p></td>
+<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">ch-run</span></code> command.</p></td>
+</tr>
+<tr class="row-even"><td><p>cacheDir</p></td>
+<td><p>The directory where remote Charliecloud images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pullTimeout</p></td>
+<td><p>The amount of time the Charliecloud pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> scope or surrounding them by curly
+brackets, as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
+
+<span class="n">charliecloud</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Read <a class="reference internal" href="container.html#container-charliecloud"><span class="std std-ref">Charliecloud</span></a> page to learn more about how to use Charliecloud containers with Nextflow.</p>
+</section>
 <section id="scope-cloud">
 <span id="config-cloud"></span><h3>Scope <cite>cloud</cite><a class="headerlink" href="#scope-cloud" title="Permalink to this headline">¶</a></h3>
 <div class="admonition note">
@@ -970,6 +438,208 @@ by the Conda package manager.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="scope-dag">
+<span id="config-dag"></span><h3>Scope <cite>dag</cite><a class="headerlink" href="#scope-dag" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope allows you to control the layout of the execution graph file generated by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 84%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the execution graph report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>file</p></td>
+<td><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag.dot</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope or surrounding them by curly
+brackets. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dag</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;pipeline_dag.html&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To learn more about the execution graph that can be generated by Nextflow read <a class="reference internal" href="tracing.html#dag-visualisation"><span class="std std-ref">DAG visualisation</span></a> documentation page.</p>
+</section>
+<section id="scope-docker">
+<span id="config-docker"></span><h3>Scope <cite>docker</cite><a class="headerlink" href="#scope-docker" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">docker</span></code> configuration scope controls how <a class="reference external" href="https://www.docker.com">Docker</a> containers are executed by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Docker execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>envWhitelist</p></td>
+<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
+</tr>
+<tr class="row-even"><td><p>legacy</p></td>
+<td><p>Uses command line options removed since version 1.10.x (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>sudo</p></td>
+<td><p>Executes Docker run command as <code class="docutils literal notranslate"><span class="pre">sudo</span></code> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>tty</p></td>
+<td><p>Allocates a pseudo-tty (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>temp</p></td>
+<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
+</tr>
+<tr class="row-even"><td><p>remove</p></td>
+<td><p>Clean-up the container after the execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>). For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/#clean-up---rm">https://docs.docker.com/engine/reference/run/#clean-up—rm</a> .</p></td>
+</tr>
+<tr class="row-odd"><td><p>runOptions</p></td>
+<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="https://docs.docker.com/engine/reference/run/">https://docs.docker.com/engine/reference/run/</a> .</p></td>
+</tr>
+<tr class="row-even"><td><p>registry</p></td>
+<td><p>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>fixOwnership</p></td>
+<td><p>Fixes ownership of files created by the docker container.</p></td>
+</tr>
+<tr class="row-even"><td><p>engineOptions</p></td>
+<td><p>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mountFlags</p></td>
+<td><p>Add the specified flags to the volume mounts e.g. <cite>mountFlags = ‘ro,Z’</cite></p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">docker</span></code> scope or surrounding them by curly
+brackets, as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
+
+<span class="n">docker</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Read <a class="reference internal" href="container.html#container-docker"><span class="std std-ref">Docker</span></a> page to learn more about how to use Docker containers with Nextflow.</p>
+</section>
+<section id="scope-env">
+<span id="config-env"></span><h3>Scope <cite>env</cite><a class="headerlink" href="#scope-env" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> scope allows the definition one or more variable that will be exported in the environment where the
+workflow tasks will be executed.</p>
+<p>Simply prefix your variable names with the <code class="docutils literal notranslate"><span class="pre">env</span></code> scope or surround them by curly brackets, as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">ALPHA</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
+<span class="n">env</span><span class="o">.</span><span class="n">BETA</span> <span class="o">=</span> <span class="s2">&quot;$HOME/some/path&quot;</span>
+
+<span class="n">env</span> <span class="p">{</span>
+     <span class="n">DELTA</span> <span class="o">=</span> <span class="s1">&#39;one more&#39;</span>
+     <span class="n">GAMMA</span> <span class="o">=</span> <span class="s2">&quot;/my/path:$PATH&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In the above example, variables like <cite>$HOME</cite> and <cite>$PATH</cite> are evaluated when the workflow is launched. If
+you want these variables to be evaluated during task execution, escape them with <cite>$</cite>. This difference is important
+for variables like <cite>$PATH</cite>, which may be very different in the workflow environment versus the task environment.</p>
+</div>
+</section>
+<section id="scope-executor">
+<span id="config-executor"></span><h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 7%" />
+<col style="width: 93%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>name</p></td>
+<td><p>The name of the executor to be used e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">sge</span></code>, etc.</p></td>
+</tr>
+<tr class="row-odd"><td><p>queueSize</p></td>
+<td><p>The number of tasks the executor will handle in a parallel manner (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>pollInterval</p></td>
+<td><p>Determines how often a poll occurs to check for a process termination.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dumpInterval</p></td>
+<td><p>Determines how often the executor status is written in the application log file (default: <code class="docutils literal notranslate"><span class="pre">5min</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>queueStatInterval</p></td>
+<td><p>Determines how often the queue status is fetched from the cluster system. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">1min</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>exitReadTimeout</p></td>
+<td><p>Determines how long the executor waits before return an error status when a process is terminated but the <cite>exit</cite> file does not exist or it is empty. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">270</span> <span class="pre">sec</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>killBatchSize</p></td>
+<td><p>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>submitRateLimit</p></td>
+<td><p>Determines the max rate of job submission per time unit, for example <code class="docutils literal notranslate"><span class="pre">'10sec'</span></code> eg. max 10 jobs per second or <code class="docutils literal notranslate"><span class="pre">'50/2min'</span></code> i.e. 50 job submissions every 2 minutes (default: <cite>unlimited</cite>).</p></td>
+</tr>
+<tr class="row-even"><td><p>perJobMemLimit</p></td>
+<td><p>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>jobName</p></td>
+<td><p>Determines the name of jobs submitted to the underlying cluster executor e.g. <code class="docutils literal notranslate"><span class="pre">executor.jobName</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;$task.name</span> <span class="pre">-</span> <span class="pre">$task.hash&quot;</span> <span class="pre">}</span></code> Note: when using this option you need to make sure the resulting job name matches the validation constraints of the underlying batch scheduler.</p></td>
+</tr>
+<tr class="row-even"><td><p>cpus</p></td>
+<td><p>The maximum number of CPUs made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
+</tr>
+<tr class="row-odd"><td><p>memory</p></td>
+<td><p>The maximum amount of memory made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
+</tr>
+</tbody>
+</table>
+<p>The executor settings can be defined as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">executor</span> <span class="p">{</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;sge&#39;</span>
+    <span class="n">queueSize</span> <span class="o">=</span> <span class="mi">200</span>
+    <span class="n">pollInterval</span> <span class="o">=</span> <span class="s1">&#39;30 sec&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When using two (or more) different executors in your pipeline, you can specify their settings separately by prefixing
+the executor name with the symbol <code class="docutils literal notranslate"><span class="pre">$</span></code> and using it as special scope identifier. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>executor {
+  $sge {
+      queueSize = 100
+      pollInterval = &#39;30sec&#39;
+  }
+
+  $local {
+      cpus = 8
+      memory = &#39;32 GB&#39;
+  }
+}
+</pre></div>
+</div>
+<p>The above configuration example can be rewritten using the dot notation as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>executor.$sge.queueSize = 100
+executor.$sge.pollInterval = &#39;30sec&#39;
+executor.$local.cpus = 8
+executor.$local.memory = &#39;32 GB&#39;
+</pre></div>
+</div>
 </section>
 <section id="scope-k8s">
 <span id="config-k8s"></span><h3>Scope <cite>k8s</cite><a class="headerlink" href="#scope-k8s" title="Permalink to this headline">¶</a></h3>
@@ -1015,50 +685,26 @@ workflow applications in a Kubernetes cluster.</p>
 <td><p>Defines the strategy to be used to pull the container image e.g. <code class="docutils literal notranslate"><span class="pre">pullPolicy:</span> <span class="pre">'Always'</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p>runAsUser</p></td>
-<td><p>Defines the user ID to be used to run the containers.</p></td>
+<td><p>Defines the user ID to be used to run the containers. Shortcut for the <code class="docutils literal notranslate"><span class="pre">securityContext</span></code> option.</p></td>
 </tr>
-<tr class="row-even"><td><p>storageClaimName</p></td>
+<tr class="row-even"><td><p>securityContext</p></td>
+<td><p>Defines the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">security context</a> for all pods.</p></td>
+</tr>
+<tr class="row-odd"><td><p>storageClaimName</p></td>
 <td><p>The name of the persistent volume claim where store workflow result data.</p></td>
 </tr>
-<tr class="row-odd"><td><p>storageMountPath</p></td>
+<tr class="row-even"><td><p>storageMountPath</p></td>
 <td><p>The path location used to mount the persistent volume claim (default: <code class="docutils literal notranslate"><span class="pre">/workspace</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>storageSubPath</p></td>
+<tr class="row-odd"><td><p>storageSubPath</p></td>
 <td><p>The path in the persistent volume to be mounted (default: root).</p></td>
 </tr>
-<tr class="row-odd"><td><p>volumeClaims</p></td>
+<tr class="row-even"><td><p>volumeClaims</p></td>
 <td><p>(deprecated)</p></td>
 </tr>
 </tbody>
 </table>
 <p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes</span></a> documentation for more details.</p>
-</section>
-<section id="scope-timeline">
-<span id="config-timeline"></span><h3>Scope <cite>timeline</cite><a class="headerlink" href="#scope-timeline" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">timeline</span></code> scope allows you to enable/disable the processes execution timeline report generated by Nextflow.</p>
-<p>The following settings are available:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 83%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>enabled</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the timeline report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p>file</p></td>
-<td><p>Timeline file name (default: <code class="docutils literal notranslate"><span class="pre">timeline.html</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p>overwrite</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing timeline file instead of rolling it.</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="scope-mail">
 <span id="config-mail"></span><h3>Scope <cite>mail</cite><a class="headerlink" href="#scope-mail" title="Permalink to this headline">¶</a></h3>
@@ -1123,6 +769,79 @@ See the <a class="reference external" href="https://javaee.github.io/javamail/do
 </pre></div>
 </div>
 </section>
+<section id="scope-manifest">
+<span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">manifest</span></code> configuration scope allows you to define some meta-data information needed when publishing your pipeline project on GitHub, BitBucket or GitLab, or when running your pipeline.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>author</p></td>
+<td><p>Project author name (use a comma to separate multiple names).</p></td>
+</tr>
+<tr class="row-odd"><td><p>defaultBranch</p></td>
+<td><p>Git repository default branch (default: <code class="docutils literal notranslate"><span class="pre">master</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>recurseSubmodules</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to pull submodules recursively from the Git repository</p></td>
+</tr>
+<tr class="row-odd"><td><p>description</p></td>
+<td><p>Free text describing the workflow project.</p></td>
+</tr>
+<tr class="row-even"><td><p>doi</p></td>
+<td><p>Project related publication DOI identifier.</p></td>
+</tr>
+<tr class="row-odd"><td><p>homePage</p></td>
+<td><p>Project home page URL.</p></td>
+</tr>
+<tr class="row-even"><td><p>mainScript</p></td>
+<td><p>Project main script (default: <code class="docutils literal notranslate"><span class="pre">main.nf</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>name</p></td>
+<td><p>Project short name.</p></td>
+</tr>
+<tr class="row-even"><td><p>nextflowVersion</p></td>
+<td><p>Minimum required Nextflow version.</p></td>
+</tr>
+<tr class="row-odd"><td><p>version</p></td>
+<td><p>Project version number.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">manifest</span></code> scope or surrounding them by curly
+brackets. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">manifest</span> <span class="p">{</span>
+    <span class="n">homePage</span> <span class="o">=</span> <span class="s1">&#39;http://foo.com&#39;</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Pipeline does this and that&#39;</span>
+    <span class="n">mainScript</span> <span class="o">=</span> <span class="s1">&#39;foo.nf&#39;</span>
+    <span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To learn how to publish your pipeline on GitHub, BitBucket or GitLab code repositories read <a class="reference internal" href="sharing.html#sharing-page"><span class="std std-ref">Pipeline sharing</span></a>
+documentation page.</p>
+<section id="nextflow-version">
+<h4>Nextflow version<a class="headerlink" href="#nextflow-version" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">nextflowVersion</span></code> setting allows you to specify a minimum required version to run the pipeline.
+This may be useful to ensure that a specific version is used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>nextflowVersion = &#39;1.2.3&#39;        // exact match
+nextflowVersion = &#39;1.2+&#39;         // 1.2 or later (excluding 2 and later)
+nextflowVersion = &#39;&gt;=1.2&#39;        // 1.2 or later
+nextflowVersion = &#39;&gt;=1.2, &lt;=1.5&#39; // any version in the 1.2 .. 1.5 range
+nextflowVersion = &#39;!&gt;=1.2&#39;       // with ! prefix, stop execution if current version
+                                    does not match required version.
+</pre></div>
+</div>
+</section>
+</section>
 <section id="scope-notification">
 <span id="config-notification"></span><h3>Scope <cite>notification</cite><a class="headerlink" href="#scope-notification" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">notification</span></code> scope allows you to define the automatic sending of a notification email message
@@ -1159,6 +878,170 @@ when the workflow execution terminates.</p>
 <p>If no mail configuration is provided, it tries to send the notification message by using the external mail command
 eventually provided by the underlying system (eg. <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> or <code class="docutils literal notranslate"><span class="pre">mail</span></code>).</p>
 </section>
+<section id="scope-params">
+<span id="config-params"></span><h3>Scope <cite>params</cite><a class="headerlink" href="#scope-params" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">params</span></code> scope allows you to define parameters that will be accessible in the pipeline script. Simply prefix the
+parameter names with the <code class="docutils literal notranslate"><span class="pre">params</span></code> scope or surround them by curly brackets, as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">custom_param</span> <span class="o">=</span> <span class="mi">123</span>
+<span class="n">params</span><span class="o">.</span><span class="n">another_param</span> <span class="o">=</span> <span class="s1">&#39;string value .. &#39;</span>
+
+<span class="n">params</span> <span class="p">{</span>
+
+   <span class="n">alpha_1</span> <span class="o">=</span> <span class="n">true</span>
+   <span class="n">beta_2</span> <span class="o">=</span> <span class="s1">&#39;another string ..&#39;</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="scope-podman">
+<span id="config-podman"></span><h3>Scope <cite>podman</cite><a class="headerlink" href="#scope-podman" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">podman</span></code> configuration scope controls how <a class="reference external" href="https://podman.io/">Podman</a> containers are executed by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Podman execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>envWhitelist</p></td>
+<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
+</tr>
+<tr class="row-even"><td><p>temp</p></td>
+<td><p>Mounts a path of your choice as the <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> directory in the container. Use the special value <code class="docutils literal notranslate"><span class="pre">auto</span></code> to create a temporary directory each time a container is created.</p></td>
+</tr>
+<tr class="row-odd"><td><p>remove</p></td>
+<td><p>Clean-up the container after the execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>runOptions</p></td>
+<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">run</span></code> command.</p></td>
+</tr>
+<tr class="row-odd"><td><p>registry</p></td>
+<td><p>The registry from where container images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>engineOptions</p></td>
+<td><p>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>mountFlags</p></td>
+<td><p>Add the specified flags to the volume mounts e.g. <cite>mountFlags = ‘ro,Z’</cite></p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">podman</span></code> scope or surrounding them by curly
+brackets, as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;nextflow/examples&#39;</span>
+
+<span class="n">podman</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Read <a class="reference internal" href="container.html#container-podman"><span class="std std-ref">Podman</span></a> page to learn more about how to use Podman containers with Nextflow.</p>
+</section>
+<section id="scope-process">
+<span id="config-process"></span><h3>Scope <cite>process</cite><a class="headerlink" href="#scope-process" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">process</span></code> configuration scope allows you to provide the default configuration for the processes in your pipeline.</p>
+<p>You can specify here any property described in the <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">process directive</span></a> and the executor sections.
+For examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+  <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
+  <span class="n">queue</span><span class="o">=</span><span class="s1">&#39;long&#39;</span>
+  <span class="n">clusterOptions</span> <span class="o">=</span> <span class="s1">&#39;-pe smp 10 -l virtual_free=64G,h_rt=30:00:00&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>By using this configuration all processes in your pipeline will be executed through the SGE cluster, with the specified
+settings.</p>
+<section id="process-selectors">
+<span id="config-process-selectors"></span><h4>Process selectors<a class="headerlink" href="#process-selectors" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">withLabel</span></code> selectors allow the configuration of all processes annotated with a <a class="reference internal" href="process.html#process-label"><span class="std std-ref">label</span></a> directive as
+shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">big_mem</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">64.</span><span class="n">GB</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration example assigns 16 cpus, 64 Gb of memory and the <code class="docutils literal notranslate"><span class="pre">long</span></code> queue to all processes annotated
+with the <code class="docutils literal notranslate"><span class="pre">big_mem</span></code> label.</p>
+<p>In the same manner, the <code class="docutils literal notranslate"><span class="pre">withName</span></code> selector allows the configuration of a specific process in your pipeline by its name.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="n">hello</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">8.</span><span class="n">GB</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;short&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Either label and process names do not need to be enclosed with quote characters, provided the name
+does include special characters (e.g. <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">!</span></code>, etc) or it’s not a keyword or a built-in type identifier.
+In case of doubt, you can enclose the label names or the process names with single or double quote characters.</p>
+</div>
+</section>
+<section id="selector-expressions">
+<span id="config-selector-expressions"></span><h4>Selector expressions<a class="headerlink" href="#selector-expressions" title="Permalink to this headline">¶</a></h4>
+<p>Both label and process name selectors allow the use of a regular expression in order to apply the same configuration
+to all processes matching the specified pattern condition. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo|bar&#39;</span> <span class="p">{</span>
+        <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">memory</span> <span class="o">=</span> <span class="mf">4.</span><span class="n">GB</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+and <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
+<p>A process selector can be negated prefixing it with the special character <code class="docutils literal notranslate"><span class="pre">!</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="s1">&#39;!foo&#39;</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span> <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="s1">&#39;!align.*&#39;</span> <span class="p">{</span> <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;long&#39;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet sets 2 cpus for the processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label and 4 cpus to all processes
+<em>not</em> annotated with that label. Finally it sets the use of <code class="docutils literal notranslate"><span class="pre">long</span></code> queue to all process whose name does <em>not</em> start
+with <code class="docutils literal notranslate"><span class="pre">align</span></code>.</p>
+</section>
+<section id="selector-priority">
+<span id="config-selector-priority"></span><h4>Selector priority<a class="headerlink" href="#selector-priority" title="Permalink to this headline">¶</a></h4>
+<p>When mixing generic process configuration and selectors the following priority rules are applied (from lower to higher):</p>
+<ol class="arabic simple">
+<li><p>Process generic configuration.</p></li>
+<li><p>Process specific directive defined in the workflow script.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">withLabel</span></code> selector definition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">withName</span></code> selector definition.</p></li>
+</ol>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">withLabel</span><span class="p">:</span> <span class="n">foo</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">8</span> <span class="p">}</span>
+    <span class="n">withName</span><span class="p">:</span> <span class="n">bar</span> <span class="p">{</span> <span class="n">cpus</span> <span class="o">=</span> <span class="mi">32</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using the above configuration snippet, all workflow processes use 4 cpus if not otherwise specified in the workflow
+script. Moreover processes annotated with the <code class="docutils literal notranslate"><span class="pre">foo</span></code> label use 8 cpus. Finally the process named <code class="docutils literal notranslate"><span class="pre">bar</span></code>
+uses 32 cpus.</p>
+</section>
+</section>
 <section id="scope-report">
 <span id="config-report"></span><h3>Scope <cite>report</cite><a class="headerlink" href="#scope-report" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">report</span></code> scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
@@ -1181,6 +1064,100 @@ eventually provided by the underlying system (eg. <code class="docutils literal 
 </tr>
 <tr class="row-even"><td><p>overwrite</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites existing report file instead of rolling it.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scope-shifter">
+<span id="config-shifter"></span><h3>Scope <cite>shifter</cite><a class="headerlink" href="#scope-shifter" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">shifter</span></code> configuration scope controls how <a class="reference external" href="https://docs.nersc.gov/programming/shifter/overview/">Shifter</a> containers are executed
+by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Shifter execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>Read <a class="reference internal" href="container.html#container-shifter"><span class="std std-ref">Shifter</span></a> page to learn more about how to use Shifter containers with Nextflow.</p>
+</section>
+<section id="scope-singularity">
+<span id="config-singularity"></span><h3>Scope <cite>singularity</cite><a class="headerlink" href="#scope-singularity" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">singularity</span></code> configuration scope controls how <a class="reference external" href="https://sylabs.io/singularity/">Singularity</a> containers are executed
+by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Singularity execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>engineOptions</p></td>
+<td><p>This attribute can be used to provide any option supported by the Singularity engine i.e. <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>envWhitelist</p></td>
+<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
+</tr>
+<tr class="row-odd"><td><p>runOptions</p></td>
+<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">exec</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>noHttps</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to pull the Singularity image with http protocol (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>autoMounts</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed container. It requires the <cite>user bind control</cite> feature enabled in your Singularity installation (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>cacheDir</p></td>
+<td><p>The directory where remote Singularity images are stored. When using a computing cluster it must be a shared folder accessible to all computing nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>pullTimeout</p></td>
+<td><p>The amount of time the Singularity pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>Read <a class="reference internal" href="container.html#container-singularity"><span class="std std-ref">Singularity</span></a> page to learn more about how to use Singularity containers with Nextflow.</p>
+</section>
+<section id="scope-timeline">
+<span id="config-timeline"></span><h3>Scope <cite>timeline</cite><a class="headerlink" href="#scope-timeline" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">timeline</span></code> scope allows you to enable/disable the processes execution timeline report generated by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 83%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the timeline report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>file</p></td>
+<td><p>Timeline file name (default: <code class="docutils literal notranslate"><span class="pre">timeline.html</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>overwrite</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing timeline file instead of rolling it.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1231,6 +1208,52 @@ brackets, as shown below:</p>
 <p class="admonition-title">Tip</p>
 <p>The Tower workspace ID can also the specified using the environment variable <code class="docutils literal notranslate"><span class="pre">TOWER_WORKSPACE_ID</span></code> (config file has priority over the environment variable).</p>
 </div>
+</section>
+<section id="scope-trace">
+<span id="config-trace"></span><h3>Scope <cite>trace</cite><a class="headerlink" href="#scope-trace" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">trace</span></code> scope allows you to control the layout of the execution trace file generated by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the execution trace report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>fields</p></td>
+<td><p>Comma separated list of fields to be included in the report. The available fields are listed at <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">this page</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>file</p></td>
+<td><p>Trace file name (default: <code class="docutils literal notranslate"><span class="pre">trace.txt</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>sep</p></td>
+<td><p>Character used to separate values in each row (default: <code class="docutils literal notranslate"><span class="pre">\t</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>raw</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on raw number report generation i.e. date and time are reported as milliseconds and memory as number of bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p>overwrite</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing trace file instead of rolling it.</p></td>
+</tr>
+</tbody>
+</table>
+<p>The above options can be used by prefixing them with the <code class="docutils literal notranslate"><span class="pre">trace</span></code> scope or surrounding them by curly
+brackets. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">trace</span> <span class="p">{</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+    <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;pipeline_trace.txt&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;task_id,name,status,exit,realtime,</span><span class="si">%c</span><span class="s1">pu,rss&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To learn more about the execution report that can be generated by Nextflow read <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace report</span></a> documentation page.</p>
 </section>
 <section id="scope-weblog">
 <span id="config-weblog"></span><h3>Scope <cite>weblog</cite><a class="headerlink" href="#scope-weblog" title="Permalink to this headline">¶</a></h3>

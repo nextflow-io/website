@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 21.12.1-edge documentation</title>
+  <title>Processes &mdash; Nextflow 22.02.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -98,6 +98,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#errorstrategy">errorStrategy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#executor">executor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ext">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#machinetype">machineType</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxforks">maxForks</a></li>
@@ -108,14 +109,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#pod">pod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#queue">queue</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scratch">scratch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storedir">storeDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stageinmode">stageInMode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stageoutmode">stageOutMode</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tag">tag</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#time">time</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#validexitstatus">validExitStatus</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-directives">Dynamic directives</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-retry-with-backoff">Dynamic Retry with backoff</a></li>
@@ -129,16 +128,12 @@
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -178,7 +173,7 @@
   <section id="processes">
 <span id="process-page"></span><h1>Processes<a class="headerlink" href="#processes" title="Permalink to this headline">¶</a></h1>
 <p>In Nextflow a <cite>process</cite> is the basic processing <cite>primitive</cite> to execute a user script.</p>
-<p>The process definition starts with keyword the <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process <cite>body</cite>
+<p>The process definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process <cite>body</cite>
 delimited by curly brackets. The process body must contain a string which represents the command or, more generally,
 a script that is executed by it. A basic process looks like the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
@@ -1511,10 +1506,9 @@ and have the following syntax:</p>
 <li><p><a class="reference internal" href="#storedir">storeDir</a></p></li>
 <li><p><a class="reference internal" href="#tag">tag</a></p></li>
 <li><p><a class="reference internal" href="#time">time</a></p></li>
-<li><p><a class="reference internal" href="#validexitstatus">validExitStatus</a></p></li>
 </ul>
 <section id="accelerator">
-<h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this headline">¶</a></h3>
+<span id="process-accelerator"></span><h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">accelerator</span></code> directive allows you to specify the hardware accelerator requirement for the task execution
 e.g. <em>GPU</em> processor. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
@@ -1527,26 +1521,30 @@ e.g. <em>GPU</em> processor. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above examples will request 4 GPUs of type <cite>nvidia-tesla-k80</cite>.</p>
+<p>The above examples will request 4 GPUs of type <code class="docutils literal notranslate"><span class="pre">nvidia-tesla-k80</span></code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive is only supported by <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a>, <a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+<p>This directive is only used by certain executors. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The accelerator <code class="docutils literal notranslate"><span class="pre">type</span></code> option value depends by the target execution platform. Refer to the target
-platform documentation for details on the available accelerators. <a class="reference external" href="https://aws.amazon.com/batch/faqs/?#GPU_Scheduling_">AWS</a>
-<a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">Google</a>
-<a class="reference external" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">Kubernetes</a>.</p>
+<p>The accelerator <code class="docutils literal notranslate"><span class="pre">type</span></code> option depends on the target execution platform. Refer to the target
+platform documentation for details on the available accelerators:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://aws.amazon.com/batch/faqs/?#GPU_Scheduling_">AWS</a></p></li>
+<li><p><a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">Google Cloud</a></p></li>
+<li><p><a class="reference external" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">Kubernetes</a></p></li>
+</ul>
 </div>
 </section>
 <section id="afterscript">
-<h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline">¶</a></h3>
+<span id="process-afterscript"></span><h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">afterScript</span></code> directive allows you to execute a custom (Bash) snippet immediately <em>after</em> the main process has run.
 This may be useful to clean up your staging area.</p>
 </section>
 <section id="beforescript">
-<h3>beforeScript<a class="headerlink" href="#beforescript" title="Permalink to this headline">¶</a></h3>
+<span id="process-beforescript"></span><h3>beforeScript<a class="headerlink" href="#beforescript" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">beforeScript</span></code> directive allows you to execute a custom (Bash) snippet <em>before</em> the main process script is run.
 This may be useful to initialise the underlying cluster environment or for other custom initialisation.</p>
 <p>For example:</p>
@@ -1675,7 +1673,7 @@ only for a specific process e.g. mount a custom path:</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This feature is not supported by <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> and <a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">Azure Batch</span></a> executors.</p>
+<p>This feature is not supported by the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> or <a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">Azure Batch</span></a> executors.</p>
 </div>
 </section>
 <section id="cpus">
@@ -1704,9 +1702,8 @@ You can use it to request non-standard resources or use settings that are specif
 out of the box by Nextflow.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive is taken in account only when using a grid based executor:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>, <a class="reference internal" href="executor.html#pbspro-executor"><span class="std std-ref">PBS Pro</span></a>,
-<a class="reference internal" href="executor.html#moab-executor"><span class="std std-ref">Moab</span></a> and <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
+<p>This directive is only used by grid executors. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
 </section>
 <section id="disk">
@@ -1754,8 +1751,8 @@ out of the box by Nextflow.</p>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive currently is taken in account only by the <a class="reference internal" href="executor.html#ignite-executor"><span class="std std-ref">Ignite</span></a>
-and the <a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> executors.</p>
+<p>This directive is only used by certain executors. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a> <a class="reference internal" href="#time">time</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
 </section>
@@ -1779,7 +1776,7 @@ running process <cite>stdout</cite> file, showing it in the shell terminal.</p>
 <p>Without specifying <code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">true</span></code> you won’t see the <code class="docutils literal notranslate"><span class="pre">Hello</span></code> string printed out when executing the above example.</p>
 </section>
 <section id="errorstrategy">
-<span id="process-page-error-strategy"></span><h3>errorStrategy<a class="headerlink" href="#errorstrategy" title="Permalink to this headline">¶</a></h3>
+<span id="process-error-strategy"></span><h3>errorStrategy<a class="headerlink" href="#errorstrategy" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">errorStrategy</span></code> directive allows you to define how an error condition is managed by the process. By default when
 an error status is returned by the executed script, the process stops immediately. This in turn forces the entire pipeline
 to terminate.</p>
@@ -1822,10 +1819,9 @@ it just reports a message notifying you of the error event.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>By definition a command script fails when it ends with a non-zero exit status. To change this behavior
-see <a class="reference internal" href="#validexitstatus">validExitStatus</a>.</p>
+<p>By definition a command script fails when it ends with a non-zero exit status.</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">retry</span></code> <cite>error strategy</cite>, allows you to re-submit for execution a process
+<p>The <code class="docutils literal notranslate"><span class="pre">retry</span></code> error strategy allows you to re-submit for execution a process
 returning an error condition. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">retryIfFail</span> <span class="p">{</span>
    <span class="n">errorStrategy</span> <span class="s1">&#39;retry&#39;</span>
@@ -1852,8 +1848,8 @@ defined globally in the <code class="docutils literal notranslate"><span class="
 configuration. The following values can be used:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 14%" />
-<col style="width: 86%" />
+<col style="width: 16%" />
+<col style="width: 84%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -1861,35 +1857,17 @@ configuration. The following values can be used:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">local</span></code></p></td>
-<td><p>The process is executed in the computer where <cite>Nextflow</cite> is launched.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">awsbatch</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://aws.amazon.com/batch/">AWS Batch</a> service.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sge</span></code></p></td>
-<td><p>The process is executed using the Sun Grid Engine / <a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uge</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="https://en.wikipedia.org/wiki/Univa_Grid_Engine/">Univa Grid Engine</a> job scheduler.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lsf</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> job scheduler.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slurm</span></code></p></td>
-<td><p>The process is executed using the SLURM job scheduler.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pbs</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> job scheduler.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pbspro</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="https://www.pbsworks.com/">PBS Pro</a> job scheduler.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">moab</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="http://www.adaptivecomputing.com/moab-hpc-basic-edition/">Moab</a> job scheduler.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">azurebatch</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://azure.microsoft.com/en-us/services/batch/">Azure Batch</a> service.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">condor</span></code></p></td>
 <td><p>The process is executed using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> job scheduler.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nqsii</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> job scheduler.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">google-lifesciences</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://cloud.google.com/life-sciences">Google Genomics Pipelines</a> service.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ignite</span></code></p></td>
 <td><p>The process is executed using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> cluster.</p></td>
@@ -1897,11 +1875,38 @@ configuration. The following values can be used:</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">k8s</span></code></p></td>
 <td><p>The process is executed using the <a class="reference external" href="https://kubernetes.io/">Kubernetes</a> cluster.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">awsbatch</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="https://aws.amazon.com/batch/">AWS Batch</a> service.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">local</span></code></p></td>
+<td><p>The process is executed in the computer where <cite>Nextflow</cite> is launched.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">google-pipelines</span></code></p></td>
-<td><p>The process is executed using the <a class="reference external" href="https://cloud.google.com/genomics/">Google Genomics Pipelines</a> service.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lsf</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> job scheduler.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">moab</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="http://www.adaptivecomputing.com/moab-hpc-basic-edition/">Moab</a> job scheduler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nqsii</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> job scheduler.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">oge</span></code></p></td>
+<td><p>Alias for the <code class="docutils literal notranslate"><span class="pre">sge</span></code> executor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pbs</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> job scheduler.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pbspro</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://www.pbsworks.com/">PBS Pro</a> job scheduler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sge</span></code></p></td>
+<td><p>The process is executed using the Sun Grid Engine / <a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slurm</span></code></p></td>
+<td><p>The process is executed using the SLURM job scheduler.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tes</span></code></p></td>
+<td><p>The process is executed using the <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas">GA4GH TES</a> service.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">uge</span></code></p></td>
+<td><p>Alias for the <code class="docutils literal notranslate"><span class="pre">sge</span></code> executor.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1918,8 +1923,8 @@ configuration. The following values can be used:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Each executor provides its own set of configuration options that can set be in the <cite>directive</cite> declarations block.
-See <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> section to read about specific executor directives.</p>
+<p>Each executor supports additional directives and <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration options. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see what each executor supports.</p>
 </div>
 </section>
 <section id="ext">
@@ -1945,10 +1950,35 @@ This can be defined in the <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 </section>
+<section id="label">
+<span id="process-label"></span><h3>label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> directive allows the annotation of processes with mnemonic identifier of your choice.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">bigTask</span> <span class="p">{</span>
+
+  <span class="n">label</span> <span class="s1">&#39;big_mem&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  &lt;task script&gt;</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The same label can be applied to more than a process and multiple labels can be applied to the same
+process using the <code class="docutils literal notranslate"><span class="pre">label</span></code> directive more than one time.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A label must consist of alphanumeric characters or <code class="docutils literal notranslate"><span class="pre">_</span></code>, must start with an alphabetic character
+and must end with an alphanumeric character.</p>
+</div>
+<p>Labels are useful to organise workflow processes in separate groups which can be referenced
+in the configuration file to select and configure subset of processes having similar computing requirements.</p>
+<p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
+</section>
 <section id="machinetype">
 <span id="process-machinetype"></span><h3>machineType<a class="headerlink" href="#machinetype" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">machineType</span></code> can be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
-when running using the <span class="xref std std-ref">Google Pipeline</span> executor.</p>
+when running using the <a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a> executor.</p>
 <p>This directive is optional and if specified overrides the cpus and memory directives:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="n">machineType</span> <span class="s1">&#39;n1-highmem-8&#39;</span>
@@ -2122,10 +2152,6 @@ can be specified in a single <code class="docutils literal notranslate"><span cl
 </div>
 <p>This configuration depends on the parallel environment provided by your grid engine installation. Refer to your
 cluster documentation or contact your admin to learn more about this.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This setting is available when using the <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a> executor.</p>
-</div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#time">time</a></p>
 </section>
 <section id="pod">
@@ -2184,10 +2210,22 @@ and config maps when using the <a class="reference internal" href="executor.html
 <td><p>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></p></td>
-<td><p>Specifies the user ID to be used to run the container.</p></td>
+<td><p>Specifies the user ID to be used to run the container. Shortcut for the <code class="docutils literal notranslate"><span class="pre">securityContext</span></code> option.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
-<td><p>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">securityContext:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Specifies the pod security context. See <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Kubernetes security context</a> for details.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">affinity:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Specifies affinity for which nodes the process should run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">Kubernetes affinity</a> for details.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">automountServiceAccountToken:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Specifies whether to <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/">automount service account token</a> into process pods. If <code class="docutils literal notranslate"><span class="pre">V</span></code> is true, service account token is automounted into task pods (default).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">priorityClassName:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
+<td><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/">priority class name</a> for pods.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2267,6 +2305,9 @@ This is useful when the process has multiple output files, but you want to publi
 </tr>
 <tr class="row-even"><td><p>tags</p></td>
 <td><p>Allow to associate tags with the target file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL, currently only supported by files stored on AWS S3, requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>failOnError</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> abort the execution if some file can’t be published to the specified target directory or bucket for any cause (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -2356,34 +2397,9 @@ in your pipeline. For example:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive is taken in account only by the following executors: <a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>,
-<a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a> and <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a> executors.</p>
+<p>This directive is only used by certain executors. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
-</section>
-<section id="label">
-<span id="process-label"></span><h3>label<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> directive allows the annotation of processes with mnemonic identifier of your choice.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">bigTask</span> <span class="p">{</span>
-
-  <span class="n">label</span> <span class="s1">&#39;big_mem&#39;</span>
-
-  <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">  &lt;task script&gt;</span>
-<span class="sd">  &#39;&#39;&#39;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>The same label can be applied to more than a process and multiple labels can be applied to the same
-process using the <code class="docutils literal notranslate"><span class="pre">label</span></code> directive more than one time.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>A label must consist of alphanumeric characters or <code class="docutils literal notranslate"><span class="pre">_</span></code>, must start with an alphabetic character
-and must end with an alphanumeric character.</p>
-</div>
-<p>Labels are useful to organise workflow processes in separate groups which can be referenced
-in the configuration file to select and configure subset of processes having similar computing requirements.</p>
-<p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
 </section>
 <section id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline">¶</a></h3>
@@ -2624,36 +2640,10 @@ to identify them in the log file or in the trace execution report. For example:<
 <p>Multiple units can be used in a single declaration, for example: <code class="docutils literal notranslate"><span class="pre">'1day</span> <span class="pre">6hours</span> <span class="pre">3minutes</span> <span class="pre">30seconds'</span></code></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This directive is taken in account only when using one of the following grid based executors:
-<a class="reference internal" href="executor.html#sge-executor"><span class="std std-ref">SGE</span></a>, <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>, <a class="reference internal" href="executor.html#slurm-executor"><span class="std std-ref">SLURM</span></a>, <a class="reference internal" href="executor.html#pbs-executor"><span class="std std-ref">PBS/Torque</span></a>,
-<a class="reference internal" href="executor.html#condor-executor"><span class="std std-ref">HTCondor</span></a> and <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a> executors.</p>
+<p>This directive is only used by certain executors. Refer to the
+<a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
 <p>See also: <a class="reference internal" href="#cpus">cpus</a>, <a class="reference internal" href="#memory">memory</a>, <a class="reference internal" href="#queue">queue</a> and <a class="reference internal" href="#dynamic-computing-resources">Dynamic computing resources</a>.</p>
-</section>
-<section id="validexitstatus">
-<span id="process-validexitstatus"></span><h3>validExitStatus<a class="headerlink" href="#validexitstatus" title="Permalink to this headline">¶</a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This feature has been deprecated and will be removed in a future release.</p>
-</div>
-<p>A process is terminated when the executed command returns an error exit status. By default any error status
-other than <code class="docutils literal notranslate"><span class="pre">0</span></code> is interpreted as an error condition.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">validExitStatus</span></code> directive allows you to fine control which error status will represent a successful command execution.
-You can specify a single value or multiple values as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">returnOk</span> <span class="p">{</span>
-    <span class="n">validExitStatus</span> <span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
-
-     <span class="n">script</span><span class="p">:</span>
-     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">     echo Hello</span>
-<span class="sd">     exit 1</span>
-<span class="sd">     &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>In the above example, although the command script ends with a <code class="docutils literal notranslate"><span class="pre">1</span></code> exit status, the process
-will not return an error condition because the value <code class="docutils literal notranslate"><span class="pre">1</span></code> is declared as a <cite>valid</cite> status in
-the <code class="docutils literal notranslate"><span class="pre">validExitStatus</span></code> directive.</p>
 </section>
 <section id="dynamic-directives">
 <h3>Dynamic directives<a class="headerlink" href="#dynamic-directives" title="Permalink to this headline">¶</a></h3>

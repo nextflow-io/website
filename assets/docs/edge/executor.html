@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executors &mdash; Nextflow 21.12.1-edge documentation</title>
+  <title>Executors &mdash; Nextflow 22.02.1-edge documentation</title>
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -49,37 +49,33 @@
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Executors</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#local">Local</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sge">SGE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pbs-pro">PBS Pro</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#moab">Moab</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#azure-batch">Azure Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-life-sciences">Google Life Sciences</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#azure-batch">Azure Batch</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#google-life-sciences">Google Life Sciences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#local">Local</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lsf">LSF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moab">Moab</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nqsii">NQSII</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oar">OAR</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pbs-torque">PBS/Torque</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pbs-pro">PBS Pro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sge">SGE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="awscloud.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="shifter.html">Shifter Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="singularity.html">Singularity containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="podman.html">Podman containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="charliecloud.html">Charliecloud containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
@@ -124,209 +120,6 @@ process is run and supervises its execution.</p>
 allows you to write the pipeline functional logic independently from the actual processing platform.</p>
 <p>In other words you can write your pipeline script once and have it running on your computer, a cluster resource manager
 or the cloud by simply changing the executor definition in the Nextflow configuration file.</p>
-<section id="local">
-<span id="local-executor"></span><h2>Local<a class="headerlink" href="#local" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>local</cite> executor is used by default. It runs the pipeline processes in the computer where Nextflow
-is launched. The processes are parallelised by spawning multiple <cite>threads</cite> and by taking advantage of multi-cores
-architecture provided by the CPU.</p>
-<p>In a common usage scenario, the <cite>local</cite> executor can be useful to develop and test your pipeline script in your computer,
-switching to a cluster facility when you need to run it on production data.</p>
-</section>
-<section id="sge">
-<span id="sge-executor"></span><h2>SGE<a class="headerlink" href="#sge" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>SGE</cite> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Oracle_Grid_Engine">Sun Grid Engine</a>
-cluster or a compatible platform (<a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>, <a class="reference external" href="http://www.univa.com/products/grid-engine.php">Univa Grid Engine</a>, etc).</p>
-<p>Nextflow manages each process as a separate grid job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>head</cite> node.</p>
-<p>To enable the SGE executor simply set to <code class="docutils literal notranslate"><span class="pre">process.executor</span></code> property to <code class="docutils literal notranslate"><span class="pre">sge</span></code> value in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-penv"><span class="std std-ref">penv</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="lsf">
-<span id="lsf-executor"></span><h2>LSF<a class="headerlink" href="#lsf" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>LSF</cite> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> cluster.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">bsub</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">bsub</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>head</cite> node.</p>
-<p>To enable the LSF executor simply set to <code class="docutils literal notranslate"><span class="pre">process.executor</span></code> property to <code class="docutils literal notranslate"><span class="pre">lsf</span></code> value in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>LSF supports both <em>per-core</em> and <em>per-job</em> memory limit. Nextflow assumes that LSF works in the
-<em>per-core</em> memory limits mode, thus it divides the requested <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a> by the number of requested <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a>.</p>
-<p>This is not required when LSF is configured to work in <em>per-job</em> memory limit mode. You will need to specified that
-adding the option <code class="docutils literal notranslate"><span class="pre">perJobMemLimit</span></code> in <a class="reference internal" href="config.html#config-executor"><span class="std std-ref">Scope executor</span></a> in the Nextflow configuration file.</p>
-<p>See also the <a class="reference external" href="https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_config_ref/lsf.conf.lsb_job_memlimit.5.dita">Platform LSF documentation</a>.</p>
-</div>
-</section>
-<section id="slurm">
-<span id="slurm-executor"></span><h2>SLURM<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>SLURM</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM</a> resource manager.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>head</cite> node.</p>
-<p>To enable the SLURM executor simply set to <code class="docutils literal notranslate"><span class="pre">process.executor</span></code> property to <code class="docutils literal notranslate"><span class="pre">slurm</span></code> value in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>SLURM <cite>partitions</cite> can be considered jobs queues. Nextflow allows you to set partitions by using the above <code class="docutils literal notranslate"><span class="pre">queue</span></code>
-directive.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>Nextflow does not provide a direct support for SLURM multi-clusters feature. If you need to
-submit workflow executions to a cluster that is not the current one, specify it setting the
-<code class="docutils literal notranslate"><span class="pre">SLURM_CLUSTERS</span></code> variable in the launching environment.</p>
-</div>
-</section>
-<section id="pbs-torque">
-<span id="pbs-executor"></span><h2>PBS/Torque<a class="headerlink" href="#pbs-torque" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>PBS</cite> executor allows you to run your pipeline script by using a resource manager belonging to the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> family of batch schedulers.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
-by the scheduler.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>login</cite> node.</p>
-<p>To enable the PBS executor simply set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbs'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="pbs-pro">
-<span id="pbspro-executor"></span><h2>PBS Pro<a class="headerlink" href="#pbs-pro" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>PBS Pro</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.pbspro.org/">PBS Pro</a> resource manager.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
-by the scheduler.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>login</cite> node.</p>
-<p>To enable the PBS Pro executor simply set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbspro'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="moab">
-<span id="moab-executor"></span><h2>Moab<a class="headerlink" href="#moab" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>Moab</cite> executor allows you to run your pipeline script by using the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Moab_Cluster_Suite">Moab</a> resource manager by
-<a class="reference external" href="http://www.adaptivecomputing.com/">Adaptive Computing</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command provided
-by the resource manager.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command is available, that is, in a common usage
-scenario, the compute cluster <cite>login</cite> node.</p>
-<p>To enable the <cite>Moab</cite> executor simply set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'moab'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="nqsii">
-<span id="nqsii-executor"></span><h2>NQSII<a class="headerlink" href="#nqsii" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>NQSII</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> resource manager.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
-by the scheduler.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
-scenario, the cluster <cite>login</cite> node.</p>
-<p>To enable the NQSII executor simply set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'nqsii'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="htcondor">
-<span id="condor-executor"></span><h2>HTCondor<a class="headerlink" href="#htcondor" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>HTCondor</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> resource manager.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">condor_submit</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">condor_submit</span></code> command is available, that is, in a
-common usage scenario, the cluster <cite>head</cite> node.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The HTCondor executor for Nextflow does not support at this time the HTCondor ability to transfer input/output data to
-the corresponding job computing node. Therefore the data needs to be made accessible to the computing nodes using
-a shared file system directory from where the Nextflow workflow has to be executed (or specified via the <code class="docutils literal notranslate"><span class="pre">-w</span></code> option).</p>
-</div>
-<p>To enable the HTCondor executor simply set to <code class="docutils literal notranslate"><span class="pre">process.executor</span></code> property to <code class="docutils literal notranslate"><span class="pre">condor</span></code> value in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
-</ul>
-</section>
-<section id="ignite">
-<span id="ignite-executor"></span><h2>Ignite<a class="headerlink" href="#ignite" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>Ignite</cite> executor allows you to run a pipeline by using the <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> clustering
-technology that is embedded with the Nextflow runtime.</p>
-<p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'ignite'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each task submission is defined by the following process directives:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-</ul>
-<p>Read the <a class="reference internal" href="ignite.html#ignite-page"><span class="std std-ref">Apache Ignite</span></a> section in this documentation to learn how to configure Nextflow to deploy and run an
-Ignite cluster in your infrastructure.</p>
-</section>
-<section id="kubernetes">
-<span id="k8s-executor"></span><h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
-<p>Nextflow provides built-in support for <a class="reference external" href="http://kubernetes.io/">Kubernetes</a> clustering technology. It allows
-you to deploy and transparently run a Nextflow pipeline in a Kubernetes cluster.</p>
-<p>The following directives can be used to define the amount of computing resources needed and the container(s) to use:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></p></li>
-</ul>
-<p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes documentation</span></a> to learn how to deploy a workflow execution in a Kubernetes cluster.</p>
-</section>
 <section id="aws-batch">
 <span id="awsbatch-executor"></span><h2>AWS Batch<a class="headerlink" href="#aws-batch" title="Permalink to this headline">¶</a></h2>
 <p>Nextflow supports <a class="reference external" href="https://aws.amazon.com/batch/">AWS Batch</a> service which allows submitting jobs in the cloud
@@ -337,7 +130,15 @@ script or the <code class="docutils literal notranslate"><span class="pre">nextf
 <p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'awsbatch'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
 <p>The pipeline can be launched either in a local computer or a EC2 instance. The latter is suggested for heavy or long
 running workloads. Moreover a S3 bucket must be used as pipeline work directory.</p>
-<p>See the <a class="reference internal" href="awscloud.html#awscloud-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+</ul>
+<p>See the <a class="reference internal" href="aws.html#aws-batch"><span class="std std-ref">AWS Batch</span></a> page for further configuration details.</p>
 </section>
 <section id="azure-batch">
 <span id="azurebatch-executor"></span><h2>Azure Batch<a class="headerlink" href="#azure-batch" title="Permalink to this headline">¶</a></h2>
@@ -350,18 +151,6 @@ script or the <code class="docutils literal notranslate"><span class="pre">nextf
 <p>The pipeline can be launched either in a local computer or a cloud virtual machine. The latter is suggested for heavy or long
 running workloads. Moreover a Azure Blob storage container must be used as pipeline work directory.</p>
 <p>See the <a class="reference internal" href="azure.html#azure-batch"><span class="std std-ref">Azure Batch</span></a> page for further configuration details.</p>
-</section>
-<section id="google-life-sciences">
-<span id="google-lifesciences-executor"></span><h2>Google Life Sciences<a class="headerlink" href="#google-life-sciences" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://cloud.google.com/life-sciences">Google Cloud Life Sciences</a> is a managed computing service that allows the execution of
-containerized workloads in the Google Cloud Platform infrastructure.</p>
-<p>Nextflow provides built-in support for Life Sciences API which allows the seamless deployment of a Nextflow pipeline
-in the cloud, offloading the process executions as pipelines (it requires Nextflow 20.01.0 or later).</p>
-<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, either in the pipeline
-script or the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline work directory must be located in a Google Storage
-bucket.</p>
-<p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-lifesciences'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>See the <a class="reference internal" href="google.html#google-lifesciences"><span class="std std-ref">Google Life Sciences</span></a> page for further configuration details.</p>
 </section>
 <section id="ga4gh-tes">
 <span id="ga4ghtes-executor"></span><h2>GA4GH TES<a class="headerlink" href="#ga4gh-tes" title="Permalink to this headline">¶</a></h2>
@@ -406,34 +195,261 @@ command line:</p>
 <p>Make sure the TES back-end can access the workflow work directory when
 data is exchanged using a local or shared file system.</p>
 </div>
-<p><strong>Known limitation</strong></p>
+<p><strong>Known Limitations</strong></p>
 <ul class="simple">
 <li><p>Automatic deployment of workflow scripts in the <cite>bin</cite> folder is not supported.</p></li>
 <li><p>Process output directories are not supported. For details see <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas/issues/76">#76</a>.</p></li>
 <li><p>Glob patterns in process output declarations are not supported. For details see <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas/issues/77">#77</a>.</p></li>
 </ul>
 </section>
-<section id="oar">
-<span id="oar-executor"></span><h2>OAR<a class="headerlink" href="#oar" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>OAR</cite> executor allows you to run your pipeline script by using the <a class="reference external" href="https://oar.imag.fr">OAR</a> resource manager.</p>
-<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">oarsub</span></code> command.</p>
-<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">oarsub</span></code> command is available, that is, in a common usage scenario, the cluster <cite>head</cite> node.</p>
-<p>To enable the <cite>OAR</cite> executor simply set to <code class="docutils literal notranslate"><span class="pre">process.executor</span></code> property to <code class="docutils literal notranslate"><span class="pre">oar</span></code> value in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
-<p>The amount of resources requested by each job submission is defined by the following process directives:</p>
+<section id="google-life-sciences">
+<span id="google-lifesciences-executor"></span><h2>Google Life Sciences<a class="headerlink" href="#google-life-sciences" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://cloud.google.com/life-sciences">Google Cloud Life Sciences</a> is a managed computing service that allows the execution of
+containerized workloads in the Google Cloud Platform infrastructure.</p>
+<p>Nextflow provides built-in support for the Life Sciences API which allows the seamless deployment of a Nextflow pipeline
+in the cloud, offloading the process executions as pipelines (it requires Nextflow 20.01.0 or later).</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline work directory must be located in a Google Storage
+bucket.</p>
+<p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-lifesciences'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-machinetype"><span class="std std-ref">machineType</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+</ul>
+<p>See the <a class="reference internal" href="google.html#google-lifesciences"><span class="std std-ref">Google Life Sciences</span></a> page for further configuration details.</p>
+</section>
+<section id="htcondor">
+<span id="htcondor-executor"></span><h2>HTCondor<a class="headerlink" href="#htcondor" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">condor</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://research.cs.wisc.edu/htcondor/">HTCondor</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">condor_submit</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">condor_submit</span></code> command is available, that is, in a
+common usage scenario, the cluster <cite>head</cite> node.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The HTCondor executor for Nextflow does not support at this time the HTCondor ability to transfer input/output data to
+the corresponding job computing node. Therefore the data needs to be made accessible to the computing nodes using
+a shared file system directory from where the Nextflow workflow has to be executed (or specified via the <code class="docutils literal notranslate"><span class="pre">-w</span></code> option).</p>
+</div>
+<p>To enable the HTCondor executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'condor'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+</section>
+<section id="ignite">
+<span id="ignite-executor"></span><h2>Ignite<a class="headerlink" href="#ignite" title="Permalink to this headline">¶</a></h2>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This feature has been phased out and is no longer supported as of version 22.01.x.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ignite</span></code> executor allows you to run a pipeline on an <a class="reference external" href="https://ignite.apache.org/">Apache Ignite</a> cluster.</p>
+<p>To enable this executor set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'ignite'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+</ul>
+<p>See the <a class="reference internal" href="ignite.html#ignite-page"><span class="std std-ref">Apache Ignite</span></a> page to learn how to configure Nextflow to deploy and run an
+Ignite cluster in your infrastructure.</p>
+</section>
+<section id="kubernetes">
+<span id="k8s-executor"></span><h2>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s</span></code> executor allows you to run a pipeline on a <a class="reference external" href="http://kubernetes.io/">Kubernetes</a> cluster.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a></p></li>
+</ul>
+<p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes</span></a> page to learn how to set up a Kubernetes cluster for running Nextflow pipelines.</p>
+</section>
+<section id="local">
+<span id="local-executor"></span><h2>Local<a class="headerlink" href="#local" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">local</span></code> executor is used by default. It runs the pipeline processes in the computer where Nextflow
+is launched. The processes are parallelised by spawning multiple <cite>threads</cite> and by taking advantage of multi-cores
+architecture provided by the CPU.</p>
+<p>In a common usage scenario, the <cite>local</cite> executor can be useful to develop and test your pipeline script in your computer,
+switching to a cluster facility when you need to run it on production data.</p>
+</section>
+<section id="lsf">
+<span id="lsf-executor"></span><h2>LSF<a class="headerlink" href="#lsf" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">lsf</span></code> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Platform_LSF">Platform LSF</a> cluster.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">bsub</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">bsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the LSF executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'lsf'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
 </ul>
-<p><strong>Known limitation</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>LSF supports both <em>per-core</em> and <em>per-job</em> memory limit. Nextflow assumes that LSF works in the
+<em>per-core</em> memory limits mode, thus it divides the requested <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a> by the number of requested <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a>.</p>
+<p>This is not required when LSF is configured to work in <em>per-job</em> memory limit mode. You will need to specified that
+adding the option <code class="docutils literal notranslate"><span class="pre">perJobMemLimit</span></code> in <a class="reference internal" href="config.html#config-executor"><span class="std std-ref">Scope executor</span></a> in the Nextflow configuration file.</p>
+<p>See also the <a class="reference external" href="https://www.ibm.com/support/knowledgecenter/SSETD4_9.1.3/lsf_config_ref/lsf.conf.lsb_job_memlimit.5.dita">Platform LSF documentation</a>.</p>
+</div>
+</section>
+<section id="moab">
+<span id="moab-executor"></span><h2>Moab<a class="headerlink" href="#moab" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">moab</span></code> executor allows you to run your pipeline script by using the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Moab_Cluster_Suite">Moab</a> resource manager by
+<a class="reference external" href="http://www.adaptivecomputing.com/">Adaptive Computing</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command provided
+by the resource manager.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command is available, that is, in a common usage
+scenario, the compute cluster <cite>login</cite> node.</p>
+<p>To enable the <cite>Moab</cite> executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'moab'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
 <ul class="simple">
-<li><p><cite>clusterOptions</cite> should be given, if more than one, semicolon separated. It ensures the <cite>OAR</cite> batch script to be accurately formatted.</p></li>
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
 </ul>
-<p><code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">clusterOptions</span> <span class="pre">=</span> <span class="pre">'-t</span> <span class="pre">besteffort;--project</span> <span class="pre">myproject'</span>
-<span class="pre">`</span></code></p>
+</section>
+<section id="nqsii">
+<span id="nqsii-executor"></span><h2>NQSII<a class="headerlink" href="#nqsii" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">nsqii</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.rz.uni-kiel.de/en/our-portfolio/hiperf/nec-linux-cluster">NQSII</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
+by the scheduler.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>login</cite> node.</p>
+<p>To enable the NQSII executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'nqsii'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+</section>
+<section id="oar">
+<span id="oar-executor"></span><h2>OAR<a class="headerlink" href="#oar" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">oar</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://oar.imag.fr">OAR</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">oarsub</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">oarsub</span></code> command is available, that is, in a common usage scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the OAR executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'oar'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+<p><strong>Known Limitations</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">clusterOptions</span></code> should be given, if more than one, semicolon separated. It ensures the <cite>OAR</cite> batch script to be accurately formatted:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clusterOptions</span> <span class="o">=</span> <span class="s1">&#39;-t besteffort;--project myproject&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="pbs-torque">
+<span id="pbs-executor"></span><h2>PBS/Torque<a class="headerlink" href="#pbs-torque" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">pbs</span></code> executor allows you to run your pipeline script by using a resource manager belonging to the <a class="reference external" href="http://en.wikipedia.org/wiki/Portable_Batch_System">PBS/Torque</a> family of batch schedulers.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
+by the scheduler.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>login</cite> node.</p>
+<p>To enable the PBS executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbs'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+</section>
+<section id="pbs-pro">
+<span id="pbspro-executor"></span><h2>PBS Pro<a class="headerlink" href="#pbs-pro" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">pbspro</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://www.pbspro.org/">PBS Pro</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command provided
+by the scheduler.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>login</cite> node.</p>
+<p>To enable the PBS Pro executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'pbspro'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+</section>
+<section id="sge">
+<span id="sge-executor"></span><h2>SGE<a class="headerlink" href="#sge" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">sge</span></code> executor allows you to run your pipeline script by using a <a class="reference external" href="http://en.wikipedia.org/wiki/Oracle_Grid_Engine">Sun Grid Engine</a>
+cluster or a compatible platform (<a class="reference external" href="http://gridscheduler.sourceforge.net/">Open Grid Engine</a>, <a class="reference external" href="http://www.univa.com/products/grid-engine.php">Univa Grid Engine</a>, etc).</p>
+<p>Nextflow manages each process as a separate grid job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">qsub</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the SGE executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'sge'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-penv"><span class="std std-ref">penv</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+</section>
+<section id="slurm">
+<span id="slurm-executor"></span><h2>SLURM<a class="headerlink" href="#slurm" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">slurm</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://slurm.schedmd.com/documentation.html">SLURM</a> resource manager.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">sbatch</span></code> command is available, that is, in a common usage
+scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the SLURM executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'slurm'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SLURM <cite>partitions</cite> can be considered jobs queues. Nextflow allows you to set partitions by using the above <code class="docutils literal notranslate"><span class="pre">queue</span></code>
+directive.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Nextflow does not provide a direct support for SLURM multi-clusters feature. If you need to
+submit workflow executions to a cluster that is not the current one, specify it setting the
+<code class="docutils literal notranslate"><span class="pre">SLURM_CLUSTERS</span></code> variable in the launching environment.</p>
+</div>
 </section>
 </section>
 
