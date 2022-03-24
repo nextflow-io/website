@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <title>Evolution of the Nextflow runtime | Nextflow</title>
+    <meta name="description" content="Software development is a constantly evolving, this post will summarise the major changes in the evolution of the framework over the next 12 to 18 months.">
+    <meta property="og:title" content="Evolution of the Nextflow runtime | Nextflow" />
+    <meta property="og:description" content="Software development is a constantly evolving, this post will summarise the major changes in the evolution of the framework over the next 12 to 18 months." />
+    <meta property="og:image" content="https://nextflow.io/img/evolution-nextflow-runtime-min.png" />
+    <meta property="og:type" content="website" />
+    <meta data-react-helmet="true" name="twitter:card" content="summary_large_image" />
+    <meta data-react-helmet="true" name="twitter:creator" content="@nextflowio" />
+    <meta property="twitter:title" content="Evolution of the Nextflow runtime | Nextflow" />
+    <meta property="twitter:description" content="Software development is a constantly evolving, this post will summarise the major changes in the evolution of the framework over the next 12 to 18 months." />
+    <meta property="twitter:image" content="https://nextflow.io/img/evolution-nextflow-runtime-min.png" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet">
+    <link href="/css/ui-elements.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="body-green">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+        </div>
+        <div class="navbar-collapse collapse">
+
+            <ul class="nav navbar-nav">
+                <li class="show animated flipInX" >
+                    <a href="/index.html#Features" class="">Features</a>
+                </li>
+                <li class="show animated flipInX" >
+                    <a href="/index.html#GetStarted" class="">Quick start</a>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/example1.html">Basic pipeline</a></li>
+                        <li><a href="/example2.html">Mixing scripting languages</a></li>
+                        <li><a href="/example3.html">BLAST pipeline</a></li>
+                        <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown show animated flipInX">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/docs/latest/index.html">Reference documentation</a></li>
+                        <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
+                        <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
+                        <li><a href="https://join.slack.com/t/nextflow/shared_invite/zt-11iwlxtw5-R6SNBpVksOJAx5sPOXNrZg">Slack community chat</a></li>
+                        <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>                       
+                    </ul>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/blog.html">Blog</a>
+                </li>
+
+                <li class="show animated flipInX">
+                    <a href="/about-us.html">About</a>
+                </li>
+                   
+            </ul>
+
+        </div>
+    </div>
+</div>
+	
+    <!-- Body -->
+	<div class="wrapper"> <!-- wrapper -->
+	  <div class="container">
+	    <div class="row">
+		  <div class="col-sm-8">
+			<div class="blg-summary">
+			  <h2><a href="#">Evolution of the Nextflow runtime</a></h2>
+			  <ul class="text-muted list-inline blg-header">
+				<li><i class="fa fa-user"></i> Paolo Di Tommaso</li>
+				<li><i class="fa fa-calendar"></i> 24 March 2022</li>
+				<!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
+			  </ul>
+			  <hr>
+			  <div class="blg-text">
+              <p>Software development is a constantly evolving process that requires continuous adaptation to keep pace with new technologies, user needs, and trends. Likewise, changes are needed in order to introduce new capabilities and guarantee a sustainable development process.</p><p>Nextflow is no exception. This post will summarise the major changes in the evolution of the framework over the next 12 to 18 months. </p><h3>Java baseline version</h3><p>Nextflow runs on top of Java (or, more precisely, the Java virtual machine). So far, Java 8 has been the minimal version required to run Nextflow. However, this version was released 8 years ago and is going to reach its end-of-life status at the end of <a href="https://endoflife.date/java">this month</a>. For this reason, as of version 22.01.x-edge and the upcoming stable release 22.04.0, Nextflow will require Java version 11 or later for its execution. This also allows the introduction of new capabilities provided by the modern Java runtime. </p><p>Tip: If you are confused about how to install or upgrade Java on your computer, consider using <a href="https://sdkman.io/">Sdkman</a>. It’s a one-liner install tool that allows easy management of Java versions. </p><h3>DSL2 as default syntax</h3><p>Nextflow DSL2 has been introduced nearly <a href="https://www.nextflow.io/blog/2020/dsl2-is-here.html">2 years ago</a> (how time flies!) and definitely represented a major milestone for the project. Established pipeline collections such as those in <a href="https://nf-co.re/pipelines">nf-core</a> have migrated their pipelines to DSL2 syntax. </p><p>This is a confirmation that the DSL2 syntax represents a natural evolution for the project and is not considered to be just an experimental or alternative syntax. </p><p>For this reason, as for Nextflow version 22.03.0-edge and the upcoming 22.04.0 stable release, DSL2 syntax is going to be the <strong>default</strong> syntax version used by Nextflow, if not otherwise specified. </p><p>In practical terms, this means it will no longer be necessary to add the declaration <code>nextflow.enable.dsl = 2</code> at the top of your script or use the command line option <code>-dsl2</code> to enable the use of this syntax. </p><p>If you still want to continue to use DSL1 for your pipeline scripts, you will need to add the declaration <code>nextflow.enable.dsl = 1</code> at the top of your pipeline script or use the command line option <code>-dsl1</code>. </p><p>To make this transition as smooth as possible, we have also added the possibility to declare the DSL version in the Nextflow configuration file, using the same syntax shown above. </p><p>Finally, if you wish to keep the current DSL behaviour and not make any changes in your pipeline scripts, the following variable can be defined in your system environment: </p>
+<pre><code>export NXF_DEFAULT_DSL=1 
+</code></pre><h3>DSL1 end-of-life phase</h3><p>Maintaining two separate DSL implementations in the same programming environment is not sustainable and, above all, does not make much sense. For this reason, along with making DSL2 the default Nextflow syntax, DSL1 will enter into a 12-month end-of-life phase, at the end of which it will be removed. Therefore version 22.04.x and 22.10.x will be the last stable versions providing the ability to run DSL1 scripts. </p><p>This is required to keep evolving the framework and to create a more solid implementation of Nextflow grammar. Maintaining compatibility with the legacy syntax implementation and data structures is a challenging task that prevents the evolution of the new syntax.</p><p>Bear in mind, this does <strong>not</strong> mean it will not be possible to use DSL1 starting from 2023. All existing Nextflow runtimes will continue to be available, and it will be possible to for any legacy pipeline to run using the required version available from the GitHub <a href="https://github.com/nextflow-io/nextflow/releases">releases page</a>, or by specifying the version using the NXF_VER variable, e.g. </p>
+<pre><code>NXF_VER=21.10.6 nextflow run &lt;my/dsl1/pipeline&gt;     
+</code></pre><h3>New configuration format</h3><p>The configuration file is a key component of the Nextflow framework since it allows workflow developers to decouple the pipeline logic from the execution parameters and infrastructure deployment settings.</p><p>The current Nextflow configuration file mechanism is extremely powerful, but it also has some serious drawbacks due to its <em>dynamic</em> nature that makes it very hard to keep stable and maintainable over time.</p><p>For this reason, we are planning to re-engineer the current configuration component and replace it with a better configuration component with two major goals: 1) continue to provide a rich and human-readable configuration system (so, no YAML or JSON), 2) have a well-defined syntax with a solid foundation that guarantees predictable configurations, simpler troubleshooting and more sustainable maintenance. </p><p>Currently, the most likely options are <a href="https://github.com/hashicorp/hcl">Hashicorp HCL</a> (as used by Terraform and other Hashicorp tools) and <a href="https://github.com/lightbend/config">Lightbend HOCON</a>. You can read more about this feature at <a href="https://github.com/nextflow-io/nextflow/issues/2723">this link</a>.</p><h3>Ignite executor deprecation</h3><p>The executor for <a href="https://www.nextflow.io/docs/latest/ignite.html">Apache Ignite</a> was an early attempt to provide Nextflow with a self-contained, distributed cluster for the deployment of pipelines into HPC environments. However, it had very little adoption over the years, which was not balanced by the increasing complexity of its maintenance. </p><p>For this reason, it was decided to deprecate it and remove it from the default Nextflow distribution. The module is still available in the form of a separate project plugin and available at <a href="https://github.com/nextflow-io/nf-ignite">this link</a>, however, it will not be actively maintained. </p><h3>Conclusion</h3><p>This post is focused on the most fundamental changes we are planning to make in the following months. </p><p>With the adoption of Java 11, the full migration of DSL1 to DSL2 and the re-engineering of the configuration system, our purpose is to consolidate the Nextflow technology and lay the foundation for all the new exciting developments and features on which we are working on. Stay tuned for future blogs about each of them in upcoming posts.</p><p>If you want to learn more about the upcoming changes reach us out on <a href="https://app.slack.com/client/T03L6DM9G">Slack at this link</a>.</p>  
+			  </div>
+			  
+			  <p class="tags">
+				<a href="/tags/nextflow.html" class="background-color bg-hover-color">nextflow</a>
+				<a href="/tags/dsl2.html" class="background-color bg-hover-color">dsl2</a>
+			  </p>
+
+			</div>
+			<!-- COMMENTS -->
+			<div class="comments">
+			  <!--<h4>3 comments</h4>-->
+			  
+			    <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                    if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip Disqus on localhost') };
+                    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                    var disqus_shortname = 'nextflow'; // required: replace example with your forum shortname
+
+                    /* * * DON'T EDIT BELOW THIS LINE * * */
+                    (function() {
+                        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                    })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+			</div>
+			 
+			<!-- // Comments -->
+		  </div>
+		  <div class="col-sm-4">
+			<h3>Stay Tuned <small>Social Links</small></h3>
+			<hr>
+			<ul class="blg-social">
+			  <li>
+			    <a href="/feed.xml">
+			      <span class="icon rss">
+				    <i class="fa fa-rss fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our RSS Feed.</span>
+				</a>
+			  </li>
+			  <li>
+			    <a href="https://twitter.com/nextflowio">
+			      <span class="icon twitter">
+				    <i class="fa fa-twitter fa-2x"></i>
+				  </span>
+				  <span class="text-muted">Subscribe to our Twitter Feed.</span>
+				</a>
+			  </li>
+			</ul>
+            <!--
+			<h3>Popular Stories</h3>
+			<hr>
+			<div class="block-inverse">
+			  <ul>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Nullam id ipsum varius, tincidunt odio nec, placerat.</a></li>
+				<li><a href="#">Sed sit amet auctor augue, nec dignissim ligula.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+				<li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a></li>
+			  </ul>
+			</div>			
+            -->
+		  </div>
+		</div>
+	  </div>
+	</div> <!-- / wrapper -->
+
+	
+<div class="footer-wrapper"> <!-- footer wrapper -->
+    <hr>
+    <div class="container">
+        <footer>
+            <ul class="list-inline pull-left">                         
+                <li style="position: relative; top: 5px">
+                    <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
+                </li>
+
+                <li>
+                    <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x,y){var i,o=\"\",l=x.length;for(i=0;i<l;i++){if(i>(91+y))" +
+"y*=2;y%=127;o+=String.fromCharCode(x.charCodeAt(i)^(y++));}return o;}f(\"=)" +
+"3=+\\t\\016\\014C\\002M\\036N\\023\\037\\013\\031L\\004B\\000MSP_\\033\\031" +
+"K\\017V\\025\\037\\025\\033\\t\\026,m?lh>qoaeo#t#mgqcQ|ppWc0u5*/4?\\\"\\025" +
+"\\024\\013XPW_\\\\P\\002\\027S\\027A\\005\\022\\\\\\nOPUAU_\\020\\\\\\023@A" +
+"@XP2i+~(hw|!ww{w$cby*=xi-x408(\\032(u7v[\\034\\020\\006\\020\\020\\024\\tH\\"+
+"006D\\030\\031\\017\\035\\033\\002YB_\\033\\031_L\\005\\037RYUIL,^$?'\\rP$9" +
+"c\\\" P\\027PlZR-\\014N\\\\^1<.b\\\"416RBL\\\"\\\\26>BbL22ZR.\\rN\\\\^3=-\\" +
+"016\\\"\\\\74>BbJ32ZR.\\rN\\\\^HC,qNV57>BbK02ZR*\\rN\\\\^0?.b\\\"206RB{8?pZ" +
+"R.\\017N\\\\^H&/\\017D/^$RB\\002H706RB\\007M:8n0:\\035Y,#o8,\\016\\\"\\\\v(" +
+"DBb\\\"\\\\G2?.b\\\"J44>BbM12ZR.\\016N\\\\^OD^n4PT0?.b\\\"kr~\\177pG\\010|^" +
+"$&xCEo\\\"h|kJ\\033r\\177='7\\025Uy*X'w\\026\\nAgba]L\\037ha(v6[\\032oAtov}" +
+"\\023op` yP\\027rvU35QE7073;GEi?-w7\\nL=?o&xW\\005))-g%RBi963w\\026\\014od=" +
+"fjY\\020en(v#RR\\\\ Z,#QRi\\\"tohEWy.~&x\\036\\020okrmpK\\030\\\"+\",91)"    ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+
+                </li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </footer>
+    </div>
+</div>
+<!-- / footer wrapper -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<script>
+  if( window.location.hostname == 'localhost' || window.location.hostname == '127.0.0.1' ) { throw new Error('Skip GA on localhost') };
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-364526-10', 'auto');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>
