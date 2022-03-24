@@ -41,9 +41,9 @@ export NXF_DEFAULT_DSL=1
 
 ### DSL1 end-of-life phase  
 
-Maintaining two separate DSL implementations in the programming environment is not sustainable and above all, does not make much sense. For this reason, along with making DSL2 the default Nextflow syntax, DSL1 will enter into a 12-month end-of-life phase, at the end of which it will be removed. Therefore version 22.04.x and 22.10.x will be the last stable versions providing the ability to run DSL1 scripts. 
+Maintaining two separate DSL implementations in the same programming environment is not sustainable and, above all, does not make much sense. For this reason, along with making DSL2 the default Nextflow syntax, DSL1 will enter into a 12-month end-of-life phase, at the end of which it will be removed. Therefore version 22.04.x and 22.10.x will be the last stable versions providing the ability to run DSL1 scripts. 
 
-This is required to keep evolving the framework and to create a more solid implementation of Nextflow grammar. Maintaining compatibility with the legacy syntax implementation and data structures makes this a very difficult task.
+This is required to keep evolving the framework and to create a more solid implementation of Nextflow grammar. Maintaining compatibility with the legacy syntax implementation and data structures is a challenging task that prevents the evolution of the new syntax.
 
 Bear in mind, this does **not** mean it will not be possible to use DSL1 starting from 2023. All existing Nextflow runtimes will continue to be available, and it will be possible to for any legacy pipeline to run using the required version available from the GitHub [releases page](https://github.com/nextflow-io/nextflow/releases), or by specifying the version using the NXF_VER variable, e.g. 
 
@@ -65,7 +65,7 @@ Currently, the most likely options are [Hashicorp HCL](https://github.com/hashic
 
 ### Ignite executor deprecation 
 
-The executor for Apache Ignite was an early attempt to provide Nextflow with a self-contained, distributed cluster for the deployment of pipelines into HPC environments. However, it had very little adoption over the years, which was not balanced by the increasing complexity of its maintenance. 
+The executor for [Apache Ignite](https://www.nextflow.io/docs/latest/ignite.html) was an early attempt to provide Nextflow with a self-contained, distributed cluster for the deployment of pipelines into HPC environments. However, it had very little adoption over the years, which was not balanced by the increasing complexity of its maintenance. 
 
 For this reason, it was decided to deprecate it and remove it from the default Nextflow distribution. The module is still available in the form of a separate project plugin and available at [this link](https://github.com/nextflow-io/nf-ignite), however, it will not be actively maintained. 
 
@@ -75,3 +75,5 @@ For this reason, it was decided to deprecate it and remove it from the default N
 This post is focused on the most fundamental changes we are planning to make in the following months. 
 
 With the adoption of Java 11, the full migration of DSL1 to DSL2 and the re-engineering of the configuration system, our purpose is to consolidate the Nextflow technology and lay the foundation for all the new exciting developments and features on which we are working on. Stay tuned for future blogs about each of them in upcoming posts.
+
+If you want to learn more about the upcoming changes reach us out on [Slack at this link](https://app.slack.com/client/T03L6DM9G).
