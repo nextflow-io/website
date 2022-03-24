@@ -3,7 +3,7 @@ date=2022-03-24
 type=post
 description=Software development is a constantly evolving, this post will summarise the major changes in the evolution of the framework over the next 12 to 18 months.
 image=img/nextflow-moving-to-slack.jpg
-tags=community, slack, github
+tags=nextflow,dsl2
 status=published
 author=Paolo Di Tommaso
 icon=paolo.jpg
@@ -45,7 +45,7 @@ Maintaining two separate DSL implementations in the programming environment is n
 
 This is required to keep evolving the framework and to create a more solid implementation of Nextflow grammar. Maintaining compatibility with the legacy syntax implementation and data structures makes this a very difficult task.
 
-Bear in mind, this does **not** mean it will not be possible to use DSL1 starting from 2023. All existing Nextflow runtimes will continue to be available, and it will be possible to for any legacy pipeline to run using the required version available from the GitHub [releases page](https://github.com/nextflow-io/nextflow/releases/tag/v21.10.6), or by specifying the version using the NXF_VER variable, e.g. 
+Bear in mind, this does **not** mean it will not be possible to use DSL1 starting from 2023. All existing Nextflow runtimes will continue to be available, and it will be possible to for any legacy pipeline to run using the required version available from the GitHub [releases page](https://github.com/nextflow-io/nextflow/releases), or by specifying the version using the NXF_VER variable, e.g. 
 
 ```
 NXF_VER=21.10.6 nextflow run <my/dsl1/pipeline>     
@@ -60,9 +60,7 @@ The current Nextflow configuration file mechanism is extremely powerful, but it 
 
 For this reason, we are planning to re-engineer the current configuration component and replace it with a better configuration component with two major goals: 1) continue to provide a rich and human-readable configuration system (so, no YAML or JSON), 2) have a well-defined syntax with a solid foundation that guarantees predictable configurations, simpler troubleshooting and more sustainable maintenance. 
 
-Currently, the most likely options are [Hashicorp HCL](https://github.com/hashicorp/hcl) (as used by Terraform and other Hashicorp tools) and [Lightbend HOCON](https://github.com/lightbend/config).
-
-You can read more about this feature at [this link](https://github.com/nextflow-io/nextflow/issues/2723).
+Currently, the most likely options are [Hashicorp HCL](https://github.com/hashicorp/hcl) (as used by Terraform and other Hashicorp tools) and [Lightbend HOCON](https://github.com/lightbend/config). You can read more about this feature at [this link](https://github.com/nextflow-io/nextflow/issues/2723).
 
 
 ### Ignite executor deprecation 
