@@ -9,8 +9,7 @@ syntaxhighlighter=yes
 <h3><a href="javascript:void(0)">BLAST pipeline</a></h3>
 
 <p class="text-muted">
-	The example below splits a FASTA file into chunks and executes for each of them a BLAST query in a parallel manner.
-	Then, all the sequences for the top hits are collected and merged to a single result file.
+    This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
 </p>
 
 <script type="syntaxhighlighter" class="brush: groovy">
@@ -18,39 +17,56 @@ syntaxhighlighter=yes
 #!/usr/bin/env nextflow
 
 /*
- * Defines the pipeline inputs parameters (giving a default value for each for them) 
- * Each of the following parameters can be specified as command line options
+ * Defines the pipeline input parameters (with a default value for each one).
+ * Each of the following parameters can be specified as command line options.
  */
 params.query = "$baseDir/data/sample.fa"
 params.db = "$baseDir/blast-db/pdb/tiny"
 params.out = "result.txt"
-params.chunkSize = 100 
+params.chunkSize = 100
 
-db_name = file(params.db).name
-db_dir = file(params.db).parent
+workflow {
+    db_name = file(params.db).name
+    db_dir = file(params.db).parent
 
-/* 
- * Given the query parameter creates a channel emitting the query fasta file(s), 
- * the file is split in chunks containing as many sequences as defined by the parameter 'chunkSize'.
- * Finally assign the result channel to the variable 'fasta_ch' 
- */
-Channel
-    .fromPath(params.query)
-    .splitFasta(by: params.chunkSize, file:true)
-    .set { fasta_ch }
+    /*
+     * Create a channel emitting the given query fasta file(s).
+     * Split the file into chunks containing as many sequences as defined by the parameter 'chunkSize'.
+     * Finally, assign the resulting channel to the variable 'ch_fasta'
+     */
+    Channel
+        .fromPath(params.query)
+        .splitFasta(by: params.chunkSize, file:true)
+        .set { ch_fasta }
 
-/* 
- * Executes a BLAST job for each chunk emitted by the 'fasta_ch' channel 
- * and creates as output a channel named 'top_hits' emitting the resulting 
- * BLAST matches  
- */
+    /*
+     * Execute a BLAST job for each chunk emitted by the 'ch_fasta' channel
+     * and emit the resulting BLAST matches.
+     */
+    blast(ch_fasta, db_dir)
+
+    /*
+     * Each time a file emitted by the 'blast' process, an extract job is executed,
+     * producing a file containing the matching sequences.
+     */
+    extract(blast.out.ch_hits, db_dir)
+
+    /*
+     * Collect all the sequences files into a single file
+     * and print the resulting file contents when complete.
+     */
+    extract.out.ch_sequences
+        .collectFile(name: params.out)
+        .view { file -> "matching sequences:\n ${file.text}" }
+}
+
 process blast {
     input:
-    path 'query.fa' from fasta_ch
-    path db from db_dir
+    path 'query.fa'
+    path db
 
     output:
-    file 'top_hits' into hits_ch
+    file 'top_hits', emit: ch_hits
 
     """
     blastp -db $db/$db_name -query query.fa -outfmt 6 > blast_result
@@ -58,52 +74,36 @@ process blast {
     """
 }
 
-/* 
- * Each time a file emitted by the 'top_hits' channel an extract job is executed 
- * producing a file containing the matching sequences 
- */
 process extract {
     input:
-    path 'top_hits' from hits_ch
-    path db from db_dir
+    path 'top_hits'
+    path db
 
     output:
-    file 'sequences' into sequences_ch
+    file 'sequences', emit: ch_sequences
 
     """
     blastdbcmd -db $db/$db_name -entry_batch top_hits | head -n 10 > sequences
     """
 }
-
-/* 
- * Collects all the sequences files into a single file 
- * and prints the resulting file content when complete 
- */ 
-sequences_ch
-    .collectFile(name: params.out)
-    .view { file -> "matching sequences:\n ${file.text}" }
-
 ]]>
 </script>
 </div>
 
-### Try it in your computer 
+### Try it on your computer
 
-In order to run this pipeline in your computer you will required: 
+To run this pipeline on your computer, you will need:
 
-* Unix-like operating system 
-* Java 8 (or higher)
-* Docker 
+* Unix-like operating system
+* Java 11 (or higher)
+* Docker
 
-Install Nextflow entering the following command in the shell terminal:
+Install Nextflow by entering the following command in the terminal:
 
     $ curl -fsSL https://get.nextflow.io | bash
 
+Then launch the pipeline with this command:
 
-Then launch the pipeline execution using this command: 
+    $ ./nextflow run blast-example -with-docker
 
-    $ ./nextflow run blast-example -with-docker 
-
-It will automatically download the pipeline [Github repository](https://github.com/nextflow-io/blast-example) 
-and the associated Docker images, thus the first execution can requires few minutes to complete 
-depending you network connection. 
+It will automatically download the pipeline [Github repository](https://github.com/nextflow-io/blast-example) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
