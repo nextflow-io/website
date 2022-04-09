@@ -4,21 +4,19 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kubernetes &mdash; Nextflow 22.02.1-edge documentation</title>
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <title>Kubernetes &mdash; Nextflow 22.03.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
-  <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+  
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tracing &amp; visualisation" href="tracing.html" />
@@ -39,8 +37,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div>
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Main">
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -82,17 +79,14 @@
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-      <nav class="wy-nav-top" aria-label="Top">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Nextflow</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
-          
-
-<div role="navigation" aria-label="Breadcrumbs">
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Kubernetes</li>
@@ -105,7 +99,7 @@
            <div itemprop="articleBody">
              
   <section id="kubernetes">
-<span id="k8s-page"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline">¶</a></h1>
+<span id="k8s-page"></span><h1>Kubernetes<a class="headerlink" href="#kubernetes" title="Permalink to this headline"></a></h1>
 <p><a class="reference external" href="https://kubernetes.io/">Kubernetes</a> is a cloud-native open-source system for deployment, scaling, and management of
 containerized applications.</p>
 <p>It provides clustering and file system abstractions that allows the execution of containerised workloads across
@@ -113,7 +107,7 @@ different cloud platforms and on-premises installations.</p>
 <p>The built-in support for Kubernetes provided by Nextflow streamlines the execution of containerised workflows in
 Kubernetes clusters.</p>
 <section id="concepts">
-<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline"></a></h2>
 <p>Kubernetes main abstraction is the <cite>pod</cite>. A <cite>pod</cite> defines the (desired) state of one or more containers i.e. required
 computing resources, storage, network configuration.</p>
 <p>Kubernetes abstracts also the storage provisioning through the definition of one more more persistent volumes that
@@ -124,7 +118,7 @@ application.</p>
 <img alt="_images/nextflow-k8s-min.png" src="_images/nextflow-k8s-min.png" />
 </section>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
 <p>At least a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistent-volumes">Persistent Volume</a> with
 <code class="docutils literal notranslate"><span class="pre">ReadWriteMany</span></code> access mode has to be defined in the Kubernetes cluster (check the supported storage systems
 at <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes">this link</a>).</p>
@@ -134,7 +128,7 @@ will be used by Nextflow to run the application and store the scratch data and t
 <p>The workflow application has to be containerised using the usual Nextflow <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
 </section>
 <section id="execution">
-<h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline">¶</a></h2>
+<h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline"></a></h2>
 <p>The workflow execution needs to be submitted from a computer able to connect to the Kubernetes cluster.</p>
 <p>Nextflow uses the Kubernetes configuration file available at the path <code class="docutils literal notranslate"><span class="pre">$HOME/.kube/config</span></code> or the file specified
 by the environment variable <code class="docutils literal notranslate"><span class="pre">KUBECONFIG</span></code>.</p>
@@ -159,7 +153,7 @@ specified in the Nextflow configuration file, see the <a class="reference intern
 workflow pod.</p>
 </section>
 <section id="interactive-login">
-<h2>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline">¶</a></h2>
+<h2>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline"></a></h2>
 <p>For debugging purpose it’s possible to execute a Nextflow pod and launch an interactive shell using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="n">login</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
@@ -173,7 +167,7 @@ workflow executions in background.</p>
 </div>
 </section>
 <section id="running-in-a-pod">
-<h2>Running in a pod<a class="headerlink" href="#running-in-a-pod" title="Permalink to this headline">¶</a></h2>
+<h2>Running in a pod<a class="headerlink" href="#running-in-a-pod" title="Permalink to this headline"></a></h2>
 <p>The main convenience of the <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> command is that it spares the user from manually creating a pod from
 where the main Nextflow application is launched. In this scenario, the user environment is not containerised.</p>
 <p>However there are scenarios in which Nextflow needs to be executed directly from a pod running in a
@@ -205,12 +199,12 @@ Note also that the <code class="docutils literal notranslate"><span class="pre">
 </div>
 </section>
 <section id="pod-settings">
-<h2>Pod settings<a class="headerlink" href="#pod-settings" title="Permalink to this headline">¶</a></h2>
+<h2>Pod settings<a class="headerlink" href="#pod-settings" title="Permalink to this headline"></a></h2>
 <p>The process <a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a> directive allows the definition of pods specific settings, such as environment variables,
 secrets and config maps when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor. See the <a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a> directive for more details.</p>
 </section>
 <section id="limitation">
-<h2>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h2>
+<h2>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> command does not allow the execution of local Nextflow scripts and it’s has been designed to
@@ -220,7 +214,7 @@ In alternative take in consideration a managed provisioning service such as <a c
 </div>
 </section>
 <section id="advanced-configuration">
-<h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h2>
+<h2>Advanced configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline"></a></h2>
 <p>Read <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration</span></a> and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">executor</span></a> sections to learn more
 about advanced configuration options.</p>
 </section>
@@ -229,8 +223,7 @@ about advanced configuration options.</p>
 
            </div>
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="ignite.html" class="btn btn-neutral float-left" title="Apache Ignite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="tracing.html" class="btn btn-neutral float-right" title="Tracing &amp; visualisation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
@@ -242,7 +235,8 @@ about advanced configuration options.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>provided by <a href="https://readthedocs.org">Read the Docs</a>.
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
    
 
 </footer>
@@ -250,20 +244,21 @@ about advanced configuration options.</p>
       </div>
     </section>
   </div>
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
     <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
     <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-    ga('create', 'UA-364526-10', 'auto');
-    ga('send', 'pageview');
+      gtag('config', 'UA-364526-10', {
+          'anonymize_ip': false,
+      });
     </script> 
 
 </body>
