@@ -1,2 +1,7 @@
 all:
-	docker build -t nextflow/jbake:2.3.1 .
+	docker build \
+	  --platform linux/amd64 \
+		--output=type=docker \
+		--progress=plain \
+		--tag nextflow/jbake:2.3.1 \
+		 .

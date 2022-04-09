@@ -1,4 +1,9 @@
 set -x 
 [[ "$*" == *-s* ]] && PORT='-p 8820:8820' || PORT=''
 
-docker run  -v $PWD:$PWD -w $PWD $PORT nextflow/jbake:2.3.1 jbake "$@"
+docker run  \
+  --platform linux/amd64 \
+  -v $PWD:$PWD \
+  -w $PWD $PORT \
+  nextflow/jbake:2.3.1 \
+  jbake "$@"
