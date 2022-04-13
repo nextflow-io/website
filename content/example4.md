@@ -17,90 +17,66 @@ syntaxhighlighter=yes
 #!/usr/bin/env nextflow
 
 /*
- * The following pipeline paramemters specify the refence genomes
+ * The following pipeline parameters specify the refence genomes
  * and read pairs and can be provided as command line options
  */
-params.reads = "$baseDir/data/ggal/*_{1,2}.fq"
-params.annot = "$baseDir/data/ggal/ggal_1_48850000_49020000.bed.gff"
-params.genome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
-params.outdir = 'results'
+params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
+params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+params.outdir = "results"
 
 workflow {
-    /*
-     * Create the `ch_read_pairs` channel, which emits tuples containing three elements:
-     * the pair ID, the first read-pair file and the second read-pair file.
-     */
-    Channel
-        .fromFilePairs( params.reads )
-        .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }
-        .set { ch_read_pairs }
+    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
 
-    /*
-     * Step 1. Build the genome index required by the mapping process
-     */
-    buildIndex(params.genome)
-
-    /*
-     * Step 2. Map each read-pair by using Tophat2 mapper tool
-     */
-    mapping(
-        params.genome,
-        params.annot,
-        buildIndex.out.ch_index,
-        ch_read_pairs)
-
-    /*
-     * Step 3. Assemble the transcript using the "cufflinks" tool
-     */
-    makeTranscript(params.annot, mapping.out.ch_bam)
+    INDEX(params.transcriptome)
+    FASTQC(read_pairs_ch)
+    QUANT(INDEX.out, read_pairs_ch)
 }
 
-process buildIndex {
-    tag "${genome.baseName}"
+process INDEX {
+    tag "$transcriptome.simpleName"
 
     input:
-    path genome
+    path transcriptome 
 
     output:
-    path 'genome.index*', emit: ch_index
+    path 'index' 
 
+    script:
     """
-    bowtie2-build --threads ${task.cpus} ${genome} genome.index
+    salmon index --threads $task.cpus -t $transcriptome -i index
     """
 }
 
-process mapping {
-    tag "${pair_id}"
+process FASTQC {
+    tag "FASTQC on $sample_id"
+    publishDir params.outdir
 
     input:
-    path genome
-    path annot
-    path index
-    tuple val(pair_id), path(reads)
+    tuple val(sample_id), path(reads)
 
     output:
-    set pair_id, "accepted_hits.bam", emit: ch_bam
+    path "fastqc_${sample_id}_logs" 
 
+    script:
     """
-    tophat2 -p ${task.cpus} --GTF ${annot} genome.index ${reads}
-    mv tophat_out/accepted_hits.bam .
+    fastqc.sh "$sample_id" "$reads"
     """
 }
 
-process makeTranscript {
-    tag "${pair_id}"
-    publishDir params.outdir, mode: 'copy'
+process QUANT {
+    tag "$pair_id"
+    publishDir params.outdir
 
     input:
-    path annot
-    tuple val(pair_id), path(bam_file)
+    path index 
+    tuple val(pair_id), path(reads) 
 
     output:
-    tuple val(pair_id), path('transcript_*.gtf')
+    path pair_id 
 
+    script:
     """
-    cufflinks --no-update-check -q -p ${task.cpus} -G ${annot} ${bam_file}
-    mv transcripts.gtf transcript_${pair_id}.gtf
+    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
     """
 }
 ]]>
