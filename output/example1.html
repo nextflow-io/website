@@ -105,8 +105,7 @@
 <h3><a href="javascript:void(0)">Basic pipeline</a></h3>
 
 <p class="text-muted" >
-	This example shows how write a pipeline made up of two simple BASH processes, so
-	that the results produced by the first are consumed by the second process.
+    This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.
 </p>
 
 
@@ -116,63 +115,70 @@
 
 params.in = "$baseDir/data/sample.fa"
 
-/* 
- * split a fasta file in multiple files 
+/*
+ * Split a fasta file into multiple files
  */
 process splitSequences {
 
     input:
-    path 'input.fa' from params.in
+    path 'input.fa'
 
     output:
-    path 'seq_*' into records
+    path 'seq_*'
 
     """
     awk '/^>/{f="seq_"++d} {print > f}' < input.fa
     """
 }
 
-/* 
- * Simple reverse the sequences 
+/*
+ * Reverse the sequences
  */
 process reverse {
 
     input:
-    path x from records
-    
+    path x
+
     output:
-    stdout into result
+    stdout
 
     """
     cat $x | rev
     """
 }
 
-/* 
- * print the channel content 
+/*
+ * Define the workflow
  */
-result.subscribe { println it }
+workflow {
+    splitSequences(params.in) \
+      | reverse \
+      | view
+}
 
 
 ]]>
 </script>
 </div><h3>Synopsis</h3>
 <ul>
-  <li><p>Line 1: The script starts with a shebang declaration. This allows you to launch your pipeline,  as any other BASH script.</p></li>
-  <li><p>Line 3: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value  <code>$HOME/sample.fa</code>.This value can be overridden when launching the pipeline,  by simply adding the option <code>--in &lt;value&gt;</code> to the script command line.</p></li>
-  <li><p>Lines 8-20: The process that splits the provided file.</p></li>
-  <li><p>Line 10: Opens the input declaration block. The lines following this clause are interpreted as input definitions.</p></li>
-  <li><p>Line 11: Declares the process input file. This file is taken from the <code>params.in</code> parameter and named <code>input.fa</code>.</p></li>
-  <li><p>Line 13: Opens the output declaration block. Lines following this clause are interpreted as output declarations.</p></li>
-  <li><p>Line 14: Defines that the process outputs files whose names match the pattern <code>seq_*</code>. These files are sent over the channel <code>records</code>.</p></li>
-  <li><p>Lines 16-18: The actual script executed by the process to split the provided file.</p></li>
-  <li><p>Lines 24-35: Defines the second process, that receives the splits produced by the previous process and reverses their content.</p></li>
-  <li><p>Line 26: Opens the input declaration block. Lines following this clause are interpreted as input declarations.</p></li>
-  <li><p>Line 27: Defines the process input file. This file is received through the channel <code>records</code>.</p></li>
-  <li><p>Line 29: Opens the output declaration block. Lines following this clause are interpreted as output declarations.</p></li>
-  <li><p>Line 30: The standard output of the executed script is declared as the process output. This output is sent over the channel <code>result</code>.</p></li>
-  <li><p>Lines 32-34: The actual script executed by the process to reverse the content of the received files.</p></li>
-  <li><p>Line 40: Prints a result each time a new item is received on the <code>result</code> channel.</p></li>
+  <li><p><strong>Line 1</strong> The script starts with a shebang declaration. This allows you to launch your pipeline just like any other Bash script.</p></li>
+  <li><p><strong>Line 3</strong>: Declares a pipeline parameter named <code>params.in</code> that is initialized with the value <code>$HOME/sample.fa</code>. This value can be overridden when launching the pipeline, by simply adding the option <code>--in &lt;value&gt;</code> to the script command line.</p></li>
+  <li><p><strong>Lines 8-19</strong>: The process that splits the provided file.</p></li>
+  <li><p><strong>Line 10</strong>: Opens the input declaration block. The lines following this clause are interpreted as input definitions.</p></li>
+  <li><p><strong>Line 11</strong>: Declares the process input file, which will be named <code>input.fa</code> in the process script.</p></li>
+  <li><p><strong>Line 13</strong>: Opens the output declaration block. The lines following this clause are interpreted as output declarations.</p></li>
+  <li><p><strong>Line 14</strong>: Files whose names match the pattern <code>seq_*</code> are declared as the output of this process.</p></li>
+  <li><p><strong>Lines 16-18</strong>: The actual script executed by the process to split the input file.</p></li>
+  <li><p><strong>Lines 24-35</strong>: The second process, which receives the splits produced by the previous process and reverses their content.</p></li>
+  <li><p><strong>Line 26</strong>: Opens the input declaration block. Lines following this clause are interpreted as input declarations.</p></li>
+  <li><p><strong>Line 27</strong>: Defines the process input file.</p></li>
+  <li><p><strong>Line 29</strong>: Opens the output declaration block. Lines following this clause are interpreted as output declarations.</p></li>
+  <li><p><strong>Line 30</strong>: The standard output of the executed script is declared as the process output.</p></li>
+  <li><p><strong>Lines 32-34</strong>: The actual script executed by the process to reverse the content of the input files.</p></li>
+  <li><p><strong>Lines 40-44</strong>: The workflow that connects everything together!</p></li>
+  <li><p><strong>Line 41</strong>: First, the input file specified by <code>params.in</code> is passed to the <code>splitSequences</code> process.</p></li>
+  <li><p><strong>Line 42</strong>: The outputs of <code>splitSequences</code> are passed as inputs to the <code>reverse</code> process, which processes each split file in parallel.</p></li>
+  <li><p><strong>Line 43</strong>: Finally, each output emitted by <code>reverse</code> is printed.</p></li>
 </ul>
     </div>
 </div>
