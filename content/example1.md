@@ -107,3 +107,8 @@ received files.
 
 * Line 40: Prints a result each time a new item is received on the `result` channel.
 
+### Try it in your computer 
+
+Then launch the pipeline execution using this command: 
+
+    $ ./nextflow run example-1.nf
