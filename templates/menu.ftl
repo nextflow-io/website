@@ -44,7 +44,7 @@
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
-                        <li><a href="https://join.slack.com/t/nextflow/shared_invite/zt-11iwlxtw5-R6SNBpVksOJAx5sPOXNrZg">Slack community chat</a></li>
+                        <li><a href="https://www.nextflow.io/slack-invite.html">Slack community chat</a></li>
                         <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>                       
                     </ul>
                 </li>
