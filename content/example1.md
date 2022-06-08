@@ -59,8 +59,6 @@ workflow {
       | reverse \
       | view
 }
-
-
 ]]>
 </script>
 </div>
