@@ -27,7 +27,7 @@ As the Nextflow community continues to grow, we realize that we have reached the
 
 For these reasons, we felt that it is time to say goodbye to the beloved Nextflow Gitter channel and would like to welcome the community into the brand-new, official Nextflow workspace on Slack!    
 
-You can join today using <a target="_blank" href="https://join.slack.com/t/nextflow/shared_invite/zt-11iwlxtw5-R6SNBpVksOJAx5sPOXNrZg">this link</a>!
+You can join today using <a target="_blank" href="https://www.nextflow.io/slack-invite.html">this link</a>!
 
 Once you have joined, you will be added to a selection of generic channels. However, we have also set up various additional channels for discussion around specific Nextflow topics, and for infrastructure-related topics. Please feel free to join whichever channels are appropriate to you.
 
