@@ -9,27 +9,23 @@ syntaxhighlighter=yes
 <h3><a href="javascript:void(0)">Mixing scripting languages</a></h3>
 
 <p class="text-muted">
-	When using Nextflow your are not limited to BASH scripts, in a pipeline script
-	you can mix any scripting language. In means that for each <i>process</i> you are free
-	to use the one that fits better its specific task or simply choose the
-	scripting language you prefer.
+    With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
 </p>
 
 <script type="syntaxhighlighter" class="brush: groovy">
 <![CDATA[
-
 #!/usr/bin/env nextflow
 
 params.range = 100
 
 /*
- * A trivial Perl script producing a list of numbers pair
+ * A trivial Perl script that produces a list of number pairs
  */
 process perlTask {
     output:
-    stdout into randNums
+    stdout
 
-	shell:
+    shell:
     '''
     #!/usr/bin/env perl
     use strict;
@@ -38,21 +34,22 @@ process perlTask {
     my $count;
     my $range = !{params.range};
     for ($count = 0; $count < 10; $count++) {
-     	print rand($range) . ', ' . rand($range) . "\n";
+        print rand($range) . ', ' . rand($range) . "\n";
     }
-	'''
+    '''
 }
 
 /*
- * A Python script task which parses the output of the previous script
+ * A Python script which parses the output of the previous script
  */
 process pyTask {
-    echo true
-
     input:
-    stdin from randNums
+    stdin
 
-    '''
+    output:
+    stdout
+
+    """
     #!/usr/bin/env python
     import sys
 
@@ -61,12 +58,16 @@ process pyTask {
     lines = 0
     for line in sys.stdin:
         items = line.strip().split(",")
-        x = x+ float(items[0])
-        y = y+ float(items[1])
-        lines = lines+1
+        x += float(items[0])
+        y += float(items[1])
+        lines += 1
 
-    print "avg: %s - %s" % ( x/lines, y/lines )
-	'''
+    print("avg: %s - %s" % ( x/lines, y/lines ))
+    """
+}
+
+workflow {
+    perlTask | pyTask | view
 }
 ]]>
 </script>
@@ -75,9 +76,9 @@ process pyTask {
 
 ### Synopsis
 
-In the above example it is defined a simple pipeline made up of two processes.
-The first one executes a Perl code, because the script block definition starts
-with a PERL <em>shebang</em> declaration (line 14).
+In the above example we define a simple pipeline with two processes.
 
-In the same way the second process will execute a Python piece of code, by
-the simply fact the the script block starts with a Python <em>shebang</em> header (line 36).
+The first process executes a Perl script, because the script block definition starts
+with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instaed of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
+
+In the same way, the second process will execute a Python script, because the script block starts with a Python shebang (line 36).
