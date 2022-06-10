@@ -100,6 +100,6 @@ Then launch the pipeline with this command:
 
     $ nextflow run rnaseq-nf -with-docker
 
-It will automatically download the pipeline [Github repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
 
-__NOTE__: To run this example with versions of Nextflow older than 22.04, you must include the `-dsl2` flag with `nextflow run`.
+__NOTE__: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
