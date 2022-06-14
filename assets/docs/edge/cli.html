@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 22.03.1-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 22.06.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -91,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
@@ -114,6 +116,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Command line interface (CLI)</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/cli.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -126,7 +129,7 @@
 <p><cite>Nextflow</cite> provides a robust command line interface for the management and
 execution pipelines. The top-level interface consists of two aspects,
 <em>options</em> and <em>commands</em>.</p>
-<p>Here’s what you’ll see at the top-level upon invoking the Nextflow CLI.</p>
+<p>Here’s what you’ll see at the top-level upon invoking the Nextflow CLI:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow
 Usage: nextflow [options] COMMAND [arg...]
 </pre></div>
@@ -138,11 +141,11 @@ Nextflow application and are applied to all commands. For options
 specific to any command, refer the CLI Commands section.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nextflow options only use single dash prefix e.g. <code class="docutils literal notranslate"><span class="pre">-foo</span></code>. Do not confuse
-double dash notation e.g. <code class="docutils literal notranslate"><span class="pre">--foo</span></code> that is instead used for
+<p>Nextflow options use a single dash prefix, e.g. <code class="docutils literal notranslate"><span class="pre">-foo</span></code>. Do not confuse with
+double dash notation, e.g. <code class="docutils literal notranslate"><span class="pre">--foo</span></code>, which is instead used for
 <a class="reference internal" href="#cli-params"><span class="std std-ref">Pipeline parameters</span></a>.</p>
 </div>
-<p>An overview of the top-level options.</p>
+<p>An overview of the top-level options:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow
 Usage: nextflow [options] COMMAND [arg...]
 
@@ -246,7 +249,7 @@ refer the <code class="docutils literal notranslate"><span class="pre">-C</span>
 <p>Launch Nextflow via Docker.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This is an experimental unsupported feature.</p>
+<p>This feature is experimental.</p>
 </div>
 <p><strong>Usage</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow -dockerize COMMAND [arg...]
@@ -315,9 +318,9 @@ statement within a pipeline.</p>
 </pre></div>
 </div>
 <p><strong>Description</strong></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">-syslog</span></code> option is used to send logs to a <cite>Syslog</cite> logging server at the specified endpoint.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-syslog</span></code> option is used to send logs to a Syslog logging server at the specified endpoint.</p>
 <p><strong>Examples</strong></p>
-<p>Send the logs to a <cite>Syslog</cite> server at specific endpoint.</p>
+<p>Send the logs to a Syslog server at specific endpoint.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow -syslog localhost:1234 run nextflow-io/hello
 </pre></div>
 </div>
@@ -533,8 +536,8 @@ please refer to the <code class="docutils literal notranslate"><span class="pre"
 </tr>
 </tbody>
 </table>
-<p><strong>Examples</strong>
-Clone the latest revision of a pipeline.</p>
+<p><strong>Examples</strong></p>
+<p>Clone the latest revision of a pipeline.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow clone nextflow-io/hello
 nextflow-io/hello cloned to: hello
 </pre></div>
@@ -601,11 +604,11 @@ run a pipeline. For in-depth information, please refer the <a class="reference i
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow config
 
 docker {
-   enabled = true
+    enabled = true
 }
 
 process {
-   executor = &#39;local&#39;
+    executor = &#39;local&#39;
 }
 </pre></div>
 </div>
@@ -627,21 +630,21 @@ process.executor = local
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow config -show-profiles
 
 docker {
-   enabled = true
+    enabled = true
 }
 
 profiles {
-   standard {
-      process {
-         executor = &#39;local&#39;
-      }
-   }
-   cloud {
-      process {
-         executor = &#39;cirrus&#39;
-         container = &#39;cbcrg/imagex&#39;
-      }
-   }
+    standard {
+        process {
+            executor = &#39;local&#39;
+        }
+    }
+    cloud {
+        process {
+            executor = &#39;cirrus&#39;
+            container = &#39;cbcrg/imagex&#39;
+        }
+    }
 }
 </pre></div>
 </div>
@@ -925,97 +928,109 @@ the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="s
 <td></td>
 <td><p>Specify the container image for the Nextflow pod.</p></td>
 </tr>
-<tr class="row-even"><td><p>-process.</p></td>
+<tr class="row-even"><td><p>-preview</p></td>
+<td></td>
+<td><p>Run the workflow script skipping the execution of all processes</p></td>
+</tr>
+<tr class="row-odd"><td><p>-process.</p></td>
 <td><p>{}</p></td>
 <td><p>Set process options. Syntax <code class="docutils literal notranslate"><span class="pre">-process.key=value</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>-profile</p></td>
+<tr class="row-even"><td><p>-profile</p></td>
 <td></td>
 <td><p>Choose a configuration profile.</p></td>
 </tr>
-<tr class="row-even"><td><p>-qs, -queue-size</p></td>
+<tr class="row-odd"><td><p>-qs, -queue-size</p></td>
 <td></td>
 <td><p>Max number of processes that can be executed in parallel by each executor.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-resume</p></td>
+<tr class="row-even"><td><p>-remoteConfig</p></td>
+<td></td>
+<td><p>Add the specified file from the K8s cluster to configuration set.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-remoteProfile</p></td>
+<td></td>
+<td><p>Choose a configuration profile in the remoteConfig.</p></td>
+</tr>
+<tr class="row-even"><td><p>-resume</p></td>
 <td></td>
 <td><p>Execute the script using the cached results, useful to continue executions that
 was stopped by an error.</p></td>
 </tr>
-<tr class="row-even"><td><p>-r, -revision</p></td>
+<tr class="row-odd"><td><p>-r, -revision</p></td>
 <td></td>
 <td><p>Revision of the project to run (either a git branch, tag or commit SHA number)</p></td>
 </tr>
-<tr class="row-odd"><td><p>-stub, -stub-run</p></td>
+<tr class="row-even"><td><p>-stub, -stub-run</p></td>
 <td></td>
 <td><p>Execute the workflow replacing process scripts with command stubs.</p></td>
 </tr>
-<tr class="row-even"><td><p>-test</p></td>
+<tr class="row-odd"><td><p>-test</p></td>
 <td></td>
 <td><p>Test a script function with the name specified.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-user</p></td>
+<tr class="row-even"><td><p>-user</p></td>
 <td></td>
 <td><p>Private repository user name.</p></td>
 </tr>
-<tr class="row-even"><td><p>-v, -volume-mount</p></td>
+<tr class="row-odd"><td><p>-v, -volume-mount</p></td>
 <td></td>
 <td><p>Volume claim mounts eg. <code class="docutils literal notranslate"><span class="pre">my-pvc:/mnt/path</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-conda</p></td>
+<tr class="row-even"><td><p>-with-conda</p></td>
 <td></td>
 <td><p>Use the specified Conda environment package or
 file (must end with <code class="docutils literal notranslate"><span class="pre">.yml|.yaml</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-dag</p></td>
+<tr class="row-odd"><td><p>-with-dag</p></td>
 <td><p>dag.dot</p></td>
 <td><p>Create pipeline DAG file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-docker</p></td>
+<tr class="row-even"><td><p>-with-docker</p></td>
 <td></td>
 <td><p>Enable process execution in a Docker container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-N, -with-notification</p></td>
+<tr class="row-odd"><td><p>-N, -with-notification</p></td>
 <td></td>
 <td><p>Send a notification email on workflow completion to the specified recipients.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-podman</p></td>
+<tr class="row-even"><td><p>-with-podman</p></td>
 <td></td>
 <td><p>Enable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-report</p></td>
+<tr class="row-odd"><td><p>-with-report</p></td>
 <td><p>report.html</p></td>
 <td><p>Create processes execution html report.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-singularity</p></td>
+<tr class="row-even"><td><p>-with-singularity</p></td>
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-timeline</p></td>
+<tr class="row-odd"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-tower</p></td>
+<tr class="row-even"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-trace</p></td>
+<tr class="row-odd"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-weblog</p></td>
+<tr class="row-even"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-docker</p></td>
+<tr class="row-odd"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-podman</p></td>
+<tr class="row-even"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-w, -work-dir</p></td>
+<tr class="row-odd"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>
@@ -1310,147 +1325,151 @@ facilitates rapid iterations, inspections of any pipeline as well as debugging.<
 <td></td>
 <td><p>Enable/disable processes caching.</p></td>
 </tr>
-<tr class="row-even"><td><p>-dsl2</p></td>
+<tr class="row-even"><td><p>-dsl1</p></td>
 <td><p>false</p></td>
+<td><p>Execute the workflow using DSL1 syntax.</p></td>
+</tr>
+<tr class="row-odd"><td><p>-dsl2</p></td>
+<td><p>true</p></td>
 <td><p>Execute the workflow using DSL2 syntax.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-dump-channels</p></td>
+<tr class="row-even"><td><p>-dump-channels</p></td>
 <td></td>
 <td><p>Dump channels for debugging purpose.</p></td>
 </tr>
-<tr class="row-even"><td><p>-dump-hashes</p></td>
+<tr class="row-odd"><td><p>-dump-hashes</p></td>
 <td><p>false</p></td>
 <td><p>Dump task hash keys for debugging purpose.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-e.</p></td>
+<tr class="row-even"><td><p>-e.</p></td>
 <td><p>{}</p></td>
 <td><p>Add the specified variable to execution environment. Syntax: <code class="docutils literal notranslate"><span class="pre">-e.key=value</span></code></p></td>
 </tr>
-<tr class="row-even"><td><p>-entry</p></td>
+<tr class="row-odd"><td><p>-entry</p></td>
 <td></td>
 <td><p>Entry workflow name to be executed.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-h, -help</p></td>
+<tr class="row-even"><td><p>-h, -help</p></td>
 <td><p>false</p></td>
 <td><p>Print the command usage.</p></td>
 </tr>
-<tr class="row-even"><td><p>-hub</p></td>
+<tr class="row-odd"><td><p>-hub</p></td>
 <td><p>github</p></td>
 <td><p>Service hub where the project is hosted. Options: <code class="docutils literal notranslate"><span class="pre">gitlab</span></code> or <code class="docutils literal notranslate"><span class="pre">bitbucket</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>-latest</p></td>
+<tr class="row-even"><td><p>-latest</p></td>
 <td><p>false</p></td>
 <td><p>Pull latest changes before run.</p></td>
 </tr>
-<tr class="row-even"><td><p>-lib</p></td>
+<tr class="row-odd"><td><p>-lib</p></td>
 <td></td>
 <td><p>Library extension path.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-main-script</p></td>
+<tr class="row-even"><td><p>-main-script</p></td>
 <td><p>main.nf</p></td>
 <td><p>The script file to be executed when launching a project directory or repository
 (requires version 20.09.1-edge or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>-name</p></td>
+<tr class="row-odd"><td><p>-name</p></td>
 <td></td>
 <td><p>Assign a mnemonic name to the a pipeline run.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-offline</p></td>
+<tr class="row-even"><td><p>-offline</p></td>
 <td><p>false</p></td>
 <td><p>Do not check for remote project updates.</p></td>
 </tr>
-<tr class="row-even"><td><p>-params-file</p></td>
+<tr class="row-odd"><td><p>-params-file</p></td>
 <td></td>
 <td><p>Load script parameters from a JSON/YAML file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-plugins</p></td>
+<tr class="row-even"><td><p>-plugins</p></td>
 <td></td>
 <td><p>Comma separated list of plugin ids to be applied in the pipeline execution.</p></td>
 </tr>
-<tr class="row-even"><td><p>-process.</p></td>
+<tr class="row-odd"><td><p>-process.</p></td>
 <td><p>{}</p></td>
 <td><p>Set process options. Syntax <code class="docutils literal notranslate"><span class="pre">-process.key=value</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>-profile</p></td>
+<tr class="row-even"><td><p>-profile</p></td>
 <td></td>
 <td><p>Choose a configuration profile.</p></td>
 </tr>
-<tr class="row-even"><td><p>-qs, -queue-size</p></td>
+<tr class="row-odd"><td><p>-qs, -queue-size</p></td>
 <td></td>
 <td><p>Max number of processes that can be executed in parallel by each executor.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-resume</p></td>
+<tr class="row-even"><td><p>-resume</p></td>
 <td></td>
 <td><p>Execute the script using the cached results, useful to continue executions that
 was stopped by an error.</p></td>
 </tr>
-<tr class="row-even"><td><p>-r, -revision</p></td>
+<tr class="row-odd"><td><p>-r, -revision</p></td>
 <td></td>
 <td><p>Revision of the project to run
 (either a git <code class="docutils literal notranslate"><span class="pre">branch</span></code>, <code class="docutils literal notranslate"><span class="pre">tag</span></code> or commit <code class="docutils literal notranslate"><span class="pre">SHA</span></code> number).</p></td>
 </tr>
-<tr class="row-odd"><td><p>-test</p></td>
+<tr class="row-even"><td><p>-test</p></td>
 <td></td>
 <td><p>Test a script function with the name specified.</p></td>
 </tr>
-<tr class="row-even"><td><p>-user</p></td>
+<tr class="row-odd"><td><p>-user</p></td>
 <td></td>
 <td><p>Private repository user name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-conda</p></td>
+<tr class="row-even"><td><p>-with-conda</p></td>
 <td></td>
 <td><p>Use the specified Conda environment package or
 file (must end with <code class="docutils literal notranslate"><span class="pre">.yml|.yaml</span></code>)</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-dag</p></td>
+<tr class="row-odd"><td><p>-with-dag</p></td>
 <td><p>dag.dot</p></td>
 <td><p>Create pipeline DAG file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-docker</p></td>
+<tr class="row-even"><td><p>-with-docker</p></td>
 <td></td>
 <td><p>Enable process execution in a Docker container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-N, -with-notification</p></td>
+<tr class="row-odd"><td><p>-N, -with-notification</p></td>
 <td></td>
 <td><p>Send a notification email on workflow completion to the specified recipients.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-podman</p></td>
+<tr class="row-even"><td><p>-with-podman</p></td>
 <td></td>
 <td><p>Enable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-report</p></td>
+<tr class="row-odd"><td><p>-with-report</p></td>
 <td><p>report.html</p></td>
 <td><p>Create processes execution html report.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-singularity</p></td>
+<tr class="row-even"><td><p>-with-singularity</p></td>
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-timeline</p></td>
+<tr class="row-odd"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-tower</p></td>
+<tr class="row-even"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-trace</p></td>
+<tr class="row-odd"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-weblog</p></td>
+<tr class="row-even"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-docker</p></td>
+<tr class="row-odd"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-podman</p></td>
+<tr class="row-even"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-w, -work-dir</p></td>
+<tr class="row-odd"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>
@@ -1493,6 +1512,12 @@ Launching `nextflow-io/hello` [grave_cajal] - revision: 1c3e9e7404 [v1.1]
 </li>
 <li><p>Invoke the nextflow pipeline execution with the integrated monitoring dashboard Tower. For more information, please refer to the <a class="reference external" href="https://tower.nf">tower.nf</a> website.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run nextflow-io/hello -with-tower
+</pre></div>
+</div>
+</li>
+<li><p>Invoke the nextflow pipeline execution with a custom parameters <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.
+The parameters which are specified through this mechanism are merged with the resolved configuration (base configuration and profiles) and only the common fields are overwritten by the <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run main.nf -params-file pipeline_params.yml
 </pre></div>
 </div>
 </li>
@@ -1570,15 +1595,16 @@ For downloading a pipeline into the global cache <code class="docutils literal n
 
 cheers = Channel.from &#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;
 
- process sayHello {
-   debug true
-   input:
-     val x from cheers
-   script:
-     &quot;&quot;&quot;
-     echo &#39;$x world!&#39;
-     &quot;&quot;&quot;
- }
+process sayHello {
+  debug true
+  input:
+    val x from cheers
+
+  script:
+    &quot;&quot;&quot;
+    echo &#39;$x world!&#39;
+    &quot;&quot;&quot;
+}
 </pre></div>
 </div>
 <p>Listing the folder structure of the downloaded pipeline.</p>
@@ -1603,15 +1629,16 @@ main.nf
 
 cheers = Channel.from &#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;
 
- process sayHello {
-   debug true
-   input:
-     val x from cheers
-   script:
-     &quot;&quot;&quot;
-     echo &#39;$x world!&#39;
-     &quot;&quot;&quot;
- }
+process sayHello {
+  debug true
+  input:
+    val x from cheers
+
+  script:
+    &quot;&quot;&quot;
+    echo &#39;$x world!&#39;
+    &quot;&quot;&quot;
+}
 </pre></div>
 </div>
 </section>
@@ -1627,13 +1654,13 @@ on the command line prefixing the parameter name with double dash characters e.g
 <p>Then, the parameter can be accessed in the pipeline script using the <code class="docutils literal notranslate"><span class="pre">params.foo</span></code> identifier.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When the parameter name is formatted using the <cite>camelCase</cite> notation e.g. <code class="docutils literal notranslate"><span class="pre">fooBar</span></code>, a second parameter
-is created with the same value using the <cite>kebab-case</cite> notation e.g. <code class="docutils literal notranslate"><span class="pre">foo-bar</span></code>, and the other way around.</p>
+<p>When the parameter name is formatted using <code class="docutils literal notranslate"><span class="pre">camelCase</span></code>, a second parameter
+is created with the same value using <code class="docutils literal notranslate"><span class="pre">kebab-case</span></code>, and the other way around.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When a command line parameters includes one or more glob characters i.e. wildcards like <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code>,
-the parameter value needs to be enclosed with double-quote character to prevent Bash expansion and preserve
+<p>When a command line parameter includes one or more glob characters, i.e. wildcards like <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code>,
+the parameter value needs to be enclosed in quotes to prevent Bash expansion and preserve
 the glob characters. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">my</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">files</span> <span class="s2">&quot;*.fasta&quot;</span>
 </pre></div>
@@ -1653,7 +1680,7 @@ the glob characters. For example:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

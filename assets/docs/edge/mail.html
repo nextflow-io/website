@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mail &amp; Notifications &mdash; Nextflow 22.03.1-edge documentation</title>
+  <title>Mail &amp; Notifications &mdash; Nextflow 22.06.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -58,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Mail &amp; Notifications</a><ul>
@@ -92,6 +94,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Mail &amp; Notifications</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/mail.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -188,15 +191,15 @@ For example:</p>
 </pre></div>
 </div>
 <p>The same attributes listed in the table in the previous section are allowed.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When it terminates with a string expression it’s implicitly interpreted as the mail body content, therefore
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A string expression at the end is implicitly interpreted as the mail body content, therefore
 the <code class="docutils literal notranslate"><span class="pre">body</span></code> parameter can be omitted as shown above.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To send an <cite>alternative</cite> mail message that includes either text and HTML content use both the <code class="docutils literal notranslate"><span class="pre">text</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code> attributes.
-The first must be used for the plain text content, while the second for the rich HTML message.</p>
+<p>To send an email that includes text and HTML content, use both the <code class="docutils literal notranslate"><span class="pre">text</span></code> and <code class="docutils literal notranslate"><span class="pre">body</span></code> attributes.
+The first is used for the plain text content, while the second is used for the rich HTML content.</p>
 </div>
 </section>
 <section id="mail-attachments">
@@ -222,7 +225,7 @@ multiple attachments in the mail message.</p>
 <td><p>Defines the <cite>Content-Disposition</cite> header field for the attachment.</p></td>
 </tr>
 <tr class="row-even"><td><p>fileName</p></td>
-<td><p>Defines the <cite>filename</cite> parameter of the “Content-Disposition” header field.</p></td>
+<td><p>Defines the <code class="docutils literal notranslate"><span class="pre">filename</span></code> parameter of the “Content-Disposition” header field.</p></td>
 </tr>
 <tr class="row-odd"><td><p>description</p></td>
 <td><p>Defines the <cite>Content-Description</cite> header field for the attachment.</p></td>
@@ -295,9 +298,9 @@ when a workflow execution terminates.</p>
 <img alt="_images/workflow-notification-min.png" src="_images/workflow-notification-min.png" />
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>By default the notification message is sent by using the <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> system tool which is assumed to be
-available in the computer where Nextflow is running. Make sure it’s properly installed and configured.
-Alternatively provide the SMTP server configuration settings to use the Nextflow
+<p>By default the notification message is sent with the <code class="docutils literal notranslate"><span class="pre">sendmail</span></code> system tool, which is assumed to be
+available in the environment where Nextflow is running. Make sure it’s properly installed and configured.
+Alternatively, you can provide the SMTP server configuration settings to use the Nextflow
 built-in mail support, which doesn’t require any external system tool.</p>
 </div>
 <p>See the <a class="reference internal" href="#mail-configuration">Mail configuration</a> section to learn about the available mail delivery options and configuration settings.</p>
@@ -317,7 +320,7 @@ configuration details.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline sharing &mdash; Nextflow 22.03.1-edge documentation</title>
+  <title>Pipeline sharing &mdash; Nextflow 22.06.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -20,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Workflow introspection" href="metadata.html" />
-    <link rel="prev" title="Tracing &amp; visualisation" href="tracing.html" /> 
+    <link rel="prev" title="Metrics" href="metrics.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -58,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline sharing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-a-pipeline">Running a pipeline</a></li>
@@ -78,6 +80,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#gitlab-credentials">GitLab credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#gitea-credentials">Gitea credentials</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#azure-repos-credentials">Azure Repos credentials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aws-codecommit-credentials">AWS CodeCommit credentials</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#private-server-configuration">Private server configuration</a></li>
@@ -116,6 +119,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Pipeline sharing</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/sharing.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -170,7 +174,7 @@ it using the <cite>organisation</cite> name defined by the environment variable 
 <p class="admonition-title">Tip</p>
 <p>To access a private repository, specify the access credentials by using the <code class="docutils literal notranslate"><span class="pre">-user</span></code> command
 line option, then the program will ask you to enter the password interactively.
-Private repositories access credentials can also be defined in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a>.</p>
+Private repository access credentials can also be defined in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a>.</p>
 </div>
 </section>
 <section id="handling-revisions">
@@ -191,8 +195,8 @@ when launching a pipeline by adding the <code class="docutils literal notranslat
 <p>The following commands allows you to perform some basic operations that can be used to manage your projects.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nextflow is not meant to replace functionalities provided by the <a class="reference external" href="https://git-scm.com/">Git</a> tool. You may still need it to create new
-repositories or commit changes, etc.</p>
+<p>Nextflow is not meant to completely replace the <a class="reference external" href="https://git-scm.com/">Git</a> tool. You may still need <code class="docutils literal notranslate"><span class="pre">git</span></code>
+to create new repositories or commit changes, etc.</p>
 </div>
 <section id="listing-available-projects">
 <h3>Listing available projects<a class="headerlink" href="#listing-available-projects" title="Permalink to this headline"></a></h3>
@@ -338,7 +342,7 @@ version <code class="docutils literal notranslate"><span class="pre">20.10.0</sp
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>App passwords are substitute passwords for a user account which you can use for scripts and integrating
-tools to avoid putting your real password into configuration files.
+tools in order to avoid putting your real password into configuration files.
 Learn more at <a class="reference external" href="https://support.atlassian.com/bitbucket-cloud/docs/app-passwords/">this link</a>.</p>
 </div>
 </section>
@@ -348,7 +352,7 @@ Learn more at <a class="reference external" href="https://support.atlassian.com/
 platform.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>BitBucket Server uses different API from the <a class="reference external" href="https://bitbucket.org/">BitBucket</a> cloud service. Make sure to
+<p>BitBucket Server uses a different API from the <a class="reference external" href="https://bitbucket.org/">BitBucket</a> cloud service. Make sure to
 use the right configuration whether you are using the cloud service or a self-hosted installation.</p>
 </div>
 <p>To access your local BitBucket Server create an entry in the <a class="reference internal" href="#scm-configuration-file">SCM configuration file</a> specifying as shown below:</p>
@@ -373,15 +377,15 @@ use the right configuration whether you are using the cloud service or a self-ho
 
     <span class="n">github</span> <span class="p">{</span>
         <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;your-user-name&#39;</span>
-        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;your-personal-access-token;&#39;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;your-personal-access-token&#39;</span>
     <span class="p">}</span>
 
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>GitHub requires the use of the personal access token (PAT) in place of password field when accessing APIs.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>GitHub requires the use of a personal access token (PAT) in place of a password when accessing APIs.
 Learn more about PAT and how to create it at <a class="reference external" href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token">this link</a>.</p>
 </div>
 </section>
@@ -448,6 +452,41 @@ using the configuration snippet shown below:</p>
 <p>The Personal access token can be generated in the repository <cite>Clone Repository</cite> dialog.</p>
 </div>
 </section>
+<section id="aws-codecommit-credentials">
+<h3>AWS CodeCommit credentials<a class="headerlink" href="#aws-codecommit-credentials" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.06.0-edge</span></code>, Nextflow supports <a class="reference external" href="https://aws.amazon.com/codecommit/">AWS CodeCommit</a> as a
+Git provider to access and to share pipelines code.</p>
+<p>To access your project hosted on AWS CodeCommit with Nextflow provide the repository credentials using the
+configuration snippet shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">providers</span> <span class="p">{</span>
+
+    <span class="n">my_aws_repo</span> <span class="p">{</span>
+        <span class="n">platform</span> <span class="o">=</span> <span class="s1">&#39;codecommit&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR USERNAME&gt;&#39;</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR PASSWORD&gt;&#39;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the above snippet replace <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">USERNAME&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">PASSWORD&gt;</span></code> with your own credentials, and
+<code class="docutils literal notranslate"><span class="pre">my_aws_repo</span></code> with a name of your choice.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The username and password credentials can be generated in the IAM user “Security Credentials” panel,
+under the section <cite>HTTPS Git credentials for AWS CodeCommit</cite> section.</p>
+</div>
+<p>Then the pipeline can be accessed with Nextflow as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">git</span><span class="o">-</span><span class="n">codecommit</span><span class="o">.</span><span class="n">eu</span><span class="o">-</span><span class="n">west</span><span class="o">-</span><span class="mf">1.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">my</span><span class="o">-</span><span class="n">repo</span>
+</pre></div>
+</div>
+<p>In the above example replace <code class="docutils literal notranslate"><span class="pre">my-repo</span></code> with your own repository. Note also that AWS CodeCommit has different
+URLs depending the region in which you are working.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The support for protocols other than HTTPS is not available at this time.</p>
+</div>
+</section>
 </section>
 <section id="private-server-configuration">
 <h2>Private server configuration<a class="headerlink" href="#private-server-configuration" title="Permalink to this headline"></a></h2>
@@ -485,8 +524,8 @@ base URL. For example, for GitHub Enterprise V3, add
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When accessing a private SCM installation over <code class="docutils literal notranslate"><span class="pre">https</span></code> and that server uses a custom SSL certificate
-you may need to import such certificate into your local Java keystore. Read more
+<p>When accessing a private SCM installation over <code class="docutils literal notranslate"><span class="pre">https</span></code> from a server that uses a custom SSL certificate,
+you may need to import the certificate into your local Java keystore. Read more
 <a class="reference external" href="https://docs.oracle.com/javase/tutorial/security/toolsign/rstep2.html">here</a>.</p>
 </div>
 </section>
@@ -579,8 +618,8 @@ use the implicit variable <code class="docutils literal notranslate"><span class
 required data file(s) you may need, then you can access this data in your script by writing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sequences</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s2">&quot;$baseDir/dataset/sequences.fa&quot;</span><span class="p">)</span>
 <span class="n">sequences</span><span class="o">.</span><span class="n">splitFasta</span> <span class="p">{</span>
-     <span class="n">println</span> <span class="n">it</span>
- <span class="p">}</span>
+    <span class="n">println</span> <span class="n">it</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -591,7 +630,7 @@ top of your script all the parameters it may require as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">my_input</span> <span class="o">=</span> <span class="s1">&#39;default input file&#39;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">my_output</span> <span class="o">=</span> <span class="s1">&#39;default output path&#39;</span>
 <span class="n">params</span><span class="o">.</span><span class="n">my_flag</span> <span class="o">=</span> <span class="n">false</span>
-<span class="o">..</span>
+<span class="o">...</span>
 </pre></div>
 </div>
 <p>The actual parameter values can be provided when launching the script execution on the command line
@@ -619,7 +658,7 @@ your tasks.</p>
 zero configuration and can be reproduced in any system having a Java VM and a Docker engine installed.</p>
 <dl class="footnote brackets">
 <dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
-<dd><p>BitBucket provides two types of version control system: <cite>Git</cite> and <cite>Mercurial</cite>. Nextflow supports only <cite>Git</cite> based repositories.</p>
+<dd><p>BitBucket provides two types of version control system: Git and Mercurial. Nextflow supports only Git repositories.</p>
 </dd>
 </dl>
 </section>
@@ -630,14 +669,14 @@ zero configuration and can be reproduced in any system having a Java VM and a Do
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="tracing.html" class="btn btn-neutral float-left" title="Tracing &amp; visualisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="metrics.html" class="btn btn-neutral float-left" title="Metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="metadata.html" class="btn btn-neutral float-right" title="Workflow introspection" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

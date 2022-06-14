@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 22.03.1-edge documentation</title>
+  <title>DSL 2 &mdash; Nextflow 22.06.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -63,7 +64,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#workflow-input">Workflow input</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#workflow-output">Workflow output</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#workflow-named-output">Workflow named output</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#entry-point-of-execution">Entry point of execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-entrypoint">Workflow entrypoint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#workflow-composition">Workflow composition</a></li>
 </ul>
 </li>
@@ -94,6 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
@@ -117,6 +119,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>DSL 2</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/dsl2.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -166,8 +169,8 @@ the Nextflow configuration file using the same notation shown above.</p>
 </div>
 <p>The above snippet defines two simple functions, that can be invoked in the workflow script as <code class="docutils literal notranslate"><span class="pre">foo()</span></code> which
 returns the <code class="docutils literal notranslate"><span class="pre">Hello</span> <span class="pre">world</span></code> string and <code class="docutils literal notranslate"><span class="pre">bar(10,20)</span></code> which returns the sum of two parameters (<code class="docutils literal notranslate"><span class="pre">30</span></code> in this case).</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Functions implicitly return the result of the last evaluated statement.</p>
 </div>
 <p>The keyword <code class="docutils literal notranslate"><span class="pre">return</span></code> can be used to explicitly exit from a function and return the specified value.
@@ -195,17 +198,20 @@ input channels as parameters as if it were a custom function. For example:</p>
 <span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
       <span class="n">path</span> <span class="s1">&#39;foo.txt&#39;</span>
+
     <span class="n">script</span><span class="p">:</span>
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      your_command &gt; foo.txt</span>
 <span class="sd">      &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
- <span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
+<span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
       <span class="n">path</span> <span class="n">x</span>
+
     <span class="n">output</span><span class="p">:</span>
       <span class="n">path</span> <span class="s1">&#39;bar.txt&#39;</span>
+
     <span class="n">script</span><span class="p">:</span>
       <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">      another_command $x &gt; bar.txt</span>
@@ -276,8 +282,10 @@ can be used to reference the channel within the caller scope. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
         <span class="n">val</span> <span class="n">cheers</span>
+
     <span class="n">output</span><span class="p">:</span>
         <span class="n">stdout</span> <span class="n">emit</span><span class="p">:</span> <span class="n">verbiage</span>
+
     <span class="n">script</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    echo -n $cheers</span>
@@ -328,8 +336,8 @@ another workflow component definition as any other function or process with <cod
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="n">my_pipeline</span> <span class="p">{</span>
     <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
-      <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-      <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">foo</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">bar</span><span class="p">(</span><span class="n">foo</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -346,9 +354,8 @@ another workflow component definition as any other function or process with <cod
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Workflow inputs are by definition <em>channel</em> data structures. If a basic data type is provided
-instead, ie. number, string, list, etc. it’s implicitly converted to a <a class="reference internal" href="channel.html#channel-type-value"><span class="std std-ref">channel value</span></a>
-(ie. non-consumable).</p>
+<p>Workflow inputs are always channels by definition. If a basic data type is provided instead,
+such as a number, string, list, etc, it is implicitly converted to a <a class="reference internal" href="channel.html#channel-type-value"><span class="std std-ref">value channel</span></a>.</p>
 </div>
 </section>
 <section id="workflow-output">
@@ -382,19 +389,19 @@ to reference the channel within the caller scope. For example:</p>
 </div>
 <p>Then, the result of the above snippet can accessed using <code class="docutils literal notranslate"><span class="pre">my_pipeline.out.my_data</span></code>.</p>
 </section>
-<section id="entry-point-of-execution">
-<h3>Entry point of execution<a class="headerlink" href="#entry-point-of-execution" title="Permalink to this headline"></a></h3>
+<section id="workflow-entrypoint">
+<h3>Workflow entrypoint<a class="headerlink" href="#workflow-entrypoint" title="Permalink to this headline"></a></h3>
 <p>A workflow definition which does not declare any name (also known as <em>implicit workflow</em>) is
 the entry point of execution for the workflow application.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Implicit workflow definition is ignored when a script is included as module. This
-allows the writing of a workflow script that can be used either as a library module and as
-application script.</p>
+<p>Implicit workflow definition is ignored when a script is included as a module. This
+allows the writing of a workflow script that can be used either as a library module or as
+an application script.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>An alternative named workflow entry can be specified using the <code class="docutils literal notranslate"><span class="pre">-entry</span></code> command line option.</p>
+<p>A different workflow entrypoint can be specified using the <code class="docutils literal notranslate"><span class="pre">-entry</span></code> command line option.</p>
 </div>
 </section>
 <section id="workflow-composition">
@@ -422,8 +429,8 @@ as any other process in your application.</p>
 <span class="n">workflow</span> <span class="p">{</span>
     <span class="n">take</span><span class="p">:</span> <span class="n">data</span>
     <span class="n">main</span><span class="p">:</span>
-      <span class="n">flow1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-      <span class="n">flow2</span><span class="p">(</span><span class="n">flow1</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">flow1</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">flow2</span><span class="p">(</span><span class="n">flow1</span><span class="o">.</span><span class="n">out</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -431,14 +438,14 @@ as any other process in your application.</p>
 <p class="admonition-title">Note</p>
 <p>Nested workflow execution determines an implicit scope. Therefore the same process can be
 invoked in two different workflow scopes, like for example <code class="docutils literal notranslate"><span class="pre">foo</span></code> in the above snippet that
-is used either in <code class="docutils literal notranslate"><span class="pre">flow1</span></code> and <code class="docutils literal notranslate"><span class="pre">flow2</span></code>. The workflow execution path along with the
-process names defines the process <em>fully qualified name</em> that is used to distinguish the
+is used both in <code class="docutils literal notranslate"><span class="pre">flow1</span></code> and <code class="docutils literal notranslate"><span class="pre">flow2</span></code>. The workflow execution path, along with the
+process names, determines the <em>fully qualified process name</em> that is used to distinguish the
 two different process invocations, i.e. <code class="docutils literal notranslate"><span class="pre">flow1:foo</span></code> and <code class="docutils literal notranslate"><span class="pre">flow2:foo</span></code> in the above example.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The process fully qualified name can be used as a valid <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">process selector</span></a> in the
-<code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file and it has priority over the process simple name.</p>
+<p>The fully qualified process name can be used as a valid <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">process selector</span></a> in the
+<code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file and it has priority over the simple process name.</p>
 </div>
 </section>
 </section>
@@ -450,7 +457,7 @@ can be included and shared across workflow applications.</p>
 as described in the previous sections.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Functions, processes and workflows are globally referred as <em>components</em>.</p>
+<p>Functions, processes and workflows are globally referred to as <em>components</em>.</p>
 </div>
 <section id="module-inclusion">
 <h3>Module inclusion<a class="headerlink" href="#module-inclusion" title="Permalink to this headline"></a></h3>
@@ -545,8 +552,7 @@ parameter set later is ignored.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Define all pipeline parameters at the beginning of the script <em>before</em>
-any <code class="docutils literal notranslate"><span class="pre">include</span></code> declaration.</p>
+<p>Define all pipeline parameters at the beginning of the script <em>before</em> any <code class="docutils literal notranslate"><span class="pre">include</span></code> declaration.</p>
 </div>
 <p>The option <code class="docutils literal notranslate"><span class="pre">addParams</span></code> can be used to extend the module parameters without affecting the external
 scope. For example:</p>
@@ -571,20 +577,20 @@ can be placed under the <code class="docutils literal notranslate"><span class="
 <p>For example, let’s suppose to have a project L with a module script defining 2 processes (P1 and P2) and both use templates.
 The template files can be made available under the local <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Project</span> <span class="n">L</span>
-        <span class="o">|-</span><span class="n">myModules</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">templates</span>
-                <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-                <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+    <span class="o">|-</span><span class="n">myModules</span><span class="o">.</span><span class="n">nf</span>
+    <span class="o">|-</span><span class="n">templates</span>
+        <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+        <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 <p>Then, we have a second project A with a workflow that includes P1 and P2:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">A</span>
-        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
 </div>
 <p>Finally, we have a third project B with a workflow that includes again P1 and P2:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">B</span>
-        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
 </pre></div>
 </div>
 <p>With the possibility to keep the template files inside the project L, A and B can use the modules defined in L without any changes.
@@ -598,26 +604,26 @@ A future prject C would do the same, just cloning L (if not available on the sys
 <p>Ultimately, having multiple template locations allows a more structured organization within the same project. If a project
 has several module components, and all them use templates, the project could group module scripts and their templates as needed. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">baseDir</span>
-        <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">Phase0</span><span class="o">-</span><span class="n">Modules</span>
-                <span class="o">|-</span><span class="n">mymodules1</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">mymodules2</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">templates</span>
-                        <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-                        <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-        <span class="o">|-</span><span class="n">Phase1</span><span class="o">-</span><span class="n">Modules</span>
-                <span class="o">|-</span><span class="n">mymodules3</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">mymodules4</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">templates</span>
-                        <span class="o">|-</span><span class="n">P3</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-                        <span class="o">|-</span><span class="n">P4</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-        <span class="o">|-</span><span class="n">Phase2</span><span class="o">-</span><span class="n">Modules</span>
-                <span class="o">|-</span><span class="n">mymodules5</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">mymodules6</span><span class="o">.</span><span class="n">nf</span>
-                <span class="o">|-</span><span class="n">templates</span>
-                        <span class="o">|-</span><span class="n">P5</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-                        <span class="o">|-</span><span class="n">P6</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-                        <span class="o">|-</span><span class="n">P7</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+    <span class="o">|-</span><span class="n">Phase0</span><span class="o">-</span><span class="n">Modules</span>
+        <span class="o">|-</span><span class="n">mymodules1</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">mymodules2</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">templates</span>
+            <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+            <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+    <span class="o">|-</span><span class="n">Phase1</span><span class="o">-</span><span class="n">Modules</span>
+        <span class="o">|-</span><span class="n">mymodules3</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">mymodules4</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">templates</span>
+            <span class="o">|-</span><span class="n">P3</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+            <span class="o">|-</span><span class="n">P4</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+    <span class="o">|-</span><span class="n">Phase2</span><span class="o">-</span><span class="n">Modules</span>
+        <span class="o">|-</span><span class="n">mymodules5</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">mymodules6</span><span class="o">.</span><span class="n">nf</span>
+        <span class="o">|-</span><span class="n">templates</span>
+            <span class="o">|-</span><span class="n">P5</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+            <span class="o">|-</span><span class="n">P6</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+            <span class="o">|-</span><span class="n">P7</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </section>
@@ -649,10 +655,14 @@ writing of workflow scripts more fluent and readable.</p>
 <h3>The <em>pipe</em> operator<a class="headerlink" href="#the-pipe-operator" title="Permalink to this headline"></a></h3>
 <p>Nextflow processes and operators can be composed using the <code class="docutils literal notranslate"><span class="pre">|</span></code> <em>pipe</em> operator. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-    <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
-    <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">data</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">result</span>
+
     <span class="n">exec</span><span class="p">:</span>
-      <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data world&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data world&quot;</span>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
@@ -669,21 +679,29 @@ to uppercase and finally, the last <a class="reference internal" href="operator.
 <p>The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> <em>and</em> operator allows feeding of two or more processes with the content of the same
 channel(s). For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
-  <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
-  <span class="n">exec</span><span class="p">:</span>
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">data</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">result</span>
+
+    <span class="n">exec</span><span class="p">:</span>
     <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;$data world&quot;</span>
 <span class="p">}</span>
 
 <span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
-    <span class="nb">input</span><span class="p">:</span> <span class="n">val</span> <span class="n">data</span>
-    <span class="n">output</span><span class="p">:</span> <span class="n">val</span> <span class="n">result</span>
+    <span class="nb">input</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">data</span>
+
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">result</span>
+
     <span class="n">exec</span><span class="p">:</span>
-      <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span>
 <span class="p">}</span>
 
 <span class="n">workflow</span> <span class="p">{</span>
-   <span class="n">channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> <span class="o">|</span> <span class="n">mix</span> <span class="o">|</span> <span class="n">view</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> <span class="o">|</span> <span class="n">mix</span> <span class="o">|</span> <span class="n">view</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -694,18 +712,17 @@ into a single channel using the <a class="reference internal" href="operator.htm
 using the <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> operator.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The break-line operator <code class="docutils literal notranslate"><span class="pre">\</span></code> can be used to split long pipe concatenations
-over multiple lines.</p>
-</div>
-<p>The above snippet can be written as shown below:</p>
+<p>The break-line operator <code class="docutils literal notranslate"><span class="pre">\</span></code> can be used to split long statements over multiple lines.
+The above snippet can also be written as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span> <span class="p">{</span>
-   <span class="n">channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> \
-     <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> \
-     <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> \
-     <span class="o">|</span> <span class="n">mix</span> \
-     <span class="o">|</span> <span class="n">view</span>
+    <span class="n">channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span> \
+      <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span> <span class="p">}</span> \
+      <span class="o">|</span> <span class="p">(</span><span class="n">foo</span> <span class="o">&amp;</span> <span class="n">bar</span><span class="p">)</span> \
+      <span class="o">|</span> <span class="n">mix</span> \
+      <span class="o">|</span> <span class="n">view</span>
 <span class="p">}</span>
 </pre></div>
+</div>
 </div>
 </section>
 </section>
@@ -742,10 +759,11 @@ over multiple lines.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
 <span class="nb">input</span><span class="p">:</span>
   <span class="nb">tuple</span> <span class="n">X</span><span class="p">,</span> <span class="s1">&#39;some-file.bam&#39;</span>
- <span class="n">script</span><span class="p">:</span>
-   <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   your_command --in $X some-file.bam</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+
+<span class="n">script</span><span class="p">:</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --in $X some-file.bam</span>
+<span class="sd">  &#39;&#39;&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -753,10 +771,11 @@ over multiple lines.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
 <span class="nb">input</span><span class="p">:</span>
   <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;some-file.bam&#39;</span><span class="p">)</span>
- <span class="n">script</span><span class="p">:</span>
-   <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   your_command --in $X some-file.bam</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+
+<span class="n">script</span><span class="p">:</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --in $X some-file.bam</span>
+<span class="sd">  &#39;&#39;&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -768,10 +787,10 @@ over multiple lines.</p>
   <span class="nb">tuple</span> <span class="n">X</span><span class="p">,</span> <span class="s1">&#39;some-file.bam&#39;</span>
 
 <span class="n">script</span><span class="p">:</span>
-   <span class="n">X</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
-   <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   your_command &gt; some-file.bam</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command &gt; some-file.bam</span>
+<span class="sd">  &#39;&#39;&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -781,10 +800,10 @@ over multiple lines.</p>
   <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;some-file.bam&#39;</span><span class="p">)</span>
 
 <span class="n">script</span><span class="p">:</span>
-   <span class="n">X</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
-   <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">   your_command &gt; some-file.bam</span>
-<span class="sd">   &#39;&#39;&#39;</span>
+  <span class="n">X</span> <span class="o">=</span> <span class="s1">&#39;some value&#39;</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command &gt; some-file.bam</span>
+<span class="sd">  &#39;&#39;&#39;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -799,7 +818,6 @@ over multiple lines.</p>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">fork</span></code> has been renamed to <a class="reference internal" href="operator.html#operator-multimap"><span class="std std-ref">multiMap</span></a>.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">groupBy</span></code> has been deprecated by DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-grouptuple"><span class="std std-ref">groupTuple</span></a></p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> have been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> instead.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a> has been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-join"><span class="std std-ref">join</span></a> instead.</p></li>
 <li><p>Operator <a class="reference internal" href="operator.html#operator-separate"><span class="std std-ref">separate</span></a> has been deprecated by DSL2 syntax.</p></li>
 <li><p>Operator <a class="reference internal" href="operator.html#operator-spread"><span class="std std-ref">spread</span></a> has been deprecated with DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>.</p></li>
 <li><p>Operator route has been deprecated by DSL2 syntax.</p></li>
@@ -818,7 +836,7 @@ over multiple lines.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
