@@ -9,7 +9,7 @@ author=Phil Ewels
 icon=phil.jpg
 ~~~~~~
 
-As you may have seen, we recently announced that we will be hosting the **Nextflow Summit 2022** in October! The summit will take place from **12th - 14th October** at the stunning Torre Glòries tower in Barcelona, with an associated [nf-core hackathon](https://nf-co.re/events/2022/hackathon-october-2022) beforehand.
+As you may have seen, we recently announced that we will be hosting the **Nextflow Summit 2022** in October! The summit will take place from **October 12-14, 2022** at the stunning Torre Glòries tower in Barcelona, with an associated [nf-core hackathon](https://nf-co.re/events/2022/hackathon-october-2022) beforehand.
 
 ## Call for abstracts
 
@@ -26,15 +26,15 @@ Speaking at the summit will primarily be in-person, but we welcome posters from 
 
 Registration for the event will happen separately, with key dates as follows (subject to change):
 
-* June 17th: Call for abstracts opens
-* July 1st: Registration opens
-* July 15th: Call for abstracts closes
-* July 29th: Accepted speakers notified
-* Sept 9th: Registration closes
-* Oct 10th - 12th Hackathon
-* Oct 12th - 14th Summit
+* Jun 17: Call for abstracts opens
+* July 1: Registration opens
+* July 15: Call for abstracts closes
+* July 29: Accepted speakers notified
+* Sept 9: Registration closes
+* Oct 10-12: Hackathon
+* Oct 12-14: Summit
 
-Nextflow Summit will start at 5pm CEST Wednesday October 12th and close at 1pm CEST Friday 14th May
+The Nextflow Summit will start Weds, Oct 12, 5:00 PM CEST and close Fri, Oct 14, 1:00 PM CEST.
 
 ## Travel bursaries
 
