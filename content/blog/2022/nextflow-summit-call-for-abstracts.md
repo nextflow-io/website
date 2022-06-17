@@ -9,7 +9,7 @@ author=Phil Ewels
 icon=phil.jpg
 ~~~~~~
 
-[As recently announced](https://twitter.com/nextflowio/status/1534903352810676224), we are super excited to host a new Nextflow community event late this year! ! The Nextflow Summit will take place **October 12-14, 2022** at the iconic Torre Glòries in Barcelona, with an associated [nf-core hackathon](https://nf-co.re/events/2022/hackathon-october-2022) beforehand.
+[As recently announced](https://twitter.com/nextflowio/status/1534903352810676224), we are super excited to host a new Nextflow community event late this year! The Nextflow Summit will take place **October 12-14, 2022** at the iconic Torre Glòries in Barcelona, with an associated [nf-core hackathon](https://nf-co.re/events/2022/hackathon-october-2022) beforehand.
 
 ## Call for abstracts
 
