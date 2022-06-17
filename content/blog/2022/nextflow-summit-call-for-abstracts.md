@@ -11,7 +11,7 @@ icon=phil.jpg
 
 [As recently announced](https://twitter.com/nextflowio/status/1534903352810676224), we are super excited to host a new Nextflow community event late this year! The Nextflow Summit will take place **October 12-14, 2022** at the iconic Torre Glòries in Barcelona, with an associated [nf-core hackathon](https://nf-co.re/events/2022/hackathon-october-2022) beforehand.
 
-## Call for abstracts
+### Call for abstracts
 
 Today we’re excited to open the call for abstracts! We’re looking for talks and posters about anything and everything happening in the Nextflow world. Specifically, we’re aiming to shape the program into four key areas:
 
@@ -22,7 +22,7 @@ Today we’re excited to open the call for abstracts! We’re looking for talks 
 
 Speaking at the summit will primarily be in-person, but we welcome posters from remote attendees. Posters will be submitted digitally and available online during and after the event. Talks will be streamed live and be available after the event.
 
-## Key dates
+### Key dates
 
 Registration for the event will happen separately, with key dates as follows (subject to change):
 
@@ -38,12 +38,12 @@ Abstracts will be read and speakers notified on a rolling basis, so apply soon!
 
 The Nextflow Summit will start Weds, Oct 12, 5:00 PM CEST and close Fri, Oct 14, 1:00 PM CEST.
 
-## Travel bursaries
+### Travel bursaries
 
 Thanks to funding from the Chan Zuckerberg Initiative [EOSS Diversity & Inclusion grant](https://chanzuckerberg.com/eoss/proposals/nextflow-and-nf-core/), we are offering 5 bursaries for travel and accommodation. These will only be available to those who have applied to present a talk or poster and will cover up to $1500 USD, plus registration costs.
 
 If you’re interested, please select this option when filling the abstracts application form and we will be in touch with more details.
 
-## Stay in the loop
+### Stay in the loop
 
 More information about the summit will be available soon, as we continue to plan the event. Please visit [https://summit.nextflow.io](https://summit.nextflow.io) for details and to sign up to the email list for event updates. We will be tweeting about the event using the [#NextflowSummit](http://twitter.com/hashtag/NextflowSummit) hashtag on Twitter. See you in Barcelona!
