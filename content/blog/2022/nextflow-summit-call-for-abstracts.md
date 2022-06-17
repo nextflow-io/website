@@ -22,6 +22,10 @@ Today we’re excited to open the call for abstracts! We’re looking for talks 
 
 Speaking at the summit will primarily be in-person, but we welcome posters from remote attendees. Posters will be submitted digitally and available online during and after the event. Talks will be streamed live and be available after the event.
 
+<p class="text-center" style="margin: 30px 0;">
+    <a href="https://seqera.typeform.com/summit-22-talks" target="_blank" class="btn btn-color btn-xxl">Apply for a talk or poster</a>
+</p>
+
 ### Key dates
 
 Registration for the event will happen separately, with key dates as follows (subject to change):
@@ -46,4 +50,10 @@ If you’re interested, please select this option when filling the abstracts app
 
 ### Stay in the loop
 
-More information about the summit will be available soon, as we continue to plan the event. Please visit [https://summit.nextflow.io](https://summit.nextflow.io) for details and to sign up to the email list for event updates. We will be tweeting about the event using the [#NextflowSummit](http://twitter.com/hashtag/NextflowSummit) hashtag on Twitter. See you in Barcelona!
+More information about the summit will be available soon, as we continue to plan the event. Please visit [https://summit.nextflow.io](https://summit.nextflow.io) for details and to sign up to the email list for event updates.
+
+<p class="text-center" style="margin: 30px 0;">
+    <a href="https://share.hsforms.com/1F2Q5F0hSSiyNfuKo6tt-lw3zq3j" target="_blank" class="btn btn-color btn-xxl">Subscribe for updates</a>
+</p>
+
+We will be tweeting about the event using the [#NextflowSummit](http://twitter.com/hashtag/NextflowSummit) hashtag on Twitter. See you in Barcelona!

@@ -1,7 +1,7 @@
 <#include "header.ftl">
 <#include "menu.ftl">
-	
-	
+
+
 	<!-- Body -->
 	<div class="wrapper"> <!-- wrapper -->
 	  <div class="container">
@@ -14,7 +14,7 @@
 	    <div class="row">
 		  <div class="col-sm-8">
 			<div class="timeline">
-			<#assign count = 0> 
+			<#assign count = 0>
 			<#list published_posts as post>
 			  <div class="blg-summary">
 			    <h3 ><a href="${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></h3>
@@ -36,21 +36,23 @@
 							<#assign MAX = 70>
 						<#elseif post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
 							<#assign MAX = 108>
+						<#elseif post.title == "Nextflow Summit 2022" >
+							<#assign MAX = 140>
 						<#else>
 							<#assign MAX = 150>
 						</#if>
 
 						<#assign words = post.body?word_list>
-						<#if words?size gt 150 > 
+						<#if words?size gt 150 >
 							<#assign body = words[0..MAX-1]?join(' ') >
-							${body} .. (<a href="${post.uri}">click here to read more</a>) 
+							${body} .. (<a href="${post.uri}">click here to read more</a>)
 						<#else>
 							<#assign body = words?join(' ') >
 							${body}
 						</#if>
 
 			    </p>
-			    
+
 			    <!--
 			    <p class="tags">
 				  <a href="#" class="background-color bg-hover-color">Bootstrap</a>
@@ -62,8 +64,8 @@
 			  </div>
             </#list>
 			</div>
-			
-		    <!-- Pagination 
+
+		    <!-- Pagination
 		    <ul class="pagination pull-right">
 			  <li class="disabled"><a href="#">&laquo;</a></li>
 			  <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
@@ -98,7 +100,7 @@
 				</a>
 			  </li>
 			</ul>
-	<!--		
+	<!--
 			<h3>Popular Stories</h3>
 			<hr>
 			<div class="block-inverse">
@@ -129,13 +131,13 @@
 			  <a href="#" class="background-color bg-hover-color">should</a>
 			  <a href="#" class="background-color bg-hover-color">like</a>
 			  <a href="#" class="background-color bg-hover-color">this</a>
-			</p>		
+			</p>
     -->
 		  </div>
 		</div>
 	  </div>
 	</div> <!-- / wrapper -->
-	
-	
+
+
 
 <#include "footer.ftl">
