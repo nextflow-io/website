@@ -37,7 +37,7 @@
 						<#elseif post.title == "Bringing Nextflow to Google Cloud Platform with WuXi NextCODE" >
 							<#assign MAX = 108>
 						<#elseif post.title == "Nextflow Summit 2022" >
-							<#assign MAX = 120>
+							<#assign MAX = 140>
 						<#else>
 							<#assign MAX = 150>
 						</#if>
