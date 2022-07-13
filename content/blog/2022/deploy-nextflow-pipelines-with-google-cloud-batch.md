@@ -71,8 +71,9 @@ Google Cloud Life Sciences users can easily migrate their pipelines to Google Cl
 
 For each setting having the prefix `google.lifeScience.`, there is a corresponding  `google.batch.` setting. Simply update these configuration settings to reflect the new service.
 
-
 The usual process directives such as: [cpus](https://www.nextflow.io/docs/latest/process.html#cpus), [memory](https://www.nextflow.io/docs/latest/process.html#memory), [time](https://www.nextflow.io/docs/latest/process.html#time), [machineType](https://www.nextflow.io/docs/latest/process.html#machinetype) are natively supported by Google Cloud Batch, and should not be modified. 
+
+Find out more details in the [Nextflow documentation](https://www.nextflow.io/docs/edge/google.html#cloud-batch).
 
 
 ### 100% Open, Built to Scale
