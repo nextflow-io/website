@@ -6,9 +6,70 @@
     <atom:link href="https://www.nextflow.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Blogging about Nextflow, computational pipelines and parallel programming</description>
     <language>en-gb</language>
-    <pubDate>Tue, 14 Jun 2022 15:50:52 +0000</pubDate>
-    <lastBuildDate>Tue, 14 Jun 2022 15:50:52 +0000</lastBuildDate>
+    <pubDate>Wed, 13 Jul 2022 17:03:02 +0000</pubDate>
+    <lastBuildDate>Wed, 13 Jul 2022 17:03:02 +0000</lastBuildDate>
 
+    <item>
+      <title>Deploy Nextflow Pipelines with Google Cloud Batch!</title>
+      <link>https://www.nextflow.io/blog/2022/deploy-nextflow-pipelines-with-google-cloud-batch.html</link>
+      <pubDate>Wed, 13 Jul 2022 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2022/deploy-nextflow-pipelines-with-google-cloud-batch.html</guid>
+      	<description>
+	&lt;p&gt;A key feature of Nextflow is the ability to abstract the implementation of data analysis pipelines so they can be deployed in a portable manner across execution platforms. &lt;/p&gt;&lt;p&gt;As of today, Nextflow supports a rich variety of HPC schedulers and all major cloud providers. Our goal is to support new services as they emerge to enable Nextflow users to take advantage of the latest technology and deploy pipelines on the compute environments that best fit their requirements. &lt;/p&gt;&lt;p&gt;For this reason, we are delighted to announce that Nextflow now supports &lt;a href=&quot;https://cloud.google.com/batch&quot;&gt;Google Cloud Batch&lt;/a&gt;, a new fully managed batch service just announced for beta availability by Google Cloud.&lt;/p&gt;&lt;h3&gt;A New On-Ramp to the Google Cloud&lt;/h3&gt;&lt;p&gt;Google Cloud Batch is a comprehensive cloud service suitable for multiple use cases, including HPC, AI/ML, and data processing. While it is similar to the Google Cloud Life Sciences API, used by many Nextflow users today, Google Cloud Batch offers a broader set of capabilities. As with Google Cloud Life Sciences, Google Cloud Batch automatically provisions resources, manages capacity, and allows batch workloads to run at scale. It offers several advantages, including:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The ability to re-use VMs across jobs steps to reduce overhead and boost performance.&lt;/li&gt;
+  &lt;li&gt;Granular control over task execution, compute, and storage resources.&lt;/li&gt;
+  &lt;li&gt;Infrastructure, application, and task-level logging.&lt;/li&gt;
+  &lt;li&gt;Improved task parallelization, including support for multi-node MPI jobs, with support for array jobs, and subtasks.&lt;/li&gt;
+  &lt;li&gt;Improved support for spot instances, which provides a significant cost saving when compared to regular instance.&lt;/li&gt;
+  &lt;li&gt;Streamlined data handling and provisioning.&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;A nice feature of Google Cloud Batch API, that fits nicely with Nextflow, is its built-in support for data ingestion from Google Cloud Storage buckets. A batch job can &lt;em&gt;mount&lt;/em&gt; a storage bucket and make it directly accessible to a container running a Nextflow task. This feature makes data ingestion and sharing resulting data sets more efficient and reliable than other solutions. &lt;/p&gt;&lt;h3&gt;Getting started with Google Cloud Batch&lt;/h3&gt;&lt;p&gt;Support for the Google Cloud Batch requires the latest release of Nextflow from the edge channel (version &lt;code&gt;22.07.1-edge&lt;/code&gt; or later). If you don&apos;t already have it, you can install this release using these commands:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;export NXF_EDGE=1 
+curl get.nextflow.io | bash
+./nextflow -self-update
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Make sure your Google account is allowed to access the Google Cloud Batch service by checking the &lt;a href=&quot;https://console.cloud.google.com/apis/dashboard&quot;&gt;API &amp;amp; Service&lt;/a&gt; dashboard. &lt;/p&gt;&lt;p&gt;Credentials for accessing the service are picked up by Nextflow from your environment using the usual &lt;a href=&quot;https://github.com/googleapis/google-auth-library-java#google-auth-library-oauth2-http&quot;&gt;Google Application Default Credentials&lt;/a&gt; mechanism. That is, either via the &lt;code&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/code&gt; environment variable, or by using the following command to set up the environment: &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;gcloud auth application-default login
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;After authenticating yourself to Google Cloud, create a &lt;code&gt;nextflow.config&lt;/code&gt; file and specify &lt;code&gt;google-batch&lt;/code&gt; as the Nextflow executor. You will also need to specify the Google Cloud project where execution will occur and the Google Cloud Storage working directory for pipeline execution. &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt;EOT &amp;gt; nextflow.config
+process.executor = &amp;#39;google-batch&amp;#39;
+workDir = &amp;#39;gs://YOUR-GOOGLE-BUCKET/scratch&amp;#39;
+google.project = &amp;#39;YOUR GOOGLE PROJECT ID&amp;#39;
+EOT
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the above snippet replace &lt;code&gt;&amp;lt;YOUR_GOOGLE_BUCKET&amp;gt;&lt;/code&gt; with a Google Storage bucket of your choice where to store the pipeline output data and &lt;code&gt;&amp;lt;YOUR_GOOGLE_PROJECT_ID&amp;gt;&lt;/code&gt; with your Google project Id where the computation will be deployed. &lt;/p&gt;&lt;p&gt;With this information, you are ready to start. You can verify that the integration is working by running the Nextflow “hello” pipeline as shown below:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;nextflow run https://github.com/nextflow-io/hello
+&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;Migrating Google Cloud Life Sciences pipelines to Google Cloud Batch&lt;/h3&gt;&lt;p&gt;Google Cloud Life Sciences users can easily migrate their pipelines to Google Cloud Batch by making just a few edits to their pipeline configuration settings. Simply replace the &lt;code&gt;google-lifesciences&lt;/code&gt; executor with &lt;code&gt;google-batch&lt;/code&gt;. &lt;/p&gt;&lt;p&gt;For each setting having the prefix &lt;code&gt;google.lifeScience.&lt;/code&gt;, there is a corresponding &lt;code&gt;google.batch.&lt;/code&gt; setting. Simply update these configuration settings to reflect the new service.&lt;/p&gt;&lt;p&gt;The usual process directives such as: &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#cpus&quot;&gt;cpus&lt;/a&gt;, &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#memory&quot;&gt;memory&lt;/a&gt;, &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#time&quot;&gt;time&lt;/a&gt;, &lt;a href=&quot;https://www.nextflow.io/docs/latest/process.html#machinetype&quot;&gt;machineType&lt;/a&gt; are natively supported by Google Cloud Batch, and should not be modified. &lt;/p&gt;&lt;h3&gt;100% Open, Built to Scale&lt;/h3&gt;&lt;p&gt;The Google Cloud Batch executor for Nextflow is offered as an open source contribution to the Nextflow project. The integration was developed by Google in collaboration with &lt;a href=&quot;https://seqera.io/&quot;&gt;Seqera Labs&lt;/a&gt;. This is a validation of Google Cloud’s ongoing commitment to open source software (OSS) and a testament to the health and vibrancy of the Nextflow project. We wish to thank the entire Google Cloud Batch team, and Shamel Jacobs in particular, for their support of this effort. &lt;/p&gt;&lt;h3&gt;Conclusion&lt;/h3&gt;&lt;p&gt;Support for Google Cloud Batch further expands the wide range of computing platforms supported by Nextflow. It empowers Nextflow users to easily access cost-effective resources, and take full advantage of the rich capabilities of the Google Cloud. Above all, it enables researchers to easily scale and collaborate, improving their productivity, and resulting in better research outcomes.&lt;/p&gt;
+	</description>
+    </item>
+    <item>
+      <title>Nextflow Summit 2022</title>
+      <link>https://www.nextflow.io/blog/2022/nextflow-summit-call-for-abstracts.html</link>
+      <pubDate>Fri, 17 Jun 2022 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">blog/2022/nextflow-summit-call-for-abstracts.html</guid>
+      	<description>
+	&lt;p&gt;&lt;a href=&quot;https://twitter.com/nextflowio/status/1534903352810676224&quot;&gt;As recently announced&lt;/a&gt;, we are super excited to host a new Nextflow community event late this year! The Nextflow Summit will take place &lt;strong&gt;October 12-14, 2022&lt;/strong&gt; at the iconic Torre Glòries in Barcelona, with an associated &lt;a href=&quot;https://nf-co.re/events/2022/hackathon-october-2022&quot;&gt;nf-core hackathon&lt;/a&gt; beforehand.&lt;/p&gt;&lt;h3&gt;Call for abstracts&lt;/h3&gt;&lt;p&gt;Today we’re excited to open the call for abstracts! We’re looking for talks and posters about anything and everything happening in the Nextflow world. Specifically, we’re aiming to shape the program into four key areas:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Nextflow: central tool / language / plugins&lt;/li&gt;
+  &lt;li&gt;Community: pipelines / applications / use cases&lt;/li&gt;
+  &lt;li&gt;Ecosystem: infrastructure / environments&lt;/li&gt;
+  &lt;li&gt;Software: containers / tool packaging&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Speaking at the summit will primarily be in-person, but we welcome posters from remote attendees. Posters will be submitted digitally and available online during and after the event. Talks will be streamed live and be available after the event.&lt;/p&gt;
+&lt;p class=&quot;text-center&quot; style=&quot;margin: 30px 0;&quot;&gt;
+    &lt;a href=&quot;https://seqera.typeform.com/summit-22-talks&quot; target=&quot;_blank&quot; class=&quot;btn btn-color btn-xxl&quot;&gt;Apply for a talk or poster&lt;/a&gt;
+&lt;/p&gt;&lt;h3&gt;Key dates&lt;/h3&gt;&lt;p&gt;Registration for the event will happen separately, with key dates as follows (subject to change):&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Jun 17: Call for abstracts opens&lt;/li&gt;
+  &lt;li&gt;July 1: Registration opens&lt;/li&gt;
+  &lt;li&gt;July 22: Call for abstracts closes&lt;/li&gt;
+  &lt;li&gt;July 29: Accepted speakers notified&lt;/li&gt;
+  &lt;li&gt;Sept 9: Registration closes&lt;/li&gt;
+  &lt;li&gt;Oct 10-12: Hackathon&lt;/li&gt;
+  &lt;li&gt;Oct 12-14: Summit&lt;/li&gt;
+&lt;/ul&gt;&lt;p&gt;Abstracts will be read and speakers notified on a rolling basis, so apply soon!&lt;/p&gt;&lt;p&gt;The Nextflow Summit will start Weds, Oct 12, 5:00 PM CEST and close Fri, Oct 14, 1:00 PM CEST.&lt;/p&gt;&lt;h3&gt;Travel bursaries&lt;/h3&gt;&lt;p&gt;Thanks to funding from the Chan Zuckerberg Initiative &lt;a href=&quot;https://chanzuckerberg.com/eoss/proposals/nextflow-and-nf-core/&quot;&gt;EOSS Diversity &amp;amp; Inclusion grant&lt;/a&gt;, we are offering 5 bursaries for travel and accommodation. These will only be available to those who have applied to present a talk or poster and will cover up to $1500 USD, plus registration costs.&lt;/p&gt;&lt;p&gt;If you’re interested, please select this option when filling the abstracts application form and we will be in touch with more details.&lt;/p&gt;&lt;h3&gt;Stay in the loop&lt;/h3&gt;&lt;p&gt;More information about the summit will be available soon, as we continue to plan the event. Please visit &lt;a href=&quot;https://summit.nextflow.io&quot;&gt;https://summit.nextflow.io&lt;/a&gt; for details and to sign up to the email list for event updates.&lt;/p&gt;
+&lt;p class=&quot;text-center&quot; style=&quot;margin: 30px 0;&quot;&gt;
+    &lt;a href=&quot;https://share.hsforms.com/1F2Q5F0hSSiyNfuKo6tt-lw3zq3j&quot; target=&quot;_blank&quot; class=&quot;btn btn-color btn-xxl&quot;&gt;Subscribe for updates&lt;/a&gt;
+&lt;/p&gt;&lt;p&gt;We will be tweeting about the event using the &lt;a href=&quot;http://twitter.com/hashtag/NextflowSummit&quot;&gt;#NextflowSummit&lt;/a&gt; hashtag on Twitter. See you in Barcelona!&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Evolution of the Nextflow runtime</title>
       <link>https://www.nextflow.io/blog/2022/evolution-of-nextflow-runtime.html</link>
