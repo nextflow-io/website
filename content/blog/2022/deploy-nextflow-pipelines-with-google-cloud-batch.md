@@ -1,5 +1,5 @@
 title=Deploy Nextflow Pipelines with Google Cloud Batch!
-date=2022-07-12
+date=2022-07-13
 type=post
 description=Deploy Nextflow pipelines at scale with new the Google Cloud Batch compute service.
 image=img/google_cloud_batch_nextflow-min.png
@@ -30,7 +30,7 @@ A nice feature of Google Cloud Batch API, that fits nicely with Nextflow, is its
 
 ### Getting started with Google Cloud Batch
 
-Support for the Google Cloud Batch requires the latest release of Nextflow from the edge channel (version `22.07.0-edge` or later). If you don't already have it, you can install this release using these commands:
+Support for the Google Cloud Batch requires the latest release of Nextflow from the edge channel (version `22.07.1-edge` or later). If you don't already have it, you can install this release using these commands:
 
 ```
 export NXF_EDGE=1 
