@@ -2,6 +2,13 @@
     <hr>
     <div class="container">
         <footer>
+            <ul class="list-inline pull-right">
+                <li style="position: relative; top: 5px">
+                    <a href="https://seqera.io" target="_blank" title="Developed by Seqera Labs" >
+                        <img src="/img/seqera-logo-wide.png" alt="Seqera Labs"  width="180" height="28">
+                    </a>
+                </li>
+            </ul>
             <ul class="list-inline pull-left">
                 <li style="position: relative; top: 5px">
                     <a href="https://twitter.com/nextflowio" class="twitter-follow-button" data-show-count="false" >Follow @nextflowio</a>
