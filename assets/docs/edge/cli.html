@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 22.07.1-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 22.09.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -1022,15 +1022,19 @@ file (must end with <code class="docutils literal notranslate"><span class="pre"
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-docker</p></td>
+<tr class="row-odd"><td><p>-without-conda</p></td>
+<td><p>false</p></td>
+<td><p>Disable process execution with Conda.</p></td>
+</tr>
+<tr class="row-even"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-podman</p></td>
+<tr class="row-odd"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-w, -work-dir</p></td>
+<tr class="row-even"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>
@@ -1592,18 +1596,21 @@ For downloading a pipeline into the global cache <code class="docutils literal n
 
 == content of file: .nextflow/assets/nextflow-io/hello/main.nf
 #!/usr/bin/env nextflow
-
-cheers = Channel.from &#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;
+nextflow.enable.dsl=2
 
 process sayHello {
-  debug true
   input:
-    val x from cheers
-
+    val x
+  output:
+    stdout
   script:
     &quot;&quot;&quot;
     echo &#39;$x world!&#39;
     &quot;&quot;&quot;
+}
+
+workflow {
+  Channel.of(&#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;) | sayHello | view
 }
 </pre></div>
 </div>
@@ -1626,18 +1633,21 @@ main.nf
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow view -q nextflow-io/hello
 
 #!/usr/bin/env nextflow
-
-cheers = Channel.from &#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;
+nextflow.enable.dsl=2
 
 process sayHello {
-  debug true
   input:
-    val x from cheers
-
+    val x
+  output:
+    stdout
   script:
     &quot;&quot;&quot;
     echo &#39;$x world!&#39;
     &quot;&quot;&quot;
+}
+
+workflow {
+  Channel.of(&#39;Bonjour&#39;, &#39;Ciao&#39;, &#39;Hello&#39;, &#39;Hola&#39;) | sayHello | view
 }
 </pre></div>
 </div>
@@ -1699,13 +1709,13 @@ the glob characters. For example:</p>
       });
   </script>
     <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-364526-10', {
+      gtag('config', 'G-244N3GEN75', {
           'anonymize_ip': false,
       });
     </script> 

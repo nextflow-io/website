@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plugins &mdash; Nextflow 22.07.1-edge documentation</title>
+  <title>Plugins &mdash; Nextflow 22.09.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -68,6 +68,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#index">Index</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#import-operators-from-plugin">Import operators from plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-custom-functions-from-plugin">Import custom functions from plugin</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
@@ -162,6 +163,28 @@ the <code class="docutils literal notranslate"><span class="pre">selectFromTable
 <p>The prefix <code class="docutils literal notranslate"><span class="pre">plugin/</span></code> must precede the plugin name in the include <code class="docutils literal notranslate"><span class="pre">from</span></code> statement.</p>
 </div>
 </section>
+<section id="import-custom-functions-from-plugin">
+<h2>Import custom functions from plugin<a class="headerlink" href="#import-custom-functions-from-plugin" title="Permalink to this headline"></a></h2>
+<p>In the same way, as of version <cite>22.09.x</cite>, a plugin can export custom functions.</p>
+<p>For example, a plugin can export a util function to reverse a String:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@nextflow</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">extension</span><span class="o">.</span><span class="n">Function</span>
+<span class="n">String</span> <span class="n">reverseString</span><span class="p">(</span> <span class="n">String</span> <span class="n">origin</span> <span class="p">){</span>
+     <span class="n">origin</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And this function can be used by the pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">reverseString</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;plugin/my-plugin&#39;</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="n">reverseString</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The above snipped includes a function from the plugin and allows the channel to call it directly.</p>
+<p>In the same way as operators, functions can be aliased:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">reverseString</span> <span class="k">as</span> <span class="n">anotherReverseMethod</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;plugin/my-plugin&#39;</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -194,13 +217,13 @@ the <code class="docutils literal notranslate"><span class="pre">selectFromTable
       });
   </script>
     <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-364526-10', {
+      gtag('config', 'G-244N3GEN75', {
           'anonymize_ip': false,
       });
     </script> 

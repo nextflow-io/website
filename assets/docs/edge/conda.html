@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conda environments &mdash; Nextflow 22.07.1-edge documentation</title>
+  <title>Conda environments &mdash; Nextflow 22.09.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -54,10 +54,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Conda environments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#use-mamba-to-resolve-packages">Use Mamba to resolve packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-conda-environment">Enabling Conda environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-conda-package-names">Use Conda package names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-conda-environment-files">Use Conda environment files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-existing-conda-environments">Use existing Conda environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-mamba-to-resolve-packages">Use Mamba to resolve packages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best practices</a></li>
@@ -139,13 +140,16 @@ accessible from all compute nodes.</p>
 <p>The Conda environment feature is not supported by executors that use
 remote object storage as a work directory e.g. AWS Batch.</p>
 </div>
-<section id="use-mamba-to-resolve-packages">
-<h3>Use Mamba to resolve packages<a class="headerlink" href="#use-mamba-to-resolve-packages" title="Permalink to this headline"></a></h3>
-<p>It is also possible to use <a class="reference external" href="https://github.com/mamba-org/mamba">mamba</a> to speed up the creation of conda environments. For more information on how to enable this feature please refer to <a class="reference internal" href="config.html#config-conda"><span class="std std-ref">Conda</span></a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This feature is experimental and may change in a future release.</p>
+<section id="enabling-conda-environment">
+<h3>Enabling Conda environment<a class="headerlink" href="#enabling-conda-environment" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.08.0-edge</span></code> the use Conda recipes specified using the <a class="reference internal" href="process.html#process-conda"><span class="std std-ref">conda</span></a>
+directive needs to be enabled explicitly by setting the option shown below in the pipeline
+configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
 </div>
+<p>Alternatively it can be specified by setting the variable <code class="docutils literal notranslate"><span class="pre">NXF_CONDA_ENABLED=true</span></code> in your environment
+or by using the <code class="docutils literal notranslate"><span class="pre">-with-conda</span> <span class="pre">true</span></code> command line option.</p>
 </section>
 <section id="use-conda-package-names">
 <h3>Use Conda package names<a class="headerlink" href="#use-conda-package-names" title="Permalink to this headline"></a></h3>
@@ -223,6 +227,14 @@ installation directory of such environment by using the <code class="docutils li
 </pre></div>
 </div>
 </section>
+<section id="use-mamba-to-resolve-packages">
+<h3>Use Mamba to resolve packages<a class="headerlink" href="#use-mamba-to-resolve-packages" title="Permalink to this headline"></a></h3>
+<p>It is also possible to use <a class="reference external" href="https://github.com/mamba-org/mamba">mamba</a> to speed up the creation of conda environments. For more information on how to enable this feature please refer to <a class="reference internal" href="config.html#config-conda"><span class="std std-ref">Conda</span></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and may change in a future release.</p>
+</div>
+</section>
 </section>
 <section id="best-practices">
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline"></a></h2>
@@ -281,13 +293,13 @@ recommended to allow the execution via a command line option and to enhance the 
       });
   </script>
     <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-364526-10', {
+      gtag('config', 'G-244N3GEN75', {
           'anonymize_ip': false,
       });
     </script> 

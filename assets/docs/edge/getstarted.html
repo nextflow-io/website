@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Get started &mdash; Nextflow 22.07.1-edge documentation</title>
+  <title>Get started &mdash; Nextflow 22.09.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -174,10 +174,7 @@ use most recent updates and experimental features.</p>
 <section id="your-first-script">
 <span id="getstarted-first"></span><h2>Your first script<a class="headerlink" href="#your-first-script" title="Permalink to this headline"></a></h2>
 <p>Copy the following example into your favourite text editor and save it to a file named <code class="docutils literal notranslate"><span class="pre">tutorial.nf</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env nextflow</span>
-<span class="n">nextflow</span><span class="o">.</span><span class="n">enable</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-
-<span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="n">str</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
 
 <span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
   <span class="n">output</span><span class="p">:</span>
@@ -190,7 +187,7 @@ use most recent updates and experimental features.</p>
 
 <span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">x</span>
+    <span class="n">path</span> <span class="n">x</span>
   <span class="n">output</span><span class="p">:</span>
     <span class="n">stdout</span>
 
@@ -244,15 +241,14 @@ will be skipped and the cached result used instead.</p>
 <p>For the sake of this tutorial, modify the <code class="docutils literal notranslate"><span class="pre">convertToUpper</span></code> process in the previous example, replacing the
 process script with the string <code class="docutils literal notranslate"><span class="pre">rev</span> <span class="pre">$x</span></code>, so that the process looks like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">convertToUpper</span> <span class="p">{</span>
-    <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">letters</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">path</span> <span class="n">x</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span>
 
-    <span class="n">output</span><span class="p">:</span>
-    <span class="n">stdout</span> <span class="n">result</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    rev $x</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  rev $x</span>
+<span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -339,13 +335,13 @@ If you want to have a parameter name that contains a <code class="docutils liter
       });
   </script>
     <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-364526-10', {
+      gtag('config', 'G-244N3GEN75', {
           'anonymize_ip': false,
       });
     </script> 

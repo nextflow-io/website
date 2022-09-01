@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Cloud &mdash; Nextflow 22.07.1-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 22.09.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -69,8 +69,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#cloud-life-sciences">Cloud Life Sciences</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#google-lifesciences-config">Configuration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">Process definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Process definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#preemptible-instances">Preemptible instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#quotas">Quotas</a></li>
@@ -176,10 +176,10 @@ installed make sure to update to the latest <cite>edge</cite> release using thes
 <span id="google-batch-config"></span><h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h3>
 <p>Make sure to have defined in your environment the <code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code> variable.
 See the section <a class="reference internal" href="#credentials">Credentials</a> for details.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>Make sure your Google account is allowed to access the Google Cloud Batch service by checking
-the <a class="reference external" href="https://console.cloud.google.com/apis/dashboard">API &amp; Service</a> dashboard.</p>
+the <a class="reference external" href="https://console.cloud.google.com/apis/dashboard">APIs &amp; Services</a> dashboard.</p>
 </div>
 <p>Create or edit the file <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> in your project root directory. The config must specify the following parameters:</p>
 <ul class="simple">
@@ -200,9 +200,15 @@ the <a class="reference external" href="https://console.cloud.google.com/apis/da
 <span class="p">}</span>
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure to specify in the above setting the project ID not the project name.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to specify the project ID, not the project name.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure to specify a location where Google Batch is available. Refer to the
+<a class="reference external" href="https://cloud.google.com/batch/docs/get-started#locations">Google Batch documentation</a>
+for region availability.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -229,6 +235,12 @@ each process using one or more <a class="reference internal" href="config.html#c
 </tr>
 <tr class="row-even"><td><p>google.enableRequesterPaysBuckets</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> uses the configured Google project id as the billing project for storage access. This is required when accessing data from <em>requester pays enabled</em> buckets. See <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">Requester Pays on Google Cloud Storage documentation</a> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>google.batch.bootDiskSize</p></td>
+<td><p>Set the size of the virtual machine boot disk, e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.batch.cpuPlatform</p></td>
+<td><p>Set the minimum CPU Platform, e.g. <code class="docutils literal notranslate"><span class="pre">'Intel</span> <span class="pre">Skylake'</span></code>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p></td>
 </tr>
 <tr class="row-odd"><td><p>google.batch.spot</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>spot</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
@@ -307,8 +319,8 @@ pipeline work bucket. Use this feature with caution being careful to avoid unnec
 to add the following retry strategy to your config file to instruct Nextflow to automatically re-execute a job
 if the virtual machine was terminated preemptively:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>process {
-  errorStrategy = { task.exitStatus==14 ? &#39;retry&#39; : &#39;terminate&#39; }
-  maxRetries = 5
+    errorStrategy = { task.exitStatus==14 ? &#39;retry&#39; : &#39;terminate&#39; }
+    maxRetries = 5
 }
 </pre></div>
 </div>
@@ -318,13 +330,15 @@ if the virtual machine was terminated preemptively:</p>
 <p>The integration with Google Batch is a developer preview feature. Currently the following Nextflow directives are
 supported:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-containeroptions"><span class="std std-ref">containerOptions</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-machinetype"><span class="std std-ref">machineType</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-executor"><span class="std std-ref">executor</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-machinetype"><span class="std std-ref">machineType</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
 </ul>
 </section>
 </section>
@@ -422,17 +436,17 @@ each process using one or more <a class="reference internal" href="config.html#c
 <tr class="row-even"><td><p>google.enableRequesterPaysBuckets</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> uses the configured Google project id as the billing project for storage access. This is required when accessing data from <em>requester pays enabled</em> buckets. See <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">Requester Pays on Google Cloud Storage documentation</a> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.lifeSciences.cpuPlatform</p></td>
-<td><p>Set the minimum CPU Platform e.g. <cite>‘Intel Skylake’</cite>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p></td>
+<tr class="row-odd"><td><p>google.lifeSciences.bootDiskSize</p></td>
+<td><p>Set the size of the virtual machine boot disk e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p></td>
 </tr>
-<tr class="row-even"><td><p>google.lifeSciences.bootDiskSize</p></td>
-<td><p>Set the size of the virtual machine boot disk e.g <cite>50.GB</cite> (default: none).</p></td>
-</tr>
-<tr class="row-odd"><td><p>google.lifeSciences.copyImage</p></td>
+<tr class="row-even"><td><p>google.lifeSciences.copyImage</p></td>
 <td><p>The container image run to copy input and output files. It must include the <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> tool (default: <code class="docutils literal notranslate"><span class="pre">google/cloud-sdk:alpine</span></code>).</p></td>
 </tr>
+<tr class="row-odd"><td><p>google.lifeSciences.cpuPlatform</p></td>
+<td><p>Set the minimum CPU Platform e.g. <code class="docutils literal notranslate"><span class="pre">'Intel</span> <span class="pre">Skylake'</span></code>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p></td>
+</tr>
 <tr class="row-even"><td><p>google.lifeSciences.debug</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> copies the <cite>/google</cite> debug directory in that task bucket directory (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> copies the <code class="docutils literal notranslate"><span class="pre">/google</span></code> debug directory in that task bucket directory (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p>google.lifeSciences.preemptible</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>preemptible</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
@@ -476,8 +490,8 @@ each process using one or more <a class="reference internal" href="config.html#c
 </tbody>
 </table>
 </section>
-<section id="id7">
-<h3>Process definition<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<section id="id8">
+<h3>Process definition<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to instantiate a custom
 machine type with the specified compute resources.  If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.
 A persistent disk will be created with size corresponding to the <code class="docutils literal notranslate"><span class="pre">disk</span></code> directive.  If <code class="docutils literal notranslate"><span class="pre">disk</span></code> is not specified, the
@@ -511,8 +525,8 @@ instances may be utilized using the <code class="docutils literal notranslate"><
 <p>This feature requires Nextflow 19.07.0 or later.</p>
 </div>
 </section>
-<section id="id10">
-<h3>Pipeline execution<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<section id="id11">
+<h3>Pipeline execution<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
 <p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
 locally or in a Google Storage bucket.</p>
 <p>The pipeline execution must specify a Google Storage bucket where the workflow’s intermediate results are stored using
@@ -648,13 +662,13 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
       });
   </script>
     <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-364526-10"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'UA-364526-10', {
+      gtag('config', 'G-244N3GEN75', {
           'anonymize_ip': false,
       });
     </script> 
