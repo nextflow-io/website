@@ -17,6 +17,10 @@ Many tools have sprung up to make the command-line more user friendly, such as t
 
 Fig is compatible with most terminals, shells and IDEs (such as the VSCode terminal), is fully supported in MacOS, and has beta support for Linux and Windows. In MacOS, you can simply install it with `brew install --cask fig`.
 
+<video controls="controls" width="800" height="600" name="Video Name">
+  <source src="/img/video.mp4">
+</video>
+
 We have now added Nextflow for Fig. Thanks to Figs open source core we were able to contribute specifications in Typescript that will now be automatically added for anyone installing or updating Fig. Now, with Fig, when you start typing your Nextflow commands, you’ll see autocomplete suggestions based on what you are typing and what you have typed in the past, such as your favorite options.
 
 ![https://xkcd.com/1168/](/img/demo1.gif)
