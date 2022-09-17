@@ -18,18 +18,18 @@ Many tools have sprung up to make the command-line more user friendly, such as t
 Fig is compatible with most terminals, shells and IDEs (such as the VSCode terminal), is fully supported in MacOS, and has beta support for Linux and Windows. In MacOS, you can simply install it with `brew install --cask fig`.
 
 <video controls="controls" width="800" height="600" name="Video Name">
-  <source src="/img/video.mp4">
+  <source src="/img/fig-demo.mp4">
 </video>
 
 We have now added Nextflow for Fig. Thanks to Figs open source core we were able to contribute specifications in Typescript that will now be automatically added for anyone installing or updating Fig. Now, with Fig, when you start typing your Nextflow commands, you’ll see autocomplete suggestions based on what you are typing and what you have typed in the past, such as your favorite options.
 
-![https://xkcd.com/1168/](/img/demo1.gif)
+![https://xkcd.com/1168/](/img/nxf-log-list-params.gif)
 
 The Fig autocomplete functionality can also be adjusted to suit our preferences. Suggestions can be displayed in alphabetical order or as a list of your most recent commands. Similarly,  suggestions can be displayed all the time or only when you press tab.
 
 The Fig specification that we've written not only suggests commands and options, but dynamic inputs too. For example, finding previous run names when resuming or cleaning runs is tedious and error prone. Similarly, pipelines that you’ve already downloaded with `nextflow pull` will be autocompleted if they have been run in the past. You won't have to remember the full names anymore, as Fig generators in the autocomplete allow you to automatically complete the run name after typing a few letters where a run name is expected. Importantly, this also works for pipeline names!
 
-![https://xkcd.com/1168/](/img/demo2.gif)
+![https://xkcd.com/1168/](/img/nxf-pull-run-clean-view-config.gif)
 
 Fig for Nextflow will make you increase your productivity regardless of your user level. If you run multiple pipelines during your day you will immediately see the benefit of Fig. Your productivity will increase by taking advantage of this autocomplete function for run and project names. For Nextflow newcomers it will provide an intuitive way to explore the Nextflow CLI with built-in help text.
 
