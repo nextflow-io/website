@@ -70,7 +70,7 @@ Working with Alison, Kalayanee learned about Nextflow and nf-core and the requir
 
 For the mentoring program Edward’s goal was to understand the fundamental components of a Nextflow script and write a Nextflow pipeline for analyzing mosquito genomes. Edward was mentored by Emilio Garcia-Rios, from the EMBL-EBI in the United Kingdom.
 
-Edward learned the fundamental concepts of Nextflow, including channels, processes and operators. Edward works with sequencing data from the mosquito genome - with help from Emilio he wrote a Nextflow pipeline with an accompanying Dockerfile for the alignment of reads and genotyping of SNPs. Emilio will continue to develop his pipeline and wants to become more involved with the Nextflow and nf-core community by attending the nf-core hackathons. Edward is also very keen to help others learn Nextflow and expressed an interest in being part of this program again as a mentor.
+Edward learned the fundamental concepts of Nextflow, including channels, processes and operators. Edward works with sequencing data from the mosquito genome - with help from Emilio he wrote a Nextflow pipeline with an accompanying Dockerfile for the alignment of reads and genotyping of SNPs. Edward will continue to develop his pipeline and wants to become more involved with the Nextflow and nf-core community by attending the nf-core hackathons. Edward is also very keen to help others learn Nextflow and expressed an interest in being part of this program again as a mentor.
 
 <blockquote>
     <em>"Learning Nextflow can be a steep curve. Having a partner to give you a little push might be what facilitates adoption of Nextflow into your daily routine."</em> - Edward Lukyamuzi (mentee)
