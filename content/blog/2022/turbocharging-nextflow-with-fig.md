@@ -1,5 +1,5 @@
 title=Turbo-charging the Nextflow command line with Fig!
-date=2022-09-19
+date=2022-09-21
 type=post
 description=Powerful autocomplete for Nextflow in your command line interface with Fig.
 image=img/turbocharging_nextflow_with_fig.jpg
