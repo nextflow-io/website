@@ -15,7 +15,7 @@ Nextflow is a powerful workflow manager that supports multiple container technol
 
 Many tools have sprung up to make the command-line more user friendly, such as tldr pages and rich-click. [Fig](https://fig.io) is one such tool that adds powerful autocomplete functionality to your terminal. Fig gives you graphical popups with color-coded contexts more dynamic than shaded text for recent commands or long blocks of text after pressing tab.
 
-Fig is compatible with most terminals, shells and IDEs (such as the VSCode terminal), is fully supported in MacOS, and has beta support for Linux and Windows. In MacOS, you can simply install it with `brew install --cask fig`.
+Fig is compatible with most terminals, shells and IDEs (such as the VSCode terminal), is fully supported in MacOS, and has beta support for Linux and Windows. In MacOS, you can simply install it with `brew install --cask fig` and then running the `fig` command to set it up.
 
 <video controls="controls" width="800" height="600" name="Video Name">
   <source src="/img/fig-demo.mp4">
