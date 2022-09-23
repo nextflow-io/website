@@ -18,7 +18,7 @@ TODO: Add mermaid diagram to explain dependencies
 - Java-11
 - Docker
 
-Here's the `nextflow` setup I relied upon
+Here's the `nextflow` setup used in the post
 
 ```
 +  >_ nextflow info
@@ -32,14 +32,22 @@ Here's the `nextflow` setup I relied upon
 
 ### Local setup for the test
 
+We clone the standard proof-of-concept rnaseq-nf pipeline locally, so that we can introduce a change and understand it's effect on cacheing behavior of subsequent runs.
+
 ```
 +  >_ git clone https://github.com/nextflow-io/rnaseq-nf
 +  >_ cd rnaseq-nf
 ```
 
+### Dataflow in rnaseq-nf
+
+FIXME: Add  the mermaid diagram and explain
+
 ### Logs from initial base run
 
-`base_run.log`
+To analyze the logs for a subsequent run, we need to have the initial hashes (`base_run.log`) which we would use later on as "ground-truth".
+
+**TIP:** We rely upon the [`-log` option](https://www.nextflow.io/docs/latest/cli.html#execution-logs) in the `nextflow` CLI to use a custom log file name instead of the default `.nextflow.log`.
 
 ```
 +  >_ nextflow -log base_run.log run ./main.nf -profile docker -dump-hashes
@@ -58,6 +66,8 @@ process > MULTIQC                                 [100%] 1 of 1 ✔
 
 ### Introduce a change within the `modules/fastqc.nf`
 
+After the initial run of the pipeline, we introduce a change in the 
+
 ```diff
 diff --git a/modules/fastqc.nf b/modules/fastqc.nf
 index 571519b..afc19cc 100644
@@ -68,7 +78,7 @@ index 571519b..afc19cc 100644
      script:
      """
 -    fastqc.sh "$sample_id" "$reads"
-+    fastqc.sh "$sample_id" "$reads" $task.cpus
++    fastqc.sh "$sample_id" "$reads" 4
      """
  }
 
@@ -186,9 +196,9 @@ When we compare these to those in the `resumed_run.log`, we see the following di
 -   43e5a23fc27129f92a6c010823d8909b [java.lang.String] """
 -     fastqc.sh "$sample_id" "$reads"
 +   ce7882599c370487014c1a2d8fea0e83 [java.lang.String] """
-+     fastqc.sh "$sample_id" "$reads" $task.cpus
++     fastqc.sh "$sample_id" "$reads" 4
 15a15
-+   192fa17dc8adc8300832ec8c9b257b8f [java.util.HashMap$EntrySet] [task.cpus=null] 
++   192fa17dc8adc8300832ec8c9b257b8f [java.util.HashMap$EntrySet] [task.cpus=4] 
 18d17
 
 ```
@@ -196,7 +206,7 @@ When we compare these to those in the `resumed_run.log`, we see the following di
 **Inferences**
 
 - From the hash entries we can see that the content of the script has changed, `$task.cpus` has been added
-- This caused another entry in the `resumed_run.log` regarding the content off the process level directive `cpus` - in this example, `null` as we didn't specify that anywhere in the process or config.
+- This caused another entry in the `resumed_run.log` regarding the content of the process level directive `cpus` - in this example, `4` as we hard-coded the number of CPUs in the script section.
 
 - `MULTIQC`
 
