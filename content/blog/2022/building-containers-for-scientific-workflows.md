@@ -1,5 +1,5 @@
 title= Building Containers for Scientific Workflows
-date=2022-08-28
+date=2022-10-20
 type=post
 description= Follow our step-by-step guide and learn how to build and deploy your own scientific containers with Nextflow.
 image=img/inside-scientific-containers.jpg
