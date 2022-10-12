@@ -34,13 +34,13 @@ The registry where images are stored can be specified in the Nextflow config fil
 
 ## Nextflow, Wave, and Conda – a match made in heaven
 
-Conda is an excellent package manager, fully [supported in Nextflow](https://www.nextflow.io/blog/2018/conda-support-has-landed.html) as an alternative to using containers to manage software dependencies in pipelines. However, until now, Conda could not be easily used in cloud-native computing platforms such as AWS Batch or Kubernetes.
+[Conda](https://conda.io/) is an excellent package manager, fully [supported in Nextflow](https://www.nextflow.io/blog/2018/conda-support-has-landed.html) as an alternative to using containers to manage software dependencies in pipelines. However, until now, Conda could not be easily used in cloud-native computing platforms such as AWS Batch or Kubernetes.
 
-Wave provides developers with a powerful new way to leverage Conda in Nextflow by using a [conda](https://docs.conda.io/en/latest/) directive as an alternative way to provision containers in their pipelines. When Wave encounters the `conda` directive in a process definition, and no container or Dockerfile is present, Wave automatically builds a container based on the Conda recipe using the strategy described above. Wave makes this process exceptionally fast (at least compared to vanilla Conda) by leveraging with the [Micromamba](https://github.com/mamba-org/mamba) project under the hood.    
+Wave provides developers with a powerful new way to leverage Conda in Nextflow by using a [conda](https://www.nextflow.io/docs/latest/process.html#conda) directive as an alternative way to provision containers in their pipelines. When Wave encounters the `conda` directive in a process definition, and no container or Dockerfile is present, Wave automatically builds a container based on the Conda recipe using the strategy described above. Wave makes this process exceptionally fast (at least compared to vanilla Conda) by leveraging with the [Micromamba](https://github.com/mamba-org/mamba) project under the hood.    
 
 ## Support for private registries
 
-A long-standing problem with containers in Nextflow was the lack of support for private [container registries](https://github.com/nextflow-io/nextflow/issues/45). Wave solves this problem by acting as an authentication proxy between the Docker client requesting the container and a target container repository. Wave relies on Nextflow Tower to authenticate user requests to container registries.
+A long-standing problem with containers in Nextflow was the lack of support for private container registries. Wave solves this problem by acting as an authentication proxy between the Docker client requesting the container and a target container repository. Wave relies on [Nextflow Tower](https://seqera.io/tower/) to authenticate user requests to container registries.
 
 To access private container registries from a Nextflow pipeline, developers can simply specify their Tower access token in the pipeline configuration file and store their repository credentials in [Nextflow Tower](https://help.tower.nf/22.2/credentials/overview/) page in your account. Wave will automatically and securely use these credentials to authenticate to the private container registry.
 
@@ -52,15 +52,15 @@ Nextflow allows for the definition of pipeline level (and more recently module l
 
 Wave solves these problems by dynamically adding one or more layers to an existing container image during the container image download phase from the registry. Developers can use container augmentation to inject an arbitrary payload into any container without re-building it.  Wave then recomputes the image's final manifest adding new layers and checksums on-the-fly, so that the final downloaded image reflects the added content.
 
-With container augmentation, developers can include a directory called `resources` in pipeline module directories. When the corresponding containerized task is executed, Wave automatically mirrors the content of the resources directory in the root path of the container where it can be accessed by scripts running within the container.  
+With container augmentation, developers can include a directory called `resources` in pipeline [module directories](https://www.nextflow.io/docs/latest/dsl2.html#module-directory). When the corresponding containerized task is executed, Wave automatically mirrors the content of the resources directory in the root path of the container where it can be accessed by scripts running within the container.  
 
-## A sneak preview of FusionFS file system
+## A sneak preview of Fusionfs file system
 
-One of the main motivations for implementing Wave is that we wanted to have the ability to easily package a FusionFS client in containers to make this important functionality readily available in Nextflow pipelines.
+One of the main motivations for implementing Wave is that we wanted to have the ability to easily package a Fusionfs client in containers to make this important functionality readily available in Nextflow pipelines.
 
-FusionFS implements a virtual distributed file system and presents a thin-client allowing data hosted in AWS S3 buckets to be accessed via the standard POSIX filesystem interface expected by the pipeline tools. This client runs in the task container and is added automatically via the Wave augmentation capability. This makes FusionFS functionality available for pipeline execution at runtime.
+Fusionfs implements a virtual distributed file system and presents a thin-client allowing data hosted in AWS S3 buckets to be accessed via the standard POSIX filesystem interface expected by the pipeline tools. This client runs in the task container and is added automatically via the Wave augmentation capability. This makes Fusionfs functionality available for pipeline execution at runtime.
 
-This means the Nextflow pipeline can use an AWS S3 bucket as the work directory, and pipeline tasks can access the S3 bucket natively as a local file system path. This is an important innovation as it avoids the additional step of copying files in and out of object storage. FusionFS takes advantage for the Nextflow tasks segregation and idempotent execution model to optimise and speedup file access operations.  
+This means the Nextflow pipeline can use an AWS S3 bucket as the work directory, and pipeline tasks can access the S3 bucket natively as a local file system path. This is an important innovation as it avoids the additional step of copying files in and out of object storage. Fusionfs takes advantage for the Nextflow tasks segregation and idempotent execution model to optimise and speedup file access operations.  
 
 ## Getting started  
 
@@ -89,9 +89,9 @@ You can find additional information and examples in the Nextflow [documentation]
 
 ## Availability
 
-The Wave container provisioning service is available free of charge as technology preview to all Nextflow and Tower users. Wave supports all major container registries including Docker Hub, Quay.io, AWS Elastic Container Registry, Google Artifact Registry and Azure Container Registry.
+The Wave container provisioning service is available free of charge as technology preview to all Nextflow and Tower users. Wave supports all major container registries including [Docker Hub](https://hub.docker.com/), [Quay.io](https://quay.io/), [AWS Elastic Container Registry](https://aws.amazon.com/ecr/), [Google Artifact Registry](https://cloud.google.com/artifact-registry) and [Azure Container Registry](https://azure.microsoft.com/en-us/products/container-registry/).
 
-During the preview period, anonymous users can build up to 10 container images per day and pull 100 containers per hour. Tower authenticated users can build 100 container images per hour and pull 1000 containers per minute. After the preview period, we plan to make the Wave service available free of charge to academic users and open-source software (OSS) projects.  
+During the preview period, anonymous users can build up to 10 container images per day and pull 100 containers per hour. Tower authenticated users can build 100 container images per hour and pull 1000 containers per minute. After the preview period, we plan to make the Wave service available free of charge to academic users and open-source software (OSS) projects.
 
 ## Conclusion
 
