@@ -1,5 +1,5 @@
 title=Rethinking containers for cloud native pipelines
-date=2022-10-12
+date=2022-10-13
 type=post
 description=Learn about Wave, an exciting new container provisioning and augmentation service that is fully integrated with the Nextflow and Nextflow Tower ecosystems. Wave will change the way you think about provisioning and managing containers!
 image=img/rethinking-containers-for-cloud-native-pipelines.jpg
