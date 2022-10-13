@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 22.04.5 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 22.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -69,10 +72,12 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-inclusion">Module inclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-directory">Module directory</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-inclusions">Multiple inclusions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-aliases">Module aliases</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-parameters">Module parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-templates">Module templates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-binaries">Module binaries</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-forking">Channel forking</a></li>
@@ -86,6 +91,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -103,6 +109,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -118,6 +131,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>DSL 2</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/dsl2.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -478,6 +492,21 @@ against the <em>including</em> script location.</p>
 <p>Relative paths must begin with the <code class="docutils literal notranslate"><span class="pre">./</span></code> prefix. Also, the <code class="docutils literal notranslate"><span class="pre">include</span></code> statement must be defined <strong>outside</strong> of the workflow definition.</p>
 </div>
 </section>
+<section id="module-directory">
+<span id="dsl2-module-directory"></span><h3>Module directory<a class="headerlink" href="#module-directory" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code>, the module can be defined as a directory whose name matches the module name and
+contains a script named <code class="docutils literal notranslate"><span class="pre">main.nf</span></code>. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>some
+    └-module
+        └-main.nf
+</pre></div>
+</div>
+<p>When defined as a directory the module needs to be included specifying the module directory path:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">foo</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;./some/module&#39;</span>
+</pre></div>
+</div>
+<p>Module directories allows the use of module scoped binaries scripts. See <a class="reference internal" href="#module-binaries">Module binaries</a> for details.</p>
+</section>
 <section id="multiple-inclusions">
 <h3>Multiple inclusions<a class="headerlink" href="#multiple-inclusions" title="Permalink to this headline"></a></h3>
 <p>A Nextflow script allows the inclusion of an arbitrary number of modules and components. When multiple
@@ -574,55 +603,79 @@ inheriting any value from the external environment.</p>
 can be placed under the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory where the module script is located.</p>
 <p>For example, let’s suppose to have a project L with a module script defining 2 processes (P1 and P2) and both use templates.
 The template files can be made available under the local <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Project</span> <span class="n">L</span>
-    <span class="o">|-</span><span class="n">myModules</span><span class="o">.</span><span class="n">nf</span>
-    <span class="o">|-</span><span class="n">templates</span>
-        <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-        <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Project L
+    |─myModules.nf
+    └─templates
+        |─P1-template.sh
+        └─P2-template.sh
 </pre></div>
 </div>
 <p>Then, we have a second project A with a workflow that includes P1 and P2:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">A</span>
-    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Pipeline A
+    └-main.nf
 </pre></div>
 </div>
 <p>Finally, we have a third project B with a workflow that includes again P1 and P2:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Pipeline</span> <span class="n">B</span>
-    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Pipeline B
+    └-main.nf
 </pre></div>
 </div>
 <p>With the possibility to keep the template files inside the project L, A and B can use the modules defined in L without any changes.
 A future prject C would do the same, just cloning L (if not available on the system) and including its module script.</p>
 <p>Beside promoting sharing modules across pipelines, there are several advantages in keeping the module template under the script path:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mf">1.</span> <span class="n">module</span> <span class="n">components</span> <span class="n">are</span> <span class="o">*</span><span class="bp">self</span><span class="o">-</span><span class="n">contained</span><span class="o">*</span><span class="p">,</span>
-<span class="mf">2.</span> <span class="n">module</span> <span class="n">components</span> <span class="n">can</span> <span class="n">be</span> <span class="n">tested</span> <span class="n">independently</span> <span class="kn">from</span> <span class="nn">the</span> <span class="n">pipeline</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="n">importing</span> <span class="n">them</span><span class="p">,</span>
-<span class="mf">3.</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">possible</span> <span class="n">to</span> <span class="n">create</span> <span class="n">libraries</span> <span class="n">of</span> <span class="n">module</span> <span class="n">components</span><span class="o">.</span>
-</pre></div>
-</div>
+<ol class="arabic simple">
+<li><p>module components are <em>self-contained</em>,</p></li>
+<li><p>module components can be tested independently from the pipeline(s) importing them,</p></li>
+<li><p>it is possible to create libraries of module components.</p></li>
+</ol>
 <p>Ultimately, having multiple template locations allows a more structured organization within the same project. If a project
 has several module components, and all them use templates, the project could group module scripts and their templates as needed. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">baseDir</span>
-    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">nf</span>
-    <span class="o">|-</span><span class="n">Phase0</span><span class="o">-</span><span class="n">Modules</span>
-        <span class="o">|-</span><span class="n">mymodules1</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">mymodules2</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">templates</span>
-            <span class="o">|-</span><span class="n">P1</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-            <span class="o">|-</span><span class="n">P2</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-    <span class="o">|-</span><span class="n">Phase1</span><span class="o">-</span><span class="n">Modules</span>
-        <span class="o">|-</span><span class="n">mymodules3</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">mymodules4</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">templates</span>
-            <span class="o">|-</span><span class="n">P3</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-            <span class="o">|-</span><span class="n">P4</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-    <span class="o">|-</span><span class="n">Phase2</span><span class="o">-</span><span class="n">Modules</span>
-        <span class="o">|-</span><span class="n">mymodules5</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">mymodules6</span><span class="o">.</span><span class="n">nf</span>
-        <span class="o">|-</span><span class="n">templates</span>
-            <span class="o">|-</span><span class="n">P5</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-            <span class="o">|-</span><span class="n">P6</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
-            <span class="o">|-</span><span class="n">P7</span><span class="o">-</span><span class="n">template</span><span class="o">.</span><span class="n">sh</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>baseDir
+    |─main.nf
+    └─Phase0-Modules
+        |─mymodules1.nf
+        |─mymodules2.nf
+        └─templates
+            |─P1-template.sh
+            |─P2-template.sh
+    └─Phase1-Modules
+        |─mymodules3.nf
+        |─mymodules4.nf
+        └─templates
+            |─P3-template.sh
+            └─P4-template.sh
+    └─Phase2-Modules
+        |─mymodules5.nf
+        |─mymodules6.nf
+        └─templates
+            |─P5-template.sh
+            |─P6-template.sh
+            └─P7-template.sh
 </pre></div>
+</div>
+</section>
+<section id="module-binaries">
+<h3>Module binaries<a class="headerlink" href="#module-binaries" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code>, modules can define binary scripts that are locally scoped to the processes defined by the tasks.</p>
+<p>To enable this feature add the following setting in pipeline configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="n">enable</span><span class="o">.</span><span class="n">moduleBinaries</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>The binary scripts must be placed in the module directory names <code class="docutils literal notranslate"><span class="pre">&lt;module-dir&gt;/resources/usr/bin</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;module-dir&gt;
+    |─main.nf
+    └─resources
+        └─usr
+            └─bin
+                |─your-module-script1.sh
+                └─another-module-script2.py
+</pre></div>
+</div>
+<p>Those scripts will be accessible as any other command in the tasks environment, provided they have been granted
+the Linux execute permissions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature requires the use of a local or shared file system as the pipeline work directory.</p>
 </div>
 </section>
 </section>
@@ -816,10 +869,9 @@ The above snippet can also be written as:</p>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">fork</span></code> has been renamed to <a class="reference internal" href="operator.html#operator-multimap"><span class="std std-ref">multiMap</span></a>.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">groupBy</span></code> has been deprecated by DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-grouptuple"><span class="std std-ref">groupTuple</span></a></p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> have been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> instead.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a> has been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-join"><span class="std std-ref">join</span></a> instead.</p></li>
 <li><p>Operator <a class="reference internal" href="operator.html#operator-separate"><span class="std std-ref">separate</span></a> has been deprecated by DSL2 syntax.</p></li>
 <li><p>Operator <a class="reference internal" href="operator.html#operator-spread"><span class="std std-ref">spread</span></a> has been deprecated with DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>.</p></li>
-<li><p>Operator route has been deprecated by DSL2 syntax.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">route</span></code> has been deprecated by DSL2 syntax.</p></li>
 </ul>
 </section>
 </section>
@@ -835,7 +887,7 @@ The above snippet can also be written as:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conda environments &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Conda environments &mdash; Nextflow 22.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -20,7 +21,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Amazon Cloud" href="aws.html" />
-    <link rel="prev" title="Containers" href="container.html" /> 
+    <link rel="prev" title="Wave containers" href="wave.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -50,13 +53,15 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Conda environments</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#use-mamba-to-resolve-packages">Use Mamba to resolve packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-conda-environment">Enabling Conda environment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-conda-package-names">Use Conda package names</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-conda-environment-files">Use Conda environment files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#use-existing-conda-environments">Use existing Conda environments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-mamba-to-resolve-packages">Use Mamba to resolve packages</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best practices</a></li>
@@ -79,6 +84,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -94,6 +106,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Conda environments</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/conda.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -137,13 +150,16 @@ accessible from all compute nodes.</p>
 <p>The Conda environment feature is not supported by executors that use
 remote object storage as a work directory e.g. AWS Batch.</p>
 </div>
-<section id="use-mamba-to-resolve-packages">
-<h3>Use Mamba to resolve packages<a class="headerlink" href="#use-mamba-to-resolve-packages" title="Permalink to this headline"></a></h3>
-<p>It is also possible to use <a class="reference external" href="https://github.com/mamba-org/mamba">mamba</a> to speed up the creation of conda environments. For more information on how to enable this feature please refer to <a class="reference internal" href="config.html#config-conda"><span class="std std-ref">Conda</span></a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This feature is experimental and may change in a future release.</p>
+<section id="enabling-conda-environment">
+<h3>Enabling Conda environment<a class="headerlink" href="#enabling-conda-environment" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.08.0-edge</span></code> the use Conda recipes specified using the <a class="reference internal" href="process.html#process-conda"><span class="std std-ref">conda</span></a>
+directive needs to be enabled explicitly by setting the option shown below in the pipeline
+configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
 </div>
+<p>Alternatively it can be specified by setting the variable <code class="docutils literal notranslate"><span class="pre">NXF_CONDA_ENABLED=true</span></code> in your environment
+or by using the <code class="docutils literal notranslate"><span class="pre">-with-conda</span> <span class="pre">true</span></code> command line option.</p>
 </section>
 <section id="use-conda-package-names">
 <h3>Use Conda package names<a class="headerlink" href="#use-conda-package-names" title="Permalink to this headline"></a></h3>
@@ -221,6 +237,14 @@ installation directory of such environment by using the <code class="docutils li
 </pre></div>
 </div>
 </section>
+<section id="use-mamba-to-resolve-packages">
+<h3>Use Mamba to resolve packages<a class="headerlink" href="#use-mamba-to-resolve-packages" title="Permalink to this headline"></a></h3>
+<p>It is also possible to use <a class="reference external" href="https://github.com/mamba-org/mamba">mamba</a> to speed up the creation of conda environments. For more information on how to enable this feature please refer to <a class="reference internal" href="config.html#config-conda"><span class="std std-ref">Conda</span></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is experimental and may change in a future release.</p>
+</div>
+</section>
 </section>
 <section id="best-practices">
 <h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline"></a></h2>
@@ -253,14 +277,14 @@ recommended to allow the execution via a command line option and to enhance the 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="container.html" class="btn btn-neutral float-left" title="Containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="wave.html" class="btn btn-neutral float-left" title="Wave containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="aws.html" class="btn btn-neutral float-right" title="Amazon Cloud" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

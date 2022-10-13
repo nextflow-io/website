@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextflow scripting &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 22.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -68,6 +71,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#files-and-i-o">Files and I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#opening-files">Opening files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#basic-read-write">Basic read/write</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#read-a-file-line-by-line">Read a file line by line</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#advanced-file-reading-operations">Advanced file reading operations</a></li>
@@ -100,6 +104,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -117,6 +122,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -132,6 +144,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Nextflow scripting</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/script.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -595,6 +608,8 @@ wordStartsWithGr = ~/(?i)\s+Gr\w+/
 </section>
 <section id="files-and-i-o">
 <span id="script-file-io"></span><h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline"></a></h2>
+<section id="opening-files">
+<h3>Opening files<a class="headerlink" href="#opening-files" title="Permalink to this headline"></a></h3>
 <p>To access and work with files, use the <code class="docutils literal notranslate"><span class="pre">file</span></code> method, which returns a file system object
 given a file path string:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/to/my_file.file&#39;</span><span class="p">)</span>
@@ -649,6 +664,11 @@ files in the result list, add the optional parameter <code class="docutils liter
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Nextflow also provides a <code class="docutils literal notranslate"><span class="pre">files()</span></code> method, which is identical to <code class="docutils literal notranslate"><span class="pre">file()</span></code> except that it always
+returns a list, whereas <code class="docutils literal notranslate"><span class="pre">file()</span></code> only returns a list if it matches multiple files.</p>
+</div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If you are a Java geek, you might be interested to know that the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a
@@ -656,6 +676,7 @@ files in the result list, add the optional parameter <code class="docutils liter
 you to use the same methods you would use in a Java program.</p>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">Channel.fromPath</span></a>.</p>
+</section>
 <section id="basic-read-write">
 <h3>Basic read/write<a class="headerlink" href="#basic-read-write" title="Permalink to this headline"></a></h3>
 <p>Given a file variable, declared using the <code class="docutils literal notranslate"><span class="pre">file</span></code> method as shown in the previous example, reading a file
@@ -1213,7 +1234,7 @@ automatically uncompressed.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

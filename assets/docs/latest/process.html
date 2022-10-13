@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Processes &mdash; Nextflow 22.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -53,30 +56,30 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#stub">Stub</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#inputs">Inputs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-generic-values">Input of generic values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-files">Input of files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-val">Input type <code class="docutils literal notranslate"><span class="pre">val</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-file">Input type <code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-path">Input type <code class="docutils literal notranslate"><span class="pre">path</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-input-files">Multiple input files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-input-file-names">Dynamic input file names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-type-path">Input of type ‘path’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-type-stdin">Input of type ‘stdin’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-type-env">Input of type ‘env’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-type-set">Input of type ‘set’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-of-type-tuple">Input of type ‘tuple’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#input-repeaters">Input repeaters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#understand-how-multiple-input-channels-work">Understand how multiple input channels work</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-env">Input type <code class="docutils literal notranslate"><span class="pre">env</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-stdin">Input type <code class="docutils literal notranslate"><span class="pre">stdin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-set">Input type <code class="docutils literal notranslate"><span class="pre">set</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-type-tuple">Input type <code class="docutils literal notranslate"><span class="pre">tuple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input-repeaters-each">Input repeaters (<cite>each</cite>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#multiple-input-channels">Multiple input channels</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#outputs">Outputs</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#output-values">Output values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-files">Output files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-val">Output type <code class="docutils literal notranslate"><span class="pre">val</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-file">Output type <code class="docutils literal notranslate"><span class="pre">file</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-path">Output type <code class="docutils literal notranslate"><span class="pre">path</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#multiple-output-files">Multiple output files</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-output-file-names">Dynamic output file names</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-path">Output path</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-stdout-special-file">Output ‘stdout’ special file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-env">Output ‘env’</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-set-of-values">Output ‘set’ of values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#output-tuple-of-values">Output ‘tuple’ of values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optional-output">Optional Output</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-env">Output type <code class="docutils literal notranslate"><span class="pre">env</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-stdout">Output type <code class="docutils literal notranslate"><span class="pre">stdout</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-set">Output type <code class="docutils literal notranslate"><span class="pre">set</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#output-type-tuple">Output type <code class="docutils literal notranslate"><span class="pre">tuple</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optional-outputs">Optional outputs</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#when">When</a></li>
@@ -107,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#pod">pod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#queue">queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resourcelabels">resourceLabels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scratch">scratch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storedir">storeDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stageinmode">stageInMode</a></li>
@@ -127,6 +131,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -144,6 +149,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -159,6 +171,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Processes</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/process.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -168,8 +181,8 @@
              
   <section id="processes">
 <span id="process-page"></span><h1>Processes<a class="headerlink" href="#processes" title="Permalink to this headline"></a></h1>
-<p>In Nextflow a <cite>process</cite> is the basic processing <cite>primitive</cite> to execute a user script.</p>
-<p>The process definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process <cite>body</cite>
+<p>In Nextflow, a <strong>process</strong> is the basic processing primitive to execute a user script.</p>
+<p>The process definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process body
 delimited by curly brackets. The process body must contain a string which represents the command or, more generally,
 a script that is executed by it. A basic process looks like the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
@@ -179,39 +192,37 @@ a script that is executed by it. A basic process looks like the following exampl
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>A process may contain five definition blocks, respectively: directives,
-inputs, outputs, when clause and finally the process script. The syntax is defined as follows:</p>
+<p>A process may contain any of the following definition blocks: directives,
+inputs, outputs, when clause, and the process script. The syntax is defined as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="o">&lt;</span> <span class="n">name</span> <span class="o">&gt;</span> <span class="p">{</span>
 
-   <span class="p">[</span> <span class="n">directives</span> <span class="p">]</span>
+  <span class="p">[</span> <span class="n">directives</span> <span class="p">]</span>
 
-   <span class="nb">input</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
     <span class="o">&lt;</span> <span class="n">process</span> <span class="n">inputs</span> <span class="o">&gt;</span>
 
-   <span class="n">output</span><span class="p">:</span>
+  <span class="n">output</span><span class="p">:</span>
     <span class="o">&lt;</span> <span class="n">process</span> <span class="n">outputs</span> <span class="o">&gt;</span>
 
-   <span class="n">when</span><span class="p">:</span>
+  <span class="n">when</span><span class="p">:</span>
     <span class="o">&lt;</span> <span class="n">condition</span> <span class="o">&gt;</span>
 
-   <span class="p">[</span><span class="n">script</span><span class="o">|</span><span class="n">shell</span><span class="o">|</span><span class="n">exec</span><span class="p">]:</span>
-   <span class="o">&lt;</span> <span class="n">user</span> <span class="n">script</span> <span class="n">to</span> <span class="n">be</span> <span class="n">executed</span> <span class="o">&gt;</span>
+  <span class="p">[</span><span class="n">script</span><span class="o">|</span><span class="n">shell</span><span class="o">|</span><span class="n">exec</span><span class="p">]:</span>
+    <span class="o">&lt;</span> <span class="n">user</span> <span class="n">script</span> <span class="n">to</span> <span class="n">be</span> <span class="n">executed</span> <span class="o">&gt;</span>
 
 <span class="p">}</span>
 </pre></div>
 </div>
 <section id="script">
 <span id="process-script"></span><h2>Script<a class="headerlink" href="#script" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">script</span></code> block is a string statement that defines the command that is executed by the process to carry out its task.</p>
-<p>A process contains one and only one script block, and it must be the last statement when the process contains
-input and output declarations.</p>
-<p>The entered string is executed as a <a class="reference external" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> script in the
-<cite>host</cite> system. It can be any command, script or combination of them, that you would normally use in terminal shell
-or in a common Bash script.</p>
-<p>The only limitation to the commands that can be used in the script statement is given by the availability of those
-programs in the target execution system.</p>
-<p>The script block can be a simple string or multi-line string. The latter simplifies the writing of non trivial scripts
-composed by multiple commands spanning over multiple lines. For example:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">script</span></code> block defines, as a string expression, the script that is executed by the process.</p>
+<p>A process may contain only one script block, and it must be the final statement in the process block
+(unless <code class="docutils literal notranslate"><span class="pre">script:</span></code> is explicitly declared).</p>
+<p>The script string is executed as a <a class="reference external" href="http://en.wikipedia.org/wiki/Bash_(Unix_shell)">Bash</a> script in the
+host environment. It can be any command or script that you would normally execute on the command line or
+in a Bash script. Naturally, the script may only use commands that are available in the host environment.</p>
+<p>The script block can be a simple string or a multi-line string. The latter approach makes it easier to write
+scripts with multiple commands spanning multiple lines. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">doMoreThings</span> <span class="p">{</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  blastp -db $db -query query.fa -outfmt 6 &gt; blast_result</span>
@@ -221,19 +232,19 @@ composed by multiple commands spanning over multiple lines. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>As explained in the script tutorial section, strings can be defined by using a single-quote
-or a double-quote, and multi-line strings are defined by three single-quote or three double-quote characters.</p>
+<p>As explained in the script tutorial section, strings can be defined using single-quotes
+or double-quotes, and multi-line strings are defined by three single-quote or three double-quote characters.</p>
 <p>There is a subtle but important difference between them. Like in Bash, strings delimited by a <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> character support
 variable substitutions, while strings delimited by <code class="docutils literal notranslate"><span class="pre">'</span></code> do not.</p>
-<p>In the above code fragment the <code class="docutils literal notranslate"><span class="pre">$db</span></code> variable is replaced by the actual value defined somewhere in the
+<p>In the above code fragment, the <code class="docutils literal notranslate"><span class="pre">$db</span></code> variable is replaced by the actual value defined elsewhere in the
 pipeline script.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Since Nextflow uses the same Bash syntax for variable substitutions in strings, you must manage them
 carefully depending on whether you want to evaluate a <em>Nextflow</em> variable or a <em>Bash</em> variable.</p>
 </div>
-<p>When you need to access a system environment variable in your script you have two options. The first choice is as
-easy as defining your script block by using a single-quote string. For example:</p>
+<p>When you need to access a system environment variable in your script, you have two options.</p>
+<p>If you don’t need to access any Nextflow variables, you can define your script block with single-quotes:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">printPath</span> <span class="p">{</span>
   <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  echo The path is: $PATH</span>
@@ -241,9 +252,7 @@ easy as defining your script block by using a single-quote string. For example:<
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The drawback of this solution is that you will not able to access variables defined in the pipeline script context,
-in your script block.</p>
-<p>To fix this, define your script by using a double-quote string and <cite>escape</cite> the system environment variables by
+<p>Otherwise, you can define your script with double-quotes and escape the system environment variables by
 prefixing them with a back-slash <code class="docutils literal notranslate"><span class="pre">\</span></code> character, as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">doOtherThings</span> <span class="p">{</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -254,23 +263,23 @@ prefixing them with a back-slash <code class="docutils literal notranslate"><spa
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In this example the <code class="docutils literal notranslate"><span class="pre">$MAX</span></code> variable has to be defined somewhere before, in the pipeline script.
-<cite>Nextflow</cite> replaces it with the actual value before executing the script. Instead, the <code class="docutils literal notranslate"><span class="pre">$DB</span></code> variable
-must exist in the script execution environment and the Bash interpreter will replace it with the actual value.</p>
+<p>In this example, <code class="docutils literal notranslate"><span class="pre">$MAX</span></code> is a Nextflow variable that must be defined elsewhere in the pipeline script.
+Nextflow replaces it with the actual value before executing the script. Meanwhile, <code class="docutils literal notranslate"><span class="pre">$DB</span></code> is a Bash variable
+that must exist in the execution environment, and Bash will replace it with the actual value during execution.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Alternatively you can use the <a class="reference internal" href="#process-shell"><span class="std std-ref">Shell</span></a> block definition which allows a script to contain both
+<p>Alternatively, you can use the <a class="reference internal" href="#process-shell"><span class="std std-ref">Shell</span></a> block definition, which allows a script to contain both
 Bash and Nextflow variables without having to escape the first.</p>
 </div>
 <section id="scripts-a-la-carte">
 <h3>Scripts <cite>à la carte</cite><a class="headerlink" href="#scripts-a-la-carte" title="Permalink to this headline"></a></h3>
-<p>The process script is interpreted by Nextflow as a Bash script by default, but you are not limited to it.</p>
-<p>You can use your favourite scripting language (e.g. Perl, Python, Ruby, R, etc), or even mix them in the same pipeline.</p>
-<p>A pipeline may be composed by processes that execute very different tasks. Using <cite>Nextflow</cite> you can choose the scripting
-language that better fits the task carried out by a specified process. For example for some processes <cite>R</cite> could be
-more useful than <cite>Perl</cite>, in other you may need to use <cite>Python</cite> because it provides better access to a library or an API, etc.</p>
-<p>To use a scripting other than Bash, simply start your process script with the corresponding
-<a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> declaration. For example:</p>
+<p>The process script is interpreted by Nextflow as a Bash script by default, but you are not limited to Bash.</p>
+<p>You can use your favourite scripting language (Perl, Python, R, etc), or even mix them in the same pipeline.</p>
+<p>A pipeline may be composed of processes that execute very different tasks. With Nextflow, you can choose the scripting
+language that best fits the task performed by a given process. For example, for some processes R might be
+more useful than Perl, whereas for others you may need to use Python because it provides better access to a library or an API, etc.</p>
+<p>To use a language other than Bash, simply start your process script with the corresponding
+<a class="reference external" href="http://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">perlStuff</span> <span class="p">{</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #!/usr/bin/perl</span>
@@ -300,33 +309,32 @@ more portable.</p>
 </section>
 <section id="conditional-scripts">
 <h3>Conditional scripts<a class="headerlink" href="#conditional-scripts" title="Permalink to this headline"></a></h3>
-<p>Complex process scripts may need to evaluate conditions on the input parameters or use traditional flow control
-statements (i.e. <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">switch</span></code>, etc) in order to execute specific script commands, depending on the current
-inputs configuration.</p>
-<p>Process scripts can contain conditional statements by simply prefixing the script block with the keyword <code class="docutils literal notranslate"><span class="pre">script:</span></code>.
-By doing that the interpreter will evaluate all the following statements as a code block that must return the
-script string to be executed. It’s much easier to use than to explain, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seq_to_align</span> <span class="o">=</span> <span class="o">...</span>
-<span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;tcoffee&#39;</span>
+<p>So far, our <code class="docutils literal notranslate"><span class="pre">script</span></code> block has always been a simple string expression, but in reality, the <code class="docutils literal notranslate"><span class="pre">script</span></code> block is
+just Groovy code that <cite>returns</cite> a string. This means that you can write arbitrary Groovy code to determine
+the script to execute, as long as the final statement is a string (remember that the <code class="docutils literal notranslate"><span class="pre">return</span></code> keyword is optional in Groovy).</p>
+<p>For example, you can use flow control statements (<code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">switch</span></code>, etc) to execute a different script based on
+the process inputs. The only difference here is that you must explicitly declare the <code class="docutils literal notranslate"><span class="pre">script:</span></code> block, whereas before
+it was not required. Here is an example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;tcoffee&#39;</span>
 
 <span class="n">process</span> <span class="n">align</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">file</span> <span class="n">seq_to_aln</span> <span class="kn">from</span> <span class="nn">sequences</span>
+    <span class="n">path</span> <span class="n">sequences</span>
 
     <span class="n">script</span><span class="p">:</span>
     <span class="k">if</span><span class="p">(</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;tcoffee&#39;</span> <span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        t_coffee -in $seq_to_aln &gt; out_file</span>
+<span class="sd">        t_coffee -in $sequences &gt; out_file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;mafft&#39;</span> <span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        mafft --anysymbol --parttree --quiet $seq_to_aln &gt; out_file</span>
+<span class="sd">        mafft --anysymbol --parttree --quiet $sequences &gt; out_file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;clustalo&#39;</span> <span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        clustalo -i $seq_to_aln -o out_file</span>
+<span class="sd">        clustalo -i $sequences -o out_file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
     <span class="k">else</span>
@@ -334,69 +342,75 @@ script string to be executed. It’s much easier to use than to explain, for exa
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example the process will execute the script fragment depending on the value of the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameter.
-By default it will execute the <code class="docutils literal notranslate"><span class="pre">tcoffee</span></code> command, changing the <code class="docutils literal notranslate"><span class="pre">mode</span></code> variable to <code class="docutils literal notranslate"><span class="pre">mafft</span></code> or <code class="docutils literal notranslate"><span class="pre">clustalo</span></code> value,
-the other branches will be executed.</p>
+<p>In the above example, the process will execute one of the script fragments depending on the value of the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameter.
+By default it will execute the <code class="docutils literal notranslate"><span class="pre">tcoffee</span></code> command, but changing the <code class="docutils literal notranslate"><span class="pre">mode</span></code> variable will cause a different branch to be executed.</p>
 </section>
 <section id="template">
 <span id="process-template"></span><h3>Template<a class="headerlink" href="#template" title="Permalink to this headline"></a></h3>
-<p>Process script can be externalised by using <em>template</em> files which can be reused across different processes and tested
+<p>Process scripts can be externalised to <strong>template</strong> files, which can be reused across different processes and tested
 independently from the overall pipeline execution.</p>
 <p>A template is simply a shell script file that Nextflow is able to execute by using the <code class="docutils literal notranslate"><span class="pre">template</span></code> function
 as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">template_example</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">templateExample</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">val</span> <span class="n">STR</span> <span class="kn">from</span> <span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;that&#39;</span>
+    <span class="n">val</span> <span class="n">STR</span>
 
     <span class="n">script</span><span class="p">:</span>
     <span class="n">template</span> <span class="s1">&#39;my_script.sh&#39;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;that&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">templateExample</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Nextflow looks for the <code class="docutils literal notranslate"><span class="pre">my_script.sh</span></code> template file in the directory <code class="docutils literal notranslate"><span class="pre">templates</span></code> that must exist in the same folder
-where the Nextflow script file is located (any other location can be provided by using an absolute template path).</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>When using <a class="reference internal" href="dsl2.html#dsl2-page"><span class="std std-ref">DSL2</span></a>, Nextflow also looks in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory
-located in the same folder as module. See <a class="reference internal" href="dsl2.html#module-templates"><span class="std std-ref">module templates</span></a>.</p>
-</div>
-<p>The template script can contain any piece of code that can be executed by the underlying system. For example:</p>
+<p>By default, Nextflow looks for the <code class="docutils literal notranslate"><span class="pre">my_script.sh</span></code> template file in the <code class="docutils literal notranslate"><span class="pre">templates</span></code> directory located alongside the
+Nextflow script and/or the module script in which the process is defined. Any other location can be specified by using
+an absolute template path.</p>
+<p>The template script may contain any code that can be executed by the underlying environment. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>#!/bin/bash
 echo &quot;process started at `date`&quot;
 echo $STR
-:
 echo &quot;process completed&quot;
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The dollar character (<code class="docutils literal notranslate"><span class="pre">$</span></code>) is interpreted as a Nextflow variable placeholder when the script is run as a
-Nextflow template, whereas it is evaluated as a Bash variable when run as a Bash script. This can be very useful to test
-your script autonomously, i.e. independently from Nextflow execution. You only need to provide a Bash environment
-variable for each the Nextflow variable existing in your script. For example, it would be possible to execute the above
+<p>The dollar character (<code class="docutils literal notranslate"><span class="pre">$</span></code>) is interpreted as a Nextflow variable when the script is run as a Nextflow template,
+whereas it is evaluated as a Bash variable when run as a Bash script. This can be very useful for testing
+your script independently from Nextflow execution. You only need to provide a Bash environment variable for each
+of the Nextflow variables that are referenced in your script. For example, it would be possible to execute the above
 script with the following command in the terminal: <code class="docutils literal notranslate"><span class="pre">STR='foo'</span> <span class="pre">bash</span> <span class="pre">templates/my_script.sh</span></code></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>As a best practice, the template script should not contain any <code class="docutils literal notranslate"><span class="pre">\$</span></code> escaped variables, because these variables
+will not be evaluated properly when the script is executed directly.</p>
 </div>
 </section>
 <section id="shell">
 <span id="process-shell"></span><h3>Shell<a class="headerlink" href="#shell" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">shell</span></code> block is a string statement that defines the <em>shell</em> command executed by the process to carry out its task.
-It is an alternative to the <a class="reference internal" href="#process-script"><span class="std std-ref">Script</span></a> definition with an important difference, it uses
-the exclamation mark <code class="docutils literal notranslate"><span class="pre">!</span></code> character as the variable placeholder for Nextflow variables in place of the usual dollar character.</p>
-<p>In this way it is possible to use both Nextflow and Bash variables in the same piece of code without having to escape
-the latter and making process scripts more readable and easy to maintain. For example:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">shell</span></code> block is a string expression that defines the script that is executed by the process.
+It is an alternative to the <a class="reference internal" href="#process-script"><span class="std std-ref">Script</span></a> definition with one important difference: it uses
+the exclamation mark <code class="docutils literal notranslate"><span class="pre">!</span></code> character, instead of the usual dollar <code class="docutils literal notranslate"><span class="pre">$</span></code> character, to denote Nextflow variables.</p>
+<p>This way, it is possible to use both Nextflow and Bash variables in the same script without having to escape
+the latter, which makes process scripts easier to read and maintain. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">myTask</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">val</span> <span class="nb">str</span> <span class="kn">from</span> <span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="s1">&#39;Bonjour&#39;</span>
+    <span class="n">val</span> <span class="nb">str</span>
 
     <span class="n">shell</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    echo User $USER says !{str}</span>
+<span class="sd">    echo &quot;User $USER says !{str}&quot;</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">,</span> <span class="s1">&#39;Hola&#39;</span><span class="p">,</span> <span class="s1">&#39;Bonjour&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">myTask</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above trivial example the <code class="docutils literal notranslate"><span class="pre">$USER</span></code> variable is managed by the Bash interpreter, while <code class="docutils literal notranslate"><span class="pre">!{str}</span></code> is handled
-as a process input variable managed by Nextflow.</p>
+<p>In the above example, <code class="docutils literal notranslate"><span class="pre">$USER</span></code> is treated as a Bash variable, while <code class="docutils literal notranslate"><span class="pre">!{str}</span></code> is treated as a Nextflow variable.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -404,29 +418,30 @@ as a process input variable managed by Nextflow.</p>
 delimited strings, dollar variables are interpreted as Nextflow variables as usual. See <a class="reference internal" href="script.html#string-interpolation"><span class="std std-ref">String interpolation</span></a>.</p></li>
 <li><p>Variables prefixed with <code class="docutils literal notranslate"><span class="pre">!</span></code> must always be enclosed in curly brackets, i.e. <code class="docutils literal notranslate"><span class="pre">!{str}</span></code> is a valid
 variable whereas <code class="docutils literal notranslate"><span class="pre">!str</span></code> is ignored.</p></li>
-<li><p>Shell scripts support the use of the file <a class="reference internal" href="#process-template"><span class="std std-ref">Template</span></a> mechanism. The same rules are applied to the variables
+<li><p>Shell scripts support the use of the <a class="reference internal" href="#process-template"><span class="std std-ref">Template</span></a> mechanism. The same rules are applied to the variables
 defined in the script template.</p></li>
 </ul>
 </div>
 </section>
 <section id="native-execution">
 <span id="process-native"></span><h3>Native execution<a class="headerlink" href="#native-execution" title="Permalink to this headline"></a></h3>
-<p>Nextflow processes can execute native code other than system scripts as shown in the previous paragraphs.</p>
-<p>This means that instead of specifying the process command to be executed as a string script, you can
-define it by providing one or more language statements, as you would do in the rest of the pipeline script.
-Simply starting the script definition block with the <code class="docutils literal notranslate"><span class="pre">exec:</span></code> keyword, for example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
-
-<span class="n">process</span> <span class="n">simpleSum</span> <span class="p">{</span>
+<p>Nextflow processes can also execute native Groovy code as the task itself, using the <code class="docutils literal notranslate"><span class="pre">exec</span></code> block. Whereas the
+<code class="docutils literal notranslate"><span class="pre">script</span></code> block defines a script to be executed, the <code class="docutils literal notranslate"><span class="pre">exec</span></code> block defines Groovy code to be executed directly.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">simpleSum</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
     <span class="n">val</span> <span class="n">x</span>
 
     <span class="n">exec</span><span class="p">:</span>
     <span class="n">println</span> <span class="s2">&quot;Hello Mr. $x&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">simpleSum</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Will display:</p>
+<p>will display:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">b</span>
 <span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">a</span>
 <span class="n">Hello</span> <span class="n">Mr</span><span class="o">.</span> <span class="n">c</span>
@@ -440,8 +455,8 @@ Simply starting the script definition block with the <code class="docutils liter
 <p class="admonition-title">Warning</p>
 <p>This feature is experimental. It may change in future versions.</p>
 </div>
-<p>As of version 20.11.0-edge it’s possible to define a command <em>stub</em> that replaces the actual process command, when
-the <cite>-stub-run</cite> or <cite>-stub</cite> command line option.</p>
+<p>As of version 20.11.0-edge, you can define a command <strong>stub</strong>, which replaces the actual process command when
+the <code class="docutils literal notranslate"><span class="pre">-stub-run</span></code> or <code class="docutils literal notranslate"><span class="pre">-stub</span></code> command line option:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">INDEX</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
     <span class="n">path</span> <span class="n">transcriptome</span>
@@ -464,9 +479,9 @@ the <cite>-stub-run</cite> or <cite>-stub</cite> command line option.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>This feature is meant to allow the fast prototyping and test of the workflow logic without using the real
-commands. The developer can use it to provide a dummy command which is expected to mimic the execution
-of the real one in a quicker manner. This can also be used as an alternative for the <em>dry-run</em> feature.</p>
+<p>This feature makes it easier to quickly prototype the workflow logic without using the real
+commands. The developer can use it to provide a dummy script that mimics the execution
+of the real one in a quicker manner. In other words, it is a way to perform a dry-run.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">stub</span></code> block can be defined before or after the <code class="docutils literal notranslate"><span class="pre">script</span></code> block.
@@ -476,28 +491,24 @@ is not defined, the <code class="docutils literal notranslate"><span class="pre"
 </section>
 <section id="inputs">
 <span id="process-input"></span><h2>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline"></a></h2>
-<p>Nextflow processes are isolated from each other but can communicate between themselves sending values through channels.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> block defines from which channels the process expects to receive data. You can only define one
-input block at a time and it must contain one or more input declarations.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">input</span></code> block allows you to define the input channels of a process, similar to function arguments.
+A process may have at most one input block, and it must contain at least one input.</p>
 <p>The input block follows the syntax shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
-  <span class="o">&lt;</span><span class="nb">input</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">input</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="kn">from</span> <span class="o">&lt;</span><span class="n">source</span> <span class="n">channel</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="n">attributes</span><span class="p">]</span>
+  <span class="o">&lt;</span><span class="nb">input</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nb">input</span> <span class="n">name</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>An input definition starts with an input <cite>qualifier</cite> and the input <cite>name</cite>, followed by the keyword <code class="docutils literal notranslate"><span class="pre">from</span></code> and
-the actual channel over which inputs are received. Finally some input optional attributes can be specified.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>When the input name is the same as the channel name, the <code class="docutils literal notranslate"><span class="pre">from</span></code> part of the declaration can be omitted.</p>
-</div>
-<p>The input qualifier declares the <cite>type</cite> of data to be received. This information is used by Nextflow to apply the
-semantic rules associated to each qualifier and handle it properly depending on the target execution platform
-(grid, cloud, etc).</p>
-<p>The qualifiers available are the ones listed in the following table:</p>
+<p>An input definition consists of a <cite>qualifier</cite> and a <cite>name</cite>. The input qualifier defines the type
+of data to be received. This information is used by Nextflow to apply the semantic rules associated with
+each qualifier, and handle it properly depending on the target execution platform (grid, cloud, etc).</p>
+<p>When a process is invoked in a workflow block, it must be provided a channel for each channel in the
+process input block, similar to calling a function with specific arguments. The examples provided in
+the following sections demonstrate how a process is invoked with input channels.</p>
+<p>The available input qualifiers are listed in the following table:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
+<col style="width: 11%" />
+<col style="width: 89%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Qualifier</p></th>
@@ -505,46 +516,48 @@ semantic rules associated to each qualifier and handle it properly depending on 
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>val</p></td>
-<td><p>Lets you access the received input value by its name in the process script.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">val</span></code></p></td>
+<td><p>Access the input value by name in the process script.</p></td>
 </tr>
-<tr class="row-odd"><td><p>env</p></td>
-<td><p>Lets you use the received value to set an environment variable named
-as the specified input name.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>(DEPRECATED) Handle the input value as a file, staging it properly in the execution context.</p></td>
 </tr>
-<tr class="row-even"><td><p>file</p></td>
-<td><p>Lets you handle the received value as a file, staging it properly in the execution context.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p>Handle the input value as a path, staging the file properly in the execution context.</p></td>
 </tr>
-<tr class="row-odd"><td><p>path</p></td>
-<td><p>Lets you handle the received value as a path, staging the file properly in the execution context.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env</span></code></p></td>
+<td><p>Use the input value to set an environment variable in the process script.</p></td>
 </tr>
-<tr class="row-even"><td><p>stdin</p></td>
-<td><p>Lets you forward the received value to the process <code class="docutils literal notranslate"><span class="pre">stdin</span></code> special file.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stdin</span></code></p></td>
+<td><p>Forward the input value to the process <code class="docutils literal notranslate"><span class="pre">stdin</span></code> special file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>tuple</p></td>
-<td><p>Lets you handle a group of input values having one of the above qualifiers.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
+<td><p>Handle a group of input values having any of the above qualifiers.</p></td>
 </tr>
-<tr class="row-even"><td><p>each</p></td>
-<td><p>Lets you execute the process for each entry in the input collection.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">each</span></code></p></td>
+<td><p>Execute the process for each element in the input collection.</p></td>
 </tr>
 </tbody>
 </table>
-<section id="input-of-generic-values">
-<h3>Input of generic values<a class="headerlink" href="#input-of-generic-values" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to receive data of any type as input. It can be accessed in the process script
+<section id="input-type-val">
+<h3>Input type <code class="docutils literal notranslate"><span class="pre">val</span></code><a class="headerlink" href="#input-type-val" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier accepts any data type. It can be accessed in the process script
 by using the specified input name, as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
-
-<span class="n">process</span> <span class="n">basicExample</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">basicExample</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">num</span>
+  <span class="n">val</span> <span class="n">x</span>
 
   <span class="s2">&quot;echo process job $x&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="k">def</span> <span class="nf">num</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+  <span class="n">basicExample</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example the process is executed three times, each time a value is received from the channel <code class="docutils literal notranslate"><span class="pre">num</span></code>
-and used to process the script. Thus, it results in an output similar to the one shown below:</p>
+<p>In the above example, the process is executed three times: once for each value emitted by the <code class="docutils literal notranslate"><span class="pre">num</span></code> channel.
+The resulting output is similar to the one shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">job</span> <span class="mi">3</span>
 <span class="n">process</span> <span class="n">job</span> <span class="mi">1</span>
 <span class="n">process</span> <span class="n">job</span> <span class="mi">2</span>
@@ -552,114 +565,161 @@ and used to process the script. Thus, it results in an output similar to the one
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <cite>channel</cite> guarantees that items are delivered in the same order as they were received - but -
-since the process is executed in a parallel manner, there is no guarantee that they are processed in the
-same order as they are received. In fact, in the above example, the value <code class="docutils literal notranslate"><span class="pre">3</span></code> is processed before the others.</p>
+<p>While channels do emit items in the order that they are received, <em>processes</em> do not
+necessarily <em>process</em> items in the order that they are received. In the above example,
+the value <code class="docutils literal notranslate"><span class="pre">3</span></code> was processed before the others.</p>
 </div>
-<p>When the <code class="docutils literal notranslate"><span class="pre">val</span></code> has the same name as the channel from where the data is received, the <code class="docutils literal notranslate"><span class="pre">from</span></code> part can be omitted.
-Thus the above example can be written as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
-
-<span class="n">process</span> <span class="n">basicExample</span> <span class="p">{</span>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When the process declares exactly one input, the pipe <code class="docutils literal notranslate"><span class="pre">|</span></code> operator can be used to provide inputs to the process,
+instead of passing it as a parameter. Both methods have identical semantics:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">basicExample</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">num</span>
+  <span class="n">val</span> <span class="n">x</span>
 
-  <span class="s2">&quot;echo process job $num&quot;</span>
+  <span class="s2">&quot;echo process job $x&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="o">|</span> <span class="n">basicExample</span>
 <span class="p">}</span>
 </pre></div>
 </div>
+</div>
 </section>
-<section id="input-of-files">
-<h3>Input of files<a class="headerlink" href="#input-of-files" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows the handling of file values in the process execution context. This means that
-Nextflow will stage it in the process execution directory, and it can be access in the script by using the name
-specified in the input declaration. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
-
-<span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
+<section id="input-type-file">
+<h3>Input type <code class="docutils literal notranslate"><span class="pre">file</span></code><a class="headerlink" href="#input-type-file" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier was the standard way to handle input files prior to Nextflow 19.10.0. In later versions
+of Nextflow, the <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier is identical to <code class="docutils literal notranslate"><span class="pre">path</span></code>, with one important difference. When a <code class="docutils literal notranslate"><span class="pre">file</span></code> input
+receives a value that is not a file, it automatically converts the value to a string and saves it to a
+temporary file. This behavior is useful in some cases, but tends to be confusing in general. The <code class="docutils literal notranslate"><span class="pre">path</span></code>
+qualifier instead interprets string values as the path location of the input file and automatically
+converts to a file object.</p>
+</section>
+<section id="input-type-path">
+<span id="process-input-path"></span><h3>Input type <code class="docutils literal notranslate"><span class="pre">path</span></code><a class="headerlink" href="#input-type-path" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier allows you to provide input files to the process execution context. Nextflow will stage
+the files into the process execution directory, and they can be accessed in the script by using the specified
+input name. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">query_file</span> <span class="kn">from</span> <span class="nn">proteins</span>
+  <span class="n">path</span> <span class="n">query_file</span>
 
   <span class="s2">&quot;blastp -query $</span><span class="si">{query_file}</span><span class="s2"> -db nr&quot;</span>
 <span class="p">}</span>
-</pre></div>
-</div>
-<p>In the above example all the files ending with the suffix <code class="docutils literal notranslate"><span class="pre">.fa</span></code> are sent over the channel <code class="docutils literal notranslate"><span class="pre">proteins</span></code>.
-Then, these files are received by the process which will execute a <cite>BLAST</cite> query on each of them.</p>
-<p>When the file input name is the same as the channel name, the <code class="docutils literal notranslate"><span class="pre">from</span></code> part of the input declaration can be omitted.
-Thus, the above example could be written as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
 
-<span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">proteins</span>
-
-  <span class="s2">&quot;blastp -query $proteins -db nr&quot;</span>
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="k">def</span> <span class="nf">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
+  <span class="n">blastThemAll</span><span class="p">(</span><span class="n">proteins</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>It’s worth noting that in the above examples, the name of the file in the file-system is not touched, you can
-access the file even without knowing its name because you can reference it in the process script by using the
-variable whose name is specified in the input file parameter declaration.</p>
-<p>There may be cases where your task needs to use a file whose name is fixed, it does not have to change along
-with the actual provided file. In this case you can specify its name by specifying the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute in the
-input file parameter declaration, as shown in the following example:</p>
+<p>In the above example, all the files ending with the suffix <code class="docutils literal notranslate"><span class="pre">.fa</span></code> are sent over the channel <code class="docutils literal notranslate"><span class="pre">proteins</span></code>.
+These files are received by the process, which executes a BLAST query on each of them.</p>
+<p>It’s worth noting that in the above example, the name of the file in the file-system is not used. You can
+access the file without even knowing its name, because you can reference it in the process script by the input name.</p>
+<p>There may be cases where your task needs to use a file whose name is fixed, i.e. it does not have to change along
+with the actual provided file. In this case, you can specify a fixed name with the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute in the
+input file parameter definition, as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="n">query_file</span> <span class="n">name</span> <span class="s1">&#39;query.fa&#39;</span> <span class="kn">from</span> <span class="nn">proteins</span>
+<span class="n">path</span> <span class="n">query_file</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="s1">&#39;query.fa&#39;</span>
 </pre></div>
 </div>
-<p>Or alternatively using a shorter syntax:</p>
+<p>or, using a shorter syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;query.fa&#39;</span> <span class="kn">from</span> <span class="nn">proteins</span>
+<span class="n">path</span> <span class="s1">&#39;query.fa&#39;</span>
 </pre></div>
 </div>
-<p>Using this, the previous example can be re-written as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
-
-<span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
+<p>The previous example can be re-written as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="s1">&#39;query.fa&#39;</span> <span class="kn">from</span> <span class="nn">proteins</span>
+  <span class="n">path</span> <span class="s1">&#39;query.fa&#39;</span>
 
   <span class="s2">&quot;blastp -query query.fa -db nr&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="k">def</span> <span class="nf">proteins</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s1">&#39;/some/path/*.fa&#39;</span> <span class="p">)</span>
+  <span class="n">blastThemAll</span><span class="p">(</span><span class="n">proteins</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>What happens in this example is that each file, that the process receives, is staged with the name <code class="docutils literal notranslate"><span class="pre">query.fa</span></code>
-in a different execution context (i.e. the folder where the job is executed) and an independent process
-execution is launched.</p>
+<p>In this example, each file received by the process is staged with the name <code class="docutils literal notranslate"><span class="pre">query.fa</span></code>
+in a different execution context (i.e. the folder where a task is executed).</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>This feature allows you to execute the process command multiple times without worrying about the file names changing.
-In other words, <cite>Nextflow</cite> helps you write pipeline tasks that are self-contained and decoupled from the execution
-environment. This is also the reason why you should avoid whenever possible using absolute or relative paths
-when referencing files in your pipeline processes.</p>
+In other words, Nextflow helps you write pipeline tasks that are self-contained and decoupled from the execution
+environment. As a best practice, you should avoid referencing files in your process script other than those
+defined in your input block.</p>
+</div>
+<p>Channel factories like <code class="docutils literal notranslate"><span class="pre">Channel.fromPath</span></code> produce file objects, but a <code class="docutils literal notranslate"><span class="pre">path</span></code> input can also
+accept a string literal path. The string value should be an absolute path, i.e. it must be
+prefixed with a <code class="docutils literal notranslate"><span class="pre">/</span></code> character or a supported URI protocol (<code class="docutils literal notranslate"><span class="pre">file://</span></code>, <code class="docutils literal notranslate"><span class="pre">http://</span></code>, <code class="docutils literal notranslate"><span class="pre">s3://</span></code>, etc),
+and it cannot contain special characters (<code class="docutils literal notranslate"><span class="pre">\n</span></code>, etc).</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">path</span> <span class="n">x</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  your_command --in $x</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">foo</span><span class="p">(</span><span class="s1">&#39;/some/data/file.txt&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">stageAs</span></code> option allows you to control how the file should be named in the task work
+directory. You can provide a specific name or a pattern as described in the <a class="reference internal" href="#multiple-input-files">Multiple input files</a>
+section:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">path</span> <span class="n">x</span><span class="p">,</span> <span class="n">stageAs</span><span class="p">:</span> <span class="s1">&#39;data.txt&#39;</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  your_command --in data.txt</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">foo</span><span class="p">(</span><span class="s1">&#39;/some/data/file.txt&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
 </div>
 </section>
 <section id="multiple-input-files">
 <h3>Multiple input files<a class="headerlink" href="#multiple-input-files" title="Permalink to this headline"></a></h3>
-<p>A process can declare as input file a channel that emits a collection of values, instead of a simple value.</p>
-<p>In this case, the script variable defined by the input file parameter will hold a list of files. You can
-use it as shown before, referring to all the files in the list, or by accessing a specific entry using the
-usual square brackets notation.</p>
-<p>When a target file name is defined in the input parameter and a collection of files is received by the process,
-the file name will be appended by a numerical suffix representing its ordinal position in the list. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
+<p>A <code class="docutils literal notranslate"><span class="pre">path</span></code> input can also accept a collection of files instead of a single value.
+In this case, the input variable will be a Groovy list, and you can use it as such.</p>
+<p>When the input has a fixed file name and a collection of files is received by the process,
+the file name will be appended with a numerical suffix representing its ordinal position
+in the list. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;seq&#39;</span> <span class="kn">from</span> <span class="nn">fasta</span>
+    <span class="n">path</span> <span class="s1">&#39;seq&#39;</span>
 
     <span class="s2">&quot;echo seq*&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">blastThemAll</span><span class="p">(</span><span class="n">fasta</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Will output:</p>
+<p>will output:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seq1</span> <span class="n">seq2</span> <span class="n">seq3</span>
 <span class="n">seq1</span> <span class="n">seq2</span> <span class="n">seq3</span>
 <span class="o">...</span>
 </pre></div>
 </div>
-<p>The target input file name can contain the <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcards, that can be used
+<p>The target input file name may contain the <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcards, which can be used
 to control the name of staged files. The following table shows how the wildcards are
 replaced depending on the cardinality of the received input collection.</p>
 <table class="docutils align-default">
@@ -717,33 +777,36 @@ replaced depending on the cardinality of the received input collection.</p>
 </tr>
 </tbody>
 </table>
-<p>The following fragment shows how a wildcard can be used in the input file declaration:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span><span class="mi">3</span><span class="p">)</span>
-
-<span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
+<p>The following example shows how a wildcard can be used in the input file definition:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">blastThemAll</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;seq?.fa&#39;</span> <span class="kn">from</span> <span class="nn">fasta</span>
+    <span class="n">path</span> <span class="s1">&#39;seq?.fa&#39;</span>
 
     <span class="s2">&quot;cat seq1.fa seq2.fa seq3.fa&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">fasta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span> <span class="s2">&quot;/some/path/*.fa&quot;</span> <span class="p">)</span><span class="o">.</span><span class="n">buffer</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">blastThemAll</span><span class="p">(</span><span class="n">fasta</span><span class="p">)</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Rewriting input file names according to a named pattern is an extra feature and not at all obligatory.
-The normal file input constructs introduced in the <a class="reference internal" href="#input-of-files">Input of files</a> section are valid for collections of
-multiple files as well. To handle multiple input files preserving the original file names, use the <code class="docutils literal notranslate"><span class="pre">*</span></code> wildcard as
-name pattern or a variable identifier.</p>
+<p>Rewriting input file names according to a named pattern is an extra feature and not at all required.
+The normal file input syntax introduced in the <a class="reference internal" href="#process-input-path"><span class="std std-ref">Input type path</span></a> section is valid for collections of
+multiple files as well. To handle multiple input files while preserving the original file names, use a variable
+identifier or the <code class="docutils literal notranslate"><span class="pre">*</span></code> wildcard.</p>
 </div>
 </section>
 <section id="dynamic-input-file-names">
 <h3>Dynamic input file names<a class="headerlink" href="#dynamic-input-file-names" title="Permalink to this headline"></a></h3>
-<p>When the input file name is specified by using the <code class="docutils literal notranslate"><span class="pre">name</span></code> file clause or the short <cite>string</cite> notation, you
-are allowed to use other input values as variables in the file name string. For example:</p>
+<p>When the input file name is specified by using the <code class="docutils literal notranslate"><span class="pre">name</span></code> option or a string literal, you
+can also use other input values as variables in the file name string. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">simpleCount</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">species</span>
-  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{x}</span><span class="s2">.fa&quot;</span> <span class="kn">from</span> <span class="nn">genomes</span>
+  <span class="n">val</span> <span class="n">x</span>
+  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{x}</span><span class="s2">.fa&quot;</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  cat ${x}.fa | grep &#39;&gt;&#39;</span>
@@ -751,100 +814,31 @@ are allowed to use other input values as variables in the file name string. For 
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example, the input file name is set by using the current value of the <code class="docutils literal notranslate"><span class="pre">x</span></code> input value.</p>
-<p>This allows the input files to be staged in the script working directory with a name that is coherent
+<p>In the above example, the input file name is determined by the current value of the <code class="docutils literal notranslate"><span class="pre">x</span></code> input value.</p>
+<p>This approach allows input files to be staged in the task directory with a name that is coherent
 with the current execution context.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>In most cases, you won’t need to use dynamic file names, because each process is executed in its
-own temporary directory, and input files are automatically staged into this directory by Nextflow.
-This guarantees that input files with the same name won’t overwrite each other.</p>
+<p>In most cases, you won’t need to use dynamic file names, because each task is executed in its
+own directory, and input files are automatically staged into this directory by Nextflow.
+This behavior guarantees that input files with the same name won’t overwrite each other.</p>
 </div>
 </section>
-<section id="input-of-type-path">
-<h3>Input of type ‘path’<a class="headerlink" href="#input-of-type-path" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> input qualifier was introduced by Nextflow version 19.10.0 and it’s a drop-in replacement
-for the <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier, therefore it’s backward compatible with the syntax
-and the semantic for the input <code class="docutils literal notranslate"><span class="pre">file</span></code> described above.</p>
-<p>The important difference between <code class="docutils literal notranslate"><span class="pre">file</span></code> and <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier is that the first expects the
-values received as input to be <em>file</em> objects. When inputs is a different type, it automatically
-coverts to a string and saves it to a temporary files. This can be useful in some uses cases,
-but it turned out to be tricky in most common cases.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier instead interprets string values as the path location of the input file
-and automatically converts to a file object.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="n">x</span> <span class="kn">from</span> <span class="s1">&#39;/some/data/file.txt&#39;</span>
-
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  your_command --in $x</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The input value should represent an absolute path location, i.e. the string value
-<strong>must</strong> be prefixed with a <code class="docutils literal notranslate"><span class="pre">/</span></code> character or with a supported URI protocol (<code class="docutils literal notranslate"><span class="pre">file://</span></code>,
-<code class="docutils literal notranslate"><span class="pre">http://</span></code>, <code class="docutils literal notranslate"><span class="pre">s3://</span></code>, etc) and it cannot contain special characters (<code class="docutils literal notranslate"><span class="pre">\n</span></code>, etc).</p>
-</div>
-<p>The option <code class="docutils literal notranslate"><span class="pre">stageAs</span></code> allow you to control how the file should be named in the task work
-directory, providing a specific name or a name pattern as described in the <a class="reference internal" href="#multiple-input-files">Multiple input files</a>
-section:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="n">x</span><span class="p">,</span> <span class="n">stageAs</span><span class="p">:</span> <span class="s1">&#39;data.txt&#39;</span> <span class="kn">from</span> <span class="s1">&#39;/some/data/file.txt&#39;</span>
-
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  your_command --in data.txt</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code> to handle process input files
-when using Nextflow 19.10.0 or later.</p>
-</div>
-</section>
-<section id="input-of-type-stdin">
-<h3>Input of type ‘stdin’<a class="headerlink" href="#input-of-type-stdin" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">stdin</span></code> input qualifier allows you the forwarding of the value received from a channel to the
-<a class="reference external" href="http://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29">standard input</a>
-of the command executed by the process. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">str</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">}</span>
-
-<span class="n">process</span> <span class="n">printAll</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-  <span class="n">stdin</span> <span class="nb">str</span>
-
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  cat -</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-<p>It will output:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hola</span>
-<span class="n">bonjour</span>
-<span class="n">ciao</span>
-<span class="n">hello</span>
-</pre></div>
-</div>
-</section>
-<section id="input-of-type-env">
-<h3>Input of type ‘env’<a class="headerlink" href="#input-of-type-env" title="Permalink to this headline"></a></h3>
+<section id="input-type-env">
+<h3>Input type <code class="docutils literal notranslate"><span class="pre">env</span></code><a class="headerlink" href="#input-type-env" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> qualifier allows you to define an environment variable in the process execution context based
-on the value received from the channel. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">str</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span>
-
-<span class="n">process</span> <span class="n">printEnv</span> <span class="p">{</span>
+on the input value. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">printEnv</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="n">env</span> <span class="n">HELLO</span> <span class="kn">from</span> <span class="nn">str</span>
+    <span class="n">env</span> <span class="n">HELLO</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    echo $HELLO world!</span>
 <span class="sd">    &#39;&#39;&#39;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">printEnv</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -855,175 +849,222 @@ hola world!
 </pre></div>
 </div>
 </section>
-<section id="input-of-type-set">
-<span id="process-input-set"></span><h3>Input of type ‘set’<a class="headerlink" href="#input-of-type-set" title="Permalink to this headline"></a></h3>
+<section id="input-type-stdin">
+<h3>Input type <code class="docutils literal notranslate"><span class="pre">stdin</span></code><a class="headerlink" href="#input-type-stdin" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">stdin</span></code> qualifier allows you to forward the input value to the
+<a class="reference external" href="http://en.wikipedia.org/wiki/Standard_streams#Standard_input_.28stdin.29">standard input</a>
+of the process script. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">printAll</span> <span class="p">{</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="n">stdin</span> <span class="nb">str</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  cat -</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="nb">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">}</span>
+    <span class="o">|</span> <span class="n">printAll</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>will output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">hola</span>
+<span class="n">bonjour</span>
+<span class="n">ciao</span>
+<span class="n">hello</span>
+</pre></div>
+</div>
+</section>
+<section id="input-type-set">
+<span id="process-input-set"></span><h3>Input type <code class="docutils literal notranslate"><span class="pre">set</span></code><a class="headerlink" href="#input-type-set" title="Permalink to this headline"></a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> input type has been deprecated. Use <code class="docutils literal notranslate"><span class="pre">tuple</span></code> instead.</p>
 </div>
 </section>
-<section id="input-of-type-tuple">
-<span id="process-input-tuple"></span><h3>Input of type ‘tuple’<a class="headerlink" href="#input-of-type-tuple" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to group multiple parameters in a single parameter definition. It can be useful
-when a process receives, in input, tuples of values that need to be handled separately. Each element in the tuple
-is associated to a corresponding element with the <code class="docutils literal notranslate"><span class="pre">tuple</span></code> definition. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">values</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span>
-
-<span class="n">process</span> <span class="n">tupleExample</span> <span class="p">{</span>
+<section id="input-type-tuple">
+<span id="process-input-tuple"></span><h3>Input type <code class="docutils literal notranslate"><span class="pre">tuple</span></code><a class="headerlink" href="#input-type-tuple" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to group multiple values into a single input definition. It can be useful
+when a channel emits tuples of values that need to be handled separately. Each element in the tuple
+is associated with a corresponding element in the <code class="docutils literal notranslate"><span class="pre">tuple</span></code> definition. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">tupleExample</span> <span class="p">{</span>
     <span class="nb">input</span><span class="p">:</span>
-    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;latin.txt&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">values</span>
+    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;latin.txt&#39;</span><span class="p">)</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    echo Processing $x</span>
+<span class="sd">    echo &quot;Processing $x&quot;</span>
 <span class="sd">    cat - latin.txt &gt; copy</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;alpha&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span><span class="p">]</span> <span class="p">)</span> <span class="o">|</span> <span class="n">tupleExample</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example the <code class="docutils literal notranslate"><span class="pre">tuple</span></code> parameter is used to define the value <code class="docutils literal notranslate"><span class="pre">x</span></code> and the file <code class="docutils literal notranslate"><span class="pre">latin.txt</span></code>,
-which will receive a value from the same channel.</p>
-<p>In the <code class="docutils literal notranslate"><span class="pre">tuple</span></code> declaration items can be defined by using the following qualifiers: <code class="docutils literal notranslate"><span class="pre">val</span></code>, <code class="docutils literal notranslate"><span class="pre">env</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">stdin</span></code>.</p>
-<p>File names can be defined in <em>dynamic</em> manner as explained in the <a class="reference internal" href="#dynamic-input-file-names">Dynamic input file names</a> section.</p>
+<p>In the above example, the <code class="docutils literal notranslate"><span class="pre">tuple</span></code> input consists of the value <code class="docutils literal notranslate"><span class="pre">x</span></code> and the file <code class="docutils literal notranslate"><span class="pre">latin.txt</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">tuple</span></code> definition may contain any of the following qualifiers, as previously described:
+<code class="docutils literal notranslate"><span class="pre">val</span></code>, <code class="docutils literal notranslate"><span class="pre">env</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code> and <code class="docutils literal notranslate"><span class="pre">stdin</span></code>. Files specified with the <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier are treated
+exactly the same as standalone <code class="docutils literal notranslate"><span class="pre">path</span></code> inputs.</p>
 </section>
-<section id="input-repeaters">
-<h3>Input repeaters<a class="headerlink" href="#input-repeaters" title="Permalink to this headline"></a></h3>
+<section id="input-repeaters-each">
+<h3>Input repeaters (<cite>each</cite>)<a class="headerlink" href="#input-repeaters-each" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">each</span></code> qualifier allows you to repeat the execution of a process for each item in a collection,
-every time a new data is received. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
-<span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">,</span> <span class="s1">&#39;psicoffee&#39;</span><span class="p">]</span>
-
-<span class="n">process</span> <span class="n">alignSequences</span> <span class="p">{</span>
+each time a new value is received. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">alignSequences</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">seq</span> <span class="kn">from</span> <span class="nn">sequences</span>
-  <span class="n">each</span> <span class="n">mode</span> <span class="kn">from</span> <span class="nn">methods</span>
+  <span class="n">path</span> <span class="n">seq</span>
+  <span class="n">each</span> <span class="n">mode</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  t_coffee -in $seq -mode $mode &gt; result</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
+  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">,</span> <span class="s1">&#39;psicoffee&#39;</span><span class="p">]</span>
+
+  <span class="n">alignSequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">methods</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example every time a file of sequences is received as input by the process,
-it executes <em>three</em> tasks running a T-coffee alignment with a different value for the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameter.
-This is useful when you need to <cite>repeat</cite> the same task for a given set of parameters.</p>
+<p>In the above example, each time a file of sequences is emitted from the <code class="docutils literal notranslate"><span class="pre">sequences</span></code> channel,
+the process executes <em>three</em> tasks, each running a T-coffee alignment with a different value for
+the <code class="docutils literal notranslate"><span class="pre">mode</span></code> parameter. This behavior is useful when you need to repeat the same task over a given
+set of parameters.</p>
 <p>Input repeaters can be applied to files as well. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
-<span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">]</span>
-<span class="n">libraries</span> <span class="o">=</span> <span class="p">[</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ001.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ002.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ003.lib&#39;</span><span class="p">)</span> <span class="p">]</span>
-
-<span class="n">process</span> <span class="n">alignSequences</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">alignSequences</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">seq</span> <span class="kn">from</span> <span class="nn">sequences</span>
-  <span class="n">each</span> <span class="n">mode</span> <span class="kn">from</span> <span class="nn">methods</span>
-  <span class="n">each</span> <span class="n">path</span><span class="p">(</span><span class="n">lib</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">libraries</span>
+  <span class="n">path</span> <span class="n">seq</span>
+  <span class="n">each</span> <span class="n">mode</span>
+  <span class="n">each</span> <span class="n">path</span><span class="p">(</span><span class="n">lib</span><span class="p">)</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  t_coffee -in $seq -mode $mode -lib $lib &gt; result</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
+  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">]</span>
+  <span class="n">libraries</span> <span class="o">=</span> <span class="p">[</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ001.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ002.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ003.lib&#39;</span><span class="p">)</span> <span class="p">]</span>
+
+  <span class="n">alignSequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="n">libraries</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
+</div>
+<p>In the above example, each sequence input file emitted by the <code class="docutils literal notranslate"><span class="pre">sequences</span></code> channel triggers six alignment tasks,
+three with the <code class="docutils literal notranslate"><span class="pre">regular</span></code> method against each library file, and three with the <code class="docutils literal notranslate"><span class="pre">expresso</span></code> method.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When multiple repeaters are defined, the process is executed for each <em>combination</em> of them.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When multiple repeaters are declared, the process is executed for each <em>combination</em> of them.</p>
-</div>
-<p>In the latter example for any sequence input file emitted by the <code class="docutils literal notranslate"><span class="pre">sequences</span></code> channel are executed 6 alignments,
-3 using the <code class="docutils literal notranslate"><span class="pre">regular</span></code> method against each library files, and other 3 by using the <code class="docutils literal notranslate"><span class="pre">expresso</span></code> method always
-against the same library files.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you need to repeat the execution of a process over an n-tuple of elements instead of simple values or files,
-create a channel combining the input values as needed to trigger the process execution multiple times.
-Refer to the <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>, <a class="reference internal" href="operator.html#operator-cross"><span class="std std-ref">cross</span></a> and <a class="reference internal" href="operator.html#operator-phase"><span class="std std-ref">phase</span></a> operators for more details.</p>
+<p>Input repeaters currently do not support tuples. However, you can emulate an input repeater on a channel of
+tuples by using the <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a> or <a class="reference internal" href="operator.html#operator-cross"><span class="std std-ref">cross</span></a> operator with other input channels to
+produce all of the desired input combinations.</p>
 </div>
 </section>
-<section id="understand-how-multiple-input-channels-work">
-<span id="process-understand-how-multiple-input-channels-work"></span><h3>Understand how multiple input channels work<a class="headerlink" href="#understand-how-multiple-input-channels-work" title="Permalink to this headline"></a></h3>
+<section id="multiple-input-channels">
+<span id="process-multiple-input-channels"></span><h3>Multiple input channels<a class="headerlink" href="#multiple-input-channels" title="Permalink to this headline"></a></h3>
 <p>A key feature of processes is the ability to handle inputs from multiple channels.</p>
-<p>When two or more channels are declared as process inputs, the process stops until
-there’s a complete input configuration ie. it receives an input value from all the channels declared
-as input.</p>
-<p>When this condition is verified, it consumes the input values coming from the respective channels,
-and spawns a task execution, then repeat the same logic until one or more channels have no more content.</p>
-<p>This means channel values are consumed serially one after another and the first empty channel
-cause the process execution to stop even if there are other values in other channels.</p>
+<p>When two or more channels are declared as process inputs, the process waits until
+there is a complete input configuration, i.e. until it receives a value from each
+input channel. When this condition is satisfied, the process consumes a value from
+each channel and launches a new task, repeating this logic until one or more channels
+are empty.</p>
+<p>As a result, channel values are consumed sequentially and any empty channel will cause
+the process to wait, even if the other channels have values.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="n">debug</span> <span class="n">true</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-  <span class="n">val</span> <span class="n">y</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">val</span> <span class="n">x</span>
+  <span class="n">val</span> <span class="n">y</span>
 
   <span class="n">script</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  echo $x and $y</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>The process <code class="docutils literal notranslate"><span class="pre">foo</span></code> is executed two times because the first input channel only provides two values and therefore
-the <code class="docutils literal notranslate"><span class="pre">c</span></code> element is discarded. It prints:</p>
+<p>The process <code class="docutils literal notranslate"><span class="pre">foo</span></code> is executed two times because the <code class="docutils literal notranslate"><span class="pre">x</span></code> channel emits only two values, therefore
+the <code class="docutils literal notranslate"><span class="pre">c</span></code> element is discarded. It outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">and</span> <span class="n">a</span>
 <span class="mi">2</span> <span class="ow">and</span> <span class="n">b</span>
 </pre></div>
 </div>
-<p>A different semantic is applied when using a <em>value channel</em> (a.k.a. <em>singleton channel</em>).
-This kind of channel is created by the <a class="reference internal" href="channel.html#channel-value"><span class="std std-ref">Channel.value</span></a> factory method or implicitly
-when a process input specifies a simple value in the <code class="docutils literal notranslate"><span class="pre">from</span></code> clause.
-By definition, a value channel is bound to a single value and it can be read an unlimited
-number of times without consuming its content.</p>
-<p>These properties make that when mixing a value channel with one or more (queue) channels,
-it does not affect the process termination because its content is applied repeatedly.</p>
+<p>A different semantic is applied when using a <a class="reference internal" href="channel.html#channel-type-value"><span class="std std-ref">value channel</span></a>. This kind of
+channel is created by the <a class="reference internal" href="channel.html#channel-value"><span class="std std-ref">Channel.value</span></a> factory method or implicitly when a
+process is invoked with an argument that is not a channel. By definition, a value channel is bound to
+a single value and it can be read an unlimited number of times without consuming its content. Therefore,
+when mixing a value channel with one or more (queue) channels, it does not affect the process termination
+because the underlying value is applied repeatedly.</p>
 <p>To better understand this behavior, compare the previous example with the following one:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">bar</span> <span class="p">{</span>
-  <span class="n">debug</span> <span class="n">true</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">Channel.value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-  <span class="n">val</span> <span class="n">y</span> <span class="kn">from</span> <span class="nn">Channel.from</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">val</span> <span class="n">x</span>
+  <span class="n">val</span> <span class="n">y</span>
 
   <span class="n">script</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  echo $x and $y</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+  <span class="n">foo</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>The above snippet executes the <code class="docutils literal notranslate"><span class="pre">bar</span></code> process three times because the first input is a <em>value channel</em>, therefore
-its content can be read as many times as needed. The process termination is determined by the content of the second
-channel. It prints:</p>
+<p>The above example executes the <code class="docutils literal notranslate"><span class="pre">bar</span></code> process three times because <code class="docutils literal notranslate"><span class="pre">x</span></code> is a value channel, therefore
+its value can be read as many times as needed. The process termination is determined by the contents of <code class="docutils literal notranslate"><span class="pre">y</span></code>.
+It outputs:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="ow">and</span> <span class="n">a</span>
 <span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span>
 <span class="mi">1</span> <span class="ow">and</span> <span class="n">c</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In general, multiple input channels should be used to process <em>combinations</em> of different inputs,
+using the <code class="docutils literal notranslate"><span class="pre">each</span></code> qualifier or value channels. Having multiple queue channels as inputs is equivalent
+to using the <code class="docutils literal notranslate"><span class="pre">merge</span></code> operator, which is not recommended as it may lead to inputs being combined in
+a non-deterministic way.</p>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-types"><span class="std std-ref">Channel types</span></a>.</p>
 </section>
 </section>
 <section id="outputs">
 <h2>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">output</span></code> declaration block allows you to define the channels used by the process to send out the results produced.
-You can only define one output block at a time and it must contain one or more output declarations.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">output</span></code> block allows you to define the output channels of a process, similar to function outputs.
+A process may have at most one output block, and it must contain at least one output.</p>
 <p>The output block follows the syntax shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
-  <span class="o">&lt;</span><span class="n">output</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">into</span> <span class="o">&lt;</span><span class="n">target</span> <span class="n">channel</span><span class="o">&gt;</span><span class="p">[,</span><span class="n">channel</span><span class="p">,</span><span class="o">..</span><span class="p">]]</span> <span class="p">[</span><span class="n">attribute</span> <span class="p">[,</span><span class="o">..</span><span class="p">]]</span>
+  <span class="o">&lt;</span><span class="n">output</span> <span class="n">qualifier</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">name</span><span class="o">&gt;</span> <span class="p">[,</span> <span class="o">&lt;</span><span class="n">option</span><span class="o">&gt;</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">&gt;</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Output definitions start by an output <cite>qualifier</cite> and the output <cite>name</cite>, followed by the keyword <code class="docutils literal notranslate"><span class="pre">into</span></code> and
-one or more channels over which outputs are sent. Finally some optional attributes can be specified.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>When the output name is the same as the channel name, the <code class="docutils literal notranslate"><span class="pre">into</span></code> part of the declaration can be omitted.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If an output channel has not been previously declared in the pipeline script, it
-will be implicitly created by the output declaration itself.</p>
-</div>
-<p>The qualifiers that can be used in the output declaration block are the ones listed in the following table:</p>
+<p>An output definition consists of a <cite>qualifier</cite> and a <cite>name</cite>. Some optional attributes can also be specified.</p>
+<p>When a process is invoked, each process output is returned as a channel. The examples provided in
+the following sections demonstrate how to access the output channels of a process.</p>
+<p>The available output qualifiers are listed in the following table:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
+<col style="width: 13%" />
+<col style="width: 88%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Qualifier</p></th>
@@ -1031,105 +1072,163 @@ will be implicitly created by the output declaration itself.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>val</p></td>
-<td><p>Sends variables with the name specified over the output channel.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">val</span></code></p></td>
+<td><p>Emit the variable with the specified name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>file</p></td>
-<td><p>Sends a file produced by the process with the name specified over the output channel.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">file</span></code></p></td>
+<td><p>(DEPRECATED) Emit a file produced by the process with the specified name.</p></td>
 </tr>
-<tr class="row-even"><td><p>path</p></td>
-<td><p>Sends a file produced by the process with the name specified over the output channel (replaces <code class="docutils literal notranslate"><span class="pre">file</span></code>).</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">path</span></code></p></td>
+<td><p>Emit a file produced by the process with the specified name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>env</p></td>
-<td><p>Sends the variable defined in the process environment with the name specified over the output channel.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">env</span></code></p></td>
+<td><p>Emit the variable defined in the process environment with the specified name.</p></td>
 </tr>
-<tr class="row-even"><td><p>stdout</p></td>
-<td><p>Sends the executed process <code class="docutils literal notranslate"><span class="pre">stdout</span></code> over the output channel.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stdout</span></code></p></td>
+<td><p>Emit the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> of the executed process.</p></td>
 </tr>
-<tr class="row-odd"><td><p>tuple</p></td>
-<td><p>Sends multiple values over the same output channel.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tuple</span></code></p></td>
+<td><p>Emit multiple values.</p></td>
 </tr>
 </tbody>
 </table>
-<section id="output-values">
-<h3>Output values<a class="headerlink" href="#output-values" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to output a <cite>value</cite> defined in the script context. In a common usage scenario,
-this is a value which has been defined in the <code class="docutils literal notranslate"><span class="pre">input</span></code> declaration block, as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;prot&#39;</span><span class="p">,</span><span class="s1">&#39;dna&#39;</span><span class="p">,</span> <span class="s1">&#39;rna&#39;</span><span class="p">]</span>
-
-<span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+<section id="output-type-val">
+<h3>Output type <code class="docutils literal notranslate"><span class="pre">val</span></code><a class="headerlink" href="#output-type-val" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">val</span></code> qualifier allows you to output any Nextflow variable defined in the process. A common use case is to
+output a variable that was defined in the <code class="docutils literal notranslate"><span class="pre">input</span></code> block, as shown in the following example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">methods</span>
+  <span class="n">each</span> <span class="n">x</span>
 
   <span class="n">output</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="n">into</span> <span class="n">receiver</span>
+  <span class="n">val</span> <span class="n">x</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  echo $x &gt; file</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-
 <span class="p">}</span>
 
-<span class="n">receiver</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Received: $it&quot;</span> <span class="p">}</span>
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;prot&#39;</span><span class="p">,</span> <span class="s1">&#39;dna&#39;</span><span class="p">,</span> <span class="s1">&#39;rna&#39;</span><span class="p">]</span>
+
+  <span class="n">receiver</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">methods</span><span class="p">)</span>
+  <span class="n">receiver</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Received: $it&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>Valid output values are value literals, input value identifiers, variables accessible in the process scope and
-value expressions. For example:</p>
+<p>The output value can be a value literal, an input variable, any other Nextflow variable
+in the process scope, or a value expression. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">fasta</span> <span class="kn">from</span> <span class="s1">&#39;dummy&#39;</span>
+  <span class="n">path</span> <span class="n">infile</span>
 
   <span class="n">output</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="n">into</span> <span class="n">var_channel</span>
-  <span class="n">val</span> <span class="s1">&#39;BB11&#39;</span> <span class="n">into</span> <span class="n">str_channel</span>
-  <span class="n">val</span> <span class="s2">&quot;$</span><span class="si">{fasta.baseName}</span><span class="s2">.out&quot;</span> <span class="n">into</span> <span class="n">exp_channel</span>
+  <span class="n">val</span> <span class="n">x</span>
+  <span class="n">val</span> <span class="s1">&#39;BB11&#39;</span>
+  <span class="n">val</span> <span class="s2">&quot;$</span><span class="si">{infile.baseName}</span><span class="s2">.out&quot;</span>
 
   <span class="n">script</span><span class="p">:</span>
-  <span class="n">x</span> <span class="o">=</span> <span class="n">fasta</span><span class="o">.</span><span class="n">name</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="n">infile</span><span class="o">.</span><span class="n">name</span>
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  cat $x &gt; file</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">ch_dummy</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+  <span class="p">(</span><span class="n">ch_var</span><span class="p">,</span> <span class="n">ch_str</span><span class="p">,</span> <span class="n">ch_exp</span><span class="p">)</span> <span class="o">=</span> <span class="n">foo</span><span class="p">(</span><span class="n">ch_dummy</span><span class="p">)</span>
+
+  <span class="n">ch_var</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;ch_var: $it&quot;</span> <span class="p">}</span>
+  <span class="n">ch_str</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;ch_str: $it&quot;</span> <span class="p">}</span>
+  <span class="n">ch_exp</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;ch_exp: $it&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
-<section id="output-files">
-<h3>Output files<a class="headerlink" href="#output-files" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier allows you to output one or more files, produced by the process, over the specified channel.
-For example:</p>
+<section id="output-type-file">
+<h3>Output type <code class="docutils literal notranslate"><span class="pre">file</span></code><a class="headerlink" href="#output-type-file" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier was the standard way to handle input files prior to Nextflow 19.10.0.
+In later versions of Nextflow, the <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code>.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier is similar to <code class="docutils literal notranslate"><span class="pre">path</span></code>, but with some differences. The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier
+interprets <code class="docutils literal notranslate"><span class="pre">:</span></code> as a path separator, therefore <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">'foo:bar'</span></code> captures two files named <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+and <code class="docutils literal notranslate"><span class="pre">bar</span></code>, whereas <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">'foo:bar'</span></code> captures a single file named <code class="docutils literal notranslate"><span class="pre">foo:bar</span></code>. Additionally, <code class="docutils literal notranslate"><span class="pre">file</span></code>
+does not support all of the extra options provided by <code class="docutils literal notranslate"><span class="pre">path</span></code>.</p>
+</section>
+<section id="output-type-path">
+<h3>Output type <code class="docutils literal notranslate"><span class="pre">path</span></code><a class="headerlink" href="#output-type-path" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier allows you to output one or more files produced by the process. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">randomNum</span> <span class="p">{</span>
   <span class="n">output</span><span class="p">:</span>
-  <span class="n">path</span> <span class="s1">&#39;result.txt&#39;</span> <span class="n">into</span> <span class="n">numbers</span>
+  <span class="n">path</span> <span class="s1">&#39;result.txt&#39;</span>
 
   <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">  echo $RANDOM &gt; result.txt</span>
 <span class="sd">  &#39;&#39;&#39;</span>
 <span class="p">}</span>
 
-<span class="n">numbers</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;Received: &quot;</span> <span class="o">+</span> <span class="n">it</span><span class="o">.</span><span class="n">text</span> <span class="p">}</span>
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">numbers</span> <span class="o">=</span> <span class="n">randomNum</span><span class="p">()</span>
+  <span class="n">numbers</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Received: $</span><span class="si">{it.text}</span><span class="s2">&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example the process, when executed, creates a file named <code class="docutils literal notranslate"><span class="pre">result.txt</span></code> containing a random number.
-Since a file parameter using the same name is declared between the outputs, when the task is completed that
-file is sent over the <code class="docutils literal notranslate"><span class="pre">numbers</span></code> channel. A downstream process declaring the same channel as <code class="docutils literal notranslate"><span class="pre">input</span></code> will
-be able to receive it.</p>
+<p>In the above example, the <code class="docutils literal notranslate"><span class="pre">randomNum</span></code> process creates a file named <code class="docutils literal notranslate"><span class="pre">result.txt</span></code> which contains a random number.
+Since a <code class="docutils literal notranslate"><span class="pre">path</span></code> output with the same name is declared, that file is emitted by the corresponding output channel.
+A downstream process with a compatible input channel will be able to receive it.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">path</span></code> output can be defined with any of the additional options defined in the following table.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">glob</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the specified name is interpreted as a glob pattern (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hidden</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> hidden files are included in the matching output files (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">followLinks</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> target files are return in place of any matching symlink (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p>Type of paths returned, either <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">dir</span></code> or <code class="docutils literal notranslate"><span class="pre">any</span></code> (default: <code class="docutils literal notranslate"><span class="pre">any</span></code>, or <code class="docutils literal notranslate"><span class="pre">file</span></code> if the specified file name pattern contains a double star (<code class="docutils literal notranslate"><span class="pre">**</span></code>))</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxDepth</span></code></p></td>
+<td><p>Maximum number of directory levels to visit (default: no limit)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">includeInputs</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> any input files matching an output file glob pattern are included.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="multiple-output-files">
 <h3>Multiple output files<a class="headerlink" href="#multiple-output-files" title="Permalink to this headline"></a></h3>
-<p>When an output file name contains a <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcard character it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
-This allows you to <em>capture</em> multiple files into a list object and output them as a sole emission. For example:</p>
+<p>When an output file name contains a <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code> wildcard character, it is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher.
+This allows you to capture multiple files into a list and emit the list as a single value. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span>
+    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    printf &#39;Hola&#39; | split -b 1 - chunk_</span>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">}</span>
 
-<span class="n">letters</span>
-    <span class="o">.</span><span class="n">flatMap</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;File: $</span><span class="si">{it.name}</span><span class="s2"> =&gt; $</span><span class="si">{it.text}</span><span class="s2">&quot;</span> <span class="p">}</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">splitLetters</span>
+        <span class="o">|</span> <span class="n">flatten</span>
+        <span class="o">|</span> <span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;File: $</span><span class="si">{it.name}</span><span class="s2"> =&gt; $</span><span class="si">{it.text}</span><span class="s2">&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>It prints:</p>
@@ -1139,11 +1238,9 @@ This allows you to <em>capture</em> multiple files into a list object and output
 <span class="n">File</span><span class="p">:</span> <span class="n">chunk_ad</span> <span class="o">=&gt;</span> <span class="n">a</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In the above example, the operator <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a> is used to transform the list of files emitted by
-the <code class="docutils literal notranslate"><span class="pre">letters</span></code> channel into a channel that emits each file object separately.</p>
-</div>
+<p>By default, all the files matching the specified glob pattern are emitted as a single list. However,
+as the above example demonstrates, the <a class="reference internal" href="operator.html#operator-flatten"><span class="std std-ref">flatten</span></a> operator can be used to transform the
+list of files into a channel that emits each file individually.</p>
 <p>Some caveats on glob pattern behavior:</p>
 <ul class="simple">
 <li><p>Input files are not included (unless <code class="docutils literal notranslate"><span class="pre">includeInputs</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></li>
@@ -1154,139 +1251,52 @@ the <code class="docutils literal notranslate"><span class="pre">letters</span><
 <p>Although the input files matching a glob output declaration are not included in the
 resulting output channel, these files may still be transferred from the task scratch directory
 to the original task work directory. Therefore, to avoid unnecessary file copies, avoid using
-loose wildcards when defining output files, e.g. <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">'*'</span></code>. Instead, use a prefix or a suffix
-to restrict the set of matching files to only the expected ones, e.g. <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">'prefix_*.sorted.bam'</span></code>.</p>
-</div>
-<p>By default all the files matching the specified glob pattern are emitted by the channel as a sole (list) item.
-It is also possible to emit each file as a sole item by adding the <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">flatten</span></code> attribute in the output file
-declaration.</p>
-<p>By using the <code class="docutils literal notranslate"><span class="pre">mode</span></code> attribute the previous example can be re-written as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">splitLetters</span> <span class="p">{</span>
-    <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span>
-
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    printf &#39;Hola&#39; | split -b 1 - chunk_</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-<span class="p">}</span>
-
-<span class="n">letters</span>
-    <span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">println</span> <span class="s2">&quot;File: $</span><span class="si">{it.name}</span><span class="s2"> =&gt; $</span><span class="si">{it.text}</span><span class="s2">&quot;</span> <span class="p">}</span>
-</pre></div>
+loose wildcards when defining output files, e.g. <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">'*'</span></code>. Instead, use a prefix or a suffix
+to restrict the set of matching files to only the expected ones, e.g. <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">'prefix_*.sorted.bam'</span></code>.</p>
 </div>
 <p>Read more about glob syntax at the following link <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">What is a glob?</a></p>
 </section>
 <section id="dynamic-output-file-names">
-<span id="process-dynoutname"></span><h3>Dynamic output file names<a class="headerlink" href="#dynamic-output-file-names" title="Permalink to this headline"></a></h3>
-<p>When an output file name needs to be expressed dynamically, it is possible to define it using a dynamic evaluated
-string which references values defined in the input declaration block or in the script global context.
+<h3>Dynamic output file names<a class="headerlink" href="#dynamic-output-file-names" title="Permalink to this headline"></a></h3>
+<p>When an output file name needs to be expressed dynamically, it is possible to define it using a dynamic
+string which references variables in the <code class="docutils literal notranslate"><span class="pre">input</span></code> block or in the script global context.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">align</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">x</span> <span class="kn">from</span> <span class="nn">species</span>
-  <span class="n">path</span> <span class="n">seq</span> <span class="kn">from</span> <span class="nn">sequences</span>
+  <span class="n">val</span> <span class="n">species</span>
+  <span class="n">path</span> <span class="n">seq</span>
 
   <span class="n">output</span><span class="p">:</span>
-  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{x}</span><span class="s2">.aln&quot;</span> <span class="n">into</span> <span class="n">genomes</span>
+  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{species}</span><span class="s2">.aln&quot;</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  t_coffee -in $seq &gt; ${x}.aln</span>
+<span class="sd">  t_coffee -in $seq &gt; ${species}.aln</span>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example, each time the process is executed an alignment file is produced whose name depends
-on the actual value of the <code class="docutils literal notranslate"><span class="pre">x</span></code> input.</p>
+<p>In the above example, each process execution produces an alignment file whose name depends
+on the actual value of the <code class="docutils literal notranslate"><span class="pre">species</span></code> input.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The management of output files in Nextflow is often misunderstood.
-With other tools it is generally necessary to organize the output files into some kind of directory
+<p>The management of output files in Nextflow is often misunderstood.</p>
+<p>With other tools it is generally necessary to organize the output files into some kind of directory
 structure or to guarantee a unique file name scheme, so that result files don’t overwrite each other
 and so they can be referenced unequivocally by downstream tasks.</p>
 <p>With Nextflow, in most cases, you don’t need to manage the naming of output files, because each task is executed
-in its own unique directory, so files produced by different tasks can not override each other.
+in its own unique directory, so files produced by different tasks can’t overwrite each other.
 Also, metadata can be associated with outputs by using the <a class="reference internal" href="#process-out-tuple"><span class="std std-ref">tuple output</span></a> qualifier, instead of
 including them in the output file name.</p>
 <p>To sum up, the use of output files with static names over dynamic ones is preferable whenever possible,
 because it will result in simpler and more portable code.</p>
 </div>
 </section>
-<section id="output-path">
-<span id="process-out-path"></span><h3>Output path<a class="headerlink" href="#output-path" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> output qualifier was introduced by Nextflow version 19.10.0 and it’s a drop-in replacement
-for the <code class="docutils literal notranslate"><span class="pre">file</span></code> output qualifier, therefore it’s backward compatible with the syntax
-and the semantic for the input <code class="docutils literal notranslate"><span class="pre">file</span></code> described above.</p>
-<p>The main advantage of <code class="docutils literal notranslate"><span class="pre">path</span></code> over the <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier is that it allows the specification
-of a number of outputs to fine-control the output files.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 92%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>glob</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the specified name is interpreted as a glob pattern (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p>hidden</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> hidden files are included in the matching output files (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
-</tr>
-<tr class="row-even"><td><p>followLinks</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> target files are return in place of any matching symlink (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
-</tr>
-<tr class="row-odd"><td><p>type</p></td>
-<td><p>Type of paths returned, either <code class="docutils literal notranslate"><span class="pre">file</span></code>, <code class="docutils literal notranslate"><span class="pre">dir</span></code> or <code class="docutils literal notranslate"><span class="pre">any</span></code> (default: <code class="docutils literal notranslate"><span class="pre">any</span></code>, or <code class="docutils literal notranslate"><span class="pre">file</span></code> if the specified file name pattern contains a <cite>**</cite> - double star - symbol)</p></td>
-</tr>
-<tr class="row-even"><td><p>maxDepth</p></td>
-<td><p>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</p></td>
-</tr>
-<tr class="row-odd"><td><p>includeInputs</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> any input files matching an output file glob pattern are included.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> qualifier interprets <code class="docutils literal notranslate"><span class="pre">:</span></code> as a path separator, therefore <code class="docutils literal notranslate"><span class="pre">file</span> <span class="pre">'foo:bar'</span></code>
-captures two files named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier, on the other hand, does not,
-so the output definition <code class="docutils literal notranslate"><span class="pre">path</span> <span class="pre">'foo:bar'</span></code> captures a single file named <code class="docutils literal notranslate"><span class="pre">foo:bar</span></code>.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier should be preferred over <code class="docutils literal notranslate"><span class="pre">file</span></code> to handle process output files
-when using Nextflow 19.10.0 or later.</p>
-</div>
-</section>
-<section id="output-stdout-special-file">
-<span id="process-stdout"></span><h3>Output ‘stdout’ special file<a class="headerlink" href="#output-stdout-special-file" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">stdout</span></code> qualifier allows you to <cite>capture</cite> the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> output of the executed process and send it over
-the channel specified in the output parameter declaration. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
-    <span class="n">output</span><span class="p">:</span>
-    <span class="n">stdout</span> <span class="n">ch</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    echo Hello world!</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="p">}</span>
-
-<span class="n">ch</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="nb">print</span> <span class="s2">&quot;I say..  $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>In the above example <code class="docutils literal notranslate"><span class="pre">ch</span></code> represents an arbitrary channel variable that holds the process outputs.</p>
-</section>
-<section id="output-env">
-<span id="process-env"></span><h3>Output ‘env’<a class="headerlink" href="#output-env" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> qualifier allows you to capture a variable defined in the process execution environment
-and send it over the channel specified in the output parameter declaration:</p>
+<section id="output-type-env">
+<span id="process-env"></span><h3>Output type <code class="docutils literal notranslate"><span class="pre">env</span></code><a class="headerlink" href="#output-type-env" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> qualifier allows you to output a variable defined in the process execution environment:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">myTask</span> <span class="p">{</span>
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">env</span> <span class="n">FOO</span> <span class="n">into</span> <span class="n">target</span>
+    <span class="n">env</span> <span class="n">FOO</span>
 
     <span class="n">script</span><span class="p">:</span>
     <span class="sd">&#39;&#39;&#39;</span>
@@ -1294,67 +1304,96 @@ and send it over the channel specified in the output parameter declaration:</p>
 <span class="sd">    &#39;&#39;&#39;</span>
 <span class="p">}</span>
 
-<span class="n">target</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;directory content: $it&quot;</span> <span class="p">}</span>
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">myTask</span> <span class="o">|</span> <span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;directory contents: $it&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </section>
-<section id="output-set-of-values">
-<span id="process-set"></span><h3>Output ‘set’ of values<a class="headerlink" href="#output-set-of-values" title="Permalink to this headline"></a></h3>
+<section id="output-type-stdout">
+<span id="process-stdout"></span><h3>Output type <code class="docutils literal notranslate"><span class="pre">stdout</span></code><a class="headerlink" href="#output-type-stdout" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">stdout</span></code> qualifier allows you to output the <code class="docutils literal notranslate"><span class="pre">stdout</span></code> of the executed process:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">sayHello</span> <span class="p">{</span>
+    <span class="n">output</span><span class="p">:</span>
+    <span class="n">stdout</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    echo Hello world!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">sayHello</span> <span class="o">|</span> <span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;I say... $it&quot;</span> <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="output-type-set">
+<span id="process-set"></span><h3>Output type <code class="docutils literal notranslate"><span class="pre">set</span></code><a class="headerlink" href="#output-type-set" title="Permalink to this headline"></a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> output type has been deprecated. Use <code class="docutils literal notranslate"><span class="pre">tuple</span></code> instead.</p>
 </div>
 </section>
-<section id="output-tuple-of-values">
-<span id="process-out-tuple"></span><h3>Output ‘tuple’ of values<a class="headerlink" href="#output-tuple-of-values" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to send multiple values into a single channel. This feature is useful
-when you need to <cite>group together</cite> the results of multiple executions of the same process, as shown in the following
-example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">query_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span> <span class="s1">&#39;*.fa&#39;</span>
-<span class="n">species_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="kn">from</span> <span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span>
-
-<span class="n">process</span> <span class="n">blast</span> <span class="p">{</span>
+<section id="output-type-tuple">
+<span id="process-out-tuple"></span><h3>Output type <code class="docutils literal notranslate"><span class="pre">tuple</span></code><a class="headerlink" href="#output-type-tuple" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">tuple</span></code> qualifier allows you to output multiple values in a single channel. It is useful
+when you need to associate outputs with metadata, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">blast</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
-    <span class="n">val</span> <span class="n">species</span> <span class="kn">from</span> <span class="nn">query_ch</span>
-    <span class="n">path</span> <span class="n">query</span> <span class="kn">from</span> <span class="nn">species_ch</span>
+    <span class="n">val</span> <span class="n">species</span>
+    <span class="n">path</span> <span class="n">query</span>
 
   <span class="n">output</span><span class="p">:</span>
-    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span> <span class="n">into</span> <span class="n">blastOuts</span>
+    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">species</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;result&#39;</span><span class="p">)</span>
 
   <span class="n">script</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    blast -db nr -query $query &gt; result</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">ch_species</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;human&#39;</span><span class="p">,</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span><span class="p">)</span>
+  <span class="n">ch_query</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
+
+  <span class="n">blast</span><span class="p">(</span><span class="n">ch_species</span><span class="p">,</span> <span class="n">ch_query</span><span class="p">)</span>
+<span class="p">}</span>
 </pre></div>
 </div>
-<p>In the above example a <code class="docutils literal notranslate"><span class="pre">blast</span></code> task is executed for each pair of <code class="docutils literal notranslate"><span class="pre">species</span></code> and <code class="docutils literal notranslate"><span class="pre">query</span></code> that are received.
-When the task completes a new tuple containing the value for <code class="docutils literal notranslate"><span class="pre">species</span></code> and the file <code class="docutils literal notranslate"><span class="pre">result</span></code> is sent to the <code class="docutils literal notranslate"><span class="pre">blastOuts</span></code> channel.</p>
-<p>A <code class="docutils literal notranslate"><span class="pre">tuple</span></code> declaration can contain any combination of the following qualifiers, previously described: <code class="docutils literal notranslate"><span class="pre">val</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">env</span></code> and <code class="docutils literal notranslate"><span class="pre">stdout</span></code>.</p>
-<p>File names can be defined in a dynamic manner as explained in the <a class="reference internal" href="#process-dynoutname"><span class="std std-ref">Dynamic output file names</span></a> section.</p>
+<p>In the above example, a <code class="docutils literal notranslate"><span class="pre">blast</span></code> task is executed for each pair of <code class="docutils literal notranslate"><span class="pre">species</span></code> and <code class="docutils literal notranslate"><span class="pre">query</span></code> that are received.
+Each task produces a new tuple containing the value for <code class="docutils literal notranslate"><span class="pre">species</span></code> and the file <code class="docutils literal notranslate"><span class="pre">result</span></code>.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">tuple</span></code> definition may contain any of the following qualifiers, as previously described:
+<code class="docutils literal notranslate"><span class="pre">val</span></code>, <code class="docutils literal notranslate"><span class="pre">path</span></code>, <code class="docutils literal notranslate"><span class="pre">env</span></code> and <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. Files specified with the <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier are treated
+exactly the same as standalone <code class="docutils literal notranslate"><span class="pre">path</span></code> inputs.</p>
 </section>
-<section id="optional-output">
-<h3>Optional Output<a class="headerlink" href="#optional-output" title="Permalink to this headline"></a></h3>
-<p>In most cases a process is expected to generate output that is added to the output channel. However, there are situations where it is valid for a process to <cite>not</cite> generate output. In these cases <code class="docutils literal notranslate"><span class="pre">optional</span> <span class="pre">true</span></code> may be added to the output declaration, which tells Nextflow not to fail the process if the declared output is not created.</p>
+<section id="optional-outputs">
+<h3>Optional outputs<a class="headerlink" href="#optional-outputs" title="Permalink to this headline"></a></h3>
+<p>In most cases, a process is expected to produce an output for each output definition. However,
+there are situations where it is valid for a process to not generate output. In these cases,
+<code class="docutils literal notranslate"><span class="pre">optional:</span> <span class="pre">true</span></code> may be added to the output definition, which tells Nextflow not to fail the
+process if the declared output is not produced:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;output.txt&quot;</span><span class="p">)</span> <span class="n">optional</span> <span class="n">true</span> <span class="n">into</span> <span class="n">outChannel</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;output.txt&quot;</span><span class="p">),</span> <span class="n">optional</span><span class="p">:</span> <span class="n">true</span>
 </pre></div>
 </div>
-<p>In this example, the process is normally expected to generate an <code class="docutils literal notranslate"><span class="pre">output.txt</span></code> file, but in the cases where the file is legitimately missing, the process does not fail. <code class="docutils literal notranslate"><span class="pre">outChannel</span></code> is only populated by those processes that do generate <code class="docutils literal notranslate"><span class="pre">output.txt</span></code>.</p>
+<p>In this example, the process is normally expected to produce an <code class="docutils literal notranslate"><span class="pre">output.txt</span></code> file, but in the
+cases where the file is legitimately missing, the process does not fail. The output channel will
+only contain values for those processes that produce <code class="docutils literal notranslate"><span class="pre">output.txt</span></code>.</p>
 </section>
 </section>
 <section id="when">
 <h2>When<a class="headerlink" href="#when" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">when</span></code> declaration allows you to define a condition that must be verified in order to execute the process.
-This can be any expression that evaluates a boolean value.</p>
-<p>It is useful to enable/disable the process execution depending on the state of various inputs and parameters. For example:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">when</span></code> block allows you to define a condition that must be satisfied in order to execute the process.
+The condition can be any expression that returns a boolean value.</p>
+<p>It can be useful to enable/disable the process execution depending on the state of various inputs and parameters. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">find</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
   <span class="n">path</span> <span class="n">proteins</span>
-  <span class="n">val</span> <span class="nb">type</span> <span class="kn">from</span> <span class="nn">dbtype</span>
+  <span class="n">val</span> <span class="n">dbtype</span>
 
   <span class="n">when</span><span class="p">:</span>
-  <span class="n">proteins</span><span class="o">.</span><span class="n">name</span> <span class="o">=~</span> <span class="o">/^</span><span class="n">BB11</span><span class="o">.*/</span> <span class="o">&amp;&amp;</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;nr&#39;</span>
+  <span class="n">proteins</span><span class="o">.</span><span class="n">name</span> <span class="o">=~</span> <span class="o">/^</span><span class="n">BB11</span><span class="o">.*/</span> <span class="o">&amp;&amp;</span> <span class="n">dbtype</span> <span class="o">==</span> <span class="s1">&#39;nr&#39;</span>
 
   <span class="n">script</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;</span>
@@ -1362,6 +1401,11 @@ This can be any expression that evaluates a boolean value.</p>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>As a best practice, it is better to define such control flow logic in the workflow block, i.e. with an <code class="docutils literal notranslate"><span class="pre">if</span></code> statement
+or with channel operators, to make the process more portable.</p>
 </div>
 </section>
 <section id="directives">
@@ -1373,41 +1417,6 @@ and have the following syntax:</p>
 </pre></div>
 </div>
 <p>Some directives are generally available to all processes, while others depend on the <cite>executor</cite> currently defined.</p>
-<p>The directives are:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="#accelerator">accelerator</a></p></li>
-<li><p><a class="reference internal" href="#afterscript">afterScript</a></p></li>
-<li><p><a class="reference internal" href="#beforescript">beforeScript</a></p></li>
-<li><p><a class="reference internal" href="#cache">cache</a></p></li>
-<li><p><a class="reference internal" href="#clusteroptions">clusterOptions</a></p></li>
-<li><p><a class="reference external" href="https://conda.io">conda</a></p></li>
-<li><p><a class="reference internal" href="#container">container</a></p></li>
-<li><p><a class="reference internal" href="#containeroptions">containerOptions</a></p></li>
-<li><p><a class="reference internal" href="#cpus">cpus</a></p></li>
-<li><p><a class="reference internal" href="#debug">debug</a></p></li>
-<li><p><a class="reference internal" href="#disk">disk</a></p></li>
-<li><p><a class="reference internal" href="#echo">echo</a></p></li>
-<li><p><a class="reference internal" href="#errorstrategy">errorStrategy</a></p></li>
-<li><p><a class="reference internal" href="#executor">executor</a></p></li>
-<li><p><a class="reference internal" href="#ext">ext</a></p></li>
-<li><p><a class="reference internal" href="#label">label</a></p></li>
-<li><p><a class="reference internal" href="#machinetype">machineType</a></p></li>
-<li><p><a class="reference internal" href="#maxerrors">maxErrors</a></p></li>
-<li><p><a class="reference internal" href="#maxforks">maxForks</a></p></li>
-<li><p><a class="reference internal" href="#maxretries">maxRetries</a></p></li>
-<li><p><a class="reference internal" href="#memory">memory</a></p></li>
-<li><p><a class="reference internal" href="#module">module</a></p></li>
-<li><p><a class="reference internal" href="#penv">penv</a></p></li>
-<li><p><a class="reference internal" href="#pod">pod</a></p></li>
-<li><p><a class="reference internal" href="#publishdir">publishDir</a></p></li>
-<li><p><a class="reference internal" href="#queue">queue</a></p></li>
-<li><p><a class="reference internal" href="#scratch">scratch</a></p></li>
-<li><p><a class="reference internal" href="#stageinmode">stageInMode</a></p></li>
-<li><p><a class="reference internal" href="#stageoutmode">stageOutMode</a></p></li>
-<li><p><a class="reference internal" href="#storedir">storeDir</a></p></li>
-<li><p><a class="reference internal" href="#tag">tag</a></p></li>
-<li><p><a class="reference internal" href="#time">time</a></p></li>
-</ul>
 <section id="accelerator">
 <span id="process-accelerator"></span><h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">accelerator</span></code> directive allows you to specify the hardware accelerator requirement for the task execution
@@ -1443,6 +1452,11 @@ platform-specific documentation for details on the available accelerators:</p>
 <span id="process-afterscript"></span><h3>afterScript<a class="headerlink" href="#afterscript" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">afterScript</span></code> directive allows you to execute a custom (Bash) snippet immediately <em>after</em> the main process has run.
 This may be useful to clean up your staging area.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When combined with the <a class="reference internal" href="#process-container"><span class="std std-ref">container directive</span></a>, the <code class="docutils literal notranslate"><span class="pre">afterScript</span></code> will be
+executed outside the specified container. In other words, the <code class="docutils literal notranslate"><span class="pre">afterScript</span></code> is always executed in the host environment.</p>
+</div>
 </section>
 <section id="beforescript">
 <span id="process-beforescript"></span><h3>beforeScript<a class="headerlink" href="#beforescript" title="Permalink to this headline"></a></h3>
@@ -1457,6 +1471,11 @@ This may be useful to initialise the underlying cluster environment or for other
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When combined with the <a class="reference internal" href="#process-container"><span class="std std-ref">container directive</span></a>, the <code class="docutils literal notranslate"><span class="pre">beforeScript</span></code> will be
+executed outside the specified container. In other words, the <code class="docutils literal notranslate"><span class="pre">beforeScript</span></code> is always executed in the host environment.</p>
 </div>
 </section>
 <section id="cache">
@@ -1581,7 +1600,7 @@ only for a specific process e.g. mount a custom path:</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>This feature is not supported by the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a>, <a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a>, or <a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">Azure Batch</span></a> executors.</p>
+<p>This feature is not supported by the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> and <a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a> executors.</p>
 </div>
 </section>
 <section id="cpus">
@@ -1832,8 +1851,8 @@ advanced configuration options. For example:</p>
   <span class="n">container</span> <span class="s2">&quot;biocontainers/star:$</span><span class="si">{task.ext.version}</span><span class="s2">&quot;</span>
 
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">genome</span> <span class="kn">from</span> <span class="nn">genome_file</span>
-  <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">sampleId</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="n">reads</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">reads_ch</span>
+  <span class="n">path</span> <span class="n">genome</span>
+  <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">sampleId</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="n">reads</span><span class="p">)</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  STAR --genomeDir $genome --readFilesIn $reads</span>
@@ -1868,8 +1887,9 @@ process using the <code class="docutils literal notranslate"><span class="pre">l
 and must end with an alphanumeric character.</p>
 </div>
 <p>Labels are useful to organise workflow processes in separate groups which can be referenced
-in the configuration file to select and configure subset of processes having similar computing requirements.</p>
-<p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
+in the configuration file to select and configure subset of processes having similar computing requirements.
+See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
+<p>See also: <a class="reference internal" href="#resourcelabels">resourceLabels</a></p>
 </section>
 <section id="machinetype">
 <span id="process-machinetype"></span><h3>machineType<a class="headerlink" href="#machinetype" title="Permalink to this headline"></a></h3>
@@ -2121,6 +2141,9 @@ and config maps when using the <a class="reference internal" href="executor.html
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">toleration:</span> <span class="pre">&lt;V&gt;</span></code></p></td>
 <td><p>Specifies a toleration for a node taint. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">Taints and Tolerations</a> for details.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">privileged:</span> <span class="pre">&lt;B&gt;</span></code></p></td>
+<td><p>Whenever the process task should run as a <em>privileged</em> container (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+</tr>
 </tbody>
 </table>
 <p>When defined in the Nextflow configuration file, a pod setting can be defined using the canonical
@@ -2145,7 +2168,7 @@ associative array syntax. For example:</p>
     <span class="n">publishDir</span> <span class="s1">&#39;/data/chunks&#39;</span>
 
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span>
+    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    printf &#39;Hola&#39; | split -b 1 - chunk_</span>
@@ -2169,8 +2192,8 @@ the file produced into the process working directory. This behavior can be modif
 <p>Table of optional parameters that can be used with the <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 7%" />
-<col style="width: 93%" />
+<col style="width: 4%" />
+<col style="width: 96%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -2201,11 +2224,14 @@ This is useful when the process has multiple output files, but you want to publi
 <tr class="row-odd"><td><p>enabled</p></td>
 <td><p>Enable or disable the publish rule depending on the boolean value specified (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>tags</p></td>
-<td><p>Allow to associate tags with the target file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL, currently only supported by files stored on AWS S3, requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
-</tr>
-<tr class="row-odd"><td><p>failOnError</p></td>
+<tr class="row-even"><td><p>failOnError</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> abort the execution if some file can’t be published to the specified target directory or bucket for any cause (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>contentType</p></td>
+<td><p>Allow specifying the media content type of the published file a.k.a. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">MIME type</a>. If the boolean value <code class="docutils literal notranslate"><span class="pre">true</span></code> is specified the content type is inferred from the file extension (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires <cite>22.10.0`</cite> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>tags</p></td>
+<td><p>Allow the association of arbitrary tags with the published file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
@@ -2249,7 +2275,7 @@ need to be separated by a colon character. For example:</p>
     <span class="n">publishDir</span> <span class="s1">&#39;/data/chunks&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="s1">&#39;copy&#39;</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="n">false</span>
 
     <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span> <span class="n">into</span> <span class="n">letters</span>
+    <span class="n">path</span> <span class="s1">&#39;chunk_*&#39;</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    printf &#39;Hola&#39; | split -b 1 - chunk_</span>
@@ -2295,6 +2321,28 @@ in your pipeline. For example:</p>
 <p>This directive is only used by certain executors. Refer to the
 <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
+</section>
+<section id="resourcelabels">
+<span id="process-resourcelabels"></span><h3>resourceLabels<a class="headerlink" href="#resourcelabels" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">resourceLabels</span></code> directive allows you to specify custom name-value pairs
+that Nextflow applies to the computing resource used to carry out the process execution.
+Resource labels can be specified using the syntax shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">my_task</span> <span class="p">{</span>
+  <span class="n">resourceLabels</span> <span class="n">region</span><span class="p">:</span> <span class="s1">&#39;some-region&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;some-username&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  &lt;task script&gt;</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The limits and the syntax of the corresponding cloud provider should be taken into consideration when using resource labels.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Resource labels are currently only supported by the <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a>,
+<a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a>, Google Cloud Batch and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+</div>
+<p>See also <a class="reference internal" href="#label">label</a>.</p>
 </section>
 <section id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline"></a></h3>
@@ -2374,16 +2422,14 @@ specified by the <code class="docutils literal notranslate"><span class="pre">st
 </ol>
 <p>The following example shows how to use the <code class="docutils literal notranslate"><span class="pre">storeDir</span></code> directive to create a directory containing a BLAST database
 for each species specified by an input parameter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">genomes</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">genomes</span><span class="p">)</span>
-
-<span class="n">process</span> <span class="n">formatBlastDatabases</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">formatBlastDatabases</span> <span class="p">{</span>
   <span class="n">storeDir</span> <span class="s1">&#39;/db/genomes&#39;</span>
 
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">path</span> <span class="n">species</span> <span class="kn">from</span> <span class="nn">genomes</span>
+  <span class="n">path</span> <span class="n">species</span>
 
   <span class="n">output</span><span class="p">:</span>
-  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{dbName}</span><span class="s2">.*&quot;</span> <span class="n">into</span> <span class="n">blastDb</span>
+  <span class="n">path</span> <span class="s2">&quot;$</span><span class="si">{dbName}</span><span class="s2">.*&quot;</span>
 
   <span class="n">script</span><span class="p">:</span>
   <span class="n">dbName</span> <span class="o">=</span> <span class="n">species</span><span class="o">.</span><span class="n">baseName</span>
@@ -2471,11 +2517,15 @@ to identify them in the log file or in the trace execution report. For example:<
   <span class="n">tag</span> <span class="s2">&quot;$code&quot;</span>
 
   <span class="nb">input</span><span class="p">:</span>
-  <span class="n">val</span> <span class="n">code</span> <span class="kn">from</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span>
+  <span class="n">val</span> <span class="n">code</span>
 
   <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  echo $code</span>
 <span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+  <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;gamma&#39;</span><span class="p">,</span> <span class="s1">&#39;omega&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">foo</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2547,7 +2597,7 @@ based on the process inputs.</p>
   queue { entries &gt; 100 ? &#39;long&#39; : &#39;short&#39; }
 
   input:
-  tuple val(entries), path(&#39;data.txt&#39;) from data
+  tuple val(entries), path(&#39;data.txt&#39;)
 
   script:
   &quot;&quot;&quot;
@@ -2582,7 +2632,7 @@ which holds the directive values defined in the current task. For example:</p>
   queue { entries &gt; 100 ? &#39;long&#39; : &#39;short&#39; }
 
   input:
-  tuple val(entries), path(&#39;data.txt&#39;) from data
+  tuple val(entries), path(&#39;data.txt&#39;)
 
   script:
   &quot;&quot;&quot;
@@ -2651,7 +2701,7 @@ conditions:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

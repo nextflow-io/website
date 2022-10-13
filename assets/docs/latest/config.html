@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Configuration &mdash; Nextflow 22.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -95,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -112,6 +116,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -127,6 +138,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Configuration</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/config.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -273,20 +285,26 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-even"><td><p>proxyPassword</p></td>
 <td><p>The password to use when connecting through a proxy.</p></td>
 </tr>
-<tr class="row-odd"><td><p>signerOverride</p></td>
+<tr class="row-odd"><td><p>s3PathStyleAccess</p></td>
+<td><p>Enable the use of path-based access model that is used to specify the address of an object in S3-compatible storage systems.</p></td>
+</tr>
+<tr class="row-even"><td><p>signerOverride</p></td>
 <td><p>The name of the signature algorithm to use for signing requests made by the client.</p></td>
 </tr>
-<tr class="row-even"><td><p>socketSendBufferSizeHint</p></td>
+<tr class="row-odd"><td><p>socketSendBufferSizeHint</p></td>
 <td><p>The Size hint (in bytes) for the low level TCP send buffer.</p></td>
 </tr>
-<tr class="row-odd"><td><p>socketRecvBufferSizeHint</p></td>
+<tr class="row-even"><td><p>socketRecvBufferSizeHint</p></td>
 <td><p>The Size hint (in bytes) for the low level TCP receive buffer.</p></td>
 </tr>
-<tr class="row-even"><td><p>socketTimeout</p></td>
+<tr class="row-odd"><td><p>socketTimeout</p></td>
 <td><p>The amount of time to wait (in milliseconds) for data to be transferred over an established, open connection before the connection is timed out.</p></td>
 </tr>
-<tr class="row-odd"><td><p>storageEncryption</p></td>
-<td><p>The S3 server side encryption to be used when saving objects on S3 (currently only AES256 is supported)</p></td>
+<tr class="row-even"><td><p>storageEncryption</p></td>
+<td><p>The S3 server side encryption to be used when saving objects on S3, either <code class="docutils literal notranslate"><span class="pre">AES256</span></code> or <code class="docutils literal notranslate"><span class="pre">aws:kms</span></code> values are allowed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>storageKmsKeyId</p></td>
+<td><p>The AWS KMS key Id to be used to encrypt files stored in the target S3 bucket (requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p>userAgent</p></td>
 <td><p>The HTTP user agent header passed with all HTTP requests.</p></td>
@@ -295,7 +313,7 @@ to specify your bucket credentials. For example:</p>
 <td><p>The maximum number of threads used for multipart upload.</p></td>
 </tr>
 <tr class="row-even"><td><p>uploadChunkSize</p></td>
-<td><p>The size of a single part in a multipart upload (default: <cite>20 MB</cite>).</p></td>
+<td><p>The size of a single part in a multipart upload (default: <cite>100 MB</cite>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>uploadStorageClass</p></td>
 <td><p>The S3 storage class applied to stored objects, one of [<cite>STANDARD</cite>, <cite>STANDARD_IA</cite>, <cite>ONEZONE_IA</cite>, <cite>INTELLIGENT_TIERING</cite>] (default: <cite>STANDARD</cite>).</p></td>
@@ -337,20 +355,29 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-odd"><td><p>jobRole</p></td>
 <td><p>The AWS Job Role ARN that needs to be used to execute the Batch Job.</p></td>
 </tr>
-<tr class="row-even"><td><p>volumes</p></td>
+<tr class="row-even"><td><p>logsGroup</p></td>
+<td><p>The name of the logs group used by Batch Jobs (default: <code class="docutils literal notranslate"><span class="pre">/aws/batch</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.09.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>volumes</p></td>
 <td><p>One or more container mounts. Mounts can be specified as simple e.g. <cite>/some/path</cite> or canonical format e.g. <code class="docutils literal notranslate"><span class="pre">/host/path:/mount/path[:ro|rw]</span></code>. Multiple mounts can be specifid separating them with a comma or using a list object.</p></td>
 </tr>
-<tr class="row-odd"><td><p>delayBetweenAttempts</p></td>
+<tr class="row-even"><td><p>delayBetweenAttempts</p></td>
 <td><p>Delay between download attempts from S3 (default <cite>10 sec</cite>).</p></td>
 </tr>
-<tr class="row-even"><td><p>maxParallelTransfers</p></td>
+<tr class="row-odd"><td><p>maxParallelTransfers</p></td>
 <td><p>Max parallel upload/download transfer operations <em>per job</em> (default: <code class="docutils literal notranslate"><span class="pre">4</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>maxTransferAttempts</p></td>
+<tr class="row-even"><td><p>maxTransferAttempts</p></td>
 <td><p>Max number of downloads attempts from S3 (default: <cite>1</cite>).</p></td>
 </tr>
-<tr class="row-even"><td><p>maxSpotAttempts</p></td>
+<tr class="row-odd"><td><p>maxSpotAttempts</p></td>
 <td><p>Max number of execution attempts of a job interrupted by a EC2 spot reclaim event (default: <code class="docutils literal notranslate"><span class="pre">5</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.04.0</span></code> or later)</p></td>
+</tr>
+<tr class="row-even"><td><p>shareIdentifier</p></td>
+<td><p>The share identifier for all tasks when using <a class="reference external" href="https://aws.amazon.com/blogs/hpc/introducing-fair-share-scheduling-for-aws-batch/">fair-share scheduling for AWS Batch</a> (requires <code class="docutils literal notranslate"><span class="pre">22.09.0-edge</span></code> or later)</p></td>
+</tr>
+<tr class="row-odd"><td><p>retryMode</p></td>
+<td><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -415,8 +442,8 @@ by the Conda package manager.</p>
 <p>The following settings are available:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
+<col style="width: 7%" />
+<col style="width: 93%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -428,13 +455,16 @@ by the Conda package manager.</p>
 <td><p>Defines the path where Conda environments are stored. When using a compute cluster make sure to provide a shared file system path accessible from all compute nodes.</p></td>
 </tr>
 <tr class="row-odd"><td><p>createOptions</p></td>
-<td><p>Defines any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code> command. For details see: <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/commands/create.html">https://docs.conda.io/projects/conda/en/latest/commands/create.html</a>.</p></td>
+<td><p>Defines any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code> command. For details <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/commands/create.html">Conda documentation</a>.</p></td>
 </tr>
 <tr class="row-even"><td><p>createTimeout</p></td>
 <td><p>Defines the amount of time the Conda environment creation can last. The creation process is terminated when the timeout is exceeded (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>useMamba</p></td>
-<td><p>Uses the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> binary instead of <code class="docutils literal notranslate"><span class="pre">conda</span></code> to create the conda environments. For details see: <a class="reference external" href="https://github.com/mamba-org/mamba">https://github.com/mamba-org/mamba</a>.</p></td>
+<td><p>Uses the <code class="docutils literal notranslate"><span class="pre">mamba</span></code> binary instead of <code class="docutils literal notranslate"><span class="pre">conda</span></code> to create the Conda environments. For details <a class="reference external" href="https://github.com/mamba-org/mamba">Mamba documentation</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>useMicromamba</p></td>
+<td><p>uses the <code class="docutils literal notranslate"><span class="pre">micromamba</span></code> binary instead of <code class="docutils literal notranslate"><span class="pre">conda</span></code> to create the Conda environments (requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later). For details see <a class="reference external" href="https://mamba.readthedocs.io/en/latest/user_guide/micromamba.html">Micromamba documentation</a>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -557,14 +587,19 @@ workflow tasks will be executed.</p>
 you want these variables to be evaluated during task execution, escape them with <code class="docutils literal notranslate"><span class="pre">\$</span></code>. This difference is important
 for variables like <code class="docutils literal notranslate"><span class="pre">$PATH</span></code>, which may be different in the workflow environment versus the task environment.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">env</span></code> scope provides environment variables to <em>tasks</em>, not Nextflow itself. Nextflow environment variables
+such as <code class="docutils literal notranslate"><span class="pre">NXF_VER</span></code> should be set in the environment in which Nextflow is launched.</p>
+</div>
 </section>
 <section id="scope-executor">
 <span id="config-executor"></span><h3>Scope <cite>executor</cite><a class="headerlink" href="#scope-executor" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 7%" />
-<col style="width: 93%" />
+<col style="width: 8%" />
+<col style="width: 92%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -573,55 +608,58 @@ for variables like <code class="docutils literal notranslate"><span class="pre">
 </thead>
 <tbody>
 <tr class="row-even"><td><p>name</p></td>
-<td><p>The name of the executor to be used e.g. <code class="docutils literal notranslate"><span class="pre">local</span></code>, <code class="docutils literal notranslate"><span class="pre">sge</span></code>, etc.</p></td>
+<td><p>The name of the executor to be used (default: <code class="docutils literal notranslate"><span class="pre">local</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>queueSize</p></td>
 <td><p>The number of tasks the executor will handle in a parallel manner (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>pollInterval</p></td>
-<td><p>Determines how often a poll occurs to check for a process termination.</p></td>
+<tr class="row-even"><td><p>submitRateLimit</p></td>
+<td><p>Determines the max rate of job submission per time unit, for example <code class="docutils literal notranslate"><span class="pre">'10sec'</span></code> (10 jobs per second) or <code class="docutils literal notranslate"><span class="pre">'50/2min'</span></code> (50 jobs every 2 minutes) (default: unlimited).</p></td>
 </tr>
-<tr class="row-odd"><td><p>dumpInterval</p></td>
-<td><p>Determines how often the executor status is written in the application log file (default: <code class="docutils literal notranslate"><span class="pre">5min</span></code>).</p></td>
+<tr class="row-odd"><td><p>pollInterval</p></td>
+<td><p>Determines how often to check for process termination. Default varies for each executor.</p></td>
 </tr>
-<tr class="row-even"><td><p>queueStatInterval</p></td>
-<td><p>Determines how often the queue status is fetched from the cluster system. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">1min</span></code>).</p></td>
+<tr class="row-even"><td><p>dumpInterval</p></td>
+<td><p>Determines how often to log the executor status (default: <code class="docutils literal notranslate"><span class="pre">5min</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>exitReadTimeout</p></td>
-<td><p>Determines how long the executor waits before to an error status when a process is terminated but the <code class="docutils literal notranslate"><span class="pre">.exitcode</span></code> file does not exist or is empty. This setting is used only by grid executors (default: <code class="docutils literal notranslate"><span class="pre">270</span> <span class="pre">sec</span></code>).</p></td>
+<tr class="row-odd"><td><p>queueStatInterval</p></td>
+<td><p>Determines how often to fetch the queue status from the scheduler (default: <code class="docutils literal notranslate"><span class="pre">1min</span></code>). Used only by grid executors.</p></td>
 </tr>
-<tr class="row-even"><td><p>killBatchSize</p></td>
-<td><p>Determines the number of jobs that can be <cite>killed</cite> in a single command execution (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
+<tr class="row-even"><td><p>exitReadTimeout</p></td>
+<td><p>Determines how long to wait before returning an error status when a process is terminated but the <code class="docutils literal notranslate"><span class="pre">.exitcode</span></code> file does not exist or is empty (default: <code class="docutils literal notranslate"><span class="pre">270</span> <span class="pre">sec</span></code>). Used only by grid executors.</p></td>
 </tr>
-<tr class="row-odd"><td><p>submitRateLimit</p></td>
-<td><p>Determines the max rate of job submission per time unit, for example <code class="docutils literal notranslate"><span class="pre">'10sec'</span></code> eg. max 10 jobs per second or <code class="docutils literal notranslate"><span class="pre">'50/2min'</span></code> i.e. 50 job submissions every 2 minutes (default: <cite>unlimited</cite>).</p></td>
+<tr class="row-odd"><td><p>killBatchSize</p></td>
+<td><p>Determines the number of jobs that can be killed in a single command execution (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p>perJobMemLimit</p></td>
 <td><p>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>jobName</p></td>
-<td><p>Determines the name of jobs submitted to the underlying cluster executor e.g. <code class="docutils literal notranslate"><span class="pre">executor.jobName</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;$task.name</span> <span class="pre">-</span> <span class="pre">$task.hash&quot;</span> <span class="pre">}</span></code> Note: when using this option you need to make sure the resulting job name matches the validation constraints of the underlying batch scheduler.</p></td>
+<tr class="row-odd"><td><p>perTaskReserve</p></td>
+<td><p>Specifies Platform LSF <em>per-task</em> memory reserve mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p>cpus</p></td>
-<td><p>The maximum number of CPUs made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
+<tr class="row-even"><td><p>jobName</p></td>
+<td><p>Determines the name of jobs submitted to the underlying cluster executor e.g. <code class="docutils literal notranslate"><span class="pre">executor.jobName</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;$task.name</span> <span class="pre">-</span> <span class="pre">$task.hash&quot;</span> <span class="pre">}</span></code>. Make sure the resulting job name matches the validation constraints of the underlying batch scheduler.</p></td>
 </tr>
-<tr class="row-odd"><td><p>memory</p></td>
-<td><p>The maximum amount of memory made available by the underlying system (only used by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor).</p></td>
+<tr class="row-odd"><td><p>cpus</p></td>
+<td><p>The maximum number of CPUs made available by the underlying system. Used only by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor.</p></td>
 </tr>
-<tr class="row-even"><td><p>retry.delay</p></td>
-<td><p>Delay when re-retying failed submit operations (default: <code class="docutils literal notranslate"><span class="pre">500ms</span></code>, only used by grid based executors e.g. <code class="docutils literal notranslate"><span class="pre">slurm</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
+<tr class="row-even"><td><p>memory</p></td>
+<td><p>The maximum amount of memory made available by the underlying system. Used only by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor.</p></td>
 </tr>
-<tr class="row-odd"><td><p>retry.maxDelay</p></td>
-<td><p>Max delay when re-retying failed submit operations (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>, only used by grid based executors e.g. <code class="docutils literal notranslate"><span class="pre">slurm</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
+<tr class="row-odd"><td><p>retry.delay</p></td>
+<td><p>Delay when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">500ms</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>retry.jitter</p></td>
-<td><p>Jitter value when re-retying failed submit operations (default: <code class="docutils literal notranslate"><span class="pre">0.25</span></code>, only used by grid based executors e.g. <code class="docutils literal notranslate"><span class="pre">slurm</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
+<tr class="row-even"><td><p>retry.maxDelay</p></td>
+<td><p>Max delay when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-odd"><td><p>retry.maxAttempts</p></td>
-<td><p>Max attempts when re-retying failed submit operations (default: <code class="docutils literal notranslate"><span class="pre">3</span></code>, only used by grid based executors e.g. <code class="docutils literal notranslate"><span class="pre">slurm</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
+<tr class="row-odd"><td><p>retry.jitter</p></td>
+<td><p>Jitter value when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">0.25</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>retry.reason</p></td>
-<td><p>Regex pattern that when verified cause a failed submit operation to be re-tried (default: <code class="docutils literal notranslate"><span class="pre">Socket</span> <span class="pre">timed</span> <span class="pre">out</span></code>, only used by grid based executors e.g. <code class="docutils literal notranslate"><span class="pre">slurm</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
+<tr class="row-even"><td><p>retry.maxAttempts</p></td>
+<td><p>Max attempts when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">3</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>retry.reason</p></td>
+<td><p>Regex pattern that when verified cause a failed submit operation to be re-tried (default: <code class="docutils literal notranslate"><span class="pre">Socket</span> <span class="pre">timed</span> <span class="pre">out</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
@@ -663,8 +701,8 @@ workflow applications in a Kubernetes cluster.</p>
 <p>The following settings are available:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 8%" />
-<col style="width: 92%" />
+<col style="width: 9%" />
+<col style="width: 91%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -714,8 +752,23 @@ workflow applications in a Kubernetes cluster.</p>
 <tr class="row-odd"><td><p>storageSubPath</p></td>
 <td><p>The path in the persistent volume to be mounted (default: root).</p></td>
 </tr>
+<tr class="row-even"><td><p>computeResourceType</p></td>
+<td><p>Define whether use Kubernetes <code class="docutils literal notranslate"><span class="pre">Pod</span></code> or <code class="docutils literal notranslate"><span class="pre">Job</span></code> resource type to carry out Nextflow tasks (default: <code class="docutils literal notranslate"><span class="pre">Pod</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>fetchNodeName</p></td>
+<td><p>If you trace the hostname, activate this option (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later).</p></td>
+</tr>
 <tr class="row-even"><td><p>volumeClaims</p></td>
 <td><p>(deprecated)</p></td>
+</tr>
+<tr class="row-odd"><td><p>maxErrorRetry</p></td>
+<td><p>Defines the Kubernetes API max request retries (default is set to 4)</p></td>
+</tr>
+<tr class="row-even"><td><p>httpReadTimeout</p></td>
+<td><p>Defines the Kubernetes client request HTTP connection read timeout e.g. <code class="docutils literal notranslate"><span class="pre">'60s'</span></code> (requires version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>httpConnectTimeout</p></td>
+<td><p>Defines the Kubernetes client request HTTP connection timeout e.g. <code class="docutils literal notranslate"><span class="pre">'60s'</span></code> (requires version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
@@ -1414,17 +1467,23 @@ the underlying Java virtual machine.</p>
 <tr class="row-even"><td><p>NXF_CONDA_CACHEDIR</p></td>
 <td><p>Directory where Conda environments are store. When using a computing cluster it must be a shared folder accessible from all compute nodes.</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_DEBUG</p></td>
+<tr class="row-odd"><td><p>NXF_CONDA_ENABLED</p></td>
+<td><p>Enable the use of Conda recipes defined by using the :ref:process-conda directive. (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.08.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>NXF_DEBUG</p></td>
 <td><p>Defines scripts debugging level: <code class="docutils literal notranslate"><span class="pre">1</span></code> dump task environment variables in the task log file; <code class="docutils literal notranslate"><span class="pre">2</span></code> enables command script execution tracing; <code class="docutils literal notranslate"><span class="pre">3</span></code> enables command wrapper execution tracing.</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_DEFAULT_DSL</p></td>
+<tr class="row-odd"><td><p>NXF_DEFAULT_DSL</p></td>
 <td><p>Defines the DSL version version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
 </tr>
-<tr class="row-odd"><td><p>NXF_DISABLE_JOBS_CANCELLATION</p></td>
+<tr class="row-even"><td><p>NXF_DISABLE_JOBS_CANCELLATION</p></td>
 <td><p>Disables the cancellation of child jobs on workflow execution termination (requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>NXF_ENABLE_STRICT</p></td>
+<tr class="row-odd"><td><p>NXF_ENABLE_STRICT</p></td>
 <td><p>Enable Nextflow <em>strict</em> execution mode (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later)</p></td>
+</tr>
+<tr class="row-even"><td><p>NXF_ENABLE_SECRETS</p></td>
+<td><p>Enable Nextflow secrets features (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.09.0-edge</span></code> or later)</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXF_EXECUTOR</p></td>
 <td><p>Defines the default process executor e.g. <cite>sge</cite></p></td>
@@ -1508,7 +1567,7 @@ the underlying Java virtual machine.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
