@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kubernetes &mdash; Nextflow 22.10.0 documentation</title>
+  <title>Kubernetes &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -54,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -63,9 +64,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kubernetes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#interactive-login">Interactive login</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-in-a-pod">Running in a pod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#execution">Execution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#launch-with-kuberun">Launch with <code class="docutils literal notranslate"><span class="pre">kuberun</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interactive-login">Interactive login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#launch-with-fusion">Launch with Fusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-in-a-pod">Running in a pod</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#pod-settings">Pod settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limitation">Limitation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-configuration">Advanced configuration</a></li>
@@ -123,7 +128,7 @@ Kubernetes clusters.</p>
 <h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline"></a></h2>
 <p>Kubernetes main abstraction is the <cite>pod</cite>. A <cite>pod</cite> defines the (desired) state of one or more containers i.e. required
 computing resources, storage, network configuration.</p>
-<p>Kubernetes abstracts also the storage provisioning through the definition of one more more persistent volumes that
+<p>Kubernetes abstracts also the storage provisioning through the definition of one more persistent volumes that
 allow containers to access to the underlying storage systems in a transparent and portable manner.</p>
 <p>When using the <code class="docutils literal notranslate"><span class="pre">k8s</span></code> executor Nextflow deploys the workflow execution as a Kubernetes pod. This pod orchestrates
 the workflow execution and submits a separate pod execution for each job that need to be carried out by the workflow
@@ -139,6 +144,13 @@ at <a class="reference external" href="https://kubernetes.io/docs/concepts/stora
 <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims">Persistent Volume Claim</a>, which
 will be used by Nextflow to run the application and store the scratch data and the pipeline final result.</p>
 <p>The workflow application has to be containerised using the usual Nextflow <a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a> directive.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When using <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> and <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> there is no need to use a shared file system and configure
+a persistent volume claim for the deployment of Nextflow pipeline with Kubernetes.
+You can ignore this requirement when using the Fusion file system feature. See the <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> documentation
+for further details.</p>
+</div>
 </section>
 <section id="execution">
 <h2>Execution<a class="headerlink" href="#execution" title="Permalink to this headline"></a></h2>
@@ -151,6 +163,8 @@ Kubernetes master is running at https://your-host:6443
 KubeDNS is running at https://your-host:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 </pre></div>
 </div>
+<section id="launch-with-kuberun">
+<h3>Launch with <code class="docutils literal notranslate"><span class="pre">kuberun</span></code><a class="headerlink" href="#launch-with-kuberun" title="Permalink to this headline"></a></h3>
 <p>To deploy and launch the workflow execution use the Nextflow command <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">-</span><span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
@@ -164,9 +178,14 @@ execution. In the above example replace <code class="docutils literal notranslat
 specified in the Nextflow configuration file, see the <a class="reference internal" href="config.html#config-k8s"><span class="std std-ref">Kubernetes configuration section</span></a> for details.</p>
 <p>Once the pod execution starts, the application in the foreground prints the console output produced by the running
 workflow pod.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> is considered an obsolete approach for the deployment of Nextflow pipeline with Kubernetes and
+it’s not maintained anymore. Consider the use of <a class="reference internal" href="#launch-with-fusion">Launch with Fusion</a> as a better alternative.</p>
+</div>
 </section>
 <section id="interactive-login">
-<h2>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline"></a></h2>
+<h3>Interactive login<a class="headerlink" href="#interactive-login" title="Permalink to this headline"></a></h3>
 <p>For debugging purpose it’s possible to execute a Nextflow pod and launch an interactive shell using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">kuberun</span> <span class="n">login</span> <span class="o">-</span><span class="n">v</span> <span class="n">vol</span><span class="o">-</span><span class="n">claim</span><span class="p">:</span><span class="o">/</span><span class="n">mount</span><span class="o">/</span><span class="n">path</span>
 </pre></div>
@@ -179,11 +198,47 @@ login session.</p>
 workflow executions in background.</p>
 </div>
 </section>
+<section id="launch-with-fusion">
+<h3>Launch with Fusion<a class="headerlink" href="#launch-with-fusion" title="Permalink to this headline"></a></h3>
+<p>The use of <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> allows deploying a Nextflow pipeline to a remote (or local) cluster without
+the need to use a shared file system and configure a persistent volume claim for the deployment of Nextflow
+pipeline with Kubernetes.</p>
+<p>This also makes unnecessary the use of the special <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> command for the pipeline execution.</p>
+<p>For this deployment scenario the following configuration can be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+
+<span class="n">fusion</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="p">{</span>
+  <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;k8s&#39;</span>
+<span class="p">}</span>
+
+<span class="n">k8s</span> <span class="p">{</span>
+  <span class="n">context</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S CONFIGURATION CONTEXT&gt;&#39;</span>
+  <span class="n">namespace</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S NAMESPACE&gt;&#39;</span>
+  <span class="n">serviceAccount</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S SERVICE ACCOUNT&gt;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.context</span></code> represents the Kubernetes configuration context to be used for the pipeline execution. This
+setting can be omitted if Nextflow itself is run as a pod in the Kubernetes clusters.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.namespace</span></code> represents the Kubernetes namespace where the jobs submitted by the pipeline execution should
+be executed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.serviceAccount</span></code> represents the Kubernetes service account that should be used to grant the execution
+permission to jobs launched by Nextflow. You can find more details how to configure it as the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase/tree/master/example8">following link</a>.</p>
+<p>Then the pipeline execution can be launched using the usual run command and specifying a AWS S3 bucket work directory,
+for example:</p>
+<blockquote>
+<div><p>nextflow run &lt;YOUR PIPELINE&gt; -work-dir s3://&lt;YOUR-BUCKET&gt;/scratch</p>
+</div></blockquote>
+</section>
 <section id="running-in-a-pod">
-<h2>Running in a pod<a class="headerlink" href="#running-in-a-pod" title="Permalink to this headline"></a></h2>
-<p>The main convenience of the <code class="docutils literal notranslate"><span class="pre">kuberun</span></code> command is that it spares the user from manually creating a pod from
-where the main Nextflow application is launched. In this scenario, the user environment is not containerised.</p>
-<p>However there are scenarios in which Nextflow needs to be executed directly from a pod running in a
+<h3>Running in a pod<a class="headerlink" href="#running-in-a-pod" title="Permalink to this headline"></a></h3>
+<p>Nextflow can be executed directly from a pod running in a
 Kubernetes cluster. In these cases you will need to use the plain Nextflow <code class="docutils literal notranslate"><span class="pre">run</span></code> command and specify
 the <code class="docutils literal notranslate"><span class="pre">k8s</span></code> executor and the required persistent volume claim in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
@@ -210,6 +265,7 @@ Note also that the <code class="docutils literal notranslate"><span class="pre">
 <p class="admonition-title">Tip</p>
 <p>It is also possible to mount multiple volumes using the <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive, setting such as <code class="docutils literal notranslate"><span class="pre">k8s.pod</span> <span class="pre">=</span> <span class="pre">[</span> <span class="pre">[volumeClaim:</span> <span class="pre">&quot;other-pvc&quot;,</span> <span class="pre">mountPath:</span> <span class="pre">&quot;/other&quot;</span> <span class="pre">]]</span></code></p>
 </div>
+</section>
 </section>
 <section id="pod-settings">
 <h2>Pod settings<a class="headerlink" href="#pod-settings" title="Permalink to this headline"></a></h2>

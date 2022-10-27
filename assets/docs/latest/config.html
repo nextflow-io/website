@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 22.10.0 documentation</title>
+  <title>Configuration &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -99,6 +99,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -836,6 +837,17 @@ See the <a class="reference external" href="https://javaee.github.io/javamail/do
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some versions of Java (e.g. Java 11 Corretto) do not default to TLS v1.2, and as a result may have
+issues with 3rd party integrations that enforce TLS v1.2 (e.g. Azure Active Directory OIDC). This problem can be
+addressed by setting the following config option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="p">{</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">protocols</span> <span class="o">=</span> <span class="s1">&#39;TLSv1.2&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="scope-manifest">
 <span id="config-manifest"></span><h3>Scope <cite>manifest</cite><a class="headerlink" href="#scope-manifest" title="Permalink to this headline"></a></h3>
@@ -1072,7 +1084,7 @@ to all processes matching the specified pattern condition. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
 and <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
 <p>A process selector can be negated prefixing it with the special character <code class="docutils literal notranslate"><span class="pre">!</span></code>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
@@ -1474,7 +1486,7 @@ the underlying Java virtual machine.</p>
 <td><p>Defines scripts debugging level: <code class="docutils literal notranslate"><span class="pre">1</span></code> dump task environment variables in the task log file; <code class="docutils literal notranslate"><span class="pre">2</span></code> enables command script execution tracing; <code class="docutils literal notranslate"><span class="pre">3</span></code> enables command wrapper execution tracing.</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXF_DEFAULT_DSL</p></td>
-<td><p>Defines the DSL version version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
+<td><p>Defines the DSL version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
 </tr>
 <tr class="row-even"><td><p>NXF_DISABLE_JOBS_CANCELLATION</p></td>
 <td><p>Disables the cancellation of child jobs on workflow execution termination (requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>

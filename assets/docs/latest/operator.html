@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Operators &mdash; Nextflow 22.10.0 documentation</title>
+  <title>Operators &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -108,6 +108,7 @@
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -2288,6 +2289,18 @@ and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">Done</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two differences between <code class="docutils literal notranslate"><span class="pre">toList</span></code> and <code class="docutils literal notranslate"><span class="pre">collect</span></code>:</p>
+<ul class="simple">
+<li><p>When there is no input, <code class="docutils literal notranslate"><span class="pre">toList</span></code> emits an empty list whereas <code class="docutils literal notranslate"><span class="pre">collect</span></code> emits nothing.</p></li>
+<li><p>By default, <code class="docutils literal notranslate"><span class="pre">collect</span></code> flattens list items by one level.</p></li>
+</ul>
+<p>In other words, <code class="docutils literal notranslate"><span class="pre">toList</span></code> is equivalent to:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">collect</span><span class="p">(</span><span class="n">flat</span><span class="p">:</span> <span class="n">false</span><span class="p">)</span><span class="o">.</span><span class="n">ifEmpty</span><span class="p">([])</span>
+</pre></div>
+</div>
 </div>
 <p>See also: <a class="reference internal" href="#collect">collect</a> operator.</p>
 </section>
