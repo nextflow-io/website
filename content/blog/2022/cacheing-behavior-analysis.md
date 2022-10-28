@@ -1,8 +1,8 @@
 title=Analysing cacheing behavior of pipelines
-date=2022-09-26
+date=2022-10-28
 type=post
 description=A guide to analysis of dump-hashes for troubleshooting cacheing behavior.
-image=img/FIXME.png
+image=img/delta-hash-dump-diff.png
 tags=nextflow,cache
 status=published
 author=Abhinav Sharma
