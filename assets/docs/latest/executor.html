@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executors &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Executors &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -48,8 +51,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Executors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#azure-batch">Azure Batch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bridge">Bridge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ga4gh-tes">GA4GH TES</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#google-cloud-batch">Google Cloud Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#google-life-sciences">Google Life Sciences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hyperqueue">HyperQueue</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#htcondor">HTCondor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ignite">Ignite</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#kubernetes">Kubernetes</a></li>
@@ -68,6 +74,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -85,6 +93,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -100,6 +115,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Executors</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/executor.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -129,7 +145,6 @@ running workloads. Moreover a S3 bucket must be used as pipeline work directory.
 <ul class="simple">
 <li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
-<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
 </ul>
@@ -146,6 +161,23 @@ script or the <code class="docutils literal notranslate"><span class="pre">nextf
 <p>The pipeline can be launched either in a local computer or a cloud virtual machine. The latter is suggested for heavy or long
 running workloads. Moreover a Azure Blob storage container must be used as pipeline work directory.</p>
 <p>See the <a class="reference internal" href="azure.html#azure-batch"><span class="std std-ref">Azure Batch</span></a> page for further configuration details.</p>
+</section>
+<section id="bridge">
+<span id="bridge-executor"></span><h2>Bridge<a class="headerlink" href="#bridge" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://github.com/cea-hpc/bridge">Bridge</a> is an abstraction layer to ease batch system and resource manager usage in
+heterogeneous HPC environments.</p>
+<p>It is open source software and can be installed on top of existing classical job schedulers such as Slurm or LSF, or other
+schedulers. Bridge allows to submit jobs, get information on running jobs, stop jobs, get information on the cluster system, etc.</p>
+<p>For more details on how to install the Bridge system, see the <a class="reference external" href="https://github.com/cea-hpc/bridge">documentation</a>.</p>
+<p>To enable the Bridge executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'bridge'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-queue"><span class="std std-ref">queue</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
 </section>
 <section id="ga4gh-tes">
 <span id="ga4ghtes-executor"></span><h2>GA4GH TES<a class="headerlink" href="#ga4gh-tes" title="Permalink to this headline"></a></h2>
@@ -197,12 +229,36 @@ data is exchanged using a local or shared file system.</p>
 <li><p>Glob patterns in process output declarations are not supported. For details see <a class="reference external" href="https://github.com/ga4gh/task-execution-schemas/issues/77">#77</a>.</p></li>
 </ul>
 </section>
+<section id="google-cloud-batch">
+<span id="google-batch-executor"></span><h2>Google Cloud Batch<a class="headerlink" href="#google-cloud-batch" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://cloud.google.com/batch">Google Cloud Batch</a> is a managed computing service that allows the execution of
+containerized workloads in the Google Cloud Platform infrastructure.</p>
+<p>Nextflow provides built-in support for the Batch API which allows the seamless deployment of a Nextflow pipeline
+in the cloud, offloading the process executions as pipelines (it requires Nextflow <code class="docutils literal notranslate"><span class="pre">22.07.1-edge</span></code> or later).</p>
+<p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, either in the pipeline
+script or the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline work directory must be located in a Google Storage
+bucket.</p>
+<p>To enable this executor set the property <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'google-batch'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-container"><span class="std std-ref">container</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-containeroptions"><span class="std std-ref">containerOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-machinetype"><span class="std std-ref">machineType</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-resourcelabels"><span class="std std-ref">resourceLabels</span></a></p></li>
+</ul>
+<p>See the <a class="reference internal" href="google.html#google-batch"><span class="std std-ref">Google Cloud Batch</span></a> page for further configuration details.</p>
+</section>
 <section id="google-life-sciences">
 <span id="google-lifesciences-executor"></span><h2>Google Life Sciences<a class="headerlink" href="#google-life-sciences" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://cloud.google.com/life-sciences">Google Cloud Life Sciences</a> is a managed computing service that allows the execution of
 containerized workloads in the Google Cloud Platform infrastructure.</p>
 <p>Nextflow provides built-in support for the Life Sciences API which allows the seamless deployment of a Nextflow pipeline
-in the cloud, offloading the process executions as pipelines (it requires Nextflow 20.01.0 or later).</p>
+in the cloud, offloading the process executions as pipelines (it requires Nextflow <code class="docutils literal notranslate"><span class="pre">20.01.0</span></code> or later).</p>
 <p>The pipeline processes must specify the Docker image to use by defining the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, either in the pipeline
 script or the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file. Moreover the pipeline work directory must be located in a Google Storage
 bucket.</p>
@@ -214,8 +270,29 @@ bucket.</p>
 <li><p><a class="reference internal" href="process.html#process-disk"><span class="std std-ref">disk</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-machinetype"><span class="std std-ref">machineType</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
 </ul>
 <p>See the <a class="reference internal" href="google.html#google-lifesciences"><span class="std std-ref">Google Life Sciences</span></a> page for further configuration details.</p>
+</section>
+<section id="hyperqueue">
+<span id="hyperqueue-executor"></span><h2>HyperQueue<a class="headerlink" href="#hyperqueue" title="Permalink to this headline"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is an incubating feature. It may change in future Nextflow releases.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">hyperqueue</span></code> executor allows you to run your pipeline script by using the <a class="reference external" href="https://github.com/It4innovations/hyperqueue">HyperQueue</a> job scheduler.</p>
+<p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">hq</span></code> command line tool.</p>
+<p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">hq</span></code> command is available, that is, in a
+common usage scenario, the cluster <cite>head</cite> node.</p>
+<p>To enable the HTCondor executor simply set <code class="docutils literal notranslate"><span class="pre">process.executor</span> <span class="pre">=</span> <span class="pre">'hyperqueue'</span></code> in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file.</p>
+<p>Resource requests and other job characteristics can be controlled via the following process directives:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="process.html#process-accelerator"><span class="std std-ref">accelerator</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-clusteroptions"><span class="std std-ref">clusterOptions</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
+</ul>
 </section>
 <section id="htcondor">
 <span id="htcondor-executor"></span><h2>HTCondor<a class="headerlink" href="#htcondor" title="Permalink to this headline"></a></h2>
@@ -269,6 +346,7 @@ Ignite cluster in your infrastructure.</p>
 <li><p><a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory</span></a></p></li>
 <li><p><a class="reference internal" href="process.html#process-pod"><span class="std std-ref">pod</span></a></p></li>
+<li><p><a class="reference internal" href="process.html#process-time"><span class="std std-ref">time</span></a></p></li>
 </ul>
 <p>See the <a class="reference internal" href="kubernetes.html#k8s-page"><span class="std std-ref">Kubernetes</span></a> page to learn how to set up a Kubernetes cluster for running Nextflow pipelines.</p>
 </section>
@@ -309,10 +387,6 @@ adding the option <code class="docutils literal notranslate"><span class="pre">p
 <p>The <code class="docutils literal notranslate"><span class="pre">moab</span></code> executor allows you to run your pipeline script by using the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Moab_Cluster_Suite">Moab</a> resource manager by
 <a class="reference external" href="http://www.adaptivecomputing.com/">Adaptive Computing</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is an incubating feature. It may change in future Nextflow releases.</p>
-</div>
 <p>Nextflow manages each process as a separate job that is submitted to the cluster by using the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command provided
 by the resource manager.</p>
 <p>Being so, the pipeline must be launched from a node where the <code class="docutils literal notranslate"><span class="pre">msub</span></code> command is available, that is, in a common usage
@@ -459,7 +533,7 @@ submit workflow executions to a cluster that is not the current one, specify it 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

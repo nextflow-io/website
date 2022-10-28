@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plugins &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Plugins &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -50,6 +53,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -66,12 +71,21 @@
 <li class="toctree-l2"><a class="reference internal" href="#main-concepts">Main concepts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#index">Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-operators-from-plugin">Import operators from plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#import-custom-functions-from-plugin">Import custom functions from plugin</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -87,6 +101,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Plugins</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/plugins.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -139,6 +154,48 @@ file is downloaded.</p>
 The <a class="reference external" href="https://github.com/nextflow-io/nf-hello">nf-hello</a> repository provides a minimal code example for
 the implementation of a Nextflow plugin.</p>
 </section>
+<section id="import-operators-from-plugin">
+<h2>Import operators from plugin<a class="headerlink" href="#import-operators-from-plugin" title="Permalink to this headline"></a></h2>
+<p>As of version <cite>22.04.x</cite>, Nextflow allows the inclusion of extension operators from Nextflow plugins.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">sqlInsert</span><span class="p">;</span> <span class="n">fromQuery</span> <span class="k">as</span> <span class="n">selectFromTable</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;plugin/nf-sqldb&#39;</span>
+
+<span class="k">def</span> <span class="nf">sql</span> <span class="o">=</span> <span class="s2">&quot;select * from FOO&quot;</span>
+<span class="n">channel</span>
+    <span class="o">.</span><span class="n">selectFromTable</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">emitColumns</span><span class="p">:</span><span class="n">true</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sqlInsert</span><span class="p">(</span><span class="n">into</span><span class="p">:</span><span class="s2">&quot;BAR&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span><span class="s2">&quot;test&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The above snippet includes the operators <code class="docutils literal notranslate"><span class="pre">sqlInsert`</span> <span class="pre">and</span> <span class="pre">``fromQuery</span></code> from the
+<a class="reference external" href="https://github.com/nextflow-io/nf-sqldb">nf-sqldb</a> plugin. The latter will be accessible using
+the <code class="docutils literal notranslate"><span class="pre">selectFromTable</span></code> alias in the script.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The prefix <code class="docutils literal notranslate"><span class="pre">plugin/</span></code> must precede the plugin name in the include <code class="docutils literal notranslate"><span class="pre">from</span></code> statement.</p>
+</div>
+</section>
+<section id="import-custom-functions-from-plugin">
+<h2>Import custom functions from plugin<a class="headerlink" href="#import-custom-functions-from-plugin" title="Permalink to this headline"></a></h2>
+<p>In the same way, as of version <cite>22.09.x</cite>, a plugin can export custom functions.</p>
+<p>For example, a plugin can export a util function to reverse a String:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@nextflow</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">extension</span><span class="o">.</span><span class="n">Function</span>
+<span class="n">String</span> <span class="n">reverseString</span><span class="p">(</span> <span class="n">String</span> <span class="n">origin</span> <span class="p">){</span>
+     <span class="n">origin</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>And this function can be used by the pipeline:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">reverseString</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;plugin/my-plugin&#39;</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="n">reverseString</span><span class="p">(</span><span class="s1">&#39;hi&#39;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>The above snipped includes a function from the plugin and allows the channel to call it directly.</p>
+<p>In the same way as operators, functions can be aliased:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span> <span class="p">{</span> <span class="n">reverseString</span> <span class="k">as</span> <span class="n">anotherReverseMethod</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;plugin/my-plugin&#39;</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -152,7 +209,7 @@ the implementation of a Nextflow plugin.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

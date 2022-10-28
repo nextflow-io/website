@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amazon Cloud &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Amazon Cloud &mdash; Nextflow 22.10.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
@@ -50,6 +53,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Amazon Cloud</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#aws-security-credentials">AWS security credentials</a></li>
@@ -97,6 +102,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -112,6 +124,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Amazon Cloud</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/aws.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -264,6 +277,13 @@ in the cloud offloading the process executions as Batch jobs.</p>
 <span id="aws-batch-config"></span><h3>AWS CLI<a class="headerlink" href="#aws-cli" title="Permalink to this headline"></a></h3>
 <p>Nextflow requires to access the <a class="reference external" href="https://aws.amazon.com/cli/">AWS command line tool</a> (<code class="docutils literal notranslate"><span class="pre">aws</span></code>) from the container in
 which the job runs in order to stage the required input files and to copy back the resulting output files in the S3 storage.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When using <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> and <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> there is no need to configure the AWS command line tool in
+the task containers or the host Ec2 instances for the deployment of Nextflow pipeline with AWS Batch.
+You can ignore this requirement when using the Fusion file system feature. See the <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> documentation
+for further details.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">aws</span></code> tool can be made available in the container in two ways:</p>
 <ol class="arabic simple">
 <li><p>installed in the Docker image(s) used during the pipeline execution,</p></li>
@@ -400,6 +420,13 @@ or any other tool that may be required (see next sections).</p>
 <p>The <a class="reference external" href="https://aws.amazon.com/cli">AWS CLI tool</a> must to be installed in your custom AMI
 by using a self-contained package manager such as <a class="reference external" href="https://conda.io">Conda</a>.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When using <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> and <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> there is no need to configure the AWS command line tool in
+the task containers or the host Ec2 instances for the deployment of Nextflow pipeline with AWS Batch.
+You can ignore this requirement when using the Fusion file system feature. See the <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a> documentation
+for further details.</p>
+</div>
 <p>The reason is that when the AWS CLI tool executes using Conda it will use the version of python supplied by Conda.
 If you don’t use Conda and install the AWS CLI using something like <a class="reference external" href="https://pypi.org/project/pip/">pip</a> the <code class="docutils literal notranslate"><span class="pre">aws</span></code>
 command will attempt to run using the version of python found in the running container which won’t be able to find
@@ -519,7 +546,7 @@ not just <code class="docutils literal notranslate"><span class="pre">s3://my-bu
 <section id="hybrid-workloads">
 <h3>Hybrid workloads<a class="headerlink" href="#hybrid-workloads" title="Permalink to this headline"></a></h3>
 <p>Nextflow allows the use of multiple executors in the same workflow application. This feature enables the deployment
-of hybrid workloads in which some jobs are execute in the local computer or local computing cluster and
+of hybrid workloads in which some jobs are executed in the local computer or local computing cluster and
 some jobs are offloaded to AWS Batch service.</p>
 <p>To enable this feature use one or more <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> in your Nextflow configuration file to apply
 the AWS Batch <a class="reference internal" href="#aws-batch-config"><span class="std std-ref">configuration</span></a> only to a subset of processes in your workflow.
@@ -626,7 +653,7 @@ resolutions and tips to investigate and work around the issue.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

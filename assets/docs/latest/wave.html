@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wave containers &mdash; Nextflow 22.10.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Fusion file system" href="fusion.html" />
+    <link rel="prev" title="Containers" href="container.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Wave containers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nextflow-installation">Nextflow installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wave-configuration">Wave configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#use-cases">Use cases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#authenticate-private-repositories">Authenticate private repositories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-module-containers">Build module containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-conda-based-containers">Build Conda based containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#push-to-a-private-repository">Push to a private repository</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#more-examples">More examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Wave containers</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/wave.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="wave-containers">
+<span id="wave-page"></span><h1>Wave containers<a class="headerlink" href="#wave-containers" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://seqera.io/wave/">Wave</a> is a container provisioning service integrated with Nextflow. It allows the building,
+uploading and managing of container images required by your data analysis workflows on-demand, during the pipeline execution in a fully automated manner.</p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature requires Nextflow <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later.</p>
+</div>
+<section id="nextflow-installation">
+<h3>Nextflow installation<a class="headerlink" href="#nextflow-installation" title="Permalink to this headline"></a></h3>
+<p>If you have already installed Nextflow, update to the latest version using this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="o">-</span><span class="bp">self</span><span class="o">-</span><span class="n">update</span>
+</pre></div>
+</div>
+<p>If you don’t have Nextflow already installed, install it with the command below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="n">get</span><span class="o">.</span><span class="n">nextflow</span><span class="o">.</span><span class="n">io</span> <span class="o">|</span> <span class="n">bash</span>
+</pre></div>
+</div>
+</section>
+<section id="wave-configuration">
+<h3>Wave configuration<a class="headerlink" href="#wave-configuration" title="Permalink to this headline"></a></h3>
+<p>Wave can be used in any Nextflow pipeline by adding the following snippet to your <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span> <span class="p">{</span>
+  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="p">}</span>
+
+<span class="n">tower</span> <span class="p">{</span>
+  <span class="n">accessToken</span> <span class="o">=</span> <span class="s1">&#39;&lt;your access token&gt;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The use of the Tower access token is not mandatory, however, it’s required to enable access to private repositories
+and it allows higher service rate limits compared to anonymous users.</p>
+</div>
+</section>
+</section>
+<section id="use-cases">
+<h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this headline"></a></h2>
+<section id="authenticate-private-repositories">
+<h3>Authenticate private repositories<a class="headerlink" href="#authenticate-private-repositories" title="Permalink to this headline"></a></h3>
+<p>Wave allows the use of private repositories in your Nextflow pipelines. The repository access keys need to be provided
+via the <a class="reference external" href="https://help.tower.nf/22.2/credentials/overview/">Nextflow Tower credentials</a> manager feature.</p>
+<p>Once the credentials have been created, you only need to specify your <a class="reference external" href="https://help.tower.nf/22.2/api/overview/#authentication">Tower account access token</a>
+in your pipeline configuration file. If the credentials were created in a Tower organization workspace, specify the workspace ID
+as well in the config file as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tower</span> <span class="p">{</span>
+  <span class="n">accessToken</span> <span class="o">=</span> <span class="s1">&#39;&lt;your access token&gt;&#39;</span>
+  <span class="n">workspaceId</span> <span class="o">=</span> <span class="s1">&#39;&lt;your workspace id&gt;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="build-module-containers">
+<h3>Build module containers<a class="headerlink" href="#build-module-containers" title="Permalink to this headline"></a></h3>
+<p>Wave can build and provision container images on-demand for your Nextflow pipelines.</p>
+<p>To enable this feature, add the Dockerfile of the container to be built in the <a class="reference internal" href="dsl2.html#dsl2-module-directory"><span class="std std-ref">module directory</span></a>
+where the pipeline process is defined. When Wave is enabled, it automatically uses the Dockerfile to build the required container,
+upload to the registry, and uses the container to carry out the tasks defined in the module.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Make sure the process does not declare a <code class="docutils literal notranslate"><span class="pre">container</span></code> directive, otherwise it will take precedence over
+the Dockerfile definition.</p>
+</div>
+<p>If a process uses a <code class="docutils literal notranslate"><span class="pre">container</span></code> directive and you still want to build the container using the Dockerfile provided in
+the module directory, add the following setting to the pipeline config file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dockerfile&#39;</span><span class="p">,</span><span class="s1">&#39;container&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The above line instructs Wave to give the module Dockerfile priority over process <code class="docutils literal notranslate"><span class="pre">container</span></code> directives.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Wave currently does not support <code class="docutils literal notranslate"><span class="pre">ADD</span></code>, <code class="docutils literal notranslate"><span class="pre">COPY</span></code> and other Dockerfile commands that access files in the host
+file system.</p>
+</div>
+</section>
+<section id="build-conda-based-containers">
+<h3>Build Conda based containers<a class="headerlink" href="#build-conda-based-containers" title="Permalink to this headline"></a></h3>
+<p>Wave allows the provisioning of containers based on the <a class="reference internal" href="process.html#process-conda"><span class="std std-ref">conda</span></a> directive used by the processes in your
+pipeline. This is a quick alternative to building Conda packages in the local computer. Moreoever, this enables the use of
+Conda packages in your pipeline when deploying it in cloud-native platforms such as AWS Batch and Kubernetes,
+which do not allow the (easy) use of the Conda package manager.</p>
+<p>Having Wave enabled in your pipeline, there’s nothing else to do other than define the <code class="docutils literal notranslate"><span class="pre">conda</span></code> requirements in
+the pipeline processes provided the same process does not also specify a <code class="docutils literal notranslate"><span class="pre">container</span></code> directive or a Dockerfile.</p>
+<p>In the latter case, add the following setting to your pipeline configuration:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;conda&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The above setting instructs Wave to only use the <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive to provision the pipeline containers, ignoring the use of
+the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive and any Dockerfile(s).</p>
+</section>
+<section id="push-to-a-private-repository">
+<h3>Push to a private repository<a class="headerlink" href="#push-to-a-private-repository" title="Permalink to this headline"></a></h3>
+<p>Containers built by Wave are uploaded to the Wave default repository hosted on AWS ECR with name
+<code class="docutils literal notranslate"><span class="pre">195996028523.dkr.ecr.eu-west-1.amazonaws.com/wave/build</span></code>. The images in this repository are automatically deleted
+after 1 week from the date of their push.</p>
+<p>If you want to store Wave containers in your own container repository use the following settings in
+the Nextflow configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="s1">&#39;example.com/your/build-repo&#39;</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">cacheRepository</span> <span class="o">=</span> <span class="s1">&#39;example.com/your/cache-repo&#39;</span>
+</pre></div>
+</div>
+<p>The first repository is used to store the built container images. The second one is used to store the individual image layers for caching purposes.</p>
+<p>The repository access keys need to be specified using the Tower credentials manager as specified in the
+<a class="reference internal" href="#authenticate-private-repositories">Authenticate private repositories</a> section.</p>
+</section>
+</section>
+<section id="advanced-settings">
+<h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline"></a></h2>
+<p>The following configuration options are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>wave.enabled</p></td>
+<td><p>Enable/disable the execution of Wave containers</p></td>
+</tr>
+<tr class="row-odd"><td><p>wave.endpoint</p></td>
+<td><p>The Wave service endpoint (default: <code class="docutils literal notranslate"><span class="pre">https://wave.seqera.io</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>wave.build.repository</p></td>
+<td><p>The container repository where image built by Wave needs to be uploaded (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
+</tr>
+<tr class="row-odd"><td><p>wave.build.cacheRepository</p></td>
+<td><p>The container repository used to cache image layers build by the Wave service (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
+</tr>
+<tr class="row-even"><td><p>wave.conda.mambaImage</p></td>
+<td><p>The Mamba container image is used to build Conda based container. This is expected to be <a class="reference external" href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a> image.</p></td>
+</tr>
+<tr class="row-odd"><td><p>wave.conda.commands</p></td>
+<td><p>One or more commands to be added to the Dockerfile used by build a Conda based image.</p></td>
+</tr>
+<tr class="row-even"><td><p>wave.strategy</p></td>
+<td><p>The strategy to be used when resolving ambiguous Wave container requirement (default: <code class="docutils literal notranslate"><span class="pre">'container,dockerfile,conda'</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+<section id="more-examples">
+<h3>More examples<a class="headerlink" href="#more-examples" title="Permalink to this headline"></a></h3>
+<p>Check out the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase">Wave showcase repository</a> for more examples how to use Wave containers.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="container.html" class="btn btn-neutral float-left" title="Containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="fusion.html" class="btn btn-neutral float-right" title="Fusion file system" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+    <!-- Theme Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-244N3GEN75', {
+          'anonymize_ip': false,
+      });
+    </script> 
+
+</body>
+</html>
