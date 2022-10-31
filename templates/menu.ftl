@@ -32,6 +32,7 @@
                         <li><a href="/example2.html">Mixing scripting languages</a></li>
                         <li><a href="/example3.html">BLAST pipeline</a></li>
                         <li><a href="/example4.html">RNA-Seq pipeline</a></li>
+                        <li><a href="/example5.html">Machine Learning pipeline</a></li>
                         <li><a href="https://github.com/CRG-CNAG/CalliNGS-NF/" target="_blank">Variant Calling pipeline</a></li>
                     </ul>
                 </li>
