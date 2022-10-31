@@ -58,7 +58,8 @@ To run this pipeline on your computer, you will need:
 
 * Unix-like operating system
 * Java 11 (or higher)
-* Anaconda
+* Docker
+* [Tower Cloud](https://cloud.tower.nf/) account (it's free)
 
 Install Nextflow by entering the following command in the terminal:
 
@@ -66,8 +67,8 @@ Install Nextflow by entering the following command in the terminal:
 
 Then launch the pipeline with this command:
 
-    $ nextflow run ml-hyperopt -profile conda
+    $ nextflow run ml-hyperopt -profile wave
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and the associated conda packages, thus the first execution may take a few minutes to complete depending on your network connection.
+It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
 
-__NOTE__: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+__NOTE__: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
