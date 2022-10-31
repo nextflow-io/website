@@ -59,7 +59,6 @@ To run this pipeline on your computer, you will need:
 * Unix-like operating system
 * Java 11 (or higher)
 * Docker
-* [Tower Cloud](https://cloud.tower.nf/) account (it's free)
 
 Install Nextflow by entering the following command in the terminal:
 
