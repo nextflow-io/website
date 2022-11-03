@@ -1,16 +1,15 @@
-title= Nextflow Summit 2022 Recap
-date=2022-11-01
+title=Nextflow Summit 2022 Recap
+date=2022-11-03
 type=post
-description=Catch up on exciting developments from this year’s Nextflow
-Summit held in Barcelona, Spain.
+description=Catch up on exciting developments from this year’s Nextflow Summit held in Barcelona
 image=img/nextflow-summit-2022-recap.jpg
-tags=nextflow, tower, cloud
+tags=nextflow,tower,cloud
 status=published
 author=Noel Ortiz
 icon=noel.jpg
 ~~~~~~
 
-## Three days of Nextflow goodness in Barcelona, Spain
+## Three days of Nextflow goodness in Barcelona
 
 After a three-year COVID-related hiatus from in-person events, Nextflow developers and users found their way to Barcelona this October for the 2022 Nextflow Summit. Held at Barcelona’s iconic Agbar tower, this was easily the most successful Nextflow community event yet!
 
