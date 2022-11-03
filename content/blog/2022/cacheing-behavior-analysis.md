@@ -1,7 +1,7 @@
-title=Analysing cacheing behavior of pipelines
-date=2022-10-28
+title=Analyzing caching behavior of pipelines
+date=2022-11-04
 type=post
-description=A guide to analysis of dump-hashes for troubleshooting cacheing behavior.
+description=A guide to analysis of dump-hashes for troubleshooting caching behavior.
 image=img/rnaseq-nf.fastqc.modified.png
 tags=nextflow,cache
 status=published
@@ -9,220 +9,221 @@ author=Abhinav Sharma
 icon=abhinav.jpg
 ~~~~~~
 
-<!-- NOTE: Talk about the hash-computation funnel?  -->
-<!-- The following code snippet from the Nextflow code base  -->
-<!-- https://github.com/nextflow-io/nextflow/blob/665dae3a5ec63b8a990d691a3441a36468847e1f/plugins/nf-azure/src/main/nextflow/cloud/azure/config/AzPoolOpts.groovy#L91-L109 -->
+The ability to resume an analysis (i.e. caching) is one of the core strengths of Nextflow. When developing pipelines, this allows us to avoid re-running unchanged processes by simply appending `-resume` to the `nextflow run` command. Sometimes, tasks may be repeated for reasons that are unclear. In these cases it can help to look into the caching mechanism, to understand why a specific process was re-run.
 
-Resumability of analysis (i.e. cacheing) is one of the core strengths of Nextflow and allows us to avoid re-running the processes which have not been affected by any new change in the pipeline code by simply appending `-resume` to the Nextflow `run` command. Depending upon the nature of the change introduced sometimes it becomes necessary to understand why exactly a specific process was re-run.
+We have previously written about Nextflow's [resume functionality](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) as well as highlighting some [troubleshooting strategies](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) to gain more insights on the caching behavior. 
 
-We have previously written about Nextflow's [resume functionality](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) as well as highlighted some [troubleshooting strategies](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) to gain more insights on the cacheing behavior. 
+In this blog post we will take a more hands-on approach and highlight some strategies which we can use to understand what is causing a particular process (or processes) to re-run, instead of using the cache from previous runs of the pipeline. To demonstrate the process, we will introduce a minor change into one of the process definitions in the the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) pipeline and investigate how it affects the overall caching behavior when compared to the initial execution of the pipeline.
 
-In this blog post we will take a more hands on approach and highlight the strategies which we can use to understand what is causing a particular process (or processes) to re-run and therefore not rely upon the cache from previous runs of the pipeline. We will use the standard proof-of-concept [rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) and introduce a minor change in one of the process definitions and investigate how it affects the overall cacheing behavior when compared to the initial execution of the pipeline.
-
-## Pre-requisites for the analysis
-
-This blog post makes use of the baseline Nextflow (and Java) setup along with Docker to provide a self-contained example.
-
-- Nextflow
-
-```terminal
->_ nextflow info
-
-  Version: 22.10.0 build 5826
-  Created: 13-10-2022 05:44 UTC (07:44 SAST)
-  System: Mac OS X 12.6
-  Runtime: Groovy 3.0.13 on OpenJDK 64-Bit Server VM 17+35-LTS
-  Encoding: UTF-8 (UTF-8)
-
-```
-- Java-17
-
-```terminal
->_ java -version
-
-  openjdk version "17" 2021-09-14 LTS
-  OpenJDK Runtime Environment Corretto-17.0.0.35.1 (build 17+35-LTS)
-  OpenJDK 64-Bit Server VM Corretto-17.0.0.35.1 (build 17+35-LTS, mixed mode, sharing)
-
-
-```
-
-- Docker
-
-```terminal
->_ docker version
-
-  Client:
-   Version:           20.10.8
-
-  Server: Docker Engine - Community
-   Engine:
-    Version:          20.10.8
-
-```
 
 ### Local setup for the test
 
-We clone the standard proof-of-concept [rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf
-) pipeline locally, so that we can introduce a change and observe its effect on cacheing behavior of subsequent runs.
+First, we clone the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf
+) pipeline locally:
 
+```bash
+$ git clone https://github.com/nextflow-io/rnaseq-nf
+$ cd rnaseq-nf
 ```
->_ git clone https://github.com/nextflow-io/rnaseq-nf
->_ cd rnaseq-nf
-```
+
+In the examples below, we have used Nextflow v22.10.0, Docker v20.10.8 on MacOS and Java v17 LTS.
+
 
 ### Pipeline flowchart
 
-The flowchart below would help in understanding the design of the pipeline and the dependencies between the various tasks.
+The flowchart below can help in understanding the design of the pipeline and the dependencies between the various tasks.
 
 ![rnaseq-nf](/img/rnaseq-nf.base.png)
 
 ### Logs from initial (fresh) run
 
-To analyze the logs for a subsequent run, we need to have the initial hashes for the processes in the pipeline which would be captured in `fresh_run.log` and would be used later on as "ground-truth" for the analysis.
+To have something to compare to, we first need to generate the initial hashes for the unchanged processes in the pipeline. We save these in a file called `fresh_run.log` and use them later on as "ground-truth" for the analysis. In order to save the process hashes we use the `-dump-hashes` flag, which prints them to the log.
 
-**TIP:** We rely upon the [`-log` option](https://www.nextflow.io/docs/latest/cli.html#execution-logs) in the `nextflow` CLI to use a custom log file name instead of the default `.nextflow.log`.
+**TIP:** We rely upon the [`-log` option](https://www.nextflow.io/docs/latest/cli.html#execution-logs) in the `nextflow` command line interface to be able to supply a custom log file name instead of the default `.nextflow.log`.
 
-```
->_ nextflow -log fresh_run.log run ./main.nf -profile docker -dump-hashes
+```console
+$ nextflow -log fresh_run.log run ./main.nf -profile docker -dump-hashes
 
-...
-...
+[...truncated…]
 executor >  local (4)
-[f2/160b79] process > RNASEQ:INDEX (ggal_1_48850000_49020000) [100%] 1 of 1 ✔
-[82/e3c268] process > RNASEQ:FASTQC (FASTQC on ggal_gut)      [100%] 1 of 1 ✔
-[48/e4ae12] process > RNASEQ:QUANT (ggal_gut)                 [100%] 1 of 1 ✔
-[fa/e0a8a6] process > MULTIQC                                 [100%] 1 of 1 ✔
-
-...
-...
-
+[d5/57c2bb] process > RNASEQ:INDEX (ggal_1_48850000_49020000) [100%] 1 of 1 ✔
+[25/433b23] process > RNASEQ:FASTQC (FASTQC on ggal_gut)      [100%] 1 of 1 ✔
+[03/23372f] process > RNASEQ:QUANT (ggal_gut)                 [100%] 1 of 1 ✔
+[38/712d21] process > MULTIQC                                 [100%] 1 of 1 ✔
+[...truncated…]
 ```
 
-### Introduce a change within the `modules/fastqc.nf`
+### Edit the `FastQC` process
 
-After the initial run of the pipeline, we introduce a change in the `fastqc.nf` module and hard-code the number of threads which should be used to run the `FASTQC` process via Nextflow's [`cpus` directive](https://www.nextflow.io/docs/latest/process.html#cpus).
+After the initial run of the pipeline, we introduce a change in the `fastqc.nf` module, hard coding the number of threads which should be used to run the `FASTQC` process via Nextflow's [`cpus` directive](https://www.nextflow.io/docs/latest/process.html#cpus).
 
-
-Here's the output of `git diff` on the contents of `modules/fastqc/main.nf` file after the introduction the change.
+Here's the output of `git diff` on the contents of `modules/fastqc/main.nf` file:
 
 ![git diff after modification](/img/rnaseq-nf.fastqc.modified.png)
 
 ### Logs from the follow up run
 
-In this run, we will add the `-resume` option and instruct Nextflow to rely upon the cached results from previous run and therefore only run the parts of the pipeline which have changed. We also instruct Nextflow to print the hashes in the `resumed_run.log` file.
+Next, we run the pipeline again with the `-resume` option, which instructs Nextflow to rely upon the cached results from the previous run and only run the parts of the pipeline which have changed. As before, we instruct Nextflow to dump the process hashes, this time in a file called `resumed_run.log`.
 
-```
->_ nextflow -log resumed_run.log run ./main.nf -profile docker -dump-hashes -resume
+```console
+$ nextflow -log resumed_run.log run ./main.nf -profile docker -dump-hashes -resume
 
-...
-...
+[...truncated…]
 executor >  local
-[f2/160b79] process > RNASEQ:INDEX (ggal_1_48850000_49020000) [100%] 1 of 1, cached: 1 ✔
-[48/d8d964] process > RNASEQ:FASTQC (FASTQC on ggal_gut)      [100%] 1 of 1 ✔
-[48/e4ae12] process > RNASEQ:QUANT (ggal_gut)                 [100%] 1 of 1, cached: 1 ✔
-[c6/0c6b68] process > MULTIQC                                 [100%] 1 of 1 ✔
-...
-...
-
-
+[d5/57c2bb] process > RNASEQ:INDEX (ggal_1_48850000_49020000) [100%] 1 of 1, cached: 1 ✔
+[55/15b609] process > RNASEQ:FASTQC (FASTQC on ggal_gut)      [100%] 1 of 1 ✔
+[03/23372f] process > RNASEQ:QUANT (ggal_gut)                 [100%] 1 of 1, cached: 1 ✔
+[f3/f1ccb4] process > MULTIQC                                 [100%] 1 of 1 ✔
+[...truncated…]
 ```
 
 ## Analysis of cache hashes
 
-In the resumed run, we noticed that the `RNASEQ:FASTQC (FASTQC on ggal_gut)` and `MULTIQC` processes were re-run while the others were cached. To understand the reason why both of these processes were triggered again, we can examine the hashes generated by the processes from the logs of the `fresh_run` and `resumed_run`.
+From the summary of the command line output above, we can see that the `RNASEQ:FASTQC (FASTQC on ggal_gut)` and `MULTIQC` processes were re-run while the others were cached. To understand why, we can examine the hashes generated by the processes from the logs of the `fresh_run` and `resumed_run`.
 
 For the analysis, we need to keep in mind that:
 
-1. The time-stamps would of course be different, therefore we can safely ignore the timestamps and narrow down the `grep` pattern to the Nextflow `TaskProcessor` class.
+1. The time-stamps are expected to differ and can be safely ignored to narrow down the `grep` pattern to the Nextflow `TaskProcessor` class.
 
-2. The order of the log entries isn't fixed due to the nature of the underlying parallel computation dataflow model which is used by Nextflow. For example, `FASTQC` in `fresh_run.log` isn't the first logged processes in `resumed_run.log`
-
-**NOTE**: The use of classic Unix tools like `cut` / `grep` / `sort` in the commands address the points above.
+2. The _order_ of the log entries isn't fixed, due to the nature of the underlying parallel computation dataflow model used by Nextflow. For example, in our example below, `FASTQC` ran first in `fresh_run.log` but wasn’t the first logged process in `resumed_run.log`
 
 ### Find the process level hashes
 
+We can use standard Unix tools like `grep`, `cut` and `sort` to address these points to filter out the relevant information
+Use `grep` to isolate log entries with `cache hash` string 
+Remove the prefix time-stamps using `cut -d ‘-’ -f 3` 
+Remove the caching mode related information using `cut -d ';' -f 1`
+Sort the lines based on process names using `sort` to have a standard order before comparison
+Use `tee` to print the resultant strings to the terminal and simultaneously save to a file 
+
+Now, let’s apply these transformations to the `fresh_run.log` as well as `resumed_run.log` entries.
+
 - `fresh_run.log`
 
-```
->_ cat ./fresh_run.log | grep 'INFO.*TaskProcessor.*cache hash' | cut -d '-' -f 3 | cut -d ';' -f 1 | sort | tee  ./fresh_run.tasks.log
+```console
+$ cat ./fresh_run.log | grep 'INFO.*TaskProcessor.*cache hash' | cut -d '-' -f 3 | cut -d ';' -f 1 | sort | tee  ./fresh_run.tasks.log
 
  [MULTIQC] cache hash: 167d7b39f7efdfc49b6ff773f081daef
  [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 47e8c58d92dbaafba3c2ccc4f89f53a4
  [RNASEQ:INDEX (ggal_1_48850000_49020000)] cache hash: ac8be293e1d57f3616cdd0adce34af6f
  [RNASEQ:QUANT (ggal_gut)] cache hash: d8b88e3979ff9fe4bf64b4e1bfaf4038
-
 ```
 
 - `resumed_run.log`
 
-```
->_ cat ./resumed_run.log | grep 'INFO.*TaskProcessor.*cache hash' | cut -d '-' -f 3 | cut -d ';' -f 1 | sort | tee  ./resumed_run.tasks.log
+```console
+$ cat ./resumed_run.log | grep 'INFO.*TaskProcessor.*cache hash' | cut -d '-' -f 3 | cut -d ';' -f 1 | sort | tee  ./resumed_run.tasks.log
 
  [MULTIQC] cache hash: d3f200c56cf00b223282f12f06ae8586
  [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 92478eeb3b0ff210ebe5a4f3d99aed2d
  [RNASEQ:INDEX (ggal_1_48850000_49020000)] cache hash: ac8be293e1d57f3616cdd0adce34af6f
  [RNASEQ:QUANT (ggal_gut)] cache hash: d8b88e3979ff9fe4bf64b4e1bfaf4038
-
 ```
 
 ### Inference from process top-level hashes
 
-Computing a hash is a multi-step process and various factors contribute to it, such as the inputs of the process, platform, time-stamps of the input files etc. All of these factors are used to compute the final process-level hash, therefore the change we introduced in the task level CPUs directive as well as the script section of the `FASTQC` process triggered a re-computation of hashes.
+Computing a hash is a multi-step process and various factors contribute to it such as the inputs of the process, platform, time-stamps of the input files and more ( as explained in [Demystefying Nextflow resume]( https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html)  blog post) . The change we made in the task level CPUs directive and script section of the `FASTQC` process triggered a re-computation of hashes:
 
-Upon comparing these hashes, we can confirm that the difference in computed process-level hashes validates the observed behavior.
 
 ```diff
->_ diff ./fresh_run.tasks.log ./resumed_run.tasks.log
+--- ./fresh_run.tasks.log	
++++ ./resumed_run.tasks.log	
+@@ -1,4 +1,4 @@
+- [MULTIQC] cache hash: dccabcd012ad86e1a2668e866c120534
+- [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 94be8c84f4bed57252985e6813bec401
++ [MULTIQC] cache hash: c5a63560338596282682cc04ff97e436
++ [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 54aa712db7c8248e7f31d5fb6535ff9d
+  [RNASEQ:INDEX (ggal_1_48850000_49020000)] cache hash: 356aaa7524fb071f258480ba07c67b3c
+  [RNASEQ:QUANT (ggal_gut)] cache hash: 169ced0fc4b047eaf91cd31620b22540
 
-1,2c1,2
-<  [MULTIQC] cache hash: 167d7b39f7efdfc49b6ff773f081daef
-<  [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 47e8c58d92dbaafba3c2ccc4f89f53a4
----
->  [MULTIQC] cache hash: d3f200c56cf00b223282f12f06ae8586
->  [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 92478eeb3b0ff210ebe5a4f3d99aed2d
 
 ```
 
-Note that even if we only introduced changes in `FASTQC`, the `MULTIQC` process was re-run since it relies upon the output of the FASTQC process. The flowchart below highlights the propogation of the change which we introduced in the `FASTQC` process and how that affects the downstream `MULTIQC` process.
+Even though we only introduced changes in `FASTQC`, the `MULTIQC` process was re-run since it relies upon the output of the FASTQC process. Any task that has its cache hash invalidated triggers a rerun of all downstream steps:
 
 ![rnaseq-nf after modification](/img/rnaseq-nf.modified.png)
 
 
 ### Understanding why `FASTQC` was re-run
 
-For this process, we inspect the relevant `FASTQC` section *along* with the contributing factors such as hashes for its `input`, `script` and other directives.
-
-Here's what the full `FASTQC` process hashes look like from within the `fresh_run.log` file
-
-![fastqc full log](/img/rnaseq-nf.fastq.log.png)
-
-When we compare the hashes between `fresh_run.log` and `resumed_run.log`, we see the following diff. 
-
-**TIP**: To get a word level diff you can rely upon [`delta`](https://dandavison.github.io/delta/introduction.html) diff tool
-
-- From the hash entries we can see that the content of the script has changed, `$task.cpus` has been added
-- This caused another entry in the `resumed_run.log` regarding the content of the process level directive `cpus` as well as the updated script
+We can see the full list of `FASTQC` process hashes within the `fresh_run.log` file
 
 
-![diff in fastqc hashes](/img/rnaseq-nf.delta.fastqc.png)
+```log
+[...truncated…]
 
+Nov-03 20:19:13.827 [Actor Thread 6] INFO  nextflow.processor.TaskProcessor - [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 54aa712db7c8248e7f31d5fb6535ff9d; mode: STANDARD; entries: 
+  1a0e496fef579b22998f099981b494f9 [java.util.UUID] a11bf24f-638a-42d6-8b50-48d3be637d54 
+  195c7faea83c75f2340eb710d8486d2a [java.lang.String] RNASEQ:FASTQC 
+  2bea0eee5e384bd6082a173772e939eb [java.lang.String] """
+    fastqc.sh "$sample_id" "$reads" -t ${task.cpus}
+    """
+ 
+  8e58c0cec3bde124d5d932c7f1579395 [java.lang.String] quay.io/nextflow/rnaseq-nf:v1.1 
+  7ec7cbd71ff757f5fcdbaa760c9ce6de [java.lang.String] sample_id 
+  16b4905b1545252eb7cbfe7b2a20d03d [java.lang.String] ggal_gut 
+  553096c532e666fb42214fdf0520fe4a [java.lang.String] reads 
+  6a5d50e32fdb3261e3700a30ad257ff9 [nextflow.util.ArrayBag] [FileHolder(sourceObj:/home/abhinav/rnaseq-nf/data/ggal/ggal_gut_1.fq, storePath:/home/abhinav/rnaseq-nf/data/ggal/ggal_gut_1.fq, stageName:ggal_gut_1.fq), FileHolder(sourceObj:/home/abhinav/rnaseq-nf/data/ggal/ggal_gut_2.fq, storePath:/home/abhinav/rnaseq-nf/data/ggal/ggal_gut_2.fq, stageName:ggal_gut_2.fq)] 
+  4f9d4b0d22865056c37fb6d9c2a04a67 [java.lang.String] $ 
+  16fe7483905cce7a85670e43e4678877 [java.lang.Boolean] true 
+  80a8708c1f85f9e53796b84bd83471d3 [java.util.HashMap$EntrySet] [task.cpus=2] 
+  f46c56757169dad5c65708a8f892f414 [sun.nio.fs.UnixPath] /home/abhinav/rnaseq-nf/bin/fastqc.sh 
+
+[...truncated…]
+```
+
+When we isolate and compare the log entries for `FASTQC` between `fresh_run.log` and `resumed_run.log`, we see the following diff:
+
+```diff
+--- ./fresh_run.fastqc.log
++++ ./resumed_run.fastqc.log	
+@@ -1,8 +1,8 @@
+-INFO  nextflow.processor.TaskProcessor - [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 94be8c84f4bed57252985e6813bec401; mode: STANDARD; entries: 
++INFO  nextflow.processor.TaskProcessor - [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 54aa712db7c8248e7f31d5fb6535ff9d; mode: STANDARD; entries: 
+   1a0e496fef579b22998f099981b494f9 [java.util.UUID] a11bf24f-638a-42d6-8b50-48d3be637d54 
+   195c7faea83c75f2340eb710d8486d2a [java.lang.String] RNASEQ:FASTQC 
+-  43e5a23fc27129f92a6c010823d8909b [java.lang.String] """
+-    fastqc.sh "$sample_id" "$reads"
++  2bea0eee5e384bd6082a173772e939eb [java.lang.String] """
++    fastqc.sh "$sample_id" "$reads" -t ${task.cpus}
+
+```
+
+**TIP**: To get a word-level diff, you can rely upon diffing tools like [`delta` diff tool](https://dandavison.github.io/delta/introduction.html) and [`diff-so-fancy`](https://github.com/so-fancy/diff-so-fancy).
+
+Observations from the diff:
+
+- We can see that the content of the script has changed, highlighting the new `$task.cpus` part of the command.
+- There is a new entry in the `resumed_run.log` showing that the content of the process level directive `cpus` has been added.
+
+In other words, the log file is telling us here what we already knew about our edits.
 
 ### Understanding why `MULTIQC` was re-run
 
-Now, we apply the same analysis technique for the `MULTIQC` process in both log files
+Now, we apply the same analysis technique for the `MULTIQC` process in both log files:
 
+```diff
+--- ./fresh_run.fastqc.log
++++ ./resumed_run.fastqc.log	
+@@ -1,8 +1,8 @@
+-INFO  nextflow.processor.TaskProcessor - [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 94be8c84f4bed57252985e6813bec401; mode: STANDARD; entries: 
++INFO  nextflow.processor.TaskProcessor - [RNASEQ:FASTQC (FASTQC on ggal_gut)] cache hash: 54aa712db7c8248e7f31d5fb6535ff9d; mode: STANDARD; entries: 
+   1a0e496fef579b22998f099981b494f9 [java.util.UUID] a11bf24f-638a-42d6-8b50-48d3be637d54 
+   195c7faea83c75f2340eb710d8486d2a [java.lang.String] RNASEQ:FASTQC 
+-  43e5a23fc27129f92a6c010823d8909b [java.lang.String] """
+-    fastqc.sh "$sample_id" "$reads"
++  2bea0eee5e384bd6082a173772e939eb [java.lang.String] """
++    fastqc.sh "$sample_id" "$reads" -t ${task.cpus}
 
-![diff in multiqc hashes](/img/rnaseq-nf.delta.multiqc.png)
+```
 
-As we can see above, one of the input file paths has changed as a result of `FASTQC` being re-run and therefore, `MULTIQC` had to be re-run as well.
-
+Here, the highlighted diffs show changing work directory input file paths changing as a result of `FASTQC` being re-run, therefore `MULTIQC` has a new hash and has to be re-run as well.
 
 ## Conclusion
 
-Debugging the cacheing behavior of a pipeline can be tricky, however a systematic analysis approach can help in investigation what exactly is causing a particular process to be re-run again. 
+Debugging the caching behavior of a pipeline can be tricky, however a systematic analysis can help to uncover what is causing a particular process to be re-run. 
 
-One good take-away for analyzing larger datasets is to consider using the `-dump-hashes` parameter by default for any pipeline execution, which would save us the trouble of running the pipeline again just to obtain the hashes in the log file.
+When analyzing large datasets, it may be worth using the `-dump-hashes` option by default for all pipeline runs, avoiding needing to run the pipeline again to obtain the hashes in the log file in case of problems.
 
-Call to action: we invite the community to building tooling for a better cache-debugging experience for Nextflow, perhaps an nf-cache plugin? 
-Stay tuned for an upcoming blog post on how to extend and add new functionality within Nextflow using plugins.
+Whilst this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an nf-cache plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
+
