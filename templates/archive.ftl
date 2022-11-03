@@ -38,6 +38,8 @@
 							<#assign MAX = 108>
 						<#elseif post.title == "Nextflow Summit 2022" >
 							<#assign MAX = 140>
+						<#elseif post.title == "Nextflow Summit 2022 Recap" >
+							<#assign MAX = 140>
 						<#else>
 							<#assign MAX = 150>
 						</#if>

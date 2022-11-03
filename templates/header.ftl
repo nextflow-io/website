@@ -40,6 +40,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- HighlightJS -->
+    <link href="/css/xcode.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/color-styles.css" rel="stylesheet">
