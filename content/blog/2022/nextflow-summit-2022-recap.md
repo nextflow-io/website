@@ -80,7 +80,7 @@ Several other announcements were made during [Evan Floden’s talk](https://www.
 
 ## Thank you to our sponsors
 
-The summit organizers wish to extend a sincere thank you to the event sponsors: AWS, Google Cloud, Seqera Labs, Quilt, Oxford Nanopore Technologies, and Element BioSciences. In addition, the [Chan Zuckerberg Initiative](https://chanzuckerberg.com/eoss/) continues to play a key role with their EOSS grants funding important work related to Nextflow and the nf-core community. The success of this year’s summit reminds us of the tremendous value of community and the critical impact of open science software in improving the quality, accessibility, and efficiency of scientific research.
+The summit organizers wish to extend a sincere thank you to the event sponsors: AWS, Google Cloud, Seqera Labs, Quilt Data, Oxford Nanopore Technologies, and Element BioSciences. In addition, the [Chan Zuckerberg Initiative](https://chanzuckerberg.com/eoss/) continues to play a key role with their EOSS grants funding important work related to Nextflow and the nf-core community. The success of this year’s summit reminds us of the tremendous value of community and the critical impact of open science software in improving the quality, accessibility, and efficiency of scientific research.
 
 ## Learning more
 
