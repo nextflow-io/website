@@ -63,7 +63,7 @@ Another recurring theme was improving compute efficiency. Several talks discusse
 
 ## Beyond genomics
 
-While most summit speakers focused on genomics, a few discussed data pipelines in other areas, including statistical modeling, analysis, and machine learning. Nicola Visonà from Università degli Studi di Macerata gave a fascinating talk about [using agent-based models to simulate the first industrial revolution](https://www.youtube.com/watch?v=PlKJ0IDV_ds&list=PLPZ8WHdZGxmUdAJlHowo7zL2pN3x97d32&index=27).  Similarly, Konrad Rokicki from the Janelia Research Campus explained how Janelia are using [Nextflow for petascale bioimaging data](https://www.youtube.com/watch?v=ZjSzx1I76z0&list=PLPZ8WHdZGxmUdAJlHowo7zL2pN3x97d32&index=18) and why bioimage processing remains a large domain area with an unmet need for reproducible workflows.
+While most summit speakers focused on genomics, a few discussed data pipelines in other areas, including statistical modeling, analysis, and machine learning. Nicola Visonà from Università degli Studi di Macerata gave a fascinating talk about [using agent-based models to simulate the first industrial revolution](https://www.youtube.com/watch?v=PlKJ0IDV_ds&list=PLPZ8WHdZGxmUdAJlHowo7zL2pN3x97d32&index=27). Similarly, Konrad Rokicki from the Janelia Research Campus explained how Janelia are using [Nextflow for petascale bioimaging data](https://www.youtube.com/watch?v=ZjSzx1I76z0&list=PLPZ8WHdZGxmUdAJlHowo7zL2pN3x97d32&index=18) and why bioimage processing remains a large domain area with an unmet need for reproducible workflows.
 
 ## Summit Announcements
 
