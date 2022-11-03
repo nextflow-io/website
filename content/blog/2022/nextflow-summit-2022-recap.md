@@ -71,7 +71,7 @@ This year’s summit also saw several exciting announcements from Nextflow devel
 
 Several other announcements were made during [Evan Floden’s talk](https://www.youtube.com/watch?v=yJpN3fRSClA&list=PLPZ8WHdZGxmUdAJlHowo7zL2pN3x97d32&index=22&t=127s), such as:
 
-- MultiQC is joining the Seqera Labs family
+- MultiQC is joining the Seqera Labs family of products
 - Fusion – a distributed virtual file system for cloud-native data pipelines
 - Nextflow Tower support for Google Cloud Batch
 - Nextflow Tower resource optimization
