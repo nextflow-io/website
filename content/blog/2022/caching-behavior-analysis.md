@@ -210,10 +210,10 @@ When we isolate and compare the log entries for `FASTQC` between `fresh_run.log`
 ```
 
 Observations from the diff:
-- We can see that the content of the script has changed, highlighting the new `$task.cpus` part of the command.
-- There is a new entry in the `resumed_run.log` showing that the content of the process level directive `cpus` has been added.
+1. We can see that the content of the script has changed, highlighting the new `$task.cpus` part of the command.
+2. There is a new entry in the `resumed_run.log` showing that the content of the process level directive `cpus` has been added.
 
-In other words, the log file is telling us here what we already knew about our edits.
+In other words, the diff from log files is confirming our edits.
 
 ### Understanding why `MULTIQC` was re-run
 
@@ -248,5 +248,5 @@ Debugging the caching behavior of a pipeline can be tricky, however a systematic
 
 When analyzing large datasets, it may be worth using the `-dump-hashes` option by default for all pipeline runs, avoiding needing to run the pipeline again to obtain the hashes in the log file in case of problems.
 
-Whilst this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an nf-cache plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
+Whilst this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an `nf-cache` plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
 
