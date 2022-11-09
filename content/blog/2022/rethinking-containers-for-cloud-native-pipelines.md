@@ -54,13 +54,13 @@ Wave solves these problems by dynamically adding one or more layers to an existi
 
 With container augmentation, developers can include a directory called `resources` in pipeline [module directories](https://www.nextflow.io/docs/latest/dsl2.html#module-directory). When the corresponding containerized task is executed, Wave automatically mirrors the content of the resources directory in the root path of the container where it can be accessed by scripts running within the container.  
 
-## A sneak preview of Fusionfs file system
+## A sneak preview of Fusion file system
 
-One of the main motivations for implementing Wave is that we wanted to have the ability to easily package a Fusionfs client in containers to make this important functionality readily available in Nextflow pipelines.
+One of the main motivations for implementing Wave is that we wanted to have the ability to easily package a Fusion client in containers to make this important functionality readily available in Nextflow pipelines.
 
-Fusionfs implements a virtual distributed file system and presents a thin-client allowing data hosted in AWS S3 buckets to be accessed via the standard POSIX filesystem interface expected by the pipeline tools. This client runs in the task container and is added automatically via the Wave augmentation capability. This makes Fusionfs functionality available for pipeline execution at runtime.
+Fusion implements a virtual distributed file system and presents a thin-client allowing data hosted in AWS S3 buckets to be accessed via the standard POSIX filesystem interface expected by the pipeline tools. This client runs in the task container and is added automatically via the Wave augmentation capability. This makes Fusion functionality available for pipeline execution at runtime.
 
-This means the Nextflow pipeline can use an AWS S3 bucket as the work directory, and pipeline tasks can access the S3 bucket natively as a local file system path. This is an important innovation as it avoids the additional step of copying files in and out of object storage. Fusionfs takes advantage for the Nextflow tasks segregation and idempotent execution model to optimise and speedup file access operations.  
+This means the Nextflow pipeline can use an AWS S3 bucket as the work directory, and pipeline tasks can access the S3 bucket natively as a local file system path. This is an important innovation as it avoids the additional step of copying files in and out of object storage. Fusion takes advantage for the Nextflow tasks segregation and idempotent execution model to optimise and speedup file access operations.  
 
 ## Getting started  
 
