@@ -79,13 +79,7 @@ TIMESTAMP            DURATION  RUN NAME          STATUS  REVISION ID  SESSION ID
 2019-05-06 12:31:24  17s       stupefied_euclid  OK      b9aefc67b4   4dc656d2-c410-44c8-bc32-7dd0ea87bebf  nextflow run rnaseq-nf -resume -with-docker
 </pre>
 
-You can use the resume command with either the session ID or the run name to recover a specific execution. For example:
-
-```
-$ nextflow run rnaseq-nf -resume mighty_boyd
-```
-
-or 
+You can use the resume command with the session ID to recover a specific execution. For example:
 
 ```
 nextflow run naseq-nf -resume 4dc656d2-c410-44c8-bc32-7dd0ea87bebf
