@@ -1,5 +1,5 @@
 title=Analyzing caching behavior of pipelines
-date=2022-11-04
+date=2022-11-10
 type=post
 description=A guide to analysis of dump-hashes for troubleshooting caching behavior.
 image=img/rnaseq-nf.fastqc.modified.png
@@ -36,6 +36,8 @@ The flowchart below can help in understanding the design of the pipeline and the
 ![rnaseq-nf](/img/rnaseq-nf.base.png)
 
 ### Logs from initial (fresh) run
+
+As a reminder, Nextflow generates a unique task hash, e.g. 22/7548fa… for each task in a workflow. The hash takes into account the complete file path, the last modified timestamp, container ID, content of script directrive among other factors. If any of these change, the task will be re-executed. Nextflow maintains a list of task hashes for caching and traceability purposes. You can learn more about task hashes in the article [Troubleshooting Nextflow resume](https://nextflow.io/blog/2019/troubleshooting-nextflow-resume.html).
 
 To have something to compare to, we first need to generate the initial hashes for the unchanged processes in the pipeline. We save these in a file called `fresh_run.log` and use them later on as "ground-truth" for the analysis. In order to save the process hashes we use the `-dump-hashes` flag, which prints them to the log.
 
@@ -104,7 +106,7 @@ For the analysis, we need to keep in mind that:
 
 1. The time-stamps are expected to differ and can be safely ignored to narrow down the `grep` pattern to the Nextflow `TaskProcessor` class.
 
-2. The _order_ of the log entries isn't fixed, due to the nature of the underlying parallel computation dataflow model used by Nextflow. For example, in our example below, `FASTQC` ran first in `fresh_run.log` but wasn’t the first logged process in `resumed_run.log`
+2. The _order_ of the log entries isn't fixed, due to the nature of the underlying parallel computation dataflow model used by Nextflow. For example, in our example below, `FASTQC` ran first in `fresh_run.log` but wasn’t the first logged process in `resumed_run.log`.
 
 ### Find the process level hashes
 
@@ -240,7 +242,7 @@ Now, we apply the same analysis technique for the `MULTIQC` process in both log 
    16fe7483905cce7a85670e43e4678877 [java.lang.Boolean] true
 ```
 
-Here, the highlighted diffs show changing work directory input file paths changing as a result of `FASTQC` being re-run, therefore `MULTIQC` has a new hash and has to be re-run as well.
+Here, the highlighted diffs show the directory of the input files, changing as a result of `FASTQC` being re-run; as a result `MULTIQC` has a new hash and has to be re-run as well.
 
 ## Conclusion
 
@@ -248,5 +250,5 @@ Debugging the caching behavior of a pipeline can be tricky, however a systematic
 
 When analyzing large datasets, it may be worth using the `-dump-hashes` option by default for all pipeline runs, avoiding needing to run the pipeline again to obtain the hashes in the log file in case of problems.
 
-Whilst this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an `nf-cache` plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
+While this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an `nf-cache` plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
 
