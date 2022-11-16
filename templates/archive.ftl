@@ -90,7 +90,7 @@
 			      <span class="icon rss">
 				    <i class="fa fa-rss fa-2x"></i>
 				  </span>
-				  <span class="text-muted">Subscribe to our free RSS Feed.</span>
+				  <span class="text-muted">Subscribe to our blog RSS Feed.</span>
 				</a>
 			  </li>
 			  <li>
