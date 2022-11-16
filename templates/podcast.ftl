@@ -16,10 +16,11 @@
         </ul>
         <hr>
         <div class="blg-text">
-        <#if content.youtubeid?length gt 6 >
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/${content.youtubeid}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-              </#if>
-              ${content.body}
+          <#if content.youtubeid?length gt 6 >
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/${content.youtubeid}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <hr>
+          </#if>
+          ${content.body}
         </div>
 
         <p class="tags">

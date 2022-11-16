@@ -11,18 +11,24 @@
         <hr>
       <div class="row">
            <div class="col-sm-8">
-           <div class="timeline" style="margin-left:0;">
+           <div class="timeline">
            <#assign count = 0>
            <#list podcasts as post>
              <div class="blg-summary">
                <h3 ><a href="${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></h3>
                <h4 class="text-muted blg-description"><#escape x as x?xml>${post.description}</#escape></h4>
+               <div class="timeline-info hidden-xs">
+				        <img src="/img/${post.icon}" class="blg-author" alt="${post.author}">
+				       </div>
                <ul class="text-muted list-inline blg-header">
                <li><i class="fa fa-info-circle"></i> ${post.subtype}</li>
                <li><i class="fa fa-calendar"></i> ${post.date?string("dd MMMM yyyy")} </li>
                <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
                </ul>
                <hr>
+               <#if post.image??>
+                <img src="${post.image}" class="podcast-thumb-img">
+               </#if>
                <p class="blg-text">
                  <#assign MAX = 150>
 

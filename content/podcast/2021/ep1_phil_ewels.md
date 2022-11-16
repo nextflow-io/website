@@ -4,11 +4,11 @@ date=2021-03-02
 type=podcast
 subtype=interview
 youtubeid=Y619gTTSz3I
-image=img/mentorships-social-card.jpg
+image=img/podcast_ep1.jpg
 tags=nextflow,nf-core,opensource
 status=published
-author=Phil Ewels
-icon=phil.png
+author=Rob Lalonde
+icon=rob.jpg
 ~~~~~~
 
 In this Podcast, Rob Lalonde speaks with Phil Ewels of SciLifeLab Sweden, part of NGI Stockholm.

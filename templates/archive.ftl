@@ -19,7 +19,7 @@
 			  <div class="blg-summary">
 			    <h3 ><a href="${post.uri}"><#escape x as x?xml>${post.title}</#escape></a></h3>
 				<div class="timeline-info hidden-xs">
-				  <img src="/img/${post.icon}" class="blg-author" alt="...">
+				  <img src="/img/${post.icon}" class="blg-author" alt="${post.author}">
 				</div>
 			    <ul class="text-muted list-inline blg-header">
 				  <li><i class="fa fa-user"></i> ${post.author}</li>
