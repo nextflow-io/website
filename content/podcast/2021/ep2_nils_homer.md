@@ -8,7 +8,7 @@ image=img/podcast_ep2.jpg
 tags=nextflow,opensource
 status=published
 author=Rob Lalonde
-icon=rob.jpg
+icon=rob.png
 ~~~~~~
 
 In this Podcast, Rob Lalonde speaks with Nils Homer, founding partner at Fulcrum Genomics. Nils shares his unique perspectives on breaking into the bioinformatics industry, advances in technology and tools, and what to expect in the next three to five years.

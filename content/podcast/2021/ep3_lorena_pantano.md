@@ -8,7 +8,7 @@ image=img/podcast_ep3.jpg
 tags=nextflow,opensource
 status=published
 author=Rob Lalonde
-icon=rob.jpg
+icon=rob.png
 ~~~~~~
 
 In this podcast, Rob Lalonde of Seqera Labs speaks with Lorena Pantano, head of Computational Biology at NextRNA, a firm leading the next revolution in RNA-directed therapeutics located in Cambridge, Massachusetts. In this fascinating discussion, Rob and Lorena talk bioinformatics, life in a startup, and women in technology.

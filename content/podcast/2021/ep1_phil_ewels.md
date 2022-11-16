@@ -8,7 +8,7 @@ image=img/podcast_ep1.jpg
 tags=nextflow,nf-core,opensource
 status=published
 author=Rob Lalonde
-icon=rob.jpg
+icon=rob.png
 ~~~~~~
 
 In this Podcast, Rob Lalonde speaks with Phil Ewels of SciLifeLab Sweden, part of NGI Stockholm.

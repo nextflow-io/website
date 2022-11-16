@@ -27,7 +27,7 @@
                </ul>
                <hr>
                <#if post.image??>
-                <img src="${post.image}" class="podcast-thumb-img">
+                <a href="${post.uri}"><img src="${post.image}" class="podcast-thumb-img"></a>
                </#if>
                <p class="blg-text">
                  <#assign MAX = 150>
