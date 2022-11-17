@@ -46,7 +46,7 @@
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
                         <li><a href="https://www.nextflow.io/slack-invite.html">Slack community chat</a></li>
-                        <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>                       
+                        <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>
                     </ul>
                 </li>
 
@@ -55,9 +55,13 @@
                 </li>
 
                 <li class="show animated flipInX">
+                    <a href="/podcasts.html">Podcasts</a>
+                </li>
+
+                <li class="show animated flipInX">
                     <a href="/about-us.html">About</a>
                 </li>
-                   
+
             </ul>
 
         </div>

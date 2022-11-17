@@ -61,7 +61,7 @@ words it behaves in a completely transparent manner without requiring extra step
 the flow of the pipeline execution. 
 
 It was only necessary to specify the Docker image (or images) to be used in the Nextflow 
-configuration file for the pipeline. You can read more about this at [this link](http://www.nextflow.io/docs/latest/docker.html).
+configuration file for the pipeline. You can read more about this at [this link](https://www.nextflow.io/docs/latest/docker.html).
 
 ## Results 
 
