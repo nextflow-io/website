@@ -193,7 +193,7 @@ Within the `nextflow.config` file in the main project directory we can add the f
 
         $processName.container = 'cbcrg/lncrna_annotation'
 
-In most cases it is easiest to use the same Docker image for all processes. One further thing to consider is the inclusion of the sha256 hash of the image in the container reference. I have [previously written about this](http://www.nextflow.io/blog/2016/best-practice-for-reproducibility.html), but briefly, including a hash ensures that not a single byte of the operating system or software is different.
+In most cases it is easiest to use the same Docker image for all processes. One further thing to consider is the inclusion of the sha256 hash of the image in the container reference. I have [previously written about this](https://www.nextflow.io/blog/2016/best-practice-for-reproducibility.html), but briefly, including a hash ensures that not a single byte of the operating system or software is different.
 
         process {    
             container = 'cbcrg/lncrna_annotation@sha256:9dfe233b...'

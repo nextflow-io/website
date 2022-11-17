@@ -66,7 +66,7 @@ holistically.
 Nextflow provides a solution to reproduciblility through version control and sandboxing.
 
 #### Code
-Version control is provided via [native integration with GitHub](http://www.nextflow.io/docs/latest/sharing.html) 
+Version control is provided via [native integration with GitHub](https://www.nextflow.io/docs/latest/sharing.html) 
 and other popular code management platforms such as Bitbucket and GitLab. 
 Pipelines can be pulled, executed, developed, collaborated on and shared. For example, 
 the command below will pull a specific version of a [simple Kallisto + Sleuth pipeline](https://github.com/cbcrg/kallisto-nf) 
@@ -85,7 +85,7 @@ repository are added to the path. Also, within the Nextflow [config file](https:
 environmental variables such as `PERL5LIB` can be defined so that they are automatically 
 added during the task executions. 
 
-This can be taken a step further with containerisation such as [Docker](http://www.nextflow.io/docs/latest/docker.html). 
+This can be taken a step further with containerisation such as [Docker](https://www.nextflow.io/docs/latest/docker.html). 
 We have recently published [work](https://doi.org/10.7717/peerj.1273) about this: 
 briefly a [dockerfile](https://github.com/cbcrg/kallisto-nf/blob/master/Dockerfile) 
 containing the instructions on how to build the docker image resides inside a repository. 

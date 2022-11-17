@@ -145,7 +145,7 @@ the Docker engine are available.
 ### Learn how to do it!
 
 Follow our documentation for a quick start using Docker with Nextflow at 
-the following link http://www.nextflow.io/docs/latest/docker.html
+the following link https://www.nextflow.io/docs/latest/docker.html
 
 
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 22.10.1 documentation</title>
+  <title>Processes &mdash; Nextflow 22.10.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -823,6 +823,9 @@ with the current execution context.</p>
 <p>In most cases, you won’t need to use dynamic file names, because each task is executed in its
 own directory, and input files are automatically staged into this directory by Nextflow.
 This behavior guarantees that input files with the same name won’t overwrite each other.</p>
+<p>An example of when you may have to deal with that is when you have many input files in a task,
+and some of these files may have the same filename. In this case, a solution would be to use
+the option <code class="docutils literal notranslate"><span class="pre">stageAs</span></code>.</p>
 </div>
 </section>
 <section id="input-type-env">
@@ -1288,6 +1291,10 @@ and so they can be referenced unequivocally by downstream tasks.</p>
 in its own unique directory, so files produced by different tasks can’t overwrite each other.
 Also, metadata can be associated with outputs by using the <a class="reference internal" href="#process-out-tuple"><span class="std std-ref">tuple output</span></a> qualifier, instead of
 including them in the output file name.</p>
+<p>One example in which you’d need to manage the naming of output files is when you use the <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive
+to have output files also in a specific path of your choice. If two tasks have the same filename for their output and you want them
+to be in the same path specified by <code class="docutils literal notranslate"><span class="pre">publishDir</span></code>, the last task to finish will overwrite the output of the task that finished before.
+You can dynamically change that by adding the <code class="docutils literal notranslate"><span class="pre">saveAs</span></code> option to your <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive.</p>
 <p>To sum up, the use of output files with static names over dynamic ones is preferable whenever possible,
 because it will result in simpler and more portable code.</p>
 </div>
@@ -2232,7 +2239,7 @@ This is useful when the process has multiple output files, but you want to publi
 <td><p>Allow specifying the media content type of the published file a.k.a. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">MIME type</a>. If the boolean value <code class="docutils literal notranslate"><span class="pre">true</span></code> is specified the content type is inferred from the file extension (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires <cite>22.10.0`</cite> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p>tags</p></td>
-<td><p>Allow the association of arbitrary tags with the published file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
+<td><p>Allow the association of arbitrary tags with the published file e.g. <code class="docutils literal notranslate"><span class="pre">tags:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
