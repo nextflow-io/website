@@ -7,7 +7,7 @@
       <div class="row">
       <div class="col-sm-8">
       <div class="blg-summary">
-        <h2><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> ${post.subtype?cap_first}: <#escape x as x?xml>${post.title}</#escape></a></h2>
+        <h2><a href="${content.uri}"><span class="label label-success">Episode ${content.episode}</span> ${content.subtype?cap_first}: <#escape x as x?xml>${content.title}</#escape></a></h2>
         <h4 class="text-muted blg-description"><#escape x as x?xml>${content.description}</#escape></h4>
         <ul class="text-muted list-inline blg-header">
         <li><i class="fa fa-info-circle"></i> ${content.subtype}</li>
