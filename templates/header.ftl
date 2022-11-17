@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="">
     <link rel="shortcut icon" href="/img/favicon.png">
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.nextflow.io/feed.xml">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.nextflow.io/feed.xml">
     <title><#if (content.title)??><#if (content.uri!='error-page.html')><#escape x as x?xml>${content.title} | Nextflow</#escape><#else>${content.title}</#if><#else>Nextflow</#if></title>
     <#if (content.description)??>
     <meta name="description" content="<#escape x as x?xml>${content.description}</#escape>">
@@ -40,6 +40,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet">
+    <!-- HighlightJS -->
+    <link href="/css/xcode.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="/css/color-styles.css" rel="stylesheet">

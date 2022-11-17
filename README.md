@@ -16,7 +16,9 @@ Page        | Type  | Template
 Normal      | page  | `page.ftl`
 Index       | index | `index.ftl`
 Blog        | -     | `archive.ftl` (`blog.html`)
+Podcasts    | -     | `podcasts.ftl` (`podcasts.html`)
 Blog posts  | post  | `post.ftl`
+Podcast     | post  | `podcast.ftl`
 
 
 Template are contained in the folder `templates`. To add a custom template

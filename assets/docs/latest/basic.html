@@ -4,9 +4,10 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Basic concepts &mdash; Nextflow 22.04.5 documentation</title>
+  <title>Basic concepts &mdash; Nextflow 22.10.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
@@ -28,7 +29,8 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> Nextflow
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -37,7 +39,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Basic concepts</a><ul>
@@ -56,6 +59,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -73,6 +78,13 @@
 </ul>
 
         </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
       </div>
     </nav>
 
@@ -88,6 +100,7 @@
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>Basic concepts</li>
       <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/basic.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -151,11 +164,13 @@ and ultimately the pipeline execution flow itself, is implicitly defined by thes
 </pre></div>
 </div>
 <p>The above example defines two processes. Their execution order is not determined by the fact that the <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code>
-process comes before <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around).</p>
-<p>Instead, because the first process defines the channel <code class="docutils literal notranslate"><span class="pre">top_hits_ch</span></code> in its output declarations, and the
-process <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> defines the channel in its input declaration, a communication link is established.</p>
-<p>This linking via the channels means that <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> is waiting for the output of <cite>blastSearch</cite>, and then
-runs <cite>reactively</cite> when the channel has contents.</p>
+process comes before <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around). Instead, the
+pipe operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) in the workflow between <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> and <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> forwards the outputs from one
+process to the inputs of the following one.</p>
+<p>When the workflow is started, it will create two processes and one channel (<code class="docutils literal notranslate"><span class="pre">query_ch</span></code>)
+and it will link all of them. Both processes will be started at the same time and they will listen to their
+respective input channels. Whenever <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> emits a value, <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code>
+will receive it (i.e. <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> consumes the channel in a <cite>reactive</cite> way).</p>
 <p>Read the <a class="reference internal" href="channel.html#channel-page"><span class="std std-ref">Channel</span></a> and <a class="reference internal" href="process.html#process-page"><span class="std std-ref">Process</span></a> sections to learn more about these features.</p>
 </section>
 <section id="execution-abstraction">
@@ -221,7 +236,7 @@ in that it simplifies the writing of code and is more approachable.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
