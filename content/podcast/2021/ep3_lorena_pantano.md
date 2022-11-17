@@ -1,4 +1,5 @@
-title=Episode 3: Lorena Pantano
+title=Lorena Pantano
+episode=3
 description=Inside a Bioinformatics Startup – with NextRNA Therapeutics
 date=2021-09-15
 type=podcast

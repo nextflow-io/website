@@ -1,4 +1,5 @@
-title=Episode 5: Evan Floden
+title=Evan Floden
+episode=5
 description=CEO and Co-founder of Seqera Labs
 date=2022-03-11
 type=podcast

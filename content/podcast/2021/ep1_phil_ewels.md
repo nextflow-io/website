@@ -1,4 +1,5 @@
-title=Episode 1: Phil Ewels
+title=Phil Ewels
+episode=1
 description=Talking open source, bioinformatics and maple syrup with Phil Ewels of SciLifeLab
 date=2021-03-02
 type=podcast

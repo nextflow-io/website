@@ -1,4 +1,5 @@
-title=Episode 2: Nils Homer
+title=Nils Homer
+episode=2
 description=Fulcrum Genomics – methods and software for analyzing next-generation sequencing data.
 date=2021-04-1
 type=podcast

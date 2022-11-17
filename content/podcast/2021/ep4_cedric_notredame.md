@@ -1,4 +1,5 @@
-title=Episode 4: Cedric Notredame
+title=Cedric Notredame
+episode=4
 description=The Origins of Nextflow.
 date=2021-12-16
 type=podcast
