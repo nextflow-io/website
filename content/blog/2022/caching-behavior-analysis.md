@@ -13,7 +13,7 @@ The ability to resume an analysis (i.e. caching) is one of the core strengths of
 
 We have previously written about Nextflow's [resume functionality](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) as well as some [troubleshooting strategies](https://www.nextflow.io/blog/2019/troubleshooting-nextflow-resume.html) to gain more insights on the caching behavior. 
 
-In this blog post, we will take a more hands-on approach and highlight some strategies which we can use to understand what is causing a particular process (or processes) to re-run, instead of using the cache from previous runs of the pipeline. To demonstrate the process, we will introduce a minor change into one of the process definitions in the the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) pipeline and investigate how it affects the overall caching behavior when compared to the initial execution of the pipeline.
+In this post, we will take a more hands-on approach and highlight some strategies which we can use to understand what is causing a particular process (or processes) to re-run, instead of using the cache from previous runs of the pipeline. To demonstrate the process, we will introduce a minor change into one of the process definitions in the the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) pipeline and investigate how it affects the overall caching behavior when compared to the initial execution of the pipeline.
 
 
 ### Local setup for the test
