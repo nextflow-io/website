@@ -7,7 +7,14 @@
     <div class="container">
       <div class="row">
       <div class="col-xs-12">
-        <h4 class='text-muted'>Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.</h4>
+        <div class="row">
+          <div class="col-sm-4">
+            <img src="/img/podcast_logo_horiz.svg">
+          </div>
+          <div class="col-sm-8">
+            <h4 class='text-muted' style="margin-top: 6rem;">Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.</h4>
+          </div>
+        </div>
         <hr>
       <div class="row">
            <div class="col-sm-8">
@@ -15,7 +22,7 @@
            <#assign count = 0>
            <#list podcasts as post>
              <div class="blg-summary">
-               <h3><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> ${post.subtype?cap_first}: <#escape x as x?xml>${post.title}</#escape></a></h3>
+               <h3 style="line-height: 1.5;"><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> ${post.subtype?cap_first}: <#escape x as x?xml>${post.title}</#escape></a></h3>
                <h4 class="text-muted blg-description"><#escape x as x?xml>${post.description}</#escape></h4>
                <div class="timeline-info hidden-xs">
 				        <img src="/img/${post.icon}" class="blg-author" alt="${post.author}">
