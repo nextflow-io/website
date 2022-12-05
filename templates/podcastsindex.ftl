@@ -9,10 +9,10 @@
       <div class="col-xs-12">
         <div class="row">
           <div class="col-sm-4">
-            <img src="/img/podcast_logo_horiz.svg">
+            <img src="/img/podcast_logo_horiz.svg" style="width:100%;">
           </div>
           <div class="col-sm-8">
-            <h4 class='text-muted' style="margin-top: 6rem;">Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.</h4>
+            <h4 class='text-muted' style="margin-top: 7rem;">Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.</h4>
           </div>
         </div>
         <hr>
