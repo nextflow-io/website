@@ -55,7 +55,7 @@
                 </li>
 
                 <li class="show animated flipInX">
-                    <a href="/podcasts.html">Podcasts</a>
+                    <a href="/podcasts.html">Podcast</a>
                 </li>
 
                 <li class="show animated flipInX">
