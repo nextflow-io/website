@@ -18,11 +18,11 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 #### The News and Views podcast format
 
-- News and views will be short format podcasts and will cover things going on in the Nextflow community
+- News and views will be short format podcasts and will cover things going on in the Nextflow community.
 - We will record "Seasons" of around six 20-25 min episodes.
 - Rob's interviews (previously called _nf-cast_) will continue and will also be released every 1-2 months.
 - We're hoping to live-stream and incorporate live comments in the next season (March 2023).
-- Subscribe on YouTube / Spotify
+- Subscribe on [YouTube](https://www.youtube.com/watch?v=44m4zVhj2sI) / [Spotify](https://open.spotify.com/show/1slEz7EL46cHa9vdRmPLY4).
     - Nextflow website: https://nextflow.io/podcasts.html
     - Slack channel: `#channels-podcast`
 
@@ -41,7 +41,7 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 #### nf-core/tools 2.7 release
 
-- A release of [nf-core/tools](https://github.com/nf-core/tools) 2.7 is underway
+- A release of [nf-core/tools](https://github.com/nf-core/tools) 2.7 is underway.
 - New features include:
     - New nf-core subworkflows subcommand for creating, removing, testing, updating, and finding subworkflows. More info [here](https://nf-co.re/tools/#subworkflows).
     - Every pipeline has now its own GitHub codespace template, which can be used to develop the pipeline directly in the browser.
