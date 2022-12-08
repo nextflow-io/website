@@ -10,15 +10,14 @@ tags=news and views,opensource,community
 status=published
 author= Developer advocates
 icon=logo_podcast_channels.jpg
-~~~~~~
+
 
 In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chris Hakkaart](https://twitter.com/chris_hakk), and [Marcel Ribeiro-Dantas](https://twitter.com/mribeirodantas) discuss the hottest topics in the Nextflow world.
 
 <!-- end-archive-description -->
 
-**The News and Views podcast format**
+#### The News and Views podcast format
 
-- The Nextflow community is always humming with activity.
 - News and views will be short format podcasts and will cover things going on in the Nextflow community
 - We will record "Seasons" of around six 20-25 min episodes.
 - Rob's interviews will continue and will also be released every 1-2 months.
@@ -27,18 +26,21 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
     - Nextflow website: https://nextflow.io/podcasts.html
     - Slack channel: `#channels-podcast`
 
-**Nextflow for astronomers**
+#### Nextflow for astronomers
+
 - Exciting new application of Nextflow.
 - An example of Nextflow being used outside of traditional bioinformatics.
 - New [Nextflow training aimed at astronomers](https://adacs-australia.github.io/Nextflow_Training_2022B/) with an [example pulsar search pipeline](https://adacs-australia.github.io/Nextflow_Training_2022B/04-AstronomyWorkflowExample/index.html).
 - Check `#astronomy` on nf-core Slack for more details.
 
-**New initiatives in Asia-Pacific**
+#### New initiatives in Asia-Pacific
+
 - Chris recently attended [AMSI](https://bis.amsi.org.au/), [COMBINED](https://www.combine.org.au/symp/combine-symposium-2022/), [ABACBS](https://www.abacbs.org/conference2022), and [SBEI](https://www.abacbs.org/conference2022) in Melbourne Australia.
 - Met with a lot of community members and some of the [BioCommons](https://www.biocommons.org.au/) team.
 - Really excited to start work on new initiatives in the Asia-Pacific (watch this space!).
 
-**nf-core/tools 2.7 release**
+#### nf-core/tools 2.7 release
+
 - A release of nf-core/tools 2.7 is underway
 - New features include:
     - New nf-core subworkflows subcommand for creating, removing, testing, updating, and finding subworkflows. More info [here](https://nf-co.re/tools/#subworkflows).
