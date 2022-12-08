@@ -1,6 +1,6 @@
 title=Introducing "Channels" the rebranded podcast
 episode=6
-description=An introducing to the News and Views podcast
+description=An introduction to the News and Views episode format
 date=2022-12-08
 type=podcast
 subtype=News and Views
@@ -18,7 +18,7 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 **The News and Views podcast format**
 
-- The Nextflow community is always humming with activity. 
+- The Nextflow community is always humming with activity.
 - News and views will be short format podcasts and will cover things going on in the Nextflow community
 - We will record "Seasons" of around six 20-25 min episodes.
 - Rob's interviews will continue and will also be released every 1-2 months.
