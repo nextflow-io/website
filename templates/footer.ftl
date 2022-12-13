@@ -54,7 +54,7 @@ while(x=eval(x));
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/highlight.min.js"></script>
 <script>hljs.highlightAll();</script>
-<script src="/js/custom.js"></script>
+<script src="/js/custom.js?${.now?long?c}"></script>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 <#if (content.syntaxhighlighter)?? >
 <!-- Syntax highlight -->

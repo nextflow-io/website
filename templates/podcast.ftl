@@ -6,7 +6,7 @@
     <div class="container">
       <div class="row">
       <div class="col-sm-8">
-      <div class="blg-summary">
+      <div class="blg-summary podcast" data-golive='${content.date?long?c}'>
         <h2><a href="${content.uri}"><span class="label label-success">Episode ${content.episode}</span> ${content.subtype?cap_first}: <#escape x as x?xml>${content.title}</#escape></a></h2>
         <h4 class="text-muted blg-description"><#escape x as x?xml>${content.description}</#escape></h4>
         <ul class="text-muted list-inline blg-header">
@@ -20,7 +20,8 @@
             <iframe width="560" height="315" src="https://www.youtube.com/embed/${content.youtubeid}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <hr>
           </#if>
-          ${content.body}
+          <div class="future-hide">${content.body}</div>
+          <div class="future-show">Episode coming soon..</div>
         </div>
 
         <p class="tags">

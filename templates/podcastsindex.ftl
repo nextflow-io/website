@@ -19,36 +19,39 @@
       <div class="row">
            <div class="col-sm-8">
            <div class="timeline">
-           <#assign count = 0>
-           <#list podcasts as post>
-             <div class="blg-summary">
+            <#list podcasts as post>
+             <div class="blg-summary podcast" data-golive='${post.date?long?c}'>
                <h3 style="line-height: 1.5;"><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> ${post.subtype?cap_first}: <#escape x as x?xml>${post.title}</#escape></a></h3>
-               <h4 class="text-muted blg-description"><#escape x as x?xml>${post.description}</#escape></h4>
+               <h4 class="text-muted blg-description future-show">Episode coming soon! Subscribe to listen live..</h4>
+               <h4 class="text-muted blg-description future-hide"><#escape x as x?xml>${post.description}</#escape></h4>
                <div class="timeline-info hidden-xs">
-				        <img src="/img/${post.icon}" class="blg-author" alt="${post.author}">
+				        <img src="/img/coming-soon.png" class="blg-author future-show" alt="Coming soon">
+				        <img src="/img/${post.icon}" class="blg-author future-hide" alt="${post.author}">
 				       </div>
                <ul class="text-muted list-inline blg-header">
                <li><i class="fa fa-info-circle"></i> ${post.subtype}</li>
                <li><i class="fa fa-calendar"></i> ${post.date?string("dd MMMM yyyy")} </li>
                <!--<li><i class="fa fa-comments-o"></i> 21 comments</li> -->
                </ul>
-               <hr>
-               <#if post.image??>
-                <a href="${post.uri}"><img src="${post.image}" class="podcast-thumb-img"></a>
-               </#if>
-               <p class="blg-text">
-                 <#assign post_intro = post.body?split("<!-- end-archive-description -->")[0]>
-                 <#assign MAX = 150>
-                 <#assign words = post_intro?word_list>
-                 <#if words?size gt 150 >
-                   <#assign body = words[0..MAX-1]?join(' ') >
-                   ${body} .. (<a href="${post.uri}">click here to read more</a>)
-                 <#else>
-                   <#assign body = words?join(' ') >
-                   ${body}
-                 </#if>
+               <div class="future-hide">
+                <hr>
+                <#if post.image??>
+                  <a href="${post.uri}"><img src="${post.image}" class="podcast-thumb-img"></a>
+                </#if>
+                <p class="blg-text">
+                  <#assign post_intro = post.body?split("<!-- end-archive-description -->")[0]>
+                  <#assign MAX = 150>
+                  <#assign words = post_intro?word_list>
+                  <#if words?size gt 150 >
+                    <#assign body = words[0..MAX-1]?join(' ') >
+                    ${body} .. (<a href="${post.uri}">click here to read more</a>)
+                  <#else>
+                    <#assign body = words?join(' ') >
+                    ${body}
+                  </#if>
 
-               </p>
+                </p>
+                </div>
 
              </div>
           </#list>
