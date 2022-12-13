@@ -128,17 +128,17 @@ $('#search-btn').on('click', function() {
 // Error page
 // ==========
 
-var divs = $("i.random").get().sort(function(){ 
+var divs = $("i.random").get().sort(function(){
   return Math.round(Math.random())-0.5; //random so we get the right +/- combo
 }).slice(0,1)
 $(divs).show();
 
-var divs = $("i.random2").get().sort(function(){ 
+var divs = $("i.random2").get().sort(function(){
   return Math.round(Math.random())-0.5; //random so we get the right +/- combo
 }).slice(0,1)
 $(divs).show();
 
-var divs = $("i.random3").get().sort(function(){ 
+var divs = $("i.random3").get().sort(function(){
   return Math.round(Math.random())-0.5; //random so we get the right +/- combo
 }).slice(0,1)
 $(divs).show();
@@ -152,7 +152,7 @@ $('.crp-ft').hover (function() {
 	return false;
 });
 
-// Smooth scroll 
+// Smooth scroll
 // =================
 
 $(".scroll").click(function (event) {
@@ -168,4 +168,14 @@ $(".scroll").click(function (event) {
     $('html,body').animate({
         scrollTop: dest
     }, 1000, 'swing');
+});
+
+// Podcast - styling for future events
+// ====================================
+$('.podcast').each(function () {
+    var golive = parseFloat($(this).data("golive"));
+	var now = new Date().getTime();
+	if (golive > now) {
+		$(this).addClass('podcast-future')
+    }
 });
