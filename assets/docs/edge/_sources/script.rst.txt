@@ -221,7 +221,7 @@ Name            Description
 ``launchDir``   The directory where the workflow is run (requires version ``20.04.0`` or later).
 ``moduleDir``   The directory where a module script is located for DSL2 modules or the same as ``projectDir`` for a non-module script (requires version ``20.04.0`` or later).
 ``nextflow``    Dictionary like object representing nextflow runtime information (see :ref:`metadata-nextflow`).
-``params``      Dictionary like object holding workflow parameters specifing in the config file or as command line options.
+``params``      Dictionary like object holding workflow parameters specifying in the config file or as command line options.
 ``projectDir``  The directory where the main script is located (requires version ``20.04.0`` or later).
 ``workDir``     The directory where tasks temporary files are created.
 ``workflow``    Dictionary like object representing workflow runtime information (see :ref:`metadata-workflow`).
@@ -251,11 +251,11 @@ The following variables are implicitly defined in the ``task`` object of each pr
 Name            Description
 =============== ========================
 ``attempt``     The current task attempt
-``hash``        The task unique hash Id
+``hash``        The task unique hash Id. NOTE: This is only available for processes that run native code via ``exec:``.
 ``index``       The task index (corresponds to ``task_id`` in the execution trace)
-``name``        The current task name
+``name``        The current task name. NOTE: This is only available for processes that run native code via ``exec:``.
 ``process``     The current process name
-``workDir``     The task unique directory. NOTE: This is only available for processes that run native code via the ``exec:`` statement. 
+``workDir``     The task unique directory. NOTE: This is only available for processes that run native code via ``exec:``.
 =============== ========================
 
 The ``task`` object also contains the values of all process directives for the given task,
@@ -863,7 +863,7 @@ lastModified        Returns the file last modified timestamp i.e. a long as Linu
 
 For example, the following line prints a file name and size::
 
-  println "File ${myFile.getName() size: ${myFile.size()}"
+  println "File ${myFile.getName()} size: ${myFile.size()}"
 
 .. tip::
     The invocation of any method name starting with the ``get`` prefix can be shortcut by
