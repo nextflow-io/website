@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 22.09.3-edge documentation</title>
+  <title>Processes &mdash; Nextflow 22.12.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -99,6 +99,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#errorstrategy">errorStrategy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#executor">executor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ext">ext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fair">fair</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#machinetype">machineType</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxerrors">maxErrors</a></li>
@@ -110,6 +111,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#pod">pod</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#publishdir">publishDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#queue">queue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resourcelabels">resourceLabels</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scratch">scratch</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#storedir">storeDir</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stageinmode">stageInMode</a></li>
@@ -130,6 +132,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -229,6 +233,22 @@ scripts with multiple commands spanning multiple lines. For example:</p>
 <span class="sd">  &quot;&quot;&quot;</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By default, the script block is executed with the <a class="reference external" href="https://tldp.org/LDP/abs/html/options.html">Bash options</a> <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">-ue</span></code>.
+The user can add custom options directly to the process definition as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">doMoreThings</span> <span class="p">{</span>
+  <span class="n">shell</span> <span class="s1">&#39;/bin/bash&#39;</span><span class="p">,</span> <span class="s1">&#39;-euo&#39;</span><span class="p">,</span> <span class="s1">&#39;pipefail&#39;</span>
+
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  blastp -db $db -query query.fa -outfmt 6 &gt; blast_result</span>
+<span class="sd">  cat blast_result | head -n 10 | cut -f 2 &gt; top_hits</span>
+<span class="sd">  blastdbcmd -db $db -entry_batch top_hits &gt; sequences</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 <p>As explained in the script tutorial section, strings can be defined using single-quotes
 or double-quotes, and multi-line strings are defined by three single-quote or three double-quote characters.</p>
@@ -820,6 +840,9 @@ with the current execution context.</p>
 <p>In most cases, you won’t need to use dynamic file names, because each task is executed in its
 own directory, and input files are automatically staged into this directory by Nextflow.
 This behavior guarantees that input files with the same name won’t overwrite each other.</p>
+<p>An example of when you may have to deal with that is when you have many input files in a task,
+and some of these files may have the same filename. In this case, a solution would be to use
+the option <code class="docutils literal notranslate"><span class="pre">stageAs</span></code>.</p>
 </div>
 </section>
 <section id="input-type-env">
@@ -924,7 +947,7 @@ each time a new value is received. For example:</p>
 
 <span class="n">workflow</span> <span class="p">{</span>
   <span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
-  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">,</span> <span class="s1">&#39;psicoffee&#39;</span><span class="p">]</span>
+  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;espresso&#39;</span><span class="p">,</span> <span class="s1">&#39;psicoffee&#39;</span><span class="p">]</span>
 
   <span class="n">alignSequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">methods</span><span class="p">)</span>
 <span class="p">}</span>
@@ -948,7 +971,7 @@ set of parameters.</p>
 
 <span class="n">workflow</span> <span class="p">{</span>
   <span class="n">sequences</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="s1">&#39;*.fa&#39;</span><span class="p">)</span>
-  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;expresso&#39;</span><span class="p">]</span>
+  <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;regular&#39;</span><span class="p">,</span> <span class="s1">&#39;espresso&#39;</span><span class="p">]</span>
   <span class="n">libraries</span> <span class="o">=</span> <span class="p">[</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ001.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ002.lib&#39;</span><span class="p">),</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;PQ003.lib&#39;</span><span class="p">)</span> <span class="p">]</span>
 
   <span class="n">alignSequences</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">methods</span><span class="p">,</span> <span class="n">libraries</span><span class="p">)</span>
@@ -956,7 +979,7 @@ set of parameters.</p>
 </pre></div>
 </div>
 <p>In the above example, each sequence input file emitted by the <code class="docutils literal notranslate"><span class="pre">sequences</span></code> channel triggers six alignment tasks,
-three with the <code class="docutils literal notranslate"><span class="pre">regular</span></code> method against each library file, and three with the <code class="docutils literal notranslate"><span class="pre">expresso</span></code> method.</p>
+three with the <code class="docutils literal notranslate"><span class="pre">regular</span></code> method against each library file, and three with the <code class="docutils literal notranslate"><span class="pre">espresso</span></code> method.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When multiple repeaters are defined, the process is executed for each <em>combination</em> of them.</p>
@@ -1208,6 +1231,32 @@ A downstream process with a compatible input channel will be able to receive it.
 </tr>
 </tbody>
 </table>
+<p>The parenthesis are optional for input and output qualifiers, but when you want to set an additional option and there
+is more than one input or output qualifier, you must use parenthesis so that Nextflow knows what qualifier you’re
+referring to.</p>
+<p>One example with a single output qualifier:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="n">path</span> <span class="s1">&#39;result.txt&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  echo &#39;another new line&#39; &gt;&gt; result.txt</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Another example with multiple output qualifiers:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="nb">tuple</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;last_result.txt&#39;</span><span class="p">),</span> <span class="n">path</span><span class="p">(</span><span class="s1">&#39;result.txt&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  echo &#39;another new line&#39; &gt;&gt; result.txt</span>
+<span class="sd">  echo &#39;another new line&#39; &gt; last_result.txt</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="multiple-output-files">
 <h3>Multiple output files<a class="headerlink" href="#multiple-output-files" title="Permalink to this headline"></a></h3>
@@ -1285,6 +1334,10 @@ and so they can be referenced unequivocally by downstream tasks.</p>
 in its own unique directory, so files produced by different tasks can’t overwrite each other.
 Also, metadata can be associated with outputs by using the <a class="reference internal" href="#process-out-tuple"><span class="std std-ref">tuple output</span></a> qualifier, instead of
 including them in the output file name.</p>
+<p>One example in which you’d need to manage the naming of output files is when you use the <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive
+to have output files also in a specific path of your choice. If two tasks have the same filename for their output and you want them
+to be in the same path specified by <code class="docutils literal notranslate"><span class="pre">publishDir</span></code>, the last task to finish will overwrite the output of the task that finished before.
+You can dynamically change that by adding the <code class="docutils literal notranslate"><span class="pre">saveAs</span></code> option to your <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive.</p>
 <p>To sum up, the use of output files with static names over dynamic ones is preferable whenever possible,
 because it will result in simpler and more portable code.</p>
 </div>
@@ -1864,6 +1917,36 @@ This can be defined in the <code class="docutils literal notranslate"><span clas
 </pre></div>
 </div>
 </section>
+<section id="fair">
+<span id="process-fair"></span><h3>fair<a class="headerlink" href="#fair" title="Permalink to this headline"></a></h3>
+<p>When using the <code class="docutils literal notranslate"><span class="pre">fair</span></code> directive the sequence of the outputs of a process executions is guaranteed
+to match the sequence of the input values irrespective. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">fair</span> <span class="n">true</span>
+  <span class="nb">input</span><span class="p">:</span>
+    <span class="n">val</span> <span class="n">x</span>
+  <span class="n">output</span><span class="p">:</span>
+    <span class="nb">tuple</span> <span class="n">val</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">val</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+  <span class="n">script</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    sleep \$((RANDOM % 3))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+   <span class="n">channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">foo</span> <span class="o">|</span> <span class="n">view</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above example produces the following output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">B</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
 <section id="label">
 <span id="process-label"></span><h3>label<a class="headerlink" href="#label" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> directive allows the annotation of processes with mnemonic identifier of your choice.
@@ -1885,22 +1968,9 @@ process using the <code class="docutils literal notranslate"><span class="pre">l
 and must end with an alphanumeric character.</p>
 </div>
 <p>Labels are useful to organise workflow processes in separate groups which can be referenced
-in the configuration file to select and configure subset of processes having similar computing requirements.</p>
-<p>See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">label</span></code> directive can be also expressed as a <cite>Map&lt;key-value&gt;</cite> or a <cite>key=value</cite> sentence:</p>
-<blockquote>
-<div><dl>
-<dt>process bigTask {</dt><dd><p>label “region=eu-west-1”
-label organization: ‘MyOrganization’
-label department: ‘a department’, group: ‘a group’</p>
-<p>‘’’
-&lt;task script&gt;
-‘’’</p>
-</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>These labels will be used to tag the process when pipeline is running in AWS, Google or K8s</p>
+in the configuration file to select and configure subset of processes having similar computing requirements.
+See the <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">Process selectors</span></a> documentation for details.</p>
+<p>See also: <a class="reference internal" href="#resourcelabels">resourceLabels</a></p>
 </section>
 <section id="machinetype">
 <span id="process-machinetype"></span><h3>machineType<a class="headerlink" href="#machinetype" title="Permalink to this headline"></a></h3>
@@ -2117,10 +2187,16 @@ and config maps when using the <a class="reference internal" href="executor.html
 <td><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
-<td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">ConfigMap</span></code> entries are exposed in that path.</p></td>
+<td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code> with key <code class="docutils literal notranslate"><span class="pre">K``to</span> <span class="pre">the</span> <span class="pre">path</span> <span class="pre">``/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">ConfigMap</span></code> entries are exposed in that path.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">csi:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes">CSI ephemeral volume</a> with config <code class="docutils literal notranslate"><span class="pre">V``to</span> <span class="pre">the</span> <span class="pre">path</span> <span class="pre">``/absolute/path</span></code> (requires <code class="docutils literal notranslate"><span class="pre">22.11.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">emptyDir:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
+<td><p>Mounts an <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">emptyDir</a> with configuration <code class="docutils literal notranslate"><span class="pre">V</span></code> to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code> (requires <code class="docutils literal notranslate"><span class="pre">22.11.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
-<td><p>The content of the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> is made available to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">Secret</span></code> entries are exposed in that path.</p></td>
+<td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K``to</span> <span class="pre">the</span> <span class="pre">path</span> <span class="pre">``/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">Secret</span></code> entries are exposed in that path.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></p></td>
 <td><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <code class="docutils literal notranslate"><span class="pre">subPath</span></code> parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with <cite>readOnly: true</cite>, but is read/write by default.</p></td>
@@ -2203,8 +2279,8 @@ the file produced into the process working directory. This behavior can be modif
 <p>Table of optional parameters that can be used with the <code class="docutils literal notranslate"><span class="pre">publishDir</span></code> directive:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 7%" />
-<col style="width: 93%" />
+<col style="width: 4%" />
+<col style="width: 96%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -2235,11 +2311,17 @@ This is useful when the process has multiple output files, but you want to publi
 <tr class="row-odd"><td><p>enabled</p></td>
 <td><p>Enable or disable the publish rule depending on the boolean value specified (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>tags</p></td>
-<td><p>Allow to associate tags with the target file e.g. <code class="docutils literal notranslate"><span class="pre">tag:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL, currently only supported by files stored on AWS S3, requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
-</tr>
-<tr class="row-odd"><td><p>failOnError</p></td>
+<tr class="row-even"><td><p>failOnError</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> abort the execution if some file can’t be published to the specified target directory or bucket for any cause (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>contentType</p></td>
+<td><p>Allow specifying the media content type of the published file a.k.a. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">MIME type</a>. If the boolean value <code class="docutils literal notranslate"><span class="pre">true</span></code> is specified the content type is inferred from the file extension (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires <cite>22.10.0`</cite> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>storageClass</p></td>
+<td><p>Allow specifying the <em>storage class</em> to be used for the published file (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>tags</p></td>
+<td><p>Allow the association of arbitrary tags with the published file e.g. <code class="docutils literal notranslate"><span class="pre">tags:</span> <span class="pre">[FOO:</span> <span class="pre">'Hello</span> <span class="pre">world']</span></code> (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>
@@ -2329,6 +2411,28 @@ in your pipeline. For example:</p>
 <p>This directive is only used by certain executors. Refer to the
 <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
 </div>
+</section>
+<section id="resourcelabels">
+<span id="process-resourcelabels"></span><h3>resourceLabels<a class="headerlink" href="#resourcelabels" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">resourceLabels</span></code> directive allows you to specify custom name-value pairs
+that Nextflow applies to the computing resource used to carry out the process execution.
+Resource labels can be specified using the syntax shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">my_task</span> <span class="p">{</span>
+  <span class="n">resourceLabels</span> <span class="n">region</span><span class="p">:</span> <span class="s1">&#39;some-region&#39;</span><span class="p">,</span> <span class="n">user</span><span class="p">:</span> <span class="s1">&#39;some-username&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  &lt;task script&gt;</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The limits and the syntax of the corresponding cloud provider should be taken into consideration when using resource labels.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Resource labels are currently only supported by the <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a>,
+<a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a>, Google Cloud Batch and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+</div>
+<p>See also <a class="reference internal" href="#label">label</a>.</p>
 </section>
 <section id="scratch">
 <span id="process-scratch"></span><h3>scratch<a class="headerlink" href="#scratch" title="Permalink to this headline"></a></h3>
@@ -2687,7 +2791,7 @@ conditions:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 22.09.3-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 22.12.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -82,6 +82,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-report">Scope <cite>report</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-sarus">Scope <cite>sarus</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-shifter">Scope <cite>shifter</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-singularity">Scope <cite>singularity</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-timeline">Scope <cite>timeline</cite></a></li>
@@ -98,6 +99,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -234,7 +237,8 @@ to specify your bucket credentials. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span> <span class="p">{</span>
     <span class="n">accessKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR S3 ACCESS KEY&gt;&#39;</span>
     <span class="n">secretKey</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR S3 SECRET KEY&gt;&#39;</span>
-    <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;REGION IDENTIFIER&gt;&#39;</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS REGION IDENTIFIER&gt;&#39;</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="s1">&#39;&lt;AWS CONFIG PROFILE&gt;&#39;</span> <span class="o">//</span> <span class="n">optional</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -262,6 +266,12 @@ to specify your bucket credentials. For example:</p>
 </tr>
 <tr class="row-odd"><td><p>endpoint</p></td>
 <td><p>The AWS S3 API entry point e.g. <cite>s3-us-west-1.amazonaws.com</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p>glacierAutoRetrieval</p></td>
+<td><p>Enable auto retrieval of S3 objects stored with Glacier class store (EXPERIMENTAL. default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>glacierExpirationDays</p></td>
+<td><p>The time, in days, between when an object is restored to the bucket and when it expires (EXPERIMENTAL. default: <code class="docutils literal notranslate"><span class="pre">7</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p>maxConnections</p></td>
 <td><p>The maximum number of allowed open HTTP connections.</p></td>
@@ -358,7 +368,7 @@ to specify your bucket credentials. For example:</p>
 <td><p>The name of the logs group used by Batch Jobs (default: <code class="docutils literal notranslate"><span class="pre">/aws/batch</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.09.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-odd"><td><p>volumes</p></td>
-<td><p>One or more container mounts. Mounts can be specified as simple e.g. <cite>/some/path</cite> or canonical format e.g. <code class="docutils literal notranslate"><span class="pre">/host/path:/mount/path[:ro|rw]</span></code>. Multiple mounts can be specifid separating them with a comma or using a list object.</p></td>
+<td><p>One or more container mounts. Mounts can be specified as simple e.g. <cite>/some/path</cite> or canonical format e.g. <code class="docutils literal notranslate"><span class="pre">/host/path:/mount/path[:ro|rw]</span></code>. Multiple mounts can be specified separating them with a comma or using a list object.</p></td>
 </tr>
 <tr class="row-even"><td><p>delayBetweenAttempts</p></td>
 <td><p>Delay between download attempts from S3 (default <cite>10 sec</cite>).</p></td>
@@ -470,12 +480,12 @@ by the Conda package manager.</p>
 </section>
 <section id="scope-dag">
 <span id="config-dag"></span><h3>Scope <cite>dag</cite><a class="headerlink" href="#scope-dag" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope allows you to control the layout of the execution graph file generated by Nextflow.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope allows you to control the layout of the execution graph diagram generated by Nextflow.</p>
 <p>The following settings are available:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 84%" />
+<col style="width: 19%" />
+<col style="width: 81%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -484,10 +494,13 @@ by the Conda package manager.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>enabled</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the execution graph report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the DAG file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>file</p></td>
-<td><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag.dot</span></code>).</p></td>
+<td><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.dot</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>overwrite</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing DAG file with the same name.</p></td>
 </tr>
 </tbody>
 </table>
@@ -760,10 +773,13 @@ workflow applications in a Kubernetes cluster.</p>
 <tr class="row-even"><td><p>volumeClaims</p></td>
 <td><p>(deprecated)</p></td>
 </tr>
-<tr class="row-odd"><td><p>httpReadTimeout</p></td>
+<tr class="row-odd"><td><p>maxErrorRetry</p></td>
+<td><p>Defines the Kubernetes API max request retries (default is set to 4)</p></td>
+</tr>
+<tr class="row-even"><td><p>httpReadTimeout</p></td>
 <td><p>Defines the Kubernetes client request HTTP connection read timeout e.g. <code class="docutils literal notranslate"><span class="pre">'60s'</span></code> (requires version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>httpConnectTimeout</p></td>
+<tr class="row-odd"><td><p>httpConnectTimeout</p></td>
 <td><p>Defines the Kubernetes client request HTTP connection timeout e.g. <code class="docutils literal notranslate"><span class="pre">'60s'</span></code> (requires version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later).</p></td>
 </tr>
 </tbody>
@@ -831,6 +847,17 @@ See the <a class="reference external" href="https://javaee.github.io/javamail/do
     <span class="n">smtp</span><span class="o">.</span><span class="n">starttls</span><span class="o">.</span><span class="n">required</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">}</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some versions of Java (e.g. Java 11 Corretto) do not default to TLS v1.2, and as a result may have
+issues with 3rd party integrations that enforce TLS v1.2 (e.g. Azure Active Directory OIDC). This problem can be
+addressed by setting the following config option:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mail</span> <span class="p">{</span>
+    <span class="n">smtp</span><span class="o">.</span><span class="n">ssl</span><span class="o">.</span><span class="n">protocols</span> <span class="o">=</span> <span class="s1">&#39;TLSv1.2&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </section>
 <section id="scope-manifest">
@@ -990,7 +1017,7 @@ parameter names with the <code class="docutils literal notranslate"><span class=
 <td><p>The registry from where container images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p>engineOptions</p></td>
-<td><p>This attribute can be used to provide any option supported by the Docker engine i.e. <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
+<td><p>This attribute can be used to provide any option supported by the Podman engine i.e. <code class="docutils literal notranslate"><span class="pre">podman</span> <span class="pre">[OPTIONS]</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p>mountFlags</p></td>
 <td><p>Add the specified flags to the volume mounts e.g. <cite>mountFlags = ‘ro,Z’</cite></p></td>
@@ -1068,7 +1095,7 @@ to all processes matching the specified pattern condition. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
+<p>The above configuration snippet sets 2 cpus and 4 GB of memory to the processes annotated with a label <code class="docutils literal notranslate"><span class="pre">foo</span></code>
 and <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
 <p>A process selector can be negated prefixing it with the special character <code class="docutils literal notranslate"><span class="pre">!</span></code>. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
@@ -1109,8 +1136,8 @@ uses 32 cpus.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">report</span></code> scope allows you to define configuration setting of the workflow <a class="reference internal" href="tracing.html#execution-report"><span class="std std-ref">Execution report</span></a>.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
+<col style="width: 17%" />
+<col style="width: 83%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -1122,13 +1149,45 @@ uses 32 cpus.</p>
 <td><p>If <code class="docutils literal notranslate"><span class="pre">true</span></code> it create the workflow execution report.</p></td>
 </tr>
 <tr class="row-odd"><td><p>file</p></td>
-<td><p>The path of the created execution report file (default: <code class="docutils literal notranslate"><span class="pre">report.html</span></code>).</p></td>
+<td><p>The path of the created execution report file (default: <code class="docutils literal notranslate"><span class="pre">report-&lt;timestamp&gt;.html</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p>overwrite</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites existing report file instead of rolling it.</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing report file with the same name.</p></td>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="scope-sarus">
+<span id="config-sarus"></span><h3>Scope <cite>sarus</cite><a class="headerlink" href="#scope-sarus" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">sarus</span></code> configuration scope controls how <a class="reference external" href="https://sarus.readthedocs.io">Sarus</a> containers are executed
+by Nextflow.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>enabled</p></td>
+<td><p>Turn this flag to <code class="docutils literal notranslate"><span class="pre">true</span></code> to enable Sarus execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>envWhitelist</p></td>
+<td><p>Comma separated list of environment variable names to be included in the container environment.</p></td>
+</tr>
+<tr class="row-even"><td><p>tty</p></td>
+<td><p>Allocates a pseudo-tty (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p>runOptions</p></td>
+<td><p>This attribute can be used to provide any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">sarus</span> <span class="pre">run</span></code> command. For details see: <a class="reference external" href="https://sarus.readthedocs.io/en/stable/user/user_guide.html">https://sarus.readthedocs.io/en/stable/user/user_guide.html</a> .</p></td>
+</tr>
+</tbody>
+</table>
+<p>Read <a class="reference internal" href="container.html#container-sarus"><span class="std std-ref">Sarus</span></a> page to learn more about how to use Sarus containers with Nextflow.</p>
 </section>
 <section id="scope-shifter">
 <span id="config-shifter"></span><h3>Scope <cite>shifter</cite><a class="headerlink" href="#scope-shifter" title="Permalink to this headline"></a></h3>
@@ -1193,6 +1252,9 @@ by Nextflow.</p>
 <tr class="row-odd"><td><p>pullTimeout</p></td>
 <td><p>The amount of time the Singularity pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p></td>
 </tr>
+<tr class="row-even"><td><p>registry</p></td>
+<td><p>The registry from where Docker images are pulled. It should be only used to specify a private registry server. It should NOT include the protocol prefix i.e. <code class="docutils literal notranslate"><span class="pre">http://</span></code>.</p></td>
+</tr>
 </tbody>
 </table>
 <p>Read <a class="reference internal" href="container.html#container-singularity"><span class="std std-ref">Singularity</span></a> page to learn more about how to use Singularity containers with Nextflow.</p>
@@ -1216,10 +1278,10 @@ by Nextflow.</p>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the timeline report file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>file</p></td>
-<td><p>Timeline file name (default: <code class="docutils literal notranslate"><span class="pre">timeline.html</span></code>).</p></td>
+<td><p>Timeline file name (default: <code class="docutils literal notranslate"><span class="pre">timeline-&lt;timestamp&gt;.html</span></code>).</p></td>
 </tr>
 <tr class="row-even"><td><p>overwrite</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing timeline file instead of rolling it.</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing timeline file with the same name.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1293,7 +1355,7 @@ brackets, as shown below:</p>
 <td><p>Comma separated list of fields to be included in the report. The available fields are listed at <a class="reference internal" href="tracing.html#trace-fields"><span class="std std-ref">this page</span></a></p></td>
 </tr>
 <tr class="row-even"><td><p>file</p></td>
-<td><p>Trace file name (default: <code class="docutils literal notranslate"><span class="pre">trace.txt</span></code>).</p></td>
+<td><p>Trace file name (default: <code class="docutils literal notranslate"><span class="pre">trace-&lt;timestamp&gt;.txt</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>sep</p></td>
 <td><p>Character used to separate values in each row (default: <code class="docutils literal notranslate"><span class="pre">\t</span></code>).</p></td>
@@ -1302,7 +1364,7 @@ brackets, as shown below:</p>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on raw number report generation i.e. date and time are reported as milliseconds and memory as number of bytes</p></td>
 </tr>
 <tr class="row-odd"><td><p>overwrite</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites an existing trace file instead of rolling it.</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing trace file with the same name.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1470,7 +1532,7 @@ the underlying Java virtual machine.</p>
 <td><p>Defines scripts debugging level: <code class="docutils literal notranslate"><span class="pre">1</span></code> dump task environment variables in the task log file; <code class="docutils literal notranslate"><span class="pre">2</span></code> enables command script execution tracing; <code class="docutils literal notranslate"><span class="pre">3</span></code> enables command wrapper execution tracing.</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXF_DEFAULT_DSL</p></td>
-<td><p>Defines the DSL version version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
+<td><p>Defines the DSL version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later)</p></td>
 </tr>
 <tr class="row-even"><td><p>NXF_DISABLE_JOBS_CANCELLATION</p></td>
 <td><p>Disables the cancellation of child jobs on workflow execution termination (requires version <code class="docutils literal notranslate"><span class="pre">21.12.0-edge</span></code> or later).</p></td>
@@ -1479,7 +1541,7 @@ the underlying Java virtual machine.</p>
 <td><p>Enable Nextflow <em>strict</em> execution mode (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later)</p></td>
 </tr>
 <tr class="row-even"><td><p>NXF_ENABLE_SECRETS</p></td>
-<td><p>Enable Nextflow secrets features (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">21.09.0-edge</span></code> or later)</p></td>
+<td><p>Enable Nextflow secrets features (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.09.2-edge</span></code> or later)</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXF_EXECUTOR</p></td>
 <td><p>Defines the default process executor e.g. <cite>sge</cite></p></td>
@@ -1563,7 +1625,7 @@ the underlying Java virtual machine.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Channels &mdash; Nextflow 22.09.3-edge documentation</title>
+  <title>Channels &mdash; Nextflow 22.12.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -53,7 +53,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-factory">Channel factory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#empty">empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#from">from</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fromlist">fromList</a></li>
@@ -66,8 +65,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-methods">Channel methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bind">bind</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#operator">operator &lt;&lt;</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#subscribe">subscribe</a></li>
 </ul>
 </li>
@@ -79,6 +76,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -188,21 +187,10 @@ the input is implicitly converted to a value channel, and the output is also pro
 <p>As of version 20.07.0, <code class="docutils literal notranslate"><span class="pre">channel</span></code> has been introduced as an alias of <code class="docutils literal notranslate"><span class="pre">Channel</span></code>, therefore factory
 methods can be specified either as <code class="docutils literal notranslate"><span class="pre">channel.of()</span></code> or <code class="docutils literal notranslate"><span class="pre">Channel.of()</span></code>, and so on.</p>
 </div>
-<section id="create">
-<span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">create</span></code> method is no longer available in DSL2 syntax.</p>
-</div>
-<p>Creates a new channel, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
 <section id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn’t emit any value.</p>
-<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a> operators.</p>
+<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <span class="xref std std-ref">operator-close</span> operators.</p>
 </section>
 <section id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline"></a></h3>
@@ -621,32 +609,6 @@ to close the channel when a certain condition is met (e.g. receiving a file name
 </section>
 <section id="channel-methods">
 <h2>Channel methods<a class="headerlink" href="#channel-methods" title="Permalink to this headline"></a></h2>
-<section id="bind">
-<span id="channel-bind1"></span><h3>bind<a class="headerlink" href="#bind" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">bind</span></code> method is no longer available in DSL2 syntax.</p>
-</div>
-<p>Channel objects provide a <cite>bind( )</cite> method which is the basic operation to send a message over the channel.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="operator">
-<span id="channel-bind2"></span><h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> operator is no longer available in DSL2 syntax.</p>
-</div>
-<p>The operator <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <code class="docutils literal notranslate"><span class="pre">bind</span></code> method. Thus, the following example produces
-an identical result as the previous one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Hello world&#39;</span>
-</pre></div>
-</div>
-</section>
 <section id="subscribe">
 <span id="channel-subscribe"></span><h3>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
@@ -718,7 +680,7 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

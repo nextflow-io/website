@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextflow scripting &mdash; Nextflow 22.09.3-edge documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 22.12.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -104,6 +104,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
@@ -363,7 +365,7 @@ their arguments are effectively a single line.</p>
 <td><p>Dictionary like object representing nextflow runtime information (see <a class="reference internal" href="metadata.html#metadata-nextflow"><span class="std std-ref">Nextflow metadata</span></a>).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
-<td><p>Dictionary like object holding workflow parameters specifing in the config file or as command line options.</p></td>
+<td><p>Dictionary like object holding workflow parameters specifying in the config file or as command line options.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></p></td>
 <td><p>The directory where the main script is located (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
@@ -408,8 +410,8 @@ their arguments are effectively a single line.</p>
 <p>The following variables are implicitly defined in the <code class="docutils literal notranslate"><span class="pre">task</span></code> object of each process:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 11%" />
-<col style="width: 89%" />
+<col style="width: 13%" />
+<col style="width: 88%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -421,19 +423,19 @@ their arguments are effectively a single line.</p>
 <td><p>The current task attempt</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hash</span></code></p></td>
-<td><p>The task unique hash Id</p></td>
+<td><p>The task unique hash Id. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
 <td><p>The task index (corresponds to <code class="docutils literal notranslate"><span class="pre">task_id</span></code> in the execution trace)</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>The current task name</p></td>
+<td><p>The current task name. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">process</span></code></p></td>
 <td><p>The current process name</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workDir</span></code></p></td>
-<td><p>The task unique directory. NOTE: This is only available for processes that run native code via the <code class="docutils literal notranslate"><span class="pre">exec:</span></code> statement.</p></td>
+<td><p>The task unique directory. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1135,7 +1137,7 @@ contain), use the method <code class="docutils literal notranslate"><span class=
 </tbody>
 </table>
 <p>For example, the following line prints a file name and size:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName() size: ${myFile.size()}&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName()} size: ${myFile.size()}&quot;</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -1233,7 +1235,7 @@ automatically uncompressed.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2020-2022, Seqera Labs. 2013-2019, Centre for Genomic Regulation (CRG)..</p>
+    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
