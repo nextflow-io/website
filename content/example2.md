@@ -79,6 +79,6 @@ workflow {
 In the above example we define a simple pipeline with two processes.
 
 The first process executes a Perl script, because the script block definition starts
-with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instaed of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
+with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instead of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
 
 In the same way, the second process will execute a Python script, because the script block starts with a Python shebang (line 36).

@@ -111,7 +111,7 @@ Data is currently one of the more challenging aspect to address. *Small data* ca
 easily version controlled within git-like repositories. For larger files 
 the [Git Large File Storage](https://git-lfs.github.com/), for which Nextflow provides 
 built-in support, may be one solution. Ultimately though, the real home of scientific data 
-is in publicly available, programatically accessible databases. 
+is in publicly available, programmatically accessible databases. 
 
 Providing out-of-box solutions is difficult given the hugely varying nature of the data 
 and meta-data within these databases. We are currently looking to incorporate the most 
@@ -128,7 +128,7 @@ The result would be guaranteed to be reproduced by whoever wished.
 ### Conclusion
 
 With this approach the reproducilbility triangle is complete. But it must be noted that 
-this does not guard against conceptial or implemenation errors. It does not replace proper 
+this does not guard against conceptual or implementation errors. It does not replace proper 
 documentation. What it does is to provide transparency to a result.
 
 The assumption that the deterministic nature of computation makes results insusceptible 

@@ -8,7 +8,7 @@ status=published
 ## U-DAWS: Developing and maintaining reproducible workflows for bioinformatics data
 
 ### Venkat Malladi
-*Director Biofinformatics Core Faciltiy, UT Southwestern, USA*
+*Director Biofinformatics Core Facility, UT Southwestern, USA*
 
 
 The current effort at UT Southwestern is to enable researchers to run their own reproducible analysis and enable data exploration. Therefore a workflow system requires: (1) that computational resource allocation can be defined for each step; (2) a particular step can be run in parallel across all samples; (3) serial steps can be submitted to a queue or be activated on a cloud node when previous steps complete; (4) steps can be restarted in the case of machine failure; (5) workflow versions can run reproducibly; (6) common steps can be shared between different analysis and (7) visualization tools are available to aid researchers in understanding very complex data.  

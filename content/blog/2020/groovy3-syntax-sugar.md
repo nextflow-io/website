@@ -75,7 +75,7 @@ if( some_variable != null ) {
 }
 ```
 
-If you are wondering why it's called *Elvis* assigment, well it's simple, because there's also the [Elvis operator](https://groovy-lang.org/operators.html#_elvis_operator) that you should know (and use!) already. 😆 
+If you are wondering why it's called *Elvis* assignment, well it's simple, because there's also the [Elvis operator](https://groovy-lang.org/operators.html#_elvis_operator) that you should know (and use!) already. 😆 
 
 ### Java style lambda expressions
 
