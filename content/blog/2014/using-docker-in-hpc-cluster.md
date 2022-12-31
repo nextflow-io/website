@@ -15,7 +15,7 @@ environment, usually an HPC cluster.
 As I work as a research engineer in a bioinformatics lab I experience on a daily basis the 
 difficulties related on keeping such a piece of software consistent. 
 
-Computing enviroments can change frequently in order to test new pieces of software or 
+Computing environments can change frequently in order to test new pieces of software or 
 maybe because system libraries need to be updated. For this reason replicating the results 
 of a data analysis over time can be a challenging task. 
     

@@ -66,7 +66,7 @@ And then launch the pipeline execution as we did before:
     
 #### Load Sharing Facility (LSF)
 
-For running the same pipeline in the MareNostrum HPC enviroment, taking advantage of the MPI 
+For running the same pipeline in the MareNostrum HPC environment, taking advantage of the MPI 
 standard to deploy my workload, I first created a wrapper script (for example `bsc-wrapper.sh`) 
 declaring the resources that I want to reserve for the pipeline execution:
 

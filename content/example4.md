@@ -17,7 +17,7 @@ syntaxhighlighter=yes
 #!/usr/bin/env nextflow
 
 /*
- * The following pipeline parameters specify the refence genomes
+ * The following pipeline parameters specify the reference genomes
  * and read pairs and can be provided as command line options
  */
 params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"

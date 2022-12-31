@@ -23,7 +23,7 @@ in the run command, for example:
 nextflow run https://github.com/nextflow-io/hello
 ```
 
-However to allow Nextflow to access private repositories you will need to specifiy 
+However to allow Nextflow to access private repositories you will need to specify 
 the repository credentials, and the server hostname in the case of self-managed 
 Git server installations.
 
@@ -51,7 +51,7 @@ providers {
 }
 ```
 
-Note: Make sure to enclose the provider name with `'` if it containes a `-` or a 
+Note: Make sure to enclose the provider name with `'` if it contains a `-` or a 
 blank character. 
 
 As of the 21.09.0-edge release, Nextflow integrates with the following Git providers:

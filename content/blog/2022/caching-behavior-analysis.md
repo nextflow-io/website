@@ -37,7 +37,7 @@ The flowchart below can help in understanding the design of the pipeline and the
 
 ### Logs from initial (fresh) run
 
-As a reminder, Nextflow generates a unique task hash, e.g. 22/7548fa… for each task in a workflow. The hash takes into account the complete file path, the last modified timestamp, container ID, content of script directrive among other factors. If any of these change, the task will be re-executed. Nextflow maintains a list of task hashes for caching and traceability purposes. You can learn more about task hashes in the article [Troubleshooting Nextflow resume](https://nextflow.io/blog/2019/troubleshooting-nextflow-resume.html).
+As a reminder, Nextflow generates a unique task hash, e.g. 22/7548fa… for each task in a workflow. The hash takes into account the complete file path, the last modified timestamp, container ID, content of script directive among other factors. If any of these change, the task will be re-executed. Nextflow maintains a list of task hashes for caching and traceability purposes. You can learn more about task hashes in the article [Troubleshooting Nextflow resume](https://nextflow.io/blog/2019/troubleshooting-nextflow-resume.html).
 
 To have something to compare to, we first need to generate the initial hashes for the unchanged processes in the pipeline. We save these in a file called `fresh_run.log` and use them later on as "ground-truth" for the analysis. In order to save the process hashes we use the `-dump-hashes` flag, which prints them to the log.
 

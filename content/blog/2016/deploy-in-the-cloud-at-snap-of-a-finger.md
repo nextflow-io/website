@@ -133,7 +133,7 @@ Referes to the <a href='/docs/latest/awscloud.html'>documentation</a> for config
 ### Conclusion 
 
 Nextflow provides state of the art support for cloud and containers technologies making 
-it possibile to create computing clusters in the cloud and deploy computational workflows 
+it possible to create computing clusters in the cloud and deploy computational workflows 
 in a no-brainer way, with just two commands on your terminal. 
 
 In an upcoming post I will describe the autoscaling capabilities implemented by the 

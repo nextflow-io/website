@@ -37,7 +37,7 @@ elastic scalability](http://www.nextplatform.com/2016/09/21/three-great-lies-clo
 of cloud computing.  
 
 This ability is even more important for bioinformatic workflows, which frequently crunch 
-not homogenous datasets and are composed of tasks with very different computing requirements 
+not homogeneous datasets and are composed of tasks with very different computing requirements 
 (eg. a few very long running tasks and many short-lived tasks in the same workload).
 
 
