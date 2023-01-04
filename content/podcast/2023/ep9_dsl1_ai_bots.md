@@ -17,11 +17,13 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 <!-- end-archive-description -->
 
 #### The new 'fair' directive
+
 - Addition of the new 'fair' directive.
 - Not the traditional use of FAIR.
 - When `fair` is set to true the process outputs are ordered in the same sequence as the inputs were received instead of the first-completed-first-output semantic that's usually used.
 
 #### The end of DSL1
+
 - DSL1 is now not supported in the latest edge release - 22.12.0-edge.
 - Old pipelines can still be run with older versions of Nextflow.
 - `NXF_VER` can be used before commands to set the version of Nextflow, good practice for reproducibility.
@@ -31,10 +33,10 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 #### Chatting with bots
 
-- Applications of AI are apprearing more and more in social media and research.
-- [ChatGTP](https://openai.com/blog/chatgpt/).
+- Applications of AI are appearing more and more in social media and research.
+- [ChatGPT](https://openai.com/blog/chatgpt/).
   - ChatGPT is a chatbot launched by OpenAI.
-  - Nextflow was featured in a tweet from [Andrew Lonsdale](https://twitter.com/LonsBio/status/1600266542876610560) showing a ChatGTP generated song about Nextflow using "New York, I Love You but You're Bringing Me Down" as a template.
+  - Nextflow was featured in a tweet from [Andrew Lonsdale](https://twitter.com/LonsBio/status/1600266542876610560) showing a ChatGPT generated song about Nextflow using "New York, I Love You but You're Bringing Me Down" as a template.
 - [Stable diffusion](https://stability.ai/blog/stable-diffusion-public-release).
   - Stable Diffusion is a deep learning, text-to-image model launched by Stability AI.
   - [Evan Floden](https://twitter.com/evanfloden) wrote [stable-diffusion-nf](https://github.com/evanfloden/stable-diffusion-nf), a proof of concept Nextflow pipeline for submitting stable-diffusion jobs to the cloud using Tower.
