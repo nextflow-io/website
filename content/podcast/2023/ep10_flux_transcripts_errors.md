@@ -18,7 +18,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 #### The Flux executor
 
-- [Flux](https://flux-framework.org/) is a job manager akin to Slurm, Sun Grid Engine, or similar and has been added to Nextflow as an executor.
+- [Flux](https://flux-framework.org/) is a job scheduler akin to Slurm, Sun Grid Engine, or similar but with some extra features and has been added to Nextflow as an executor.
 - Flux was originally designed as an HPC job manager but is being extended it to more cloud environments and will be one to watch in the future.
 - A great example of a feature that was added to Nextflow by the community [nextflow-io/nextflow#3412](https://github.com/nextflow-io/nextflow/pull/3412).
 
