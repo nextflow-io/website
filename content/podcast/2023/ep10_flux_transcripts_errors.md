@@ -40,5 +40,5 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 - There's a [nf-core/bytesize talk on January 25th](https://nf-co.re/events/2023/bytesize_funcscan) by Jasmin Frangenberg about the nf-core/funcscan pipeline.
     - A bioinformatics best-practice analysis pipeline for the screening of functional components of nucleotide sequences.
-- Upcoming [Nextflow / nf-core training](https://nf-co.re/events/2023/training-march-2023).
-- Upcoming [nf-core hackathon](https://nf-co.re/events/2023/hackathon-march-2023).
+- The [Nextflow / nf-core training](https://nf-co.re/events/2023/training-march-2023) is being held March 13-16.
+- The [nf-core hackathon](https://nf-co.re/events/2023/hackathon-march-2023) is being held March 27-29.
