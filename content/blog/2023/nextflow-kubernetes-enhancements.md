@@ -9,7 +9,7 @@ author=Ben Sherman
 icon=ben.jpg
 ~~~~~~
 
-Hi, my name is Ben, and I’m a software engineer at Seqera Labs. I joined Seqera in November 2021 after finishing my Ph.D. at Clemson University. I work on a number of things at Seqera, but my primary role is that of a Nextflow core contributor.
+Hi, my name is Ben, and I’m a software engineer at Seqera Labs. I joined Seqera in November 2021 after finishing my Ph.D. at Clemson University. I work on a number of things at Seqera, but my primary role is that of a Nextflow maintainer.
 
 I have run Nextflow just about everywhere, from my laptop to my university cluster to the cloud and Kubernetes. I have written Nextlfow pipelines for bioinformatics and machine learning, and I even wrote a pipeline to run other Nextflow pipelines for my [dissertation research](https://github.com/bentsherman/tesseract). While I tried to avoid contributing code to Nextflow as a student (I had enough work already), now I get to work on it full-time!
 
