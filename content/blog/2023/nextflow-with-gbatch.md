@@ -272,8 +272,7 @@ In your terminal, you should see something like this:
 
 ![Nextflow ongoing run on Google Cloud Batch](/img/ongoing-nxf-gbatch.png)
 
-
-You can open another terminal and check the status of your jobs on Google Batch with the following command:
+You can check the status of your jobs on Google Batch by opening another terminal and running the following command:
 
 ```bash
 $ gcloud batch jobs list
