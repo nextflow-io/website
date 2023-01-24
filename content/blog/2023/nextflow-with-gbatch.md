@@ -21,8 +21,7 @@ We will walk you through the entire process, from setting up your Google Cloud a
 
 ### Setting up Google Cloud CLI (gcloud)
 
-In this tutorial, you will learn how to use the gcloud command-line interface to interact with the Google Cloud Platform and set up your /"_
-Google Cloud account for use with Nextflow. If you do not already have gcloud installed, you can follow the instructions found [here](https://cloud.google.com/sdk/docs/install) to install it. Once you have gcloud installed, run the command gcloud init to initialize the CLI. You will be prompted to choose an existing project to work on or create a new one. For the purpose of this tutorial, we will create a new project. Name your project "my-rnaseq-pipeline". There may be a lot of information displayed on the screen after running this command, but you can ignore it for now.
+In this tutorial, you will learn how to use the gcloud command-line interface to interact with the Google Cloud Platform and set up your Google Cloud account for use with Nextflow. If you do not already have gcloud installed, you can follow the instructions [here](https://cloud.google.com/sdk/docs/install) to install it. Once you have gcloud installed, run the command `gcloud init` to initialize the CLI. You will be prompted to choose an existing project to work on or create a new one. For the purpose of this tutorial, we will create a new project. Name your project "my-rnaseq-pipeline". There may be a lot of information displayed on the screen after running this command, but you can ignore it for now.
 
 ### Setting up Batch and Storage in Google Cloud Platform
 
