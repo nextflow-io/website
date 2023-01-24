@@ -251,7 +251,7 @@ $ cd ..
 
 Files can also be uploaded directly to Google Cloud Storage, or downloaded directly from GitHub, depending on your own preferences.
 
-Use the command below to authenticate the Google Cloud Platform and direct Nextflow to use your account.
+Use the command below to authenticate with Google Cloud Platform. Nextflow will use this account by default when you run a pipeline.
 
 ```bash
 $ gcloud auth application-default login
