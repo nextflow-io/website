@@ -265,8 +265,9 @@ With that done, you’re now ready to run the example Nextflow pipeline. Remembe
 $ nextflow run main.nf -w gs://rnaseq-pipeline-bckt/scratch
 ```
 
+Nextflow does not allow you to use the root directory of a bucket as the work directory -- it must be a subdirectory instead. Using a subdirectory is also just a good practice.
 
-It's good practice not to write to the root directory of your bucket. It is better to write to another folder, such as the scratch folder within it. Don't worry about everything being executed remotely in the bucket because the `publishDir` directive was used in the `main.nf` script to direct results into a local folder called `results`.
+While the pipeline stores everything in the bucket, our example pipeline will also download the final outputs to a local directory called `results`, because of how the `publishDir` directive was specified in the `main.nf` script. If you want to avoid the egress cost associated with downloading data from a bucket, you can change the `publishDir` to another bucket directory, e.g. `gs://rnaseq-pipeline-bckt/results`.
 
 In your terminal, you should see something like this:
 
