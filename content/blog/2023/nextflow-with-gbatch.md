@@ -239,7 +239,7 @@ workflow.onComplete {
 
 #### Download the input data
 
-Create a folder named data in your project folder and download the example files (also taken from the Seqera training material).
+Create a folder named `data` in your project folder and download the example files (also taken from the Seqera training material).
 
 ```bash
 $ mkdir data; cd data
