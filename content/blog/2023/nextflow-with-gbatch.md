@@ -63,7 +63,7 @@ $ gcloud services enable batch.googleapis.com compute.googleapis.com logging.goo
 You should see a message similar to the one below:
 
 ```console
-$ Operation "operations/acf.p2-AAAA-BBBBB-CCCC--DDDD" finished successfully.
+Operation "operations/acf.p2-AAAA-BBBBB-CCCC--DDDD" finished successfully.
 ```
 
 #### Create a Service Account
