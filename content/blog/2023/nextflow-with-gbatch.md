@@ -257,7 +257,7 @@ Use the command below to authenticate with Google Cloud Platform. Nextflow will 
 $ gcloud auth application-default login
 ```
 
-#### Fire! Run the pipeline!
+#### Launch the pipeline!
 
 With that done, you’re now ready to run the example Nextflow pipeline. Remember the name of the bucket you created? You will now use it to tell Nextflow here to move our input data and store intermediate and final data. That is, we're setting our work directory with the `-w` parameter.
 
