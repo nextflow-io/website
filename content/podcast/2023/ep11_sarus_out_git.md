@@ -1,7 +1,7 @@
 title=The Sarus container engine, staging outputs and the GITHUB_TOKEN
 episode=11
 description=The Sarus container engine, staging outputs and the GITHUB_TOKEN.
-date=2023-01-25
+date=2023-01-23
 type=podcast
 subtype=News and Views
 youtubeid=5UDIGQVo9hA
@@ -24,7 +24,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - Sarus works by converting Docker images to a common format that can then be distributed and launched on HPC systems.
 - Similar deployment options to other container engines using Nextflow. 
 
-#### New `stageOutMode` directives
+#### New stageOutMode directives
 
 - Two new `stageOutMode` directive (`rclone` and `fcp`) have been added to Nextflow.
     - The `stageOutMode` directive defines how output files are staged-out from the scratch directory to the process work directory.
@@ -38,7 +38,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - `fcp` is optimized for systems with an SSD.
 - The new directives will improve options for file movement as they are staged from the scratch directory.
 
-#### `GITHUB_TOKEN`
+#### GITHUB_TOKEN
 
 - Git has become the de-facto standard for source code version control systems.
 - Nextflow provides built-in support for Git and the most popular Git hosting platforms.
@@ -46,7 +46,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 - The [recent Nextflow commit](https://github.com/nextflow-io/nextflow/commit/c4d39384c3536e6777bc0edcd9fd33f147aec462) adds the ability to use the `GITHUB_TOKEN` environmental variable.
     - The environmental variable is used when no creds are found in the source code management file.
     - It is especially when accessing pipeline code from a GitHub action.
-    Read more about the token authentication in the [GitHub documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication)
+    Read more about the token authentication in the [GitHub documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
 
 #### Upcoming events
 
@@ -55,6 +55,6 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - Training will be presented in different languages.
     - Registration is now open - head over to the [nf-core event](https://nf-co.re/events/2023/training-march-2023) page to sign up.
 - The [nf-core hackathon](https://nf-co.re/events/2023/hackathon-march-2023) is being held March 27-29.
-- Hackathon 27-29 March
+- Hackathon 27-29 March.
     - We will also support local hubs where local community members are hosting other community members.
     - Watch out on Slack and Twitter for an announcement that registration is open. 
