@@ -286,4 +286,4 @@ And that's all, folks! 😆
 
 You will find more information about Nextflow on Google Batch in [this blog post](https://www.nextflow.io/blog/2022/deploy-nextflow-pipelines-with-google-cloud-batch.html), and in [the official documentation of Nextflow](https://www.nextflow.io/docs/latest/google.html). Don't forget to check [the Google Cloud official docs on running Nextflow pipelines with it](https://cloud.google.com/life-sciences/docs/tutorials/nextflow#gcloud)!
 
-Special thanks to Hatem Nawar and Chris Hakkaart who provided valuable feedback to this document.
+Special thanks to Hatem Nawar and Chris Hakkaart for providing valuable feedback to this document.
