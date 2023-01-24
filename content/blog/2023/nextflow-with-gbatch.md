@@ -268,7 +268,7 @@ $ nextflow run main.nf -w gs://rnaseq-pipeline-bckt/scratch
 
 It's good practice not to write to the root directory of your bucket. It is better to write to another folder, such as the scratch folder within it. Don't worry about everything being executed remotely in the bucket because the `publishDir` directive was used in the `main.nf` script to direct results into a local folder called `results`.
 
-In your command line, you should see something like this:
+In your terminal, you should see something like this:
 
 ![Nextflow ongoing run on Google Cloud Batch](/img/ongoing-nxf-gbatch.png)
 
