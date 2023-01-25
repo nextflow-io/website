@@ -36,7 +36,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - A significantly faster alternative to the classic Unix `cp` command.
     - Handle the most common use cases of cp with much higher performance.
     - `fcp` is optimized for systems with an SSD.
-- The new options will improve file movement as there are new ways for the files to be staged from the scratch directory in different circumstances.
+- The new options will improve file management as there are new ways for the files to be staged from the scratch directory in different circumstances.
 
 #### GITHUB_TOKEN
 
