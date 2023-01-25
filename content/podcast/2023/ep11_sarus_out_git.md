@@ -26,7 +26,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 #### New stageOutMode directives
 
-- Two new `stageOutMode` directive (`rclone` and `fcp`) have been added to Nextflow.
+- Two new `stageOutMode` options (`rclone` and `fcp`) have been added to Nextflow.
     - The `stageOutMode` directive defines how output files are staged-out from the scratch directory to the process work directory.
 - [rclone](https://rclone.org/)
     - Has been described as "The Swiss army knife of cloud storage".
