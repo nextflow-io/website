@@ -131,9 +131,11 @@ google {
 }
 ```
 
-The first part of the config file (the `process` scope) tells Nextflow to run all the processes (steps) of your pipeline on Google Batch and to use the `nextflow/rnaseq-nf` Docker image hosted on DockerHub (default) for all processes. Also, the error strategy will automatically retry any failed tasks with exit code 14, which is the exit code for spot instances that were reclaimed.
+The `workDir` option tells Nextflow to use the bucket you created as the work directory. Nextflow will use this directory to stage our input data and store intermediate and final data. Nextflow does not allow you to use the root directory of a bucket as the work directory -- it must be a subdirectory instead. Using a subdirectory is also just a good practice.
 
-The second part of the config file (the `google` scope) is specific to Google Cloud. You need to provide the project id (don't provide the project name, it won't work!), and a Google Cloud location (leave it as above if you're not sure of what to put). In the example above, spot instances are also requested (more info about spot instances [here](https://www.nextflow.io/docs/latest/google.html#spot-instances)), which are cheaper instances that, as a drawback, can be reclaimed at any time if resources are needed by the cloud provider. Based on what we have seen so far, the `nextflow.config` file should contain "rnaseq-nxf" as the project id.
+The `process` scope tells Nextflow to run all the processes (steps) of your pipeline on Google Batch and to use the `nextflow/rnaseq-nf` Docker image hosted on DockerHub (default) for all processes. Also, the error strategy will automatically retry any failed tasks with exit code 14, which is the exit code for spot instances that were reclaimed.
+
+The `google` scope is specific to Google Cloud. You need to provide the project id (don't provide the project name, it won't work!), and a Google Cloud location (leave it as above if you're not sure of what to put). In the example above, spot instances are also requested (more info about spot instances [here](https://www.nextflow.io/docs/latest/google.html#spot-instances)), which are cheaper instances that, as a drawback, can be reclaimed at any time if resources are needed by the cloud provider. Based on what we have seen so far, the `nextflow.config` file should contain "rnaseq-nxf" as the project id.
 
 #### Write your Nextflow pipeline
 
