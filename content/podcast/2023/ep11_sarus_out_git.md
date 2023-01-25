@@ -45,7 +45,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 - Nextflow does not require any special configuration to access public repositories but requires repository credentials to access private repositories.
 - The [recent Nextflow commit](https://github.com/nextflow-io/nextflow/commit/c4d39384c3536e6777bc0edcd9fd33f147aec462) adds the ability to use the `GITHUB_TOKEN` environment variable.
     - The environmental variable is used when no creds are found in the source code management file.
-    - It is especially when accessing pipeline code from a GitHub action.
+    - It is especially useful when accessing pipeline code from a GitHub action.
     Read more about the token authentication in the [GitHub documentation](https://docs.github.com/en/actions/security-guides/automatic-token-authentication).
 
 #### Upcoming events
