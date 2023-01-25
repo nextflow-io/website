@@ -115,6 +115,8 @@ Start by creating a folder for your project on your local machine, such as “rn
 Inside the folder that you created for the project, create a file named `nextflow.config` with the following content (remember to replace PROJECT-ID with the project id you created above):
 
 ```Nextflow
+workDir = 'gs://rnaseq-pipeline-bckt/scratch'
+
 process {
   executor = 'google-batch'
   container = 'nextflow/rnaseq-nf'
@@ -135,7 +137,7 @@ The second part of the config file (the `google` scope) is specific to Google Cl
 
 #### Write your Nextflow pipeline
 
-With that done, it's time to write your Nextflow pipeline. The example below is a proof of concept RNAseq pipeline taken from the Seqera training material. Copy the script below and save it as `main.nf` in the same folder as your nextflow.config file:
+With that done, it's time to write your Nextflow pipeline. The example below is a proof of concept RNAseq pipeline. More information about this pipeline and where this came from can be found in the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/). Copy the script below and save it as `main.nf` in the same folder as your nextflow.config file:
 
 ```Nextflow
 /*
@@ -235,8 +237,6 @@ workflow.onComplete {
 }
 ```
 
-> More information about this pipeline and where this came from can be found in the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/).
-
 #### Download the input data
 
 Create a folder named `data` in your project folder and download the example files (also taken from the Seqera training material).
@@ -259,10 +259,10 @@ $ gcloud auth application-default login
 
 #### Launch the pipeline!
 
-With that done, you’re now ready to run the example Nextflow pipeline. Remember the name of the bucket you created? You will now use it to tell Nextflow here to move our input data and store intermediate and final data. That is, we're setting our work directory with the `-w` parameter.
+With that done, you’re now ready to run the example Nextflow pipeline. Remember the name of the bucket you created? You need to set it so that Nextflow can move our input data there and store intermediate and final data. If you remember when we wrote our `nextflow.config` file above, you probably noticed it was set there with `workDir`, but it could also be set in the command-line with the `-w` parameter. Because it is already in the `nextflow.config` file, we can launch our pipeline with:
 
 ```bash
-$ nextflow run main.nf -w gs://rnaseq-pipeline-bckt/scratch
+$ nextflow run main.nf
 ```
 
 Nextflow does not allow you to use the root directory of a bucket as the work directory -- it must be a subdirectory instead. Using a subdirectory is also just a good practice.
