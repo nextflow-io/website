@@ -261,7 +261,7 @@ $ gcloud auth application-default login
 
 #### Launch the pipeline!
 
-With that done, you’re now ready to run the example Nextflow pipeline. Remember the name of the bucket you created? You need to set it so that Nextflow can move our input data there and store intermediate and final data. Nextflow does not allow you to use the root directory of a bucket as the work directory -- it must be a subdirectory instead. Using a subdirectory is also just a good practice. If you remember when we wrote our `nextflow.config` file above, you probably noticed it was set there with `workDir`, but it could also be set in the command-line with the `-w` parameter. Because it is already in the `nextflow.config` file, we can launch our pipeline with:
+With that done, you’re now ready to run the example Nextflow pipeline:
 
 ```bash
 $ nextflow run main.nf
