@@ -24,7 +24,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - Sarus works by converting Docker images to a common format that can then be distributed and launched on HPC systems.
 - Similar deployment options to other container engines using Nextflow. 
 
-#### New stageOutMode directives
+#### New stageOutMode options
 
 - Two new `stageOutMode` options (`rclone` and `fcp`) have been added to Nextflow.
     - The `stageOutMode` directive defines how output files are staged-out from the scratch directory to the process work directory.
