@@ -29,7 +29,7 @@ In this tutorial, you will learn how to use the gcloud command-line interface to
 
 According to the [official Google documentation](https://cloud.google.com/batch/docs/get-started), "Batch is a fully managed service that lets you schedule, queue, and execute [batch processing](https://en.wikipedia.org/wiki/Batch_processing) workloads on Compute Engine virtual machine (VM) instances. Batch provisions resources and manages capacity on your behalf, allowing your batch workloads to run at scale."
 
-If you're using macOS, the first step is to download the `beta` command group. You can do this by executing:
+The first step is to download the `beta` command group. You can do this by executing:
 
 ```bash
 $ gcloud components install beta
