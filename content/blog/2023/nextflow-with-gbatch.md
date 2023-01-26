@@ -1,5 +1,5 @@
-title=Deploy Nextflow Pipelines with Google Cloud Batch! Extended and updated version
-date=2023-02-01
+title=Get started with Nextflow on Google Cloud Batch
+date=2023-01-27
 type=post
 description=We've talked about deploying Nextflow pipelines with Google Cloud Batch in the past. Join us again for an extended and updated version
 image=img/gbatch_extended.jpg
