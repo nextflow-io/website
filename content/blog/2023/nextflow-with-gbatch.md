@@ -13,7 +13,7 @@ icon=marcel.png
 
 ### Running an RNAseq pipeline with Google Cloud Batch
 
-Welcome to our RNAseq tutorial using Nextflow and Google Cloud Batch! RNAseq is a powerful technique for studying gene expression and is widely used in a variety of fields, including genomics, transcriptomics, and epigenomics. In this tutorial, we will show you how to use Nextflow, a popular workflow management tool, to perform an RNAseq analysis on Google Cloud Batch, a scalable cloud-based computing platform.
+Welcome to our RNAseq tutorial using Nextflow and Google Cloud Batch! RNAseq is a powerful technique for studying gene expression and is widely used in a variety of fields, including genomics, transcriptomics, and epigenomics. In this tutorial, we will show you how to use Nextflow, a popular workflow management tool, to write a proof-of-concept RNAseq pipeline to perform the analysis on Google Cloud Batch, a scalable cloud-based computing platform. For a real Nextflow RNAseq pipeline, check [nf-core/rnaseq](https://github.com/nf-core/rnaseq).
 
 Nextflow allows you to easily develop, execute, and scale complex pipelines on any infrastructure, including the cloud. Google Cloud Batch enables you to run batch workloads on Google Cloud Platform (GCP), with the ability to scale up or down as needed. Together, Nextflow and Google Cloud Batch provide a powerful and flexible solution for RNAseq analysis.
 
