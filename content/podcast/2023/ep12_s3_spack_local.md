@@ -40,6 +40,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 - There are more than [15 local sites](https://nf-co.re/events/2023/hackathon-march-2023#local-events) that are being hosted by community members.
     - Thanks to funding from the Chan Zuckerberg Initiative and Seqera Labs all sites are being supported with goodies.
     - We are especially excited to have a site hosted by Google at the [Google Academy](https://nf-co.re/events/2023/hackathon-march-2023/uk-google.md) in London.
+    - Just like the last hackathon, a [nf-core training event](https://nf-co.re/events/2023/training-march-2023) is being held prior to the hackathon for new community members to upskill.
 
 #### Upcoming events
 
