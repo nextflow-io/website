@@ -1,5 +1,5 @@
 title=Get started with Nextflow on Google Cloud Batch
-date=2023-01-27
+date=2023-02-01
 type=post
 description=We've talked about deploying Nextflow pipelines with Google Cloud Batch in the past. Join us again for an extended and updated version
 image=img/gbatch_extended.jpg
@@ -13,7 +13,7 @@ icon=marcel.png
 
 ### Running an RNAseq pipeline with Google Cloud Batch
 
-Welcome to our RNAseq tutorial using Nextflow and Google Cloud Batch! RNAseq is a powerful technique for studying gene expression and is widely used in a variety of fields, including genomics, transcriptomics, and epigenomics. In this tutorial, we will show you how to use Nextflow, a popular workflow management tool, to write a proof-of-concept RNAseq pipeline to perform the analysis on Google Cloud Batch, a scalable cloud-based computing platform. For a real Nextflow RNAseq pipeline, check [nf-core/rnaseq](https://github.com/nf-core/rnaseq).
+Welcome to our RNAseq tutorial using Nextflow and Google Cloud Batch! RNAseq is a powerful technique for studying gene expression and is widely used in a variety of fields, including genomics, transcriptomics, and epigenomics. In this tutorial, we will show you how to use Nextflow, a popular workflow management tool, to run a proof-of-concept RNAseq pipeline to perform the analysis on Google Cloud Batch, a scalable cloud-based computing platform. For a real Nextflow RNAseq pipeline, check [nf-core/rnaseq](https://github.com/nf-core/rnaseq). For the proof-of-concept RNAseq pipeline that we will use here, check [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf).
 
 Nextflow allows you to easily develop, execute, and scale complex pipelines on any infrastructure, including the cloud. Google Cloud Batch enables you to run batch workloads on Google Cloud Platform (GCP), with the ability to scale up or down as needed. Together, Nextflow and Google Cloud Batch provide a powerful and flexible solution for RNAseq analysis.
 
@@ -137,122 +137,6 @@ The `process` scope tells Nextflow to run all the processes (steps) of your pipe
 
 The `google` scope is specific to Google Cloud. You need to provide the project id (don't provide the project name, it won't work!), and a Google Cloud location (leave it as above if you're not sure of what to put). In the example above, spot instances are also requested (more info about spot instances [here](https://www.nextflow.io/docs/latest/google.html#spot-instances)), which are cheaper instances that, as a drawback, can be reclaimed at any time if resources are needed by the cloud provider. Based on what we have seen so far, the `nextflow.config` file should contain "rnaseq-nxf" as the project id.
 
-#### Write your Nextflow pipeline
-
-With that done, it's time to write your Nextflow pipeline. The example below is a proof of concept RNAseq pipeline. More information about this pipeline and where this came from can be found in the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/). Copy the script below and save it as `main.nf` in the same folder as your nextflow.config file:
-
-```Nextflow
-/*
- * pipeline input parameters
- */
-params.reads = "$projectDir/data/gut_{1,2}.fq"
-params.transcriptome_file = "$projectDir/data/transcriptome.fa"
-params.multiqc = "$projectDir/multiqc"
-params.outdir = "results"
-log.info """\
-    R N A S E Q - N F   P I P E L I N E
-    ===================================
-    transcriptome: ${params.transcriptome_file}
-    reads        : ${params.reads}
-    outdir       : ${params.outdir}
-    """
-    .stripIndent()
-
-/*
- * define the `index` process that creates a binary index
- * given the transcriptome file
- */
-process INDEX {
-    input:
-    path transcriptome
-
-    output:
-    path 'salmon_index'
-
-    script:
-    """
-    salmon index --threads $task.cpus -t $transcriptome -i salmon_index
-    """
-}
-
-process QUANTIFICATION {
-    tag "Salmon on $sample_id"
-    publishDir params.outdir, mode:'copy'
-
-    input:
-    path salmon_index
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "$sample_id"
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $salmon_index -1 ${reads[0]} -2 ${reads[1]} -o $sample_id
-    """
-}
-
-process FASTQC {
-    tag "FASTQC on $sample_id"
-
-    input:
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "fastqc_${sample_id}_logs"
-
-    script:
-    """
-    mkdir fastqc_${sample_id}_logs
-    fastqc -o fastqc_${sample_id}_logs -f fastq -q ${reads}
-    """
-}
-
-process MULTIQC {
-    publishDir params.outdir, mode:'copy'
-
-    input:
-    path '*'
-
-    output:
-    path 'multiqc_report.html'
-
-    script:
-    """
-    multiqc .
-    """
-}
-
-workflow {
-    Channel
-        .fromFilePairs(params.reads, checkIfExists: true)
-        .set { read_pairs_ch }
-
-    index_ch = INDEX(params.transcriptome_file)
-    quant_ch = QUANTIFICATION(index_ch, read_pairs_ch)
-    fastqc_ch = FASTQC(read_pairs_ch)
-    MULTIQC(quant_ch.mix(fastqc_ch).collect())
-}
-
-workflow.onComplete {
-    log.info ( workflow.success ? "\nDone! Open the following report in your browser --> $params.outdir/multiqc_report.html\n" : "Oops .. something went wrong" )
-}
-```
-
-#### Download the input data
-
-Create a folder named `data` in your project folder and download the example files (also taken from the Seqera training material).
-
-```bash
-$ mkdir data; cd data
-$ wget https://raw.githubusercontent.com/seqeralabs/nf-training-public/master/nf-training/data/ggal/gut_1.fq
-$ wget https://raw.githubusercontent.com/seqeralabs/nf-training-public/master/nf-training/data/ggal/gut_2.fq
-$ wget https://raw.githubusercontent.com/seqeralabs/nf-training-public/master/nf-training/data/ggal/transcriptome.fa
-$ cd ..
-```
-
-Files can also be uploaded directly to Google Cloud Storage, or downloaded directly from GitHub, depending on your own preferences.
-
 Use the command below to authenticate with Google Cloud Platform. Nextflow will use this account by default when you run a pipeline.
 
 ```bash
@@ -261,13 +145,15 @@ $ gcloud auth application-default login
 
 #### Launch the pipeline!
 
-With that done, you’re now ready to run the example Nextflow pipeline:
+With that done, you’re now ready to run the proof-of-concept RNAseq Nextflow pipeline. Instead of asking you to download it, or copy-paste something into a script file, you can simply provide the GitHub URL of the RNAseq pipeline mentioned at the beginning of this tutorial ([https://github.com/nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf)), and Nextflow will do all the heavy lifting for you. This pipeline comes with test data bundled with it, and for more information about it and how it was developed, you can check the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/).
+
+One important thing to mention is that in this repository there is already a `nextflow.config` file with different configuration, but don't worry about that. You can run the pipeline with the configuration file that we have wrote above using the `-c` Nextflow parameter. Run the command line below:
 
 ```bash
-$ nextflow run main.nf
+$ nextflow run nextflow-io/rnaseq-nf -c nextflow.config
 ```
 
-While the pipeline stores everything in the bucket, our example pipeline will also download the final outputs to a local directory called `results`, because of how the `publishDir` directive was specified in the `main.nf` script. If you want to avoid the egress cost associated with downloading data from a bucket, you can change the `publishDir` to another bucket directory, e.g. `gs://rnaseq-pipeline-bckt/results`.
+While the pipeline stores everything in the bucket, our example pipeline will also download the final outputs to a local directory called `results`, because of how the `publishDir` directive was specified in the `main.nf` script (example [here](https://github.com/nextflow-io/rnaseq-nf/blob/ed179ef74df8d5c14c188e200a37fff61fd55dfb/modules/multiqc/main.nf#L5)). If you want to avoid the egress cost associated with downloading data from a bucket, you can change the `publishDir` to another bucket directory, e.g. `gs://rnaseq-pipeline-bckt/results`.
 
 In your terminal, you should see something like this:
 
