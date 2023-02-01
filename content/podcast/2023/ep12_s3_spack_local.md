@@ -16,7 +16,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 <!-- end-archive-description -->
 
-#### Improved handeling of S3 paths with spaces
+#### Improved handling of S3 paths with spaces
 
 - AWS jobs would fail to resume a job when an `S3` file path contained a space.
     - The issue didn't occur on local servers where spaces were.
@@ -31,25 +31,23 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
     - It makes installing software easy and supports multiple versions, configurations, platforms, and compilers.
 - Nextflow now has built-in support for Spack that allows the configuration of workflow dependencies using Spack recipes and environment files.
     - This allows Nextflow applications to build packages from source on the compute infrastructure whilst taking advantage of the configuration flexibility provided by Nextflow.
-- It is used in a similar to using conda environments with its own scope and directives.
+- It is used in a similar way to using conda environments with its own scope and directives.
 
 #### Local sites for the nf-core hackathon
 
-- The [Nextflow and nf-core training](https://nf-co.re/events/2023/training-march-2023) is being held March 13-16.
 - Hacking with others is a lot of fun and local sites are our way of replicating the fun we had at the in-person hackathon prior to the 2022 Nextflow Summit.
 - Everything will still be online in Gather so you can join from anywhere.
-- There are more than [15 local sites](https://nf-co.re/events/2023/training-march-2023) that are being hosted by community members.
+- There are more than [15 local sites](https://nf-co.re/events/2023/hackathon-march-2023#local-events) that are being hosted by community members.
     - Thanks to funding from the Chan Zuckerberg Initiative and Seqera Labs all sites are being supported with goodies.
     - We are especially excited to have a site hosted by Google at the [Google Academy](https://nf-co.re/events/2023/hackathon-march-2023/uk-google.md) in London.
 
 #### Upcoming events
 
 - The next [nf-core/bytesize talk on February 7](https://nf-co.re/events/2023/bytesize_precommit).
-    - [Matthias Hörtenhuber](https://github.com/mashehu) is going to explain the use the newly added nf-core `pre-commit` tool.
+    - [Matthias Hörtenhuber](https://github.com/mashehu) is going to explain the use of the newly added nf-core `pre-commit` tool.
     - `Pre-commit` was developed to inspect the snapshot that is about to be committed and helps to check the code before adding it to the repository.
 - The Nextflow and nf-core training is being held March 13-16.
     - Training will be presented in different languages.
     - Registration is [open now](https://nf-co.re/events/2023/training-march-2023).
 - The nf-core hackathon is being held March 27-29.
-    - We will also support local hubs where local community members are hosting other community members.
     - Registration is [open now](https://nf-co.re/events/2023/hackathon-march-2023).
