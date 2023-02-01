@@ -46,7 +46,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 - The next [nf-core/bytesize talk on February 7](https://nf-co.re/events/2023/bytesize_precommit).
     - [Matthias Hörtenhuber](https://github.com/mashehu) is going to explain the use of the newly added nf-core `pre-commit` tool.
-    - `Pre-commit` was developed to inspect the snapshot that is about to be committed and helps to check the code before adding it to the repository.
+    - `pre-commit` was developed to inspect the snapshot that is about to be committed and helps to check the code before adding it to the repository.
 - The Nextflow and nf-core training is being held March 13-16.
     - Training will be presented in different languages.
     - Registration is [open now](https://nf-co.re/events/2023/training-march-2023).
