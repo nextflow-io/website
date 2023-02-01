@@ -26,7 +26,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 #### The Spack  package manager
 
-- Support for the [Spack](https://spack.io) package manager has been [added to Nextflow](https://github.com/nextflow-io/nextflow/pull/3580). 
+- Support for the [Spack](https://spack.io) package manager has been [added](https://github.com/nextflow-io/nextflow/pull/3580) to Nextflow.
 - Spack is a package manager for supercomputers, Linux, and macOS.
     - It makes installing software easy and supports multiple versions, configurations, platforms, and compilers.
 - Nextflow now has built-in support for Spack that allows the configuration of workflow dependencies using Spack recipes and environment files.
