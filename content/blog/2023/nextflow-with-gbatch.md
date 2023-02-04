@@ -7,6 +7,7 @@ tags=nextflow,google,cloud
 status=published
 author=Marcel Ribeiro-Dantas
 icon=marcel.png
+
 ~~~~~~
 
 [We have talked about Google Cloud Batch before](https://www.nextflow.io/blog/2022/deploy-nextflow-pipelines-with-google-cloud-batch.html). Not only that, we were proud to announce Nextflow support to Google Cloud Batch right after it was publicly released, back in July 2022. How amazing is that? But we didn't stop there! The [Nextflow official documentation](https://www.nextflow.io/docs/latest/google.html) also provides a lot of useful information on how to use Google Cloud Batch as the compute environment for your Nextflow pipelines. Having said that, feedback from the community is valuable, and we agreed that in addition to the documentation, teaching by example, and in a more informal language, can help many of our users. So, here is a tutorial on how to use the Batch service of the Google Cloud Platform with Nextflow 🥳
@@ -145,7 +146,7 @@ $ gcloud auth application-default login
 
 #### Launch the pipeline!
 
-With that done, you’re now ready to run the proof-of-concept RNAseq Nextflow pipeline. Instead of asking you to download it, or copy-paste something into a script file, you can simply provide the GitHub URL of the RNAseq pipeline mentioned at the beginning of [this tutorial](https://github.com/nextflow-io/rnaseq-nf), and Nextflow will do all the heavy lifting for you. This pipeline comes with test data bundled with it, and for more information about it and how it was developed, you can check the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/).
+With that done, you’re now ready to run the proof-of-concept RNAseq Nextflow pipeline. Instead of asking you to download it, or copy-paste something into a script file, you can simply provide the GitHub URL of the RNAseq pipeline mentioned at the beginning of [this tutorial](https://github.com/nextflow-io/rnaseq-nf), and Nextflow will do all the heavy lifting for you. This pipeline comes with test data bundled with it, and for more information about it and how it was developed, you can check the public training material developed by Seqera Labs at <https://training.nextflow.io/>.
 
 One important thing to mention is that in this repository there is already a `nextflow.config` file with different configuration, but don't worry about that. You can run the pipeline with the configuration file that we have wrote above using the `-c` Nextflow parameter. Run the command line below:
 
