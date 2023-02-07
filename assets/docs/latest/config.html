@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 22.10.4 documentation</title>
+  <title>Configuration &mdash; Nextflow 22.10.6 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -374,11 +374,14 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-odd"><td><p>maxSpotAttempts</p></td>
 <td><p>Max number of execution attempts of a job interrupted by a EC2 spot reclaim event (default: <code class="docutils literal notranslate"><span class="pre">5</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.04.0</span></code> or later)</p></td>
 </tr>
+<tr class="row-even"><td><p>retryMode</p></td>
+<td><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>schedulingPriority</p></td>
+<td><p>The scheduling priority for all tasks when using <a class="reference external" href="https://aws.amazon.com/blogs/hpc/introducing-fair-share-scheduling-for-aws-batch/">fair-share scheduling for AWS Batch</a> (default: <code class="docutils literal notranslate"><span class="pre">0</span></code>, requires <code class="docutils literal notranslate"><span class="pre">23.01.0-edge</span></code> or later)</p></td>
+</tr>
 <tr class="row-even"><td><p>shareIdentifier</p></td>
 <td><p>The share identifier for all tasks when using <a class="reference external" href="https://aws.amazon.com/blogs/hpc/introducing-fair-share-scheduling-for-aws-batch/">fair-share scheduling for AWS Batch</a> (requires <code class="docutils literal notranslate"><span class="pre">22.09.0-edge</span></code> or later)</p></td>
-</tr>
-<tr class="row-odd"><td><p>retryMode</p></td>
-<td><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1388,7 +1391,7 @@ Also, be aware that deleting all scratch files can take a lot of time, especiall
 </section>
 </section>
 <section id="config-profiles">
-<span id="id1"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline"></a></h2>
 <p>Configuration files can contain the definition of one or more <em>profiles</em>. A profile is a set of configuration attributes
 that can be activated/chosen when launching a pipeline execution by using the <code class="docutils literal notranslate"><span class="pre">-profile</span></code> command line option.</p>
 <p>Configuration profiles are defined by using the special scope <code class="docutils literal notranslate"><span class="pre">profiles</span></code> which group the attributes that belong
