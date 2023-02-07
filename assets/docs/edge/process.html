@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 22.12.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 23.01.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -90,6 +90,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#cache">cache</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#clusteroptions">clusterOptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#conda">conda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#spack">spack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#container">container</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#containeroptions">containerOptions</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cpus">cpus</a></li>
@@ -135,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -1603,8 +1605,27 @@ For example:</p>
 <p>Multiple packages can be specified separating them with a blank space eg. <code class="docutils literal notranslate"><span class="pre">bwa=0.7.15</span> <span class="pre">fastqc=0.11.5</span></code>.
 The name of the channel from where a specific package needs to be downloaded can be specified using the usual
 Conda notation i.e. prefixing the package with the channel name as shown here <code class="docutils literal notranslate"><span class="pre">bioconda::bwa=0.7.15</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directory also allows the specification of a Conda environment file
+<p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive also allows the specification of a Conda environment file
 path or the path of an existing environment directory. See the <a class="reference internal" href="conda.html#conda-page"><span class="std std-ref">Conda environments</span></a> page for further details.</p>
+</section>
+<section id="spack">
+<span id="process-spack"></span><h3>spack<a class="headerlink" href="#spack" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive allows for the definition of the process dependencies using the <a class="reference external" href="https://spack.io">Spack</a>
+package manager.</p>
+<p>Nextflow automatically sets up an environment for the given package names listed by in the <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">spack</span> <span class="s1">&#39;bwa@0.7.15&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Multiple packages can be specified separating them with a blank space eg. <code class="docutils literal notranslate"><span class="pre">bwa&#64;0.7.15</span> <span class="pre">fastqc&#64;0.11.5</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive also allows the specification of a Spack environment file
+path or the path of an existing environment directory. See the <a class="reference internal" href="spack.html#spack-page"><span class="std std-ref">Spack environments</span></a> page for further details.</p>
 </section>
 <section id="container">
 <span id="process-container"></span><h3>container<a class="headerlink" href="#container" title="Permalink to this headline"></a></h3>
@@ -2577,8 +2598,8 @@ are allowed:</p>
 directory. The following values are allowed:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 6%" />
-<col style="width: 94%" />
+<col style="width: 3%" />
+<col style="width: 97%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Value</p></th>
@@ -2594,6 +2615,12 @@ directory. The following values are allowed:</p>
 </tr>
 <tr class="row-even"><td><p>rsync</p></td>
 <td><p>Output files are copied from the scratch directory to the work directory by using the <code class="docutils literal notranslate"><span class="pre">rsync</span></code> utility.</p></td>
+</tr>
+<tr class="row-odd"><td><p>rclone</p></td>
+<td><p>Output files are copied from the scratch directory to the work directory by using the <a class="reference external" href="https://rclone.org">rclone</a> utility (note: it must be available in your cluster computing nodes, requires version <code class="docutils literal notranslate"><span class="pre">23.01.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>fcp</p></td>
+<td><p>Output files are copied from the scratch directory to the work directory by using the <a class="reference external" href="https://github.com/Svetlitski/fcp">fcp</a> utility (note: it must be available in your cluster computing nodes, requires version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
 </table>

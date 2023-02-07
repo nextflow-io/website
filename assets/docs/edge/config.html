@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 22.12.0-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 23.01.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -62,6 +62,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#scope-charliecloud">Scope <cite>charliecloud</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-cloud">Scope <cite>cloud</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-conda">Scope <cite>conda</cite></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-spack">Scope <cite>spack</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-dag">Scope <cite>dag</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-docker">Scope <cite>docker</cite></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-env">Scope <cite>env</cite></a></li>
@@ -102,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -382,11 +384,14 @@ to specify your bucket credentials. For example:</p>
 <tr class="row-odd"><td><p>maxSpotAttempts</p></td>
 <td><p>Max number of execution attempts of a job interrupted by a EC2 spot reclaim event (default: <code class="docutils literal notranslate"><span class="pre">5</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.04.0</span></code> or later)</p></td>
 </tr>
+<tr class="row-even"><td><p>retryMode</p></td>
+<td><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>schedulingPriority</p></td>
+<td><p>The scheduling priority for all tasks when using <a class="reference external" href="https://aws.amazon.com/blogs/hpc/introducing-fair-share-scheduling-for-aws-batch/">fair-share scheduling for AWS Batch</a> (default: <code class="docutils literal notranslate"><span class="pre">0</span></code>, requires <code class="docutils literal notranslate"><span class="pre">23.01.0-edge</span></code> or later)</p></td>
+</tr>
 <tr class="row-even"><td><p>shareIdentifier</p></td>
 <td><p>The share identifier for all tasks when using <a class="reference external" href="https://aws.amazon.com/blogs/hpc/introducing-fair-share-scheduling-for-aws-batch/">fair-share scheduling for AWS Batch</a> (requires <code class="docutils literal notranslate"><span class="pre">22.09.0-edge</span></code> or later)</p></td>
-</tr>
-<tr class="row-odd"><td><p>retryMode</p></td>
-<td><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -477,6 +482,40 @@ by the Conda package manager.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="scope-spack">
+<span id="config-spack"></span><h3>Scope <cite>spack</cite><a class="headerlink" href="#scope-spack" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">spack</span></code> scope allows for the definition of the configuration settings that control the creation of a Spack environment
+by the Spack package manager.</p>
+<p>The following settings are available:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cacheDir</p></td>
+<td><p>Defines the path where Spack environments are stored. When using a compute cluster make sure to provide a shared file system path accessible from all compute nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>noChecksum</p></td>
+<td><p>Disables checksum verification for source tarballs (unsafe). Useful when requesting a package version not yet encoded in the corresponding Spack recipe (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>parallelBuilds</p></td>
+<td><p>Sets number of parallel package builds (Spack default: coincides with number of available CPU cores).</p></td>
+</tr>
+<tr class="row-odd"><td><p>createTimeout</p></td>
+<td><p>Defines the amount of time the Spack environment creation can last. The creation process is terminated when the timeout is exceeded (default: <code class="docutils literal notranslate"><span class="pre">60</span> <span class="pre">min</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+<p>Nextflow does not allow for fine-grained configuration of the Spack package manager.
+Instead, this has to be performed directly on the host Spack installation.
+For more information see the <a class="reference external" href="https://spack.readthedocs.io">Spack documentation</a>.</p>
 </section>
 <section id="scope-dag">
 <span id="config-dag"></span><h3>Scope <cite>dag</cite><a class="headerlink" href="#scope-dag" title="Permalink to this headline"></a></h3>
@@ -610,8 +649,8 @@ such as <code class="docutils literal notranslate"><span class="pre">NXF_VER</sp
 <p>The <code class="docutils literal notranslate"><span class="pre">executor</span></code> configuration scope allows you to set the optional executor settings, listed in the following table.</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 8%" />
-<col style="width: 92%" />
+<col style="width: 7%" />
+<col style="width: 93%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
@@ -634,43 +673,46 @@ such as <code class="docutils literal notranslate"><span class="pre">NXF_VER</sp
 <tr class="row-even"><td><p>dumpInterval</p></td>
 <td><p>Determines how often to log the executor status (default: <code class="docutils literal notranslate"><span class="pre">5min</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>queueStatInterval</p></td>
+<tr class="row-odd"><td><p>queueGlobalStatus</p></td>
+<td><p>Determines how job status is retrieved. When <code class="docutils literal notranslate"><span class="pre">false</span></code> only the queue associated with the job execution is queried. When <code class="docutils literal notranslate"><span class="pre">true</span></code> the job status is queried globally i.e. irrespective of the submission queue (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">23.01.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>queueStatInterval</p></td>
 <td><p>Determines how often to fetch the queue status from the scheduler (default: <code class="docutils literal notranslate"><span class="pre">1min</span></code>). Used only by grid executors.</p></td>
 </tr>
-<tr class="row-even"><td><p>exitReadTimeout</p></td>
+<tr class="row-odd"><td><p>exitReadTimeout</p></td>
 <td><p>Determines how long to wait before returning an error status when a process is terminated but the <code class="docutils literal notranslate"><span class="pre">.exitcode</span></code> file does not exist or is empty (default: <code class="docutils literal notranslate"><span class="pre">270</span> <span class="pre">sec</span></code>). Used only by grid executors.</p></td>
 </tr>
-<tr class="row-odd"><td><p>killBatchSize</p></td>
+<tr class="row-even"><td><p>killBatchSize</p></td>
 <td><p>Determines the number of jobs that can be killed in a single command execution (default: <code class="docutils literal notranslate"><span class="pre">100</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>perJobMemLimit</p></td>
+<tr class="row-odd"><td><p>perJobMemLimit</p></td>
 <td><p>Specifies Platform LSF <em>per-job</em> memory limit mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>perTaskReserve</p></td>
+<tr class="row-even"><td><p>perTaskReserve</p></td>
 <td><p>Specifies Platform LSF <em>per-task</em> memory reserve mode. See <a class="reference internal" href="executor.html#lsf-executor"><span class="std std-ref">LSF</span></a>.</p></td>
 </tr>
-<tr class="row-even"><td><p>jobName</p></td>
+<tr class="row-odd"><td><p>jobName</p></td>
 <td><p>Determines the name of jobs submitted to the underlying cluster executor e.g. <code class="docutils literal notranslate"><span class="pre">executor.jobName</span> <span class="pre">=</span> <span class="pre">{</span> <span class="pre">&quot;$task.name</span> <span class="pre">-</span> <span class="pre">$task.hash&quot;</span> <span class="pre">}</span></code>. Make sure the resulting job name matches the validation constraints of the underlying batch scheduler.</p></td>
 </tr>
-<tr class="row-odd"><td><p>cpus</p></td>
+<tr class="row-even"><td><p>cpus</p></td>
 <td><p>The maximum number of CPUs made available by the underlying system. Used only by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor.</p></td>
 </tr>
-<tr class="row-even"><td><p>memory</p></td>
+<tr class="row-odd"><td><p>memory</p></td>
 <td><p>The maximum amount of memory made available by the underlying system. Used only by the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor.</p></td>
 </tr>
-<tr class="row-odd"><td><p>retry.delay</p></td>
+<tr class="row-even"><td><p>retry.delay</p></td>
 <td><p>Delay when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">500ms</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>retry.maxDelay</p></td>
+<tr class="row-odd"><td><p>retry.maxDelay</p></td>
 <td><p>Max delay when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-odd"><td><p>retry.jitter</p></td>
+<tr class="row-even"><td><p>retry.jitter</p></td>
 <td><p>Jitter value when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">0.25</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-even"><td><p>retry.maxAttempts</p></td>
+<tr class="row-odd"><td><p>retry.maxAttempts</p></td>
 <td><p>Max attempts when retrying failed job submissions (default: <code class="docutils literal notranslate"><span class="pre">3</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
-<tr class="row-odd"><td><p>retry.reason</p></td>
+<tr class="row-even"><td><p>retry.reason</p></td>
 <td><p>Regex pattern that when verified cause a failed submit operation to be re-tried (default: <code class="docutils literal notranslate"><span class="pre">Socket</span> <span class="pre">timed</span> <span class="pre">out</span></code>). NOTE: used only by grid executors (requires <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code> or later).</p></td>
 </tr>
 </tbody>
@@ -765,7 +807,7 @@ workflow applications in a Kubernetes cluster.</p>
 <td><p>The path in the persistent volume to be mounted (default: root).</p></td>
 </tr>
 <tr class="row-even"><td><p>computeResourceType</p></td>
-<td><p>Define whether use Kubernetes <code class="docutils literal notranslate"><span class="pre">Pod</span></code> or <code class="docutils literal notranslate"><span class="pre">Job</span></code> resource type to carry out Nextflow tasks (default: <code class="docutils literal notranslate"><span class="pre">Pod</span></code>).</p></td>
+<td><p>Define whether use Kubernetes <code class="docutils literal notranslate"><span class="pre">Pod</span></code> or <code class="docutils literal notranslate"><span class="pre">Job</span></code> resource type to carry out Nextflow tasks (default: <code class="docutils literal notranslate"><span class="pre">Pod</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-odd"><td><p>fetchNodeName</p></td>
 <td><p>If you trace the hostname, activate this option (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.05.0-edge</span></code> or later).</p></td>
@@ -1431,7 +1473,7 @@ Also, be aware that deleting all scratch files can take a lot of time, especiall
 </section>
 </section>
 <section id="config-profiles">
-<span id="id1"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2>Config profiles<a class="headerlink" href="#config-profiles" title="Permalink to this headline"></a></h2>
 <p>Configuration files can contain the definition of one or more <em>profiles</em>. A profile is a set of configuration attributes
 that can be activated/chosen when launching a pipeline execution by using the <code class="docutils literal notranslate"><span class="pre">-profile</span></code> command line option.</p>
 <p>Configuration profiles are defined by using the special scope <code class="docutils literal notranslate"><span class="pre">profiles</span></code> which group the attributes that belong
@@ -1523,7 +1565,7 @@ the underlying Java virtual machine.</p>
 <td><p>Defines the default cloud driver to be used if not specified in the config file or as command line option, either <code class="docutils literal notranslate"><span class="pre">aws</span></code> or <code class="docutils literal notranslate"><span class="pre">google</span></code>.</p></td>
 </tr>
 <tr class="row-even"><td><p>NXF_CONDA_CACHEDIR</p></td>
-<td><p>Directory where Conda environments are store. When using a computing cluster it must be a shared folder accessible from all compute nodes.</p></td>
+<td><p>Directory where Conda environments are stored. When using a computing cluster it must be a shared folder accessible from all compute nodes.</p></td>
 </tr>
 <tr class="row-odd"><td><p>NXF_CONDA_ENABLED</p></td>
 <td><p>Enable the use of Conda recipes defined by using the :ref:process-conda directive. (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">22.08.0-edge</span></code> or later).</p></td>
@@ -1581,6 +1623,12 @@ the underlying Java virtual machine.</p>
 </tr>
 <tr class="row-odd"><td><p>NXF_SINGULARITY_LIBRARYDIR</p></td>
 <td><p>Directory where remote Singularity images are retrieved. It should be a directory accessible to all compute nodes (requires: <code class="docutils literal notranslate"><span class="pre">21.09.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>NXF_SPACK_CACHEDIR</p></td>
+<td><p>Directory where Spack environments are stored. When using a computing cluster it must be a shared folder accessible from all compute nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p>NXF_SPACK_ENABLED</p></td>
+<td><p>Enable the use of Spack recipes defined by using the :ref:process-spack directive. (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p>NXF_TEMP</p></td>
 <td><p>Directory where temporary files are stored</p></td>
