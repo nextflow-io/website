@@ -30,7 +30,7 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 - Exciting new application of Nextflow.
 - An example of Nextflow being used outside of traditional bioinformatics.
-- New [Nextflow training aimed at astronomers](https://adacs-australia.github.io/Nextflow_Training_2022B/) with an [example pulsar search pipeline](https://adacs-australia.github.io/Nextflow_Training_2022B/04-AstronomyWorkflowExample/index.html).
+- New [Nextflow training aimed at astronomers](https://carpentries-incubator.github.io/Pipeline_Training_with_Nextflow/) with an [example pulsar search pipeline](https://carpentries-incubator.github.io/Pipeline_Training_with_Nextflow/04-AstronomyWorkflowExample/index.html).
 - Check `#astronomy` on nf-core Slack for more details.
 
 #### New initiatives in Asia-Pacific
