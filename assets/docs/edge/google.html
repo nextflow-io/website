@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Cloud &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Google Cloud &mdash; Nextflow 23.02.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -75,7 +75,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#google-lifesciences-config">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">Process definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#preemptible-instances">Preemptible instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#quotas">Quotas</a></li>
@@ -277,16 +277,28 @@ each process using one or more <a class="reference internal" href="config.html#c
 </section>
 <section id="process-definition">
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline"></a></h3>
-<p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to instantiate a custom
-machine type with the specified compute resources.  If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
-<p>The process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive may optionally be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
-If specified, this value overrides the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives.
-If the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used, the values must comply with the allowed custom machine type <a class="reference external" href="https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications">specifications</a> .  Extended memory is not directly supported, however high memory or cpu predefined
-instances may be utilized using the <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive</p>
+<p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to find the cheapest machine
+type available at current location that fits the requested resources. If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
+<p>The process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive can be a list of patterns separated by comma. The pattern can contain a <cite>*</cite> to match
+any number of characters and <cite>?</cite> to match any single character. Examples of valid patterns: <cite>c2-*</cite>, <cite>m?-standard*</cite>, <cite>n*</cite>.</p>
+<p>Alternatively it can also be used to define a specific predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+or a custom machine type.</p>
+<p>When Fusion is enabled, by default, only machine types that allow to attach local SSD disks will be used. If you specify your own
+machine type or machine series they should allow to attach local SSD disks, otherwise the job scheduling will fail.</p>
 <p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">custom_resources_task</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">automatic_resources_task</span> <span class="p">{</span>
     <span class="n">cpus</span> <span class="mi">8</span>
     <span class="n">memory</span> <span class="s1">&#39;40 GB&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">allowing_some_series</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="mi">8</span>
+    <span class="n">memory</span> <span class="s1">&#39;20 GB&#39;</span>
+    <span class="n">machineType</span> <span class="s1">&#39;n2-*,c2-*,m3-*&#39;</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &lt;Your script here&gt;</span>
@@ -540,8 +552,8 @@ instances may be utilized using the <code class="docutils literal notranslate"><
 <p>This feature requires Nextflow 19.07.0 or later.</p>
 </div>
 </section>
-<section id="id11">
-<h3>Pipeline execution<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<section id="id10">
+<h3>Pipeline execution<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
 locally or in a Google Storage bucket.</p>
 <p>The pipeline execution must specify a Google Storage bucket where the workflow’s intermediate results are stored using
@@ -658,7 +670,7 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

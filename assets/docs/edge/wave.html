@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wave containers &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Wave containers &mdash; Nextflow 23.02.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -62,7 +62,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#use-cases">Use cases</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#authenticate-private-repositories">Authenticate private repositories</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#build-module-containers">Build module containers</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-conda-based-containers">Build Conda based containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-conda-based-containers">Build Conda-based containers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#push-to-a-private-repository">Push to a private repository</a></li>
 </ul>
 </li>
@@ -166,8 +166,8 @@ and it allows higher service rate limits compared to anonymous users.</p>
 <section id="authenticate-private-repositories">
 <h3>Authenticate private repositories<a class="headerlink" href="#authenticate-private-repositories" title="Permalink to this headline"></a></h3>
 <p>Wave allows the use of private repositories in your Nextflow pipelines. The repository access keys need to be provided
-via the <a class="reference external" href="https://help.tower.nf/22.2/credentials/overview/">Nextflow Tower credentials</a> manager feature.</p>
-<p>Once the credentials have been created, you only need to specify your <a class="reference external" href="https://help.tower.nf/22.2/api/overview/#authentication">Tower account access token</a>
+via the <a class="reference external" href="https://help.tower.nf/latest/credentials/registry_credentials/">Nextflow Tower credentials</a> manager feature.</p>
+<p>Once the credentials have been created, you only need to specify your <a class="reference external" href="https://help.tower.nf/latest/api/overview/#authentication">Tower account access token</a>
 in your pipeline configuration file. If the credentials were created in a Tower organization workspace, specify the workspace ID
 as well in the config file as shown below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tower</span> <span class="p">{</span>
@@ -201,13 +201,13 @@ file system.</p>
 </div>
 </section>
 <section id="build-conda-based-containers">
-<h3>Build Conda based containers<a class="headerlink" href="#build-conda-based-containers" title="Permalink to this headline"></a></h3>
+<h3>Build Conda-based containers<a class="headerlink" href="#build-conda-based-containers" title="Permalink to this headline"></a></h3>
 <p>Wave allows the provisioning of containers based on the <a class="reference internal" href="process.html#process-conda"><span class="std std-ref">conda</span></a> directive used by the processes in your
-pipeline. This is a quick alternative to building Conda packages in the local computer. Moreoever, this enables the use of
+pipeline. This is a quick alternative to building Conda packages in the local computer. Moreover, this enables the use of
 Conda packages in your pipeline when deploying it in cloud-native platforms such as AWS Batch and Kubernetes,
 which do not allow the (easy) use of the Conda package manager.</p>
-<p>Having Wave enabled in your pipeline, there’s nothing else to do other than define the <code class="docutils literal notranslate"><span class="pre">conda</span></code> requirements in
-the pipeline processes provided the same process does not also specify a <code class="docutils literal notranslate"><span class="pre">container</span></code> directive or a Dockerfile.</p>
+<p>With Wave enabled in your pipeline, you need only to define the <code class="docutils literal notranslate"><span class="pre">conda</span></code> requirements in
+the pipeline processes, provided the same process does not also specify a <code class="docutils literal notranslate"><span class="pre">container</span></code> directive or a Dockerfile.</p>
 <p>In the latter case, add the following setting to your pipeline configuration:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;conda&#39;</span><span class="p">]</span>
 </pre></div>
@@ -218,17 +218,16 @@ the <code class="docutils literal notranslate"><span class="pre">container</span
 <section id="push-to-a-private-repository">
 <h3>Push to a private repository<a class="headerlink" href="#push-to-a-private-repository" title="Permalink to this headline"></a></h3>
 <p>Containers built by Wave are uploaded to the Wave default repository hosted on AWS ECR with name
-<code class="docutils literal notranslate"><span class="pre">195996028523.dkr.ecr.eu-west-1.amazonaws.com/wave/build</span></code>. The images in this repository are automatically deleted
-after 1 week from the date of their push.</p>
-<p>If you want to store Wave containers in your own container repository use the following settings in
+<code class="docutils literal notranslate"><span class="pre">195996028523.dkr.ecr.eu-west-1.amazonaws.com/wave/build</span></code>. The images in this repository are automatically deleted 1 week after the date of their push.</p>
+<p>If you want to store Wave containers in your own container repository, use the following settings in
 the Nextflow configuration file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="s1">&#39;example.com/your/build-repo&#39;</span>
 <span class="n">wave</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">cacheRepository</span> <span class="o">=</span> <span class="s1">&#39;example.com/your/cache-repo&#39;</span>
 </pre></div>
 </div>
 <p>The first repository is used to store the built container images. The second one is used to store the individual image layers for caching purposes.</p>
-<p>The repository access keys need to be specified using the Tower credentials manager as specified in the
-<a class="reference internal" href="#authenticate-private-repositories">Authenticate private repositories</a> section.</p>
+<p>The repository access keys need to be specified using the Tower credentials manager, per the
+<a class="reference internal" href="#authenticate-private-repositories">Authenticate private repositories</a> section above.</p>
 </section>
 </section>
 <section id="advanced-settings">
@@ -252,19 +251,19 @@ the Nextflow configuration file:</p>
 <td><p>The Wave service endpoint (default: <code class="docutils literal notranslate"><span class="pre">https://wave.seqera.io</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p>wave.build.repository</p></td>
-<td><p>The container repository where image built by Wave needs to be uploaded (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
+<td><p>The container repository where images built by Wave need to be uploaded (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
 </tr>
 <tr class="row-odd"><td><p>wave.build.cacheRepository</p></td>
-<td><p>The container repository used to cache image layers build by the Wave service (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
+<td><p>The container repository used to cache image layers built by the Wave service (note: the corresponding credentials need to be provided in your Nextflow Tower account).</p></td>
 </tr>
 <tr class="row-even"><td><p>wave.conda.mambaImage</p></td>
-<td><p>The Mamba container image is used to build Conda based container. This is expected to be <a class="reference external" href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a> image.</p></td>
+<td><p>The Mamba container image is used to build the Conda-based container. This is expected to be the <a class="reference external" href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a> image.</p></td>
 </tr>
 <tr class="row-odd"><td><p>wave.conda.commands</p></td>
-<td><p>One or more commands to be added to the Dockerfile used by build a Conda based image.</p></td>
+<td><p>One or more commands to be added to the Dockerfile used to build a Conda-based image.</p></td>
 </tr>
 <tr class="row-even"><td><p>wave.strategy</p></td>
-<td><p>The strategy to be used when resolving ambiguous Wave container requirement (default: <code class="docutils literal notranslate"><span class="pre">'container,dockerfile,conda'</span></code>)</p></td>
+<td><p>The strategy to be used when resolving ambiguous Wave container requirements (default: <code class="docutils literal notranslate"><span class="pre">'container,dockerfile,conda'</span></code>)</p></td>
 </tr>
 </tbody>
 </table>
@@ -286,7 +285,7 @@ the Nextflow configuration file:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

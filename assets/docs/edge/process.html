@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 23.02.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -308,7 +308,7 @@ more useful than Perl, whereas for others you may need to use Python because it 
 <span class="sd">    &quot;&quot;&quot;</span>
 <span class="p">}</span>
 
-<span class="n">process</span> <span class="n">pythonStuff</span> <span class="p">{</span>
+<span class="n">process</span> <span class="n">pythonTask</span> <span class="p">{</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    #!/usr/bin/python</span>
 
@@ -316,6 +316,11 @@ more useful than Perl, whereas for others you may need to use Python because it 
 <span class="sd">    y = &#39;world!&#39;</span>
 <span class="sd">    print &quot;%s - %s&quot; % (x,y)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">workflow</span> <span class="p">{</span>
+    <span class="n">perlTask</span><span class="p">()</span>
+    <span class="n">pythonTask</span><span class="p">()</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -2336,7 +2341,7 @@ This is useful when the process has multiple output files, but you want to publi
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> abort the execution if some file can’t be published to the specified target directory or bucket for any cause (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p>contentType</p></td>
-<td><p>Allow specifying the media content type of the published file a.k.a. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">MIME type</a>. If the boolean value <code class="docutils literal notranslate"><span class="pre">true</span></code> is specified the content type is inferred from the file extension (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires <cite>22.10.0`</cite> or later).</p></td>
+<td><p>Allow specifying the media content type of the published file a.k.a. <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_Types">MIME type</a>. If the boolean value <code class="docutils literal notranslate"><span class="pre">true</span></code> is specified the content type is inferred from the file extension (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later).</p></td>
 </tr>
 <tr class="row-even"><td><p>storageClass</p></td>
 <td><p>Allow specifying the <em>storage class</em> to be used for the published file (EXPERIMENTAL. Currently only supported by files stored on AWS S3. Requires version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code> or later).</p></td>
@@ -2818,7 +2823,7 @@ conditions:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

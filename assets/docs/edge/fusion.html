@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fusion file system &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Fusion file system &mdash; Nextflow 23.02.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -123,17 +123,17 @@
 <span id="fusion-page"></span><h1>Fusion file system<a class="headerlink" href="#fusion-file-system" title="Permalink to this headline"></a></h1>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
-<p>Fusion is a distributed virtual file system for cloud-native data pipeline and optimised for Nextflow workloads.</p>
-<p>It bridges the gap between cloud-native storage and data analysis workflow by implementing a thin client
+<p>Fusion is a distributed virtual file system for cloud-native data pipelines, optimised for Nextflow workloads.</p>
+<p>It bridges the gap between cloud-native storage and data analysis workflows by implementing a thin client
 that allows any existing application to access object storage using the standard POSIX interface, thus simplifying
-and speeding up most operations. Currently it supports AWS S3.</p>
+and speeding up most operations. Currently, it supports AWS S3.</p>
 </section>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
 <section id="requirements">
 <h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h3>
 <p>Fusion file system is designed to work with containerised workloads, therefore it requires the use of a container
-engine such as Docker or a container native platform for the execution of your pipeline e.g. AWS Batch or Kubernetes.</p>
+engine such as Docker or a container native platform for the execution of your pipeline, e.g. AWS Batch or Kubernetes.</p>
 <p>It also requires the use of <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> and Nextflow version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later.</p>
 </section>
 <section id="aws-s3-configuration">
@@ -174,10 +174,10 @@ engine such as Docker or a container native platform for the execution of your p
 <section id="local-execution-with-s3-bucket-as-work-directory">
 <h3>Local execution with S3 bucket as work directory<a class="headerlink" href="#local-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
 <p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the Nextflow local executor. This
-configuration requires the use of Docker (or similar container engine) for the execution of your pipeline tasks.</p>
-<p>The AWS S3 bucket credentials should be made accessible via standard <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code>
+configuration requires the use of Docker (or a similar container engine) for the execution of your pipeline tasks.</p>
+<p>The AWS S3 bucket credentials must be made accessible via standard <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code>
 environment variables.</p>
-<p>The following configuration should be added in your Nextflow configuration file:</p>
+<p>The following configuration must be added to your Nextflow configuration file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="p">{</span>
   <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">}</span>
@@ -196,7 +196,7 @@ environment variables.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">PIPELINE</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">YOUR</span> <span class="n">BUCKET</span><span class="o">&gt;/</span><span class="n">scratch</span>
 </pre></div>
 </div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">PIPELINE&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">BUCKET&gt;</span></code> with a pipeline script and bucket or your choice, for example:</p>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">PIPELINE&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">BUCKET&gt;</span></code> with a pipeline script and bucket of your choice. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nextflow</span><span class="o">-</span><span class="n">io</span><span class="o">/</span><span class="n">rnaseq</span><span class="o">-</span><span class="n">nf</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">nextflow</span><span class="o">-</span><span class="n">ci</span><span class="o">/</span><span class="n">scratch</span>
 </pre></div>
 </div>
@@ -204,9 +204,9 @@ environment variables.</p>
 <section id="aws-batch-execution-with-s3-bucket-as-work-directory">
 <h3>AWS Batch execution with S3 bucket as work directory<a class="headerlink" href="#aws-batch-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
 <p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the AWS Batch executor. The use
-of Fusion makes obsolete the need to create and configure a custom AMI that includes the <cite>aws</cite> command line tool, when
+of Fusion removes the need to create and configure a custom AMI that includes the <cite>aws</cite> command line tool when
 setting up the AWS Batch compute environment.</p>
-<p>The configuration for this deployment scenario looks like the following:</p>
+<p>In this deployment scenario, the following configuration must be added to your Nextflow configuration file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fusion</span> <span class="p">{</span>
   <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">}</span>
@@ -233,9 +233,9 @@ setting up the AWS Batch compute environment.</p>
 <section id="kubernetes-execution-with-s3-bucket-as-work-directory">
 <h3>Kubernetes execution with S3 bucket as work directory<a class="headerlink" href="#kubernetes-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
 <p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the Kubernetes executor.</p>
-<p>The use of Fusion makes obsolete the need to create and manage and separate persistent volume and shared file system
+<p>The use of Fusion makes removes the need to create and manage a separate persistent volume and shared file system
 in the Kubernetes cluster.</p>
-<p>The configuration for this deployment scenario looks like the following:</p>
+<p>In this deployment scenario, the following configuration must be added to your Nextflow configuration file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span> <span class="p">{</span>
   <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
 <span class="p">}</span>
@@ -260,8 +260,8 @@ setting can be omitted if Nextflow itself is run as a pod in the Kubernetes clus
 <p>The <code class="docutils literal notranslate"><span class="pre">k8s.namespace</span></code> represents the Kubernetes namespace where the jobs submitted by the pipeline execution should
 be executed.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">k8s.serviceAccount</span></code> represents the Kubernetes service account that should be used to grant the execution
-permission to jobs launched by Nextflow. You can find more details how to configure it as the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase/tree/master/example8">following link</a>.</p>
-<p>Having the above configuration in place, you can run your pipeline using the following command:</p>
+permission to jobs launched by Nextflow. See <a class="reference external" href="https://github.com/seqeralabs/wave-showcase/tree/master/example8">here</a> for more information on configuring the service account.</p>
+<p>With the above configuration in place, you can run your pipeline using the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">PIPELINE</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">YOUR</span> <span class="n">BUCKET</span><span class="o">&gt;/</span><span class="n">scratch</span>
 </pre></div>
 </div>
@@ -270,14 +270,13 @@ permission to jobs launched by Nextflow. You can find more details how to config
 <section id="nvme-storage">
 <h2>NVMe storage<a class="headerlink" href="#nvme-storage" title="Permalink to this headline"></a></h2>
 <p>Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files
-in parallel to and from object storage into a container local temporal folder. This means that the performance of
-the temporal folder inside the container (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key to get maximum performance.</p>
+in parallel to and from object storage into a container-local temporal folder. This temporal folder (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key for achieving maximum performance.</p>
 <p>The temporal folder is used only as a temporal cache, so the size of the volume can be much lower than the actual
-needs of your pipeline processes. Fusion has a build-in garbage collector that constantly monitors remaining disk
-space on temporal folder and immediately evicts old cached entries when necessary.</p>
-<p>The recommended setup to get maximum performance is to mount a NVMe disk as temporal folder and run the pipeline
-with Nextflow <a class="reference internal" href="process.html#process-scratch"><span class="std std-ref">scratch</span></a> directive set to <code class="docutils literal notranslate"><span class="pre">false</span></code> to also avoid stage-out transfer time.</p>
-<p>Example extra configuration needed when using AWS Batch with <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">NVMe disks</a>
+needs of your pipeline processes. Fusion has a built-in garbage collector that constantly monitors remaining disk
+space in the temporal folder and immediately evicts old cached entries when necessary.</p>
+<p>The recommended setup for maximum performance is to mount an NVMe disk as the temporal folder and run the pipeline
+with the Nextflow <a class="reference internal" href="process.html#process-scratch"><span class="std std-ref">scratch</span></a> directive set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, to avoid stage-out transfer time.</p>
+<p>Extra configuration is needed when using AWS Batch with <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">NVMe disks</a>
 to maximize performance:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">volumes</span> <span class="o">=</span> <span class="s1">&#39;/path/to/ec2/nvme:/tmp&#39;</span>
 <span class="n">process</span><span class="o">.</span><span class="n">scratch</span> <span class="o">=</span> <span class="n">false</span>
@@ -286,7 +285,7 @@ to maximize performance:</p>
 </section>
 <section id="more-examples">
 <h2>More examples<a class="headerlink" href="#more-examples" title="Permalink to this headline"></a></h2>
-<p>Check out the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase">Wave showcase repository</a> for more examples on how to use
+<p>Check out the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase">Wave showcase repository</a> for more examples on using the
 Fusion file system.</p>
 </section>
 </section>
@@ -302,7 +301,7 @@ Fusion file system.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

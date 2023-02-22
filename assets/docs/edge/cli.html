@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 23.02.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -1610,11 +1610,27 @@ Launching `nextflow-io/hello` [grave_cajal] - revision: 1c3e9e7404 [v1.1]
 </pre></div>
 </div>
 </li>
-<li><p>Invoke the nextflow pipeline execution with a custom parameters <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.
-The parameters which are specified through this mechanism are merged with the resolved configuration (base configuration and profiles) and only the common fields are overwritten by the <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.:</p>
+<li><p>Invoke the nextflow pipeline execution with a custom parameters <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run main.nf -params-file pipeline_params.yml
 </pre></div>
 </div>
+<p>For example, the following params file in YAML format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">beta</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span>
+</pre></div>
+</div>
+<p>Or in JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Is equivalent to the following command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run main.nf --alpha 1 --beta foo
+</pre></div>
+</div>
+<p>The parameters which are specified through this mechanism are merged with the resolved configuration (base configuration and profiles). The values provided via params file overwrites the ones with the same name in the Nextflow configuration file.</p>
 </li>
 </ul>
 </section>
@@ -1781,7 +1797,7 @@ the glob characters. For example:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
