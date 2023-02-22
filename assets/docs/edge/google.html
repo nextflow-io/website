@@ -68,6 +68,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#process-definition">Process definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pipeline-execution">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#spot-instances">Spot instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion-file-system">Fusion file system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-directives">Supported directives</a></li>
 </ul>
 </li>
@@ -279,12 +280,10 @@ each process using one or more <a class="reference internal" href="config.html#c
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline"></a></h3>
 <p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to find the cheapest machine
 type available at current location that fits the requested resources. If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
-<p>The process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive can be a list of patterns separated by comma. The pattern can contain a <cite>*</cite> to match
-any number of characters and <cite>?</cite> to match any single character. Examples of valid patterns: <cite>c2-*</cite>, <cite>m?-standard*</cite>, <cite>n*</cite>.</p>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code>, the process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive can be a list of patterns separated by comma. The pattern can contain a <code class="docutils literal notranslate"><span class="pre">*</span></code> to match
+any number of characters and <code class="docutils literal notranslate"><span class="pre">?</span></code> to match any single character. Examples of valid patterns: <code class="docutils literal notranslate"><span class="pre">c2-*</span></code>, <code class="docutils literal notranslate"><span class="pre">`m?-standard*</span></code>, <code class="docutils literal notranslate"><span class="pre">`n*</span></code>.</p>
 <p>Alternatively it can also be used to define a specific predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
 or a custom machine type.</p>
-<p>When Fusion is enabled, by default, only machine types that allow to attach local SSD disks will be used. If you specify your own
-machine type or machine series they should allow to attach local SSD disks, otherwise the job scheduling will fail.</p>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">automatic_resources_task</span> <span class="p">{</span>
     <span class="n">cpus</span> <span class="mi">8</span>
@@ -350,6 +349,26 @@ if the virtual machine was terminated preemptively:</p>
     maxRetries = 5
 }
 </pre></div>
+</div>
+</section>
+<section id="fusion-file-system">
+<h3>Fusion file system<a class="headerlink" href="#fusion-file-system" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code>, Google Batch executor supports the use of <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a>.</p>
+<p>Fusion allows the use of Google Storage as a virtual distributed file system, optimising the data transfer
+and speeding up most job I/O operations.</p>
+<p>To enable the use of Fusion file system in your pipeline, add the following snippet in your Nextflow configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fusion</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">process</span><span class="o">.</span><span class="n">scratch</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">tower</span><span class="o">.</span><span class="n">accessToken</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR ACCESS TOKEN&gt;&#39;</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://cloud.tower.nf">Tower</a> access token is optional, but it enables higher API rate limits for the
+<a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> service required by Fusion.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When Fusion is enabled, by default, only machine types that allow to attach local SSD disks will be used. If you specify your own
+machine type or machine series they should allow to attach local SSD disks, otherwise the job scheduling will fail.</p>
 </div>
 </section>
 <section id="supported-directives">
