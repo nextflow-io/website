@@ -1,5 +1,5 @@
 title= Learn Nextflow in 2023
-date=2023-02-14
+date=2023-02-24
 type=post
 description=An updated compilation of the best Nextflow learning resources for 2023.
 image=img/learning_nextflow_2023.png
