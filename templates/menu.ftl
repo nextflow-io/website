@@ -25,6 +25,10 @@
                     <a href="/index.html#GetStarted" class="<#if (content.type="index")> scroll</#if>">Quick start</a>
                 </li>
 
+                <li class="show animated flipInX">
+                    <a href="/blog/2023/learn-nextflow-in-2023.html">Learn Nextflow</a>
+                </li>
+
                 <li class="dropdown show animated flipInX">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul class="dropdown-menu">
