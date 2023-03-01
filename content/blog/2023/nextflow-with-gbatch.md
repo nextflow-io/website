@@ -145,7 +145,7 @@ $ gcloud auth application-default login
 
 #### Launch the pipeline!
 
-With that done, you’re now ready to run the proof-of-concept RNAseq Nextflow pipeline. Instead of asking you to download it, or copy-paste something into a script file, you can simply provide the GitHub URL of the RNAseq pipeline mentioned at the beginning of [this tutorial](https://github.com/nextflow-io/rnaseq-nf), and Nextflow will do all the heavy lifting for you. This pipeline comes with test data bundled with it, and for more information about it and how it was developed, you can check the public training material developed by Seqera Labs at [https://training.seqera.io/](https://training.seqera.io/).
+With that done, you’re now ready to run the proof-of-concept RNAseq Nextflow pipeline. Instead of asking you to download it, or copy-paste something into a script file, you can simply provide the GitHub URL of the RNAseq pipeline mentioned at the beginning of [this tutorial](https://github.com/nextflow-io/rnaseq-nf), and Nextflow will do all the heavy lifting for you. This pipeline comes with test data bundled with it, and for more information about it and how it was developed, you can check the public training material developed by Seqera Labs at <https://training.nextflow.io/>.
 
 One important thing to mention is that in this repository there is already a `nextflow.config` file with different configuration, but don't worry about that. You can run the pipeline with the configuration file that we have wrote above using the `-c` Nextflow parameter. Run the command line below:
 
