@@ -1,8 +1,8 @@
 title=The State of Nextflow and Kubernetes
-date=2022-12-20
+date=2023-03-09
 type=post
 description=It seems that Kubernetes is everywhere we look! Nextflow users increasingly see K8s as a viable compute environment for their bioinformatic pipelines. In this article, Ben Sherman, Seqera Lab’s master of all things Kubernetes, details recent improvements to the Nextflow/Kubernetes integration.
-image=img/kubernetes-enhancements.jpg
+image=img/the-state-of-nextflow-and-kubernetes.jpg
 tags=nextflow, kubernetes
 status=published
 author=Ben Sherman
