@@ -30,7 +30,7 @@ Nextflow submits tasks as Pods by default, which is sort of a bad practice. In K
 You can enable this feature with the following configuration option:
 
 ```groovy
-k8s.computeResourceType = ‘Job’
+k8s.computeResourceType = 'Job'
 ```
 
 Credit goes to @xhejtman from CERIT-SC for leading the charge on this one!
