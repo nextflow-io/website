@@ -97,7 +97,7 @@ process {
 }
 ```
 
-Nextflow maps the `disk` directive to the `[ephemeral-storage](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage)` resource request, which is provided by the `[emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)` volume (another ephemeral volume type).
+Nextflow maps the `disk` directive to the [`ephemeral-storage`](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage) resource request, which is provided by the [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) volume (another ephemeral volume type).
 
 ### Miscellaneous
 
