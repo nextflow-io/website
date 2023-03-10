@@ -1,5 +1,5 @@
 title=The State of Nextflow and Kubernetes
-date=2023-03-09
+date=2023-03-10
 type=post
 description=It seems that Kubernetes is everywhere we look! Nextflow users increasingly see K8s as a viable compute environment for their bioinformatic pipelines. In this article, Ben Sherman, Seqera Lab’s master of all things Kubernetes, details recent improvements to the Nextflow/Kubernetes integration.
 image=img/the-state-of-nextflow-and-kubernetes.jpg
@@ -9,7 +9,7 @@ author=Ben Sherman
 icon=ben.jpg
 ~~~~~~
 
-Hi, my name is Ben, and I’m a software engineer at Seqera Labs. I joined Seqera in November 2021 after finishing my Ph.D. at Clemson University. I work on a number of things at Seqera, but my primary role is that of a Nextflow maintainer.
+Hi, my name is Ben, and I’m a software engineer at Seqera Labs. I joined Seqera in November 2021 after finishing my Ph.D. at Clemson University. I work on a number of things at Seqera, but my primary role is that of a Nextflow core contributor.
 
 I have run Nextflow just about everywhere, from my laptop to my university cluster to the cloud and Kubernetes. I have written Nextlfow pipelines for bioinformatics and machine learning, and I even wrote a pipeline to run other Nextflow pipelines for my [dissertation research](https://github.com/bentsherman/tesseract). While I tried to avoid contributing code to Nextflow as a student (I had enough work already), now I get to work on it full-time!
 
@@ -17,11 +17,11 @@ Which brings me to the topic of this post: Nextflow and Kubernetes.
 
 One of my first contributions was a “[best practices guide](https://github.com/seqeralabs/nf-k8s-best-practices)” for running Nextflow on Kubernetes. The guide has helped many people, but for me it provided a map for how to improve K8s support in Nextflow. You see, Nextflow was originally built for HPC, while Kubernetes and cloud batch executors were added later. While Nextflow’s extensible design makes adding features like new executors relatively easy, support for Kubernetes is still a bit spotty.
 
-So, I set out to make Nextflow + K8s great! Over the past year, in collaboration with talented members of the Nextflow community, we have added all sorts of enhancements to the K8s executor. In this blog post, I’d like to show off all of these improvements in one place, and highlight a few more improvements that are in the works.
+So, I set out to make Nextflow + K8s great! Over the past year, in collaboration with talented members of the Nextflow community, we have added all sorts of enhancements to the K8s executor. In this blog post, I’d like to show off all of these improvements in one place. So here we go!
 
 ## New features
 
-### Submit tasks as K8s Jobs
+### Submit tasks as Kubernetes Jobs
 
 *New in version 22.05.0-edge.*
 
@@ -41,9 +41,13 @@ Credit goes to @xhejtman from CERIT-SC for leading the charge on this one!
 
 One of the most difficult aspects of using Nextflow with Kubernetes is that Nextflow needs a `PersistentVolumeClaim` (PVC) to store the shared work directory, which also means that Nextflow itself must run inside the Kubernetes cluster in order to access this storage. While the `kuberun` command attempts to automate this process, it has never been reliable enough for production usage.
 
-At the Nextflow Summit in October 2022, we introduced [Fusion](https://seqera.io/fusion/), a file system driver that can mount S3 buckets as POSIX-like directories. The combination of Fusion and [Wave](https://seqera.io/wave/) (a just-in-time container provisioning service) enables you to have your work directory in S3-compatible storage. See the [Wave blog post](/blog/2022/rethinking-containers-for-cloud-native-pipelines.html) for an explanation of how it works — it’s pretty cool.
+At the Nextflow Summit in October 2022, we introduced [Fusion](https://seqera.io/fusion/), a file system driver that can mount S3 buckets as POSIX-like directories. The combination of Fusion and [Wave](https://seqera.io/wave/) (a just-in-time container provisioning service) enables you to have your work directory in S3-compatible storage. See the [Wave blog post](https://nextflow.io/blog/2022/rethinking-containers-for-cloud-native-pipelines.html) for an explanation of how it works — it’s pretty cool.
 
 This functionality is useful in general, but it is especially useful for Kubernetes, because (1) you don’t need to provision your own PVC and (2) you can run Nextflow on Kubernetes without using `kuberun` or creating your own submitter Pod.
+
+This feature currently supports AWS S3 on Elastic Kubernetes Service (EKS) clusters and Google Cloud Storage on Google Kubernetes Engine (GKE) clusters.
+
+Check out [this article](https://seqera.io/blog/deploying-nextflow-on-amazon-eks/) over at the Seqera blog for an in-depth guide to running Nextflow (with Fusion) on Amazon EKS.
 
 ### No CPU limits by default
 
@@ -51,7 +55,7 @@ This functionality is useful in general, but it is especially useful for Kuberne
 
 We have changed the default behavior of CPU requests for the K8s executor. Before, a single number in a Nextflow resource request (e.g., `cpus = 8`) was interpreted as both a “request” (lower bound) and a “limit” (upper bound) in the Pod definition. However, setting an explicit CPU limit in K8s is increasingly seen as an anti-pattern (see [this blog post](https://home.robusta.dev/blog/stop-using-cpu-limits) for an explanation). The bottom line is that it is better to specify a request without a limit, because that will ensure that each task has the CPU time it requested, while also allowing the task to use more CPU time if it is available. Unlike other resources like memory and disk, CPU time is compressible — it can be given and taken away without killing the application.
 
-We have also updated the Docker integration in Nextflow to use [CPU shares](https://www.batey.info/cgroup-cpu-shares-for-docker.html), which is the mechanism used by [Kubernetes](https://www.batey.info/cgroup-cpu-shares-for-kubernetes.html) and [AWS Batch](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions) under the hood to define expandable CPU requests. These changes make the behavior of CPU requests in Nextflow much more consistent across executors. And if you still want to define a CPU limit, you can do so using the new request/limit syntax (see below).
+We have also updated the Docker integration in Nextflow to use [CPU shares](https://www.batey.info/cgroup-cpu-shares-for-docker.html), which is the mechanism used by [Kubernetes](https://www.batey.info/cgroup-cpu-shares-for-kubernetes.html) and [AWS Batch](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#container_definitions) under the hood to define expandable CPU requests. These changes make the behavior of CPU requests in Nextflow much more consistent across executors.
 
 ### CSI ephemeral volumes
 
@@ -93,7 +97,7 @@ process {
 }
 ```
 
-Nextflow maps the `disk` directive to the [`ephemeral-storage`](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage) resource request, which is provided by the [`emptyDir`](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir) volume (another ephemeral volume type).
+Nextflow maps the `disk` directive to the `[ephemeral-storage](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage)` resource request, which is provided by the `[emptyDir](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir)` volume (another ephemeral volume type).
 
 ### Miscellaneous
 
@@ -108,46 +112,6 @@ Check the [release notes](https://github.com/nextflow-io/nextflow/releases) or t
 - Improved support for labels and queue annotation ([9951fcd9](https://github.com/nextflow-io/nextflow/commit/9951fcd9), [4df8c8d2](https://github.com/nextflow-io/nextflow/commit/4df8c8d2))
 - Add support for AWS IAM role for Service Accounts ([62df42c3](https://github.com/nextflow-io/nextflow/commit/62df42c3), [c3364d0f](https://github.com/nextflow-io/nextflow/commit/c3364d0f), [b3d33e3b](https://github.com/nextflow-io/nextflow/commit/b3d33e3b))
 
-## Upcoming features
-
-### Fractional CPU requests
-
-In Kubernetes you can request CPUs by the “millis”. For example, a Pod with 500 milli-CPUs will receive 500 ms for each second of CPU time, or “half” of a CPU. [This proposed feature](https://github.com/nextflow-io/nextflow/pull/2516) would add support for fractional CPU requests for the local executor, Google Batch, and Kubernetes.
-
-A fractional CPU request would be specified as a decimal value or in millis, for example:
-
-```groovy
-// decimal value
-cpus = 0.5
-
-// millis
-cpus = ‘500m’
-```
-
-Fractional CPU requests would be a useful way to pack many small tasks onto the same node.
-
-### Requests and limits for resource directives
-
-One of the first feature requests I made to Nextflow was to support GPUs on Kubernetes. Fortunately, Paolo (the creator of Nextflow) liked the idea enough to implement it himself, and now Nextflow can use GPUs! And not only that, but you can also specify upper and lower bounds, which in Kubernetes are called “requests” and “limits”.
-
-[This proposed feature](https://github.com/nextflow-io/nextflow/pull/3027) would add support for the same request/limit syntax to other resource directives: `cpus`, `memory`, and `disk`. While the proposal feature currently only affects Kubernetes, it provides a new abstraction that could be used in the future by other executors that support requests and limits.
-
-Requests and limits would be specified as follows:
-
-```groovy
-// number
-cpus = 1       // equivalent to [request: 1]
-memory = 8.GB  // equivalent to [request: 8.GB, limit: 8.GB]
-
-// number with params (equivalent to [request: 1, limit: 1])
-cpus = 1, limit: 4
-
-// map
-cpus = [request: 1, limit: 4]
-```
-
 ## Beyond Kubernetes
 
-We’ve added tons of value to Nextflow over the past year, and we aren’t stopping any time soon. The Nextflow team has even greater ambitions for Nextflow, and I for one am looking forward to what we will accomplish together.
-
-Keep an eye out for a more in-depth article series on Nextflow and Kubernetes, similar to the ones for [AWS Batch](https://seqera.io/blog/nextflow-and-aws-batch-inside-the-integration-part-1-of-3/) and [Azure Batch](https://seqera.io/blog/nextflow-and-azure-batch-part-1-of-2/), over at the Seqera blog.
+We’ve added tons of value to Nextflow over the past year – not just in terms of Kubernetes support, but also in terms of performance, stability, and integrations with other technologies – and we aren’t stopping any time soon! We have greater ambitions still for Nextflow, and I for one am looking forward to what we will accomplish together. As always, keep an eye on this blog, as well as the [Nextflow GitHub](https://github.com/nextflow-io/nextflow) page, for the latest updates to Nextflow.
