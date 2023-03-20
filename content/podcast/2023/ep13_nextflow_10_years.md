@@ -1,6 +1,6 @@
 title=Nextflow turns 10!
 episode=13
-description=Phil Ewels, Paolo Di Tomasso and Evan Floden look back on 10 years of scientific workflows.
+description=Phil Ewels, Paolo Di Tommaso and Evan Floden look back on 10 years of scientific workflows.
 date=2023-03-22
 type=podcast
 subtype=Special episode
