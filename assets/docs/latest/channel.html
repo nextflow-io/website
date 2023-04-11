@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Channels &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Channels &mdash; Nextflow 23.04.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Operators" href="operator.html" />
-    <link rel="prev" title="Processes" href="process.html" /> 
+    <link rel="prev" title="Processes" href="process.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -53,7 +62,6 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#channel-factory">Channel factory</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#create">create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#empty">empty</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#from">from</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fromlist">fromList</a></li>
@@ -63,12 +71,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#of">of</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#value">value</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#watchpath">watchPath</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#channel-methods">Channel methods</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#bind">bind</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#operator">operator &lt;&lt;</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#subscribe">subscribe</a></li>
 </ul>
 </li>
 </ul>
@@ -82,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -144,20 +147,18 @@ without having to wait for the receiving process.</p></li>
 <span id="channel-type-queue"></span><h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline"></a></h3>
 <p>A <cite>queue channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes,
 channel factories, or operators.</p>
-<p>A queue channel is usually created using a factory method (<span class="xref std std-ref">_channel-of</span>, <span class="xref std std-ref">_channel-path</span>, etc)
-or chaining it with a channel operator (<a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc). Queue channels
-are also created by process output declarations.</p>
+<p>A queue channel can be created by factory methods (<a class="reference internal" href="#of">of</a>, <a class="reference internal" href="#frompath">fromPath</a>, etc),
+operators (<a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc), and
+processes (see <a class="reference internal" href="process.html#process-output"><span class="std std-ref">Process outputs</span></a>).</p>
 </section>
 <section id="value-channel">
 <span id="channel-type-value"></span><h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline"></a></h3>
-<p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> is bound to a single value and can be read an
-unlimited number of times without consuming its content.</p>
-<p>A value channel is created using the <a class="reference internal" href="#value">value</a> factory method or by operators returning
-a single value, such as <a class="reference internal" href="operator.html#operator-first"><span class="std std-ref">first</span></a>, <a class="reference internal" href="operator.html#operator-last"><span class="std std-ref">last</span></a>, <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>,
-<a class="reference internal" href="operator.html#operator-count"><span class="std std-ref">count</span></a>, <a class="reference internal" href="operator.html#operator-min"><span class="std std-ref">min</span></a>, <a class="reference internal" href="operator.html#operator-max"><span class="std std-ref">max</span></a>, <a class="reference internal" href="operator.html#operator-reduce"><span class="std std-ref">reduce</span></a>, <a class="reference internal" href="operator.html#operator-sum"><span class="std std-ref">sum</span></a>, etc.</p>
-<p>A value channel is implicitly created by a process when it is invoked with a simple value.
-Furthermore, a value channel is also implicitly created as output for a process whose
-inputs are all value channels.</p>
+<p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> is bound to a single value and can be read any
+number of times without being consumed.</p>
+<p>A value channel can be created with the <a class="reference internal" href="#value">value</a> factory method or by any operator that produces
+a single value (<a class="reference internal" href="operator.html#operator-first"><span class="std std-ref">first</span></a>, <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>, <a class="reference internal" href="operator.html#operator-reduce"><span class="std std-ref">reduce</span></a>, etc). Additionally,
+a process will emit value channels if it is invoked with all value channels, including
+simple values which are implicitly wrapped in a value channel.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -178,7 +179,7 @@ inputs are all value channels.</p>
 </pre></div>
 </div>
 <p>In the above example, since the <code class="docutils literal notranslate"><span class="pre">foo</span></code> process is invoked with a simple value instead of a channel,
-the input is implicitly converted to a value channel, and the output is also provided as a value channel.</p>
+the input is implicitly converted to a value channel, and the output is also emitted as a value channel.</p>
 <p>See also: <a class="reference internal" href="process.html#process-multiple-input-channels"><span class="std std-ref">Multiple input channels</span></a>.</p>
 </section>
 </section>
@@ -190,21 +191,10 @@ the input is implicitly converted to a value channel, and the output is also pro
 <p>As of version 20.07.0, <code class="docutils literal notranslate"><span class="pre">channel</span></code> has been introduced as an alias of <code class="docutils literal notranslate"><span class="pre">Channel</span></code>, therefore factory
 methods can be specified either as <code class="docutils literal notranslate"><span class="pre">channel.of()</span></code> or <code class="docutils literal notranslate"><span class="pre">Channel.of()</span></code>, and so on.</p>
 </div>
-<section id="create">
-<span id="channel-create"></span><h3>create<a class="headerlink" href="#create" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">create</span></code> method is no longer available in DSL2 syntax.</p>
-</div>
-<p>Creates a new channel, as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channelObj</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-</pre></div>
-</div>
-</section>
 <section id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn’t emit any value.</p>
-<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a> operators.</p>
+<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> operator.</p>
 </section>
 <section id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline"></a></h3>
@@ -621,92 +611,6 @@ to close the channel when a certain condition is met (e.g. receiving a file name
 <p>See also: <a class="reference internal" href="#frompath">fromPath</a> factory method.</p>
 </section>
 </section>
-<section id="channel-methods">
-<h2>Channel methods<a class="headerlink" href="#channel-methods" title="Permalink to this headline"></a></h2>
-<section id="bind">
-<span id="channel-bind1"></span><h3>bind<a class="headerlink" href="#bind" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">bind</span></code> method is no longer available in DSL2 syntax.</p>
-</div>
-<p>Channel objects provide a <cite>bind( )</cite> method which is the basic operation to send a message over the channel.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span> <span class="s1">&#39;Hello world&#39;</span> <span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="operator">
-<span id="channel-bind2"></span><h3>operator &lt;&lt;<a class="headerlink" href="#operator" title="Permalink to this headline"></a></h3>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> operator is no longer available in DSL2 syntax.</p>
-</div>
-<p>The operator <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> is just a syntax sugar for the <code class="docutils literal notranslate"><span class="pre">bind</span></code> method. Thus, the following example produces
-an identical result as the previous one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">myChannel</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Hello world&#39;</span>
-</pre></div>
-</div>
-</section>
-<section id="subscribe">
-<span id="channel-subscribe"></span><h3>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
-<p>The emitted value is passed implicitly to the specified function. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
-<span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span> <span class="p">)</span>
-
-<span class="o">//</span> <span class="n">subscribe</span> <span class="n">a</span> <span class="n">function</span> <span class="n">to</span> <span class="n">the</span> <span class="n">channel</span> <span class="n">printing</span> <span class="n">the</span> <span class="n">emitted</span> <span class="n">values</span>
-<span class="n">source</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="s2">&quot;Got: $it&quot;</span>  <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span>
-<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span>
-<span class="n">Got</span><span class="p">:</span> <span class="n">delta</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In Groovy, the language on which Nextflow is based, the user defined function is called a <strong>closure</strong>.
-Read the <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closures</span></a> section to learn more about closures.</p>
-</div>
-<p>If needed the closure parameter can be defined explicitly, using a name other than <code class="docutils literal notranslate"><span class="pre">it</span></code> and, optionally,
-specifying the expected value type, as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span>
-        <span class="n">println</span> <span class="s2">&quot;Got: $</span><span class="si">{str}</span><span class="s2">; len: ${str.size()}&quot;</span>
-    <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">5</span>
-<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">4</span>
-<span class="n">Got</span><span class="p">:</span> <span class="k">lambda</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">6</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> method may accept one or more of the following event handlers:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">onNext</span></code>: function that is invoked whenever the channel emits a value.
-Equivalent to using the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> with a plain closure as described in the examples above.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">onComplete</span></code>: function that is invoked after the last value is emitted by the channel.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">onError</span></code>: function that it is invoked when an exception is raised while handling the
-<code class="docutils literal notranslate"><span class="pre">onNext</span></code> event. It will not make further calls to <code class="docutils literal notranslate"><span class="pre">onNext</span></code> or <code class="docutils literal notranslate"><span class="pre">onComplete</span></code>.
-The <code class="docutils literal notranslate"><span class="pre">onError</span></code> method takes as its parameter the <code class="docutils literal notranslate"><span class="pre">Throwable</span></code> that caused the error.</p></li>
-</ul>
-<p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
-<span class="mi">2</span>
-<span class="mi">3</span>
-<span class="n">Done</span>
-</pre></div>
-</div>
-</section>
-</section>
 </section>
 
 
@@ -720,7 +624,7 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -738,17 +642,12 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

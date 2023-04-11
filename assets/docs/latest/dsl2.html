@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DSL 2 &mdash; Nextflow 22.10.6 documentation</title>
+  <title>DSL 2 &mdash; Nextflow 23.04.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Command line interface (CLI)" href="cli.html" />
-    <link rel="prev" title="Configuration" href="config.html" /> 
+    <link rel="prev" title="Configuration" href="config.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -94,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -312,6 +322,11 @@ can be used to reference the channel within the caller scope. For example:</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optional params for a process input/output are always prefixed with a comma, except for <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. Because
+<code class="docutils literal notranslate"><span class="pre">stdout</span></code> does not have an associated name or value like other types, the first param should not be prefixed.</p>
+</div>
 </section>
 </section>
 <section id="workflow">
@@ -485,7 +500,7 @@ as described in the previous sections.</p>
 </pre></div>
 </div>
 <p>The above snippet includes a process with name <code class="docutils literal notranslate"><span class="pre">foo</span></code> defined in the module script in the main
-execution context. This way, <cite>foo`</cite> can be invoked in the <code class="docutils literal notranslate"><span class="pre">workflow</span></code> scope.</p>
+execution context. This way, <code class="docutils literal notranslate"><span class="pre">foo</span></code> can be invoked in the <code class="docutils literal notranslate"><span class="pre">workflow</span></code> scope.</p>
 <p>Nextflow implicitly looks for the script file <code class="docutils literal notranslate"><span class="pre">./some/module.nf</span></code> resolving the path
 against the <em>including</em> script location.</p>
 <div class="admonition note">
@@ -622,7 +637,7 @@ The template files can be made available under the local <code class="docutils l
 </pre></div>
 </div>
 <p>With the possibility to keep the template files inside the project L, A and B can use the modules defined in L without any changes.
-A future prject C would do the same, just cloning L (if not available on the system) and including its module script.</p>
+A future project C would do the same, just cloning L (if not available on the system) and including its module script.</p>
 <p>Beside promoting sharing modules across pipelines, there are several advantages in keeping the module template under the script path:</p>
 <ol class="arabic simple">
 <li><p>module components are <em>self-contained</em>,</p></li>
@@ -699,7 +714,7 @@ the Linux execute permissions.</p>
 </pre></div>
 </div>
 <p>The same is valid for the result (channel) of a process execution. Therefore a process output can be consumed by
-two or more processes without the need to fork it using the <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> operator, making the
+two or more processes without the need to fork it using the <span class="xref std std-ref">operator-into</span> operator, making the
 writing of workflow scripts more fluent and readable.</p>
 </section>
 <section id="pipes">
@@ -861,18 +876,18 @@ The above snippet can also be written as:</p>
 </pre></div>
 </div>
 </li>
-<li><p>Operator <a class="reference internal" href="channel.html#channel-bind1"><span class="std std-ref">bind</span></a> has been deprecated by DSL2 syntax</p></li>
-<li><p>Operator <a class="reference internal" href="channel.html#channel-bind2"><span class="std std-ref">operator &lt;&lt;</span></a> has been deprecated by DSL2 syntax.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-choice"><span class="std std-ref">choice</span></a> has been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-branch"><span class="std std-ref">branch</span></a> instead.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-close"><span class="std std-ref">close</span></a> has been deprecated by DSL2 syntax.</p></li>
-<li><p>Operator <a class="reference internal" href="channel.html#channel-create"><span class="std std-ref">create</span></a> has been deprecated by DSL2 syntax.</p></li>
+<li><p>Operator <span class="xref std std-ref">channel-bind1</span> has been deprecated by DSL2 syntax</p></li>
+<li><p>Operator <span class="xref std std-ref">channel-bind2</span> has been deprecated by DSL2 syntax.</p></li>
+<li><p>Operator <span class="xref std std-ref">operator-choice</span> has been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-branch"><span class="std std-ref">branch</span></a> instead.</p></li>
+<li><p>Operator <span class="xref std std-ref">operator-close</span> has been deprecated by DSL2 syntax.</p></li>
+<li><p>Operator <span class="xref std std-ref">channel-create</span> has been deprecated by DSL2 syntax.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">countBy</span></code> has been deprecated by DSL2 syntax.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-into"><span class="std std-ref">into</span></a> has been deprecated by DSL2 syntax since it’s not needed anymore.</p></li>
+<li><p>Operator <span class="xref std std-ref">operator-into</span> has been deprecated by DSL2 syntax since it’s not needed anymore.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">fork</span></code> has been renamed to <a class="reference internal" href="operator.html#operator-multimap"><span class="std std-ref">multiMap</span></a>.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">groupBy</span></code> has been deprecated by DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-grouptuple"><span class="std std-ref">groupTuple</span></a></p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> have been deprecated by DSL2 syntax. Use <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> instead.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-separate"><span class="std std-ref">separate</span></a> has been deprecated by DSL2 syntax.</p></li>
-<li><p>Operator <a class="reference internal" href="operator.html#operator-spread"><span class="std std-ref">spread</span></a> has been deprecated with DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>.</p></li>
+<li><p>Operator <span class="xref std std-ref">operator-separate</span> has been deprecated by DSL2 syntax.</p></li>
+<li><p>Operator <span class="xref std std-ref">operator-spread</span> has been deprecated with DSL2 syntax. Replace it with <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a>.</p></li>
 <li><p>Operator <code class="docutils literal notranslate"><span class="pre">route</span></code> has been deprecated by DSL2 syntax.</p></li>
 </ul>
 </section>
@@ -889,7 +904,7 @@ The above snippet can also be written as:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -907,17 +922,12 @@ The above snippet can also be written as:</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

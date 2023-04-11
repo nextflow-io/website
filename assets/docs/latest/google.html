@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Google Cloud &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Google Cloud &mdash; Nextflow 23.04.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Apache Ignite" href="ignite.html" />
-    <link rel="prev" title="Azure Cloud" href="azure.html" /> 
+    <link rel="prev" title="Azure Cloud" href="azure.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -67,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#process-definition">Process definition</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pipeline-execution">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#spot-instances">Spot instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fusion-file-system">Fusion file system</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-directives">Supported directives</a></li>
 </ul>
 </li>
@@ -74,7 +85,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#google-lifesciences-config">Configuration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">Process definition</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id11">Pipeline execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Pipeline execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#preemptible-instances">Preemptible instances</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#hybrid-execution">Hybrid execution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#quotas">Quotas</a></li>
@@ -247,25 +258,28 @@ each process using one or more <a class="reference internal" href="config.html#c
 <tr class="row-even"><td><p>google.enableRequesterPaysBuckets</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> uses the configured Google project id as the billing project for storage access. This is required when accessing data from <em>requester pays enabled</em> buckets. See <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">Requester Pays on Google Cloud Storage documentation</a> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.batch.bootDiskSize</p></td>
+<tr class="row-odd"><td><p>google.batch.allowedLocations</p></td>
+<td><p>Define the set of allowed locations for VMs to be provisioned. See <a class="reference external" href="https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#locationpolicy">Google documentation</a> for details (default: no restriction. Requires version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-even"><td><p>google.batch.bootDiskSize</p></td>
 <td><p>Set the size of the virtual machine boot disk, e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p></td>
 </tr>
-<tr class="row-even"><td><p>google.batch.cpuPlatform</p></td>
+<tr class="row-odd"><td><p>google.batch.cpuPlatform</p></td>
 <td><p>Set the minimum CPU Platform, e.g. <code class="docutils literal notranslate"><span class="pre">'Intel</span> <span class="pre">Skylake'</span></code>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.batch.spot</p></td>
+<tr class="row-even"><td><p>google.batch.spot</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>spot</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>google.batch.usePrivateAddress</p></td>
+<tr class="row-odd"><td><p>google.batch.usePrivateAddress</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.batch.network</p></td>
+<tr class="row-even"><td><p>google.batch.network</p></td>
 <td><p>Set network name to attach the VM’s network interface to. The value will be prefixed with global/networks/ unless it contains a /, in which case it is assumed to be a fully specified network resource URL. If unspecified, the global default network is used.</p></td>
 </tr>
-<tr class="row-even"><td><p>google.batch.serviceAccountEmail</p></td>
+<tr class="row-odd"><td><p>google.batch.serviceAccountEmail</p></td>
 <td><p>Define the Google service account email to use for the pipeline execution. If not specified, the default Compute Engine service account for the project will be used.</p></td>
 </tr>
-<tr class="row-odd"><td><p>google.batch.subnetwork</p></td>
+<tr class="row-even"><td><p>google.batch.subnetwork</p></td>
 <td><p>Define the name of the subnetwork to attach the instance to must be specified here, when the specified network is configured for custom subnet creation. The value is prefixed with <cite>regions/subnetworks/</cite> unless it contains a <cite>/</cite>, in which case it is assumed to be a fully specified subnetwork resource URL.</p></td>
 </tr>
 </tbody>
@@ -273,16 +287,26 @@ each process using one or more <a class="reference internal" href="config.html#c
 </section>
 <section id="process-definition">
 <h3>Process definition<a class="headerlink" href="#process-definition" title="Permalink to this headline"></a></h3>
-<p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to instantiate a custom
-machine type with the specified compute resources.  If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
-<p>The process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive may optionally be used to specify a predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
-If specified, this value overrides the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives.
-If the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used, the values must comply with the allowed custom machine type <a class="reference external" href="https://cloud.google.com/compute/docs/instances/creating-instance-with-custom-machine-type#specifications">specifications</a> .  Extended memory is not directly supported, however high memory or cpu predefined
-instances may be utilized using the <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive</p>
+<p>Processes can be defined as usual and by default the <code class="docutils literal notranslate"><span class="pre">cpus</span></code> and <code class="docutils literal notranslate"><span class="pre">memory</span></code> directives are used to find the cheapest machine
+type available at current location that fits the requested resources. If <code class="docutils literal notranslate"><span class="pre">memory</span></code> is not specified, 1GB of memory is allocated per cpu.</p>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code>, the process <code class="docutils literal notranslate"><span class="pre">machineType</span></code> directive can be a list of patterns separated by comma. The pattern can contain a <code class="docutils literal notranslate"><span class="pre">*</span></code> to match
+any number of characters and <code class="docutils literal notranslate"><span class="pre">?</span></code> to match any single character. Examples of valid patterns: <code class="docutils literal notranslate"><span class="pre">c2-*</span></code>, <code class="docutils literal notranslate"><span class="pre">`m?-standard*</span></code>, <code class="docutils literal notranslate"><span class="pre">`n*</span></code>.</p>
+<p>Alternatively it can also be used to define a specific predefined Google Compute Platform <a class="reference external" href="https://cloud.google.com/compute/docs/machine-types">machine type</a>
+or a custom machine type.</p>
 <p>Examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">custom_resources_task</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">automatic_resources_task</span> <span class="p">{</span>
     <span class="n">cpus</span> <span class="mi">8</span>
     <span class="n">memory</span> <span class="s1">&#39;40 GB&#39;</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &lt;Your script here&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<span class="p">}</span>
+
+<span class="n">process</span> <span class="n">allowing_some_series</span> <span class="p">{</span>
+    <span class="n">cpus</span> <span class="mi">8</span>
+    <span class="n">memory</span> <span class="s1">&#39;20 GB&#39;</span>
+    <span class="n">machineType</span> <span class="s1">&#39;n2-*,c2-*,m3-*&#39;</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &lt;Your script here&gt;</span>
@@ -334,6 +358,26 @@ if the virtual machine was terminated preemptively:</p>
     maxRetries = 5
 }
 </pre></div>
+</div>
+</section>
+<section id="fusion-file-system">
+<h3>Fusion file system<a class="headerlink" href="#fusion-file-system" title="Permalink to this headline"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code>, Google Batch executor supports the use of <a class="reference internal" href="fusion.html#fusion-page"><span class="std std-ref">Fusion file system</span></a>.</p>
+<p>Fusion allows the use of Google Storage as a virtual distributed file system, optimising the data transfer
+and speeding up most job I/O operations.</p>
+<p>To enable the use of Fusion file system in your pipeline, add the following snippet in your Nextflow configuration file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fusion</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">process</span><span class="o">.</span><span class="n">scratch</span> <span class="o">=</span> <span class="n">false</span>
+<span class="n">tower</span><span class="o">.</span><span class="n">accessToken</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR ACCESS TOKEN&gt;&#39;</span>
+</pre></div>
+</div>
+<p>The <a class="reference external" href="https://cloud.tower.nf">Tower</a> access token is optional, but it enables higher API rate limits for the
+<a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> service required by Fusion.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>When Fusion is enabled, by default, only machine types that allow to attach local SSD disks will be used. If you specify your own
+machine type or machine series they should allow to attach local SSD disks, otherwise the job scheduling will fail.</p>
 </div>
 </section>
 <section id="supported-directives">
@@ -536,8 +580,8 @@ instances may be utilized using the <code class="docutils literal notranslate"><
 <p>This feature requires Nextflow 19.07.0 or later.</p>
 </div>
 </section>
-<section id="id11">
-<h3>Pipeline execution<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<section id="id10">
+<h3>Pipeline execution<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <p>The pipeline can be launched either in a local computer or a cloud instance. Pipeline input data can be stored either
 locally or in a Google Storage bucket.</p>
 <p>The pipeline execution must specify a Google Storage bucket where the workflow’s intermediate results are stored using
@@ -654,7 +698,7 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -672,17 +716,12 @@ and a <cite>region</cite> or <cite>zone</cite> where <a class="reference externa
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>
