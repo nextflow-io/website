@@ -1,4 +1,4 @@
-title=Nextflow and nf-core mentorship, Round 2
+title=Nextflow and nf-core Mentorship, Round 2
 date=2023-04-17
 type=post
 description=With the second round of the mentorship program now complete, we celebrate the success of the most recent cohort of mentors and mentees.
@@ -11,7 +11,7 @@ icon=chris_h.png
 
 ## Introduction
 
-<div class="pull-right" style=" max-width: 350px; border: 1px solid #ededed; margin-left: 2rem; padding: 2rem;">
+<div class="pull-right" style=" max-width: 350px; margin-left: 2rem; padding: 2rem;">
     <img src="/img/mentorships-round2-rocket.png" alt="Mentorship rocket.">
     <p><em>Nextflow and nf-core mentorship rocket.</em></p>
 </div>
@@ -132,4 +132,4 @@ As the Nextflow and nf-core communities continue to grow, the mentorship program
     <em>“I highly recommend this program. Independent if you are new to Nextflow or already have some experience, the possibility of working with amazing people to learn about the Nextflow ecosystem is invaluable. It helped me to improve my work, learn new things, and become confident enough to teach Nextflow to students.”</em> - Juan Ugalde (Mentee)
 </blockquote>
 
-Applications for the third round are now open! For more information, please visit https://nf-co.re/mentorships.
+We were delighted with the achievements of the mentors and mentees. Applications for the third round are now open! For more information, please visit https://nf-co.re/mentorships.
