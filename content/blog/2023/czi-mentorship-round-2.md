@@ -11,7 +11,7 @@ icon=chris_h.png
 
 ## Introduction
 
-<div class="pull-right" style=" max-width: 350px; margin-left: 2rem; padding: 2rem;">
+<div class="pull-right" style=" max-width: 30%; margin-left: 2rem; padding: 2rem;">
     <img src="/img/mentorships-round2-rocket.png" alt="Mentorship rocket.">
     <p style="text-align: center;"><em>Nextflow and nf-core mentorship rocket.</em></p>
 </div>
