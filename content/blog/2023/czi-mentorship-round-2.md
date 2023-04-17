@@ -13,7 +13,7 @@ icon=chris_h.png
 
 <div class="pull-right" style=" max-width: 350px; margin-left: 2rem; padding: 2rem;">
     <img src="/img/mentorships-round2-rocket.png" alt="Mentorship rocket.">
-    <p><em>Nextflow and nf-core mentorship rocket.</em></p>
+    <p style="text-align: center;"><em>Nextflow and nf-core mentorship rocket.</em></p>
 </div>
 
 The global Nextflow and nf-core community is thriving with strong engagement in several countries. As we continue to expand and grow, we remain committed to prioritizing inclusivity and actively reaching groups with low representation.
