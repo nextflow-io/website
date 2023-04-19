@@ -29,7 +29,7 @@ Object stores are attractive because they are reliable, scalable, and cost-effec
 Because they support both near-line and cold storage, object stores are sometimes referred to as "cheap and deep." Based on current [S3 pricing](https://aws.amazon.com/s3/pricing), the going rate for data storage is USD 0.023 per GB for the first 50 TB of data. Users can "pay as they go" — spinning up S3 storage buckets and storing arbitrary amounts of data for as long as they choose. Some high-level differences between object stores and traditional file systems are summarized below.
 
 <div class="table-responsive">
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered" style="font-size:80%;">
     <thead>
       <tr>
         <td></td>
@@ -183,7 +183,7 @@ For sites struggling with performance and scalability issues on shared file syst
 A summary of storage options is presented in the table below:
 
 <div class="table-responsive">
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered" style="font-size: 80%;">
     <thead>
       <tr>
         <td></td>
