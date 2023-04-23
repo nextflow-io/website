@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Operators &mdash; Nextflow 23.04.0 documentation</title>
+  <title>Operators &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -72,6 +72,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#first">first</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flatmap">flatMap</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flatten">flatten</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#groupby">groupBy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#grouptuple">groupTuple</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ifempty">ifEmpty</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#join">join</a></li>
@@ -179,7 +180,6 @@ to Nextflow, here are some suggested operators to learn for common use cases:</p
 <p class="admonition-title">Note</p>
 <p>Requires Nextflow version <code class="docutils literal notranslate"><span class="pre">19.08.0-edge</span></code> or later.</p>
 </div>
-<p><em>Returns: map of queue channels</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">branch</span></code> operator allows you to forward the items emitted by a source channel to one
 or more output channels, <cite>choosing</cite> one out of them at a time.</p>
 <p>The selection criteria is defined by specifying a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that provides
@@ -256,7 +256,6 @@ implicitly returned.</p>
 </section>
 <section id="buffer">
 <h2>buffer<a class="headerlink" href="#buffer" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">buffer</span></code> operator gathers the items emitted by the source channel into subsets and emits these subsets separately.</p>
 <p>There are a number of ways you can regulate how <code class="docutils literal notranslate"><span class="pre">buffer</span></code> gathers the items from
 the source channel into subsets:</p>
@@ -343,7 +342,6 @@ add the parameter <code class="docutils literal notranslate"><span class="pre">r
 </section>
 <section id="collate">
 <h2>collate<a class="headerlink" href="#collate" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">collate</span></code> operator transforms a channel in such a way that the emitted values are grouped in tuples containing <cite>n</cite> items. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
@@ -387,7 +385,6 @@ are collected in tuples. For example:</p>
 </section>
 <section id="collect">
 <span id="operator-collect"></span><h2>collect<a class="headerlink" href="#collect" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">collect</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal notranslate"><span class="pre">List</span></code> and return
 the resulting object as a sole emission. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -434,7 +431,6 @@ For example:</p>
 </section>
 <section id="collectfile">
 <h2>collectFile<a class="headerlink" href="#collectfile" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">collectFile</span></code> operator allows you to gather the items emitted by a channel and save them to one or more files.
 The operator returns a new channel that emits the collected file(s).</p>
 <p>In the simplest case, just specify the name of a file where the entries have to be stored. For example:</p>
@@ -595,7 +591,6 @@ folder can be specified by using the <code class="docutils literal notranslate">
 </section>
 <section id="combine">
 <span id="operator-combine"></span><h2>combine<a class="headerlink" href="#combine" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">combine</span></code> operator combines (cartesian product) the items emitted by two channels or by a channel and a <code class="docutils literal notranslate"><span class="pre">Collection</span></code>
 object (as right operand). For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">numbers</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -637,7 +632,6 @@ For example:</p>
 </section>
 <section id="concat">
 <span id="operator-concat"></span><h2>concat<a class="headerlink" href="#concat" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel. The items emitted by the resulting channel are in the same order as specified in the operator arguments.</p>
 <p>Given <cite>n</cite> number of channels, the concatenation channel emits the items proceeding from the <cite>i+1 th</cite> channel
 only after <cite>all</cite> the items proceeding from the <cite>i th</cite> channel were emitted.</p>
@@ -663,7 +657,6 @@ only after <cite>all</cite> the items proceeding from the <cite>i th</cite> chan
 </section>
 <section id="count">
 <span id="operator-count"></span><h2>count<a class="headerlink" href="#count" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">count</span></code> operator creates a channel that emits a single item: a number that represents the total number of
 items emitted by the source channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -698,7 +691,6 @@ a literal value, a Java class, or a <cite>boolean predicate</cite> that needs to
 </section>
 <section id="cross">
 <span id="operator-cross"></span><h2>cross<a class="headerlink" href="#cross" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cross</span></code> operator allows you to combine the items of two channels in such a way that
 the items of the source channel are emitted along with the items emitted by the target channel
 for which they have a matching key.</p>
@@ -733,7 +725,6 @@ items have an unique key identifier.</p></li>
 </section>
 <section id="distinct">
 <h2>distinct<a class="headerlink" href="#distinct" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">distinct</span></code> operator allows you to remove <cite>consecutive</cite> duplicated items from a channel, so that each emitted item
 is different from the preceding one. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -769,7 +760,6 @@ For example:</p>
 </section>
 <section id="dump">
 <span id="operator-dump"></span><h2>dump<a class="headerlink" href="#dump" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel or value channel, depending on the input</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">dump</span></code> operator prints the items emitted by the channel to which is applied only when the option
 <code class="docutils literal notranslate"><span class="pre">-dump-channels</span></code> is specified on the <code class="docutils literal notranslate"><span class="pre">run</span></code> command line, otherwise it is ignored.</p>
 <p>This is useful to enable the debugging of one or more channel content on-demand by using a command line option
@@ -798,7 +788,6 @@ character.</p>
 </section>
 <section id="filter">
 <h2>filter<a class="headerlink" href="#filter" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">filter</span></code> operator allows you to get only the items emitted by a channel that satisfy a condition and discarding
 all the others. The filtering condition can be specified by using either a <a class="reference internal" href="script.html#script-regexp"><span class="std std-ref">regular expression</span></a>,
 a literal value, a type <cite>qualifier</cite> (i.e. a Java class) or any boolean <cite>predicate</cite>.</p>
@@ -849,7 +838,6 @@ In reality it is just syntactic sugar for <code class="docutils literal notransl
 </section>
 <section id="first">
 <span id="operator-first"></span><h2>first<a class="headerlink" href="#first" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">first</span></code> operator creates a channel that returns the first item emitted by the source channel, or eventually
 the first item that matches an optional condition. The condition can be specified by using a <a class="reference internal" href="script.html#script-regexp"><span class="std std-ref">regular expression</span></a>,
 a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For example:</p>
@@ -881,7 +869,6 @@ a Java <cite>class</cite> type or any boolean <cite>predicate</cite>. For exampl
 </section>
 <section id="flatmap">
 <span id="operator-flatmap"></span><h2>flatMap<a class="headerlink" href="#flatmap" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">flatMap</span></code> operator applies a function of your choosing to every item emitted by a channel, and
 returns the items so obtained as a new channel. Whereas the <cite>mapping</cite> function returns a list of items,
 this list is flattened so that each single item is emitted on its own.</p>
@@ -923,7 +910,6 @@ this list is flattened so that each single item is emitted on its own.</p>
 </section>
 <section id="flatten">
 <span id="operator-flatten"></span><h2>flatten<a class="headerlink" href="#flatten" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">flatten</span></code> operator transforms a channel in such a way that every item of type <code class="docutils literal notranslate"><span class="pre">Collection</span></code> or <code class="docutils literal notranslate"><span class="pre">Array</span></code>
 is flattened so that each single entry is emitted separately by the resulting channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -942,9 +928,36 @@ is flattened so that each single entry is emitted separately by the resulting ch
 </div>
 <p>See also: <a class="reference internal" href="#flatmap">flatMap</a> operator.</p>
 </section>
+<section id="groupby">
+<h2>groupBy<a class="headerlink" href="#groupby" title="Permalink to this headline"></a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This operator is deprecated. Use the <a class="reference internal" href="#grouptuple">groupTuple</a> operator instead.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">groupBy</span></code> operator collects the values emitted by the source channel grouping them together using a <cite>mapping</cite>
+function that associates each item with a key. When finished, it emits an associative
+array that maps each key to the set of items identified by that key.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">,</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;hi&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">groupBy</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="n">b</span><span class="p">:[</span><span class="s1">&#39;bonjour&#39;</span><span class="p">],</span> <span class="n">c</span><span class="p">:[</span><span class="s1">&#39;ciao&#39;</span><span class="p">],</span> <span class="n">h</span><span class="p">:[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span><span class="s1">&#39;hola&#39;</span><span class="p">,</span><span class="s1">&#39;hi&#39;</span><span class="p">]</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>The <cite>mapping</cite> function is an optional parameter. When omitted, the values are grouped
+according to these rules:</p>
+<ul class="simple">
+<li><p>Any value of type <code class="docutils literal notranslate"><span class="pre">Map</span></code> is associated with the value of its first entry, or <code class="docutils literal notranslate"><span class="pre">null</span></code> when the map itself is empty.</p></li>
+<li><p>Any value of type <code class="docutils literal notranslate"><span class="pre">Map.Entry</span></code> is associated with the value of its <code class="docutils literal notranslate"><span class="pre">key</span></code> attribute.</p></li>
+<li><p>Any value of type <code class="docutils literal notranslate"><span class="pre">Collection</span></code> or <code class="docutils literal notranslate"><span class="pre">Array</span></code> is associated with its first entry.</p></li>
+<li><p>For any other value, the value itself is used as a key.</p></li>
+</ul>
+</section>
 <section id="grouptuple">
 <span id="operator-grouptuple"></span><h2>groupTuple<a class="headerlink" href="#grouptuple" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">groupTuple</span></code> operator collects tuples (or lists) of values emitted by the source channel grouping together the
 elements that share the same key. Finally it emits a new tuple object for each distinct key collected.</p>
 <p>In other words, the operator transforms a sequence of tuple like <em>(K, V, W, ..)</em> into a new channel emitting a sequence of
@@ -1091,7 +1104,6 @@ to associate the group size for a given key.</p>
 </section>
 <section id="ifempty">
 <span id="operator-ifempty"></span><h2>ifEmpty<a class="headerlink" href="#ifempty" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">ifEmpty</span></code> operator creates a channel which emits a default value, specified as the operator parameter, when the channel to which
 is applied is <em>empty</em> i.e. doesn’t emit any value. Otherwise it will emit the same sequence of entries as the original channel.</p>
 <p>Thus, the following example prints:</p>
@@ -1115,7 +1127,6 @@ will be emitted when the empty condition is satisfied.</p>
 </section>
 <section id="join">
 <span id="operator-join"></span><h2>join<a class="headerlink" href="#join" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">join</span></code> operator creates a channel that joins together the items emitted by two channels for which exists
 a matching key. The key is defined, by default, as the first element in each item emitted.</p>
 <p>For example:</p>
@@ -1176,7 +1187,6 @@ are discarded (default). When <code class="docutils literal notranslate"><span c
 </section>
 <section id="last">
 <span id="operator-last"></span><h2>last<a class="headerlink" href="#last" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">last</span></code> operator creates a channel that only returns the last item emitted by the source channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span> <span class="p">)</span>
@@ -1190,7 +1200,6 @@ are discarded (default). When <code class="docutils literal notranslate"><span c
 </section>
 <section id="map">
 <span id="operator-map"></span><h2>map<a class="headerlink" href="#map" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">map</span></code> operator applies a function of your choosing to every item emitted by a channel, and
 returns the items so obtained as a new channel. The function applied is called the <cite>mapping</cite> function
 and is expressed with a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> as shown in the example below:</p>
@@ -1211,7 +1220,6 @@ and is expressed with a <a class="reference internal" href="script.html#script-c
 </section>
 <section id="max">
 <span id="operator-max"></span><h2>max<a class="headerlink" href="#max" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">max</span></code> operator waits until the source channel completes, and then emits the item that has the greatest value.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -1246,7 +1254,6 @@ taking two parameters that represent two emitted items to be compared. For examp
 </section>
 <section id="merge">
 <span id="operator-merge"></span><h2>merge<a class="headerlink" href="#merge" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">merge</span></code> operator lets you join items emitted by two (or more) channels into a new channel.</p>
 <p>For example, the following code merges two channels together: one which emits a series of odd integers
 and the other which emits a series of even integers:</p>
@@ -1284,7 +1291,6 @@ combined in a deterministic way. For this purpose, you can use the <a class="ref
 </section>
 <section id="min">
 <span id="operator-min"></span><h2>min<a class="headerlink" href="#min" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">min</span></code> operator waits until the source channel completes, and then emits the item that has the lowest value.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -1319,7 +1325,6 @@ taking two parameters that represent two emitted items to be compared. For examp
 </section>
 <section id="mix">
 <span id="operator-mix"></span><h2>mix<a class="headerlink" href="#mix" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">mix</span></code> operator combines the items emitted by two (or more) channels into a single channel.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">c1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
@@ -1359,7 +1364,6 @@ could also be a possible result of the above example:</p>
 <p class="admonition-title">Note</p>
 <p>Requires Nextflow version <code class="docutils literal notranslate"><span class="pre">19.11.0-edge</span></code> or later.</p>
 </div>
-<p><em>Returns: map of queue channels</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">multiMap</span></code> operator allows you to forward the items emitted by a source channel to two
 or more output channels, mapping each input value as a separate element.</p>
 <p>The mapping criteria is defined with a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that specifies the
@@ -1420,7 +1424,6 @@ due to the parallel and asynchronous nature of Nextflow pipelines.</p>
 </section>
 <section id="randomsample">
 <span id="operator-randomsample"></span><h2>randomSample<a class="headerlink" href="#randomsample" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">randomSample</span></code> operator allows you to create a channel emitting the specified number of items randomly taken
 from the channel to which is applied. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -1443,7 +1446,6 @@ sequence will be returned.</p>
 </section>
 <section id="reduce">
 <span id="operator-reduce"></span><h2>reduce<a class="headerlink" href="#reduce" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">reduce</span></code> operator applies a function of your choosing to every item emitted by a channel.
 Each time this function is invoked it takes two parameters: firstly the accumulated value and
 secondly the <cite>i-th</cite> emitted item. The result is passed as the accumulated value to the next
@@ -1472,7 +1474,6 @@ as the sole output.</p>
 </section>
 <section id="set">
 <span id="operator-set"></span><h2>set<a class="headerlink" href="#set" title="Permalink to this headline"></a></h2>
-<p><em>Returns: nothing</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> operator assigns the channel to a variable whose name is specified as a closure parameter.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span><span class="o">.</span><span class="n">set</span> <span class="p">{</span> <span class="n">my_channel</span> <span class="p">}</span>
@@ -1487,7 +1488,6 @@ of a chain of operator transformations, thus resulting in a more fluent and read
 </section>
 <section id="splitcsv">
 <h2>splitCsv<a class="headerlink" href="#splitcsv" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">splitCsv</span></code> operator allows you to parse text items emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/Comma-separated_values">CSV format</a>, and split them into records or group them into
 list of records with a specified length.</p>
@@ -1569,7 +1569,6 @@ as shown below:</p>
 </section>
 <section id="splitfasta">
 <h2>splitFasta<a class="headerlink" href="#splitfasta" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">splitFasta</span></code> operator allows you to split the entries emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/FASTA_format">FASTA format</a>. It returns a channel which emits text item
 for each sequence in the received FASTA content.</p>
@@ -1685,7 +1684,6 @@ starts with the <code class="docutils literal notranslate"><span class="pre">ENS
 </section>
 <section id="splitfastq">
 <h2>splitFastq<a class="headerlink" href="#splitfastq" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">splitFastq</span></code> operator allows you to split the entries emitted by a channel, that are formatted using the
 <a class="reference external" href="http://en.wikipedia.org/wiki/FASTQ_format">FASTQ format</a>. It returns a channel which emits a text chunk
 for each sequence in the received item.</p>
@@ -1806,7 +1804,6 @@ the same number of reads.</p>
 </section>
 <section id="splittext">
 <h2>splitText<a class="headerlink" href="#splittext" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">splitText</span></code> operator allows you to split multi-line strings or text file items, emitted by a source channel
 into chunks containing <cite>n</cite> lines, which will be emitted by the resulting channel.</p>
 <p>For example:</p>
@@ -1885,7 +1882,6 @@ The following example shows how to split text files into chunks of 10 lines and 
 </section>
 <section id="subscribe">
 <span id="operator-subscribe"></span><h2>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline"></a></h2>
-<p><em>Returns: nothing</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> operator allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
 <p>The emitted value is passed implicitly to the specified function. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
@@ -1943,7 +1939,6 @@ The <code class="docutils literal notranslate"><span class="pre">onError</span><
 </section>
 <section id="sum">
 <span id="operator-sum"></span><h2>sum<a class="headerlink" href="#sum" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">sum</span></code> operator creates a channel that emits the sum of all the items emitted by the channel itself.
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -1969,7 +1964,6 @@ a function that, given an item, returns the value to be summed. For example:</p>
 </section>
 <section id="take">
 <h2>take<a class="headerlink" href="#take" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">take</span></code> operator allows you to filter only the first <cite>n</cite> items emitted by a channel. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span> <span class="p">)</span>
@@ -1991,15 +1985,19 @@ a function that, given an item, returns the value to be summed. For example:</p>
 </section>
 <section id="tap">
 <h2>tap<a class="headerlink" href="#tap" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator is like the <a class="reference internal" href="#set">set</a> operator in that it assigns a source channel to a new target channel.
-but it also emits the source channel for downstream use. This operator is a useful way to extract intermediate
-output channels from a chain of operators. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator combines the functions of <a href="#id3"><span class="problematic" id="id4">`into`_</span></a> and <a href="#id5"><span class="problematic" id="id6">`separate`_</span></a> operators in such a way that
+it connects two channels, copying the values from the source into the <cite>tapped</cite> channel. At the same
+time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
+as in the following example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">log1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+<span class="n">log2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+<span class="n">Channel</span>
     <span class="o">.</span><span class="n">of</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">(</span> <span class="n">log1</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">(</span> <span class="n">log2</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
     <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
 
@@ -2020,10 +2018,24 @@ output channels from a chain of operators. For example:</p>
 <span class="n">Log</span> <span class="mi">2</span><span class="p">:</span> <span class="n">cc</span>
 </pre></div>
 </div>
+<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator also allows the target channel to be specified by using a closure. The advantage of this syntax
+is that you won’t need to previously create the target channel, because it is created implicitly by the operator itself.</p>
+<p>Using the closure syntax the above example can be rewritten as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">of</span> <span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log1</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">tap</span> <span class="p">{</span> <span class="n">log2</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="p">}</span>
+    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Result: $it&quot;</span> <span class="p">}</span>
+
+<span class="n">log1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 1: $it&quot;</span> <span class="p">}</span>
+<span class="n">log2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
+</pre></div>
+</div>
 </section>
 <section id="tointeger">
 <h2>toInteger<a class="headerlink" href="#tointeger" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">toInteger</span></code> operator allows you to convert the string values emitted by a channel to <code class="docutils literal notranslate"><span class="pre">Integer</span></code> values. For
 example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2040,7 +2052,6 @@ example:</p>
 </section>
 <section id="tolist">
 <h2>toList<a class="headerlink" href="#tolist" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">toList</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal notranslate"><span class="pre">List</span></code> object
 and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2069,7 +2080,6 @@ and emits the resulting collection as a single item. For example:</p>
 </section>
 <section id="tosortedlist">
 <h2>toSortedList<a class="headerlink" href="#tosortedlist" title="Permalink to this headline"></a></h2>
-<p><em>Returns: value channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">toSortedList</span></code> operator collects all the items emitted by a channel to a <code class="docutils literal notranslate"><span class="pre">List</span></code> object where they are sorted
 and emits the resulting collection as a single item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2096,7 +2106,6 @@ and emits the resulting collection as a single item. For example:</p>
 </section>
 <section id="transpose">
 <h2>transpose<a class="headerlink" href="#transpose" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">transpose</span></code> operator transforms a channel in such a way that the emitted items are the result of a transposition
 of all tuple elements in each item. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2144,7 +2153,6 @@ containing a <code class="docutils literal notranslate"><span class="pre">null</
 </section>
 <section id="unique">
 <h2>unique<a class="headerlink" href="#unique" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">unique</span></code> operator allows you to remove duplicate items from a channel and only emit single items with no repetition.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2174,7 +2182,6 @@ For example:</p>
 </section>
 <section id="until">
 <h2>until<a class="headerlink" href="#until" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">until</span></code> operator creates a channel that returns the items emitted by the source channel and stop when
 the condition specified is verified. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -2192,7 +2199,6 @@ the condition specified is verified. For example:</p>
 </section>
 <section id="view">
 <span id="operator-view"></span><h2>view<a class="headerlink" href="#view" title="Permalink to this headline"></a></h2>
-<p><em>Returns: queue channel</em></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">view</span></code> operator prints the items emitted by a channel to the console standard output. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">()</span>
 

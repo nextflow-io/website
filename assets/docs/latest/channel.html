@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Channels &mdash; Nextflow 23.04.0 documentation</title>
+  <title>Channels &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -147,18 +147,20 @@ without having to wait for the receiving process.</p></li>
 <span id="channel-type-queue"></span><h3>Queue channel<a class="headerlink" href="#queue-channel" title="Permalink to this headline"></a></h3>
 <p>A <cite>queue channel</cite> is a non-blocking unidirectional FIFO queue which connects two processes,
 channel factories, or operators.</p>
-<p>A queue channel can be created by factory methods (<a class="reference internal" href="#of">of</a>, <a class="reference internal" href="#frompath">fromPath</a>, etc),
-operators (<a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc), and
-processes (see <a class="reference internal" href="process.html#process-output"><span class="std std-ref">Process outputs</span></a>).</p>
+<p>A queue channel is usually created using a factory method (<span class="xref std std-ref">_channel-of</span>, <span class="xref std std-ref">_channel-path</span>, etc)
+or chaining it with a channel operator (<a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a>, <a class="reference internal" href="operator.html#operator-flatmap"><span class="std std-ref">flatMap</span></a>, etc). Queue channels
+are also created by process output declarations.</p>
 </section>
 <section id="value-channel">
 <span id="channel-type-value"></span><h3>Value channel<a class="headerlink" href="#value-channel" title="Permalink to this headline"></a></h3>
-<p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> is bound to a single value and can be read any
-number of times without being consumed.</p>
-<p>A value channel can be created with the <a class="reference internal" href="#value">value</a> factory method or by any operator that produces
-a single value (<a class="reference internal" href="operator.html#operator-first"><span class="std std-ref">first</span></a>, <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>, <a class="reference internal" href="operator.html#operator-reduce"><span class="std std-ref">reduce</span></a>, etc). Additionally,
-a process will emit value channels if it is invoked with all value channels, including
-simple values which are implicitly wrapped in a value channel.</p>
+<p>A <cite>value channel</cite> a.k.a. <em>singleton channel</em> is bound to a single value and can be read an
+unlimited number of times without consuming its content.</p>
+<p>A value channel is created using the <a class="reference internal" href="#value">value</a> factory method or by operators returning
+a single value, such as <a class="reference internal" href="operator.html#operator-first"><span class="std std-ref">first</span></a>, <a class="reference internal" href="operator.html#operator-last"><span class="std std-ref">last</span></a>, <a class="reference internal" href="operator.html#operator-collect"><span class="std std-ref">collect</span></a>,
+<a class="reference internal" href="operator.html#operator-count"><span class="std std-ref">count</span></a>, <a class="reference internal" href="operator.html#operator-min"><span class="std std-ref">min</span></a>, <a class="reference internal" href="operator.html#operator-max"><span class="std std-ref">max</span></a>, <a class="reference internal" href="operator.html#operator-reduce"><span class="std std-ref">reduce</span></a>, <a class="reference internal" href="operator.html#operator-sum"><span class="std std-ref">sum</span></a>, etc.</p>
+<p>A value channel is implicitly created by a process when it is invoked with a simple value.
+Furthermore, a value channel is also implicitly created as output for a process whose
+inputs are all value channels.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
   <span class="nb">input</span><span class="p">:</span>
@@ -179,7 +181,7 @@ simple values which are implicitly wrapped in a value channel.</p>
 </pre></div>
 </div>
 <p>In the above example, since the <code class="docutils literal notranslate"><span class="pre">foo</span></code> process is invoked with a simple value instead of a channel,
-the input is implicitly converted to a value channel, and the output is also emitted as a value channel.</p>
+the input is implicitly converted to a value channel, and the output is also provided as a value channel.</p>
 <p>See also: <a class="reference internal" href="process.html#process-multiple-input-channels"><span class="std std-ref">Multiple input channels</span></a>.</p>
 </section>
 </section>
@@ -194,7 +196,7 @@ methods can be specified either as <code class="docutils literal notranslate"><s
 <section id="empty">
 <span id="channel-empty"></span><h3>empty<a class="headerlink" href="#empty" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">empty</span></code> factory method, by definition, creates a channel that doesn’t emit any value.</p>
-<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> operator.</p>
+<p>See also: <a class="reference internal" href="operator.html#operator-ifempty"><span class="std std-ref">ifEmpty</span></a> and <span class="xref std std-ref">operator-close</span> operators.</p>
 </section>
 <section id="from">
 <span id="channel-from"></span><h3>from<a class="headerlink" href="#from" title="Permalink to this headline"></a></h3>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spack environments &mdash; Nextflow 23.04.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Amazon Cloud" href="aws.html" />
+    <link rel="prev" title="Conda environments" href="conda.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spack environments</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-it-works">How it works</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-spack-environment">Enabling Spack environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-spack-package-names">Use Spack package names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-spack-environment-files">Use Spack environment files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-existing-spack-environments">Use existing Spack environments</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#best-practices">Best practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-spack-packages-for-nextflow-pipelines">Building Spack packages for Nextflow pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-file">Configuration file</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Spack environments</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/spack.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="spack-environments">
+<span id="spack-page"></span><h1>Spack environments<a class="headerlink" href="#spack-environments" title="Permalink to this headline"></a></h1>
+<p><a class="reference external" href="https://spack.io/">Spack</a> Spack is a package manager for supercomputers, Linux, and macOS.
+It makes installing scientific software easy. Spack is not tied to a particular language;
+you can build a software stack in Python or R, link to libraries written in C, C++, or Fortran,
+and easily swap compilers or target specific microarchitectures.</p>
+<p>Nextflow has built-in support for Spack that allows the configuration of workflow dependencies
+using Spack recipes and environment files.</p>
+<p>This allows Nextflow applications to build packages from source on the compute infrastructure in use,
+whilst taking advantage of the configuration flexibility provided by Nextflow.
+At shared compute facilities where Spack has been configured by the administrators,
+this may result in optimised builds without user intervention. With appropriate options,
+this also permits end users to customise binary optimisations by themselves.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
+<p>This feature requires the <a class="reference external" href="https://spack.io">Spack</a> package manager to be installed on your system.</p>
+</section>
+<section id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline"></a></h2>
+<p>Nextflow  automatically creates and activates the Spack environment(s) given the dependencies
+specified by each process.</p>
+<p>Dependencies are specified by using the <a class="reference internal" href="process.html#process-spack"><span class="std std-ref">spack</span></a> directive, providing either
+the names of the required Spack packages, the path of a Spack environment yaml file or
+the path of an existing Spack environment directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Spack always installs the software packages in its own directories, regardless of the Nextflow specifications.
+The Spack environment created by Nextflow only contains symbolic links pointing to the appropriate package locations,
+and therefore it is relatively small in size.</p>
+</div>
+<p>You can specify the directory where the Spack environment is stored using the <code class="docutils literal notranslate"><span class="pre">spack.cacheDir</span></code>
+configuration property (see the <a class="reference internal" href="config.html#config-spack"><span class="std std-ref">configuration page</span></a> for details).
+When using a computing cluster, make sure to use a shared file system path
+accessible from all compute nodes.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The Spack environment feature is not supported by executors that use
+remote object storage as a work directory e.g. AWS Batch.</p>
+</div>
+<section id="enabling-spack-environment">
+<h3>Enabling Spack environment<a class="headerlink" href="#enabling-spack-environment" title="Permalink to this headline"></a></h3>
+<p>The use of Spack recipes specified using the <a class="reference internal" href="process.html#process-spack"><span class="std std-ref">spack</span></a>
+directive needs to be enabled explicitly by setting the option shown below in the pipeline
+configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spack</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Alternatively it can be specified by setting the variable <code class="docutils literal notranslate"><span class="pre">NXF_SPACK_ENABLED=true</span></code> in your environment
+or by using the <code class="docutils literal notranslate"><span class="pre">-with-spack</span> <span class="pre">true</span></code> command line option.</p>
+</section>
+<section id="use-spack-package-names">
+<h3>Use Spack package names<a class="headerlink" href="#use-spack-package-names" title="Permalink to this headline"></a></h3>
+<p>Spack package names can specified using the <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive. Multiple package names can be specified
+by separating them with a blank space.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">spack</span> <span class="s1">&#39;bwa samtools py-multiqc&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Using the above definition a Spack environment that includes BWA, Samtools and MultiQC tools is created and
+activated when the process is executed.</p>
+<p>The usual Spack package syntax and naming conventions can be used. The version of a package can be
+specified after the package name as shown here <code class="docutils literal notranslate"><span class="pre">bwa&#64;0.7.15</span></code>.</p>
+<p>Optimisation for the local CPU microarchitetcure can be requested by adding the option <code class="docutils literal notranslate"><span class="pre">target=&lt;LOCAL</span> <span class="pre">ARCH&gt;</span></code>
+after a package name. For instance, if the compute infrastructure uses AMD Zen3 microprocessors,
+use the following to optimise all packages for it: <code class="docutils literal notranslate"><span class="pre">bwa</span> <span class="pre">target=zen3</span> <span class="pre">samtools</span> <span class="pre">target=zen3</span> <span class="pre">py-multiqc</span> <span class="pre">target=zen3</span></code>.</p>
+<p>Read the Spack documentation for more details about <a class="reference external" href="https://spack.readthedocs.io/en/latest/basic_usage.html#specs-dependencies">package specifications</a>.</p>
+</section>
+<section id="use-spack-environment-files">
+<h3>Use Spack environment files<a class="headerlink" href="#use-spack-environment-files" title="Permalink to this headline"></a></h3>
+<p>Spack environments can also be defined using one or more Spack environment files. This is a file that
+lists the required packages and channels structured using the YAML format. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spack</span><span class="p">:</span>
+  <span class="n">specs</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">star</span><span class="o">@</span><span class="mf">2.5.4</span><span class="n">a</span>
+  <span class="o">-</span> <span class="n">bwa</span><span class="o">@</span><span class="mf">0.7.15</span>
+
+  <span class="n">view</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">concretizer</span><span class="p">:</span>
+    <span class="n">unify</span><span class="p">:</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Here, the <code class="docutils literal notranslate"><span class="pre">view</span></code> and <code class="docutils literal notranslate"><span class="pre">concretizer</span></code> options are sensible Spack defaults for environments.</p>
+<p>There are concise ways to specify the target microarchitecture (and eventually other options) within a Spack environment file.
+For instance, the following environment file specifies build optimisation for an AMD Zen3 target microprocessor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">spack</span><span class="p">:</span>
+  <span class="n">packages</span><span class="p">:</span>
+    <span class="nb">all</span><span class="p">:</span>
+      <span class="n">target</span><span class="p">:</span> <span class="p">[</span><span class="n">zen3</span><span class="p">]</span>
+  <span class="n">specs</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">star</span><span class="o">@</span><span class="mf">2.5.4</span><span class="n">a</span>
+  <span class="o">-</span> <span class="n">bwa</span><span class="o">@</span><span class="mf">0.7.15</span>
+
+  <span class="n">view</span><span class="p">:</span> <span class="n">true</span>
+  <span class="n">concretizer</span><span class="p">:</span>
+    <span class="n">unify</span><span class="p">:</span> <span class="n">true</span>
+</pre></div>
+</div>
+<p>Read the Spack documentation for more details about how to create <a class="reference external" href="https://spack.readthedocs.io/en/latest/environments.html">environment files</a>.</p>
+<p>The path of an environment file can be specified using the <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">spack</span> <span class="s1">&#39;/some/path/my-env.yaml&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The environment file name <strong>must</strong> have a <code class="docutils literal notranslate"><span class="pre">.yaml</span></code> extension or else it won’t be properly recognised.</p>
+</div>
+</section>
+<section id="use-existing-spack-environments">
+<h3>Use existing Spack environments<a class="headerlink" href="#use-existing-spack-environments" title="Permalink to this headline"></a></h3>
+<p>If you already have a local Spack environment, you can use it in your workflow specifying the
+installation directory of such environment by using the <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
+  <span class="n">spack</span> <span class="s1">&#39;/path/to/an/existing/env/directory&#39;</span>
+
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  your_command --here</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="best-practices">
+<h2>Best practices<a class="headerlink" href="#best-practices" title="Permalink to this headline"></a></h2>
+<section id="building-spack-packages-for-nextflow-pipelines">
+<h3>Building Spack packages for Nextflow pipelines<a class="headerlink" href="#building-spack-packages-for-nextflow-pipelines" title="Permalink to this headline"></a></h3>
+<p>Spack builds most software package from their source codes, and it does this for a request package
+and for all its required dependencies. As a result, Spack builds can last for long, even several hours.
+This can represent an inconvenience, in that it can significantly lengthen the duration of Nextflow processes.
+Here we briefly discuss two strategies to mitigate this aspect, and render the usage of Spack more effective.</p>
+<ol class="arabic">
+<li><p>Use a Spack yaml file, and pre-build the environment outside of Nextflow, prior to running the pipeline.
+Building packages outside of the Nextflow pipeline will work since Spack always installs packages in its own directories,
+and only creates symbolic links in the environment. This sequence of commands will do the trick in most cases:</p>
+<p>spack env create myenv /path/to/spack.yaml
+spack env activate myenv
+spack concretize -f
+spack install -y
+spack env deactivate</p>
+</li>
+<li><p>Use the Nextflow stub functionality prior to running the pipeline for production.
+Nextflow will run the stub pipeline, skipping process executions but still setting up the required software packages.
+This option is useful if it is not possible to write a Spack yaml file for the environment.
+The stub functionality is described in the <a class="reference internal" href="process.html#process-stub"><span class="std std-ref">Stub</span></a> section of the Processes page.</p></li>
+</ol>
+</section>
+<section id="configuration-file">
+<h3>Configuration file<a class="headerlink" href="#configuration-file" title="Permalink to this headline"></a></h3>
+<p>When a <code class="docutils literal notranslate"><span class="pre">spack</span></code> directive is used in any <code class="docutils literal notranslate"><span class="pre">process</span></code> definition within the workflow script, Spack tool is required for
+the workflow execution.</p>
+<p>Specifying the Spack environments in a separate configuration <a class="reference internal" href="config.html#config-profiles"><span class="std std-ref">profile</span></a> is therefore
+recommended to allow the execution via a command line option and to enhance the workflow portability. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">profiles</span> <span class="p">{</span>
+  <span class="n">spack</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">spack</span> <span class="o">=</span> <span class="s1">&#39;samtools&#39;</span>
+  <span class="p">}</span>
+
+  <span class="n">docker</span> <span class="p">{</span>
+    <span class="n">process</span><span class="o">.</span><span class="n">container</span> <span class="o">=</span> <span class="s1">&#39;biocontainers/samtools&#39;</span>
+    <span class="n">docker</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The above configuration snippet allows the execution either with Spack or Docker specifying <code class="docutils literal notranslate"><span class="pre">-profile</span> <span class="pre">spack</span></code> or
+<code class="docutils literal notranslate"><span class="pre">-profile</span> <span class="pre">docker</span></code> when running the workflow script.</p>
+</section>
+</section>
+<section id="advanced-settings">
+<h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline"></a></h2>
+<p>Spack advanced configuration settings are described in the <a class="reference internal" href="config.html#config-spack"><span class="std std-ref">Spack</span></a> section on the Nextflow configuration page.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="conda.html" class="btn btn-neutral float-left" title="Conda environments" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="aws.html" class="btn btn-neutral float-right" title="Amazon Cloud" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+</body>
+</html>
