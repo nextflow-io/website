@@ -2,7 +2,7 @@
 <#if (content.type="index")>
     <a href="https://github.com/nextflow-io/nextflow" target='_blank' class="hidden-xs"><img
             style="position: absolute; top: 0; right: 0; border: 0;"
-            src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+            src="/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 </#if>
 
     <div class="container">
