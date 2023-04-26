@@ -76,7 +76,7 @@ You can also view ten Hackathon videos outlining the event, introducing an overv
 
 We were particularly pleased to see the growing diversity of the Nextflow and nf-core community membership, enabled partly by support from the Chan Zuckerberg Initiative Diversity and Inclusion grant and our nf-core mentorship programs. You can learn more about our mentorship efforts and exciting efforts of our global team in Chris Hakkart’s excellent post, [Nextflow and nf-core Mentorship](https://nextflow.io/blog/2023/czi-mentorship-round-2.html) on the Nextflow blog.
 
-The growing diversity of our community was also reflected in the results of our latest Nextflow Community survey, coming soon to the [Seqera Labs blog](https://seqera.io/blog/).
+The growing diversity of our community was also reflected in the results of our latest Nextflow Community survey, which you can read more about on the [Seqera Labs blog](https://seqera.io/blog/the-state-of-the-workflow-2023-community-survey-results/).
 
 <div style="margin-top: 1rem">
     <img src="/img/celebrating-our-largest-international-training-event-and-hackathon-to-date-2.jpg" alt="Hackathon photo" />
