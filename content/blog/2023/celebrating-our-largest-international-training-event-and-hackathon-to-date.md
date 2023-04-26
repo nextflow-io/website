@@ -20,6 +20,8 @@ Among our event attendees, we observed the following statistics:
 
 Read on to learn more about these exciting events. If you missed it, you can still [watch the Nextflow & nf-core training](https://www.youtube.com/playlist?list=PL3xpfTVZLcNhoWxHR0CS-7xzu5eRT8uHo) at your convenience.
 
+<!-- end-archive-description -->
+
 ## Multilingual training
 
 This year, we were pleased to offer [Nextflow / nf-core training](https://nf-co.re/events/2023/training-march-2023) in multiple languages: in addition to English, we delivered sessions in French, Hindi, Portuguese, and Spanish.
