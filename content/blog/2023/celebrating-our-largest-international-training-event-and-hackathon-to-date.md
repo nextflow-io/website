@@ -93,7 +93,7 @@ The next community training will be held online September 2023. This will be fol
 
 If you’d like to join, you can register to receive news and updates about the events at [https://summit.nextflow.io/summit-2023-preregistration/](https://summit.nextflow.io/summit-2023-preregistration/)
 
-You can follow us on Twitter at @nextflow or @nf_core or join the discussion on the [Nextflow](https://nextflow.slack.com/) and [nf-core](https://nf-co.re/) community Slack channels.
+You can follow us on Twitter at [@nextflowio](https://twitter.com/nextflowio) or [@nf_core](https://twitter.com/nf_core) or join the discussion on the [Nextflow](https://www.nextflow.io/slack-invite.html) and [nf-core](https://nf-co.re/join) community Slack channels.
 
 <div style="margin-top: 1rem">
     <img src="/img/celebrating-our-largest-international-training-event-and-hackathon-to-date-3.jpg" alt="Hackathon photo" />
