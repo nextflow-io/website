@@ -1,8 +1,8 @@
-title= Celebrating our largest international training event and hackathon to date
+title=Celebrating our largest international training event and hackathon to date
 date=2023-04-25
 type=post
 description=An overview of the March 2023 Nextflow/nf-core training and hackathon events
-image=img/celebrating-our-largest-international-training-event-and-hackathon-to-date-1.jpg
+image=img/March_2023_hackathon_recap.jpg
 tags=nextflow
 status=published
 author=Phil Ewels
