@@ -30,7 +30,7 @@ In our pre-event registration, **~88%** of respondents indicated they would watc
 
 The training consisted of four separate sessions in **5 languages** for a total of **20 sessions**. As of April 19th, we’ve amassed over **6,600 YouTube views** with **2,300+ hours** of training watched so far. **27%** have watched the non-English sessions, making the effort at translation highly worthwhile.
 
-Thank you to the following people who delivered the training: Chris Hakkaart (English), Marcel Ribeiro-Dantas (Portuguese), Maxime Garcia (French), Julia Mir Pedrol and Gisela Gabernet (Spanish), and Abhinav Sharma (Hindi).
+Thank you to the following people who delivered the training: [Chris Hakkaart](https://twitter.com/Chris_Hakk) (English), [Marcel Ribeiro-Dantas](https://twitter.com/mribeirodantas) (Portuguese), [Maxime Garcia](https://twitter.com/gau) (French), [Julia Mir Pedrol](https://twitter.com/juliamirpedrol) and [Gisela Gabernet](https://twitter.com/GGabernet) (Spanish), and [Abhinav Sharma](https://twitter.com/abhi18av) (Hindi).
 
 You can view the community training sessions on YouTube here:
 
