@@ -30,7 +30,7 @@ In our pre-event registration, **~88%** of respondents indicated they would watc
 
 The training consisted of four separate sessions in **5 languages** for a total of **20 sessions**. As of April 19th, we’ve amassed over **6,600 YouTube views** with **2,300+ hours** of training watched so far. **27%** have watched the non-English sessions, making the effort at translation highly worthwhile.
 
-Thank you to the following people who delivered the training: Chris Hakkart (English), Marcel Ribiero-Dantas (Portuguese), Maxime Garcia (French), Julia Mir Pedrol and Gisela Gabernet (Spanish), and Abhinav Sharma (Hindi).
+Thank you to the following people who delivered the training: Chris Hakkaart (English), Marcel Ribeiro-Dantas (Portuguese), Maxime Garcia (French), Julia Mir Pedrol and Gisela Gabernet (Spanish), and Abhinav Sharma (Hindi).
 
 You can view the community training sessions on YouTube here:
 
@@ -74,7 +74,7 @@ You can also view ten Hackathon videos outlining the event, introducing an overv
 
 ## A diverse and growing community
 
-We were particularly pleased to see the growing diversity of the Nextflow and nf-core community membership, enabled partly by support from the Chan Zuckerberg Initiative Diversity and Inclusion grant and our nf-core mentorship programs. You can learn more about our mentorship efforts and exciting efforts of our global team in Chris Hakkart’s excellent post, [Nextflow and nf-core Mentorship](https://nextflow.io/blog/2023/czi-mentorship-round-2.html) on the Nextflow blog.
+We were particularly pleased to see the growing diversity of the Nextflow and nf-core community membership, enabled partly by support from the Chan Zuckerberg Initiative Diversity and Inclusion grant and our nf-core mentorship programs. You can learn more about our mentorship efforts and exciting efforts of our global team in Chris Hakkaart’s excellent post, [Nextflow and nf-core Mentorship](https://nextflow.io/blog/2023/czi-mentorship-round-2.html) on the Nextflow blog.
 
 The growing diversity of our community was also reflected in the results of our latest Nextflow Community survey, which you can read more about on the [Seqera Labs blog](https://seqera.io/blog/the-state-of-the-workflow-2023-community-survey-results/).
 
