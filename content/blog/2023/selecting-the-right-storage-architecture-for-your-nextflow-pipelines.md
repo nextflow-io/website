@@ -1,5 +1,5 @@
 title=Selecting the right storage architecture for your Nextflow pipelines
-date=2023-04-17
+date=2023-05-04
 type=post
 description=Exploring the pros and cons of various file systems and cloud object stores for your Nextflow pipeline
 image=img/selecting-storage.jpg
