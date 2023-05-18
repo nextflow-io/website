@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Operators &mdash; Nextflow 23.01.0-edge documentation</title>
+  <title>Operators &mdash; Nextflow 23.02.1-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -954,7 +954,15 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <em>(K, list(V), list(W), ..)</em></p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="o">.</span><span class="n">groupTuple</span><span class="p">()</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
@@ -969,7 +977,15 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter and specifying the index of the entry to be used as key (the index is zero-based). For example,
 grouping by the second value in each tuple:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="o">.</span><span class="n">groupTuple</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
@@ -2025,19 +2041,24 @@ and emits the resulting collection as a single item. For example:</p>
 <h2>transpose<a class="headerlink" href="#transpose" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">transpose</span></code> operator transforms a channel in such a way that the emitted items are the result of a transposition
 of all tuple elements in each item. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span>
-    <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">]],</span>
-    <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]]</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above snippet prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">]</span>
-<span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span>
-<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
-<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">B</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Available parameters:</p>
@@ -2147,7 +2168,7 @@ the actual value of the item to be printed:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -44,7 +44,8 @@
 							<#assign MAX = 150>
 						</#if>
 
-						<#assign words = post.body?word_list>
+						<#assign post_intro = post.body?split("<!-- end-archive-description -->")[0]>
+						<#assign words = post_intro?word_list>
 						<#if words?size gt 150 >
 							<#assign body = words[0..MAX-1]?join(' ') >
 							${body} .. (<a href="${post.uri}">click here to read more</a>)

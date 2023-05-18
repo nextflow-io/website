@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tracing &amp; visualisation &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Metrics" href="metrics.html" />
-    <link rel="prev" title="Kubernetes" href="kubernetes.html" /> 
+    <link rel="prev" title="Kubernetes" href="kubernetes.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -236,10 +246,10 @@ were used. These plots are very helpful to check that task resources are used ef
 <p>The <cite>Tasks</cite> section lists all executed tasks, reporting for each of them the status, the actual command script,
 and many other metrics. You can see an example below:</p>
 <img alt="_images/report-tasks-min.png" src="_images/report-tasks-min.png" />
-<div class="admonition note">
+<div class="admonition note" id="trace-required-packages">
 <p class="admonition-title">Note</p>
 <p>Nextflow collects these metrics through a background process for each job in the target environment.
-Make sure the following tools are available in the environment where tasks are executed: <code class="docutils literal notranslate"><span class="pre">awk</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">egrep</span></code>, <code class="docutils literal notranslate"><span class="pre">ps</span></code>, <code class="docutils literal notranslate"><span class="pre">sed</span></code>, <code class="docutils literal notranslate"><span class="pre">tail</span></code>, <code class="docutils literal notranslate"><span class="pre">tee</span></code>.
+Make sure the following tools are available in the environment where tasks are executed: <code class="docutils literal notranslate"><span class="pre">awk</span></code>, <code class="docutils literal notranslate"><span class="pre">date</span></code>, <code class="docutils literal notranslate"><span class="pre">grep</span></code>, <code class="docutils literal notranslate"><span class="pre">ps</span></code>, <code class="docutils literal notranslate"><span class="pre">sed</span></code>, <code class="docutils literal notranslate"><span class="pre">tail</span></code>, <code class="docutils literal notranslate"><span class="pre">tee</span></code>.
 Moreover, some of these metrics are not reported when running on Mac OS X. See the note
 about that in the <a class="reference external" href="trace-report">Trace report</a> below.</p>
 </div>
@@ -614,7 +624,7 @@ For example:</p>
 <td><p>Task name.</p></td>
 </tr>
 <tr class="row-even"><td><p>status</p></td>
-<td><p>Task status.</p></td>
+<td><p>Task status. Possible values are: <code class="docutils literal notranslate"><span class="pre">NEW</span></code>, <code class="docutils literal notranslate"><span class="pre">SUBMITTED</span></code>, <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>, <code class="docutils literal notranslate"><span class="pre">COMPLETED</span></code>, <code class="docutils literal notranslate"><span class="pre">FAILED</span></code> and <code class="docutils literal notranslate"><span class="pre">ABORTED</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p>exit</p></td>
 <td><p>POSIX process exit status.</p></td>
@@ -1068,7 +1078,7 @@ pipeline with the weblog feature enabled:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1086,17 +1096,12 @@ pipeline with the weblog feature enabled:</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

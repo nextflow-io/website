@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextflow scripting &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Processes" href="process.html" />
-    <link rel="prev" title="Basic concepts" href="basic.html" /> 
+    <link rel="prev" title="Basic concepts" href="basic.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -107,6 +116,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -241,6 +251,17 @@ and <code class="docutils literal notranslate"><span class="pre">Andrew</span></
 <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Cedric&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
 </pre></div>
 </div>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to add two maps together:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_scores</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Cedric&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>When adding two maps, the first map is copied and then appended with the keys from the second map. Any conflicting keys
+are overwritten by the second map.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Appending an “update” map is a safer way to modify maps in Nextflow, specifically when passing maps through channels.
+This way, any references to the original map elsewhere in the pipeline won’t be modified.</p>
+</div>
 <p>Learn more about maps:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://groovy-lang.org/groovy-dev-kit.html#Collections-Maps">Groovy Maps tutorial</a></p></li>
@@ -365,7 +386,7 @@ their arguments are effectively a single line.</p>
 <td><p>Dictionary like object representing nextflow runtime information (see <a class="reference internal" href="metadata.html#metadata-nextflow"><span class="std std-ref">Nextflow metadata</span></a>).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
-<td><p>Dictionary like object holding workflow parameters specifing in the config file or as command line options.</p></td>
+<td><p>Dictionary like object holding workflow parameters specifying in the config file or as command line options.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></p></td>
 <td><p>The directory where the main script is located (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
@@ -675,6 +696,28 @@ returns a list, whereas <code class="docutils literal notranslate"><span class="
 <p>If you are a Java geek, you might be interested to know that the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a
 <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> object, which allows
 you to use the same methods you would use in a Java program.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When a file reference is created using a URL path and it’s converted to a string the protocol schema is not included in the resulting string.</p>
+</div>
+<p>You can check this behavior with the code below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ref</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
+<span class="k">assert</span> <span class="s2">&quot;$ref&quot;</span> <span class="o">==</span> <span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
+</pre></div>
+</div>
+<p>To have the file including the schema the method <code class="docutils literal notranslate"><span class="pre">toUriString</span></code> should be used instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">toUriString</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span>
+</pre></div>
+</div>
+<p>Also, instead of composing paths through string interpolation, the <code class="docutils literal notranslate"><span class="pre">.resolve</span></code> method or the <code class="docutils literal notranslate"><span class="pre">/</span></code> operator
+should be used instead:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def dir = file(&#39;s3://bucket/some/data/path&#39;)
+def sample = &quot;$dir/sample.bam&quot;                // don&#39;t do this
+def sample1 = dir.resolve(&#39;sample.bam&#39;)
+def sample2 = dir / &#39;sample.bam&#39;              // the operator `/` can be used to compose paths
+</pre></div>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">Channel.fromPath</span></a>.</p>
 </section>
@@ -1137,7 +1180,7 @@ contain), use the method <code class="docutils literal notranslate"><span class=
 </tbody>
 </table>
 <p>For example, the following line prints a file name and size:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName() size: ${myFile.size()}&quot;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName()} size: ${myFile.size()}&quot;</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -1235,7 +1278,7 @@ automatically uncompressed.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1253,17 +1296,12 @@ automatically uncompressed.</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

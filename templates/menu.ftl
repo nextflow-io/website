@@ -2,7 +2,7 @@
 <#if (content.type="index")>
     <a href="https://github.com/nextflow-io/nextflow" target='_blank' class="hidden-xs"><img
             style="position: absolute; top: 0; right: 0; border: 0;"
-            src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
+            src="/img/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 </#if>
 
     <div class="container">
@@ -25,6 +25,10 @@
                     <a href="/index.html#GetStarted" class="<#if (content.type="index")> scroll</#if>">Quick start</a>
                 </li>
 
+                <li class="show animated flipInX">
+                    <a href="/blog/2023/learn-nextflow-in-2023.html">Learn Nextflow</a>
+                </li>
+
                 <li class="dropdown show animated flipInX">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -42,6 +46,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="/docs/latest/index.html">Reference documentation</a></li>
                         <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
+                        <li><a href="http://training.nextflow.io">Nextflow training</a></li>
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>

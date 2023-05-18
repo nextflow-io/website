@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Containers" href="container.html" />
-    <link rel="prev" title="DSL 2" href="dsl2.html" /> 
+    <link rel="prev" title="DSL 2" href="dsl2.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -89,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -564,7 +574,7 @@ nextflow-io/hello cloned to: hello
 <h3>config<a class="headerlink" href="#config" title="Permalink to this headline"></a></h3>
 <p>Print the resolved pipeline configuration.</p>
 <p><strong>Usage</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow config [options]
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow config [options] [project name or path]
 </pre></div>
 </div>
 <p><strong>Description</strong></p>
@@ -999,7 +1009,10 @@ was stopped by an error.</p></td>
 </tr>
 <tr class="row-even"><td><p>-r, -revision</p></td>
 <td></td>
-<td><p>Revision of the project to run (either a git branch, tag or commit SHA number)</p></td>
+<td><p>Revision of the project to run (either a git branch, tag or commit SHA number).
+When passing a git tag or branch, the <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> and the associated
+<code class="docutils literal notranslate"><span class="pre">workflow.commitId</span></code> is populated. When passing only the commit ID,
+no <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> is returned.</p></td>
 </tr>
 <tr class="row-odd"><td><p>-stub, -stub-run</p></td>
 <td></td>
@@ -1046,41 +1059,50 @@ file (must end with <code class="docutils literal notranslate"><span class="pre"
 <td><p>report.html</p></td>
 <td><p>Create processes execution html report.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-singularity</p></td>
+<tr class="row-even"><td><p>-with-spack</p></td>
+<td></td>
+<td><p>Use the specified Spack environment package or
+file (must end with <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-with-singularity</p></td>
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-timeline</p></td>
+<tr class="row-even"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-tower</p></td>
+<tr class="row-odd"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-trace</p></td>
+<tr class="row-even"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-wave</p></td>
+<tr class="row-odd"><td><p>-with-wave</p></td>
 <td></td>
 <td><p>Enable the use of Wave containers service.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-weblog</p></td>
+<tr class="row-even"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-conda</p></td>
+<tr class="row-odd"><td><p>-without-conda</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Conda.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-docker</p></td>
+<tr class="row-even"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-podman</p></td>
+<tr class="row-odd"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
+</tr>
+<tr class="row-even"><td><p>-without-spack</p></td>
+<td><p>false</p></td>
+<td><p>Disable process execution with Spack.</p></td>
 </tr>
 <tr class="row-odd"><td><p>-without-wave</p></td>
 <td></td>
@@ -1181,7 +1203,7 @@ execution metadata.</p>
 </tr>
 <tr class="row-even"><td><p>-filter, -F</p></td>
 <td></td>
-<td><p>Filter log entires by a custom expression
+<td><p>Filter log entries by a custom expression
 e.g. <code class="docutils literal notranslate"><span class="pre">process</span> <span class="pre">=~</span> <span class="pre">/foo.*/</span> <span class="pre">&amp;&amp;</span> <span class="pre">status</span> <span class="pre">==</span> <span class="pre">'COMPLETED'</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p>-help, -h</p></td>
@@ -1309,9 +1331,12 @@ and modifies it accordingly. For downloading a pipeline into a local directory, 
 <td><p>github</p></td>
 <td><p>Service hub where the project is hosted. Options: <code class="docutils literal notranslate"><span class="pre">gitlab</span></code> or <code class="docutils literal notranslate"><span class="pre">bitbucket</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p>-r</p></td>
+<tr class="row-odd"><td><p>-r, -revision</p></td>
 <td></td>
-<td><p>Revision to run (either a git <code class="docutils literal notranslate"><span class="pre">branch</span></code>, <code class="docutils literal notranslate"><span class="pre">tag</span></code> or commit <code class="docutils literal notranslate"><span class="pre">SHA</span></code> number).</p></td>
+<td><p>Revision of the project to run (either a git branch, tag or commit SHA number).
+When passing a git tag or branch, the <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> and the associated
+<code class="docutils literal notranslate"><span class="pre">workflow.commitId</span></code> is populated. When passing only the commit ID,
+no <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> is returned.</p></td>
 </tr>
 <tr class="row-even"><td><p>-user</p></td>
 <td></td>
@@ -1469,8 +1494,10 @@ was stopped by an error.</p></td>
 </tr>
 <tr class="row-even"><td><p>-r, -revision</p></td>
 <td></td>
-<td><p>Revision of the project to run
-(either a git <code class="docutils literal notranslate"><span class="pre">branch</span></code>, <code class="docutils literal notranslate"><span class="pre">tag</span></code> or commit <code class="docutils literal notranslate"><span class="pre">SHA</span></code> number).</p></td>
+<td><p>Revision of the project to run (either a git branch, tag, or commit SHA number)
+When passing a git tag or branch, the <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> and the associated
+<code class="docutils literal notranslate"><span class="pre">workflow.commitId</span></code> is populated. When passing only the commit ID,
+no <code class="docutils literal notranslate"><span class="pre">workflow.revision</span></code> is returned.</p></td>
 </tr>
 <tr class="row-odd"><td><p>-stub-run, -stub</p></td>
 <td><p>false</p></td>
@@ -1517,31 +1544,36 @@ file (must end with <code class="docutils literal notranslate"><span class="pre"
 <td></td>
 <td><p>Enable process execution in a Singularity container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-timeline</p></td>
+<tr class="row-even"><td><p>-with-spack</p></td>
+<td></td>
+<td><p>Use the specified Spack environment package or
+file (must end with <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-with-timeline</p></td>
 <td><p>timeline.html</p></td>
 <td><p>Create processes execution timeline file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-tower</p></td>
+<tr class="row-even"><td><p>-with-tower</p></td>
 <td></td>
 <td><p>Monitor workflow execution with Seqera Tower service.</p></td>
 </tr>
-<tr class="row-even"><td><p>-with-trace</p></td>
+<tr class="row-odd"><td><p>-with-trace</p></td>
 <td><p>trace.txt</p></td>
 <td><p>Create processes execution tracing file.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-with-weblog</p></td>
+<tr class="row-even"><td><p>-with-weblog</p></td>
 <td></td>
 <td><p>Send workflow status messages via HTTP to target URL.</p></td>
 </tr>
-<tr class="row-even"><td><p>-without-docker</p></td>
+<tr class="row-odd"><td><p>-without-docker</p></td>
 <td><p>false</p></td>
 <td><p>Disable process execution with Docker.</p></td>
 </tr>
-<tr class="row-odd"><td><p>-without-podman</p></td>
+<tr class="row-even"><td><p>-without-podman</p></td>
 <td></td>
 <td><p>Disable process execution in a Podman container.</p></td>
 </tr>
-<tr class="row-even"><td><p>-w, -work-dir</p></td>
+<tr class="row-odd"><td><p>-w, -work-dir</p></td>
 <td><p>work</p></td>
 <td><p>Directory where intermediate result files are stored.</p></td>
 </tr>
@@ -1587,11 +1619,27 @@ Launching `nextflow-io/hello` [grave_cajal] - revision: 1c3e9e7404 [v1.1]
 </pre></div>
 </div>
 </li>
-<li><p>Invoke the nextflow pipeline execution with a custom parameters <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.
-The parameters which are specified through this mechanism are merged with the resolved configuration (base configuration and profiles) and only the common fields are overwritten by the <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.:</p>
+<li><p>Invoke the nextflow pipeline execution with a custom parameters <code class="docutils literal notranslate"><span class="pre">YAML/JSON</span></code> file.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run main.nf -params-file pipeline_params.yml
 </pre></div>
 </div>
+<p>For example, the following params file in YAML format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">beta</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span>
+</pre></div>
+</div>
+<p>Or in JSON format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;alpha&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;beta&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Is equivalent to this command in CLI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow run main.nf --alpha 1 --beta foo
+</pre></div>
+</div>
+<p>The parameters specified with this mechanism are merged with the resolved configuration (base configuration and profiles). The values provided via a params file overwrite those of the same name in the Nextflow configuration file.</p>
 </li>
 </ul>
 </section>
@@ -1622,14 +1670,14 @@ Nextflow installation completed. Please note:
 </section>
 <section id="view">
 <h3>view<a class="headerlink" href="#view" title="Permalink to this headline"></a></h3>
-<p>View a projects script file(s).</p>
+<p>View a project’s script file(s).</p>
 <p><strong>Usage</strong></p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow view [options] [project]
 </pre></div>
 </div>
 <p><strong>Description</strong></p>
-<p>The <code class="docutils literal notranslate"><span class="pre">view</span></code> command is used to inspect the pipelines which are already stored in the global nextflow cache.
-For downloading a pipeline into the global cache <code class="docutils literal notranslate"><span class="pre">~/.nextflow/assets</span></code>, please refer to the <code class="docutils literal notranslate"><span class="pre">pull</span></code> command.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">view</span></code> command is used to inspect the pipelines that are already stored in the global nextflow cache.
+For downloading a pipeline into the global cache <code class="docutils literal notranslate"><span class="pre">~/.nextflow/assets</span></code>, refer to the <code class="docutils literal notranslate"><span class="pre">pull</span></code> command.</p>
 <p><strong>Options</strong></p>
 <table class="docutils align-default">
 <colgroup>
@@ -1682,7 +1730,7 @@ workflow {
 }
 </pre></div>
 </div>
-<p>Listing the folder structure of the downloaded pipeline.</p>
+<p>List the folder structure of the downloaded pipeline.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow view -l nextflow-io/hello
 
 == content of path: .nextflow/assets/nextflow-io/hello
@@ -1697,7 +1745,7 @@ foo.nf
 main.nf
 </pre></div>
 </div>
-<p>Viewing the contents of a downloaded pipeline without omitting the header.</p>
+<p>View the contents of a downloaded pipeline without omitting the header.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ nextflow view -q nextflow-io/hello
 
 #!/usr/bin/env nextflow
@@ -1723,9 +1771,9 @@ workflow {
 </section>
 <section id="pipeline-parameters">
 <span id="cli-params"></span><h2>Pipeline parameters<a class="headerlink" href="#pipeline-parameters" title="Permalink to this headline"></a></h2>
-<p>Pipeline script can use an arbitrary number of parameters that can be overridden either
+<p>Pipeline scripts can use an arbitrary number of parameters that can be overridden, either
 using the command line or the Nextflow configuration file. Any script parameter can be specified
-on the command line prefixing the parameter name with double dash characters e.g.:</p>
+on the command line, prefixing the parameter name with double dash characters, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">my</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">foo</span> <span class="n">Hello</span>
 </pre></div>
 </div>
@@ -1733,12 +1781,12 @@ on the command line prefixing the parameter name with double dash characters e.g
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When the parameter name is formatted using <code class="docutils literal notranslate"><span class="pre">camelCase</span></code>, a second parameter
-is created with the same value using <code class="docutils literal notranslate"><span class="pre">kebab-case</span></code>, and the other way around.</p>
+is created with the same value using <code class="docutils literal notranslate"><span class="pre">kebab-case</span></code>, and vice versa.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>When a command line parameter includes one or more glob characters, i.e. wildcards like <code class="docutils literal notranslate"><span class="pre">*</span></code> or <code class="docutils literal notranslate"><span class="pre">?</span></code>,
-the parameter value needs to be enclosed in quotes to prevent Bash expansion and preserve
+the parameter value must to be enclosed in quotes to prevent Bash expansion and preserve
 the glob characters. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">my</span> <span class="n">script</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">files</span> <span class="s2">&quot;*.fasta&quot;</span>
 </pre></div>
@@ -1758,7 +1806,7 @@ the glob characters. For example:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -1776,17 +1824,12 @@ the glob characters. For example:</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

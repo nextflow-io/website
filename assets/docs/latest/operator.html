@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Operators &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Operators &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Executors" href="executor.html" />
-    <link rel="prev" title="Channels" href="channel.html" /> 
+    <link rel="prev" title="Channels" href="channel.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,15 +59,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Operators</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#branch">branch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#buffer">buffer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#choice">choice</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#close">close</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#collate">collate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#collect">collect</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#collectfile">collectFile</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#combine">combine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#concat">concat</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#count">count</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#countby">countBy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cross">cross</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#distinct">distinct</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dump">dump</a></li>
@@ -69,7 +75,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#groupby">groupBy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#grouptuple">groupTuple</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ifempty">ifEmpty</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#into">into</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#join">join</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#last">last</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#map">map</a></li>
@@ -78,18 +83,14 @@
 <li class="toctree-l2"><a class="reference internal" href="#min">min</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mix">mix</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#multimap">multiMap</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#phase">phase</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#print">print</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#println">println</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#randomsample">randomSample</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reduce">reduce</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#separate">separate</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set">set</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#splitcsv">splitCsv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#splitfasta">splitFasta</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#splitfastq">splitFastq</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#splittext">splitText</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#spread">spread</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subscribe">subscribe</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#sum">sum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#take">take</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tap">tap</a></li>
@@ -110,6 +111,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
@@ -159,7 +161,7 @@
   <section id="operators">
 <span id="operator-page"></span><h1>Operators<a class="headerlink" href="#operators" title="Permalink to this headline"></a></h1>
 <p>Nextflow <strong>operators</strong> are methods that allow you to manipulate channels. Every operator,
-with the exception of <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a>, produces one or more new channels, allowing you to
+with the exception of <a class="reference internal" href="#operator-set"><span class="std std-ref">set</span></a> and <a class="reference internal" href="#operator-subscribe"><span class="std std-ref">subscribe</span></a>, produces one or more new channels, allowing you to
 chain operators to fit your needs.</p>
 <p>This page is a comprehensive reference for all Nextflow operators. However, if you are new
 to Nextflow, here are some suggested operators to learn for common use cases:</p>
@@ -337,35 +339,6 @@ add the parameter <code class="docutils literal notranslate"><span class="pre">r
 </li>
 </ul>
 <p>See also: <a class="reference internal" href="#collate">collate</a> operator.</p>
-</section>
-<section id="choice">
-<span id="operator-choice"></span><h2>choice<a class="headerlink" href="#choice" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This operator is deprecated. Use <a class="reference internal" href="#branch">branch</a> instead.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">choice</span></code> operator allows you to forward the items emitted by a source channel to two
-(or more) output channels, <cite>choosing</cite> one out of them at a time.</p>
-<p>The destination channel is selected by using a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> that must return the <cite>index</cite> number of the channel
-where the item has to be sent. The first channel is identified by the index <code class="docutils literal notranslate"><span class="pre">0</span></code>, the second as <code class="docutils literal notranslate"><span class="pre">1</span></code> and so on.</p>
-<p>The following example sends all string items beginning with <code class="docutils literal notranslate"><span class="pre">Hello</span></code> into <code class="docutils literal notranslate"><span class="pre">queue1</span></code>,
-the others into <code class="docutils literal notranslate"><span class="pre">queue2</span></code></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>source = Channel.from &#39;Hello world&#39;, &#39;Hola&#39;, &#39;Hello John&#39;
-queue1 = Channel.create()
-queue2 = Channel.create()
-
-source.choice( queue1, queue2 ) { a -&gt; a =~ /^Hello.*/ ? 0 : 1 }
-
-queue1.view()
-</pre></div>
-</div>
-<p>See also <a class="reference internal" href="#branch">branch</a> operator.</p>
-</section>
-<section id="close">
-<span id="operator-close"></span><h2>close<a class="headerlink" href="#close" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">close</span></code> operator sends a termination signal over the channel, causing downstream processes or operators to stop.
-In a common usage scenario channels are closed automatically by Nextflow, so you won’t need to use this operator explicitly.</p>
-<p>See also: <a class="reference internal" href="channel.html#channel-empty"><span class="std std-ref">empty</span></a> factory method.</p>
 </section>
 <section id="collate">
 <h2>collate<a class="headerlink" href="#collate" title="Permalink to this headline"></a></h2>
@@ -635,9 +608,9 @@ object (as right operand). For example:</p>
 <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">ciao</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>A second version of the <code class="docutils literal notranslate"><span class="pre">combine</span></code> operator allows you to combine between them those items that share a common
+<p>A second version of the <code class="docutils literal notranslate"><span class="pre">combine</span></code> operator allows you to combine items that share a common
 matching key. The index of the key element is specified by using the <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter (the index is zero-based,
-multiple indexes can be specified with list a integers).
+multiple indexes can be specified with a list of integer numbers).
 For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">left</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">([</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">right</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">([</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">])</span>
@@ -655,14 +628,13 @@ For example:</p>
 <span class="p">[</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>See also <a class="reference internal" href="#join">join</a>, <a class="reference internal" href="#cross">cross</a>, <a class="reference internal" href="#spread">spread</a> and <a class="reference internal" href="#phase">phase</a>.</p>
+<p>See also <a class="reference internal" href="#join">join</a>.</p>
 </section>
 <section id="concat">
 <span id="operator-concat"></span><h2>concat<a class="headerlink" href="#concat" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel, in such
-a way that the items emitted by the resulting channel are in same order as they were when specified as operator arguments.</p>
-<p>In other words it guarantees that given any <cite>n</cite> channels, the concatenation channel emits the items proceeding from the channel <cite>i+1 th</cite>
-only after <cite>all</cite> the items proceeding from the channel <cite>i th</cite> were emitted.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">concat</span></code> operator allows you to <cite>concatenate</cite> the items emitted by two or more channels to a new channel. The items emitted by the resulting channel are in the same order as specified in the operator arguments.</p>
+<p>Given <cite>n</cite> number of channels, the concatenation channel emits the items proceeding from the <cite>i+1 th</cite> channel
+only after <cite>all</cite> the items proceeding from the <cite>i th</cite> channel were emitted.</p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -694,7 +666,7 @@ items emitted by the source channel. For example:</p>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">4</span>
 </pre></div>
 </div>
-<p>An optional parameter can be provided in order to select which items are to be counted.
+<p>An optional parameter can be provided to select which items are to be counted.
 The selection criteria can be specified either as a <a class="reference internal" href="script.html#script-regexp"><span class="std std-ref">regular expression</span></a>,
 a literal value, a Java class, or a <cite>boolean predicate</cite> that needs to be satisfied. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -714,32 +686,6 @@ a literal value, a Java class, or a <cite>boolean predicate</cite> that needs to
     <span class="o">.</span><span class="n">count</span> <span class="p">{</span> <span class="n">it</span> <span class="o">&lt;=</span> <span class="s1">&#39;c&#39;</span> <span class="p">}</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 <span class="o">//</span> <span class="o">-&gt;</span> <span class="mi">4</span>
-</pre></div>
-</div>
-</section>
-<section id="countby">
-<span id="operator-countby"></span><h2>countBy<a class="headerlink" href="#countby" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">countBy</span></code> operator creates a channel which emits an associative array (i.e. <code class="docutils literal notranslate"><span class="pre">Map</span></code> object)
-that counts the occurrences of the emitted items in the source channel having the same key.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">countBy</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>An optional grouping criteria can be specified by using a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a>
-that associates each item with the grouping key. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;hola&#39;</span><span class="p">,</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="s1">&#39;ciao&#39;</span><span class="p">,</span> <span class="s1">&#39;bonjour&#39;</span><span class="p">,</span> <span class="s1">&#39;halo&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">countBy</span> <span class="p">{</span> <span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">}</span>
-    <span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">h</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 </div>
 </section>
@@ -775,8 +721,7 @@ emitted by the target channel (on the right) having the same key.</p>
 items have an unique key identifier.</p></li>
 </ol>
 </div></blockquote>
-<p>Optionally, a mapping function can be specified in order to provide a custom rule to associate an item to a key,
-in a similar manner as shown for the <a class="reference internal" href="#phase">phase</a> operator.</p>
+<p>Optionally, a mapping function can be specified in order to provide a custom rule to associate an item to a key.</p>
 </section>
 <section id="distinct">
 <h2>distinct<a class="headerlink" href="#distinct" title="Permalink to this headline"></a></h2>
@@ -1019,7 +964,15 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <em>(K, list(V), list(W), ..)</em></p>
 <p>For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="o">.</span><span class="n">groupTuple</span><span class="p">()</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
@@ -1034,7 +987,15 @@ elements that share the same key. Finally it emits a new tuple object for each d
 <code class="docutils literal notranslate"><span class="pre">by</span></code> parameter and specifying the index of the entry to be used as key (the index is zero-based). For example,
 grouping by the second value in each tuple:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;C&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="o">.</span><span class="n">groupTuple</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
@@ -1111,6 +1072,34 @@ to allow the <code class="docutils literal notranslate"><span class="pre">groupT
 are use cases in which each tuple has a different size depending on the grouping key. In this case use the
 built-in function <code class="docutils literal notranslate"><span class="pre">groupKey</span></code> that allows you to create a special grouping key object such that it’s possible
 to associate the group size for a given key.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+   <span class="o">.</span><span class="n">from</span><span class="p">([</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;lorem&#39;</span><span class="p">,</span> <span class="s1">&#39;ipsum&#39;</span><span class="p">,</span> <span class="s1">&#39;dolor&#39;</span><span class="p">,</span> <span class="s1">&#39;sit&#39;</span><span class="p">]])</span>
+   <span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="n">key</span><span class="p">,</span> <span class="n">words</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">(</span> <span class="n">groupKey</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">words</span><span class="o">.</span><span class="n">size</span><span class="p">()),</span> <span class="n">words</span> <span class="p">)</span> <span class="p">}</span>
+   <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The size is dynamically associated with the key in the tuple.</p>
+<p>Another example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chr_frequency</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;chr1&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;chr2&quot;</span><span class="p">:</span> <span class="mi">3</span> <span class="p">]</span>
+
+<span class="n">data_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="p">[</span> <span class="s1">&#39;region1&#39;</span><span class="p">,</span> <span class="s1">&#39;chr1&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/region1_chr1.vcf&#39;</span> <span class="p">],</span>
+   <span class="p">[</span> <span class="s1">&#39;region2&#39;</span><span class="p">,</span> <span class="s1">&#39;chr1&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/region2_chr1.vcf&#39;</span> <span class="p">],</span>
+   <span class="p">[</span> <span class="s1">&#39;region1&#39;</span><span class="p">,</span> <span class="s1">&#39;chr2&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/region1_chr2.vcf&#39;</span> <span class="p">],</span>
+   <span class="p">[</span> <span class="s1">&#39;region2&#39;</span><span class="p">,</span> <span class="s1">&#39;chr2&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/region2_chr2.vcf&#39;</span> <span class="p">],</span>
+   <span class="p">[</span> <span class="s1">&#39;region3&#39;</span><span class="p">,</span> <span class="s1">&#39;chr2&#39;</span><span class="p">,</span> <span class="s1">&#39;/path/to/region3_chr2.vcf&#39;</span> <span class="p">]</span> <span class="p">)</span>
+
+<span class="n">data_ch</span>
+  <span class="o">.</span><span class="n">map</span> <span class="p">{</span>  <span class="n">region</span><span class="p">,</span> <span class="nb">chr</span><span class="p">,</span> <span class="n">vcf</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">(</span> <span class="n">groupKey</span><span class="p">(</span><span class="nb">chr</span><span class="p">,</span> <span class="n">chr_frequency</span><span class="p">[</span><span class="nb">chr</span><span class="p">]),</span> <span class="n">vcf</span> <span class="p">)</span>  <span class="p">}</span>
+  <span class="o">.</span><span class="n">groupTuple</span><span class="p">()</span>
+  <span class="o">.</span><span class="n">view</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The result is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">chr1</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">region1_chr1</span><span class="o">.</span><span class="n">vcf</span><span class="p">,</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">region2_chr1</span><span class="o">.</span><span class="n">vcf</span><span class="p">]]</span>
+<span class="p">[</span><span class="n">chr2</span><span class="p">,</span> <span class="p">[</span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">region1_chr2</span><span class="o">.</span><span class="n">vcf</span><span class="p">,</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">region2_chr2</span><span class="o">.</span><span class="n">vcf</span><span class="p">,</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">region3_chr2</span><span class="o">.</span><span class="n">vcf</span><span class="p">]]</span>
+</pre></div>
+</div>
 </div>
 </section>
 <section id="ifempty">
@@ -1134,51 +1123,7 @@ is applied is <em>empty</em> i.e. doesn’t emit any value. Otherwise it will em
 <p>The <code class="docutils literal notranslate"><span class="pre">ifEmpty</span></code> value parameter can be defined with a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a>. In this case the result value of the closure evaluation
 will be emitted when the empty condition is satisfied.</p>
 <p>See also: <a class="reference internal" href="channel.html#channel-empty"><span class="std std-ref">empty</span></a> method.</p>
-</section>
-<section id="into">
-<span id="operator-into"></span><h2>into<a class="headerlink" href="#into" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">into</span></code> operator is no longer available in DSL2 syntax.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">into</span></code> operator connects a source channel to two or more target channels in such a way the values emitted by
-the source channel are copied to the target channels. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">into</span><span class="p">{</span> <span class="n">foo</span><span class="p">;</span> <span class="n">bar</span> <span class="p">}</span>
-
-<span class="n">foo</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
-<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">Foo</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">a</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">Bar</span> <span class="n">emit</span><span class="p">:</span> <span class="n">c</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Note the use in this example of curly brackets and the <code class="docutils literal notranslate"><span class="pre">;</span></code> as channel names separator. This is needed
-because the actual parameter of <code class="docutils literal notranslate"><span class="pre">into</span></code> is a <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> which defines the target channels
-to which the source channel is connected.</p>
-</div>
-<p>A second version of the <code class="docutils literal notranslate"><span class="pre">into</span></code> operator takes an integer <cite>n</cite> as an argument and returns
-a list of <cite>n</cite> channels, each of which emits a copy of the items that were emitted by the
-source channel. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">)</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">into</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">foo</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Foo emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-<span class="n">bar</span><span class="o">.</span><span class="n">view</span><span class="p">{</span> <span class="s2">&quot;Bar emit: &quot;</span> <span class="o">+</span> <span class="n">it</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
-in order to assign two variables at once using the list of channels returned by the <code class="docutils literal notranslate"><span class="pre">into</span></code> operator.</p>
-</div>
-<p>See also <a class="reference internal" href="#tap">tap</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
+<p>See also <a class="reference internal" href="#tap">tap</a>.</p>
 </section>
 <section id="join">
 <span id="operator-join"></span><h2>join<a class="headerlink" href="#join" title="Permalink to this headline"></a></h2>
@@ -1477,116 +1422,8 @@ you should not expect to be able to merge channels correctly without a matching 
 due to the parallel and asynchronous nature of Nextflow pipelines.</p>
 </div>
 </section>
-<section id="phase">
-<span id="operator-phase"></span><h2>phase<a class="headerlink" href="#phase" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This operator is deprecated. Use the <a class="reference internal" href="#join">join</a> operator instead.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">phase</span></code> operator creates a channel that synchronizes the values emitted by two other channels,
-in such a way that it emits pairs of items that have a matching key.</p>
-<p>The key is defined, by default, as the first entry in an array, a list or map object,
-or the value itself for any other data type.</p>
-<p>For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
-<span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>Optionally, a mapping function can be specified in order to provide a custom rule to associate an item to a key,
-as shown in the following example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="n">sequence</span><span class="p">:</span> <span class="s1">&#39;aaaaaa&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">sequence</span><span class="p">:</span> <span class="s1">&#39;bbbbbb&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
-<span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;zzzz&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;xxxxx&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span> <span class="s1">&#39;yyyyy&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">)</span> <span class="p">{</span> <span class="n">it</span> <span class="o">-&gt;</span> <span class="n">it</span><span class="o">.</span><span class="n">id</span> <span class="p">}</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[[</span><span class="n">sequence</span><span class="p">:</span><span class="n">aaaaaa</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span><span class="n">xxxxx</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="mi">1</span><span class="p">]]</span>
-<span class="p">[[</span><span class="n">sequence</span><span class="p">:</span><span class="n">bbbbbb</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="n">val</span><span class="p">:</span><span class="n">yyyyy</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span><span class="mi">2</span><span class="p">]]</span>
-</pre></div>
-</div>
-<p>Finally, the <code class="docutils literal notranslate"><span class="pre">phase</span></code> operator can emit all the pairs that are incomplete, i.e. the items for which a matching element
-is missing, by specifying the optional parameter <code class="docutils literal notranslate"><span class="pre">remainder</span></code> as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span> <span class="p">)</span>
-<span class="n">ch2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span> <span class="p">)</span>
-<span class="n">ch1</span> <span class="o">.</span><span class="n">phase</span><span class="p">(</span><span class="n">ch2</span><span class="p">,</span> <span class="n">remainder</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span> <span class="o">.</span><span class="n">view</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">null</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">null</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="n">null</span><span class="p">]</span>
-<span class="p">[</span><span class="n">null</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-</pre></div>
-</div>
-<p>See also <a class="reference internal" href="#join">join</a> operator.</p>
-</section>
-<section id="print">
-<span id="operator-print"></span><h2>print<a class="headerlink" href="#print" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator is no longer available in DSL2 syntax. Use <a class="reference internal" href="#view">view</a> instead.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">print</span></code> operator prints the items emitted by a channel to the standard output.
-An optional <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">closure</span></a> parameter can be specified to customise how items are printed.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">print</span> <span class="p">{</span> <span class="n">it</span><span class="o">.</span><span class="n">toUpperCase</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">FOO</span> <span class="n">BAR</span> <span class="n">BAZ</span> <span class="n">QUX</span>
-</pre></div>
-</div>
-<p>See also: <a class="reference internal" href="#println">println</a> and <a class="reference internal" href="#view">view</a>.</p>
-</section>
-<section id="println">
-<span id="operator-println"></span><h2>println<a class="headerlink" href="#println" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator is no longer available in DSL2 syntax. Use <a class="reference internal" href="#view">view</a> instead.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">println</span></code> operator prints the items emitted by a channel to the console standard output appending
-a <em>new line</em> character to each of them. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">println</span><span class="p">()</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foo</span>
-<span class="n">bar</span>
-<span class="n">baz</span>
-<span class="n">qux</span>
-</pre></div>
-</div>
-<p>An optional closure parameter can be specified to customise how items are printed. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;baz&#39;</span><span class="p">,</span> <span class="s1">&#39;qux&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;~ $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>It prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~</span> <span class="n">foo</span>
-<span class="o">~</span> <span class="n">bar</span>
-<span class="o">~</span> <span class="n">baz</span>
-<span class="o">~</span> <span class="n">qux</span>
-</pre></div>
-</div>
-<p>See also: <a class="reference internal" href="#print">print</a> and <a class="reference internal" href="#view">view</a>.</p>
-</section>
 <section id="randomsample">
-<h2>randomSample<a class="headerlink" href="#randomsample" title="Permalink to this headline"></a></h2>
+<span id="operator-randomsample"></span><h2>randomSample<a class="headerlink" href="#randomsample" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">randomSample</span></code> operator allows you to create a channel emitting the specified number of items randomly taken
 from the channel to which is applied. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
@@ -1610,10 +1447,9 @@ sequence will be returned.</p>
 <section id="reduce">
 <span id="operator-reduce"></span><h2>reduce<a class="headerlink" href="#reduce" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">reduce</span></code> operator applies a function of your choosing to every item emitted by a channel.
-Each time this function is invoked it takes two parameters: firstly the <cite>i-th</cite> emitted item
-and secondly the result of the previous invocation of the function itself. The result is
-passed on to the next function call, along with the <cite>i+1 th</cite> item, until all the items are
-processed.</p>
+Each time this function is invoked it takes two parameters: firstly the accumulated value and
+secondly the <cite>i-th</cite> emitted item. The result is passed as the accumulated value to the next
+function call, along with the <cite>i+1 th</cite> item, until all the items are processed.</p>
 <p>Finally, the <code class="docutils literal notranslate"><span class="pre">reduce</span></code> operator emits the result of the last invocation of your function
 as the sole output.</p>
 <p>For example:</p>
@@ -1631,104 +1467,10 @@ as the sole output.</p>
 <span class="n">result</span> <span class="o">=</span> <span class="mi">15</span>
 </pre></div>
 </div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>A common use case for this operator is to use the first paramter as an <cite>accumulator</cite>
-the second parameter as the <cite>i-th</cite> item to be processed.</p>
-</div>
-<p>Optionally you can specify a <cite>seed</cite> value in order to initialise the accumulator parameter
-as shown below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span> <span class="n">seedValue</span> <span class="p">)</span> <span class="p">{</span>  <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="o">...</span> <span class="p">}</span>
+<p>Optionally you can specify an initial value for the accumulator as shown below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myChannel</span><span class="o">.</span><span class="n">reduce</span><span class="p">(</span> <span class="n">initialValue</span> <span class="p">)</span> <span class="p">{</span>  <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-&gt;</span> <span class="o">...</span> <span class="p">}</span>
 </pre></div>
 </div>
-</section>
-<section id="separate">
-<span id="operator-separate"></span><h2>separate<a class="headerlink" href="#separate" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This operator is deprecated. Use <a class="reference internal" href="#multimap">multiMap</a> instead.</p>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">separate</span></code> operator lets you copy the items emitted by the source channel into multiple
-channels, which each of these can receive a <cite>separate</cite> version of the same item.</p>
-<p>The operator applies a <cite>mapping function</cite> of your choosing to every item emitted by the source channel.
-This function must return a list of as many values as there are output channels. Each entry in the result
-list will be assigned to the output channel with the corresponding position index. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">queue1</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">queue2</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-
-<span class="n">Channel</span>
-    <span class="o">.</span><span class="kn">from</span> <span class="p">(</span> <span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">8</span> <span class="p">)</span>
-    <span class="o">.</span><span class="n">separate</span><span class="p">(</span> <span class="n">queue1</span><span class="p">,</span> <span class="n">queue2</span> <span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="p">}</span>
-
-<span class="n">queue1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Channel 1: $it&quot;</span> <span class="p">}</span>
-<span class="n">queue2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Channel 2: $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span>
-<span class="n">Channel</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">4</span>
-<span class="n">Channel</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">5</span>
-<span class="n">Channel</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">16</span>
-<span class="n">Channel</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">64</span>
-<span class="n">Channel</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">9</span>
-</pre></div>
-</div>
-<p>When the <cite>mapping function</cite> is omitted, the source channel must emit tuples of values. In this case the operator <code class="docutils literal notranslate"><span class="pre">separate</span></code>
-splits the tuple in such a way that the value <cite>i-th</cite> in a tuple is assigned to the target channel with the corresponding position index.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">alpha</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-<span class="n">delta</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
-
-<span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span><span class="s1">&#39;q&#39;</span><span class="p">])</span>
-    <span class="o">.</span><span class="n">separate</span><span class="p">(</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">delta</span> <span class="p">)</span>
-
-<span class="n">alpha</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;first : $it&quot;</span> <span class="p">}</span>
-<span class="n">delta</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;second: $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>It will output:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">first</span> <span class="p">:</span> <span class="mi">1</span>
-<span class="n">first</span> <span class="p">:</span> <span class="n">a</span>
-<span class="n">first</span> <span class="p">:</span> <span class="n">p</span>
-<span class="n">second</span><span class="p">:</span> <span class="mi">2</span>
-<span class="n">second</span><span class="p">:</span> <span class="n">b</span>
-<span class="n">second</span><span class="p">:</span> <span class="n">q</span>
-</pre></div>
-</div>
-<p>A second version of the <code class="docutils literal notranslate"><span class="pre">separate</span></code> operator takes an integer <cite>n</cite> as an argument and returns a list of <cite>n</cite> channels,
-each of which gets a value from the corresponding element in the list returned by the closure as explained above.
-For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="p">(</span><span class="n">queue1</span><span class="p">,</span> <span class="n">queue2</span><span class="p">,</span> <span class="n">queue3</span><span class="p">)</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">separate</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="p">{</span> <span class="n">a</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">a</span><span class="p">]</span> <span class="p">}</span>
-
-<span class="n">queue1</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 1 &gt; $it&quot;</span> <span class="p">}</span>
-<span class="n">queue2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 2 &gt; $it&quot;</span> <span class="p">}</span>
-<span class="n">queue3</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Queue 3 &gt; $it&quot;</span> <span class="p">}</span>
-</pre></div>
-</div>
-<p>The output will look like the following fragment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Queue</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">Queue</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">Queue</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="mi">3</span>
-<span class="n">Queue</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">2</span>
-<span class="n">Queue</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">3</span>
-<span class="n">Queue</span> <span class="mi">2</span> <span class="o">&gt;</span> <span class="mi">4</span>
-<span class="n">Queue</span> <span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">1</span>
-<span class="n">Queue</span> <span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">4</span>
-<span class="n">Queue</span> <span class="mi">3</span> <span class="o">&gt;</span> <span class="mi">9</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>In the above example, since the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> operator is asynchronous,
-the output of <code class="docutils literal notranslate"><span class="pre">channel1</span></code>, <code class="docutils literal notranslate"><span class="pre">channel2</span></code>, and <code class="docutils literal notranslate"><span class="pre">channel3</span></code> may be printed in any order.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The above example takes advantage of the <a class="reference internal" href="script.html#script-multiple-assignment"><span class="std std-ref">multiple assignment</span></a> syntax
-in order to assign two variables at once using the list of channels returned by the <code class="docutils literal notranslate"><span class="pre">separate</span></code> operator.</p>
-</div>
-<p>See also: <a class="reference internal" href="#multimap">multiMap</a>, <a class="reference internal" href="#into">into</a>, <a class="reference internal" href="#choice">choice</a> and <a class="reference internal" href="#map">map</a> operators.</p>
 </section>
 <section id="set">
 <span id="operator-set"></span><h2>set<a class="headerlink" href="#set" title="Permalink to this headline"></a></h2>
@@ -1971,7 +1713,7 @@ the required fields, or just specify <code class="docutils literal notranslate">
 </pre></div>
 </div>
 <p>Finally the <code class="docutils literal notranslate"><span class="pre">splitFastq</span></code> operator is able to split paired-end read pair FASTQ files. It must be applied to a channel
-which emits tuples containing at least two elements that are the files to be splitted. For example:</p>
+which emits tuples containing at least two elements that are the files to be split. For example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
     <span class="o">.</span><span class="n">fromFilePairs</span><span class="p">(</span><span class="s1">&#39;/my/data/SRR*_{1,2}.fastq&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
     <span class="o">.</span><span class="n">splitFastq</span><span class="p">(</span><span class="n">by</span><span class="p">:</span> <span class="mi">100_000</span><span class="p">,</span> <span class="n">pe</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
@@ -2004,7 +1746,7 @@ the same number of reads.</p>
 <td><p>Defines the number of <em>reads</em> in each <cite>chunk</cite> (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p>pe</p></td>
-<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> splits paired-end read files, therefore items emitted by the source channel must be tuples in which at least two elements are the read-pair files to be splitted.</p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> splits paired-end read files, therefore items emitted by the source channel must be tuples in which at least two elements are the read-pair files to be split.</p></td>
 </tr>
 <tr class="row-even"><td><p>limit</p></td>
 <td><p>Limits the number of retrieved <em>reads</em> for each file to the specified value.</p></td>
@@ -2138,26 +1880,59 @@ The following example shows how to split text files into chunks of 10 lines and 
 <p>You can also use <code class="docutils literal notranslate"><span class="pre">countLines</span></code> to count the number of lines in the text file(s).</p>
 </div>
 </section>
-<section id="spread">
-<span id="operator-spread"></span><h2>spread<a class="headerlink" href="#spread" title="Permalink to this headline"></a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This operator is deprecated. Use <a class="reference internal" href="#combine">combine</a> instead.</p>
+<section id="subscribe">
+<span id="operator-subscribe"></span><h2>subscribe<a class="headerlink" href="#subscribe" title="Permalink to this headline"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> operator allows you to execute a user defined function each time a new value is emitted by the source channel.</p>
+<p>The emitted value is passed implicitly to the specified function. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">define</span> <span class="n">a</span> <span class="n">channel</span> <span class="n">emitting</span> <span class="n">three</span> <span class="n">values</span>
+<span class="n">source</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;delta&#39;</span> <span class="p">)</span>
+
+<span class="o">//</span> <span class="n">subscribe</span> <span class="n">a</span> <span class="n">function</span> <span class="n">to</span> <span class="n">the</span> <span class="n">channel</span> <span class="n">printing</span> <span class="n">the</span> <span class="n">emitted</span> <span class="n">values</span>
+<span class="n">source</span><span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span>  <span class="n">println</span> <span class="s2">&quot;Got: $it&quot;</span>  <span class="p">}</span>
+</pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">spread</span></code> operator combines the items emitted by the source channel with all the values in an array
-or a <code class="docutils literal notranslate"><span class="pre">Collection</span></code> object specified as the operator argument. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">delta</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In Groovy, the language on which Nextflow is based, the user defined function is called a <strong>closure</strong>.
+Read the <a class="reference internal" href="script.html#script-closure"><span class="std std-ref">Closures</span></a> section to learn more about closures.</p>
+</div>
+<p>If needed the closure parameter can be defined explicitly, using a name other than <code class="docutils literal notranslate"><span class="pre">it</span></code> and, optionally,
+specifying the expected value type, as shown in the following example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
-    <span class="o">.</span><span class="n">from</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">spread</span><span class="p">([</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;lambda&#39;</span> <span class="p">)</span>
+    <span class="o">.</span><span class="n">subscribe</span> <span class="p">{</span> <span class="n">String</span> <span class="nb">str</span> <span class="o">-&gt;</span>
+        <span class="n">println</span> <span class="s2">&quot;Got: $</span><span class="si">{str}</span><span class="s2">; len: ${str.size()}&quot;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Got</span><span class="p">:</span> <span class="n">alpha</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Got</span><span class="p">:</span> <span class="n">beta</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">4</span>
+<span class="n">Got</span><span class="p">:</span> <span class="k">lambda</span><span class="p">;</span> <span class="nb">len</span><span class="p">:</span> <span class="mi">6</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> operator may accept one or more of the following event handlers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">onNext</span></code>: function that is invoked whenever the channel emits a value.
+Equivalent to using the <code class="docutils literal notranslate"><span class="pre">subscribe</span></code> with a plain closure as described in the examples above.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onComplete</span></code>: function that is invoked after the last value is emitted by the channel.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">onError</span></code>: function that it is invoked when an exception is raised while handling the
+<code class="docutils literal notranslate"><span class="pre">onNext</span></code> event. It will not make further calls to <code class="docutils literal notranslate"><span class="pre">onNext</span></code> or <code class="docutils literal notranslate"><span class="pre">onComplete</span></code>.
+The <code class="docutils literal notranslate"><span class="pre">onError</span></code> method takes as its parameter the <code class="docutils literal notranslate"><span class="pre">Throwable</span></code> that caused the error.</p></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">)</span>
     <span class="o">.</span><span class="n">subscribe</span> <span class="n">onNext</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">},</span> <span class="n">onComplete</span><span class="p">:</span> <span class="p">{</span> <span class="n">println</span> <span class="s1">&#39;Done&#39;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
 <span class="n">Done</span>
 </pre></div>
 </div>
@@ -2210,7 +1985,7 @@ a function that, given an item, returns the value to be summed. For example:</p>
 </section>
 <section id="tap">
 <h2>tap<a class="headerlink" href="#tap" title="Permalink to this headline"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator combines the functions of <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators in such a way that
+<p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> operator combines the functions of <a href="#id3"><span class="problematic" id="id4">`into`_</span></a> and <a href="#id5"><span class="problematic" id="id6">`separate`_</span></a> operators in such a way that
 it connects two channels, copying the values from the source into the <cite>tapped</cite> channel. At the same
 time it splits the source channel into a newly created channel that is returned by the operator itself.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">tap</span></code> can be useful in certain scenarios where you may be required to concatenate multiple operations,
@@ -2258,7 +2033,6 @@ is that you won’t need to previously create the target channel, because it is 
 <span class="n">log2</span><span class="o">.</span><span class="n">view</span> <span class="p">{</span> <span class="s2">&quot;Log 2: $it&quot;</span> <span class="p">}</span>
 </pre></div>
 </div>
-<p>See also <a class="reference internal" href="#into">into</a> and <a class="reference internal" href="#separate">separate</a> operators.</p>
 </section>
 <section id="tointeger">
 <h2>toInteger<a class="headerlink" href="#tointeger" title="Permalink to this headline"></a></h2>
@@ -2334,19 +2108,24 @@ and emits the resulting collection as a single item. For example:</p>
 <h2>transpose<a class="headerlink" href="#transpose" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">transpose</span></code> operator transforms a channel in such a way that the emitted items are the result of a transposition
 of all tuple elements in each item. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="n">of</span><span class="p">(</span>
-    <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;q&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span><span class="s1">&#39;v&#39;</span><span class="p">]],</span>
-    <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">]]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+    <span class="o">.</span><span class="n">of</span><span class="p">(</span>
+        <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">]],</span>
+        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;D&#39;</span><span class="p">]]</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
     <span class="o">.</span><span class="n">view</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>The above snippet prints:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">u</span><span class="p">]</span>
-<span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">v</span><span class="p">]</span>
-<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span>
-<span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="n">A</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">B</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="n">D</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Available parameters:</p>
@@ -2442,12 +2221,6 @@ the actual value of the item to be printed:</p>
 <span class="n">Square</span> <span class="n">of</span><span class="p">:</span> <span class="mi">3</span> <span class="ow">is</span> <span class="mi">9</span>
 </pre></div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Both the <code class="docutils literal notranslate"><span class="pre">view</span></code> and <a class="reference internal" href="#print">print</a> (or <a class="reference internal" href="#println">println</a>) operators consume the items emitted by the source channel to which they
-are applied. The main difference between them is that <code class="docutils literal notranslate"><span class="pre">view</span></code> returns a newly created channel that is
-identical to the source channel, while <code class="docutils literal notranslate"><span class="pre">print</span></code> does not. This allows the <code class="docutils literal notranslate"><span class="pre">view</span></code> operator to be chained like other operators.</p>
-</div>
 </section>
 </section>
 
@@ -2462,7 +2235,7 @@ identical to the source channel, while <code class="docutils literal notranslate
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -2480,17 +2253,12 @@ identical to the source channel, while <code class="docutils literal notranslate
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

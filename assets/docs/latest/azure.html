@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Azure Cloud &mdash; Nextflow 22.10.6 documentation</title>
+  <title>Azure Cloud &mdash; Nextflow 23.04.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -21,7 +21,16 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Google Cloud" href="google.html" />
-    <link rel="prev" title="Amazon S3 storage" href="amazons3.html" /> 
+    <link rel="prev" title="Amazon S3 storage" href="amazons3.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -56,6 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Azure Cloud</a><ul>
@@ -72,6 +82,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#private-container-registry">Private container registry</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#active-directory-authentication">Active Directory Authentication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>
@@ -324,6 +335,25 @@ provided in the <code class="docutils literal notranslate"><span class="pre">bat
 <p>The above example defines the configuration for two node pools. The first will provision 10 compute nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_D2_v2</span></code>,
 the second 5 nodes of type <code class="docutils literal notranslate"><span class="pre">Standard_E2_v3</span></code>. See the <a class="reference internal" href="#advanced-settings">Advanced settings</a> below for the complete list of available
 configuration options.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The pool name can only contain alphanumeric, hyphen and underscore characters.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the pool name includes a hyphen, make sure to wrap it with single quotes. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
+    <span class="n">batch</span> <span class="p">{</span>
+        <span class="n">pools</span> <span class="p">{</span>
+            <span class="s1">&#39;foo-2&#39;</span> <span class="p">{</span>
+               <span class="o">...</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="requirements-on-pre-existing-named-pools">
 <h3>Requirements on pre-existing named pools<a class="headerlink" href="#requirements-on-pre-existing-named-pools" title="Permalink to this headline"></a></h3>
@@ -388,14 +418,14 @@ See the <a class="reference external" href="https://docs.microsoft.com/en-us/azu
 <p>By default, Nextflow creates CentOS 8-based pool nodes, but this behavior can be customised in the pool configuration.
 Below the configurations for image reference/SKU combinations to select two popular systems.</p>
 <ul>
-<li><p>Ubuntu 20.04:</p>
+<li><p>Ubuntu 20.04 (default):</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">sku</span> <span class="o">=</span> <span class="s2">&quot;batch.node.ubuntu 20.04&quot;</span>
 <span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">offer</span> <span class="o">=</span> <span class="s2">&quot;ubuntu-server-container&quot;</span>
 <span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">publisher</span> <span class="o">=</span> <span class="s2">&quot;microsoft-azure-batch&quot;</span>
 </pre></div>
 </div>
 </li>
-<li><p>CentOS 8 (default):</p>
+<li><p>CentOS 8:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">sku</span> <span class="o">=</span> <span class="s2">&quot;batch.node.centos 8&quot;</span>
 <span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">offer</span> <span class="o">=</span> <span class="s2">&quot;centos-container&quot;</span>
 <span class="n">azure</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">pools</span><span class="o">.&lt;</span><span class="n">name</span><span class="o">&gt;.</span><span class="n">publisher</span> <span class="o">=</span> <span class="s2">&quot;microsoft-azure-batch&quot;</span>
@@ -428,6 +458,39 @@ Read more about image fully qualified image names in the <a class="reference ext
 </div>
 </section>
 </section>
+<section id="active-directory-authentication">
+<h2>Active Directory Authentication<a class="headerlink" href="#active-directory-authentication" title="Permalink to this headline"></a></h2>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">22.11.0-edge</span></code>, <a class="reference external" href="https://learn.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal">Service Principal</a> credentials can optionally be used instead of Shared Keys for Azure Batch and Storage accounts.</p>
+<p>The Service Principal should have the at least the following role assignments :</p>
+<ol class="arabic simple">
+<li><p>Contributor</p></li>
+<li><p>Storage Blob Data Reader</p></li>
+<li><p>Storage Blob Data Contributor</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To assign the necessary roles to the Service Principal refer to the <a class="reference external" href="https://learn.microsoft.com/en-us/azure/role-based-access-control/role-assignments-portal?tabs=current">official Azure documentation</a>.</p>
+</div>
+<p>The credentials for Service Principal can be specified as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">azure</span> <span class="p">{</span>
+    <span class="n">activeDirectory</span> <span class="p">{</span>
+        <span class="n">servicePrincipalId</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR SERVICE PRINCIPAL CLIENT ID&gt;&#39;</span>
+        <span class="n">servicePrincipalSecret</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR SERVICE PRINCIPAL CLIENT SECRET&gt;&#39;</span>
+        <span class="n">tenantId</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR TENANT ID&gt;&#39;</span>
+      <span class="p">}</span>
+
+    <span class="n">storage</span> <span class="p">{</span>
+        <span class="n">accountName</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR STORAGE ACCOUNT NAME&gt;&#39;</span>
+      <span class="p">}</span>
+
+    <span class="n">batch</span> <span class="p">{</span>
+        <span class="n">accountName</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR BATCH ACCOUNT NAME&gt;&#39;</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR BATCH ACCOUNT LOCATION&gt;&#39;</span>
+      <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="advanced-settings">
 <h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this headline"></a></h2>
 <p>The following configuration options are available:</p>
@@ -442,68 +505,80 @@ Read more about image fully qualified image names in the <a class="reference ext
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>azure.storage.accountName</p></td>
+<tr class="row-even"><td><p>azure.activeDirectory.servicePrincipalId</p></td>
+<td><p>The service principal client ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.activeDirectory.servicePrincipalSecret</p></td>
+<td><p>The service principal client secret</p></td>
+</tr>
+<tr class="row-even"><td><p>azure.activeDirectory.tenantId</p></td>
+<td><p>The Azure tenant ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.storage.accountName</p></td>
 <td><p>The blob storage account name</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.storage.accountKey</p></td>
+<tr class="row-even"><td><p>azure.storage.accountKey</p></td>
 <td><p>The blob storage account key</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.storage.sasToken</p></td>
+<tr class="row-odd"><td><p>azure.storage.sasToken</p></td>
 <td><p>The blob storage shared access signature token. This can be provided as an alternative to the <code class="docutils literal notranslate"><span class="pre">accountKey</span></code> setting.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.storage.tokenDuration</p></td>
-<td><p>The duration of the shared access signature token created by Nextflow when the <code class="docutils literal notranslate"><span class="pre">sasToken</span></code> option is <em>not</em> specified (default: <code class="docutils literal notranslate"><span class="pre">12h</span></code>).</p></td>
+<tr class="row-even"><td><p>azure.storage.tokenDuration</p></td>
+<td><p>The duration of the shared access signature token created by Nextflow when the <code class="docutils literal notranslate"><span class="pre">sasToken</span></code> option is <em>not</em> specified (default: <code class="docutils literal notranslate"><span class="pre">48h</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.accountName</p></td>
+<tr class="row-odd"><td><p>azure.batch.accountName</p></td>
 <td><p>The batch service account name.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.accountKey</p></td>
+<tr class="row-even"><td><p>azure.batch.accountKey</p></td>
 <td><p>The batch service account key.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.endpoint</p></td>
+<tr class="row-odd"><td><p>azure.batch.endpoint</p></td>
 <td><p>The batch service endpoint e.g. <code class="docutils literal notranslate"><span class="pre">https://nfbatch1.westeurope.batch.azure.com</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.location</p></td>
+<tr class="row-even"><td><p>azure.batch.location</p></td>
 <td><p>The name of the batch service region, e.g. <code class="docutils literal notranslate"><span class="pre">westeurope</span></code> or <code class="docutils literal notranslate"><span class="pre">eastus2</span></code>. This is not needed when the endpoint is specified.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.autoPoolMode</p></td>
+<tr class="row-odd"><td><p>azure.batch.autoPoolMode</p></td>
 <td><p>Enable the automatic creation of batch pools depending on the pipeline resources demand (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.allowPoolCreation</p></td>
+<tr class="row-even"><td><p>azure.batch.allowPoolCreation</p></td>
 <td><p>Enable the automatic creation of batch pools specified in the Nextflow configuration file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.deleteJobsOnCompletion</p></td>
+<tr class="row-odd"><td><p>azure.batch.deleteJobsOnCompletion</p></td>
 <td><p>Enable the automatic deletion of jobs created by the pipeline execution (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.deletePoolsOnCompletion</p></td>
+<tr class="row-even"><td><p>azure.batch.deletePoolsOnCompletion</p></td>
 <td><p>Enable the automatic deletion of compute node pools upon pipeline completion (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.copyToolInstallMode</p></td>
+<tr class="row-odd"><td><p>azure.batch.copyToolInstallMode</p></td>
 <td><p>Specify where the <cite>azcopy</cite> tool used by Nextflow. When <code class="docutils literal notranslate"><span class="pre">node</span></code> is specified it’s copied once during the pool creation. When <code class="docutils literal notranslate"><span class="pre">task</span></code> is provider, it’s installed for each task execution (default: <code class="docutils literal notranslate"><span class="pre">node</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.publisher</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.publisher</p></td>
 <td><p>Specify the publisher of virtual machine type used by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> (default: <code class="docutils literal notranslate"><span class="pre">microsoft-azure-batch</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.11.0</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.offer</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.offer</p></td>
 <td><p>Specify the offer type of the virtual machine type used by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> (default: <code class="docutils literal notranslate"><span class="pre">centos-container</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.11.0</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.sku</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.sku</p></td>
 <td><p>Specify the ID of the Compute Node agent SKU which the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code> supports (default: <code class="docutils literal notranslate"><span class="pre">batch.node.centos</span> <span class="pre">8</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.11.0</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.vmType</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.vmType</p></td>
 <td><p>Specify the virtual machine type used by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.vmCount</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.vmCount</p></td>
 <td><p>Specify the number of virtual machines provisioned by the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.maxVmCount</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.maxVmCount</p></td>
 <td><p>Specify the max of virtual machine when using auto scale option.</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.autoScale</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.autoScale</p></td>
 <td><p>Enable autoscaling feature for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.fileShareRootPath</p></td>
+<tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.fileShareRootPath</p></td>
 <td><p>If mounting File Shares, this is the internal root mounting point. Must be <code class="docutils literal notranslate"><span class="pre">/mnt/resource/batch/tasks/fsmounts</span></code> for CentOS nodes or <code class="docutils literal notranslate"><span class="pre">/mnt/batch/tasks/fsmounts</span></code> for Ubuntu nodes (default is for CentOS, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.11.0</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.mountOptions</p></td>
+<td><p>Specify the mount options for mounting the file shares (defaults are <cite>-o vers=3.0,dir_mode=0777,file_mode=0777,sec=ntlmssp</cite> , requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.11.0</span></code>).</p></td>
 </tr>
 <tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.scaleFormula</p></td>
 <td><p>Specify the scale formula for the pool identified with <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>. See Azure Batch <a class="reference external" href="https://docs.microsoft.com/en-us/azure/batch/batch-automatic-scaling">scaling documentation</a> for details.</p></td>
@@ -520,25 +595,28 @@ Read more about image fully qualified image names in the <a class="reference ext
 <tr class="row-odd"><td><p>azure.batch.pools.&lt;name&gt;.runAs</p></td>
 <td><p>Specify the username under which the task is run. The user must already exist on each node of the pool.</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.registry.server</p></td>
+<tr class="row-even"><td><p>azure.batch.pools.&lt;name&gt;.virtualNetwork</p></td>
+<td><p>Specify the subnet ID of a virtual network in which to create the pool (requires version <code class="docutils literal notranslate"><span class="pre">23.03.0-edge</span></code> or later).</p></td>
+</tr>
+<tr class="row-odd"><td><p>azure.registry.server</p></td>
 <td><p>Specify the container registry from which to pull the Docker images (default: <code class="docutils literal notranslate"><span class="pre">docker.io</span></code>, requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.registry.userName</p></td>
+<tr class="row-even"><td><p>azure.registry.userName</p></td>
 <td><p>Specify the username to connect to a private container registry (requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.registry.password</p></td>
+<tr class="row-odd"><td><p>azure.registry.password</p></td>
 <td><p>Specify the password to connect to a private container registry (requires <code class="docutils literal notranslate"><span class="pre">nf-azure&#64;0.9.8</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.retryPolicy.delay</p></td>
+<tr class="row-even"><td><p>azure.retryPolicy.delay</p></td>
 <td><p>Delay when retrying failed API requests (default: <code class="docutils literal notranslate"><span class="pre">500ms</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.retryPolicy.maxDelay</p></td>
+<tr class="row-odd"><td><p>azure.retryPolicy.maxDelay</p></td>
 <td><p>Max delay when retrying failed API requests (default: <code class="docutils literal notranslate"><span class="pre">60s</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p>azure.retryPolicy.jitter</p></td>
+<tr class="row-even"><td><p>azure.retryPolicy.jitter</p></td>
 <td><p>Jitter value when retrying failed API requests (default: <code class="docutils literal notranslate"><span class="pre">0.25</span></code>).</p></td>
 </tr>
-<tr class="row-even"><td><p>azure.retryPolicy.maxAttempts</p></td>
+<tr class="row-odd"><td><p>azure.retryPolicy.maxAttempts</p></td>
 <td><p>Max attempts when retrying failed API requests (default: <code class="docutils literal notranslate"><span class="pre">10</span></code>).</p></td>
 </tr>
 </tbody>
@@ -557,7 +635,7 @@ Read more about image fully qualified image names in the <a class="reference ext
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Seqera Labs, S.L.</p>
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -575,17 +653,12 @@ Read more about image fully qualified image names in the <a class="reference ext
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>
