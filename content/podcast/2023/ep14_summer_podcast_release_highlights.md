@@ -1,6 +1,6 @@
-title=Episode 14: Summer podcast season, Nextflow release highlights.
+title=Summer podcast season, Nextflow release highlights.
 episode=14
-description=Episode 14: Summer podcast season, Nextflow release highlights.
+description=Welcome back to the Summer 2023 series of the Channels Podcast!  In this episode we kick things off with some of the highlights from the latest Nextflow releases. There were a lot of goodies in there..
 date=2023-05-22
 type=podcast
 subtype=News and Views
