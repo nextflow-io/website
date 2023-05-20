@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Basic concepts &mdash; Nextflow 23.02.1-edge documentation</title>
+  <title>Basic concepts &mdash; Nextflow 23.05.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -16,12 +16,23 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Nextflow scripting" href="script.html" />
-    <link rel="prev" title="Get started" href="getstarted.html" /> 
+    <link rel="prev" title="Get started" href="getstarted.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -59,13 +70,14 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -98,10 +110,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Basic concepts</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Basic concepts</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/basic.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/basic.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -109,80 +121,64 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="basic-concepts">
-<h1>Basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this headline"></a></h1>
-<p><cite>Nextflow</cite> is a reactive workflow framework and a programming <a class="reference external" href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a>
-that eases the writing of data-intensive computational pipelines.</p>
-<p>It is designed around the idea that the Linux platform is the lingua franca of data science. Linux provides many
-simple but powerful command-line and scripting tools that, when chained together, facilitate complex
-data manipulations.</p>
-<p><cite>Nextflow</cite> extends this approach, adding the ability to define complex program interactions and a high-level
-parallel computational environment based on the <cite>dataflow</cite> programming model.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="basic-concepts">
+<h1>Basic concepts<a class="headerlink" href="#basic-concepts" title="Permalink to this heading"></a></h1>
+<p>Nextflow is a reactive workflow framework and a programming <a class="reference external" href="http://en.wikipedia.org/wiki/Domain-specific_language">DSL</a> that eases the writing of data-intensive computational pipelines.</p>
+<p>It is designed around the idea that the Linux platform is the lingua franca of data science. Linux provides many simple but powerful command-line and scripting tools that, when chained together, facilitate complex data manipulations.</p>
+<p>Nextflow extends this approach, adding the ability to define complex program interactions and a high-level parallel computational environment based on the <em>dataflow</em> programming model.</p>
 <section id="processes-and-channels">
-<h2>Processes and channels<a class="headerlink" href="#processes-and-channels" title="Permalink to this headline"></a></h2>
-<p>In practice a Nextflow pipeline script is made by joining together different processes.
-Each process can be written in any scripting language that can be executed by the Linux platform (Bash, Perl, Ruby, Python, etc.).</p>
-<p>Processes are executed independently and are isolated from each other, i.e. they do not share a common (writable) state.
-The only way they can communicate is via asynchronous FIFO queues, called <cite>channels</cite> in Nextflow.</p>
-<p>Any process can define one or more channels as <cite>input</cite> and <cite>output</cite>. The interaction between these processes,
-and ultimately the pipeline execution flow itself, is implicitly defined by these input and output declarations.</p>
+<h2>Processes and channels<a class="headerlink" href="#processes-and-channels" title="Permalink to this heading"></a></h2>
+<p>In practice a Nextflow pipeline script is made by joining together different processes. Each process can be written in any scripting language that can be executed by the Linux platform (Bash, Perl, Ruby, Python, etc.).</p>
+<p>Processes are executed independently and are isolated from each other, i.e. they do not share a common (writable) state. The only way they can communicate is via asynchronous FIFO queues, called <em>channels</em> in Nextflow.</p>
+<p>Any process can define one or more channels as <em>input</em> and <em>output</em>. The interaction between these processes, and ultimately the pipeline execution flow itself, is implicitly defined by these input and output declarations.</p>
 <p>A Nextflow script looks like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">Declare</span> <span class="n">syntax</span> <span class="n">version</span>
-<span class="n">nextflow</span><span class="o">.</span><span class="n">enable</span><span class="o">.</span><span class="n">dsl</span><span class="o">=</span><span class="mi">2</span>
-<span class="o">//</span> <span class="n">Script</span> <span class="n">parameters</span>
-<span class="n">params</span><span class="o">.</span><span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;/some/data/sample.fa&quot;</span>
-<span class="n">params</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="s2">&quot;/some/path/pdb&quot;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// Declare syntax version</span>
+<span class="n">nextflow</span><span class="o">.</span><span class="na">enable</span><span class="o">.</span><span class="na">dsl</span><span class="o">=</span><span class="mi">2</span>
 
-<span class="n">process</span> <span class="n">blastSearch</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="n">query</span>
-    <span class="n">path</span> <span class="n">db</span>
-  <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s2">&quot;top_hits.txt&quot;</span>
+<span class="c1">// Script parameters</span>
+<span class="n">params</span><span class="o">.</span><span class="na">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/some/data/sample.fa&quot;</span>
+<span class="n">params</span><span class="o">.</span><span class="na">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/some/path/pdb&quot;</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    blastp -db $db -query $query -outfmt 6 &gt; blast_result</span>
-<span class="sd">    cat blast_result | head -n 10 | cut -f 2 &gt; top_hits.txt</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="p">}</span>
+<span class="n">process</span><span class="w"> </span><span class="n">blastSearch</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="n">query</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="n">db</span>
+<span class="w">  </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s2">&quot;top_hits.txt&quot;</span>
 
-<span class="n">process</span> <span class="n">extractTopHits</span> <span class="p">{</span>
-  <span class="nb">input</span><span class="p">:</span>
-    <span class="n">path</span> <span class="n">top_hits</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    blastp -db $db -query $query -outfmt 6 &gt; blast_result</span>
+<span class="s2">    cat blast_result | head -n 10 | cut -f 2 &gt; top_hits.txt</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
 
-  <span class="n">output</span><span class="p">:</span>
-    <span class="n">path</span> <span class="s2">&quot;sequences.txt&quot;</span>
+<span class="n">process</span><span class="w"> </span><span class="n">extractTopHits</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="n">top_hits</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    blastdbcmd -db $db -entry_batch $top_hits &gt; sequences.txt</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s2">&quot;sequences.txt&quot;</span>
 
-<span class="n">workflow</span> <span class="p">{</span>
-   <span class="k">def</span> <span class="nf">query_ch</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">.</span><span class="n">fromPath</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-   <span class="n">blastSearch</span><span class="p">(</span><span class="n">query_ch</span><span class="p">,</span> <span class="n">params</span><span class="o">.</span><span class="n">db</span><span class="p">)</span> <span class="o">|</span> <span class="n">extractTopHits</span> <span class="o">|</span> <span class="n">view</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    blastdbcmd -db $db -entry_batch $top_hits &gt; sequences.txt</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="kt">def</span><span class="w"> </span><span class="n">query_ch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Channel</span><span class="o">.</span><span class="na">fromPath</span><span class="o">(</span><span class="n">params</span><span class="o">.</span><span class="na">query</span><span class="o">)</span>
+<span class="w">  </span><span class="n">blastSearch</span><span class="o">(</span><span class="n">query_ch</span><span class="o">,</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="na">db</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">extractTopHits</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>The above example defines two processes. Their execution order is not determined by the fact that the <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code>
-process comes before <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around). Instead, the
-pipe operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) in the workflow between <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> and <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> forwards the outputs from one
-process to the inputs of the following one.</p>
-<p>When the workflow is started, it will create two processes and one channel (<code class="docutils literal notranslate"><span class="pre">query_ch</span></code>)
-and it will link all of them. Both processes will be started at the same time and they will listen to their
-respective input channels. Whenever <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> emits a value, <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code>
-will receive it (i.e. <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> consumes the channel in a <cite>reactive</cite> way).</p>
+<p>The above example defines two processes. Their execution order is not determined by the fact that the <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> process comes before <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> in the script (it could also be written the other way around). Instead, the pipe operator (<code class="docutils literal notranslate"><span class="pre">|</span></code>) in the workflow between <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> and <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> forwards the outputs from one process to the inputs of the following one.</p>
+<p>When the workflow is started, it will create two processes and one channel (<code class="docutils literal notranslate"><span class="pre">query_ch</span></code>) and it will link all of them. Both processes will be started at the same time and they will listen to their respective input channels. Whenever <code class="docutils literal notranslate"><span class="pre">blastSearch</span></code> emits a value, <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> will receive it (i.e. <code class="docutils literal notranslate"><span class="pre">extractTopHits</span></code> consumes the channel in a <em>reactive</em> way).</p>
 <p>Read the <a class="reference internal" href="channel.html#channel-page"><span class="std std-ref">Channel</span></a> and <a class="reference internal" href="process.html#process-page"><span class="std std-ref">Process</span></a> sections to learn more about these features.</p>
 </section>
 <section id="execution-abstraction">
-<h2>Execution abstraction<a class="headerlink" href="#execution-abstraction" title="Permalink to this headline"></a></h2>
-<p>While a process defines <cite>what</cite> command or script has to be executed, the <cite>executor</cite> determines <cite>how</cite>
-that script is actually run on the target system.</p>
-<p>If not otherwise specified, processes are executed on the local computer. The local executor is very useful for pipeline
-development and testing purposes, but for real world computational pipelines an HPC or cloud platform is often required.</p>
-<p>In other words, <cite>Nextflow</cite> provides an abstraction between the pipeline’s functional logic and the underlying execution system.
-Thus it is possible to write a pipeline once and to seamlessly run it on your computer, a grid platform, or the cloud,
-without modifying it, by simply defining the target execution platform in the configuration file.</p>
+<h2>Execution abstraction<a class="headerlink" href="#execution-abstraction" title="Permalink to this heading"></a></h2>
+<p>While a process defines <em>what</em> command or script has to be executed, the <em>executor</em> determines <em>how</em> that script is actually run on the target system.</p>
+<p>If not otherwise specified, processes are executed on the local computer. The local executor is very useful for pipeline development and testing purposes, but for real world computational pipelines an HPC or cloud platform is often required.</p>
+<p>In other words, Nextflow provides an abstraction between the pipeline’s functional logic and the underlying execution system. Thus it is possible to write a pipeline once and to seamlessly run it on your computer, a grid platform, or the cloud, without modifying it, by simply defining the target execution platform in the configuration file.</p>
 <p>The following batch schedulers are supported:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://gridscheduler.sourceforge.net/">Open grid engine</a></p></li>
@@ -203,24 +199,22 @@ without modifying it, by simply defining the target execution platform in the co
 <p>Read the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> to learn more about the Nextflow executors.</p>
 </section>
 <section id="scripting-language">
-<h2>Scripting language<a class="headerlink" href="#scripting-language" title="Permalink to this headline"></a></h2>
-<p><cite>Nextflow</cite> is designed to have a minimal learning curve, without having to pick up
-a new programming language. In most cases, users can utilise their current skills to develop
-Nextflow workflows. However, it also provides a powerful scripting DSL.</p>
-<p>Nextflow scripting is an extension of the <a class="reference external" href="http://en.wikipedia.org/wiki/Groovy_(programming_language)">Groovy programming language</a>,
-which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java
-in that it simplifies the writing of code and is more approachable.</p>
+<h2>Scripting language<a class="headerlink" href="#scripting-language" title="Permalink to this heading"></a></h2>
+<p>Nextflow is designed to have a minimal learning curve, without having to pick up a new programming language. In most cases, users can utilise their current skills to develop Nextflow workflows. However, it also provides a powerful scripting DSL.</p>
+<p>Nextflow scripting is an extension of the <a class="reference external" href="http://en.wikipedia.org/wiki/Groovy_(programming_language)">Groovy programming language</a>, which in turn is a super-set of the Java programming language. Groovy can be considered as Python for Java in that it simplifies the writing of code and is more approachable.</p>
 <p>Read the <a class="reference internal" href="script.html#script-page"><span class="std std-ref">Nextflow scripting</span></a> section to learn about the Nextflow scripting language.</p>
+<!-- TODO Running pipeline -->
+<!-- TODO Pipeline parameters -->
 </section>
 <section id="configuration-options">
-<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h2>
+<h2>Configuration options<a class="headerlink" href="#configuration-options" title="Permalink to this heading"></a></h2>
 <p>Pipeline configuration properties are defined in a file named <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> in the pipeline execution directory.</p>
 <p>This file can be used to define which executor to use, the process’s environment variables, pipeline parameters etc.</p>
 <p>A basic configuration file might look like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="p">{</span>
-  <span class="n">executor</span><span class="o">=</span><span class="s1">&#39;sge&#39;</span>
-  <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;cn-el6&#39;</span>
-<span class="p">}</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="n">executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;sge&#39;</span>
+<span class="w">  </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;cn-el6&#39;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Read the <a class="reference internal" href="config.html#config-page"><span class="std std-ref">Configuration</span></a> section to learn more about the Nextflow configuration file and settings.</p>
@@ -256,17 +250,12 @@ in that it simplifies the writing of code and is more approachable.</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>

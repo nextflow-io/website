@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nextflow scripting &mdash; Nextflow 23.02.1-edge documentation</title>
+  <title>Nextflow scripting &mdash; Nextflow 23.05.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -16,12 +16,23 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Processes" href="process.html" />
-    <link rel="prev" title="Basic concepts" href="basic.html" /> 
+    <link rel="prev" title="Basic concepts" href="basic.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -104,13 +115,14 @@
 <li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
 <li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
@@ -143,10 +155,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Nextflow scripting</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Nextflow scripting</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/script.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/script.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -154,11 +166,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nextflow-scripting">
-<span id="script-page"></span><h1>Nextflow scripting<a class="headerlink" href="#nextflow-scripting" title="Permalink to this headline"></a></h1>
-<p>The Nextflow scripting language is an extension of the Groovy programming language.
-Groovy is a powerful programming language for the Java virtual machine. The Nextflow
-syntax has been specialized to ease the writing of computational pipelines in a declarative manner.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="nextflow-scripting">
+<span id="script-page"></span><h1>Nextflow scripting<a class="headerlink" href="#nextflow-scripting" title="Permalink to this heading"></a></h1>
+<p>The Nextflow scripting language is an extension of the Groovy programming language. Groovy is a powerful programming language for the Java virtual machine. The Nextflow syntax has been specialized to ease the writing of computational pipelines in a declarative manner.</p>
 <p>Nextflow can execute any piece of Groovy code or use any library for the JVM platform.</p>
 <p>For a detailed description of the Groovy programming language, reference these links:</p>
 <ul class="simple">
@@ -169,52 +179,50 @@ syntax has been specialized to ease the writing of computational pipelines in a 
 <p>Below you can find a crash course in the most important language constructs used in the Nextflow scripting language.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Nextflow uses UTF-8 as the default character encoding for source files. Make sure
-to use UTF-8 encoding when editing Nextflow scripts with your preferred text editor.</p>
+<p>Nextflow uses UTF-8 as the default character encoding for source files. Make sure to use UTF-8 encoding when editing Nextflow scripts with your preferred text editor.</p>
 </div>
 <section id="language-basics">
-<h2>Language basics<a class="headerlink" href="#language-basics" title="Permalink to this headline"></a></h2>
+<h2>Language basics<a class="headerlink" href="#language-basics" title="Permalink to this heading"></a></h2>
 <section id="hello-world">
-<h3>Hello world<a class="headerlink" href="#hello-world" title="Permalink to this headline"></a></h3>
+<h3>Hello world<a class="headerlink" href="#hello-world" title="Permalink to this heading"></a></h3>
 <p>To print something is as easy as using one of the <code class="docutils literal notranslate"><span class="pre">print</span></code> or <code class="docutils literal notranslate"><span class="pre">println</span></code> methods.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;Hello, World!&quot;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;Hello, World!&quot;</span>
 </pre></div>
 </div>
-<p>The only difference between the two is that the <code class="docutils literal notranslate"><span class="pre">println</span></code> method implicitly appends a <cite>new line</cite> character
-to the printed string.</p>
+<p>The only difference between the two is that the <code class="docutils literal notranslate"><span class="pre">println</span></code> method implicitly appends a newline character to the printed string.</p>
 </section>
 <section id="variables">
-<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline"></a></h3>
+<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this heading"></a></h3>
 <p>To define a variable, simply assign a value to it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="n">println</span> <span class="n">x</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">new</span> <span class="n">java</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span>
-<span class="n">println</span> <span class="n">x</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">java</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">Date</span><span class="o">()</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.1499392</span>
-<span class="n">println</span> <span class="n">x</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mf">3.1499392</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">false</span>
-<span class="n">println</span> <span class="n">x</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;Hi&quot;</span>
-<span class="n">println</span> <span class="n">x</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Hi&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
 </pre></div>
 </div>
 </section>
 <section id="lists">
-<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline"></a></h3>
+<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this heading"></a></h3>
 <p>A List object can be defined by placing the list items in square brackets:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1776</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">99</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">928734928763</span><span class="p">]</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myList</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">1776</span><span class="o">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">33</span><span class="o">,</span><span class="w"> </span><span class="mi">99</span><span class="o">,</span><span class="w"> </span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">928734928763</span><span class="o">]</span>
 </pre></div>
 </div>
 <p>You can access a given item in the list with square-bracket notation (indexes start at 0):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">myList</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="n">myList</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
 </pre></div>
 </div>
 <p>In order to get the length of the list use the <code class="docutils literal notranslate"><span class="pre">size</span></code> method:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">myList</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="n">myList</span><span class="o">.</span><span class="na">size</span><span class="o">()</span>
 </pre></div>
 </div>
 <p>Learn more about lists:</p>
@@ -225,33 +233,30 @@ to the printed string.</p>
 </ul>
 </section>
 <section id="maps">
-<h3>Maps<a class="headerlink" href="#maps" title="Permalink to this headline"></a></h3>
-<p>Maps are used to store <cite>associative arrays</cite> or <cite>dictionaries</cite>. They are unordered collections of heterogeneous, named data:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;Brett&quot;</span><span class="p">:</span><span class="mi">100</span><span class="p">,</span> <span class="s2">&quot;Pete&quot;</span><span class="p">:</span><span class="s2">&quot;Did not finish&quot;</span><span class="p">,</span> <span class="s2">&quot;Andrew&quot;</span><span class="p">:</span><span class="mf">86.87934</span> <span class="p">]</span>
+<h3>Maps<a class="headerlink" href="#maps" title="Permalink to this heading"></a></h3>
+<p>Maps are used to store <em>associative arrays</em> (also known as <em>dictionaries</em>). They are unordered collections of heterogeneous, named data:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;Brett&quot;</span><span class="o">:</span><span class="mi">100</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Pete&quot;</span><span class="o">:</span><span class="s2">&quot;Did not finish&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Andrew&quot;</span><span class="o">:</span><span class="mf">86.87934</span><span class="w"> </span><span class="o">]</span>
 </pre></div>
 </div>
-<p>Note that each of the values stored in the map can be of a different type. <code class="docutils literal notranslate"><span class="pre">Brett</span></code> is an integer, <code class="docutils literal notranslate"><span class="pre">Pete</span></code> is a string,
-and <code class="docutils literal notranslate"><span class="pre">Andrew</span></code> is a floating-point number.</p>
+<p>Note that each of the values stored in the map can be of a different type. <code class="docutils literal notranslate"><span class="pre">Brett</span></code> is an integer, <code class="docutils literal notranslate"><span class="pre">Pete</span></code> is a string, and <code class="docutils literal notranslate"><span class="pre">Andrew</span></code> is a floating-point number.</p>
 <p>We can access the values in a map in two main ways:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span>
-<span class="n">println</span> <span class="n">scores</span><span class="o">.</span><span class="n">Pete</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="n">scores</span><span class="o">[</span><span class="s2">&quot;Pete&quot;</span><span class="o">]</span>
+<span class="n">println</span><span class="w"> </span><span class="n">scores</span><span class="o">.</span><span class="na">Pete</span>
 </pre></div>
 </div>
 <p>To add data to or modify a map, the syntax is similar to adding values to list:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">scores</span><span class="p">[</span><span class="s2">&quot;Cedric&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">scores</span><span class="o">[</span><span class="s2">&quot;Pete&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span>
+<span class="n">scores</span><span class="o">[</span><span class="s2">&quot;Cedric&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">120</span>
 </pre></div>
 </div>
 <p>You can also use the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator to add two maps together:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">new_scores</span> <span class="o">=</span> <span class="n">scores</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Pete&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;Cedric&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">]</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">new_scores</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scores</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;Pete&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Cedric&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">120</span><span class="o">]</span>
 </pre></div>
 </div>
-<p>When adding two maps, the first map is copied and then appended with the keys from the second map. Any conflicting keys
-are overwritten by the second map.</p>
+<p>When adding two maps, the first map is copied and then appended with the keys from the second map. Any conflicting keys are overwritten by the second map.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Appending an “update” map is a safer way to modify maps in Nextflow, specifically when passing maps through channels.
-This way, any references to the original map elsewhere in the pipeline won’t be modified.</p>
+<p>Appending an “update” map is a safer way to modify maps in Nextflow, specifically when passing maps through channels. This way, any references to the original map elsewhere in the pipeline won’t be modified.</p>
 </div>
 <p>Learn more about maps:</p>
 <ul class="simple">
@@ -261,54 +266,51 @@ This way, any references to the original map elsewhere in the pipeline won’t b
 </ul>
 </section>
 <section id="multiple-assignment">
-<span id="script-multiple-assignment"></span><h3>Multiple assignment<a class="headerlink" href="#multiple-assignment" title="Permalink to this headline"></a></h3>
+<span id="script-multiple-assignment"></span><h3>Multiple assignment<a class="headerlink" href="#multiple-assignment" title="Permalink to this heading"></a></h3>
 <p>An array or a list object can used to assign to multiple variables at once:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">]</span>
-<span class="k">assert</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">==</span> <span class="s1">&#39;foo&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="n">a</span><span class="o">,</span><span class="w"> </span><span class="n">b</span><span class="o">,</span><span class="w"> </span><span class="n">c</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">10</span><span class="o">,</span><span class="w"> </span><span class="mi">20</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="o">]</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span>
 </pre></div>
 </div>
 <p>The three variables on the left of the assignment operator are initialized by the corresponding item in the list.</p>
 <p>Read more about <a class="reference external" href="http://www.groovy-lang.org/semantics.html#_multiple_assignment">Multiple assignment</a> in the Groovy documentation.</p>
 </section>
 <section id="conditional-execution">
-<h3>Conditional Execution<a class="headerlink" href="#conditional-execution" title="Permalink to this headline"></a></h3>
-<p>One of the most important features of any programming language is the ability to execute different code under
-different conditions. The simplest way to do this is to use the <code class="docutils literal notranslate"><span class="pre">if</span></code> construct:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
-<span class="k">if</span><span class="p">(</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">println</span> <span class="s2">&quot;You lost.&quot;</span>
-<span class="p">}</span>
-<span class="k">else</span> <span class="p">{</span>
-    <span class="n">println</span> <span class="s2">&quot;You won!&quot;</span>
-<span class="p">}</span>
+<h3>Conditional Execution<a class="headerlink" href="#conditional-execution" title="Permalink to this heading"></a></h3>
+<p>One of the most important features of any programming language is the ability to execute different code under different conditions. The simplest way to do this is to use the <code class="docutils literal notranslate"><span class="pre">if</span></code> construct:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Math</span><span class="o">.</span><span class="na">random</span><span class="o">()</span>
+<span class="k">if</span><span class="o">(</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;You lost.&quot;</span>
+<span class="o">}</span>
+<span class="k">else</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;You won!&quot;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </section>
 <section id="strings">
-<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this headline"></a></h3>
+<h3>Strings<a class="headerlink" href="#strings" title="Permalink to this heading"></a></h3>
 <p>Strings can be defined by enclosing text in single or double quotes (<code class="docutils literal notranslate"><span class="pre">'</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;</span></code> characters):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;he said &#39;cheese&#39; once&quot;</span>
-<span class="n">println</span> <span class="s1">&#39;he said &quot;cheese!&quot; again&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;he said &#39;cheese&#39; once&quot;</span>
+<span class="n">println</span><span class="w"> </span><span class="s1">&#39;he said &quot;cheese!&quot; again&#39;</span>
 </pre></div>
 </div>
 <p>Strings can be concatenated with <code class="docutils literal notranslate"><span class="pre">+</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="s2">&quot;world&quot;</span>
-<span class="nb">print</span> <span class="s2">&quot;hello &quot;</span> <span class="o">+</span> <span class="n">a</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;world&quot;</span>
+<span class="n">print</span><span class="w"> </span><span class="s2">&quot;hello &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">&quot;\n&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="string-interpolation">
-<span id="id2"></span><h3>String interpolation<a class="headerlink" href="#string-interpolation" title="Permalink to this headline"></a></h3>
-<p>There is an important difference between single-quoted and double-quoted strings:
-Double-quoted strings support variable interpolations, while single-quoted strings do not.</p>
-<p>In practice, double-quoted strings can contain the value of an arbitrary variable by prefixing its name with the <code class="docutils literal notranslate"><span class="pre">$</span></code> character,
-or the value of any expression by using the <code class="docutils literal notranslate"><span class="pre">${expression}</span></code> syntax, similar to Bash/shell scripts:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">foxtype</span> <span class="o">=</span> <span class="s1">&#39;quick&#39;</span>
-<span class="n">foxcolor</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;n&#39;</span><span class="p">]</span>
-<span class="n">println</span> <span class="s2">&quot;The $foxtype ${foxcolor.join()} fox&quot;</span>
+<span id="id1"></span><h3>String interpolation<a class="headerlink" href="#string-interpolation" title="Permalink to this heading"></a></h3>
+<p>There is an important difference between single-quoted and double-quoted strings: Double-quoted strings support variable interpolations, while single-quoted strings do not.</p>
+<p>In practice, double-quoted strings can contain the value of an arbitrary variable by prefixing its name with the <code class="docutils literal notranslate"><span class="pre">$</span></code> character, or the value of any expression by using the <code class="docutils literal notranslate"><span class="pre">${expression}</span></code> syntax, similar to Bash/shell scripts:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">foxtype</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;quick&#39;</span>
+<span class="n">foxcolor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;b&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;r&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;o&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;w&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;n&#39;</span><span class="o">]</span>
+<span class="n">println</span><span class="w"> </span><span class="s2">&quot;The $foxtype ${foxcolor.join()} fox&quot;</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="s1">&#39;Hello&#39;</span>
-<span class="n">println</span> <span class="s1">&#39;$x + $y&#39;</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hello&#39;</span>
+<span class="n">println</span><span class="w"> </span><span class="s1">&#39;$x + $y&#39;</span>
 </pre></div>
 </div>
 <p>This code prints:</p>
@@ -318,9 +320,9 @@ $x + $y
 </div>
 </section>
 <section id="multi-line-strings">
-<h3>Multi-line strings<a class="headerlink" href="#multi-line-strings" title="Permalink to this headline"></a></h3>
+<h3>Multi-line strings<a class="headerlink" href="#multi-line-strings" title="Permalink to this heading"></a></h3>
 <p>A block of text that span multiple lines can be defined by delimiting it with triple single or double quotes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    hello there James</span>
 <span class="s2">    how are you today?</span>
 <span class="s2">    &quot;&quot;&quot;</span>
@@ -328,181 +330,151 @@ $x + $y
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Like before, multi-line strings inside double quotes support variable interpolation, while
-single-quoted multi-line strings do not.</p>
+<p>Like before, multi-line strings inside double quotes support variable interpolation, while single-quoted multi-line strings do not.</p>
 </div>
-<p>As in Bash/shell scripts, terminating a line in a multi-line string with a <code class="docutils literal notranslate"><span class="pre">\</span></code> character prevents a
-a <cite>new line</cite> character from separating that line from the one that follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myLongCmdline</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">    blastp </span><span class="se">\</span>
-<span class="s2">    -in $input_query </span><span class="se">\</span>
-<span class="s2">    -out $output_file </span><span class="se">\</span>
-<span class="s2">    -db $blast_database </span><span class="se">\</span>
+<p>As in Bash/shell scripts, terminating a line in a multi-line string with a <code class="docutils literal notranslate"><span class="pre">\</span></code> character prevents a newline character from separating that line from the one that follows:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myLongCmdline</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    blastp \</span>
+<span class="s2">    -in $input_query \</span>
+<span class="s2">    -out $output_file \</span>
+<span class="s2">    -db $blast_database \</span>
 <span class="s2">    -html</span>
 <span class="s2">    &quot;&quot;&quot;</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="n">myLongCmdline</span><span class="o">.</span><span class="n">execute</span><span class="p">()</span><span class="o">.</span><span class="n">text</span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myLongCmdline</span><span class="o">.</span><span class="na">execute</span><span class="o">().</span><span class="na">text</span>
 </pre></div>
 </div>
-<p>In the preceding example, <code class="docutils literal notranslate"><span class="pre">blastp</span></code> and its <code class="docutils literal notranslate"><span class="pre">-in</span></code>, <code class="docutils literal notranslate"><span class="pre">-out</span></code>, <code class="docutils literal notranslate"><span class="pre">-db</span></code> and <code class="docutils literal notranslate"><span class="pre">-html</span></code> switches and
-their arguments are effectively a single line.</p>
+<p>In the preceding example, <code class="docutils literal notranslate"><span class="pre">blastp</span></code> and its <code class="docutils literal notranslate"><span class="pre">-in</span></code>, <code class="docutils literal notranslate"><span class="pre">-out</span></code>, <code class="docutils literal notranslate"><span class="pre">-db</span></code> and <code class="docutils literal notranslate"><span class="pre">-html</span></code> switches and their arguments are effectively a single line.</p>
 </section>
 </section>
 <section id="implicit-variables">
-<span id="id3"></span><h2>Implicit variables<a class="headerlink" href="#implicit-variables" title="Permalink to this headline"></a></h2>
+<span id="id2"></span><h2>Implicit variables<a class="headerlink" href="#implicit-variables" title="Permalink to this heading"></a></h2>
 <section id="script-implicit-variables">
-<h3>Script implicit variables<a class="headerlink" href="#script-implicit-variables" title="Permalink to this headline"></a></h3>
+<h3>Script implicit variables<a class="headerlink" href="#script-implicit-variables" title="Permalink to this heading"></a></h3>
 <p>The following variables are implicitly defined in the script global execution scope:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">baseDir</span></code></p></td>
-<td><p>The directory where the main workflow script is located (deprecated in favour of <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> since <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">launchDir</span></code></p></td>
-<td><p>The directory where the workflow is run (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">moduleDir</span></code></p></td>
-<td><p>The directory where a module script is located for DSL2 modules or the same as <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> for a non-module script (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nextflow</span></code></p></td>
-<td><p>Dictionary like object representing nextflow runtime information (see <a class="reference internal" href="metadata.html#metadata-nextflow"><span class="std std-ref">Nextflow metadata</span></a>).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">params</span></code></p></td>
-<td><p>Dictionary like object holding workflow parameters specifying in the config file or as command line options.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></p></td>
-<td><p>The directory where the main script is located (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">workDir</span></code></p></td>
-<td><p>The directory where tasks temporary files are created.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workflow</span></code></p></td>
-<td><p>Dictionary like object representing workflow runtime information (see <a class="reference internal" href="metadata.html#metadata-workflow"><span class="std std-ref">Runtime metadata</span></a>).</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">baseDir</span></code></dt><dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 20.04.0: </span>Use <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> instead</p>
+</div>
+</dd>
+<dd><p>The directory where the main workflow script is located.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">launchDir</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 20.04.0.</span></p>
+</div>
+</dd>
+<dd><p>The directory where the workflow is run.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">moduleDir</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 20.04.0.</span></p>
+</div>
+</dd>
+<dd><p>The directory where a module script is located for DSL2 modules or the same as <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> for a non-module script.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nextflow</span></code></dt><dd><p>Dictionary like object representing nextflow runtime information (see <a class="reference internal" href="metadata.html#metadata-nextflow"><span class="std std-ref">Nextflow metadata</span></a>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">params</span></code></dt><dd><p>Dictionary like object holding workflow parameters specifying in the config file or as command line options.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 20.04.0.</span></p>
+</div>
+</dd>
+<dd><p>The directory where the main script is located.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">workDir</span></code></dt><dd><p>The directory where tasks temporary files are created.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">workflow</span></code></dt><dd><p>Dictionary like object representing workflow runtime information (see <a class="reference internal" href="metadata.html#metadata-workflow"><span class="std std-ref">Runtime metadata</span></a>).</p>
+</dd>
+</dl>
 </section>
 <section id="configuration-implicit-variables">
-<h3>Configuration implicit variables<a class="headerlink" href="#configuration-implicit-variables" title="Permalink to this headline"></a></h3>
+<h3>Configuration implicit variables<a class="headerlink" href="#configuration-implicit-variables" title="Permalink to this heading"></a></h3>
 <p>The following variables are implicitly defined in the Nextflow configuration file:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 12%" />
-<col style="width: 88%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">baseDir</span></code></p></td>
-<td><p>The directory where the main workflow script is located (deprecated in favour of <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> since <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">launchDir</span></code></p></td>
-<td><p>The directory where the workflow is run (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></p></td>
-<td><p>The directory where the main script is located (requires version <code class="docutils literal notranslate"><span class="pre">20.04.0</span></code> or later).</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">baseDir</span></code></dt><dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 20.04.0: </span>Use <code class="docutils literal notranslate"><span class="pre">projectDir</span></code> instead</p>
+</div>
+</dd>
+<dd><p>The directory where the main workflow script is located.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">launchDir</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 20.04.0.</span></p>
+</div>
+</dd>
+<dd><p>The directory where the workflow is run.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">projectDir</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 20.04.0.</span></p>
+</div>
+</dd>
+<dd><p>The directory where the main script is located.</p>
+</dd>
+</dl>
 </section>
 <section id="process-implicit-variables">
-<h3>Process implicit variables<a class="headerlink" href="#process-implicit-variables" title="Permalink to this headline"></a></h3>
+<h3>Process implicit variables<a class="headerlink" href="#process-implicit-variables" title="Permalink to this heading"></a></h3>
 <p>The following variables are implicitly defined in the <code class="docutils literal notranslate"><span class="pre">task</span></code> object of each process:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 13%" />
-<col style="width: 88%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">attempt</span></code></p></td>
-<td><p>The current task attempt</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">hash</span></code></p></td>
-<td><p>The task unique hash Id. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
-<td><p>The task index (corresponds to <code class="docutils literal notranslate"><span class="pre">task_id</span></code> in the execution trace)</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>The current task name. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">process</span></code></p></td>
-<td><p>The current process name</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workDir</span></code></p></td>
-<td><p>The task unique directory. NOTE: This is only available for processes that run native code via <code class="docutils literal notranslate"><span class="pre">exec:</span></code>.</p></td>
-</tr>
-</tbody>
-</table>
-<p>The <code class="docutils literal notranslate"><span class="pre">task</span></code> object also contains the values of all process directives for the given task,
-which allows you to access these settings at runtime. For examples:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">process</span> <span class="n">foo</span> <span class="p">{</span>
-  <span class="n">script</span><span class="p">:</span>
-  <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">  some_tool --cpus $task.cpus --mem $task.memory</span>
-<span class="sd">  &quot;&quot;&quot;</span>
-<span class="p">}</span>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">attempt</span></code></dt><dd><p>The current task attempt</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">hash</span></code></dt><dd><p><em>Available only in <code class="docutils literal notranslate"><span class="pre">exec:</span></code> blocks</em></p>
+</dd>
+<dd><p>The task unique hash ID</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">index</span></code></dt><dd><p>The task index (corresponds to <code class="docutils literal notranslate"><span class="pre">task_id</span></code> in the execution trace)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">name</span></code></dt><dd><p><em>Available only in <code class="docutils literal notranslate"><span class="pre">exec:</span></code> blocks</em></p>
+</dd>
+<dd><p>The current task name</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">process</span></code></dt><dd><p>The current process name</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">workDir</span></code></dt><dd><p><em>Available only in <code class="docutils literal notranslate"><span class="pre">exec:</span></code> blocks</em></p>
+</dd>
+<dd><p>The task unique directory</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">task</span></code> object also contains the values of all process directives for the given task, which allows you to access these settings at runtime. For examples:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="nl">script:</span>
+<span class="w">  </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">  some_tool --cpus $task.cpus --mem $task.memory</span>
+<span class="s2">  &quot;&quot;&quot;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>In the above snippet the <code class="docutils literal notranslate"><span class="pre">task.cpus</span></code> report the value for the <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus directive</span></a> and
-the <code class="docutils literal notranslate"><span class="pre">task.memory</span></code> the current value for <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory directive</span></a> depending on the actual
-setting given in the workflow configuration file.</p>
+<p>In the above snippet the <code class="docutils literal notranslate"><span class="pre">task.cpus</span></code> holds the value for the <a class="reference internal" href="process.html#process-cpus"><span class="std std-ref">cpus directive</span></a> and the <code class="docutils literal notranslate"><span class="pre">task.memory</span></code> the current value for <a class="reference internal" href="process.html#process-memory"><span class="std std-ref">memory directive</span></a> depending on the actual setting given in the workflow configuration file.</p>
 <p>See <a class="reference internal" href="process.html#process-directives"><span class="std std-ref">Process directives</span></a> for details.</p>
 </section>
 </section>
 <section id="closures">
-<span id="script-closure"></span><h2>Closures<a class="headerlink" href="#closures" title="Permalink to this headline"></a></h2>
-<p>Briefly, a closure is a block of code that can be passed as an argument to a function.
-Thus, you can define a chunk of code and then pass it around as if it were a string or an integer.</p>
-<p>More formally, you can create functions that are defined as <cite>first class objects</cite>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="p">{</span> <span class="n">it</span> <span class="o">*</span> <span class="n">it</span> <span class="p">}</span>
+<span id="script-closure"></span><h2>Closures<a class="headerlink" href="#closures" title="Permalink to this heading"></a></h2>
+<p>Briefly, a closure is a block of code that can be passed as an argument to a function. Thus, you can define a chunk of code and then pass it around as if it were a string or an integer.</p>
+<p>More formally, you can create functions that are defined as <em>first-class objects</em>.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">square</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">}</span>
 </pre></div>
 </div>
-<p>The curly brackets around the expression <code class="docutils literal notranslate"><span class="pre">it</span> <span class="pre">*</span> <span class="pre">it</span></code> tells the script interpreter to treat this expression as code.
-The <cite>it</cite> identifier is an implicit variable that represents the value that is passed to the function when it is invoked.</p>
-<p>Once compiled the function object is assigned to the variable <code class="docutils literal notranslate"><span class="pre">square</span></code> as any other variable assignments shown previously.
-Now we can do something like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">square</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+<p>The curly brackets around the expression <code class="docutils literal notranslate"><span class="pre">it</span> <span class="pre">*</span> <span class="pre">it</span></code> tells the script interpreter to treat this expression as code. The <code class="docutils literal notranslate"><span class="pre">it</span></code> identifier is an implicit variable that represents the value that is passed to the function when it is invoked.</p>
+<p>Once compiled the function object is assigned to the variable <code class="docutils literal notranslate"><span class="pre">square</span></code> as any other variable assignments shown previously. Now we can do something like this:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="nf">square</span><span class="o">(</span><span class="mi">9</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>and get the value 81.</p>
-<p>This is not very interesting until we find that we can pass the function <code class="docutils literal notranslate"><span class="pre">square</span></code> as an argument to other functions or methods.
-Some built-in functions take a function like this as an argument. One example is the <code class="docutils literal notranslate"><span class="pre">collect</span></code> method on lists:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">]</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+<p>This is not very interesting until we find that we can pass the function <code class="docutils literal notranslate"><span class="pre">square</span></code> as an argument to other functions or methods. Some built-in functions take a function like this as an argument. One example is the <code class="docutils literal notranslate"><span class="pre">collect</span></code> method on lists:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="w"> </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="mi">3</span><span class="o">,</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">].</span><span class="na">collect</span><span class="o">(</span><span class="n">square</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>This expression says: Create an array with the values 1, 2, 3 and 4, then call its <code class="docutils literal notranslate"><span class="pre">collect</span></code> method, passing in the
-closure we defined above. The <code class="docutils literal notranslate"><span class="pre">collect</span></code> method runs through each item in the array, calls the closure on the item,
-then puts the result in a new array, resulting in:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span> <span class="p">]</span>
+<p>This expression says: Create an array with the values 1, 2, 3 and 4, then call its <code class="docutils literal notranslate"><span class="pre">collect</span></code> method, passing in the closure we defined above. The <code class="docutils literal notranslate"><span class="pre">collect</span></code> method runs through each item in the array, calls the closure on the item, then puts the result in a new array, resulting in:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="o">[</span><span class="w"> </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="mi">4</span><span class="o">,</span><span class="w"> </span><span class="mi">9</span><span class="o">,</span><span class="w"> </span><span class="mi">16</span><span class="w"> </span><span class="o">]</span>
 </pre></div>
 </div>
 <p>For more methods that you can call with closures as arguments, see the <a class="reference external" href="http://docs.groovy-lang.org/latest/html/groovy-jdk/">Groovy GDK documentation</a>.</p>
-<p>By default, closures take a single parameter called <code class="docutils literal notranslate"><span class="pre">it</span></code>, but you can also create closures with multiple, custom-named parameters.
-For example, the method <code class="docutils literal notranslate"><span class="pre">Map.each()</span></code> can take a closure with two arguments, to which it binds the <cite>key</cite> and the associated <cite>value</cite>
-for each key-value pair in the <code class="docutils literal notranslate"><span class="pre">Map</span></code>. Here, we use the obvious variable names <code class="docutils literal notranslate"><span class="pre">key</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> in our closure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">printMapClosure</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">-&gt;</span>
-    <span class="n">println</span> <span class="s2">&quot;$key = $value&quot;</span>
-<span class="p">}</span>
+<p>By default, closures take a single parameter called <code class="docutils literal notranslate"><span class="pre">it</span></code>, but you can also create closures with multiple, custom-named parameters. For example, the method <code class="docutils literal notranslate"><span class="pre">Map.each()</span></code> can take a closure with two arguments, to which it binds the <code class="docutils literal notranslate"><span class="pre">key</span></code> and the associated <code class="docutils literal notranslate"><span class="pre">value</span></code> for each key-value pair in the <code class="docutils literal notranslate"><span class="pre">Map</span></code>. Here, we use the obvious variable names <code class="docutils literal notranslate"><span class="pre">key</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> in our closure:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">printMapClosure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">key</span><span class="o">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;$key = $value&quot;</span>
+<span class="o">}</span>
 
-<span class="p">[</span> <span class="s2">&quot;Yue&quot;</span> <span class="p">:</span> <span class="s2">&quot;Wu&quot;</span><span class="p">,</span> <span class="s2">&quot;Mark&quot;</span> <span class="p">:</span> <span class="s2">&quot;Williams&quot;</span><span class="p">,</span> <span class="s2">&quot;Sudha&quot;</span> <span class="p">:</span> <span class="s2">&quot;Kumari&quot;</span> <span class="p">]</span><span class="o">.</span><span class="n">each</span><span class="p">(</span><span class="n">printMapClosure</span><span class="p">)</span>
+<span class="o">[</span><span class="w"> </span><span class="s2">&quot;Yue&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Wu&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Mark&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Williams&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;Sudha&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Kumari&quot;</span><span class="w"> </span><span class="o">].</span><span class="na">each</span><span class="o">(</span><span class="n">printMapClosure</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Prints:</p>
@@ -511,146 +483,128 @@ for each key-value pair in the <code class="docutils literal notranslate"><span 
 <span class="n">Sudha</span> <span class="o">=</span> <span class="n">Kumari</span>
 </pre></div>
 </div>
-<p>A closure has two other important features. First, it can access variables in the scope where it is defined,
-so that it can <cite>interact</cite> with them.</p>
-<p>Second, a closure can be defined in an <cite>anonymous</cite> manner, meaning that it is not given a name,
-and is defined in the place where it needs to be used.</p>
+<p>A closure has two other important features. First, it can access variables in the scope where it is defined, so that it can interact with them.</p>
+<p>Second, a closure can be defined in an anonymous manner, meaning that it is not given a name, and is defined in the place where it needs to be used.</p>
 <p>As an example showing both these features, see the following code fragment:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myMap</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;China&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">,</span> <span class="s2">&quot;India&quot;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;USA&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;China&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;India&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;USA&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span>
 
-<span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myMap</span><span class="o">.</span><span class="n">keySet</span><span class="p">()</span><span class="o">.</span><span class="n">each</span><span class="p">(</span> <span class="p">{</span> <span class="n">result</span><span class="o">+=</span> <span class="n">myMap</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="p">}</span> <span class="p">)</span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">myMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">each</span><span class="o">(</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">result</span><span class="o">+=</span><span class="w"> </span><span class="n">myMap</span><span class="o">[</span><span class="n">it</span><span class="o">]</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">)</span>
 
-<span class="n">println</span> <span class="n">result</span>
+<span class="n">println</span><span class="w"> </span><span class="n">result</span>
 </pre></div>
 </div>
 <p>Learn more about closures in the <a class="reference external" href="http://groovy-lang.org/closures.html">Groovy documentation</a></p>
 </section>
 <section id="regular-expressions">
-<span id="script-regexp"></span><h2>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this headline"></a></h2>
-<p>Regular expressions are the Swiss Army knife of text processing. They provide the programmer with the ability to match
-and extract patterns from strings.</p>
+<span id="script-regexp"></span><h2>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this heading"></a></h2>
+<p>Regular expressions are the Swiss Army knife of text processing. They provide the programmer with the ability to match and extract patterns from strings.</p>
 <p>Regular expressions are available via the <code class="docutils literal notranslate"><span class="pre">~/pattern/</span></code> syntax and the <code class="docutils literal notranslate"><span class="pre">=~</span></code> and <code class="docutils literal notranslate"><span class="pre">==~</span></code> operators.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">=~</span></code> to check whether a given pattern occurs anywhere in a string:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
-<span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">=~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/foo/</span><span class="w">       </span><span class="c1">// return TRUE</span>
+<span class="k">assert</span><span class="w"> </span><span class="s1">&#39;foobar&#39;</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/foo/</span><span class="w">    </span><span class="c1">// return TRUE</span>
 </pre></div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">==~</span></code> to check whether a string matches a given regular expression pattern exactly.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="s1">&#39;foo&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>       <span class="o">//</span> <span class="k">return</span> <span class="n">TRUE</span>
-<span class="k">assert</span> <span class="s1">&#39;foobar&#39;</span> <span class="o">==~</span> <span class="o">/</span><span class="n">foo</span><span class="o">/</span>    <span class="o">//</span> <span class="k">return</span> <span class="n">FALSE</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="s1">&#39;foo&#39;</span><span class="w"> </span><span class="o">==~</span><span class="w"> </span><span class="s">/foo/</span><span class="w">       </span><span class="c1">// return TRUE</span>
+<span class="k">assert</span><span class="w"> </span><span class="s1">&#39;foobar&#39;</span><span class="w"> </span><span class="o">==~</span><span class="w"> </span><span class="s">/foo/</span><span class="w">    </span><span class="c1">// return FALSE</span>
 </pre></div>
 </div>
-<p>It is worth noting that the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator creates a Java <code class="docutils literal notranslate"><span class="pre">Pattern</span></code> object from the given string,
-while the <code class="docutils literal notranslate"><span class="pre">=~</span></code> operator creates a Java <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> object.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>x = ~/abc/
-println x.class
-// prints java.util.regex.Pattern
+<p>It is worth noting that the <code class="docutils literal notranslate"><span class="pre">~</span></code> operator creates a Java <code class="docutils literal notranslate"><span class="pre">Pattern</span></code> object from the given string, while the <code class="docutils literal notranslate"><span class="pre">=~</span></code> operator creates a Java <code class="docutils literal notranslate"><span class="pre">Matcher</span></code> object.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="s">/abc/</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="na">class</span>
+<span class="c1">// prints java.util.regex.Pattern</span>
 
-y = &#39;some string&#39; =~ /abc/
-println y.class
-// prints java.util.regex.Matcher
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;some string&#39;</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/abc/</span>
+<span class="n">println</span><span class="w"> </span><span class="n">y</span><span class="o">.</span><span class="na">class</span>
+<span class="c1">// prints java.util.regex.Matcher</span>
 </pre></div>
 </div>
-<p>Regular expression support is imported from Java. Java’s regular expression language and API is documented in the
-<a class="reference external" href="http://download.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">Pattern Java documentation</a>.</p>
+<p>Regular expression support is imported from Java. Java’s regular expression language and API is documented in the <a class="reference external" href="http://download.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html">Pattern Java documentation</a>.</p>
 <p>You may also be interested in this post: <a class="reference external" href="https://web.archive.org/web/20170621185113/http://www.naleid.com/blog/2008/05/19/dont-fear-the-regexp">Groovy: Don’t Fear the RegExp</a>.</p>
 <section id="string-replacement">
-<h3>String replacement<a class="headerlink" href="#string-replacement" title="Permalink to this headline"></a></h3>
+<h3>String replacement<a class="headerlink" href="#string-replacement" title="Permalink to this heading"></a></h3>
 <p>To replace pattern occurrences in a given string, use the <code class="docutils literal notranslate"><span class="pre">replaceFirst</span></code> and <code class="docutils literal notranslate"><span class="pre">replaceAll</span></code> methods:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="s2">&quot;colour&quot;</span><span class="o">.</span><span class="n">replaceFirst</span><span class="p">(</span><span class="o">/</span><span class="n">ou</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
-<span class="n">println</span> <span class="n">x</span>
-<span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">color</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;colour&quot;</span><span class="o">.</span><span class="na">replaceFirst</span><span class="o">(</span><span class="s">/ou/</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;o&quot;</span><span class="o">)</span>
+<span class="n">println</span><span class="w"> </span><span class="n">x</span>
+<span class="c1">// prints: color</span>
 
-<span class="n">y</span> <span class="o">=</span> <span class="s2">&quot;cheesecheese&quot;</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="o">/</span><span class="n">cheese</span><span class="o">/</span><span class="p">,</span> <span class="s2">&quot;nice&quot;</span><span class="p">)</span>
-<span class="n">println</span> <span class="n">y</span>
-<span class="o">//</span> <span class="n">prints</span><span class="p">:</span> <span class="n">nicenice</span>
+<span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;cheesecheese&quot;</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">/cheese/</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;nice&quot;</span><span class="o">)</span>
+<span class="n">println</span><span class="w"> </span><span class="n">y</span>
+<span class="c1">// prints: nicenice</span>
 </pre></div>
 </div>
 </section>
 <section id="capturing-groups">
-<h3>Capturing groups<a class="headerlink" href="#capturing-groups" title="Permalink to this headline"></a></h3>
-<p>You can match a pattern that includes groups.  First create a matcher object with the <code class="docutils literal notranslate"><span class="pre">=~</span></code> operator.
-Then, you can index the matcher object to find the matches: <code class="docutils literal notranslate"><span class="pre">matcher[0]</span></code> returns a list representing the first match
-of the regular expression in the string. The first list element is the string that matches the entire regular expression, and
-the remaining elements are the strings that match each group.</p>
+<h3>Capturing groups<a class="headerlink" href="#capturing-groups" title="Permalink to this heading"></a></h3>
+<p>You can match a pattern that includes groups. First create a matcher object with the <code class="docutils literal notranslate"><span class="pre">=~</span></code> operator. Then, you can index the matcher object to find the matches: <code class="docutils literal notranslate"><span class="pre">matcher[0]</span></code> returns a list representing the first match of the regular expression in the string. The first list element is the string that matches the entire regular expression, and the remaining elements are the strings that match each group.</p>
 <p>Here’s how it works:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
-m = programVersion =~ /(\d+)\.(\d+)\.(\d+)-?(.+)/
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">programVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2.7.3-beta&#39;</span>
+<span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">programVersion</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/(\d+)\.(\d+)\.(\d+)-?(.+)/</span>
 
-assert m[0] ==  [&#39;2.7.3-beta&#39;, &#39;2&#39;, &#39;7&#39;, &#39;3&#39;, &#39;beta&#39;]
-assert m[0][1] == &#39;2&#39;
-assert m[0][2] == &#39;7&#39;
-assert m[0][3] == &#39;3&#39;
-assert m[0][4] == &#39;beta&#39;
+<span class="k">assert</span><span class="w"> </span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;2.7.3-beta&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;7&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;beta&#39;</span><span class="o">]</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">1</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;2&#39;</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">2</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;7&#39;</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">3</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;3&#39;</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">m</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="mi">4</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;beta&#39;</span>
 </pre></div>
 </div>
 <p>Applying some syntactic sugar, you can do the same in just one line of code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>programVersion = &#39;2.7.3-beta&#39;
-(full, major, minor, patch, flavor) = (programVersion =~ /(\d+)\.(\d+)\.(\d+)-?(.+)/)[0]
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">programVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2.7.3-beta&#39;</span>
+<span class="o">(</span><span class="n">full</span><span class="o">,</span><span class="w"> </span><span class="n">major</span><span class="o">,</span><span class="w"> </span><span class="n">minor</span><span class="o">,</span><span class="w"> </span><span class="n">patch</span><span class="o">,</span><span class="w"> </span><span class="n">flavor</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(</span><span class="n">programVersion</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/(\d+)\.(\d+)\.(\d+)-?(.+)/</span><span class="o">)[</span><span class="mi">0</span><span class="o">]</span>
 
-println full    // 2.7.3-beta
-println major   // 2
-println minor   // 7
-println patch   // 3
-println flavor  // beta
+<span class="n">println</span><span class="w"> </span><span class="n">full</span><span class="w">    </span><span class="c1">// 2.7.3-beta</span>
+<span class="n">println</span><span class="w"> </span><span class="n">major</span><span class="w">   </span><span class="c1">// 2</span>
+<span class="n">println</span><span class="w"> </span><span class="n">minor</span><span class="w">   </span><span class="c1">// 7</span>
+<span class="n">println</span><span class="w"> </span><span class="n">patch</span><span class="w">   </span><span class="c1">// 3</span>
+<span class="n">println</span><span class="w"> </span><span class="n">flavor</span><span class="w">  </span><span class="c1">// beta</span>
 </pre></div>
 </div>
 </section>
 <section id="removing-part-of-a-string">
-<h3>Removing part of a string<a class="headerlink" href="#removing-part-of-a-string" title="Permalink to this headline"></a></h3>
-<p>You can remove part of a <code class="docutils literal notranslate"><span class="pre">String</span></code> value using a regular expression pattern. The first match found is
-replaced with an empty String:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>// define the regexp pattern
-wordStartsWithGr = ~/(?i)\s+Gr\w+/
+<h3>Removing part of a string<a class="headerlink" href="#removing-part-of-a-string" title="Permalink to this heading"></a></h3>
+<p>You can remove part of a <code class="docutils literal notranslate"><span class="pre">String</span></code> value using a regular expression pattern. The first match found is replaced with an empty String:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// define the regexp pattern</span>
+<span class="n">wordStartsWithGr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="s">/(?i)\s+Gr\w+/</span>
 
-// apply and verify the result
-(&#39;Hello Groovy world!&#39; - wordStartsWithGr) == &#39;Hello world!&#39;
-(&#39;Hi Grails users&#39; - wordStartsWithGr) == &#39;Hi users&#39;
+<span class="c1">// apply and verify the result</span>
+<span class="o">(</span><span class="s1">&#39;Hello Groovy world!&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">wordStartsWithGr</span><span class="o">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Hello world!&#39;</span>
+<span class="o">(</span><span class="s1">&#39;Hi Grails users&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">wordStartsWithGr</span><span class="o">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Hi users&#39;</span>
 </pre></div>
 </div>
 <p>Remove the first 5-character word from a string:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Remove first match of 5 letter word&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">b</span>\<span class="n">w</span><span class="p">{</span><span class="mi">5</span><span class="p">}</span>\<span class="n">b</span><span class="o">/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Remove  match of 5 letter word&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="o">(</span><span class="s1">&#39;Remove first match of 5 letter word&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">~</span><span class="s">/\b\w{5}\b/</span><span class="o">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Remove match of 5 letter word&#39;</span>
 </pre></div>
 </div>
 <p>Remove the first number with its trailing whitespace from a string:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="p">(</span><span class="s1">&#39;Line contains 20 characters&#39;</span> <span class="o">-</span> <span class="o">~/</span>\<span class="n">d</span><span class="o">+</span>\<span class="n">s</span><span class="o">+/</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;Line contains characters&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="o">(</span><span class="s1">&#39;Line contains 20 characters&#39;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">~</span><span class="s">/\d+\s+/</span><span class="o">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;Line contains characters&#39;</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="files-and-i-o">
-<span id="script-file-io"></span><h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this headline"></a></h2>
+<span id="script-file-io"></span><h2>Files and I/O<a class="headerlink" href="#files-and-i-o" title="Permalink to this heading"></a></h2>
 <section id="opening-files">
-<h3>Opening files<a class="headerlink" href="#opening-files" title="Permalink to this headline"></a></h3>
-<p>To access and work with files, use the <code class="docutils literal notranslate"><span class="pre">file</span></code> method, which returns a file system object
-given a file path string:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/to/my_file.file&#39;</span><span class="p">)</span>
+<h3>Opening files<a class="headerlink" href="#opening-files" title="Permalink to this heading"></a></h3>
+<p>To access and work with files, use the <code class="docutils literal notranslate"><span class="pre">file</span></code> method, which returns a file system object given a file path string:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/path/to/my_file.file&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> method can reference either <cite>files</cite> or <cite>directories</cite>, depending on what the string path refers to in the
-file system.</p>
-<p>When using the wildcard characters <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code> and <code class="docutils literal notranslate"><span class="pre">{}</span></code>, the argument is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher
-and the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a list object holding the paths of files whose names match the specified pattern, or an
-empty list if no match is found:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">listOfFiles</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">)</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> method can reference both files and directories, depending on what the string path refers to in the file system.</p>
+<p>When using the wildcard characters <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">?</span></code>, <code class="docutils literal notranslate"><span class="pre">[]</span></code> and <code class="docutils literal notranslate"><span class="pre">{}</span></code>, the argument is interpreted as a <a class="reference external" href="http://docs.oracle.com/javase/tutorial/essential/io/fileOps.html#glob">glob</a> path matcher and the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a list object holding the paths of files whose names match the specified pattern, or an empty list if no match is found:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">listOfFiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Two asterisks (<code class="docutils literal notranslate"><span class="pre">**</span></code>) in a glob pattern works like <code class="docutils literal notranslate"><span class="pre">*</span></code> but also searches through subdirectories.</p>
 </div>
-<p>By default, wildcard characters do not match directories or hidden files. For example, if you want to include hidden
-files in the result list, add the optional parameter <code class="docutils literal notranslate"><span class="pre">hidden</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">listWithHidden</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="p">,</span> <span class="n">hidden</span><span class="p">:</span> <span class="n">true</span><span class="p">)</span>
+<p>By default, wildcard characters do not match directories or hidden files. For example, if you want to include hidden files in the result list, add the optional parameter <code class="docutils literal notranslate"><span class="pre">hidden</span></code>:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">listWithHidden</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/path/*.fa&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">hidden:</span><span class="w"> </span><span class="kc">true</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Here are <code class="docutils literal notranslate"><span class="pre">file</span></code>’s available options:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -667,7 +621,7 @@ files in the result list, add the optional parameter <code class="docutils liter
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> includes hidden files in the resulting paths (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></td>
 </tr>
 <tr class="row-odd"><td><p>maxDepth</p></td>
-<td><p>Maximum number of directory levels to visit (default: <cite>no limit</cite>)</p></td>
+<td><p>Maximum number of directory levels to visit (default: <code class="docutils literal notranslate"><span class="pre">no</span> <span class="pre">limit</span></code>)</p></td>
 </tr>
 <tr class="row-even"><td><p>followLinks</p></td>
 <td><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> follows symbolic links during directory tree traversal, otherwise treats them as files (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p></td>
@@ -679,49 +633,43 @@ files in the result list, add the optional parameter <code class="docutils liter
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Nextflow also provides a <code class="docutils literal notranslate"><span class="pre">files()</span></code> method, which is identical to <code class="docutils literal notranslate"><span class="pre">file()</span></code> except that it always
-returns a list, whereas <code class="docutils literal notranslate"><span class="pre">file()</span></code> only returns a list if it matches multiple files.</p>
+<p>Nextflow also provides a <code class="docutils literal notranslate"><span class="pre">files()</span></code> method, which is identical to <code class="docutils literal notranslate"><span class="pre">file()</span></code> except that it always returns a list, whereas <code class="docutils literal notranslate"><span class="pre">file()</span></code> only returns a list if it matches multiple files.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If you are a Java geek, you might be interested to know that the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a
-<a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> object, which allows
-you to use the same methods you would use in a Java program.</p>
+<p>If you are a Java geek, you might be interested to know that the <code class="docutils literal notranslate"><span class="pre">file</span></code> method returns a <a class="reference external" href="http://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html">Path</a> object, which allows you to use the same methods you would use in a Java program.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>When a file reference is created using a URL path and it’s converted to a string the protocol schema is not included in the resulting string.</p>
-</div>
+<p>When a file reference is created using a URL path and it’s converted to a string, the protocol schema is not included in the resulting string.</p>
 <p>You can check this behavior with the code below:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ref</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span><span class="p">)</span>
-<span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">toString</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
-<span class="k">assert</span> <span class="s2">&quot;$ref&quot;</span> <span class="o">==</span> <span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span><span class="w"> </span><span class="n">ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span><span class="o">)</span>
+<span class="k">assert</span><span class="w"> </span><span class="n">ref</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
+<span class="k">assert</span><span class="w"> </span><span class="s2">&quot;$ref&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;/some-bucket/foo.txt&#39;</span>
 </pre></div>
 </div>
-<p>To have the file including the schema the method <code class="docutils literal notranslate"><span class="pre">toUriString</span></code> should be used instead:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">ref</span><span class="o">.</span><span class="n">toUriString</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span>
+<p>To include the schema, the <code class="docutils literal notranslate"><span class="pre">toUriString()</span></code> method should be used instead:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span><span class="w"> </span><span class="n">ref</span><span class="o">.</span><span class="na">toUriString</span><span class="o">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;s3://some-bucket/foo.txt&#39;</span>
 </pre></div>
 </div>
-<p>Also, instead of composing paths through string interpolation, the <code class="docutils literal notranslate"><span class="pre">.resolve</span></code> method or the <code class="docutils literal notranslate"><span class="pre">/</span></code> operator
-should be used instead:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>def dir = file(&#39;s3://bucket/some/data/path&#39;)
+<p>Also, instead of composing paths through string interpolation, the <code class="docutils literal notranslate"><span class="pre">resolve()</span></code> method or the <code class="docutils literal notranslate"><span class="pre">/</span></code> operator should be used instead::</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span>def dir = file(&#39;s3://bucket/some/data/path&#39;)
 def sample = &quot;$dir/sample.bam&quot;                // don&#39;t do this
 def sample1 = dir.resolve(&#39;sample.bam&#39;)
-def sample2 = dir / &#39;sample.bam&#39;              // the operator `/` can be used to compose paths
+def sample2 = dir / &#39;sample.bam&#39;              // the `/` operator can be used to compose paths
 </pre></div>
+</div>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">Channel.fromPath</span></a>.</p>
 </section>
 <section id="basic-read-write">
-<h3>Basic read/write<a class="headerlink" href="#basic-read-write" title="Permalink to this headline"></a></h3>
-<p>Given a file variable, declared using the <code class="docutils literal notranslate"><span class="pre">file</span></code> method as shown in the previous example, reading a file
-is as easy as getting the value of the file’s <code class="docutils literal notranslate"><span class="pre">text</span></code> property, which returns the file content
-as a string value:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span> <span class="n">myFile</span><span class="o">.</span><span class="n">text</span>
+<h3>Basic read/write<a class="headerlink" href="#basic-read-write" title="Permalink to this heading"></a></h3>
+<p>Given a file variable, declared using the <code class="docutils literal notranslate"><span class="pre">file</span></code> method as shown in the previous example, reading a file is as easy as getting the value of the file’s <code class="docutils literal notranslate"><span class="pre">text</span></code> property, which returns the file content as a string value:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">print</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">text</span>
 </pre></div>
 </div>
 <p>Similarly, you can save a string value to a file by simply assigning it to the file’s <code class="docutils literal notranslate"><span class="pre">text</span></code> property:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;Hello world!&#39;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hello world!&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -729,91 +677,78 @@ as a string value:</p>
 <p>The above assignment overwrites any existing file contents, and implicitly creates the file if it doesn’t exist.</p>
 </div>
 <p>In order to append a string value to a file without erasing existing content, you can use the <code class="docutils literal notranslate"><span class="pre">append</span></code> method:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Add this line</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s1">&#39;Add this line\n&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>Or use the <cite>left shift</cite> operator, a more idiomatic way to append text content to a file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">&lt;&lt;</span> <span class="s1">&#39;Add a line more</span><span class="se">\n</span><span class="s1">&#39;</span>
+<p>Or use the left shift operator, a more idiomatic way to append text content to a file:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s1">&#39;Add a line more\n&#39;</span>
 </pre></div>
 </div>
-<p>Binary data can managed in the same way, just using the file property <code class="docutils literal notranslate"><span class="pre">bytes</span></code> instead of <code class="docutils literal notranslate"><span class="pre">text</span></code>. Thus, the following
-example reads the file and returns its content as a byte array:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">binaryContent</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span>
+<p>Binary data can managed in the same way, just using the file property <code class="docutils literal notranslate"><span class="pre">bytes</span></code> instead of <code class="docutils literal notranslate"><span class="pre">text</span></code>. Thus, the following example reads the file and returns its content as a byte array:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">binaryContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">bytes</span>
 </pre></div>
 </div>
 <p>Or you can save a byte array data buffer to a file, by simply writing:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">bytes</span> <span class="o">=</span> <span class="n">binaryBuffer</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">bytes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">binaryBuffer</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The above methods read and write the <strong>entire</strong> file contents at once, in a single variable or buffer. For this
-reason, when dealing with large files it is recommended that you use a more memory efficient approach, such as
-reading/writing a file line by line or using a fixed size buffer.</p>
+<p>The above methods read and write the <strong>entire</strong> file contents at once, in a single variable or buffer. For this reason, when dealing with large files it is recommended that you use a more memory efficient approach, such as reading/writing a file line by line or using a fixed size buffer.</p>
 </div>
 </section>
 <section id="read-a-file-line-by-line">
-<h3>Read a file line by line<a class="headerlink" href="#read-a-file-line-by-line" title="Permalink to this headline"></a></h3>
-<p>In order to read a text file line by line you can use the method <code class="docutils literal notranslate"><span class="pre">readLines()</span></code> provided by the file object, which
-returns the file content as a list of strings:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
-<span class="n">allLines</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
-<span class="k">for</span><span class="p">(</span> <span class="n">line</span> <span class="p">:</span> <span class="n">allLines</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">println</span> <span class="n">line</span>
-<span class="p">}</span>
+<h3>Read a file line by line<a class="headerlink" href="#read-a-file-line-by-line" title="Permalink to this heading"></a></h3>
+<p>In order to read a text file line by line you can use the method <code class="docutils literal notranslate"><span class="pre">readLines()</span></code> provided by the file object, which returns the file content as a list of strings:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="o">)</span>
+<span class="n">allLines</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">readLines</span><span class="o">()</span>
+<span class="k">for</span><span class="o">(</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">allLines</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="n">line</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>This can also be written in a more idiomatic syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="p">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">readLines</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="n">println</span> <span class="n">it</span> <span class="p">}</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/my_file.txt&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="o">.</span><span class="na">readLines</span><span class="o">()</span>
+<span class="w">    </span><span class="o">.</span><span class="na">each</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">println</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The method <code class="docutils literal notranslate"><span class="pre">readLines()</span></code> reads the <strong>entire</strong> file at once and returns a list containing all the lines. For
-this reason, do not use it to read big files.</p>
+<p>The method <code class="docutils literal notranslate"><span class="pre">readLines()</span></code> reads the <strong>entire</strong> file at once and returns a list containing all the lines. For this reason, do not use it to read big files.</p>
 </div>
 <p>To process a big file, use the method <code class="docutils literal notranslate"><span class="pre">eachLine</span></code>, which reads only a single line at a time into memory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">eachLine</span> <span class="p">{</span> <span class="nb">str</span> <span class="o">-&gt;</span>
-    <span class="n">println</span> <span class="s2">&quot;line ${count++}: $str&quot;</span>
-<span class="p">}</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">myFile</span><span class="o">.</span><span class="na">eachLine</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;line ${count++}: $str&quot;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </section>
 <section id="advanced-file-reading-operations">
-<h3>Advanced file reading operations<a class="headerlink" href="#advanced-file-reading-operations" title="Permalink to this headline"></a></h3>
+<h3>Advanced file reading operations<a class="headerlink" href="#advanced-file-reading-operations" title="Permalink to this heading"></a></h3>
 <p>The classes <code class="docutils literal notranslate"><span class="pre">Reader</span></code> and <code class="docutils literal notranslate"><span class="pre">InputStream</span></code> provide fine control for reading text and binary files, respectively._</p>
-<p>The method <code class="docutils literal notranslate"><span class="pre">newReader</span></code> creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object
-for the given file that allows you to read the content as single characters, lines or arrays of characters:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myReader</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">newReader</span><span class="p">()</span>
-<span class="n">String</span> <span class="n">line</span>
-<span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">myReader</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">println</span> <span class="n">line</span>
-<span class="p">}</span>
-<span class="n">myReader</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<p>The method <code class="docutils literal notranslate"><span class="pre">newReader</span></code> creates a <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> object for the given file that allows you to read the content as single characters, lines or arrays of characters:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myReader</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">newReader</span><span class="o">()</span>
+<span class="n">String</span><span class="w"> </span><span class="n">line</span>
+<span class="nf">while</span><span class="o">(</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myReader</span><span class="o">.</span><span class="na">readLine</span><span class="o">()</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="n">line</span>
+<span class="o">}</span>
+<span class="n">myReader</span><span class="o">.</span><span class="na">close</span><span class="o">()</span>
 </pre></div>
 </div>
-<p>The method <code class="docutils literal notranslate"><span class="pre">withReader</span></code> works similarly, but automatically calls the <code class="docutils literal notranslate"><span class="pre">close</span></code> method for you when you have finished
-processing the file. So, the previous example can be written more simply as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span>
-    <span class="n">String</span> <span class="n">line</span>
-    <span class="k">while</span><span class="p">(</span> <span class="n">line</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="n">println</span> <span class="n">line</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>The method <code class="docutils literal notranslate"><span class="pre">withReader</span></code> works similarly, but automatically calls the <code class="docutils literal notranslate"><span class="pre">close</span></code> method for you when you have finished processing the file. So, the previous example can be written more simply as:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">withReader</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">String</span><span class="w"> </span><span class="n">line</span>
+<span class="w">    </span><span class="k">while</span><span class="o">(</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">readLine</span><span class="o">()</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">println</span><span class="w"> </span><span class="n">line</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>The methods <code class="docutils literal notranslate"><span class="pre">newInputStream</span></code> and <code class="docutils literal notranslate"><span class="pre">withInputStream</span></code> work similarly. The main difference is that they create an
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> object useful for writing binary
-data.</p>
+<p>The methods <code class="docutils literal notranslate"><span class="pre">newInputStream</span></code> and <code class="docutils literal notranslate"><span class="pre">withInputStream</span></code> work similarly. The main difference is that they create an <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> object useful for writing binary data.</p>
 <p>Here are the most important methods for reading from files:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 91%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -849,32 +784,24 @@ data.</p>
 </tr>
 </tbody>
 </table>
-<p>Read the Java documentation for <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> and
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> classes to learn more about
-methods available for reading data from files.</p>
+<p>Read the Java documentation for <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Reader.html">Reader</a> and <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html">InputStream</a> classes to learn more about methods available for reading data from files.</p>
 </section>
 <section id="advanced-file-writing-operations">
-<h3>Advanced file writing operations<a class="headerlink" href="#advanced-file-writing-operations" title="Permalink to this headline"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">Writer</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputStream</span></code> classes provide fine control for writing text and binary files,
-respectively, including low-level operations for single characters or bytes, and support for big files.</p>
-<p>For example, given two file objects <code class="docutils literal notranslate"><span class="pre">sourceFile</span></code> and <code class="docutils literal notranslate"><span class="pre">targetFile</span></code>, the following code copies the
-first file’s content into the second file, replacing all <code class="docutils literal notranslate"><span class="pre">U</span></code> characters with <code class="docutils literal notranslate"><span class="pre">X</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sourceFile</span><span class="o">.</span><span class="n">withReader</span> <span class="p">{</span> <span class="n">source</span> <span class="o">-&gt;</span>
-    <span class="n">targetFile</span><span class="o">.</span><span class="n">withWriter</span> <span class="p">{</span> <span class="n">target</span> <span class="o">-&gt;</span>
-        <span class="n">String</span> <span class="n">line</span>
-        <span class="k">while</span><span class="p">(</span> <span class="n">line</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="n">readLine</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-            <span class="n">target</span> <span class="o">&lt;&lt;</span> <span class="n">line</span><span class="o">.</span><span class="n">replaceAll</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">,</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<h3>Advanced file writing operations<a class="headerlink" href="#advanced-file-writing-operations" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Writer</span></code> and <code class="docutils literal notranslate"><span class="pre">OutputStream</span></code> classes provide fine control for writing text and binary files, respectively, including low-level operations for single characters or bytes, and support for big files.</p>
+<p>For example, given two file objects <code class="docutils literal notranslate"><span class="pre">sourceFile</span></code> and <code class="docutils literal notranslate"><span class="pre">targetFile</span></code>, the following code copies the first file’s content into the second file, replacing all <code class="docutils literal notranslate"><span class="pre">U</span></code> characters with <code class="docutils literal notranslate"><span class="pre">X</span></code>:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">sourceFile</span><span class="o">.</span><span class="na">withReader</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">targetFile</span><span class="o">.</span><span class="na">withWriter</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="n">String</span><span class="w"> </span><span class="n">line</span>
+<span class="w">        </span><span class="k">while</span><span class="o">(</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="n">source</span><span class="o">.</span><span class="na">readLine</span><span class="o">()</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">            </span><span class="n">target</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">line</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s1">&#39;U&#39;</span><span class="o">,</span><span class="s1">&#39;X&#39;</span><span class="o">)</span>
+<span class="w">        </span><span class="o">}</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Here are the most important methods for writing to files:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 11%" />
-<col style="width: 89%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -913,49 +840,38 @@ first file’s content into the second file, replacing all <code class="docutils
 </tr>
 </tbody>
 </table>
-<p>Read the Java documentation for the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a>,
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html">PrintWriter</a> and
-<a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> classes to learn more about
-methods available for writing data to files.</p>
+<p>Read the Java documentation for the <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/Writer.html">Writer</a>, <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html">PrintWriter</a> and <a class="reference external" href="http://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html">OutputStream</a> classes to learn more about methods available for writing data to files.</p>
 </section>
 <section id="list-directory-content">
-<h3>List directory content<a class="headerlink" href="#list-directory-content" title="Permalink to this headline"></a></h3>
-<p>Let’s assume that you need to walk through a directory of your choice. You can define the <code class="docutils literal notranslate"><span class="pre">myDir</span></code> variable
-that points to it:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;any/path&#39;</span><span class="p">)</span>
+<h3>List directory content<a class="headerlink" href="#list-directory-content" title="Permalink to this heading"></a></h3>
+<p>Let’s assume that you need to walk through a directory of your choice. You can define the <code class="docutils literal notranslate"><span class="pre">myDir</span></code> variable that points to it:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;any/path&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>The simplest way to get a directory list is by using the methods <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">listFiles</span></code>,
-which return a collection of first-level elements (files and directories) of a directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">allFiles</span> <span class="o">=</span> <span class="n">myDir</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
-<span class="k">for</span><span class="p">(</span> <span class="k">def</span> <span class="nf">file</span> <span class="p">:</span> <span class="n">allFiles</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="n">println</span> <span class="n">file</span>
-<span class="p">}</span>
+<p>The simplest way to get a directory list is by using the methods <code class="docutils literal notranslate"><span class="pre">list</span></code> or <code class="docutils literal notranslate"><span class="pre">listFiles</span></code>, which return a collection of first-level elements (files and directories) of a directory:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">allFiles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDir</span><span class="o">.</span><span class="na">list</span><span class="o">()</span>
+<span class="k">for</span><span class="o">(</span><span class="w"> </span><span class="kt">def</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">allFiles</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">println</span><span class="w"> </span><span class="n">file</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The only difference between <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">listFiles</span></code> is that the former returns a list of strings, and the latter
-returns a list of file objects that allow you to access file metadata (size, last modified time, etc).</p>
+<p>The only difference between <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">listFiles</span></code> is that the former returns a list of strings, and the latter returns a list of file objects that allow you to access file metadata (size, last modified time, etc).</p>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">eachFile</span></code> method allows you to iterate through the first-level elements only
-(just like <code class="docutils literal notranslate"><span class="pre">listFiles</span></code>). As with other <cite>each-</cite> methods, <code class="docutils literal notranslate"><span class="pre">eachFiles</span></code> takes a closure as a parameter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">eachFile</span> <span class="p">{</span> <span class="n">item</span> <span class="o">-&gt;</span>
-    <span class="k">if</span><span class="p">(</span> <span class="n">item</span><span class="o">.</span><span class="n">isFile</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="n">println</span> <span class="s2">&quot;${item.getName()} - size: ${item.size()}&quot;</span>
-    <span class="p">}</span>
-    <span class="k">else</span> <span class="k">if</span><span class="p">(</span> <span class="n">item</span><span class="o">.</span><span class="n">isDirectory</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
-        <span class="n">println</span> <span class="s2">&quot;${item.getName()} - DIR&quot;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">eachFile</span></code> method allows you to iterate through the first-level elements only (just like <code class="docutils literal notranslate"><span class="pre">listFiles</span></code>). As with other <code class="docutils literal notranslate"><span class="pre">each-</span></code> methods, <code class="docutils literal notranslate"><span class="pre">eachFiles</span></code> takes a closure as a parameter:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="na">eachFile</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="k">if</span><span class="o">(</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="na">isFile</span><span class="o">()</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;${item.getName()} - size: ${item.size()}&quot;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="o">(</span><span class="w"> </span><span class="n">item</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">()</span><span class="w"> </span><span class="o">)</span><span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;${item.getName()} - DIR&quot;</span>
+<span class="w">    </span><span class="o">}</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Several variants of the above method are available. See the table below for a complete list.</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 92%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -985,39 +901,34 @@ returns a list of file objects that allow you to access file metadata (size, las
 <p>See also: Channel <a class="reference internal" href="channel.html#channel-path"><span class="std std-ref">fromPath</span></a> method.</p>
 </section>
 <section id="create-directories">
-<h3>Create directories<a class="headerlink" href="#create-directories" title="Permalink to this headline"></a></h3>
+<h3>Create directories<a class="headerlink" href="#create-directories" title="Permalink to this heading"></a></h3>
 <p>Given a file variable representing a nonexistent directory, like the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;any/path&#39;</span><span class="p">)</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;any/path&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>the method <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> creates a directory at the given path, returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if the directory is created
-successfully, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>result = myDir.mkdir()
-println result ? &quot;OK&quot; : &quot;Cannot create directory: $myDir&quot;
+<p>the <code class="docutils literal notranslate"><span class="pre">mkdir</span></code> method creates a directory at the given path, returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if the directory is created successfully, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myDir</span><span class="o">.</span><span class="na">mkdir</span><span class="o">()</span>
+<span class="n">println</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Cannot create directory: $myDir&quot;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If the parent directories do not exist, the above method will fail and return <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
 </div>
-<p>The method <code class="docutils literal notranslate"><span class="pre">mkdirs</span></code> creates the directory named by the file object, including any nonexistent parent directories:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="n">mkdirs</span><span class="p">()</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">mkdirs</span></code> method creates the directory named by the file object, including any nonexistent parent directories:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="o">.</span><span class="na">mkdirs</span><span class="o">()</span>
 </pre></div>
 </div>
 </section>
 <section id="create-links">
-<h3>Create links<a class="headerlink" href="#create-links" title="Permalink to this headline"></a></h3>
-<p>Given a file, the method <code class="docutils literal notranslate"><span class="pre">mklink</span></code> creates a <em>file system link</em> for that file using the path specified as a parameter:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">mklink</span><span class="p">(</span><span class="s1">&#39;/user/name/link-to-file.txt&#39;</span><span class="p">)</span>
+<h3>Create links<a class="headerlink" href="#create-links" title="Permalink to this heading"></a></h3>
+<p>Given a file, the <code class="docutils literal notranslate"><span class="pre">mklink</span></code> method creates a <em>file system link</em> for that file using the path specified as a parameter:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="o">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="na">mklink</span><span class="o">(</span><span class="s1">&#39;/user/name/link-to-file.txt&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Table of optional parameters:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 8%" />
-<col style="width: 92%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -1034,53 +945,43 @@ println result ? &quot;OK&quot; : &quot;Cannot create directory: $myDir&quot;
 </table>
 </section>
 <section id="copy-files">
-<h3>Copy files<a class="headerlink" href="#copy-files" title="Permalink to this headline"></a></h3>
-<p>The method <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> copies a file into a new file or into a directory, or copies a directory to a new
-directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;new_name.txt&#39;</span><span class="p">)</span>
+<h3>Copy files<a class="headerlink" href="#copy-files" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> method copies a file into a new file or into a directory, or copies a directory to a new directory:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">copyTo</span><span class="o">(</span><span class="s1">&#39;new_name.txt&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If the target file already exists, it will be replaced by the new one. Note also that, if the target is
-a directory, the source file will be copied into that directory, maintaining the file’s original name.</p>
+<p>If the target file already exists, it will be replaced by the new one. Note also that, if the target is a directory, the source file will be copied into that directory, maintaining the file’s original name.</p>
 </div>
 <p>When the source file is a directory, all its content is copied to the target directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path&#39;</span><span class="p">)</span>
-<span class="n">myDir</span><span class="o">.</span><span class="n">copyTo</span><span class="p">(</span><span class="s1">&#39;/some/new/path&#39;</span><span class="p">)</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/some/path&#39;</span><span class="o">)</span>
+<span class="n">myDir</span><span class="o">.</span><span class="na">copyTo</span><span class="o">(</span><span class="s1">&#39;/some/new/path&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>If the target path does not exist, it will be created automatically.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the
-following caveat: while Linux tools often treat paths ending with a slash (e.g. <code class="docutils literal notranslate"><span class="pre">/some/path/name/</span></code>)
-as directories, and those not (e.g. <code class="docutils literal notranslate"><span class="pre">/some/path/name</span></code>) as regular files, Nextflow (due to its use of
-the Java files API) views both these paths as the same file system object. If the path exists, it is
-handled according to its actual type (i.e. as a regular file or as a directory). If the path does not
-exist, it is treated as a regular file, with any missing parent directories created automatically.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">copyTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal notranslate"><span class="pre">cp</span> <span class="pre">-r</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the following caveat: while Linux tools often treat paths ending with a slash (e.g. <code class="docutils literal notranslate"><span class="pre">/some/path/name/</span></code>) as directories, and those not (e.g. <code class="docutils literal notranslate"><span class="pre">/some/path/name</span></code>) as regular files, Nextflow (due to its use of the Java files API) views both these paths as the same file system object. If the path exists, it is handled according to its actual type (i.e. as a regular file or as a directory). If the path does not exist, it is treated as a regular file, with any missing parent directories created automatically.</p>
 </div>
 </section>
 <section id="move-files">
-<h3>Move files<a class="headerlink" href="#move-files" title="Permalink to this headline"></a></h3>
-<p>You can move a file by using the method <code class="docutils literal notranslate"><span class="pre">moveTo</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/another/path/new_file.txt&#39;</span><span class="p">)</span>
+<h3>Move files<a class="headerlink" href="#move-files" title="Permalink to this heading"></a></h3>
+<p>You can move a file by using the <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> method:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/some/path/file.txt&#39;</span><span class="o">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="s1">&#39;/another/path/new_file.txt&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>When a file with the same name as the target already exists, it will be replaced by the source. Note
-also that, when the target is a directory, the file will be moved to (or within) that directory,
-maintaining the file’s original name.</p>
+<p>When a file with the same name as the target already exists, it will be replaced by the source. Note also that, when the target is a directory, the file will be moved to (or within) that directory, maintaining the file’s original name.</p>
 </div>
 <p>When the source is a directory, all the directory content is moved to the target directory:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/any/dir_a&#39;</span><span class="p">)</span>
-<span class="n">myDir</span><span class="o">.</span><span class="n">moveTo</span><span class="p">(</span><span class="s1">&#39;/any/dir_b&#39;</span><span class="p">)</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myDir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/any/dir_a&#39;</span><span class="o">)</span>
+<span class="n">myDir</span><span class="o">.</span><span class="na">moveTo</span><span class="o">(</span><span class="s1">&#39;/any/dir_b&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>Please note that the result of the above example depends on the existence of the target directory. If the target
-directory exists, the source is moved into the target directory, resulting in the path:</p>
+<p>Please note that the result of the above example depends on the existence of the target directory. If the target directory exists, the source is moved into the target directory, resulting in the path:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="nb">any</span><span class="o">/</span><span class="n">dir_b</span><span class="o">/</span><span class="n">dir_a</span>
 </pre></div>
 </div>
@@ -1090,42 +991,34 @@ directory exists, the source is moved into the target directory, resulting in th
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the
-same caveat as that given above for <code class="docutils literal notranslate"><span class="pre">copyTo</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">moveTo</span></code> method mimics the semantics of the Linux command <code class="docutils literal notranslate"><span class="pre">mv</span> <span class="pre">&lt;source&gt;</span> <span class="pre">&lt;target&gt;</span></code>, with the same caveat as that given above for <code class="docutils literal notranslate"><span class="pre">copyTo</span></code>.</p>
 </div>
 </section>
 <section id="rename-files">
-<h3>Rename files<a class="headerlink" href="#rename-files" title="Permalink to this headline"></a></h3>
-<p>You can rename a file or directory by simply using the <code class="docutils literal notranslate"><span class="pre">renameTo</span></code> file method:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="p">)</span>
-<span class="n">myFile</span><span class="o">.</span><span class="n">renameTo</span><span class="p">(</span><span class="s1">&#39;new_file_name.txt&#39;</span><span class="p">)</span>
+<h3>Rename files<a class="headerlink" href="#rename-files" title="Permalink to this heading"></a></h3>
+<p>You can rename a file or directory by simply using the <code class="docutils literal notranslate"><span class="pre">renameTo</span></code> method:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;my_file.txt&#39;</span><span class="o">)</span>
+<span class="n">myFile</span><span class="o">.</span><span class="na">renameTo</span><span class="o">(</span><span class="s1">&#39;new_file_name.txt&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 </section>
 <section id="delete-files">
-<h3>Delete files<a class="headerlink" href="#delete-files" title="Permalink to this headline"></a></h3>
-<p>The file method <code class="docutils literal notranslate"><span class="pre">delete</span></code> deletes the file or directory at the given path, returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if the
-operation succeeds, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>myFile = file(&#39;some/file.txt&#39;)
-result = myFile.delete()
-println result ? &quot;OK&quot; : &quot;Cannot delete: $myFile&quot;
+<h3>Delete files<a class="headerlink" href="#delete-files" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">delete</span></code> method deletes the file or directory at the given path, returning <code class="docutils literal notranslate"><span class="pre">true</span></code> if the operation succeeds, and <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;some/file.txt&#39;</span><span class="o">)</span>
+<span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">delete</span><span class="o">()</span>
+<span class="n">println</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">&quot;OK&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Cannot delete: $myFile&quot;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This method deletes a directory <strong>only</strong> if it does not contain any files or sub-directories. To
-delete a directory and <strong>all</strong> its contents (i.e. removing all the files and sub-directories it may
-contain), use the method <code class="docutils literal notranslate"><span class="pre">deleteDir</span></code>.</p>
+<p>This method deletes a directory <strong>only</strong> if it does not contain any files or sub-directories. To delete a directory and <strong>all</strong> its contents (i.e. removing all the files and sub-directories it may contain), use the method <code class="docutils literal notranslate"><span class="pre">deleteDir</span></code>.</p>
 </div>
 </section>
 <section id="check-file-attributes">
-<h3>Check file attributes<a class="headerlink" href="#check-file-attributes" title="Permalink to this headline"></a></h3>
+<h3>Check file attributes<a class="headerlink" href="#check-file-attributes" title="Permalink to this heading"></a></h3>
 <p>The following methods can be used on a file variable created by using the <code class="docutils literal notranslate"><span class="pre">file</span></code> method:</p>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 17%" />
-<col style="width: 83%" />
-</colgroup>
+<table class="colwidths-auto docutils align-default">
 <thead>
 <tr class="row-odd"><th class="head"><p>Name</p></th>
 <th class="head"><p>Description</p></th>
@@ -1171,88 +1064,74 @@ contain), use the method <code class="docutils literal notranslate"><span class=
 </tbody>
 </table>
 <p>For example, the following line prints a file name and size:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="s2">&quot;File ${myFile.getName()} size: ${myFile.size()}&quot;</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="s2">&quot;File ${myFile.getName()} size: ${myFile.size()}&quot;</span>
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The invocation of any method name starting with the <code class="docutils literal notranslate"><span class="pre">get</span></code> prefix can be shortcut by
-omitting the <code class="docutils literal notranslate"><span class="pre">get</span></code> prefix and <code class="docutils literal notranslate"><span class="pre">()</span></code> parentheses. Therefore, writing <code class="docutils literal notranslate"><span class="pre">myFile.getName()</span></code>
-is exactly the same as <code class="docutils literal notranslate"><span class="pre">myFile.name</span></code> and <code class="docutils literal notranslate"><span class="pre">myFile.getBaseName()</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">myFile.baseName</span></code>
-and so on.</p>
+<p>The invocation of any method name starting with the <code class="docutils literal notranslate"><span class="pre">get</span></code> prefix can be shortcut by omitting the <code class="docutils literal notranslate"><span class="pre">get</span></code> prefix and <code class="docutils literal notranslate"><span class="pre">()</span></code> parentheses. Therefore, writing <code class="docutils literal notranslate"><span class="pre">myFile.getName()</span></code> is exactly the same as <code class="docutils literal notranslate"><span class="pre">myFile.name</span></code> and <code class="docutils literal notranslate"><span class="pre">myFile.getBaseName()</span></code> is the same as <code class="docutils literal notranslate"><span class="pre">myFile.baseName</span></code> and so on.</p>
 </div>
 </section>
 <section id="get-and-modify-file-permissions">
-<h3>Get and modify file permissions<a class="headerlink" href="#get-and-modify-file-permissions" title="Permalink to this headline"></a></h3>
-<p>Given a file variable representing a file (or directory), the method <code class="docutils literal notranslate"><span class="pre">getPermissions</span></code> returns a
-9-character string representing the file’s permissions using the
-<a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Symbolic_notation">Linux symbolic notation</a>
-e.g. <code class="docutils literal notranslate"><span class="pre">rw-rw-r--</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">permissions</span> <span class="o">=</span> <span class="n">myFile</span><span class="o">.</span><span class="n">getPermissions</span><span class="p">()</span>
+<h3>Get and modify file permissions<a class="headerlink" href="#get-and-modify-file-permissions" title="Permalink to this heading"></a></h3>
+<p>Given a file variable representing a file (or directory), the <code class="docutils literal notranslate"><span class="pre">getPermissions</span></code> method returns a 9-character string representing the file’s permissions using the <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Symbolic_notation">Linux symbolic notation</a>, e.g. <code class="docutils literal notranslate"><span class="pre">rw-rw-r--</span></code>:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myFile</span><span class="o">.</span><span class="na">getPermissions</span><span class="o">()</span>
 </pre></div>
 </div>
-<p>Similarly, the method <code class="docutils literal notranslate"><span class="pre">setPermissions</span></code> sets the file’s permissions using the same notation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="s1">&#39;rwxr-xr-x&#39;</span><span class="p">)</span>
+<p>Similarly, the <code class="docutils literal notranslate"><span class="pre">setPermissions</span></code> method sets the file’s permissions using the same notation:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">setPermissions</span><span class="o">(</span><span class="s1">&#39;rwxr-xr-x&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
-<p>A second version of the <code class="docutils literal notranslate"><span class="pre">setPermissions</span></code> method sets a file’s permissions given three digits representing,
-respectively, the <cite>owner</cite>, <cite>group</cite> and <cite>other</cite> permissions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="n">setPermissions</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<p>A second version of the <code class="docutils literal notranslate"><span class="pre">setPermissions</span></code> method sets a file’s permissions given three digits representing, respectively, the <code class="docutils literal notranslate"><span class="pre">owner</span></code>, <code class="docutils literal notranslate"><span class="pre">group</span></code> and <code class="docutils literal notranslate"><span class="pre">other</span></code> permissions:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myFile</span><span class="o">.</span><span class="na">setPermissions</span><span class="o">(</span><span class="mi">7</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">5</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Learn more about <a class="reference external" href="http://en.wikipedia.org/wiki/File_system_permissions#Numeric_notation">File permissions numeric notation</a>.</p>
 </section>
 <section id="http-ftp-files">
-<h3>HTTP/FTP files<a class="headerlink" href="#http-ftp-files" title="Permalink to this headline"></a></h3>
-<p>Nextflow provides transparent integration of HTTP/S and FTP protocols for handling remote resources
-as local file system objects. Simply specify the resource URL as the argument of the <code class="docutils literal notranslate"><span class="pre">file</span></code> object:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pdb</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;http://files.rcsb.org/header/5FID.pdb&#39;</span><span class="p">)</span>
+<h3>HTTP/FTP files<a class="headerlink" href="#http-ftp-files" title="Permalink to this heading"></a></h3>
+<p>Nextflow provides transparent integration of HTTP/S and FTP protocols for handling remote resources as local file system objects. Simply specify the resource URL as the argument of the <code class="docutils literal notranslate"><span class="pre">file</span></code> object:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">pdb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;http://files.rcsb.org/header/5FID.pdb&#39;</span><span class="o">)</span>
 </pre></div>
 </div>
 <p>Then, you can access it as a local file as described in the previous sections:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">println</span> <span class="n">pdb</span><span class="o">.</span><span class="n">text</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">println</span><span class="w"> </span><span class="n">pdb</span><span class="o">.</span><span class="na">text</span>
 </pre></div>
 </div>
-<p>The above one-liner prints the content of the remote PDB file. Previous sections provide code examples
-showing how to stream or copy the content of files.</p>
+<p>The above one-liner prints the content of the remote PDB file. Previous sections provide code examples showing how to stream or copy the content of files.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Write and list operations are not supported for HTTP/S and FTP files.</p>
 </div>
 </section>
 <section id="counting-records">
-<h3>Counting records<a class="headerlink" href="#counting-records" title="Permalink to this headline"></a></h3>
+<h3>Counting records<a class="headerlink" href="#counting-records" title="Permalink to this heading"></a></h3>
 <section id="countlines">
-<h4>countLines<a class="headerlink" href="#countlines" title="Permalink to this headline"></a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">countLines</span></code> methods counts the lines in a text files.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/data/sample.txt&#39;</span><span class="p">)</span>
-<span class="n">println</span> <span class="n">sample</span><span class="o">.</span><span class="n">countLines</span><span class="p">()</span>
+<h4>countLines<a class="headerlink" href="#countlines" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">countLines</span></code> method counts the lines in a text files.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/data/sample.txt&#39;</span><span class="o">)</span>
+<span class="n">println</span><span class="w"> </span><span class="n">sample</span><span class="o">.</span><span class="na">countLines</span><span class="o">()</span>
 </pre></div>
 </div>
-<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and
-automatically uncompressed.</p>
+<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and automatically uncompressed.</p>
 </section>
 <section id="countfasta">
-<h4>countFasta<a class="headerlink" href="#countfasta" title="Permalink to this headline"></a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">countFasta</span></code> method counts the number of records in <a class="reference external" href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a>
-formatted file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/data/sample.fasta&#39;</span><span class="p">)</span>
-<span class="n">println</span> <span class="n">sample</span><span class="o">.</span><span class="n">countFasta</span><span class="p">()</span>
+<h4>countFasta<a class="headerlink" href="#countfasta" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">countFasta</span></code> method counts the number of records in <a class="reference external" href="https://en.wikipedia.org/wiki/FASTA_format">FASTA</a> formatted file.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/data/sample.fasta&#39;</span><span class="o">)</span>
+<span class="n">println</span><span class="w"> </span><span class="n">sample</span><span class="o">.</span><span class="na">countFasta</span><span class="o">()</span>
 </pre></div>
 </div>
-<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and
-automatically uncompressed.</p>
+<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and automatically uncompressed.</p>
 </section>
 <section id="countfastq">
-<h4>countFastq<a class="headerlink" href="#countfastq" title="Permalink to this headline"></a></h4>
-<p>The <code class="docutils literal notranslate"><span class="pre">countFastq</span></code> method counts the number of records in a <a class="reference external" href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a>
-formatted file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sample</span> <span class="o">=</span> <span class="n">file</span><span class="p">(</span><span class="s1">&#39;/data/sample.fastq&#39;</span><span class="p">)</span>
-<span class="n">println</span> <span class="n">sample</span><span class="o">.</span><span class="n">countFastq</span><span class="p">()</span>
+<h4>countFastq<a class="headerlink" href="#countfastq" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">countFastq</span></code> method counts the number of records in a <a class="reference external" href="https://en.wikipedia.org/wiki/FASTQ_format">FASTQ</a> formatted file.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="kt">def</span><span class="w"> </span><span class="n">sample</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="s1">&#39;/data/sample.fastq&#39;</span><span class="o">)</span>
+<span class="n">println</span><span class="w"> </span><span class="n">sample</span><span class="o">.</span><span class="na">countFastq</span><span class="o">()</span>
 </pre></div>
 </div>
-<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and
-automatically uncompressed.</p>
+<p>Files whose name ends with the <code class="docutils literal notranslate"><span class="pre">.gz</span></code> suffix are expected to be GZIP compressed and automatically uncompressed.</p>
 </section>
 </section>
 </section>
@@ -1287,17 +1166,12 @@ automatically uncompressed.</p>
           SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
-    <!-- Theme Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-244N3GEN75"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-      gtag('config', 'G-244N3GEN75', {
-          'anonymize_ip': false,
-      });
-    </script> 
 
 </body>
 </html>
