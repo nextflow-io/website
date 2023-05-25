@@ -43,7 +43,7 @@ Workload managers are designed to share resources efficiently between users and 
 
 ### Some notes on terminology
 
-HPC terminology can be confusing because different terms sometimes refer to the same thing. Nextflow refers to individual steps in a workflow as a "process." Sometimes, process steps spawned by Nextflow are also described as "tasks." When Nextflow processes are dispatched to an HPC workload manager, however, each process is managed as a "job" in the context of the workload manager.
+HPC terminology can be confusing because different terms sometimes refer to the same thing. Nextflow refers to individual steps in a workflow as a "process". Sometimes, process steps spawned by Nextflow are also described as "tasks". When Nextflow processes are dispatched to an HPC workload manager, however, each process is managed as a "job" in the context of the workload manager.
 
 HPC workload managers are sometimes referred to as schedulers. In this text, we use the terms HPC workload manager, workload manager, and scheduler interchangeably.
 
@@ -59,7 +59,7 @@ Below we present some helpful tips and best practices when working with HPC work
 
 ### 1. Select an HPC executor
 
-To ensure that pipelines are portable across clouds and HPC clusters, Nextflow uses the notion of [executors](https://nextflow.io/docs/latest/executor.html) to insulate pipelines from the underlying compute environment. A Nextflow executor determines the system where a pipeline is run and supervises its execution.
+To ensure that pipelines are portable across clouds and HPC clusters, Nextflow uses the notion of [executor](https://nextflow.io/docs/latest/executor.html) to insulate pipelines from the underlying compute environment. A Nextflow executor determines the system where a pipeline is run and supervises its execution.
 
 You can specify the executor to use in the [nextflow.config](https://nextflow.io/docs/latest/config.html?highlight=queuesize#configuration-file) file, inline in your pipeline code, or by setting the shell variable `NXF_EXECUTOR` before running a pipeline.
 
@@ -290,7 +290,7 @@ process {
 
 ### 4. Take advantage of workload manager-specific features
 
-Sometimes, organizations may want to take advantage of syntax specific to a particular workload manager. To accommodate this, most Nextflow executors provide a clusterOptions setting to inject one or more switches to the job submission command line specific to the selected workload manager ([bsub](https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-options), [msub](http://docs.adaptivecomputing.com/maui/commands/msub.php), [qsub](https://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html), etc.)
+Sometimes, organizations may want to take advantage of syntax specific to a particular workload manager. To accommodate this, most Nextflow executors provide a `clusterOptions` setting to inject one or more switches to the job submission command line specific to the selected workload manager ([bsub](https://www.ibm.com/docs/en/spectrum-lsf/10.1.0?topic=bsub-options), [msub](http://docs.adaptivecomputing.com/maui/commands/msub.php), [qsub](https://gridscheduler.sourceforge.net/htmlman/htmlman1/qsub.html), etc).
 
 These scheduler-specific commands can get very detailed and granular. They can apply to all processes in a workflow or only to specific processes. As an LSF-specific example, suppose a deep learning model training workload is a step in a Nextflow pipeline. The deep learning framework used may be GPU-aware and have specific topology requirements.
 
@@ -310,7 +310,7 @@ process dl_workload {
 }
 ```
 
-In addition to *clusterOptions*, several other settings in the [executor scope](https://nextflow.io/docs/latest/config.html?highlight=queuesize#scope-executor) can be helpful when controlling how jobs behave on an HPC workload manager.
+In addition to `clusterOptions`, several other settings in the [executor scope](https://nextflow.io/docs/latest/config.html?highlight=queuesize#scope-executor) can be helpful when controlling how jobs behave on an HPC workload manager.
 
 ### 5. Decide where to launch your pipeline
 
@@ -391,7 +391,7 @@ $ nextflow run <pipeline> -bg > my-file.log
 
 This frees up the interactive command line to run commands such as [squeue](https://slurm.schedmd.com/squeue.html) (Slurm) or [qstat](https://gridscheduler.sourceforge.net/htmlman/htmlman1/qstat.html) (Grid Engine) to monitor job execution on the cluster. It is also beneficial because it prevents network connection issues from interfering with pipeline execution.
 
-Nextflow has rich terminal logging and uses ANSI escape codes to update pipeline execution counters interactively as the pipeline runs. If you are logging output to a file as shown above, it is a good idea to disable ANSI logging using the command line option *-ansi-log false* or the environment variable *NXF_ANSI_LOG=false*. ANSI logging can also be disabled when wrapping the Nextflow head job in a script and launching it as a job managed by the workload manager as explained above.
+Nextflow has rich terminal logging and uses ANSI escape codes to update pipeline execution counters interactively as the pipeline runs. If you are logging output to a file as shown above, it is a good idea to disable ANSI logging using the command line option `-ansi-log false` or the environment variable `NXF_ANSI_LOG=false`. ANSI logging can also be disabled when wrapping the Nextflow head job in a script and launching it as a job managed by the workload manager as explained above.
 
 ### 9. Retry failing jobs after increasing resource allocation
 
@@ -459,7 +459,7 @@ Recently, Fusion support has been added for selected HPC workload managers inclu
 
 There are several additional Nextflow configuration options that are important to be aware of when working with HPC clusters. You can find a complete list in the Netflow documentation in the [Scope executor](https://nextflow.io/docs/latest/config.html#scope-executor) section.
 
-`queueSize` – The queueSize parameter is optionally defined in the `nextflow.config` file or within a process and defines how many Nextflow processes can be queued in the selected workload manager at a given time. By default, this value is set to 100 jobs. In large sites with multiple users, HPC cluster administrators may limit the number of pending or executing jobs per user on the cluster. For example, on an LSF cluster, this is done by setting the parameter `MAX_JOBS` in `lsb.users` to enforce per user or per group slot limits. If your administrators have placed limits on the number of jobs you can run, you should tune the `queueSize` parameter in Nextflow to match your site enforced maximums.
+`queueSize` – The queueSize parameter is optionally defined in the `nextflow.config` file or within a process and defines how many Nextflow processes can be queued in the selected workload manager at a given time. By default, this value is set to 100 jobs. In large sites with multiple users, HPC cluster administrators may limit the number of pending or executing jobs per user on the cluster. For example, on an LSF cluster, this is done by setting the parameter `MAX_JOBS` in the `lsb.users` file to enforce per user or per group slot limits. If your administrators have placed limits on the number of jobs you can run, you should tune the `queueSize` parameter in Nextflow to match your site enforced maximums.
 
 `submitRateLimit` – Depending on the scheduler, having many users simultaneously submitting large numbers of jobs to a cluster can overwhelm the scheduler on the head node and cause it to become unresponsive to commands. To mitigate this, if your pipeline submits a large number of jobs, it is a good practice to throttle the rate at which jobs will be dispatched from Nextflow. By default the job submission rate is unlimited. If you wanted to allow no more than 50 jobs to be submitted every two minutes, set this parameter as shown:
 
