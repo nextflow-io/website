@@ -63,7 +63,7 @@ To ensure that pipelines are portable across clouds and HPC clusters, Nextflow u
 
 You can specify the executor to use in the [nextflow.config](https://nextflow.io/docs/latest/config.html?highlight=queuesize#configuration-file) file, inline in your pipeline code, or by setting the shell variable `NXF_EXECUTOR` before running a pipeline.
 
-```
+```groovy
 process.executor = 'slurm'
 ```
 
