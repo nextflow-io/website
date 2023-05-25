@@ -23,7 +23,7 @@ This article provides some helpful tips for organizations running Nextflow on HP
 
 HPC Clusters come in many shapes and sizes. Some are small, consisting of a single head node and a few compute hosts, while others are huge, with tens or even hundreds of host computers.
 
-The diagram below shows the topology of a typical mid-sized HPC cluster. Clusters typically have one or more "head nodes" that run workload and/or cluster management software. Cluster managers, such as [warewulf](https://warewulf.lbl.gov/), [xCAT](https://xcat.org/), [NVIDIA Bright Cluster Manager](https://www.nvidia.com/en-us/data-center/bright-cluster-manager/), [HPE Performance Cluster Manager](https://www.hpe.com/psnow/doc/a00044858enw), or [IBM Spectrum Cluster Foundation](https://www.ibm.com/docs/en/scf/4.2.2?topic=guide-spectrum-cluster-foundation), are typically used to manage software images and provision cluster nodes. Large clusters may have multiple head nodes, with workload management software configured to failover if the master host fails.
+The diagram below shows the topology of a typical mid-sized HPC cluster. Clusters typically have one or more "head nodes" that run workload and/or cluster management software. Cluster managers, such as [Warewulf](https://warewulf.lbl.gov/), [xCAT](https://xcat.org/), [NVIDIA Bright Cluster Manager](https://www.nvidia.com/en-us/data-center/bright-cluster-manager/), [HPE Performance Cluster Manager](https://www.hpe.com/psnow/doc/a00044858enw), or [IBM Spectrum Cluster Foundation](https://www.ibm.com/docs/en/scf/4.2.2?topic=guide-spectrum-cluster-foundation), are typically used to manage software images and provision cluster nodes. Large clusters may have multiple head nodes, with workload management software configured to failover if the master host fails.
 
 <img src="/img/nextflow-on-big-iron-twelve-tips-for-improving-the-effectiveness-of-pipelines-on-hpc-clusters-1.jpg" />
 
@@ -33,11 +33,11 @@ Clusters are often composed of different compute hosts suited to particular work
 
 Depending on the workloads a cluster is designed to support, compute hosts may be connected via a private high-speed 100 GbE or Infiniband-based network commonly used for MPI parallel workloads. Cluster hosts typically have access to a shared file system as well. In life sciences environments, NFS filers are commonly used. However, high-performance clusters may use parallel file systems such as [Lustre](https://www.lustre.org/), [IBM Spectrum Scale](https://www.ibm.com/docs/en/storage-scale?topic=STXKQY/gpfsclustersfaq.html) (formerly GPFS), [BeeGFS](https://www.beegfs.io/c/), or [WEKA](https://www.weka.io/data-platform/solutions/hpc-data-management/).
 
-[Learn about selecting the right storage architecture for your Nextflow pipelines](https://nextflow.io/blog/2023/selecting-the-right-storage-architecture-for-your-nextflow-pipelines.html)
+[Learn about selecting the right storage architecture for your Nextflow pipelines](https://nextflow.io/blog/2023/selecting-the-right-storage-architecture-for-your-nextflow-pipelines.html).
 
 ## HPC workload managers
 
-HPC workload managers have been around for decades. Initial efforts date back to the original [portable batch system](https://www.chpc.utah.edu/documentation/software/pbs-scheduler.php) (PBS) developed for NASA in the early 1990s. While modern workload managers have become enormously sophisticated, many of their core principles remain unchanged.
+HPC workload managers have been around for decades. Initial efforts date back to the original [Portable Batch System](https://www.chpc.utah.edu/documentation/software/pbs-scheduler.php) (PBS) developed for NASA in the early 1990s. While modern workload managers have become enormously sophisticated, many of their core principles remain unchanged.
 
 Workload managers are designed to share resources efficiently between users and groups. Modern workload managers support many different scheduling policies and workload types — from parallel jobs to array jobs to interactive jobs to affinity/NUMA-aware scheduling. As a result, schedulers have many "knobs and dials" to support various applications and use cases. While complicated, all of this configurability makes them extremely powerful and flexible in the hands of a skilled cluster administrator.  
 
@@ -55,13 +55,13 @@ Nextflow supports at least **14 workload managers**, not including popular cloud
 
 Below we present some helpful tips and best practices when working with HPC workload managers.
 
-## Some best practices:
+## Some best practices
 
 ### 1. Select an HPC executor
 
 To ensure that pipelines are portable across clouds and HPC clusters, Nextflow uses the notion of [executors](https://nextflow.io/docs/latest/executor.html) to insulate pipelines from the underlying compute environment. A Nextflow executor determines the system where a pipeline is run and supervises its execution.
 
-You can specify the executor to use in the [nextflow.config](https://nextflow.io/docs/latest/config.html?highlight=queuesize#configuration-file) file, inline in your pipeline code, or by setting the shell variable $NXF_EXECUTOR before running a pipeline.
+You can specify the executor to use in the [nextflow.config](https://nextflow.io/docs/latest/config.html?highlight=queuesize#configuration-file) file, inline in your pipeline code, or by setting the shell variable `NXF_EXECUTOR` before running a pipeline.
 
 ```
 process.executor = 'slurm'
@@ -236,9 +236,9 @@ A complete list of available executors is available in the [Nextflow documentati
 
 Most HPC workload managers support the notion of queues. In a small cluster with a few users, queues may not be important. However, they are essential in large environments. Cluster administrators typically configure queues to reflect site-specific scheduling and resource-sharing policies. For example, a site may have a short queue that only supports short-running jobs and kills them after 60 seconds. A *night* queue may only dispatch jobs between midnight and 6:00 AM. Depending on the sophistication of the workload manager, different queues may have different priorities and access to queues may be limited to particular users or groups.
 
-Workload managers typically have default queues. For example, *normal* is the default queue in LSF, while *all.q* is the default queue in Grid Engine. Slurm supports the notion of partitions that are essentially the same as queues, so Slurm partitions are referred to as queues within Nextflow. You should ask your HPC cluster administrator what queue to use when submitting Nextflow jobs.
+Workload managers typically have default queues. For example, `normal` is the default queue in LSF, while `all.q` is the default queue in Grid Engine. Slurm supports the notion of partitions that are essentially the same as queues, so Slurm partitions are referred to as queues within Nextflow. You should ask your HPC cluster administrator what queue to use when submitting Nextflow jobs.
 
-Like the executor, queues are part of the process scope. The queue to dispatch jobs to is usually defined once in the *nextflow.config* file and applied to all processes in the workflow. However, they can be defined individually for each process as shown:
+Like the executor, queues are part of the process scope. The queue to dispatch jobs to is usually defined once in the `nextflow.config` file and applied to all processes in the workflow. However, they can be defined individually for each process as shown:
 
 ```
 process grid_job {
@@ -264,11 +264,11 @@ Depending on the executor, you can pass various resource requirements for each p
 
 [time](https://nextflow.io/docs/latest/process.html#process-time) – it is helpful to limit how much time a particular process or job is allowed to run. To avoid jobs hanging and consuming resources indefinitely, you can specify a time limit after which a job will be automatically terminated and re-queued. Time limits may also be enforced at the queue level behind the scenes based on workload management policies. If you have long-running jobs, your cluster administrator may ask you to use a particular queue for those Nextflow process steps to prevent jobs from being automatically killed.<sup>6</sup>
 
-When writing pipelines, it is a good practice to consolidate per-process resource requirements in the *nextflow.config* file, and use process selectors to indicate what resource requirements apply to what process steps. For example, in the example below, processes will be dispatched to the Slurm cluster by default. Each process will require two cores, 4 GB of memory, and can run for no more than 10 minutes. For the foo and long-running bar jobs, process-specific selectors can override these default settings as shown below:
+When writing pipelines, it is a good practice to consolidate per-process resource requirements in the `nextflow.config` file, and use process selectors to indicate what resource requirements apply to what process steps. For example, in the example below, processes will be dispatched to the Slurm cluster by default. Each process will require two cores, 4 GB of memory, and can run for no more than 10 minutes. For the foo and long-running bar jobs, process-specific selectors can override these default settings as shown below:
 
 ```
 process {
-    executor='slurm'
+    executor = 'slurm'
     cpus = 2
     memory = '4 GB'
     time = '10m'
@@ -314,7 +314,7 @@ In addition to *clusterOptions*, several other settings in the [executor scope](
 
 ### 5. Decide where to launch your pipeline
 
-Launching jobs from a head node is common in small HPC clusters. Launching jobs from dedicated job submission hosts (sometimes called login hosts) is more common in large environments. Depending on the workload manager, the head node or job submission host will usually have the workload manager’s client tools pre-installed. These include client binaries such as *sbatch* (Slurm), *qsub* (PBS or Grid Engine), or *bsub* (LSF). Nextflow expects to be able to find these  job submission commands on the Linux *$PATH*.
+Launching jobs from a head node is common in small HPC clusters. Launching jobs from dedicated job submission hosts (sometimes called login hosts) is more common in large environments. Depending on the workload manager, the head node or job submission host will usually have the workload manager’s client tools pre-installed. These include client binaries such as `sbatch` (Slurm), `qsub` (PBS or Grid Engine), or `bsub` (LSF). Nextflow expects to be able to find these job submission commands on the Linux `PATH`.
 
 Rather than launching the Nextflow driver job for a long-running pipeline from the head node or a job submission host, a better practice is to wrap the Nextflow run command in a script and submit the entire workflow as a job. An example using LSF is provided below:
 
@@ -362,7 +362,7 @@ Nextflow implements this best practice which can be enabled by adding the follow
 process.scratch = true
 ```
 
-By default, if you enable `process.scratch`, Nextflow will use the directory pointed to by ``$TMPDIR` as a scratch directory on the execution host.
+By default, if you enable `process.scratch`, Nextflow will use the directory pointed to by `$TMPDIR` as a scratch directory on the execution host.
 
 You can optionally specify a specific path for the scratch directory as shown:
 
@@ -420,7 +420,7 @@ process foo {
 
 You can manage how many times a job can be retried and specify different behaviours depending on the exit error code. You will see this automated mechanism used in many production pipelines. It is a common practice to double the resources requested after a failure until the job runs successfully.
 
-For sites running Nextflow Tower, Tower has a powerful resource optimization facility built in that essentially learns per-process resource requirements from previously executed pipelines and auto-generates resource requirements that can be placed in a pipeline's *nextflow.config* file. By using resource optimization in Tower, pipelines will request only the resources that they actually need. This avoids unnecessary delays due to failed/retried jobs and also uses the shared cluster more efficiently.
+For sites running Nextflow Tower, Tower has a powerful resource optimization facility built in that essentially learns per-process resource requirements from previously executed pipelines and auto-generates resource requirements that can be placed in a pipeline's `nextflow.config` file. By using resource optimization in Tower, pipelines will request only the resources that they actually need. This avoids unnecessary delays due to failed/retried jobs and also uses the shared cluster more efficiently.
 
 Tower resource optimizations works with all HPC workload managers as well as popular cloud services. You can learn more about resource optimization in the article [Optimizing resource usage with Nextflow Tower](https://seqera.io/blog/optimizing-resource-usage-with-nextflow-tower/).
 
@@ -459,7 +459,7 @@ Recently, Fusion support has been added for selected HPC workload managers inclu
 
 There are several additional Nextflow configuration options that are important to be aware of when working with HPC clusters. You can find a complete list in the Netflow documentation in the [Scope executor](https://nextflow.io/docs/latest/config.html#scope-executor) section.
 
-`queueSize` – The queueSize parameter is optionally defined in the *nextflow.config* file or within a process and defines how many Nextflow processes can be queued in the selected workload manager at a given time. By default, this value is set to 100 jobs. In large sites with multiple users, HPC cluster administrators may limit the number of pending or executing jobs per user on the cluster. For example, on an LSF cluster, this is done by setting the parameter MAX_JOBS in *lsb.users* to enforce per user or per group slot limits. If your administrators have placed limits on the number of jobs you can run, you should tune the `queueSize` parameter in Nextflow to match your site enforced maximums.
+`queueSize` – The queueSize parameter is optionally defined in the `nextflow.config` file or within a process and defines how many Nextflow processes can be queued in the selected workload manager at a given time. By default, this value is set to 100 jobs. In large sites with multiple users, HPC cluster administrators may limit the number of pending or executing jobs per user on the cluster. For example, on an LSF cluster, this is done by setting the parameter `MAX_JOBS` in `lsb.users` to enforce per user or per group slot limits. If your administrators have placed limits on the number of jobs you can run, you should tune the `queueSize` parameter in Nextflow to match your site enforced maximums.
 
 `submitRateLimit` – Depending on the scheduler, having many users simultaneously submitting large numbers of jobs to a cluster can overwhelm the scheduler on the head node and cause it to become unresponsive to commands. To mitigate this, if your pipeline submits a large number of jobs, it is a good practice to throttle the rate at which jobs will be dispatched from Nextflow. By default the job submission rate is unlimited. If you wanted to allow no more than 50 jobs to be submitted every two minutes, set this parameter as shown:
 
@@ -470,7 +470,7 @@ executor.queueSize = 50
 
 `jobName` – Many workload managers have interactive web interfaces or downstream reporting or analysis tools for monitoring or analyzing workloads. A few examples include [Slurm-web](http://rackslab.github.io/slurm-web/introduction.html), [MOAB HPC Suite](https://adaptivecomputing.com/moab-hpc-suite/) (MOAB and Torque), [Platform Management Console](https://www.ibm.com/docs/en/pasc/1.1.1?topic=asc-platform-management-console) (for LSF), [Spectrum LSF RTM](https://www.ibm.com/docs/en/spectrum-lsf-rtm/10.2.0?topic=about-spectrum-lsf-rtm), and [Altair® Access™](https://altair.com/access).
 
-When using these tools, it is helpful to associate a meaningful name with each job. Remember, a job in the context of the workload manager maps to a process or task in Nextflow. Use the *jobName* property associated with the executor to give your job a name. You can construct these names dynamically as illustrated below so the job reported by the workload manager reflects the name of our Nextflow process step and its unique ID.
+When using these tools, it is helpful to associate a meaningful name with each job. Remember, a job in the context of the workload manager maps to a process or task in Nextflow. Use the `jobName` property associated with the executor to give your job a name. You can construct these names dynamically as illustrated below so the job reported by the workload manager reflects the name of our Nextflow process step and its unique ID.
 
 ```
 executor.jobName = { "$task.name - $task.hash" }
