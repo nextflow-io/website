@@ -261,7 +261,7 @@ Depending on the executor, you can pass various resource requirements for each p
 
 When writing pipelines, it is a good practice to consolidate per-process resource requirements in the `nextflow.config` file, and use process selectors to indicate what resource requirements apply to what process steps. For example, in the example below, processes will be dispatched to the Slurm cluster by default. Each process will require two cores, 4 GB of memory, and can run for no more than 10 minutes. For the foo and long-running bar jobs, process-specific selectors can override these default settings as shown below:
 
-```
+```groovy
 process {
     executor = 'slurm'
     queue = 'general'
@@ -293,7 +293,7 @@ These scheduler-specific commands can get very detailed and granular. They can a
 
 In this example, we specify a job consisting of two tasks where each task runs on a separate host and requires exclusive use of two GPUs. We also impose a resource requirement that we want to schedule the CPU portion of each CUDA job in physical proximity to the GPU to improve performance (on a processor core close to the same PCIe or NVLink connection, for example).
 
-```
+```groovy
 process {
   withName: dl_workload {
      executor = 'lsf'
@@ -337,8 +337,8 @@ Setting the JVM’s max heap size is another good practice when running on an HP
 
 These can be specified using the `NXF_OPTS` environment variable.
 
-```
-$ export NFX_OPTS="-Xms=512m -Xmx=8g"
+```bash
+export NFX_OPTS="-Xms=512m -Xmx=8g"
 ```
 
 The `-Xms` flag specifies the minimum heap size, and -Xmx specifies the maximum heap size. In the example above, the minimum heap size is set to 512 MB, which can grow to a maximum of 8 GB. You will need to experiment with appropriate values for each pipeline to determine how many concurrent head jobs you can run on the same host.
@@ -351,7 +351,7 @@ Nextflow requires a shared file system path as a working directory to allow the 
 
 Nextflow implements this best practice which can be enabled by adding the following setting in your `nextflow.config` file.
 
-```
+```groovy
 process.scratch = true
 ```
 
@@ -359,7 +359,7 @@ By default, if you enable `process.scratch`, Nextflow will use the directory poi
 
 You can optionally specify a specific path for the scratch directory as shown:
 
-```
+```groovy
 process.scratch = '/ssd_drive/scratch_dir'
 ```
 
@@ -378,8 +378,8 @@ To learn more about Nextflow and how it works with various storage architectures
 
 If you are launching your pipeline from a login node or cluster head node, it is useful to run pipelines in the background without losing the execution output reported by Nextflow. You can accomplish this by using the -bg switch in Nextflow and redirecting *stdout* to a log file as shown:
 
-```
-$ nextflow run <pipeline> -bg > my-file.log
+```bash
+nextflow run <pipeline> -bg > my-file.log
 ```
 
 This frees up the interactive command line to run commands such as [squeue](https://slurm.schedmd.com/squeue.html) (Slurm) or [qstat](https://gridscheduler.sourceforge.net/htmlman/htmlman1/qstat.html) (Grid Engine) to monitor job execution on the cluster. It is also beneficial because it prevents network connection issues from interfering with pipeline execution.
@@ -392,7 +392,7 @@ Getting resource requirements such as cpu, memory, and time is often challenging
 
 To address this problem, Nextflow provides a mechanism that allows you to modify the amount of computing resources requested in the case of a process failure on the fly and attempt to re-execute it using a higher limit. For example:
 
-```
+```groovy
 process {
   withName: foo {
     memory = { 2.GB * task.attempt }
@@ -449,7 +449,7 @@ There are several additional Nextflow configuration options that are important t
 
 `submitRateLimit` – Depending on the scheduler, having many users simultaneously submitting large numbers of jobs to a cluster can overwhelm the scheduler on the head node and cause it to become unresponsive to commands. To mitigate this, if your pipeline submits a large number of jobs, it is a good practice to throttle the rate at which jobs will be dispatched from Nextflow. By default the job submission rate is unlimited. If you wanted to allow no more than 50 jobs to be submitted every two minutes, set this parameter as shown:
 
-```
+```groovy
 executor.submitRateLimit = '50/2min'
 executor.queueSize = 50
 ```
@@ -458,7 +458,7 @@ executor.queueSize = 50
 
 When using these tools, it is helpful to associate a meaningful name with each job. Remember, a job in the context of the workload manager maps to a process or task in Nextflow. Use the `jobName` property associated with the executor to give your job a name. You can construct these names dynamically as illustrated below so the job reported by the workload manager reflects the name of our Nextflow process step and its unique ID.
 
-```
+```groovy
 executor.jobName = { "$task.name - $task.hash" }
 ```
 
