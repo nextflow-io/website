@@ -39,7 +39,7 @@ Depending on the workloads a cluster is designed to support, compute hosts may b
 
 HPC workload managers have been around for decades. Initial efforts date back to the original [Portable Batch System](https://www.chpc.utah.edu/documentation/software/pbs-scheduler.php) (PBS) developed for NASA in the early 1990s. While modern workload managers have become enormously sophisticated, many of their core principles remain unchanged.
 
-Workload managers are designed to share resources efficiently between users and groups. Modern workload managers support many different scheduling policies and workload types — from parallel jobs to array jobs to interactive jobs to affinity/NUMA-aware scheduling. As a result, schedulers have many "knobs and dials" to support various applications and use cases. While complicated, all of this configurability makes them extremely powerful and flexible in the hands of a skilled cluster administrator.  
+Workload managers are designed to share resources efficiently between users and groups. Modern workload managers support many different scheduling policies and workload types — from parallel jobs to array jobs to interactive jobs to affinity/NUMA-aware scheduling. As a result, schedulers have many "knobs and dials" to support various applications and use cases. While complicated, all of this configurability makes them extremely powerful and flexible in the hands of a skilled cluster administrator.
 
 ### Some notes on terminology
 
@@ -238,17 +238,12 @@ Most HPC workload managers support the notion of queues. In a small cluster with
 
 Workload managers typically have default queues. For example, `normal` is the default queue in LSF, while `all.q` is the default queue in Grid Engine. Slurm supports the notion of partitions that are essentially the same as queues, so Slurm partitions are referred to as queues within Nextflow. You should ask your HPC cluster administrator what queue to use when submitting Nextflow jobs.
 
-Like the executor, queues are part of the process scope. The queue to dispatch jobs to is usually defined once in the `nextflow.config` file and applied to all processes in the workflow. However, they can be defined individually for each process as shown:
+Like the executor, queues are part of the process scope. The queue to dispatch jobs to is usually defined once in the `nextflow.config` file and applied to all processes in the workflow as shown below, or it can be set per-process.
 
 ```
-process grid_job {
-    queue 'long'
-    executor 'sge'
-
-
-    """
-    your task script here
-    """
+process {
+    queue = 'myqueue'
+    executor = 'sge'
 }
 ```
 
@@ -269,6 +264,7 @@ When writing pipelines, it is a good practice to consolidate per-process resourc
 ```
 process {
     executor = 'slurm'
+    queue = 'general'
     cpus = 2
     memory = '4 GB'
     time = '10m'
@@ -281,10 +277,11 @@ process {
 
 
     withName: bar {
+       queue = 'long'
        cpus = 32
        memory = '8 GB'
-	time = '1h 30m'
-   }
+       time = '1h 30m'
+    }
 }
 ```
 
@@ -294,19 +291,16 @@ Sometimes, organizations may want to take advantage of syntax specific to a part
 
 These scheduler-specific commands can get very detailed and granular. They can apply to all processes in a workflow or only to specific processes. As an LSF-specific example, suppose a deep learning model training workload is a step in a Nextflow pipeline. The deep learning framework used may be GPU-aware and have specific topology requirements.
 
-In this example, we specify a job consisting of two tasks where each task runs on a separate host and requires exclusive use of two GPUs. We also impose a resource requirement that we want to schedule the CPU portion of each CUDA job in physical proximity to the GPU to improve performance (on a processor core close to the same PCIe or NVLink connection, for example).  
+In this example, we specify a job consisting of two tasks where each task runs on a separate host and requires exclusive use of two GPUs. We also impose a resource requirement that we want to schedule the CPU portion of each CUDA job in physical proximity to the GPU to improve performance (on a processor core close to the same PCIe or NVLink connection, for example).
 
 ```
-process dl_workload {
-     executor 'lsf'
-     queue 'gpu_hosts'
-     memory '16B'
-     clusterOptions '-gpu "num=2:mode=exclusive_process" -n2 -R "span[ptile=1] affinity[core(1)]"'
-
-
-     """
-     your task script here
-     """
+process {
+  withName: dl_workload {
+     executor = 'lsf'
+     queue = 'gpu_hosts'
+     memory = '16B'
+     clusterOptions = '-gpu "num=2:mode=exclusive_process" -n2 -R "span[ptile=1] affinity[core(1)]"'
+  }
 }
 ```
 
@@ -327,8 +321,7 @@ $ cat submit_pipeline.sh
 #BSUB -e err.%J
 #BSUB -J headjob
 #BSUB -R "rusage[mem=16GB]"
-export NFX_OPTS="-Xms=512m -Xmx=8g"
-nextflow run nextflow=io/hello -bg -c my.config -ansi-log false
+nextflow run nextflow=io/hello -c my.config -ansi-log false
 
 
 $ bsub < submit_pipeline.sh
@@ -400,21 +393,14 @@ Getting resource requirements such as cpu, memory, and time is often challenging
 To address this problem, Nextflow provides a mechanism that allows you to modify the amount of computing resources requested in the case of a process failure on the fly and attempt to re-execute it using a higher limit. For example:
 
 ```
-process foo {
+process {
+  withName: foo {
+    memory = { 2.GB * task.attempt }
+    time = { 1.hour * task.attempt }
 
-
-  memory { 2.GB * task.attempt }
-  time { 1.hour * task.attempt }
-
-
-  errorStrategy { task.exitStatus in 137..140 ? 'retry' : 'terminate' }
-  maxRetries 3
-
-
-  script:
-  """
-  your_job_command --here
-  """
+    errorStrategy = { task.exitStatus in 137..140 ? 'retry' : 'terminate' }
+    maxRetries = 3
+  }
 }
 ```
 
