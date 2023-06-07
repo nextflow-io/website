@@ -21,7 +21,7 @@
            <div class="timeline">
             <#list podcasts as post>
              <div class="blg-summary podcast" data-golive='${post.date?long?c}'>
-               <h3 style="line-height: 1.5;"><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> ${post.subtype?cap_first}: <#escape x as x?xml>${post.title}</#escape></a></h3>
+               <h3 style="line-height: 1.5;"><a href="${post.uri}"><span class="label label-success">Episode ${post.episode}</span> <#escape x as x?xml>${post.title}</#escape></a></h3>
                <h4 class="text-muted blg-description future-show">Episode coming soon! Subscribe to listen live..</h4>
                <h4 class="text-muted blg-description future-hide"><#escape x as x?xml>${post.description}</#escape></h4>
                <div class="timeline-info hidden-xs">
