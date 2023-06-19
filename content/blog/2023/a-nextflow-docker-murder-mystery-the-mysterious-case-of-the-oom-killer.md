@@ -10,8 +10,6 @@ icon=graham.jpg
 ~~~~~~
 ## Troubleshooting out-of-memory errors with Nextflow and Docker
 
-*By: Graham Wright, Solutions Architect at Seqera Labs*
-
 Most support tickets crossing our desks don’t warrant a blog article.  However, occasionally we encounter a genuine mystery—a bug so pervasive and vile that it threatens innocent containers and pipelines everywhere. Such was the case of the ***OOM killer***.
 
 In this article, we alert our colleagues in the Nextflow community to the threat. We also discuss how to recognize the killer’s signature in case you find yourself dealing with a similar murder mystery in your own cluster or cloud.
@@ -75,19 +73,19 @@ To make a long story short, we identified several suspects and conducted tests t
 - We attempted to configure a swap partition as recommended in this [AWS article](https://repost.aws/knowledge-center/ecs-resolve-outofmemory-errors), which discusses similar out-of-memory errors in Amazon ECS (used by AWS Batch). AWS provides good documentation on managing container [swap space](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-swap.html) using the `--memory-swap` switch. You can learn more about how Docker manages swap space in the [Docker documentation](https://docs.docker.com/config/containers/resource_constraints/).
 - Creating swap files on the Docker host and making swap available to containers using the switch `--memory-swap="1g"` appeared to help, and we learned a lot in the process. Using this workaround we could reliably run 10 containers simultaneously, whereas previously, we could run only one or two. This was a good workaround for static clusters but wasn’t always helpful in cloud batch environments. Creating the swap partition requires root privileges, and in batch environments, where resources may be provisioned automatically, this could be difficult to implement. It also didn’t explain the root cause of why containers were being killed. You can use the commands below to create a swap partition:
 
-```
-# sudo dd if=/dev/zero of=/mnt/2GiB.swap bs=2048 count=1048576
-# mkswap /mnt/2GiB.swap
-# swapon /mnt/2GiB.swap
+```bash
+$ sudo dd if=/dev/zero of=/mnt/2GiB.swap bs=2048 count=1048576
+$ mkswap /mnt/2GiB.swap
+$ swapon /mnt/2GiB.swap
 ```
 
 ## A break in the case!
 
 On Nov 16th, we finally caught a break in the case. A hot tip from Seqera Lab’s own Jordi Deu-Pons, indicated the culprit may be lurking in the Linux kernel. He suggested hard coding limits for two Linux kernel parameters as follows:
 
-```
-# echo "838860800" > /proc/sys/vm/dirty_bytes
-# echo "524288000" > /proc/sys/vm/dirty_background_bytes
+```bash
+$ echo "838860800" > /proc/sys/vm/dirty_bytes
+$ echo "524288000" > /proc/sys/vm/dirty_background_bytes
 ```
 
 While it may seem like a rather unusual and specific leap of brilliance, our tipster’s hypothesis was inspired by this [kernel bug](https://bugzilla.kernel.org/show_bug.cgi?id=207273) description. With this simple change, the reported memory usage for each container, as reported by docker stats, dropped dramatically. **Suddenly, we could run as many containers simultaneously as physical memory would allow.** It turns out that this was a regression bug that only manifested in newer versions of the Linux kernel.
@@ -116,29 +114,29 @@ Interestingly, we also tested the [Fusion v2 file system](https://seqera.io/fusi
 If you find evidence of foul play in your cloud or cluster, here are some useful investigative tools you can use:
 
 - After manually starting a container, use [docker stats](https://docs.docker.com/engine/reference/commandline/stats/) to monitor the CPU and memory used by each container compared to available memory.
-  ```
-  # watch docker stats
+  ```bash
+  $ watch docker stats
   ```
 - The Linux [free](https://linuxhandbook.com/free-command/) utility is an excellent way to monitor memory usage. You can track total, used, and free memory and monitor the combined memory used by kernel buffers and page cache reported in the *buff/cache* column.
-  ```
-  # free -h
+  ```bash
+  $ free -h
   ```
 - After a container was killed, we executed the command below on the Docker host to confirm why the containerized Python script was killed.
-  ```
-  # dmesg -T | grep -i ‘killed process’
+  ```bash
+  $ dmesg -T | grep -i ‘killed process’
   ```
 - We used the Linux [htop](https://man7.org/linux/man-pages/man1/htop.1.html) command to monitor CPU and memory usage to check the results reported by Docker and double-check CPU and memory use.
 - You can use the command [systemd-cgtop](https://www.commandlinux.com/man-page/man1/systemd-cgtop.1.html) to validate group settings and ensure you are not running into arbitrary limits imposed by *cgroups*.
 - Related to the *cgroups* settings described above, you can inspect various memory-related limits directly from the file system. You can also use an alias to make the large numbers associated with *cgroups* parameters easier to read. For example:
-  ```
-  # alias n='numft --to=iec-i'
-  # cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
+  ```bash
+  $ alias n='numft --to=iec-i'
+  $ cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
   512Mi
   ```
 - You can clear the kernel buffer and page cache that appears in the buff/cache columns reported by the Linux *free* command using either of these commands:
-  ```
-  # echo 1 > /proc/sys/vm/drop_caches
-  # sysctl -w vm.drop_caches=1
+  ```bash
+  $ echo 1 > /proc/sys/vm/drop_caches
+  $ sysctl -w vm.drop_caches=1
   ```
 
 ## The bottom line
