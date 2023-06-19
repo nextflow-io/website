@@ -65,7 +65,7 @@ From our testing, we were able to clear both Nextflow and the AWS S3 copy facili
 
 We had multiple theories of the case: ***Was it Colonel Mustard with an improper cgroups configuration? Was it Professor Plum and the size of the SWAP partition? Was it Mrs. Peacock running a Linux 5.20 kernel?***
 
-_(For the millennials and Gen Zs in the crowd, you can find a primer on the CLUE/Cluedo references [here](https://cluecluedo.fandom.com/wiki/Clue_(board_game)))_
+_For the millennials and Gen Zs in the crowd, you can find a primer on the CLUE/Cluedo references [here](https://cluecluedo.fandom.com/wiki/Clue_(board_game))_
 
 To make a long story short, we identified several suspects and conducted tests to clear each suspect one by one. Tests included the following:
 
