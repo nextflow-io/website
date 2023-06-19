@@ -81,7 +81,7 @@ $ swapon /mnt/2GiB.swap
 
 ## A break in the case!
 
-On Nov 16th, we finally caught a break in the case. A hot tip from Seqera Lab’s own Jordi Deu-Pons, indicated the culprit may be lurking in the Linux kernel. He suggested hard coding limits for two Linux kernel parameters as follows:
+On Nov 16th, we finally caught a break in the case. A hot tip from Seqera Lab’s own [Jordi Deu-Pons](https://github.com/jordeu), indicated the culprit may be lurking in the Linux kernel. He suggested hard coding limits for two Linux kernel parameters as follows:
 
 ```bash
 $ echo "838860800" > /proc/sys/vm/dirty_bytes
