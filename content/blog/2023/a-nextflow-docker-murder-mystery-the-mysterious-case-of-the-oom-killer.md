@@ -92,7 +92,7 @@ On Nov 16th, we finally caught a break in the case. A hot tip from Seqera Lab’
 
 While it may seem like a rather unusual and specific leap of brilliance, our tipster’s hypothesis was inspired by this [kernel bug](https://bugzilla.kernel.org/show_bug.cgi?id=207273) description. With this simple change, the reported memory usage for each container, as reported by docker stats, dropped dramatically. **Suddenly, we could run as many containers simultaneously as physical memory would allow.** It turns out that this was a regression bug that only manifested in newer versions of the Linux kernel.
 
-By hardcoding these [kernel parameters](https://docs.kernel.org/admin-guide/sysctl/vm.html), we were limiting the number of dirty pages the kernel could hold before writing pages to disk. When these variables were not set, they defaulted to 0, and the default parameters *dirty_ratio* and *dirty_bakground_ratio* took effect instead.
+By hardcoding these [kernel parameters](https://docs.kernel.org/admin-guide/sysctl/vm.html), we were limiting the number of dirty pages the kernel could hold before writing pages to disk. When these variables were not set, they defaulted to 0, and the default parameters `dirty_ratio` and `dirty_bakground_ratio` took effect instead.
 
 In high-load conditions (such as data-intensive Nextflow pipeline tasks), processes accumulated dirty pages faster than the kernel could flush them to disk, eventually leading to the out-of-memory condition. By hard coding the dirty pages limit, we forced the kernel to flush the dirty pages to disk, thereby avoiding the bug. This also explained why the problem was less pronounced using NVMe storage, where flushing to disk occurred more quickly, thus mitigating the problem.
 
