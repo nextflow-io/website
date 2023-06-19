@@ -8,8 +8,6 @@ status=published
 author=Graham Wright
 icon=graham.jpg
 ~~~~~~
-## Troubleshooting out-of-memory errors with Nextflow and Docker
-
 Most support tickets crossing our desks don’t warrant a blog article.  However, occasionally we encounter a genuine mystery—a bug so pervasive and vile that it threatens innocent containers and pipelines everywhere. Such was the case of the ***OOM killer***.
 
 In this article, we alert our colleagues in the Nextflow community to the threat. We also discuss how to recognize the killer’s signature in case you find yourself dealing with a similar murder mystery in your own cluster or cloud.
