@@ -114,30 +114,39 @@ Interestingly, we also tested the [Fusion v2 file system](https://seqera.io/fusi
 If you find evidence of foul play in your cloud or cluster, here are some useful investigative tools you can use:
 
 - After manually starting a container, use [docker stats](https://docs.docker.com/engine/reference/commandline/stats/) to monitor the CPU and memory used by each container compared to available memory.
-  ```bash
-  $ watch docker stats
-  ```
+
+    ```bash
+    $ watch docker stats
+    ```
+
 - The Linux [free](https://linuxhandbook.com/free-command/) utility is an excellent way to monitor memory usage. You can track total, used, and free memory and monitor the combined memory used by kernel buffers and page cache reported in the *buff/cache* column.
-  ```bash
-  $ free -h
-  ```
+
+    ```bash
+    $ free -h
+    ```
+
 - After a container was killed, we executed the command below on the Docker host to confirm why the containerized Python script was killed.
-  ```bash
-  $ dmesg -T | grep -i ‘killed process’
-  ```
+
+    ```bash
+    $ dmesg -T | grep -i ‘killed process’
+    ```
+
 - We used the Linux [htop](https://man7.org/linux/man-pages/man1/htop.1.html) command to monitor CPU and memory usage to check the results reported by Docker and double-check CPU and memory use.
 - You can use the command [systemd-cgtop](https://www.commandlinux.com/man-page/man1/systemd-cgtop.1.html) to validate group settings and ensure you are not running into arbitrary limits imposed by *cgroups*.
 - Related to the *cgroups* settings described above, you can inspect various memory-related limits directly from the file system. You can also use an alias to make the large numbers associated with *cgroups* parameters easier to read. For example:
-  ```bash
-  $ alias n='numft --to=iec-i'
-  $ cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
-  512Mi
-  ```
+
+    ```bash
+    $ alias n='numft --to=iec-i'
+    $ cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
+    512Mi
+    ```
+
 - You can clear the kernel buffer and page cache that appears in the buff/cache columns reported by the Linux *free* command using either of these commands:
-  ```bash
-  $ echo 1 > /proc/sys/vm/drop_caches
-  $ sysctl -w vm.drop_caches=1
-  ```
+
+    ```bash
+    $ echo 1 > /proc/sys/vm/drop_caches
+    $ sysctl -w vm.drop_caches=1
+    ```
 
 ## The bottom line
 
