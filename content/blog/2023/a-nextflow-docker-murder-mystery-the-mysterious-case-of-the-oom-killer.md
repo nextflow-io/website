@@ -12,6 +12,8 @@ Most support tickets crossing our desks don’t warrant a blog article.  However
 
 In this article, we alert our colleagues in the Nextflow community to the threat. We also discuss how to recognize the killer’s signature in case you find yourself dealing with a similar murder mystery in your own cluster or cloud.
 
+<!-- end-archive-description -->
+
 ## To catch a killer
 
 In mid-2022, Nextflow jobs began to mysteriously die. Containerized tasks were being struck down in the prime of life, seemingly at random. By November, the body count was beginning to mount: Out-of-memory (OOM) errors were everywhere we looked!
