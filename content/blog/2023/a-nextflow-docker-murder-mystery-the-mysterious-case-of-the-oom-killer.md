@@ -101,7 +101,7 @@ Further testing determined that the bug appeared reliably on the newer [AMI Linu
 We now had two solid strategies to resolve the problem and thwart our killer:
 
 - Create a swap partition and run containers with the *--memory-swap* flag set.
-- Set *dirty_bytes* and *dirty_background_bytes* kernel variables on the Docker host before launching the jobs.
+- Set `dirty_bytes` and `dirty_background_bytes` kernel variables on the Docker host before launching the jobs.
 
 ## The killer is (mostly) brought to justice
 
