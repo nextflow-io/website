@@ -41,7 +41,7 @@ The problem is illustrated in the diagram below. In theory, Nextflow should have
 
 <img src="/img/a-nextflow-docker-murder-mystery-the-mysterious-case-of-the-oom-killer-1.jpg" />
 
-Among our crack team of investigators, alarm bells began to ring. We asked ourselves, “Could the killer be inside the house?” Was it possible that the [nf-amazon](https://github.com/nextflow-io/nf-amazon) plug-in was nefariously killing its own containerized tasks?
+Among our crack team of investigators, alarm bells began to ring. We asked ourselves, _“Could the killer be inside the house?”_ Was it possible that the [nf-amazon](https://github.com/nextflow-io/nf-amazon) plug-in was nefariously killing its own containerized tasks?
 
 Before long, reports of similar mysterious deaths began to trickle in from other jurisdictions. It turned out that the killer had struck [Cromwell](https://cromwell.readthedocs.io/en/stable/) also ([see the police report here](https://github.com/aws/aws-cli/issues/5876)). We breathed a sigh of relief that we could rule out Nextflow as the culprit, but we still had a killer on the loose and a series of container murders to solve!
 
