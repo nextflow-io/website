@@ -49,7 +49,7 @@ Before long, reports of similar mysterious deaths began to trickle in from other
 
 As any good detective knows, recreating the scene of the crime is a good place to start. It turned out that our killer had a profile and had been targeting containers processing large datasets since 2020. We came across an excellent [codefresh.io article](https://codefresh.io/blog/docker-memory-usage/) by Saffi Hartal, discussing similar murders and suggesting techniques to lure the killer out of hiding and protect the victims. Unfortunately, the suggested workaround of periodically clearing kernel buffers was impractical in our Nextflow pipeline scenario.
 
-We borrowed a Python script (`dockertest.py`) from Saffi’s article designed to write huge files and simulate the issues we saw with the Linux buffer and page cache. Using this script, we hoped to replicate the conditions at the time of the murders.
+We borrowed the Python script from [Saffi’s article](https://codefresh.io/blog/docker-memory-usage/) designed to write huge files and simulate the issues we saw with the Linux buffer and page cache. Using this script, we hoped to replicate the conditions at the time of the murders.
 
 Using separate SSH sessions to the same docker host, we manually launched the Python script from the command line to run in a Docker container, allocating 512MB of memory to each container. This was meant to simulate the behavior of the Nextflow head job dispatching multiple tasks to the same Docker host. We monitored memory usage as each container was started.
 
