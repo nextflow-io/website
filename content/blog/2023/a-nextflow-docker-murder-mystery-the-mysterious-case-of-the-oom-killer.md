@@ -18,7 +18,7 @@ In this article, we alert our colleagues in the Nextflow community to the threat
 
 In mid-2022, Nextflow jobs began to mysteriously die. Containerized tasks were being struck down in the prime of life, seemingly at random. By November, the body count was beginning to mount: Out-of-memory (OOM) errors were everywhere we looked!
 
-It became clear that we had a serial killer on our hands. Unfortunately, identifying a suspect turned out to be easier said than done. Nextflow is rather good at restarting failed containers after all, giving the killer a convenient alibi and plenty of places to hide. Sometimes, the killings went unnoticed requiring forensic analysis of log files.
+It became clear that we had a serial killer on our hands. Unfortunately, identifying a suspect turned out to be easier said than done. Nextflow is rather good at restarting failed containers after all, giving the killer a convenient alibi and plenty of places to hide. Sometimes, the killings went unnoticed, requiring forensic analysis of log files.
 
 While we’ve made great strides, and the number of killings has dropped dramatically, the killer is still out there. In this article, we offer some tips that may prove helpful if the killer strikes in your environment.
 
@@ -26,7 +26,7 @@ While we’ve made great strides, and the number of killings has dropped dramati
 
 Fortunately for our intrepid investigators, the killer exhibited a consistent *modus operandi*. Containerized jobs on [Amazon EC2](https://aws.amazon.com/ec2/) were being killed due to out-of-memory (OOM) errors, even when plenty of memory was available on the container host. While we initially thought the killer was native to the AWS cloud, we later realized it could also strike in other locales.
 
-What the killings had in common was that they tended to occur when Nextflow tasks copied large files from Amazon S3 to a container’s local file system via the AWS CLI. As some readers will be aware, the [nf-amazon](https://www.nextflow.io/docs/latest/plugins.html) plugin leverages the AWS CLI behind the scenes to facilitate data movement. The killer’s calling card was an `[Errno 12] Cannot allocate memory` message, causing the container to terminate with an exit status of 1.
+What the killings had in common was that they tended to occur when Nextflow tasks copied large files from Amazon S3 to a container’s local file system via the AWS CLI. As some readers may know, Nextflow leverages the AWS CLI behind the scenes to facilitate data movement. The killer’s calling card was an `[Errno 12] Cannot allocate memory` message, causing the container to terminate with an exit status of 1.
 
 ```txt
 Nov-08 21:54:07.926 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'NFCORE_SAREK:SAREK:MARKDUPLICATES:BAM_TO_CRAM:SAMTOOLS_STATS_CRAM (004-005_L3.SSHT82)'
@@ -41,7 +41,7 @@ The problem is illustrated in the diagram below. In theory, Nextflow should have
 
 <img src="/img/a-nextflow-docker-murder-mystery-the-mysterious-case-of-the-oom-killer-1.jpg" />
 
-Among our crack team of investigators, alarm bells began to ring. We asked ourselves, _“Could the killer be inside the house?”_ Was it possible that the [nf-amazon](https://github.com/nextflow-io/nf-amazon) plug-in was nefariously killing its own containerized tasks?
+Among our crack team of investigators, alarm bells began to ring. We asked ourselves, _“Could the killer be inside the house?”_ Was it possible that Nextflow was nefariously killing its own containerized tasks?
 
 Before long, reports of similar mysterious deaths began to trickle in from other jurisdictions. It turned out that the killer had struck [Cromwell](https://cromwell.readthedocs.io/en/stable/) also ([see the police report here](https://github.com/aws/aws-cli/issues/5876)). We breathed a sigh of relief that we could rule out Nextflow as the culprit, but we still had a killer on the loose and a series of container murders to solve!
 
@@ -57,7 +57,7 @@ Using separate SSH sessions to the same docker host, we manually launched the Py
 $ docker run --rm -it -v $PWD/dockertest.py:/dockertest.py --entrypoint /bin/bash --memory="512M" --memory-swap=0 python:3.10.5-slim-bullseye
 ```
 
-Sure enough, we found that containers began dying with out-of-memory errors. Sometimes we could run a single container, and sometimes we could run two. Containers died even though memory use was well under the cgroups-enforced maximum, as reported by docker stats. As containers ran, we also used the Linux free command to monitor memory usage and the combined memory used by kernel buffers and the page cache.
+Sure enough, we found that containers began dying with out-of-memory errors. Sometimes we could run a single container, and sometimes we could run two. Containers died even though memory use was well under the cgroups-enforced maximum, as reported by docker stats. As containers ran, we also used the Linux `free` command to monitor memory usage and the combined memory used by kernel buffers and the page cache.
 
 ## Developing a theory of the case
 
