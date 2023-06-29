@@ -33,7 +33,8 @@ We covered the following topics in this episode. Follow the links to see the Git
 
 #### Upcoming events
 
-* Recent Seqera webinar all about using nf-core tooling (templates, components, tooling) to build custom (non nf-core) pipelines, complete with a live demo of building and running a pipeline from scratch: [Nextflow best practices: Leveraging nf-core tooling and standards within your organization](https://seqera.io/webinar-nextflow-nf-core/?utm_campaign=Webinar%20nf-core%20standards%20June%202023&utm_source=podcast&utm_medium=social&utm_content=phil)
+* Recent Seqera webinar all about using nf-core tooling (templates, components, tooling) to build custom (non nf-core) pipelines, complete with a live demo of building and running a pipeline from scratch:
+    * [Nextflow best practices: Leveraging nf-core tooling and standards within your organization](https://seqera.io/webinar-nextflow-nf-core/?utm_campaign=Webinar%20nf-core%20standards%20June%202023&utm_source=podcast&utm_medium=social&utm_content=phil)
 * [Nextflow Summit 2023](https://summit.nextflow.io/) in Barcelona (October 16-20) and in Boston (November 28-30).
     * Erik Garrison, who was involved in the [pangenome paper published in Nature](https://www.nature.com/articles/s41586-023-05896-x), will be the keynote speaker in Boson!
     * New website with registration & call for abstracts opening.. now! (ish). See <https://summit.nextflow.io>
