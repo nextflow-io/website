@@ -8,7 +8,7 @@ youtubeid=ci_yu93eVW0
 image=img/podcast_ep16.jpg
 tags=news and views,opensource,community
 status=published
-author= Developer advocates
+author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
