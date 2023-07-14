@@ -20,10 +20,11 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 We covered the following topics in this episode. Follow the links to see the GitHub pull requests that we discussed.
 
-* Community training material is available at <https://training.nextflow.io> and open to community contributions.
+* [Community training material](https://training.nextflow.io) is available and open to community contributions.
 * Training material now focuses on Nextflow DSL2.
 * Previous community training has been hosted online for different time zones and for those who speak different languages.
-* New training material for "advanced" Nextflow users is in the works.
+* Previous training sessions are [available on YouTube](https://www.youtube.com/watch?v=nzR8DRq13nE).
+* New "advanced" training material has been developed and will help users elevate their Nextflow skills.
 * Two community training events are being held in September 2023 for foundational and advanced users.
 
 #### New content
