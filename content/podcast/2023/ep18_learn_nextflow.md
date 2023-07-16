@@ -18,7 +18,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 #### Nextflow training
 
-We covered the following topics in this episode. Follow the links to see the GitHub pull requests that we discussed.
+We covered the following topics in this episode:
 
 * [Community training material](https://training.nextflow.io) is available and open to community contributions.
 * Training material now focuses on Nextflow DSL2.
