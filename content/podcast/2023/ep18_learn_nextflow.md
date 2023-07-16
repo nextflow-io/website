@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk) and [Marcel Ribeiro-Dantas](https://twitter.com/mribeirodantas) talk to [Ben Sherman](https://twitter.com/robsyme) about the exciting new Nextflow training material and ways to learn Nextflow in 2023.
+In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk) and [Marcel Ribeiro-Dantas](https://twitter.com/mribeirodantas) talk to [Rob Syme](https://twitter.com/robsyme) about the exciting new Nextflow training material and ways to learn Nextflow in 2023.
 
 <!-- end-archive-description -->
 
