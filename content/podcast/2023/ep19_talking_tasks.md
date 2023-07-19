@@ -1,6 +1,6 @@
 title=Nextflow runtime updates: Talking tasks
 episode=19
-description=Ben Sherman tells us about future improvements to Nextflow syntax for processes.
+description=We discuss task provenance, cloud cache databases and task grouping.
 date=2023-07-31
 type=podcast
 subtype=News and Views
