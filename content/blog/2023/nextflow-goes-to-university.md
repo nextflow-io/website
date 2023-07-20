@@ -33,7 +33,7 @@ The Customer Workflows Group at Oxford Nanopore Technologies (ONT) has adopted N
 
 ### Nextflow applied to Economics! 🤩
 
-Galileu Freitas is studying Economical Sciences and decided to convert his scripts into a Nextflow pipeline for his [final project](https://github.com/galileunobre/nextflow_projeto_1). The goal of the pipeline is to estimate the demand for health services in Brazil based on data from the 2019 PNS (National Health Survey), (a) treating this database to contain only the variables we will work with, (b) running a descriptive analysis to determine the data distribution in order to investigate which models would be best applicable. In the end, two regression models, Poisson, and the Negative Binomial, are used to estimate the demand. His work is an excellent example of applying Nextflow to fields outside of traditional bioinformatics 😉.
+[Galileu Nobre](https://www.linkedin.com/in/galileu-nobre-901551187/) is studying Economical Sciences and decided to convert his scripts into a Nextflow pipeline for his [final project](https://github.com/galileunobre/nextflow_projeto_1). The goal of the pipeline is to estimate the demand for health services in Brazil based on data from the 2019 PNS (National Health Survey), (a) treating this database to contain only the variables we will work with, (b) running a descriptive analysis to determine the data distribution in order to investigate which models would be best applicable. In the end, two regression models, Poisson, and the Negative Binomial, are used to estimate the demand. His work is an excellent example of applying Nextflow to fields outside of traditional bioinformatics 😉.
 
 ### Whole Exome Sequencing 🧬
 
