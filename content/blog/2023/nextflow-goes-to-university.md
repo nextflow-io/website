@@ -8,15 +8,12 @@ status=published
 author=Marcel Ribeiro-Dantas
 icon=marcel.png
 ~~~~~~
-In this article, we share the amazing experience of conducting a course about Nextflow in the Bioinformatics graduate program at the Federal University of Rio Grande do Norte in Brazil.
-
-<!-- end-archive-description -->
-
-## Going to the university!
 
 The Nextflow project originated from within an academic research group, so perhaps it’s no surprise that education is an important part of the Nextflow and nf-core communities. Over the years, we have established several regular training resources: we have a weekly online seminar series called nf-core/bytesize and run hugely popular bi-annual [Nextflow and nf-core community training online](https://www.youtube.com/@nf-core/playlists?view=50&sort=dd&shelf_id=2). In 2022, Seqera established a new community and growth team, funded in part by a grant from the Chan Zuckererg Initiative “Essential Open Source Software for Science” grant. We are all former bioinformatics researchers from academia and part of our mission is to build resources and programs to support academic institutions. We want to help to provide leading edge, high-quality, [Nextflow](https://www.nextflow.io/) and [nf-core](https://nf-co.re/) training for Masters and PhD students in Bioinformatics and other related fields.
 
 We recently held one of our first such projects, a collaboration with the [Bioinformatics Multidisciplinary Environment, BioME](https://bioinfo.imd.ufrn.br/site/en-US) at the [Federal University of Rio Grande do Norte (UFRN)](https://www.ufrn.br/) in Brazil. The UFRN is one of the largest universities in Brazil with over 40,000 enrolled students, hosting one of the best ranked bioinformatics program in Brazil, attracting students from all over the country. The BioME department runs courses for Masters and PhD students, including a flexible course dedicated to cutting edge bioinformatics techniques. As part of this, we were invited to run an 8-day Nextflow and nf-core graduate course. Participants attended 5 days of training seminars and presented a Nextflow project at the end of the course. Upon successful completion of the course, participants received graduate program course credits as well as a Seqera Labs certified certificate recognising their knowledge and hands-on experience 😎.
+
+<!-- end-archive-description -->
 
 The course participants included an undergraduate student, Master students, PhD students and postdocs with very diverse backgrounds. While some had prior Nextflow and nf-core experience and had already attended Nextflow training, others had never used it before. Unsurprisingly, they all chose very different projects topics to work on and present to the rest of the group. At the end of the course, eleven students chose to undergo final project evaluation for the Seqera certification. They all passed with flying colors!
 
