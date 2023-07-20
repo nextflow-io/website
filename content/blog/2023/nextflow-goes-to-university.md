@@ -1,8 +1,8 @@
 title=Nextflow goes to university!
 date=2023-07-30
 type=post
-description=Helpful tips for troubleshooting out-of-memory errors in containerized execution environments.
-image=img/to-be-decided.jpg
+description=Seqera partnership with universities allows students to learn Nextflow and get credits for that!
+image=img/nextflow-goes-to-university.jpg
 tags=nextflow,nf-core
 status=published
 author=Marcel Ribeiro-Dantas
