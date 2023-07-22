@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wave containers &mdash; Nextflow 23.05.0-edge documentation</title>
+  <title>Wave containers &mdash; Nextflow 23.07.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -55,7 +55,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
@@ -165,7 +165,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The Tower access token is not mandatory, but it is recommended in order to access private container repositories and pull public containers without being affected by service rate limits. Credentials should be made available to Wave using the <a class="reference external" href="https://help.tower.nf/latest/credentials/registry_credentials/">credentials manager</a> in Tower.</p>
+<p>The Tower access token is not mandatory, but it is recommended in order to access private container repositories and pull public containers without being affected by service rate limits. Credentials should be made available to Wave using the <a class="reference external" href="https://help.tower.nf/latest/credentials/overview">credentials manager</a> in Tower.</p>
 </div>
 </section>
 </section>
@@ -262,31 +262,61 @@ the <code class="docutils literal notranslate"><span class="pre">container</span
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.build.repository</span></code></dt><dd><p>The container repository where images built by Wave are uploaded (note: the corresponding credentials must be provided in your Nextflow Tower account).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.cacheRepositor</span></code></dt><dd><p>The container repository used to cache image layers built by the Wave service (note: the corresponding credentials must be provided in your Nextflow Tower account).</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.conda.mambaImage</span></code></dt><dd><p>The Mamba container image is used to build Conda based container. This is expected to be <a class="reference external" href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a> image.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.conda.commands</span></code></dt><dd><p>One or more commands to be added to the Dockerfile used to build a Conda based image.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.build.cacheRepository</span></code></dt><dd><p>The container repository used to cache image layers built by the Wave service (note: the corresponding credentials must be provided in your Nextflow Tower account).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.build.conda.basePackages</span></code></dt><dd><p>One or more Conda packages to be always added in the resulting container e.g. <code class="docutils literal notranslate"><span class="pre">conda-forge::procps-ng</span></code>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.checksum</span></code></dt><dd><p>Enable checksum verification for source tarballs (recommended). Disable only when requesting a package version not yet encoded in the corresponding Spack recipe (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.build.conda.commands</span></code></dt><dd><p>One or more commands to be added to the Dockerfile used to build a Conda based image.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.builderImage</span></code></dt><dd><p>The Spack container image is used to build Spack based container. This is expected to be one of the <a class="reference external" href="https://spack.readthedocs.io/en/latest/containers.html">Spack-provided</a> images.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.build.conda.mambaImage</span></code></dt><dd><p>The Mamba container image is used to build Conda based container. This is expected to be <a class="reference external" href="https://github.com/mamba-org/micromamba-docker">micromamba-docker</a> image.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.runnerImage</span></code></dt><dd><p>The OS container image is used for the production container. This is expected to match the OS of the <code class="docutils literal notranslate"><span class="pre">builderImage</span></code> above.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.basePackages</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.osPackages</span></code></dt><dd><p>Additional OS packages to be installed in the production container. Note that package names may vary depending on the OS of the <code class="docutils literal notranslate"><span class="pre">runnerImage</span></code> above.</p>
+<dt>:::</dt><dd><p>One or more Spack packages to be always added in the resulting container.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.cFlags</span></code></dt><dd><p>C compiler flags used during the build. Default: <code class="docutils literal notranslate"><span class="pre">-O3</span></code> for GCC compiler. Recommended: one of <code class="docutils literal notranslate"><span class="pre">-O3</span></code> (high optimisation) or <code class="docutils literal notranslate"><span class="pre">-O2</span></code> (moderate optimisation).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.commands</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.cxxFlags</span></code></dt><dd><p>C++ compiler flags used during the build. Default: <code class="docutils literal notranslate"><span class="pre">-O3</span></code> for GCC compiler. Recommended: one of <code class="docutils literal notranslate"><span class="pre">-O3</span></code> (high optimisation) or <code class="docutils literal notranslate"><span class="pre">-O2</span></code> (moderate optimisation).</p>
+<dt>:::</dt><dd><p>One or more commands to be added to the Dockerfile used to build a Spack based image.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.fFlags</span></code></dt><dd><p>Fortran compiler flags used during the build. Default: <code class="docutils literal notranslate"><span class="pre">-O3</span></code> for GCC compiler. Recommended: one of <code class="docutils literal notranslate"><span class="pre">-O3</span></code> (high optimisation) or <code class="docutils literal notranslate"><span class="pre">-O2</span></code> (moderate optimisation).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.httpClient.connectTime</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.commands</span></code></dt><dd><p>One or more commands to be added to the Dockerfile used to build a Spack based image.</p>
+<dt>:::</dt><dd><p>Sets the connection timeout duration for the HTTP client connecting to the Wave service (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.strategy</span></code></dt><dd><p>The strategy to be used when resolving ambiguous Wave container requirements (default: <code class="docutils literal notranslate"><span class="pre">'container,dockerfile,conda,spack'</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.report.enabled</span></code> (preview)</dt><dd><p>Enable the reporting of the Wave containers used during the pipeline execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">23.06.0-edge</span></code> or later).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.report.file</span></code> (preview)</dt><dd><p>The name of the containers report file (default: <code class="docutils literal notranslate"><span class="pre">containers-&lt;timestamp&gt;.config</span></code> requires version <code class="docutils literal notranslate"><span class="pre">23.06.0-edge</span></code> or later).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.retryPolicy.delay</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>The initial delay when a failing HTTP request is retried (default: <code class="docutils literal notranslate"><span class="pre">150ms</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.retryPolicy.maxDelay</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>The max delay when a failing HTTP request is retried (default: <code class="docutils literal notranslate"><span class="pre">90</span> <span class="pre">seconds</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.retryPolicy.maxAttempts</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>The max number of attempts a failing HTTP request is retried (default: <code class="docutils literal notranslate"><span class="pre">5</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.retryPolicy.jitter</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Sets the jitterFactor to randomly vary retry delays by (default: <code class="docutils literal notranslate"><span class="pre">0.25</span></code>).</p>
 </dd>
 </dl>
 </section>

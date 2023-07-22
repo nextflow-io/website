@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amazon Web Services &mdash; Nextflow 23.05.0-edge documentation</title>
+  <title>Amazon Web Services &mdash; Nextflow 23.07.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -55,7 +55,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
@@ -150,20 +150,26 @@
 <section id="aws-security-credentials">
 <h2>AWS security credentials<a class="headerlink" href="#aws-security-credentials" title="Permalink to this heading"></a></h2>
 <p>Nextflow uses the <a class="reference external" href="https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html">AWS security credentials</a> to make programmatic calls to AWS services.</p>
-<p>You can provide your AWS access keys using the standard AWS variables shown below:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">AWS_DEFAULT_REGION</span></code></p></li>
-</ul>
-<p>If <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code> are not defined in the environment, Nextflow will attempt to
-retrieve credentials from your <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> and <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> files. The <code class="docutils literal notranslate"><span class="pre">default</span></code> profile can be
-overridden via the environmental variable <code class="docutils literal notranslate"><span class="pre">AWS_PROFILE</span></code> (or <code class="docutils literal notranslate"><span class="pre">AWS_DEFAULT_PROFILE</span></code>).</p>
-<p>Alternatively AWS credentials and profile can be specified in the Nextflow configuration file. See <a class="reference internal" href="config.html#config-aws"><span class="std std-ref">AWS configuration</span></a> for more details.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Credentials can also be provided by using an IAM Instance Role. The benefit of this approach is that it spares you from managing/distributing AWS keys explicitly. Read the <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">IAM Roles</a> documentation and <a class="reference external" href="https://aws.amazon.com/blogs/security/granting-permission-to-launch-ec2-instances-with-iam-roles-passrole-permission/">this blog post</a> for more details.</p>
+<p>The AWS credentials are selected from the following sources, in order of descending priority:</p>
+<ol class="arabic">
+<li><p>Nextflow configuration file - <code class="docutils literal notranslate"><span class="pre">aws.accessKey</span></code> and <code class="docutils literal notranslate"><span class="pre">aws.secretKey</span></code>. See <a class="reference internal" href="config.html#config-aws"><span class="std std-ref">AWS configuration</span></a> for more details.</p></li>
+<li><p>A custom profile in <code class="docutils literal notranslate"><span class="pre">$HOME/.aws/credentials</span></code> and/or <code class="docutils literal notranslate"><span class="pre">$HOME/.aws/config</span></code>. The profile can be supplied from the <code class="docutils literal notranslate"><span class="pre">aws.profile</span></code> config option, or the <code class="docutils literal notranslate"><span class="pre">AWS_PROFILE</span></code> or <code class="docutils literal notranslate"><span class="pre">AWS_DEFAULT_PROFILE</span></code> environmental variables.</p></li>
+<li><p>Environment variables - <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">default</span></code> profile in <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> and/or <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code>.</p></li>
+<li><p>Single Sign-On (SSO) credentials. See the <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html">AWS documentation</a> for more details.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.07.0-edge.</span></p>
 </div>
+</li>
+<li><p>EC2 instance profile credentials. See the <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html">AWS documentation</a> and <a class="reference external" href="https://aws.amazon.com/blogs/security/granting-permission-to-launch-ec2-instances-with-iam-roles-passrole-permission/">this blog post</a> for more details.</p></li>
+</ol>
+<p>The AWS region is selected from the following sources, in order of descending priority:</p>
+<ol class="arabic simple">
+<li><p>Nextflow configuration file - <code class="docutils literal notranslate"><span class="pre">aws.region</span></code></p></li>
+<li><p>Environment variables - <code class="docutils literal notranslate"><span class="pre">AWS_REGION</span></code> or <code class="docutils literal notranslate"><span class="pre">AWS_DEFAULT_REGION</span></code></p></li>
+<li><p>EC2 instance metadata (if Nextflow is running in an EC2 instance)</p></li>
+</ol>
+<p>SSO credentials and instance profile credentials are the most recommended because they don’t require you to manage and distribute AWS keys explicitly. SSO credentials are ideal for launching pipelines from outside of AWS (e.g. your laptop), while instance profile credentials are ideal for launching pipelines within AWS (e.g. an EC2 instance).</p>
 </section>
 <section id="aws-iam-policies">
 <h2>AWS IAM policies<a class="headerlink" href="#aws-iam-policies" title="Permalink to this heading"></a></h2>
@@ -171,7 +177,7 @@ overridden via the environmental variable <code class="docutils literal notransl
 <p>Minimal permissions policies to be attached to the AWS account used by Nextflow are:</p>
 <ul>
 <li><p>To use AWS Batch:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;batch:DescribeJobQueues&quot;</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;batch:DescribeJobQueues&quot;</span>
 <span class="s2">&quot;batch:CancelJob&quot;</span>
 <span class="s2">&quot;batch:SubmitJob&quot;</span>
 <span class="s2">&quot;batch:ListJobs&quot;</span>
@@ -184,7 +190,7 @@ overridden via the environmental variable <code class="docutils literal notransl
 </div>
 </li>
 <li><p>To view <a class="reference external" href="https://aws.amazon.com/ec2/">EC2</a> instances:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;ecs:DescribeTasks&quot;</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;ecs:DescribeTasks&quot;</span>
 <span class="s2">&quot;ec2:DescribeInstances&quot;</span>
 <span class="s2">&quot;ec2:DescribeInstanceTypes&quot;</span>
 <span class="s2">&quot;ec2:DescribeInstanceAttribute&quot;</span>
@@ -194,7 +200,7 @@ overridden via the environmental variable <code class="docutils literal notransl
 </div>
 </li>
 <li><p>To pull container images from <a class="reference external" href="https://aws.amazon.com/ecr/">ECR</a> repositories:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;ecr:GetAuthorizationToken&quot;</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;ecr:GetAuthorizationToken&quot;</span>
 <span class="s2">&quot;ecr:BatchCheckLayerAvailability&quot;</span>
 <span class="s2">&quot;ecr:GetDownloadUrlForLayer&quot;</span>
 <span class="s2">&quot;ecr:GetRepositoryPolicy&quot;</span>

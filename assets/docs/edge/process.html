@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 23.05.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 23.07.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -23,7 +23,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Channels" href="channel.html" />
-    <link rel="prev" title="Nextflow scripting" href="script.html" />
+    <link rel="prev" title="Scripts" href="script.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -55,7 +55,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Processes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#script">Script</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#scripts-a-la-carte">Scripts <em>à la carte</em></a></li>
@@ -1261,10 +1261,10 @@ hola world!
 <p class="admonition-title">Note</p>
 <p>The accelerator <code class="docutils literal notranslate"><span class="pre">type</span></code> option depends on the target execution platform. Refer to the platform-specific documentation for details on the available accelerators:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://aws.amazon.com/batch/faqs/?#GPU_Scheduling_">AWS</a></p></li>
 <li><p><a class="reference external" href="https://cloud.google.com/compute/docs/gpus/">Google Cloud</a></p></li>
 <li><p><a class="reference external" href="https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/#clusters-containing-different-types-of-gpus">Kubernetes</a></p></li>
 </ul>
+<p>The accelerator <code class="docutils literal notranslate"><span class="pre">type</span></code> option is not supported for AWS Batch. You can control the accelerator type indirectly through the allowed instance types in your Compute Environment. See the <a class="reference external" href="https://aws.amazon.com/batch/faqs/?#GPU_Scheduling_">AWS Batch FAQs</a> for more information.</p>
 </div>
 </section>
 <section id="afterscript">
@@ -1368,7 +1368,7 @@ hola world!
 </pre></div>
 </div>
 <p>Multiple packages can be specified separating them with a blank space e.g. <code class="docutils literal notranslate"><span class="pre">bwa=0.7.15</span> <span class="pre">fastqc=0.11.5</span></code>. The name of the channel from where a specific package needs to be downloaded can be specified using the usual Conda notation i.e. prefixing the package with the channel name as shown here <code class="docutils literal notranslate"><span class="pre">bioconda::bwa=0.7.15</span></code>.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directory also allows the specification of a Conda environment file path or the path of an existing environment directory. See the <a class="reference internal" href="conda.html#conda-page"><span class="std std-ref">Conda environments</span></a> page for further details.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> directive also allows the specification of a Conda environment file path or the path of an existing environment directory. See the <a class="reference internal" href="conda.html#conda-page"><span class="std std-ref">Conda environments</span></a> page for further details.</p>
 </section>
 <section id="container">
 <span id="process-container"></span><h3>container<a class="headerlink" href="#container" title="Permalink to this heading"></a></h3>
@@ -1486,6 +1486,7 @@ hola world!
 </tr>
 </tbody>
 </table>
+<p>See <a class="reference internal" href="script.html#implicit-classes-memoryunit"><span class="std std-ref">MemoryUnit</span></a> for more information.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This directive is only used by certain executors. Refer to the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
@@ -1803,6 +1804,7 @@ hola world!
 </tr>
 </tbody>
 </table>
+<p>See <a class="reference internal" href="script.html#implicit-classes-memoryunit"><span class="std std-ref">MemoryUnit</span></a> for more information.</p>
 <p>See also: <a class="reference internal" href="#cpus"><span class="std std-doc">cpus</span></a>, <a class="reference internal" href="#time"><span class="std std-doc">time</span></a>, <a class="reference internal" href="#queue"><span class="std std-doc">queue</span></a> and <a class="reference internal" href="#dynamic-computing-resources"><span class="std std-doc">Dynamic computing resources</span></a>.</p>
 </section>
 <section id="module">
@@ -2069,7 +2071,7 @@ hola world!
 </section>
 <section id="queue">
 <span id="process-queue"></span><h3>queue<a class="headerlink" href="#queue" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">queue</span></code> directory allows you to set the <code class="docutils literal notranslate"><span class="pre">queue</span></code> where jobs are scheduled when using a grid based executor in your pipeline. For example:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">queue</span></code> directive allows you to set the <code class="docutils literal notranslate"><span class="pre">queue</span></code> where jobs are scheduled when using a grid based executor in your pipeline. For example:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">grid_job</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="n">queue</span><span class="w"> </span><span class="s1">&#39;long&#39;</span>
 <span class="w">    </span><span class="n">executor</span><span class="w"> </span><span class="s1">&#39;sge&#39;</span>
@@ -2326,6 +2328,7 @@ hola world!
 </tbody>
 </table>
 <p>Multiple units can be used in a single declaration, for example: <code class="docutils literal notranslate"><span class="pre">'1day</span> <span class="pre">6hours</span> <span class="pre">3minutes</span> <span class="pre">30seconds'</span></code></p>
+<p>See <a class="reference internal" href="script.html#implicit-classes-duration"><span class="std std-ref">Duration</span></a> for more information.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This directive is only used by certain executors. Refer to the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
@@ -2425,7 +2428,7 @@ hola world!
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="script.html" class="btn btn-neutral float-left" title="Nextflow scripting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="script.html" class="btn btn-neutral float-left" title="Scripts" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="channel.html" class="btn btn-neutral float-right" title="Channels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

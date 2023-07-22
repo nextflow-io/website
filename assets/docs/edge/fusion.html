@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fusion file system &mdash; Nextflow 23.05.0-edge documentation</title>
+  <title>Fusion file system &mdash; Nextflow 23.07.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -55,7 +55,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
@@ -275,7 +275,7 @@
 </section>
 <section id="nvme-storage">
 <h2>NVMe storage<a class="headerlink" href="#nvme-storage" title="Permalink to this heading"></a></h2>
-<p>The Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in parallel to and from object storage into a container-local temporary folder. This means that the performance of the temporary folder inside the container (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key to acheiving maximum performance.</p>
+<p>The Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in parallel to and from object storage into a container-local temporary folder. This means that the performance of the temporary folder inside the container (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key to achieving maximum performance.</p>
 <p>The temporary folder is used only as a temporary cache, so the size of the volume can be much lower than the actual needs of your pipeline processes. Fusion has a built-in garbage collector that constantly monitors remaining disk space on the temporary folder and immediately evicts old cached entries when necessary.</p>
 <p>The recommended setup to get maximum performance is to mount a NVMe disk as the temporary folder and run the pipeline with the <a class="reference internal" href="process.html#process-scratch"><span class="std std-ref">scratch</span></a> directive set to <code class="docutils literal notranslate"><span class="pre">false</span></code> to also avoid stage-out transfer time.</p>
 <p>Example configuration for using AWS Batch with <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">NVMe disks</a> to maximize performance:</p>
