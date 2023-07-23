@@ -1,7 +1,7 @@
 title=Nextflow goes to university!
-date=2023-07-34
+date=2023-07-24
 type=post
-description=Seqera partnership with universities allows students to learn Nextflow and get credits for that!
+description=Seqera partnership with universities to help students to learn Nextflow
 image=img/nextflow-goes-to-university.jpg
 tags=nextflow,nf-core
 status=published
