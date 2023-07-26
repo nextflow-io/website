@@ -25,7 +25,7 @@ Final hands-on projects are very useful not only to practice new skills but also
 
 ### Euryale 🐍
 
-[João Victor Cavalcante](https://www.linkedin.com/in/joao-vitor-cavalcante), along with collaborators, had developed and [published](https://www.frontiersin.org/articles/10.3389/fgene.2022.814437/full) a Snakemake pipeline for Sensitive Taxonomic Classification and Flexible Functional Annotation of Metagenomic Shotgun Sequences called MEDUSA. During the course, after seeing the huge potential of Nextflow, he decided to fully translate this pipeline to Nextflow, but with a new name: Euryale. You can check the result [here](https://github.com/dalmolingroup/euryale/) 😍 Why Euryale? In Greek mythology, Euryale was one of the three gorgons, a sister to Medusa 🤓
+[João Vitor Cavalcante](https://www.linkedin.com/in/joao-vitor-cavalcante), along with collaborators, had developed and [published](https://www.frontiersin.org/articles/10.3389/fgene.2022.814437/full) a Snakemake pipeline for Sensitive Taxonomic Classification and Flexible Functional Annotation of Metagenomic Shotgun Sequences called MEDUSA. During the course, after seeing the huge potential of Nextflow, he decided to fully translate this pipeline to Nextflow, but with a new name: Euryale. You can check the result [here](https://github.com/dalmolingroup/euryale/) 😍 Why Euryale? In Greek mythology, Euryale was one of the three gorgons, a sister to Medusa 🤓
 
 ### Bringing Nanopore to Google Batch ☁️
 
