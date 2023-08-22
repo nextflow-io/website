@@ -39,6 +39,16 @@ jbake-$jbake_version/bin/jbake -b
 # NEXTFLOW DOCUMENTATION
 #####################################################################
 
+# Install the GitHub CLI
+type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && sudo apt update \
+    && sudo apt install gh -y
+
+gh --help | exit 1
+
 # Make the empty target directories
 mkdir -p output/docs/latest
 mkdir -p output/docs/edge
@@ -52,11 +62,11 @@ cd nextflow/docs/
 STABLE_TAG=$(gh release list --exclude-drafts -L 10 | grep -v edge | head -n 1 | cut -f3)
 EDGE_TAG=$(gh release list --exclude-drafts -L 10 | grep edge | head -n 1 | cut -f3)
 echo "Latest stable release: $STABLE_TAG"
-echo "Latest stable release: $EDGE_TAG"
+echo "Latest edge release: $EDGE_TAG"
 
 # Sanity check: Assert string lengths
-if [ ${#STABLE_TAG} -le 4 ]; then echo "Version string too short" ; exit; fi
-if [ ${#EDGE_TAG} -le 4 ]; then echo "Version string too short" ; exit; fi
+if [ ${#STABLE_TAG} -le 4 ]; then echo "Version string too short" ; exit 1; fi
+if [ ${#EDGE_TAG} -le 4 ]; then echo "Version string too short" ; exit 1; fi
 
 # Build edge docs
 git checkout $EDGE_TAG
