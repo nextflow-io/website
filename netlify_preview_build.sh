@@ -39,9 +39,11 @@ jbake-$jbake_version/bin/jbake -b
 # NEXTFLOW DOCUMENTATION
 #####################################################################
 
+WEBSITE_DIR=$(pwd)
+
 # Make the empty target directories
-mkdir -p output/docs/latest
-mkdir -p output/docs/edge
+mkdir -p output/docs/latest/
+mkdir -p output/docs/edge/
 
 # Fetch the Nextflow repo
 cd ../
@@ -62,10 +64,10 @@ if [ ${#EDGE_TAG} -le 4 ]; then echo "Version string too short" ; exit 1; fi
 git checkout $EDGE_TAG
 pip install -r requirements.txt
 make clean html
-mv _build/html/* ../../website/output/docs/edge/
+mv _build/html/* $WEBSITE_DIR/output/docs/edge/
 
 # Build stable docs
 git checkout $STABLE_TAG
 pip install -r requirements.txt
 make clean html
-mv _build/html/* ../../website/output/docs/latest/
+mv _build/html/* $WEBSITE_DIR/output/docs/latest/
