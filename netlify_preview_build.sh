@@ -39,11 +39,6 @@ jbake-$jbake_version/bin/jbake -b
 # NEXTFLOW DOCUMENTATION
 #####################################################################
 
-# Install the GitHub CLI
-brew install gh
-
-gh --help | exit 1
-
 # Make the empty target directories
 mkdir -p output/docs/latest
 mkdir -p output/docs/edge
@@ -54,8 +49,8 @@ git clone https://github.com/nextflow-io/nextflow.git
 cd nextflow/docs/
 
 # Find the latest stable and edge releases
-STABLE_TAG=$(gh release list --exclude-drafts -L 10 | grep -v edge | head -n 1 | cut -f3)
-EDGE_TAG=$(gh release list --exclude-drafts -L 10 | grep edge | head -n 1 | cut -f3)
+STABLE_TAG=$(curl -s https://api.github.com/repos/nextflow-io/nextflow/releases | jq -r ". [].tag_name" | grep -v edge | head -n 1)
+EDGE_TAG=$(curl -s https://api.github.com/repos/nextflow-io/nextflow/releases | jq -r ". [].tag_name" | grep edge | head -n 1)
 echo "Latest stable release: $STABLE_TAG"
 echo "Latest edge release: $EDGE_TAG"
 
