@@ -50,7 +50,7 @@ mkdir -p output/docs/edge
 
 # Fetch the Nextflow repo
 cd ../
-gh repo clone nextflow-io/nextflow
+git clone https://github.com/nextflow-io/nextflow.git
 cd nextflow/docs/
 
 # Find the latest stable and edge releases
