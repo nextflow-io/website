@@ -132,7 +132,7 @@ A set of tutorials covering the basics of using and creating nf-core pipelines d
 - How to make new nf-core modules using the nf-core module template
 - How nf-core pipelines are reviewed and ultimately released
 
-[nf-core usage tutorials](https://nf-co.re/usage/usage_tutorials) and [nf-core developer tutorials](https://nf-co.re/developers/developer_tutorials).
+[nf-core usage tutorials](https://nf-co.re/docs/usage/tutorials) and [nf-core developer tutorials](https://nf-co.re/docs/contributing/tutorials).
 
 <h3 id="awesome-nextflow">8. Awesome Nextflow</h3>
 
