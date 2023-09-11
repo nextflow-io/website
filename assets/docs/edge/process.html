@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 23.07.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 23.09.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -114,6 +114,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#fair">fair</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#label">label</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#machinetype">machineType</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maxsubmitawait-experimental">maxSubmitAwait (experimental)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxerrors">maxErrors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxforks">maxForks</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#maxretries">maxRetries</a></li>
@@ -594,7 +595,22 @@
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">stageAs</span></code> option allows you to control how the file should be named in the task work directory. You can provide a specific name or a pattern as described in the <a class="reference internal" href="#multiple-input-files"><span class="std std-doc">Multiple input files</span></a> section:</p>
+<p>Available options:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">arity</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Specify the number of expected files. Can be a number or a range:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;one.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="o">)</span><span class="w">         </span><span class="c1">// exactly one file is expected</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;pair_*.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="o">)</span><span class="w">      </span><span class="c1">// exactly two files are expected</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;many_*.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;1..*&#39;</span><span class="o">)</span><span class="w">   </span><span class="c1">// one or more files are expected</span>
+</pre></div>
+</div>
+<p>When a task is created, Nextflow will check whether the received files for each path input match the declared arity, and fail if they do not.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">stageAs</span></code></dt><dd><p>Specify how the file should be named in the task work directory:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="nl">input:</span>
 <span class="w">  </span><span class="n">path</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="nl">stageAs:</span><span class="w"> </span><span class="s1">&#39;data.txt&#39;</span>
@@ -608,6 +624,17 @@
 <span class="w">  </span><span class="n">foo</span><span class="o">(</span><span class="s1">&#39;/some/data/file.txt&#39;</span><span class="o">)</span>
 <span class="o">}</span>
 </pre></div>
+</div>
+<p>Can be a name or a pattern as described in the <a class="reference internal" href="#multiple-input-files"><span class="std std-doc">Multiple input files</span></a> section.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Process <code class="docutils literal notranslate"><span class="pre">path</span></code> inputs have nearly the same interface as described in <a class="reference internal" href="script.html#script-file-io"><span class="std std-ref">Files and I/O</span></a>, with one difference which is relevant when files are staged into a subdirectory. Given the following input:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="w"> </span><span class="n">x</span><span class="o">,</span><span class="w"> </span><span class="nl">stageAs:</span><span class="w"> </span><span class="s1">&#39;my-dir/*&#39;</span>
+</pre></div>
+</div>
+<p>In this case, <code class="docutils literal notranslate"><span class="pre">x.name</span></code> returns the file name with the parent directory (e.g. <code class="docutils literal notranslate"><span class="pre">my-dir/file.txt</span></code>), whereas normally it would return the file name (e.g. <code class="docutils literal notranslate"><span class="pre">file.txt</span></code>). You can use <code class="docutils literal notranslate"><span class="pre">x.fileName.name</span></code> to get the file name.</p>
 </div>
 </section>
 <section id="multiple-input-files">
@@ -1017,6 +1044,21 @@ hola world!
 <p>In the above example, the <code class="docutils literal notranslate"><span class="pre">randomNum</span></code> process creates a file named <code class="docutils literal notranslate"><span class="pre">result.txt</span></code> which contains a random number. Since a <code class="docutils literal notranslate"><span class="pre">path</span></code> output with the same name is declared, that file is emitted by the corresponding output channel. A downstream process with a compatible input channel will be able to receive it.</p>
 <p>Available options:</p>
 <dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">arity</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Specify the number of expected files. Can be a number or a range:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;one.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="o">)</span><span class="w">         </span><span class="c1">// exactly one file is expected</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;pair_*.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="o">)</span><span class="w">      </span><span class="c1">// exactly two files are expected</span>
+<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;many_*.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">arity:</span><span class="w"> </span><span class="s1">&#39;1..*&#39;</span><span class="o">)</span><span class="w">   </span><span class="c1">// one or more files are expected</span>
+</pre></div>
+</div>
+<p>When a task completes, Nextflow will check whether the produced files for each path output match the declared arity,
+and fail if they do not. If the arity is <code class="docutils literal notranslate"><span class="pre">1</span></code>, a sole file object will be emitted. Otherwise, a list will always be emitted,
+even if only one file is produced.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">followLinks</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> target files are return in place of any matching symlink (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">glob</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the specified name is interpreted as a glob pattern (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>)</p>
@@ -1352,6 +1394,10 @@ hola world!
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This directive is only used by grid executors. Refer to the <a class="reference internal" href="executor.html#executor-page"><span class="std std-ref">Executors</span></a> page to see which executors support this directive.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>While you can use the <code class="docutils literal notranslate"><span class="pre">clusterOptions</span></code> directive to specify options that are supported as process directives (<code class="docutils literal notranslate"><span class="pre">queue</span></code>, <code class="docutils literal notranslate"><span class="pre">memory</span></code>, <code class="docutils literal notranslate"><span class="pre">time</span></code>, etc), you should not use both at the same time, as it will cause undefined behavior. Most HPC schedulers will either fail or simply ignore one or the other.</p>
 </div>
 </section>
 <section id="conda">
@@ -1714,6 +1760,28 @@ hola world!
 </div>
 <p>See also: <a class="reference internal" href="#cpus"><span class="std std-doc">cpus</span></a> and <a class="reference internal" href="#memory"><span class="std std-doc">memory</span></a>.</p>
 </section>
+<section id="maxsubmitawait-experimental">
+<span id="process-maxsubmitawait"></span><h3>maxSubmitAwait (experimental)<a class="headerlink" href="#maxsubmitawait-experimental" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">maxSubmitAwait</span></code> directives allows you to specify how long a task can remain in submission queue without being executed.
+Elapsed this time the task execution will fail.</p>
+<p>When used along with <code class="docutils literal notranslate"><span class="pre">retry</span></code> error strategy, it can be useful to re-schedule the task to a difference queue or
+resource requirement. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="n">errorStrategy</span><span class="w"> </span><span class="s1">&#39;retry&#39;</span>
+<span class="w">  </span><span class="n">maxSubmitAwait</span><span class="w"> </span><span class="s1">&#39;10 mins&#39;</span>
+<span class="w">  </span><span class="n">maxRetries</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="n">queue</span><span class="w"> </span><span class="s2">&quot;${task.submitAttempt==1 : &#39;spot-compute&#39; : &#39;on-demand-compute&#39;}&quot;</span>
+<span class="w">  </span><span class="nl">script:</span>
+<span class="w">  </span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">  your_job --here</span>
+<span class="s1">  &#39;&#39;&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>In the above example the task is submitted to the <code class="docutils literal notranslate"><span class="pre">spot-compute</span></code> on the first attempt (<code class="docutils literal notranslate"><span class="pre">task.submitAttempt==1</span></code>). If the
+task execution does not start in the 10 minutes, a failure is reported and a new submission is attempted using the
+queue named <code class="docutils literal notranslate"><span class="pre">on-demand-compute</span></code>.</p>
+</section>
 <section id="maxerrors">
 <span id="process-maxerrors"></span><h3>maxErrors<a class="headerlink" href="#maxerrors" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">maxErrors</span></code> directive allows you to specify the maximum number of times a process can fail when using the <code class="docutils literal notranslate"><span class="pre">retry</span></code> error strategy. By default this directive is disabled, you can set it as shown in the example below:</p>
@@ -1852,7 +1920,7 @@ hola world!
 </section>
 <section id="pod">
 <span id="process-pod"></span><h3>pod<a class="headerlink" href="#pod" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive allows the definition of pods specific settings, such as environment variables, secrets and config maps when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive allows the definition of pod specific settings, such as environment variables, secrets, and config maps, when using the <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executor.</p>
 <p>For example:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">your_task</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span>
@@ -1863,118 +1931,166 @@ hola world!
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The above snippet defines an environment variable named <code class="docutils literal notranslate"><span class="pre">FOO</span></code> which value is <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
-<p>When defined in the Nextflow configuration file, a pod setting can be defined using the canonical associative array syntax. For example:</p>
+<p>The above snippet defines an environment variable named <code class="docutils literal notranslate"><span class="pre">FOO</span></code> whose value is <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
+<p>When defined in the Nextflow configuration file, pod settings should be defined as maps. For example:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>When more than one setting needs to be provides they must be enclosed in a list definition as shown below:</p>
+<p>Multiple pod settings can be provided as a list of maps:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">],</span><span class="w"> </span><span class="o">[</span><span class="nl">secret:</span><span class="w"> </span><span class="s1">&#39;my-secret/key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mountPath:</span><span class="w"> </span><span class="s1">&#39;/etc/file.txt&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">]</span>
+<span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
+<span class="w">      </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">],</span>
+<span class="w">      </span><span class="o">[</span><span class="nl">secret:</span><span class="w"> </span><span class="s1">&#39;my-secret/key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mountPath:</span><span class="w"> </span><span class="s1">&#39;/etc/file.txt&#39;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">pod</span></code> directive supports the following options:</p>
+<p>The following options are available:</p>
 <dl class="simple myst">
-<dt><code class="docutils literal notranslate"><span class="pre">affinity:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">affinity:</span> <span class="pre">&lt;config&gt;</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.01.0-edge.</span></p>
 </div>
 </dd>
-<dd><p>Specifies affinity for which nodes the process should run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">Kubernetes affinity</a> for details.</p>
+<dd><p>Specifies the pod <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">affinity</a> with the given configuration.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">annotation:</span> <span class="pre">&lt;K&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">annotation:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">value:</span> <span class="pre">'&lt;value&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Defines a pod annotation with key <code class="docutils literal notranslate"><span class="pre">K</span></code> and value <code class="docutils literal notranslate"><span class="pre">V</span></code>.</p>
+<dd><p>Defines a pod <a class="reference external" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/">annotation</a> with the given name and value.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">automountServiceAccountToken:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">automountServiceAccountToken:</span> <span class="pre">true</span> <span class="pre">|</span> <span class="pre">false</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.01.0-edge.</span></p>
 </div>
 </dd>
-<dd><p>Specifies whether to <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/">automount service account token</a> into process pods. If <code class="docutils literal notranslate"><span class="pre">V</span></code> is true, service account token is automounted into task pods (default).</p>
+<dd><p>Specifies whether to <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#opt-out-of-api-credential-automounting">automount service account token</a> into the pod (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">&lt;C/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">config:</span> <span class="pre">'&lt;configMap&gt;/&lt;key&gt;',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">ConfigMap</span></code> entries are exposed in that path.</p>
+<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name and optional key to the given path. If the key is omitted, the path is interpreted as a directory and all entries in the <code class="docutils literal notranslate"><span class="pre">ConfigMap</span></code> are exposed in that path.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">csi:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">csi:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.11.0-edge.</span></p>
 </div>
 </dd>
 <dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes">CSI ephemeral volume</a> with config <code class="docutils literal notranslate"><span class="pre">V</span></code>to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>.</p>
+<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes">CSI ephemeral volume</a> by name to the given path.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">emptyDir:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">emptyDir:</span> <span class="pre">&lt;config&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.11.0-edge.</span></p>
 </div>
 </dd>
 <dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Mounts an <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">emptyDir</a> with configuration <code class="docutils literal notranslate"><span class="pre">V</span></code> to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>.</p>
+<dd><p>Mounts an <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir">emptyDir</a> with the given configuration to the given path.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">config:</span> <span class="pre">&lt;C/K&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">config:</span> <span class="pre">'&lt;configMap&gt;/&lt;key&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> with name <code class="docutils literal notranslate"><span class="pre">C</span></code>.</p>
+<dd><p>Defines an environment variable whose value is defined by the given <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/">ConfigMap</a> and key.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">fieldPath:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">fieldPath:</span> <span class="pre">'&lt;fieldPath&gt;'</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 21.09.1-edge.</span></p>
 </div>
 </dd>
 <dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> <a class="reference external" href="https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/">field path</a>.</p>
+<dd><p>Defines an environment variable whose value is defined by the given <a class="reference external" href="https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#use-pod-fields-as-values-for-environment-variables">field path</a> value.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dd><p>For example, the following pod option:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;MY_NODE_NAME&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">fieldPath:</span><span class="w"> </span><span class="s1">&#39;spec.nodeName&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+<p>Maps to the following pod spec:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">env</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MY_NODE_NAME</span>
+<span class="w">    </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">fieldRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">spec.nodeName</span>
+</pre></div>
+</div>
 </dd>
-<dd><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the entry associated to the key with name <code class="docutils literal notranslate"><span class="pre">K</span></code> in the <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">secret:</span> <span class="pre">'&lt;secret&gt;/&lt;key&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">&lt;E&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dd><p>Defines an environment variable whose value is defined by the given <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> and key.</p>
 </dd>
-<dd><p>Defines an environment variable with name <code class="docutils literal notranslate"><span class="pre">E</span></code> and whose value is given by the <code class="docutils literal notranslate"><span class="pre">V</span></code> string.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">env:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">value:</span> <span class="pre">'&lt;value&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p>Specifies the strategy to be used to pull the container image e.g. <code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'Always'</span></code>.</p>
+<dd><p>Defines an environment variable with the given name and value.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p>Specifies the secret name to access a private container image registry. See <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">Kubernetes documentation</a> for details.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'IfNotPresent'</span> <span class="pre">|</span> <span class="pre">'Always'</span> <span class="pre">|</span> <span class="pre">'Never'</span></code></dt><dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy">image pull policy</a> used by the pod to pull the container image.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">label:</span> <span class="pre">&lt;K&gt;,</span> <span class="pre">value:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">'&lt;name&gt;'</span></code></dt><dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">image pull secret</a> used to access a private container image registry.</p>
 </dd>
-<dd><p>Defines a pod label with key <code class="docutils literal notranslate"><span class="pre">K</span></code> and value <code class="docutils literal notranslate"><span class="pre">V</span></code>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">label:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">value:</span> <span class="pre">'&lt;value&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p>Specifies which node the process will run on. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector">Kubernetes nodeSelector</a> for details.</p>
+<dd><p>Defines a pod <a class="reference external" href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">label</a> with the given name and value.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">priorityClassName:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">nodeSelector:</span> <span class="pre">&lt;config&gt;</span></code></dt><dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector">node selector</a> with the given configuration.</p>
+</dd>
+<dd><p>The configuration can be a map or a string:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// map</span>
+<span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nl">nodeSelector:</span><span class="w"> </span><span class="o">[</span><span class="nl">disktype:</span><span class="w"> </span><span class="s1">&#39;ssd&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">cpu:</span><span class="w"> </span><span class="s1">&#39;intel&#39;</span><span class="o">]]</span>
+
+<span class="c1">// string</span>
+<span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nl">nodeSelector:</span><span class="w"> </span><span class="s1">&#39;disktype=ssd,cpu=intel&#39;</span><span class="o">]</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">priorityClassName:</span> <span class="pre">'&lt;name&gt;'</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.01.0-edge.</span></p>
 </div>
 </dd>
 <dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/">priority class name</a> for pods.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">privileged:</span> <span class="pre">&lt;B&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">privileged:</span> <span class="pre">true</span> <span class="pre">|</span> <span class="pre">false</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.05.0-edge.</span></p>
 </div>
 </dd>
-<dd><p>Whether the process task should run as a <em>privileged</em> container (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
+<dd><p>Specifies whether the pod should run as a <em>privileged</em> container (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">&lt;UID&gt;</span></code></dt><dd><p>Specifies the user ID to be used to run the container. Shortcut for the <code class="docutils literal notranslate"><span class="pre">securityContext</span></code> option.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">'&lt;uid&gt;'</span></code></dt><dd><p>Specifies the user ID with which to run the container. Shortcut for the <code class="docutils literal notranslate"><span class="pre">securityContext</span></code> option.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">&lt;S/K&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">'&lt;secret&gt;/&lt;key&gt;',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name <code class="docutils literal notranslate"><span class="pre">S</span></code> with key <code class="docutils literal notranslate"><span class="pre">K</span></code> to the path <code class="docutils literal notranslate"><span class="pre">/absolute/path</span></code>. When the key component is omitted the path is interpreted as a directory and all the <code class="docutils literal notranslate"><span class="pre">Secret</span></code> entries are exposed in that path.</p>
+<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/configuration/secret/">Secret</a> with name and optional key to the given path. If the key is omitted, the path is interpreted as a directory and all entries in the <code class="docutils literal notranslate"><span class="pre">Secret</span></code> are exposed in that path.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">securityContext:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><p>Specifies the pod security context. See <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">Kubernetes security context</a> for details.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">securityContext:</span> <span class="pre">&lt;config&gt;</span></code></dt><dd><p>Specifies the pod <a class="reference external" href="https://kubernetes.io/docs/tasks/configure-pod-container/security-context/">security context</a> with the given configuration.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">toleration:</span> <span class="pre">&lt;V&gt;</span></code></dt><dd><div class="versionadded">
+<dt><code class="docutils literal notranslate"><span class="pre">toleration:</span> <span class="pre">&lt;config&gt;</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.04.0.</span></p>
 </div>
 </dd>
 <dd><p><em>Can be specified multiple times</em></p>
 </dd>
-<dd><p>Specifies a toleration for a node taint. See <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">Taints and Tolerations</a> for details.</p>
+<dd><p>Specifies the pod <a class="reference external" href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">toleration</a> with the given configuration.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">&lt;V&gt;,</span> <span class="pre">mountPath:</span> <span class="pre">&lt;/absolute/path&gt;</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+<dd><p>The configuration should be a map corresponding to a single toleration rule. For example, the following pod options:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
+<span class="w">    </span><span class="o">[</span><span class="nl">toleration:</span><span class="w"> </span><span class="o">[</span><span class="nl">key:</span><span class="w"> </span><span class="s1">&#39;key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">operator:</span><span class="w"> </span><span class="s1">&#39;Equal&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;value1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">effect:</span><span class="w"> </span><span class="s1">&#39;NoSchedule&#39;</span><span class="o">]],</span>
+<span class="w">    </span><span class="o">[</span><span class="nl">toleration:</span><span class="w"> </span><span class="o">[</span><span class="nl">key:</span><span class="w"> </span><span class="s1">&#39;key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">operator:</span><span class="w"> </span><span class="s1">&#39;Exists&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">effect:</span><span class="w"> </span><span class="s1">&#39;NoSchedule&#39;</span><span class="o">]],</span>
+<span class="o">]</span>
+</pre></div>
+</div>
+<p>Maps to the following pod spec:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">tolerations</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;key1&quot;</span>
+<span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Equal&quot;</span>
+<span class="w">    </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;value1&quot;</span>
+<span class="w">    </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoSchedule&quot;</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;key1&quot;</span>
+<span class="w">    </span><span class="nt">operator</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Exists&quot;</span>
+<span class="w">    </span><span class="nt">effect</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;NoSchedule&quot;</span>
+</pre></div>
+</div>
 </dd>
-<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with name <code class="docutils literal notranslate"><span class="pre">V</span></code> to the specified path location. Use the optional <code class="docutils literal notranslate"><span class="pre">subPath</span></code> parameter to mount a directory inside the referenced volume instead of its root. The volume may be mounted with <code class="docutils literal notranslate"><span class="pre">readOnly:</span> <span class="pre">true</span></code>, but is read/write by default.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">volumeClaim:</span> <span class="pre">'&lt;name&gt;',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span> <span class="pre">[,</span> <span class="pre">subPath:</span> <span class="pre">'&lt;path&gt;',</span> <span class="pre">readOnly:</span> <span class="pre">true</span> <span class="pre">|</span> <span class="pre">false]</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
+</dd>
+<dd><p>Mounts a <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent volume claim</a> with the given name to the given path.</p>
+</dd>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">subPath</span></code> option can be used to mount a sub-directory of the volume instead of its root.</p>
+</dd>
+<dd><p>The <code class="docutils literal notranslate"><span class="pre">readOnly</span></code> option can be used to mount the volume as read-only (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd>
 </dl>
 </section>
@@ -2114,9 +2230,17 @@ hola world!
 </pre></div>
 </div>
 <p>The limits and the syntax of the corresponding cloud provider should be taken into consideration when using resource labels.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Resource labels are currently only supported by the <a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a>, <a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a>, Google Cloud Batch and <a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a> executors.</p>
+<p>Resource labels are currently supported by the following executors:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="executor.html#awsbatch-executor"><span class="std std-ref">AWS Batch</span></a></p></li>
+<li><p><a class="reference internal" href="executor.html#azurebatch-executor"><span class="std std-ref">Azure Batch</span></a></p></li>
+<li><p><a class="reference internal" href="executor.html#google-batch-executor"><span class="std std-ref">Google Cloud Batch</span></a></p></li>
+<li><p><a class="reference internal" href="executor.html#google-lifesciences-executor"><span class="std std-ref">Google Life Sciences</span></a></p></li>
+<li><p><a class="reference internal" href="executor.html#k8s-executor"><span class="std std-ref">Kubernetes</span></a></p></li>
+</ul>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.09.0-edge: </span>Resource labels are supported for Azure Batch when using automatic pool creation.</p>
+<p>Resource labels in Azure are added to pools, rather than jobs, in order to facilitate cost analysis. A new pool will be created for each new set of resource labels, therefore it is recommended to also set <code class="docutils literal notranslate"><span class="pre">azure.batch.deletePoolsOnCompletion</span> <span class="pre">=</span> <span class="pre">true</span></code> when using process-specific resource labels.</p>
 </div>
 <p>See also: <a class="reference internal" href="#label"><span class="std std-doc">label</span></a></p>
 </section>

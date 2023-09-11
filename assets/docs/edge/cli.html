@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 23.07.0-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 23.09.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -84,9 +84,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#drop">drop</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">help</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#info">info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inspect">inspect</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#kuberun">kuberun</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#list">list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#log">log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#plugin">plugin</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pull">pull</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#run">run</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#self-update">self-update</a></li>
@@ -176,6 +178,8 @@
 <dt><code class="docutils literal notranslate"><span class="pre">-log</span></code></dt><dd><p>Set nextflow log file path.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-q,</span> <span class="pre">-quiet</span></code></dt><dd><p>Do not print information messages.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-remote-debug</span></code></dt><dd><p>Enable JVM interactive remote debugging (experimental).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-syslog</span></code></dt><dd><p>Send logs to syslog server (e.g. localhost:514).</p>
 </dd>
@@ -482,6 +486,12 @@ http://nextflow.io
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-sort</span></code></dt><dd><p>Sort config attributes.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-value</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.08.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Print the value of a config option, or fail if the option is not defined.</p>
+</dd>
 </dl>
 <p><strong>Examples</strong></p>
 <p>Print out the inferred config using a the default group key-value notation.</p>
@@ -510,6 +520,11 @@ http://nextflow.io
 <span class="go">process.executor = local</span>
 </pre></div>
 </div>
+<p>Print out the value of a specific configuration property.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>config<span class="w"> </span>-value<span class="w"> </span>process.executor
+<span class="go">local</span>
+</pre></div>
+</div>
 <p>Print out all profiles from the project’s configuration.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>config<span class="w"> </span>-show-profiles
 
@@ -534,7 +549,7 @@ http://nextflow.io
 </div>
 </section>
 <section id="console">
-<h3>console<a class="headerlink" href="#console" title="Permalink to this heading"></a></h3>
+<span id="cli-console"></span><h3>console<a class="headerlink" href="#console" title="Permalink to this heading"></a></h3>
 <p>Launch the Nextflow interactive console.</p>
 <p><strong>Usage</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>console
@@ -651,6 +666,43 @@ http://nextflow.io
 <span class="go">    testing</span>
 <span class="go">    v1.1 [t]</span>
 <span class="go">    v1.2 [t]</span>
+</pre></div>
+</div>
+</section>
+<section id="inspect">
+<h3>inspect<a class="headerlink" href="#inspect" title="Permalink to this heading"></a></h3>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.09.0-edge.</span></p>
+</div>
+<p>Inspect process settings in a pipeline project. Currently only supports the <code class="docutils literal notranslate"><span class="pre">container</span></code> directive.</p>
+<p><strong>Usage</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>inspect<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>project<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">inspect</span></code> command allows you to determine the container for each process in a pipeline without running the pipeline. It prints to stdout a listing of containers for each process, formatted either as JSON or Nextflow configuration.</p>
+<p><strong>Options</strong></p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">-concretize</span></code></dt><dd><p>Build the container images resolved by the inspect command.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-format</span></code> (<code class="docutils literal notranslate"><span class="pre">json</span></code>)</dt><dd><p>Inspect output format. Can be <code class="docutils literal notranslate"><span class="pre">json</span></code> or <code class="docutils literal notranslate"><span class="pre">config</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-i,</span> <span class="pre">-ignore-errors</span></code></dt><dd><p>Ignore errors while inspecting the pipeline.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-params-file</span></code></dt><dd><p>Load script parameters from a JSON/YAML file.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-profile</span></code></dt><dd><p>Use the given configuration profile(s).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-r,</span> <span class="pre">revision</span></code></dt><dd><p>Revision of the project to inspect (either a git branch, tag or commit SHA number).</p>
+</dd>
+</dl>
+<p><strong>Examples</strong></p>
+<p>Get the list of containers used by a pipeline.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>inspect<span class="w"> </span>nextflow-io/hello
+</pre></div>
+</div>
+<p>Specify parameters as with the <code class="docutils literal notranslate"><span class="pre">run</span></code> command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>inspect<span class="w"> </span>main.nf<span class="w"> </span>--alpha<span class="w"> </span><span class="m">1</span><span class="w"> </span>--beta<span class="w"> </span>foo
 </pre></div>
 </div>
 </section>
@@ -867,6 +919,20 @@ http://nextflow.io
 </pre></div>
 </div>
 </section>
+<section id="plugin">
+<span id="cli-plugin"></span><h3>plugin<a class="headerlink" href="#plugin" title="Permalink to this heading"></a></h3>
+<p>Manage plugins and run plugin-specific commands.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>plugin<span class="w"> </span>&lt;subcommand&gt;<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">plugin</span></code> command provides several subcommands for managing and using plugins:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">install</span> <span class="pre">&lt;plugin[&#64;version],..&gt;</span></code></dt><dd><p>Install a plugin. Multiple plugins can be specified as a comma-separated list. Each plugin id consists of a name and optional version separated by a <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">&lt;plugin&gt;:&lt;subcommand&gt;</span> <span class="pre">[options]</span></code></dt><dd><p>Execute a plugin-specific command.</p>
+</dd>
+</dl>
+</section>
 <section id="pull">
 <h3>pull<a class="headerlink" href="#pull" title="Permalink to this heading"></a></h3>
 <p>Download or update a project.</p>
@@ -979,7 +1045,7 @@ http://nextflow.io
 <p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
 </div>
 </dd>
-<dd><p>Run the workflow script skipping the execution of all processes</p>
+<dd><p>Run the workflow script skipping the execution of all processes.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-process.&lt;key&gt;=&lt;value&gt;</span></code></dt><dd><p>Set process config options.</p>
 </dd>
@@ -1005,7 +1071,7 @@ http://nextflow.io
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-conda</span></code></dt><dd><p>Use the specified Conda environment package or file (must end with <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>)</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> (<code class="docutils literal notranslate"><span class="pre">dag.dot</span></code>)</dt><dd><p>Create pipeline DAG file.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> (<code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.dot</span></code>)</dt><dd><p>Create pipeline DAG file.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-docker</span></code></dt><dd><p>Enable process execution in a Docker container.</p>
 </dd>
@@ -1013,21 +1079,21 @@ http://nextflow.io
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-podman</span></code></dt><dd><p>Enable process execution in a Podman container.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-report</span></code> (<code class="docutils literal notranslate"><span class="pre">report.html</span></code>)</dt><dd><p>Create workflow execution HTML report.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-report</span></code> (<code class="docutils literal notranslate"><span class="pre">report-&lt;timestamp&gt;.html</span></code>)</dt><dd><p>Create workflow execution HTML report.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-singularity</span></code></dt><dd><p>Enable process execution in a Singularity container.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-spack</span></code></dt><dd><p>Use the specified Spack environment package or file (must end with <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>)</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-timeline</span></code> (<code class="docutils literal notranslate"><span class="pre">timeline.html</span></code>)</dt><dd><p>Create workflow execution timeline.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-timeline</span></code> (<code class="docutils literal notranslate"><span class="pre">timeline-&lt;timestamp&gt;.html</span></code>)</dt><dd><p>Create workflow execution timeline.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-tower</span></code></dt><dd><p>Monitor workflow execution with <a class="reference external" href="https://cloud.tower.nf/">Tower</a>.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-tower</span></code> (<code class="docutils literal notranslate"><span class="pre">https://api.tower.nf</span></code>)</dt><dd><p>Monitor workflow execution with <a class="reference external" href="https://cloud.tower.nf/">Tower</a>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-trace</span></code> (<code class="docutils literal notranslate"><span class="pre">trace.txt</span></code>)</dt><dd><p>Create workflow execution trace file.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-trace</span></code> (<code class="docutils literal notranslate"><span class="pre">trace-&lt;timestamp&gt;.txt</span></code>)</dt><dd><p>Create workflow execution trace file.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-wave</span></code></dt><dd><p>Enable the use of Wave containers.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-wave</span></code> (<code class="docutils literal notranslate"><span class="pre">https://wave.seqera.io</span></code>)</dt><dd><p>Enable the use of Wave containers.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-weblog</span></code></dt><dd><p>Send workflow status messages via HTTP to target URL.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-weblog</span></code> (<code class="docutils literal notranslate"><span class="pre">http://localhost</span></code>)</dt><dd><p>Send workflow status messages via HTTP to target URL.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-without-conda</span></code></dt><dd><p>Disable process execution with Conda.</p>
 </dd>

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wave containers &mdash; Nextflow 23.07.0-edge documentation</title>
+  <title>Wave containers &mdash; Nextflow 23.09.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -77,6 +77,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#build-module-containers">Build module containers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#build-conda-based-containers">Build Conda based containers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#build-spack-based-containers">Build Spack based containers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-singularity-native-images">Build Singularity native images</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#push-to-a-private-repository">Push to a private repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#run-pipelines-using-fusion-file-system">Run pipelines using Fusion file system</a></li>
 </ul>
@@ -172,8 +173,8 @@
 <section id="use-cases">
 <h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this heading"></a></h2>
 <section id="authenticate-private-repositories">
-<h3>Authenticate private repositories<a class="headerlink" href="#authenticate-private-repositories" title="Permalink to this heading"></a></h3>
-<p>Wave allows the use of private repositories in your Nextflow pipelines. The repository access keys must be provided in the form of <a class="reference external" href="https://help.tower.nf/22.2/credentials/overview/">Nextflow Tower credentials</a>.</p>
+<span id="wave-authenticate-private-repos"></span><h3>Authenticate private repositories<a class="headerlink" href="#authenticate-private-repositories" title="Permalink to this heading"></a></h3>
+<p>Wave allows the use of private repositories in your Nextflow pipelines. The repository access keys must be provided in the form of <a class="reference external" href="https://help.tower.nf/latest/credentials/overview/">Tower credentials</a>.</p>
 <p>Once the credentials have been created, simply specify your <a class="reference external" href="https://help.tower.nf/22.2/api/overview/#authentication">Tower account access token</a> in your pipeline configuration file. If the credentials were created in a Tower organization workspace, specify the workspace ID as well in the config file as shown below:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">tower</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">accessToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;your access token&gt;&#39;</span>
@@ -233,6 +234,32 @@ the <code class="docutils literal notranslate"><span class="pre">container</span
 <p>If using a Spack YAML file to provide the required packages, you should avoid editing the following sections, which are already configured by the Wave plugin: <code class="docutils literal notranslate"><span class="pre">packages</span></code>, <code class="docutils literal notranslate"><span class="pre">config</span></code>, <code class="docutils literal notranslate"><span class="pre">view</span></code> and <code class="docutils literal notranslate"><span class="pre">concretizer</span></code> (your edits may be ignored), and <code class="docutils literal notranslate"><span class="pre">compilers</span></code> (your edits will be considered, and may interfere with the setup by the Wave plugin).</p>
 </div>
 </section>
+<section id="build-singularity-native-images">
+<h3>Build Singularity native images<a class="headerlink" href="#build-singularity-native-images" title="Permalink to this heading"></a></h3>
+<p>As of version <code class="docutils literal notranslate"><span class="pre">23.09.0-edge</span></code>, Nextflow can build Singularity native images on-demand either using <code class="docutils literal notranslate"><span class="pre">Singularityfile</span></code>,
+Conda packages or Spack packages. The Singularity images are automatically uploaded in a container registry OCI compliant
+of your choice and stored as a <a class="reference external" href="https://oras.land/">ORAS artefact</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature requires of Singularity (or Apptainer) version supporting the pull of images using the <code class="docutils literal notranslate"><span class="pre">oras:</span></code> pseudo-protocol.</p>
+</div>
+<p>For example to enable the provisioning of Singularity images in your pipeline use the following configuration snippet:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">singularity</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">freeze</span> <span class="o">=</span> <span class="n">true</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">strategy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;conda&#39;</span><span class="p">]</span>
+<span class="n">wave</span><span class="o">.</span><span class="n">build</span><span class="o">.</span><span class="n">repository</span> <span class="o">=</span> <span class="s1">&#39;docker.io/user/repo&#39;</span>
+</pre></div>
+</div>
+<p>In the above configuration replace <code class="docutils literal notranslate"><span class="pre">docker.io/user/repo</span></code> with a repository of your choice where Singularity image files
+should be uploaded.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using a private repository, the repository access keys must be provider via Tower credentials manager (see <a class="reference internal" href="#wave-authenticate-private-repos"><span class="std std-ref">above</span></a>).</p>
+<p>Moreover the access to the repository must be granted in the compute nodes by using the command <code class="docutils literal notranslate"><span class="pre">singularity</span> <span class="pre">remote</span> <span class="pre">login</span> <span class="pre">&lt;registry&gt;</span></code>.
+Please see Singularity documentation for further details.</p>
+</div>
+</section>
 <section id="push-to-a-private-repository">
 <h3>Push to a private repository<a class="headerlink" href="#push-to-a-private-repository" title="Permalink to this heading"></a></h3>
 <p>Containers built by Wave are uploaded to the Wave default repository hosted on AWS ECR at <code class="docutils literal notranslate"><span class="pre">195996028523.dkr.ecr.eu-west-1.amazonaws.com/wave/build</span></code>. The images in this repository are automatically deleted 1 week after the date of their push.</p>
@@ -260,6 +287,15 @@ the <code class="docutils literal notranslate"><span class="pre">container</span
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.endpoint</span></code></dt><dd><p>The Wave service endpoint (default: <code class="docutils literal notranslate"><span class="pre">https://wave.seqera.io</span></code>).</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.freeze</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>When enabling the container freeze mode, Wave will provision an non-ephemeral container image
+that will be pushed to a container repository your choice. It requires the use of the <code class="docutils literal notranslate"><span class="pre">wave.build.repository</span></code> setting.
+It is also suggested to specify a custom cache repository via the setting <code class="docutils literal notranslate"><span class="pre">wave.build.cacheRepository</span></code>. Note: when using
+container freeze mode, the container repository authentication needs to be managed by the underlying infrastructure.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.build.repository</span></code></dt><dd><p>The container repository where images built by Wave are uploaded (note: the corresponding credentials must be provided in your Nextflow Tower account).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.build.cacheRepository</span></code></dt><dd><p>The container repository used to cache image layers built by the Wave service (note: the corresponding credentials must be provided in your Nextflow Tower account).</p>
@@ -274,25 +310,33 @@ the <code class="docutils literal notranslate"><span class="pre">container</span
 <p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
 </div>
 </dd>
-<dt>:::</dt><dd><p>One or more Spack packages to be always added in the resulting container.</p>
+<dd><p>One or more Spack packages to be always added in the resulting container.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.build.spack.commands</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
 </div>
 </dd>
-<dt>:::</dt><dd><p>One or more commands to be added to the Dockerfile used to build a Spack based image.</p>
+<dd><p>One or more commands to be added to the Dockerfile used to build a Spack based image.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.httpClient.connectTime</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>
 </div>
 </dd>
-<dt>:::</dt><dd><p>Sets the connection timeout duration for the HTTP client connecting to the Wave service (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>).</p>
+<dd><p>Sets the connection timeout duration for the HTTP client connecting to the Wave service (default: <code class="docutils literal notranslate"><span class="pre">30s</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.strategy</span></code></dt><dd><p>The strategy to be used when resolving ambiguous Wave container requirements (default: <code class="docutils literal notranslate"><span class="pre">'container,dockerfile,conda,spack'</span></code>).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.report.enabled</span></code> (preview)</dt><dd><p>Enable the reporting of the Wave containers used during the pipeline execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>, requires version <code class="docutils literal notranslate"><span class="pre">23.06.0-edge</span></code> or later).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.report.enabled</span></code> (preview)</dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.06.0-edge.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">wave.report.file</span></code> (preview)</dt><dd><p>The name of the containers report file (default: <code class="docutils literal notranslate"><span class="pre">containers-&lt;timestamp&gt;.config</span></code> requires version <code class="docutils literal notranslate"><span class="pre">23.06.0-edge</span></code> or later).</p>
+<dd><p>Enable the reporting of the Wave containers used during the pipeline execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">wave.report.file</span></code> (preview)</dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>The name of the containers report file (default: <code class="docutils literal notranslate"><span class="pre">'containers-&lt;timestamp&gt;.config'</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">wave.retryPolicy.delay</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.06.0-edge.</span></p>

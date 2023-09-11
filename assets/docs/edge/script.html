@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scripts &mdash; Nextflow 23.07.0-edge documentation</title>
+  <title>Scripts &mdash; Nextflow 23.09.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -263,7 +263,7 @@
 <p>When adding two maps, the first map is copied and then appended with the keys from the second map. Any conflicting keys are overwritten by the second map.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Appending an “update” map is a safer way to modify maps in Nextflow, specifically when passing maps through channels. This way, any references to the original map elsewhere in the pipeline won’t be modified.</p>
+<p>Copying a map with the <code class="docutils literal notranslate"><span class="pre">+</span></code> operator is a safer way to modify maps in Nextflow, specifically when passing maps through channels. This way, a new instance of the map will be created, and any references to the original map won’t be affected.</p>
 </div>
 <p>Learn more about maps:</p>
 <ul class="simple">
@@ -352,6 +352,13 @@ $x + $y
 </pre></div>
 </div>
 <p>In the preceding example, <code class="docutils literal notranslate"><span class="pre">blastp</span></code> and its <code class="docutils literal notranslate"><span class="pre">-in</span></code>, <code class="docutils literal notranslate"><span class="pre">-out</span></code>, <code class="docutils literal notranslate"><span class="pre">-db</span></code> and <code class="docutils literal notranslate"><span class="pre">-html</span></code> switches and their arguments are effectively a single line.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When using backslashes to continue a multi-line command, make sure to not put any spaces after the backslash, otherwise it will be interpreted by the Groovy lexer as an escaped space instead of a backslash, which will make your script incorrect. It will also print this warning:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">unknown</span> <span class="n">recognition</span> <span class="n">error</span> <span class="nb">type</span><span class="p">:</span> <span class="n">groovyjarjarantlr4</span><span class="o">.</span><span class="n">v4</span><span class="o">.</span><span class="n">runtime</span><span class="o">.</span><span class="n">LexerNoViableAltException</span>
+</pre></div>
+</div>
+</div>
 </section>
 <section id="regular-expressions">
 <span id="script-regexp"></span><h3>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this heading"></a></h3>
@@ -475,16 +482,26 @@ $x + $y
 <span class="n">Sudha</span> <span class="o">=</span> <span class="n">Kumari</span>
 </pre></div>
 </div>
-<p>A closure has two other important features. First, it can access variables in the scope where it is defined, so that it can interact with them.</p>
-<p>Second, a closure can be defined in an anonymous manner, meaning that it is not given a name, and is defined in the place where it needs to be used.</p>
-<p>As an example showing both these features, see the following code fragment:</p>
-<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;China&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;India&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;USA&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span>
+<p>Closures can also access variables outside of their scope, and they can be used anonymously, that is without assigning them to a variable. Here is an example that demonstrates both of these things:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">myMap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;China&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;India&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;USA&quot;</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="o">]</span>
 
 <span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
-<span class="n">myMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">each</span><span class="o">(</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">result</span><span class="o">+=</span><span class="w"> </span><span class="n">myMap</span><span class="o">[</span><span class="n">it</span><span class="o">]</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">)</span>
+<span class="n">myMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">each</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">myMap</span><span class="o">[</span><span class="n">it</span><span class="o">]</span><span class="w"> </span><span class="o">}</span>
 
 <span class="n">println</span><span class="w"> </span><span class="n">result</span>
 </pre></div>
+</div>
+<p>A closure can also declare local variables that exist only for the lifetime of the closure:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">myMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">each</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="kt">def</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">myMap</span><span class="o">[</span><span class="n">it</span><span class="o">]</span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">count</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Local variables should be declared using a qualifier such as <code class="docutils literal notranslate"><span class="pre">def</span></code> or a type name, otherwise they will be interpreted as global variables, which could lead to a race condition.</p>
 </div>
 <p>Learn more about closures in the <a class="reference external" href="http://groovy-lang.org/closures.html">Groovy documentation</a></p>
 </section>

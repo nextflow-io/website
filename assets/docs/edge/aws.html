@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Amazon Web Services &mdash; Nextflow 23.07.0-edge documentation</title>
+  <title>Amazon Web Services &mdash; Nextflow 23.09.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -380,10 +380,11 @@
 </ul>
 <section id="create-your-custom-ami">
 <h3>Create your custom AMI<a class="headerlink" href="#create-your-custom-ami" title="Permalink to this heading"></a></h3>
-<p>From the EC2 Dashboard, select <strong>Launch Instance</strong>, then select <strong>AWS Marketplace</strong> in the left-hand pane and search for “ECS”. In the result list, select <strong>Amazon ECS-Optimized Amazon Linux 2 AMI</strong>, then continue as usual to configure and launch the instance.</p>
+<p>From the EC2 Dashboard, select <strong>Launch Instance</strong>, then select <strong>Browse more AMIs</strong>. In the new page, select
+<strong>AWS Marketplace AMIs</strong>, and then search for <strong>Amazon ECS-Optimized Amazon Linux 2 (AL2) x86_64 AMI</strong>. Select the AMI and continue as usual to configure and launch the instance.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The selected instance has a bootstrap volume of 8GB and a second EBS volume of 30GB for scratch storage, which is not enough for real genomic workloads. Make sure to specify an additional volume with enough storage for your pipeline execution.</p>
+<p>The selected instance has a root volume of 30GB. Make sure to increase its size or add a second EBS volume with enough storage for real genomic workloads.</p>
 </div>
 <p>When the instance is running, SSH into it (or connect with the Session Manager service), install the AWS CLI, and install any other tool that may be required (see following sections).</p>
 <p>Finally, select <strong>Create Image</strong> from the EC2 Dashboard to create a new AMI from the running instance (you can also do it through the AWS CLI).</p>
@@ -412,7 +413,7 @@ rm<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
 </div>
 <p>Afterwards, verify that the AWS CLI package works correctly:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./miniconda/bin/aws<span class="w"> </span>--version
-<span class="go">aws-cli/1.19.79 Python/3.8.5 Linux/4.14.231-173.361.amzn2.x86_64 botocore/1.20.79</span>
+<span class="go">aws-cli/1.29.20 Python/3.11.4 Linux/4.14.318-241.531.amzn2.x86_64 botocore/1.31.20</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -434,7 +435,7 @@ rm<span class="w"> </span>Miniconda3-latest-Linux-x86_64.sh
 </section>
 <section id="docker-installation">
 <h3>Docker installation<a class="headerlink" href="#docker-installation" title="Permalink to this heading"></a></h3>
-<p>Docker is required by Nextflow to execute tasks on AWS Batch. The <strong>Amazon ECS-Optimized Amazon Linux 2</strong> AMI has Docker installed, however, if you create your AMI from a different AMI that does not have Docker installed, you will need to install it manually.</p>
+<p>Docker is required by Nextflow to execute tasks on AWS Batch. The <strong>Amazon ECS-Optimized Amazon Linux 2 (AL2) x86_64 AMI</strong> has Docker installed, however, if you create your AMI from a different AMI that does not have Docker installed, you will need to install it manually.</p>
 <p>The following snippet shows how to install Docker on an Amazon EC2 instance:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># install Docker</span>
 sudo<span class="w"> </span>yum<span class="w"> </span>update<span class="w"> </span>-y
@@ -454,7 +455,7 @@ sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </
 <section id="amazon-ecs-container-agent-installation">
 <h3>Amazon ECS container agent installation<a class="headerlink" href="#amazon-ecs-container-agent-installation" title="Permalink to this heading"></a></h3>
 <p>The <a class="reference external" href="https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_agent.html">ECS container agent</a> is a component of Amazon Elastic Container Service (Amazon ECS) and is responsible for managing containers on behalf of ECS. AWS Batch uses ECS to execute containerized jobs, therefore it requires the agent to be installed on EC2 instances within your Compute Environments.</p>
-<p>The ECS agent is included in the <strong>Amazon ECS-Optimized Amazon Linux 2</strong> AMI. If you use a different AMI, you can also install the agent on any EC2 instance that supports the Amazon ECS specification.</p>
+<p>The ECS agent is included in the <strong>Amazon ECS-Optimized Amazon Linux 2 (AL2) x86_64 AMI</strong> . If you use a different base AMI, you can also install the agent on any EC2 instance that supports the Amazon ECS specification.</p>
 <p>To install the agent, follow these steps:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>amazon-linux-extras<span class="w"> </span>disable<span class="w"> </span>docker
 sudo<span class="w"> </span>amazon-linux-extras<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>ecs
@@ -468,6 +469,10 @@ sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">en
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">AmazonEC2ContainerServiceforEC2Role</span></code> policy must be attached to the instance role in order to be able to connect the EC2 instance created by the Compute Environment to the ECS container.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AmazonEC2ContainerRegistryReadOnly</span></code> policy should be attached to the instance role in order to get read-only access to Amazon EC2 Container Registry repositories.</p>
 </div>
 </section>
 </section>
