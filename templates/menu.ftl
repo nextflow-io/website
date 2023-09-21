@@ -49,7 +49,7 @@
                         <li><a href="http://training.nextflow.io">Nextflow training</a></li>
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
-                        <li><a href="https://community.seqera.io">Discourse forum</a></li>
+                        <li><a href="https://community.seqera.io">Community forum</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">GitHub discussions</a></li>
                         <li><a href="https://www.nextflow.io/slack-invite.html">Slack community chat</a></li>
                         <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>
