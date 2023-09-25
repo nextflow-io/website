@@ -48,6 +48,7 @@
                         <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
                         <li><a href="http://training.nextflow.io">Nextflow training</a></li>
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="/ambassadors.html">Nextflow Ambassadors</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
                         <li><a href="https://community.seqera.io/c/nextflow/5">Community forum</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">GitHub discussions</a></li>
