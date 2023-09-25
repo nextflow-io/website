@@ -48,6 +48,7 @@
                         <li><a href="/docs/edge/index.html">Edge release documentation</a></li>
                         <li><a href="http://training.nextflow.io">Nextflow training</a></li>
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
+                        <li><a href="/ambassadors.html">Nextflow Ambassadors</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
                         <li><a href="https://www.nextflow.io/slack-invite.html">Slack community chat</a></li>
