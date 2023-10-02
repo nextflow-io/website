@@ -9,7 +9,7 @@ author=Evan Floden
 icon=evan.jpg
 ~~~~~~
 
-In 2023, the world of Nextflow is more exciting than ever! With new resources constantly being released, there is no better time to dive into this powerful tool. From a new [Software Carpentries’](https://carpentries-incubator.github.io/workflows-nextflow/index.html) course to an [in-depth write-up by 23andMe](https://medium.com/23andme-engineering/introduction-to-nextflow-4d0e3b6768d1) to [new tutorials on Wave and Fusion](https://github.com/seqeralabs/wave-showcase), the options for learning Nextflow are endless.
+In 2023, the world of Nextflow is more exciting than ever! With new resources constantly being released, there is no better time to dive into this powerful tool. From a new [Software Carpentries’](https://carpentries-incubator.github.io/workflows-nextflow/index.html) course to [recordings of mutiple nf-core training events](https://nf-co.re/events/training/) to [new tutorials on Wave and Fusion](https://github.com/seqeralabs/wave-showcase), the options for learning Nextflow are endless.
 
 We've compiled a list of the best resources in 2023 to make your journey to Nextflow mastery as seamless as possible. And remember, Nextflow is a community-driven project. If you have suggestions or want to contribute to this list, head to the [GitHub page](https://github.com/nextflow-io/) and make a pull request.
 
