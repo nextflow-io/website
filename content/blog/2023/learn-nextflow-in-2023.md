@@ -30,13 +30,14 @@ So, let's get started! These resources will guide you from beginner to expert an
     3. [Advanced Nextflow Community Training](#advanced-nextflow-by-community)
     4. [Software Carpentry workshop](#software-carpentry-workshop)
     5. [An introduction to Nextflow course from Uppsala University](#intro-nexflow-by-uppsala)
-    6. [Managing Pipelines in the Cloud - GenomeWeb Webinar](#managing-pipelines-in-the-cloud-genomeweb-webinar)
-    7. [Nextflow implementation patterns](#nextflow-implementation-patterns)
-    8. [nf-core tutorials](#nf-core-tutorials)
-    9. [Awesome Nextflow](#awesome-nextflow)
-    10. [Wave showcase: Wave and Fusion tutorials](#wave-showcase-wave-and-fusion-tutorials)
-    11. [Building Containers for Scientific Workflows](#building-containers-for-scientific-workflows)
-    12. [Best Practices for Deploying Pipelines with Nextflow Tower](#best-practices-for-deploying-pipelines-with-nextflow-tower)
+    6. [Introduction to Nextflow workshop](#intro-nextflow-by-vib)
+    7. [Managing Pipelines in the Cloud - GenomeWeb Webinar](#managing-pipelines-in-the-cloud-genomeweb-webinar)
+    8. [Nextflow implementation patterns](#nextflow-implementation-patterns)
+    9. [nf-core tutorials](#nf-core-tutorials)
+    10. [Awesome Nextflow](#awesome-nextflow)
+    11. [Wave showcase: Wave and Fusion tutorials](#wave-showcase-wave-and-fusion-tutorials)
+    12. [Building Containers for Scientific Workflows](#building-containers-for-scientific-workflows)
+    13. [Best Practices for Deploying Pipelines with Nextflow Tower](#best-practices-for-deploying-pipelines-with-nextflow-tower)
 - [Cloud integration tutorials](#cloud-integration-tutorials)
     1. [Nextflow and AWS Batch  Inside the Integration](#nextflow-and-aws-batch-inside-the-integration)
     2. [Nextflow and Azure Batch  Inside the Integration](#nextflow-and-azure-batch-inside-the-integration)
@@ -118,19 +119,25 @@ This 5-module course by Uppsala University covers the basics of Nextflow, from r
 
 The course can be viewed [here](https://uppsala.instructure.com/courses/51980/pages/nextflow-1-introduction?module_item_id=328997).
 
-<h3 id="managing-pipelines-in-the-cloud-genomeweb-webinar">6. Managing Pipelines in the Cloud - GenomeWeb Webinar</h3>
+<h3 id="intro-nextflow-by-vib">6. Introduction to Nextflow workshop by VIB</h3>
+
+Workshop materials by VIB (mainly) in DSL2 aiming to get familiar with the Nextflow syntax by explaining basic concepts and building a simple RNAseq pipeline. Highlights also reproducibility aspects with adding containers (docker & singularity).
+
+The course can be viewed [here](https://vibbits-nextflow-workshop.readthedocs.io/en/latest/).
+
+<h3 id="managing-pipelines-in-the-cloud-genomeweb-webinar">7. Managing Pipelines in the Cloud - GenomeWeb Webinar</h3>
 
 This on-demand webinar features Phil Ewels from SciLifeLab, nf-core (now also Seqera Labs), Brendan Boufler from Amazon Web Services, and Evan Floden from Seqera Labs. The wide-ranging discussion covers the significance of scientific workflows, examples of Nextflow in production settings, and how Nextflow can be integrated with other processes.
 
 [Watch the webinar](https://seqera.io/events/managing-bioinformatics-pipelines-in-the-cloud-to-do-more-science/)
 
-<h3 id="nextflow-implementation-patterns">7. Nextflow implementation patterns</h3>
+<h3 id="nextflow-implementation-patterns">8. Nextflow implementation patterns</h3>
 
 This advanced documentation discusses recurring patterns in Nextflow and solutions to many common implementation requirements. Code examples are available with notes to follow along and a GitHub repository.
 
 [Nextflow Patterns](http://nextflow-io.github.io/patterns/index.html) & [GitHub repository](https://github.com/nextflow-io/patterns).
 
-<h3 id="nf-core-tutorials">8. nf-core tutorials</h3>
+<h3 id="nf-core-tutorials">9. nf-core tutorials</h3>
 
 A set of tutorials covering the basics of using and creating nf-core pipelines developed by the team at [nf-core](https://nf-co.re/). These tutorials provide an overview of the nf-core framework, including:
 
@@ -144,13 +151,13 @@ A set of tutorials covering the basics of using and creating nf-core pipelines d
 
 [nf-core usage tutorials](https://nf-co.re/docs/usage/tutorials) and [nf-core developer tutorials](https://nf-co.re/docs/contributing/tutorials).
 
-<h3 id="awesome-nextflow">9. Awesome Nextflow</h3>
+<h3 id="awesome-nextflow">10. Awesome Nextflow</h3>
 
 A collection of awesome Nextflow pipelines compiled by various contributors to the open-source Nextflow project.
 
 [Awesome Nextflow](https://github.com/nextflow-io/awesome-nextflow) and GitHub
 
-<h3 id="wave-showcase-wave-and-fusion-tutorials">10. Wave showcase: Wave and Fusion tutorials</h3>
+<h3 id="wave-showcase-wave-and-fusion-tutorials">11. Wave showcase: Wave and Fusion tutorials</h3>
 
 Wave and the Fusion file system are new Nextflow capabilities introduced in November 2022. Wave is a container provisioning and augmentation service fully integrated with the Nextflow ecosystem. Instead of viewing containers as separate artifacts that need to be integrated into a pipeline, Wave allows developers to manage containers as part of the pipeline itself.
 
@@ -160,13 +167,13 @@ Wave can help simplify development, improve reliability, and make pipelines easi
 
 [Wave showcase](https://github.com/seqeralabs/wave-showcase) on GitHub
 
-<h3 id="building-containers-for-scientific-workflows">11. Building Containers for Scientific Workflows</h3>
+<h3 id="building-containers-for-scientific-workflows">12. Building Containers for Scientific Workflows</h3>
 
 While not strictly a guide about Nextflow, this article provides an overview of scientific containers and provides a tutorial involved in creating your own container and integrating it into a Nextflow pipeline. It also provides some useful tips on troubleshooting containers and publishing them to registries.
 
 [Building Containers for Scientific Workflows](https://seqera.io/blog/building-containers-for-scientific-workflows/)
 
-<h3 id="best-practices-for-deploying-pipelines-with-nextflow-tower">12. Best Practices for Deploying Pipelines with Nextflow Tower</h3>
+<h3 id="best-practices-for-deploying-pipelines-with-nextflow-tower">13. Best Practices for Deploying Pipelines with Nextflow Tower</h3>
 
 When building Nextflow pipelines, a best practice is to supply a nextflow_schema.json file describing pipeline input parameters. The benefit of adding this file to your code repository, is that if the pipeline is launched using Nextflow, the schema enables an easy-to-use web interface that users through the process of parameter selection. While it is possible to craft this file by hand, the nf-core community provides a handy schema build tool. This step-by-step guide explains how to adapt your pipeline for use with Nextflow Tower by using the schema build tool to automatically generate the nextflow_schema.json file.
 
