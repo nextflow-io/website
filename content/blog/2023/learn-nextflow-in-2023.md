@@ -102,7 +102,9 @@ An advanced material exploring the advanced features of the Nextflow language an
 
 You can watch the recording of the most recent training ([September, 2023](https://nf-co.re/events/2023/training-sept-2023/)) below:
 
-TODO
+<div style="text-align: center;">
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/nPAH9owvKvI?si=-1If8F5DcLqa-cd2" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" data-ruffle-polyfilled=""></iframe>
+</div>
 
 <h3 id="software-carpentry-workshop">4. Software Carpentry workshop</h3>
 
