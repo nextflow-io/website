@@ -274,6 +274,7 @@ You can find the course in [Nextflow Tutorial - Variant Calling Edition](https:/
 
 <h2 id="community-and-support">Community and support</h2>
 
+- [Seqera Community Forum](https://community.seqera.io)
 - [Nextflow Slack](https://nextflow.slack.com/)
 - Nextflow [Forums](https://groups.google.com/forum/#!forum/nextflow) (active, but the Nextflow Slack gets more traffic)
 - Nextflow Twitter [@nextflowio](https://twitter.com/nextflowio?lang=en)
