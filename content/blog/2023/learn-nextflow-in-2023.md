@@ -276,6 +276,7 @@ You can find the course in [Nextflow Tutorial - Variant Calling Edition](https:/
 
 - [Seqera Community Forum](https://community.seqera.io)
 - Nextflow Twitter [@nextflowio](https://twitter.com/nextflowio?lang=en)
+- [Nextflow Slack](https://www.nextflow.io/slack-invite.html)
 - [nf-core Slack](https://nfcore.slack.com/)
 - [Seqera Labs](https://www.seqera.io/) and [Nextflow Tower](https://tower.nf/)
 - [Nextflow patterns](https://github.com/nextflow-io/patterns)
