@@ -13,7 +13,7 @@ icon=geraldine-van-der-auwera_icon.png
 
 I’m excited to announce that I’m joining Seqera as Lead Developer Advocate. My mission is to support the growth of the Nextflow user community, especially in the USA, which will involve running community events, conducting training sessions, managing communications and working globally with our partners across the field to ensure Nextflow users have what they need to be successful. I’ll be working remotely from Boston, in collaboration with Paolo, Phil and the rest of the Nextflow team.
 
-Some of you may already know me from my previous job at the Broad Institute, where I spent a solid decade doing outreach and providing support for the genomics research community, first for GATK, then for WDL and Cromwell, and eventually Terra. A smaller subset might have come across the O’Reilly book I co-authored, Genomics on the Cloud. 
+Some of you may already know me from my previous job at the Broad Institute, where I spent a solid decade doing outreach and providing support for the genomics research community, first for GATK, then for WDL and Cromwell, and eventually Terra. A smaller subset might have come across the O’Reilly book I co-authored, [Genomics on the Cloud](https://www.oreilly.com/library/view/genomics-in-the/9781491975183/). 
 
 This new mission is very much a continuation of my dedication to helping the research community use cutting-edge software tools effectively. 
 
@@ -36,6 +36,6 @@ If I had a dollar for every time I’ve been asked the question “What’s the 
 
 That’s one of the reasons I’ve been watching the growth of Nextflow’s popularity with great interest for the last few years. The amount of community engagement that we’ve seen around Nextflow, and especially around the development of nf-core, has been really impressive. 
 
-So I’m especially thrilled to be joining the Seqera team the week of the Nextflow Summit in Barcelona, because it means I’ll get to meet a lot of people from the community in person during my very first few days on the job. I’m also very much looking forward to participating in the hackathon, which should be a great way for me to get started doing real work with Nextflow.
+So I’m especially thrilled to be joining the Seqera team the week of the [Nextflow Summit](https://summit.nextflow.io/) in Barcelona, because it means I’ll get to meet a lot of people from the community in person during my very first few days on the job. I’m also very much looking forward to participating in the hackathon, which should be a great way for me to get started doing real work with Nextflow.
 
 I’m hoping to see many of you there!
