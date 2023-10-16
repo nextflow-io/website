@@ -50,7 +50,8 @@
                         <li><a href="http://nextflow-io.github.io/patterns/index.html">Implementation patterns</a></li>
                         <li><a href="/ambassadors.html">Nextflow Ambassadors</a></li>
                         <li><a href="https://github.com/nextflow-io/nextflow">GitHub repository</a></li>
-                        <li><a href="https://github.com/nextflow-io/nextflow/discussions">Discussion forum</a></li>
+                        <li><a href="https://community.seqera.io/c/nextflow/5">Community forum</a></li>
+                        <li><a href="https://github.com/nextflow-io/nextflow/discussions">GitHub discussions</a></li>
                         <li><a href="https://www.nextflow.io/slack-invite.html">Slack community chat</a></li>
                         <li><a href="https://nf-co.re">nf-core Community pipelines</a></li>
                     </ul>
