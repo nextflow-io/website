@@ -2,7 +2,7 @@ title=Introducing community.seqera.io
 date=2023-10-18
 type=post
 description=We are very excited to introduce the Seqera community forum - the new home of the Nextflow community!
-image=img/blog-discourse.png
+image=img/announcing-forum.jpg
 tags=nextflow,community
 status=published
 author=Phil Ewels
@@ -18,6 +18,8 @@ The growth of the Nextflow community over recent years has been phenomenal. The 
 We expect the new forum to coexist with the Nextflow Slack. The forum will be great at medium-format discussion, whereas Slack is largely designed for short-term ephemeral conversations. We want to support this growth of the community and believe the new forum will allow us to scale. 
 
 Discourse is an open-source, web-based platform designed for online community discussions and forum-style interactions. Discourse offers a user-friendly interface, real-time notifications, and a wide range of customization options. It prioritizes healthy and productive conversations by promoting user-friendly features, such as trust levels, gamification, and robust moderation tools. Discourse is well known for its focus on fostering engaging and respectful discussions and already caters to many large developer communities. It’s able to serve immense groups, giving us confidence that it will meet the needs of our growing developer community just as well. We believe that Discourse is a natural fit for the evolution of the Nextflow community.
+
+<img src="/img/seqrea-community-all.png"> The new Seqera community forum</img>
 
 The community forum offers many exciting new features. Here are some of the things you can expect:
 
