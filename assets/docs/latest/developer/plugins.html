@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Core plugins &mdash; Nextflow 23.10.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="nextflow.trace" href="nextflow.trace.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html">
+            <img src="../_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../getstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../script.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cache-and-resume.html">Caching and resuming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="packages.html">Packages</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Core plugins</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-subprojects">Plugin subprojects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables">Environment variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#development-environment">Development environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-registry">Plugin registry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-releases">Plugin releases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#gradle-tasks">Gradle Tasks</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#makezip"><code class="docutils literal notranslate"><span class="pre">makeZip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copypluginlibs"><code class="docutils literal notranslate"><span class="pre">copyPluginLibs</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copypluginzip"><code class="docutils literal notranslate"><span class="pre">copyPluginZip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#uploadplugin"><code class="docutils literal notranslate"><span class="pre">uploadPlugin</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#upload"><code class="docutils literal notranslate"><span class="pre">upload</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publishindex"><code class="docutils literal notranslate"><span class="pre">publishIndex</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-resources">Additional Resources</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Core plugins</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/developer/plugins.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="core-plugins">
+<h1>Core plugins<a class="headerlink" href="#core-plugins" title="Permalink to this heading"></a></h1>
+<p>This page describes the build process for Nextflow core plugins. See the <a class="reference internal" href="../plugins.html#plugins-page"><span class="std std-ref">Plugins</span></a> page to learn how to create your own plugins outside of Nextflow.</p>
+<section id="plugin-subprojects">
+<h2>Plugin subprojects<a class="headerlink" href="#plugin-subprojects" title="Permalink to this heading"></a></h2>
+<p>Each plugin subproject has its own <code class="docutils literal notranslate"><span class="pre">build.gradle</span></code> which defines the main build actions and the required dependencies.</p>
+<p>The minimal dependencies are as follows:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">compileOnly</span><span class="w"> </span><span class="n">project</span><span class="o">(</span><span class="s1">&#39;:nextflow&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">compileOnly</span><span class="w"> </span><span class="s1">&#39;org.slf4j:slf4j-api:1.7.10&#39;</span>
+<span class="w">    </span><span class="n">compileOnly</span><span class="w"> </span><span class="s1">&#39;org.pf4j:pf4j:3.4.1&#39;</span>
+
+<span class="w">    </span><span class="n">testImplementation</span><span class="w"> </span><span class="nf">project</span><span class="o">(</span><span class="s1">&#39;:nextflow&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">testImplementation</span><span class="w"> </span><span class="s2">&quot;org.codehaus.groovy:groovy:3.0.5&quot;</span>
+<span class="w">    </span><span class="n">testImplementation</span><span class="w"> </span><span class="s2">&quot;org.codehaus.groovy:groovy-nio:3.0.5&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The plugin subproject directory name must begin with the prefix <code class="docutils literal notranslate"><span class="pre">nf-</span></code> and must include a file named <code class="docutils literal notranslate"><span class="pre">src/resources/META-INF/MANIFEST.MF</span></code> which contains the plugin metadata. The manifest content looks like the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Manifest</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="n">Plugin</span><span class="o">-</span><span class="n">Class</span><span class="p">:</span> <span class="n">the</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">ClassName</span>
+<span class="n">Plugin</span><span class="o">-</span><span class="n">Id</span><span class="p">:</span> <span class="n">the</span><span class="o">-</span><span class="n">plugin</span><span class="o">-</span><span class="nb">id</span>
+<span class="n">Plugin</span><span class="o">-</span><span class="n">Provider</span><span class="p">:</span> <span class="n">Your</span> <span class="n">Name</span> <span class="ow">or</span> <span class="n">Organization</span>
+<span class="n">Plugin</span><span class="o">-</span><span class="n">Version</span><span class="p">:</span> <span class="mf">0.0.0</span>
+</pre></div>
+</div>
+</section>
+<section id="environment-variables">
+<h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this heading"></a></h2>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_MODE</span></code></dt><dd><p>The plugin execution mode, either <code class="docutils literal notranslate"><span class="pre">prod</span></code> for production or <code class="docutils literal notranslate"><span class="pre">dev</span></code> for development (see below for details).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DIR</span></code></dt><dd><p>The path where the plugin archives are loaded and stored (default: <code class="docutils literal notranslate"><span class="pre">$NXF_HOME/plugins</span></code> in production, <code class="docutils literal notranslate"><span class="pre">./plugins</span></code> in development).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DEFAULT</span></code></dt><dd><p>Whether to use the default plugins when no plugins are specified in the Nextflow configuration (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DEV</span></code></dt><dd><p>Comma-separated list of development plugin root directories.</p>
+</dd>
+</dl>
+</section>
+<section id="development-environment">
+<h2>Development environment<a class="headerlink" href="#development-environment" title="Permalink to this heading"></a></h2>
+<p>When running in development mode, the plugin system uses the <code class="docutils literal notranslate"><span class="pre">DevPluginClasspath</span></code> to load plugin classes from each plugin project build path, e.g. <code class="docutils literal notranslate"><span class="pre">plugins/nf-amazon/build/classes</span></code> and <code class="docutils literal notranslate"><span class="pre">plugins/nf-amazon/build/target/libs</span></code> (for deps libraries).</p>
+</section>
+<section id="plugin-registry">
+<h2>Plugin registry<a class="headerlink" href="#plugin-registry" title="Permalink to this heading"></a></h2>
+<p>The metadata for each plugin is published to the <a class="reference external" href="https://github.com/nextflow-io/plugins">nextflow-io/plugins</a> GitHub repository, specifically <a class="reference external" href="https://raw.githubusercontent.com/nextflow-io/plugins/main/plugins.json">this file</a>.</p>
+<p>The repository index has the following structure:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;nf-amazon&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;releases&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.2.0&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://github.com/nextflow-io/nf-amazon/releases/download/0.2.0/nf-amazon-0.2.0.zip&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2020-10-12T10:05:44.28+02:00&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;sha512sum&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9e9e33695c1a7c051271...&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="cm">/* ... */</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="plugin-releases">
+<h2>Plugin releases<a class="headerlink" href="#plugin-releases" title="Permalink to this heading"></a></h2>
+<p>A plugin release is a ZIP archive containing the plugin classes and the required dependencies.</p>
+<p>Nextflow core plugins are released under a corresponding GitHub project, e.g. <code class="docutils literal notranslate"><span class="pre">nextflow-io/nf-amazon</span></code>. This is not a strict requirement, rather it is done to simplify the build process and provide a consistent download experience.</p>
+<section id="installation">
+<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h3>
+<p>Plugins must be declared in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file using the <code class="docutils literal notranslate"><span class="pre">plugins</span></code> scope, for example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">id</span><span class="w"> </span><span class="s1">&#39;nf-amazon@0.2.0&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>If a plugin is not locally available, Nextflow checks the repository index for the download URL, downloads and extracts the plugin archive, and installs the plugin into the directory specified by <code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DIR</span></code> (default: <code class="docutils literal notranslate"><span class="pre">${NXF_HOME}/plugins</span></code>).</p>
+<p>Since each Nextflow run can have a different set of plugins (and versions), each run keeps a local plugins directory called <code class="docutils literal notranslate"><span class="pre">.nextflow/plr/&lt;session-id&gt;</span></code> which links the exact set of plugins required for the given run.</p>
+<p>Additionally, the “default plugins” (defined in the Nextflow resources file <code class="docutils literal notranslate"><span class="pre">modules/nextflow/src/main/resources/META-INF/plugins-info.txt</span></code>) are always made available for use. To disable the use of default plugins, set the environment variable <code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DEFAULT=false</span></code>.</p>
+</section>
+</section>
+<section id="gradle-tasks">
+<h2>Gradle Tasks<a class="headerlink" href="#gradle-tasks" title="Permalink to this heading"></a></h2>
+<section id="makezip">
+<h3><code class="docutils literal notranslate"><span class="pre">makeZip</span></code><a class="headerlink" href="#makezip" title="Permalink to this heading"></a></h3>
+<p>Create the plugin archive and JSON meta file in the subproject <code class="docutils literal notranslate"><span class="pre">build/libs</span></code> directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls<span class="w"> </span>-l1<span class="w"> </span>plugins/nf-tower/build/libs/
+<span class="go">nf-tower-0.1.0.jar</span>
+<span class="go">nf-tower-0.1.0.json</span>
+<span class="go">nf-tower-0.1.0.zip</span>
+</pre></div>
+</div>
+</section>
+<section id="copypluginlibs">
+<h3><code class="docutils literal notranslate"><span class="pre">copyPluginLibs</span></code><a class="headerlink" href="#copypluginlibs" title="Permalink to this heading"></a></h3>
+<p>Copy plugin dependencies JAR files into the subproject <code class="docutils literal notranslate"><span class="pre">build/target/libs</span></code> directory. This is needed only when launching the plugin in development mode.</p>
+</section>
+<section id="copypluginzip">
+<h3><code class="docutils literal notranslate"><span class="pre">copyPluginZip</span></code><a class="headerlink" href="#copypluginzip" title="Permalink to this heading"></a></h3>
+<p>Copy the plugin archive to the root project build directory, i.e. <code class="docutils literal notranslate"><span class="pre">build/plugins</span></code>.</p>
+</section>
+<section id="uploadplugin">
+<h3><code class="docutils literal notranslate"><span class="pre">uploadPlugin</span></code><a class="headerlink" href="#uploadplugin" title="Permalink to this heading"></a></h3>
+<p>Upload the plugin archive and meta file to the corresponding GitHub repository. Options:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">release</span></code></dt><dd><p>The plugin version, e.g. <code class="docutils literal notranslate"><span class="pre">1.0.1</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">repo</span></code></dt><dd><p>The GitHub repository name, e.g. <code class="docutils literal notranslate"><span class="pre">nf-amazon</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">owner</span></code></dt><dd><p>The GitHub owning organization, e.g. <code class="docutils literal notranslate"><span class="pre">nextflow-io</span></code>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">skipExisting</span></code></dt><dd><p>Do not upload a file if it already exists, i.e. checksum is the same (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dryRun</span></code></dt><dd><p>Execute the tasks without uploading file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">overwrite</span></code></dt><dd><p>Prevent to overwrite a remote file already existing (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">userName</span></code></dt><dd><p>The user name used to authenticate GitHub API requests.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">authToken</span></code></dt><dd><p>The personal token used to authenticate GitHub API requests.</p>
+</dd>
+</dl>
+</section>
+<section id="upload">
+<h3><code class="docutils literal notranslate"><span class="pre">upload</span></code><a class="headerlink" href="#upload" title="Permalink to this heading"></a></h3>
+<p>Upload the plugin archive and meta file.</p>
+</section>
+<section id="publishindex">
+<h3><code class="docutils literal notranslate"><span class="pre">publishIndex</span></code><a class="headerlink" href="#publishindex" title="Permalink to this heading"></a></h3>
+<p>Upload the plugins index to the repository hosted at <a class="reference external" href="https://github.com/nextflow-io/plugins">nextflow-io/plugins</a>, which makes them publicly accessible at <a class="reference external" href="https://raw.githubusercontent.com/nextflow-io/plugins/main/plugins.json">this URL</a>.</p>
+</section>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Permalink to this heading"></a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pf4j.org/">PF4J</a></p></li>
+<li><p><a class="reference external" href="https://proandroiddev.com/understanding-gradle-the-build-lifecycle-5118c1da613f">Understanding Gradle: The Build Lifecycle</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nextflow.trace.html" class="btn btn-neutral float-left" title="nextflow.trace" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+</body>
+</html>

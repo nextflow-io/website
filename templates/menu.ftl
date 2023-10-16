@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index.html" style='padding: 8px'><img src='/img/nextflow2014_no-bg.png' height='40px' style='border: 0;'></a>
+            <a class="navbar-brand" href="/index.html" style='padding: 15px'><img src='/img/nextflow.svg' height='35px' style='border: 0;'></a>
         </div>
         <div class="navbar-collapse collapse">
 
