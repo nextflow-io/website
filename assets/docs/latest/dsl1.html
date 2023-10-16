@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migrating from DSL 1 &mdash; Nextflow 23.10.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Command line interface (CLI)" href="cli.html" />
+    <link rel="prev" title="Configuration" href="config.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migrating from DSL 1</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#processes-and-workflows">Processes and workflows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#channel-forking">Channel forking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#deprecations">Deprecations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#processes">Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#channels">Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#operators">Operators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dsl2-preview">DSL2 Preview</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Migrating from DSL 1</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/dsl1.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="migrating-from-dsl-1">
+<span id="dsl1-page"></span><h1>Migrating from DSL 1<a class="headerlink" href="#migrating-from-dsl-1" title="Permalink to this heading"></a></h1>
+<p>In Nextflow version <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code>, DSL2 became the default DSL version. In version <code class="docutils literal notranslate"><span class="pre">22.12.0-edge</span></code>, DSL1 support was removed, and the Nextflow documentation was updated to use DSL2 by default. Users who are still using DSL1 should migrate their pipelines to DSL2 in order to use the latest versions of Nextflow. This page describes the differences between DSL1 and DSL2, and how to migrate to DSL2.</p>
+<p>In Nextflow versions prior to <code class="docutils literal notranslate"><span class="pre">22.03.0-edge</span></code>, you must enable DSL2 explicitly in order to use it. You can either set the feature flag in your pipeline script:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="na">enable</span><span class="o">.</span><span class="na">dsl</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>Or set the environment variable where you launch Nextflow:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">NXF_DEFAULT_DSL</span><span class="o">=</span><span class="m">2</span>
+</pre></div>
+</div>
+<section id="processes-and-workflows">
+<h2>Processes and workflows<a class="headerlink" href="#processes-and-workflows" title="Permalink to this heading"></a></h2>
+<p>In DSL1, a process definition is also the process invocation. Process inputs and outputs are connected to channels using <code class="docutils literal notranslate"><span class="pre">from</span></code> and <code class="docutils literal notranslate"><span class="pre">into</span></code>. Here is the <a class="reference internal" href="getstarted.html#getstarted-first"><span class="std std-ref">Your first script</span></a> example written in DSL1:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span><span class="o">.</span><span class="na">enable</span><span class="o">.</span><span class="na">dsl</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="n">params</span><span class="o">.</span><span class="na">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hello world!&#39;</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">splitLetters</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="s1">&#39;chunk_*&#39;</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="n">letters</span>
+
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">convertToUpper</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">file</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">letters</span><span class="o">.</span><span class="na">flatten</span><span class="o">()</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">stdout</span><span class="w"> </span><span class="n">result</span>
+
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">result</span><span class="o">.</span><span class="na">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">trim</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+</pre></div>
+</div>
+<p>To migrate this code to DSL2, you need to move all of your channel logic throughout the script into a <code class="docutils literal notranslate"><span class="pre">workflow</span></code> definition. Additionally, you must call each process explicitly, passing any input channels as arguments (instead of <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">...</span></code>) and receiving any output channels as return values (instead of <code class="docutils literal notranslate"><span class="pre">into</span> <span class="pre">...</span></code>).</p>
+<p>Refer to the <a class="reference internal" href="workflow.html#workflow-page"><span class="std std-ref">Workflows</span></a> page to learn how to define a workflow. The DSL2 version of the above script is duplicated here for your convenience:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="na">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Hello world!&#39;</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">splitLetters</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;chunk_*&#39;</span>
+
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    printf &#39;${params.str}&#39; | split -b 6 - chunk_</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">convertToUpper</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="n">x</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">stdout</span>
+
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    cat $x | tr &#39;[a-z]&#39; &#39;[A-Z]&#39;</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">splitLetters</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">flatten</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">convertToUpper</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">trim</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="channel-forking">
+<h2>Channel forking<a class="headerlink" href="#channel-forking" title="Permalink to this heading"></a></h2>
+<p>In DSL1, a channel can be used as an input only once; to use a channel multiple times, the channel must be forked using the <code class="docutils literal notranslate"><span class="pre">into</span></code> operator.</p>
+<p>In DSL2, channels are automatically forked when connecting two or more consumers.</p>
+<p>For example, this would not work in DSL1 but is not a problem in DSL2:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span>
+<span class="w">    </span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="s1">&#39;Hello&#39;</span><span class="o">,</span><span class="s1">&#39;Hola&#39;</span><span class="o">,</span><span class="s1">&#39;Ciao&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="o">.</span><span class="na">set</span><span class="o">{</span><span class="w"> </span><span class="n">cheers</span><span class="w"> </span><span class="o">}</span>
+
+<span class="n">cheers</span>
+<span class="w">    </span><span class="o">.</span><span class="na">map</span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+
+<span class="n">cheers</span>
+<span class="w">    </span><span class="o">.</span><span class="na">map</span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">reverse</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+<span class="w">    </span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+</pre></div>
+</div>
+<p>Similarly, process outputs can be consumed by multiple consumers automatically, which makes workflow scripts much easier to read and write.</p>
+</section>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Permalink to this heading"></a></h2>
+<p>In DSL1, the entire Nextflow pipeline must be defined in a single file (e.g. <code class="docutils literal notranslate"><span class="pre">main.nf</span></code>). This restriction becomes quite cumbersome as a pipeline becomes larger, and it hinders the sharing and reuse of pipeline components.</p>
+<p>DSL2 introduces the concept of “module scripts” (or “modules” for short), which are Nextflow scripts that can be “included” by other scripts. While modules are not essential to migrating to DSL2, nor are they mandatory in DSL2 by any means, modules can help you organize a large pipeline into multiple smaller files, and take advantage of modules created by others. Check out the <a class="reference internal" href="module.html#module-page"><span class="std std-ref">Modules</span></a> to get started.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With DSL2, the Groovy shell used by Nextflow also imposes a 64KB size limit on pipeline scripts, so if your DSL1 script is very large, you may need to split your script into modules anyway to avoid this limit.</p>
+</div>
+</section>
+<section id="deprecations">
+<h2>Deprecations<a class="headerlink" href="#deprecations" title="Permalink to this heading"></a></h2>
+<section id="processes">
+<h3>Processes<a class="headerlink" href="#processes" title="Permalink to this heading"></a></h3>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> process input type is no longer supported, use <a class="reference internal" href="process.html#process-input-tuple"><span class="std std-ref">tuple</span></a> instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">set</span></code> process output type is no longer supported, use <a class="reference internal" href="process.html#process-out-tuple"><span class="std std-ref">tuple</span></a> instead.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">mode</span> <span class="pre">flatten</span></code> option for process outputs is no longer available. Use the <a class="reference internal" href="operator.html#operator-flatten"><span class="std std-ref">flatten</span></a> operator on the corresponding output channel instead.</p></li>
+<li><p>Unqualified value and file elements in a tuple declaration are no longer allowed. Use an explicit <code class="docutils literal notranslate"><span class="pre">val</span></code> or <code class="docutils literal notranslate"><span class="pre">path</span></code> qualifier.</p>
+<p>For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">X</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;some-file.sam&#39;</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">X</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;some-file.bam&#39;</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    your_command --in $X some-file.sam &gt; some-file.bam</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Use:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">X</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;some-file.sam&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">X</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="s1">&#39;some-file.bam&#39;</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    your_command --in $X some-file.sam &gt; some-file.bam</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="channels">
+<h3>Channels<a class="headerlink" href="#channels" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Channel method <code class="docutils literal notranslate"><span class="pre">bind</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Channel method <code class="docutils literal notranslate"><span class="pre">&lt;&lt;</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Channel factory <code class="docutils literal notranslate"><span class="pre">create</span></code> has been deprecated in DSL2.</p></li>
+</ul>
+</section>
+<section id="operators">
+<h3>Operators<a class="headerlink" href="#operators" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">choice</span></code> has been deprecated in DSL2. Use <a class="reference internal" href="operator.html#operator-branch"><span class="std std-ref">branch</span></a> instead.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">close</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">countBy</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">into</span></code> has been deprecated in DSL2, as it is no longer needed.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">fork</span></code> has been renamed to <a class="reference internal" href="operator.html#operator-multimap"><span class="std std-ref">multiMap</span></a>.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">groupBy</span></code> has been deprecated in DSL2. Use <a class="reference internal" href="operator.html#operator-grouptuple"><span class="std std-ref">groupTuple</span></a> instead.</p></li>
+<li><p>Operators <code class="docutils literal notranslate"><span class="pre">print</span></code> and <code class="docutils literal notranslate"><span class="pre">println</span></code> have been deprecated in DSL2. Use <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> instead.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">route</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">separate</span></code> has been deprecated in DSL2.</p></li>
+<li><p>Operator <code class="docutils literal notranslate"><span class="pre">spread</span></code> has been deprecated in DSL2. Use <a class="reference internal" href="operator.html#operator-combine"><span class="std std-ref">combine</span></a> instead.</p></li>
+</ul>
+</section>
+<section id="dsl2-preview">
+<h3>DSL2 Preview<a class="headerlink" href="#dsl2-preview" title="Permalink to this heading"></a></h3>
+<p>An early preview of DSL2 was available in 2020. Note that some of that early DSL2 syntax has since changed.</p>
+<ul>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">nextflow.preview.dsl=2</span></code> (and <code class="docutils literal notranslate"><span class="pre">nextflow.enable.dsl=1</span></code>) feature flags are no longer needed.</p></li>
+<li><p>Anonymous and unwrapped includes are no longer supported. Use an explicit module inclusion instead.</p>
+<p>For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="w"> </span><span class="s1">&#39;./some/library&#39;</span>
+<span class="n">include</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="s1">&#39;./other/library&#39;</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Should be replaced with:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="s1">&#39;./some/library&#39;</span>
+<span class="n">include</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="s1">&#39;./other/library&#39;</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="config.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cli.html" class="btn btn-neutral float-right" title="Command line interface (CLI)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+</body>
+</html>

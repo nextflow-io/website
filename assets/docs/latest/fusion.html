@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fusion file system &mdash; Nextflow 23.04.1 documentation</title>
+  <title>Fusion file system &mdash; Nextflow 23.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -16,12 +16,14 @@
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Conda environments" href="conda.html" />
-    <link rel="prev" title="Wave containers" href="wave.html" />
+    <link rel="next" title="Google Cloud" href="google.html" />
+    <link rel="prev" title="Azure Cloud" href="azure.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -50,19 +52,47 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
-<li class="toctree-l1"><a class="reference internal" href="script.html">Nextflow scripting</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Fusion file system</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a><ul>
@@ -77,31 +107,29 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#nvme-storage">NVMe storage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#more-examples">More examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-settings">Advanced settings</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
 <li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
-<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
 </ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -117,10 +145,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Fusion file system</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Fusion file system</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/fusion.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/fusion.md" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -128,175 +156,191 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="fusion-file-system">
-<span id="fusion-page"></span><h1>Fusion file system<a class="headerlink" href="#fusion-file-system" title="Permalink to this headline"></a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="fusion-file-system">
+<span id="fusion-page"></span><h1>Fusion file system<a class="headerlink" href="#fusion-file-system" title="Permalink to this heading"></a></h1>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 22.10.0.</span></p>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.02.0-edge: </span>Support for Google Cloud Storage.</p>
+</div>
 <section id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
-<p>Fusion is a distributed virtual file system for cloud-native data pipelines, optimised for Nextflow workloads.</p>
-<p>It bridges the gap between cloud-native storage and data analysis workflows by implementing a thin client
-that allows any existing application to access object storage using the standard POSIX interface, thus simplifying
-and speeding up most operations. Currently, it supports AWS S3 and Google Storage.</p>
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h2>
+<p>Fusion is a distributed virtual file system for cloud-native data pipeline and optimised for Nextflow workloads.</p>
+<p>It bridges the gap between cloud-native storage and data analysis workflow by implementing a thin client that allows any existing application to access object storage using the standard POSIX interface, thus simplifying and speeding up most operations. Currently it supports AWS S3 and Google Cloud Storage.</p>
 </section>
 <section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h2>
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading"></a></h2>
 <section id="requirements">
-<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h3>
-<p>Fusion file system is designed to work with containerised workloads, therefore it requires the use of a container
-engine such as Docker or a container native platform for the execution of your pipeline, e.g. AWS Batch or Kubernetes.</p>
-<p>It also requires the use of <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a> and Nextflow version <code class="docutils literal notranslate"><span class="pre">22.10.0</span></code> or later. The support
-for Google storage requires Nextflow <code class="docutils literal notranslate"><span class="pre">23.02.0-edge</span></code> or later.</p>
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h3>
+<p>Fusion file system is designed to work with containerised workloads, therefore it requires the use of a container engine such as Docker or a container native platform for the execution of your pipeline e.g. AWS Batch or Kubernetes. It also requires the use of <a class="reference internal" href="wave.html#wave-page"><span class="std std-ref">Wave containers</span></a>.</p>
 </section>
 <section id="aws-s3-configuration">
-<h3>AWS S3 configuration<a class="headerlink" href="#aws-s3-configuration" title="Permalink to this headline"></a></h3>
+<h3>AWS S3 configuration<a class="headerlink" href="#aws-s3-configuration" title="Permalink to this heading"></a></h3>
 <p>The AWS S3 bucket should be configured with the following IAM permissions:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="s2">&quot;Version&quot;</span><span class="p">:</span> <span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Statement&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;s3:ListBucket&quot;</span>
-            <span class="p">],</span>
-            <span class="s2">&quot;Resource&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;arn:aws:s3:::YOUR-BUCKET-NAME&quot;</span>
-            <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="s2">&quot;Action&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;s3:PutObjectTagging&quot;</span><span class="p">,</span>
-                <span class="s2">&quot;s3:DeleteObject&quot;</span>
-            <span class="p">],</span>
-            <span class="s2">&quot;Resource&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="s2">&quot;arn:aws:s3:::YOUR-BUCKET-NAME/*&quot;</span>
-            <span class="p">],</span>
-            <span class="s2">&quot;Effect&quot;</span><span class="p">:</span> <span class="s2">&quot;Allow&quot;</span>
-        <span class="p">}</span>
-    <span class="p">]</span>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;Version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2012-10-17&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;Statement&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:ListBucket&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;arn:aws:s3:::YOUR-BUCKET-NAME&quot;</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;Action&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;s3:GetObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutObject&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:PutObjectTagging&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="s2">&quot;s3:DeleteObject&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Resource&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                </span><span class="s2">&quot;arn:aws:s3:::YOUR-BUCKET-NAME/*&quot;</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">&quot;Effect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Allow&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="use-cases">
-<h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this headline"></a></h2>
+<h2>Use cases<a class="headerlink" href="#use-cases" title="Permalink to this heading"></a></h2>
 <section id="local-execution-with-s3-bucket-as-work-directory">
-<h3>Local execution with S3 bucket as work directory<a class="headerlink" href="#local-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
-<p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the Nextflow local executor. This
-configuration requires the use of Docker (or a similar container engine) for the execution of your pipeline tasks.</p>
-<p>The AWS S3 bucket credentials must be made accessible via standard <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code>
-environment variables.</p>
-<p>The following configuration must be added to your Nextflow configuration file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<h3>Local execution with S3 bucket as work directory<a class="headerlink" href="#local-execution-with-s3-bucket-as-work-directory" title="Permalink to this heading"></a></h3>
+<p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the Nextflow local executor. This configuration requires the use of Docker (or similar container engine) for the execution of your pipeline tasks.</p>
+<p>The AWS S3 bucket credentials should be made accessible via standard <code class="docutils literal notranslate"><span class="pre">AWS_ACCESS_KEY_ID</span></code> and <code class="docutils literal notranslate"><span class="pre">AWS_SECRET_ACCESS_KEY</span></code> environment variables.</p>
+<p>The following configuration should be added in your Nextflow configuration file:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">fusion</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-  <span class="n">exportAwsAccessKeys</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<span class="n">fusion</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="n">exportStorageCredentials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">wave</span> <span class="p">{</span>
-    <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<span class="n">wave</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Then you can run your pipeline using the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">PIPELINE</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">YOUR</span> <span class="n">BUCKET</span><span class="o">&gt;/</span><span class="n">scratch</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;YOUR<span class="w"> </span>PIPELINE&gt;<span class="w"> </span>-work-dir<span class="w"> </span>s3://&lt;YOUR<span class="w"> </span>BUCKET&gt;/scratch
 </pre></div>
 </div>
-<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">PIPELINE&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">BUCKET&gt;</span></code> with a pipeline script and bucket of your choice. For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">nextflow</span><span class="o">-</span><span class="n">io</span><span class="o">/</span><span class="n">rnaseq</span><span class="o">-</span><span class="n">nf</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//</span><span class="n">nextflow</span><span class="o">-</span><span class="n">ci</span><span class="o">/</span><span class="n">scratch</span>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">PIPELINE&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;YOUR</span> <span class="pre">BUCKET&gt;</span></code> with a pipeline script and bucket or your choice, for example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>https://github.com/nextflow-io/rnaseq-nf<span class="w"> </span>-work-dir<span class="w"> </span>s3://nextflow-ci/scratch
 </pre></div>
 </div>
 </section>
 <section id="aws-batch-execution-with-s3-bucket-as-work-directory">
-<h3>AWS Batch execution with S3 bucket as work directory<a class="headerlink" href="#aws-batch-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
-<p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the AWS Batch executor. The use
-of Fusion removes the need to create and configure a custom AMI that includes the <cite>aws</cite> command line tool when
-setting up the AWS Batch compute environment.</p>
-<p>In this deployment scenario, the following configuration must be added to your Nextflow configuration file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fusion</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<h3>AWS Batch execution with S3 bucket as work directory<a class="headerlink" href="#aws-batch-execution-with-s3-bucket-as-work-directory" title="Permalink to this heading"></a></h3>
+<p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the AWS Batch executor. The use of Fusion makes obsolete the need to create and configure a custom AMI that includes the <code class="docutils literal notranslate"><span class="pre">aws</span></code> command line tool, when setting up the AWS Batch compute environment.</p>
+<p>The configuration for this deployment scenario looks like the following:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">fusion</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">wave</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<span class="n">wave</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">process</span> <span class="p">{</span>
-  <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;awsbatch&#39;</span>
-  <span class="n">queue</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR BATCH QUEUE&gt;&#39;</span>
-<span class="p">}</span>
+<span class="n">process</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;awsbatch&#39;</span>
+<span class="w">    </span><span class="n">queue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;YOUR BATCH QUEUE&gt;&#39;</span>
+<span class="o">}</span>
 
-<span class="n">aws</span> <span class="p">{</span>
-  <span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR AWS REGION&gt;&#39;</span>
-<span class="p">}</span>
+<span class="n">aws</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;YOUR AWS REGION&gt;&#39;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 <p>Then you can run your pipeline using the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">PIPELINE</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">YOUR</span> <span class="n">BUCKET</span><span class="o">&gt;/</span><span class="n">scratch</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;YOUR<span class="w"> </span>PIPELINE&gt;<span class="w"> </span>-work-dir<span class="w"> </span>s3://&lt;YOUR<span class="w"> </span>BUCKET&gt;/scratch
 </pre></div>
 </div>
 </section>
 <section id="kubernetes-execution-with-s3-bucket-as-work-directory">
-<h3>Kubernetes execution with S3 bucket as work directory<a class="headerlink" href="#kubernetes-execution-with-s3-bucket-as-work-directory" title="Permalink to this headline"></a></h3>
+<h3>Kubernetes execution with S3 bucket as work directory<a class="headerlink" href="#kubernetes-execution-with-s3-bucket-as-work-directory" title="Permalink to this heading"></a></h3>
 <p>Fusion file system allows the use of an S3 bucket as a pipeline work directory with the Kubernetes executor.</p>
-<p>The use of Fusion makes removes the need to create and manage a separate persistent volume and shared file system
-in the Kubernetes cluster.</p>
-<p>In this deployment scenario, the following configuration must be added to your Nextflow configuration file:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<p>The use of Fusion makes obsolete the need to create and manage and separate persistent volume and shared file system in the Kubernetes cluster.</p>
+<p>The configuration for this deployment scenario looks like the following:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">wave</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">fusion</span> <span class="p">{</span>
-  <span class="n">enabled</span> <span class="o">=</span> <span class="n">true</span>
-<span class="p">}</span>
+<span class="n">fusion</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="o">}</span>
 
-<span class="n">process</span> <span class="p">{</span>
-  <span class="n">executor</span> <span class="o">=</span> <span class="s1">&#39;k8s&#39;</span>
-<span class="p">}</span>
+<span class="n">process</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">executor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;k8s&#39;</span>
+<span class="o">}</span>
 
-<span class="n">k8s</span> <span class="p">{</span>
-  <span class="n">context</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S CONFIGURATION CONTEXT&gt;&#39;</span>
-  <span class="n">namespace</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S NAMESPACE&gt;&#39;</span>
-  <span class="n">serviceAccount</span> <span class="o">=</span> <span class="s1">&#39;&lt;YOUR K8S SERVICE ACCOUNT&gt;&#39;</span>
-<span class="p">}</span>
+<span class="n">k8s</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;YOUR K8S CONFIGURATION CONTEXT&gt;&#39;</span>
+<span class="w">    </span><span class="n">namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;YOUR K8S NAMESPACE&gt;&#39;</span>
+<span class="w">    </span><span class="n">serviceAccount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&lt;YOUR K8S SERVICE ACCOUNT&gt;&#39;</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">k8s.context</span></code> represents the Kubernetes configuration context to be used for the pipeline execution. This
-setting can be omitted if Nextflow itself is run as a pod in the Kubernetes clusters.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">k8s.namespace</span></code> represents the Kubernetes namespace where the jobs submitted by the pipeline execution should
-be executed.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">k8s.serviceAccount</span></code> represents the Kubernetes service account that should be used to grant the execution
-permission to jobs launched by Nextflow. See <a class="reference external" href="https://github.com/seqeralabs/wave-showcase/tree/master/example8">here</a> for more information on configuring the service account.</p>
-<p>With the above configuration in place, you can run your pipeline using the following command:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nextflow</span> <span class="n">run</span> <span class="o">&lt;</span><span class="n">YOUR</span> <span class="n">PIPELINE</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">work</span><span class="o">-</span><span class="nb">dir</span> <span class="n">s3</span><span class="p">:</span><span class="o">//&lt;</span><span class="n">YOUR</span> <span class="n">BUCKET</span><span class="o">&gt;/</span><span class="n">scratch</span>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.context</span></code> represents the Kubernetes configuration context to be used for the pipeline execution. This setting can be omitted if Nextflow itself is run as a pod in the Kubernetes clusters.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.namespace</span></code> represents the Kubernetes namespace where the jobs submitted by the pipeline execution should be executed.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">k8s.serviceAccount</span></code> represents the Kubernetes service account that should be used to grant the execution permission to jobs launched by Nextflow. You can find more details how to configure it as the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase/tree/master/example8">following link</a>.</p>
+<p>Having the above configuration in place, you can run your pipeline using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;YOUR<span class="w"> </span>PIPELINE&gt;<span class="w"> </span>-work-dir<span class="w"> </span>s3://&lt;YOUR<span class="w"> </span>BUCKET&gt;/scratch
 </pre></div>
 </div>
 </section>
 </section>
 <section id="nvme-storage">
-<h2>NVMe storage<a class="headerlink" href="#nvme-storage" title="Permalink to this headline"></a></h2>
-<p>Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files
-in parallel to and from object storage into a container-local temporal folder. This temporal folder (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key for achieving maximum performance.</p>
-<p>The temporal folder is used only as a temporal cache, so the size of the volume can be much lower than the actual
-needs of your pipeline processes. Fusion has a built-in garbage collector that constantly monitors remaining disk
-space in the temporal folder and immediately evicts old cached entries when necessary.</p>
-<p>The recommended setup for maximum performance is to mount an NVMe disk as the temporal folder and run the pipeline
-with the Nextflow <a class="reference internal" href="process.html#process-scratch"><span class="std std-ref">scratch</span></a> directive set to <code class="docutils literal notranslate"><span class="pre">false</span></code>, to avoid stage-out transfer time.</p>
-<p>Extra configuration is needed when using AWS Batch with <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">NVMe disks</a>
-to maximize performance:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span><span class="o">.</span><span class="n">batch</span><span class="o">.</span><span class="n">volumes</span> <span class="o">=</span> <span class="s1">&#39;/path/to/ec2/nvme:/tmp&#39;</span>
-<span class="n">process</span><span class="o">.</span><span class="n">scratch</span> <span class="o">=</span> <span class="n">false</span>
+<h2>NVMe storage<a class="headerlink" href="#nvme-storage" title="Permalink to this heading"></a></h2>
+<p>The Fusion file system implements a lazy download and upload algorithm that runs in the background to transfer files in parallel to and from object storage into a container-local temporary folder. This means that the performance of the temporary folder inside the container (<code class="docutils literal notranslate"><span class="pre">/tmp</span></code> in a default setup) is key to achieving maximum performance.</p>
+<p>The temporary folder is used only as a temporary cache, so the size of the volume can be much lower than the actual needs of your pipeline processes. Fusion has a built-in garbage collector that constantly monitors remaining disk space on the temporary folder and immediately evicts old cached entries when necessary.</p>
+<p>The recommended setup to get maximum performance is to mount a NVMe disk as the temporary folder and run the pipeline with the <a class="reference internal" href="process.html#process-scratch"><span class="std std-ref">scratch</span></a> directive set to <code class="docutils literal notranslate"><span class="pre">false</span></code> to also avoid stage-out transfer time.</p>
+<p>Example configuration for using AWS Batch with <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html">NVMe disks</a> to maximize performance:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span><span class="o">.</span><span class="na">batch</span><span class="o">.</span><span class="na">volumes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/path/to/ec2/nvme:/tmp&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="na">scratch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
 </pre></div>
 </div>
 </section>
-<section id="more-examples">
-<h2>More examples<a class="headerlink" href="#more-examples" title="Permalink to this headline"></a></h2>
-<p>Check out the <a class="reference external" href="https://github.com/seqeralabs/wave-showcase">Wave showcase repository</a> for more examples on using the
-Fusion file system.</p>
+<section id="advanced-settings">
+<h2>Advanced settings<a class="headerlink" href="#advanced-settings" title="Permalink to this heading"></a></h2>
+<p>The following configuration options are available:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.enabled</span></code></dt><dd><p>Enable/disable the use of Fusion file system.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.exportStorageCredentials</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.05.0-edge: </span>This option was previously named <code class="docutils literal notranslate"><span class="pre">fusion.exportAwsAccessKeys</span></code>.</p>
+</div>
+</dd>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the access credentials required by the underlying object storage are exported the pipeline jobs execution environment.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.containerConfigUrl</span></code></dt><dd><p>The URL from where the container layer provisioning the Fusion client is downloaded.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.logLevel</span></code></dt><dd><p>The level of logging emitted by the Fusion client.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.logOutput</span></code></dt><dd><p>Where the logging output is written.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.privileged</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+</dd>
+<dd><p>This allows disabling the privileged container execution when using the Fusion file system.
+The effective use of this setting depends on the target execution. Currently, it’s only supported by the Kubernetes
+executor which requires the use the <a class="reference external" href="https://github.com/nextflow-io/k8s-fuse-plugin">k8s-fuse-plugin</a> to be installed
+in the target cluster (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.tagsEnabled</span></code></dt><dd><p>Enable/disable the tagging of files created in the underlying object storage via the Fusion client (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">fusion.tagsPattern</span></code></dt><dd><p>The pattern that determines how tags are applied to files created via the Fusion client (default: <code class="docutils literal notranslate"><span class="pre">[.command.*|.exitcode|.fusion.*](nextflow.io/metadata=true),[*](nextflow.io/temporary=true)</span></code>)</p>
+</dd>
+</dl>
 </section>
 </section>
 
@@ -304,8 +348,8 @@ Fusion file system.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="wave.html" class="btn btn-neutral float-left" title="Wave containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="conda.html" class="btn btn-neutral float-right" title="Conda environments" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="azure.html" class="btn btn-neutral float-left" title="Azure Cloud" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="google.html" class="btn btn-neutral float-right" title="Google Cloud" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
