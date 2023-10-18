@@ -11,7 +11,7 @@ icon=phil.jpg
 
 We are very excited to introduce the [Seqera community forum](https://community.seqera.io/) - the new home of the Nextflow community!
 
-<p style="text-align:center;"><a href="https://community.seqera.io/" class="btn btn-color btn-xxl">Take me there</a></p>
+<p style="text-align:center;"><a href="https://community.seqera.io/" class="btn btn-color btn-xxl">community.seqera.io</a></p>
 
 The growth of the Nextflow community over recent years has been phenomenal. The Nextflow Slack organization was launched in early 2022 and has already reached a membership of nearly 3,000 members. As we look ahead to growing to 5,000 and even 50,000, we are making a new tool available to the community: a community forum.
 
@@ -19,7 +19,7 @@ We expect the new forum to coexist with the Nextflow Slack. The forum will be gr
 
 Discourse is an open-source, web-based platform designed for online community discussions and forum-style interactions. Discourse offers a user-friendly interface, real-time notifications, and a wide range of customization options. It prioritizes healthy and productive conversations by promoting user-friendly features, such as trust levels, gamification, and robust moderation tools. Discourse is well known for its focus on fostering engaging and respectful discussions and already caters to many large developer communities. It’s able to serve immense groups, giving us confidence that it will meet the needs of our growing developer community just as well. We believe that Discourse is a natural fit for the evolution of the Nextflow community.
 
-<p style="text-align: center; box-shadow: rgba(0,0,0,0.2) 0px 2px 8px 3px;"><img src="/img/seqera-community-all.png" title="The new Seqera community forum" /></p>
+<p style="text-align: center; box-shadow: rgba(0,0,0,0.2) 0px 2px 8px 3px; margin: 6rem 0;"><img src="/img/seqera-community-all.png" title="The new Seqera community forum" /></p>
 
 The community forum offers many exciting new features. Here are some of the things you can expect:
 
