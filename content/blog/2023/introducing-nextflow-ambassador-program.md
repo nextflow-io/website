@@ -23,7 +23,7 @@ As community members who already actively contribute to outreach, ambassadors wi
 
 ##  Meet Our Ambassadors
 
-You can visit our [Nextflow ambassadors page](https://www.nextflow.io/our_ambassadors) to learn more about our first group of ambassadors. You will find their profiles there, highlighting their interests, expertise, and insights they bring to the Nextflow ecosystem.
+You can visit our [Nextflow ambassadors page](https://www.nextflow.io/our_ambassadors.html) to learn more about our first group of ambassadors. You will find their profiles there, highlighting their interests, expertise, and insights they bring to the Nextflow ecosystem.
 
 You can see snippets about some of our ambassadors below:
 
