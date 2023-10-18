@@ -9,6 +9,8 @@ author=Marcel Ribeiro-Dantas
 icon=marcel.png
 ~~~~~~
 
+<img src="/img/ambassadors-hackathon.jpeg" style="float:right;width:250px;margin: 0 0 15px 15px"></img>
+
 We are excited to announce the launch of the Nextflow Ambassador Program, a worldwide initiative designed to foster collaboration, knowledge sharing, and community growth. It is intended to recognize and support the efforts of our community leaders and marks another step forward in our mission to advance scientific research and empower researchers.
 
 Nextflow ambassadors will play a vital role in:
