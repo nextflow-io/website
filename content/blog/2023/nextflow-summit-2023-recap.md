@@ -1,14 +1,13 @@
 title=Nextflow Summit 2023 Recap
 date=2023-10-25
 type=post
-description=This year’s Summit was our best community event ever, drawing roughly 900 attendees across multiple channels, including in-person attendees, participants in our #summit-2023 Slack channel, and Summit Livestream viewers on YouTube.
+description=The 2023 Summit was our best community event ever, drawing roughly 900 attendees across multiple channels.
 image=img/blog-summit-2023-recap.jpg
 tags=nextflow,summit,event,hackathon
 status=published
 author=Noel Ortiz
 icon=noel.jpg
-
-```
+~~~~~~
 
 ## Five days of Nextflow Awesomeness in Barcelona
 
@@ -61,8 +60,8 @@ The Summit began on Wednesday Oct 18 with excellent talks from [Australian BioCo
 Next, Seqera’s Phil Ewels took the stage providing a series of community updates, including the announcement of a new [Nextflow Ambassador](https://nextflow.io/blog/2023/introducing-nextflow-ambassador-program.html) program, [a new community forum](https://nextflow.io/blog/2023/community-forum.html) at [community.seqera.io](https://community.seqera.io), and the exciting appointment of [Geraldine Van der Auwera](https://nextflow.io/blog/2023/geraldine-van-der-auwera-joins-seqera.html) as lead developer advocate for the Nextflow. Geraldine is well known for her work on GATK, WDL, and Terra.bio and is the co-author of the book [Genomics on the Cloud](https://www.oreilly.com/library/view/genomics-in-the/9781491975183/). As Geraldine assumes leadership of the developer advocacy team, Phil will spend more time focusing on open-source development, as product manager of open source at Seqera.
 
 
-<div style="margin-top: 1rem">
-    <img src="/img/blog-summit-2023-recap--img1b.jpg" alt="Hackathon photo" />
+<div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <img src="/img/blog-summit-2023-recap--img1b.jpg" alt="Hackathon 2023 photo" />
 </div>
 
 Seqera’s Evan Floden shared his vision of the modern biotech stack for open science, highlighting recent developments at Seqera, including a revamped [Seqera platform](https://seqera.io/platform/), new [Data Explorer](https://seqera.io/blog/introducing-data-explorer/) functionality, and providing an exciting glimpse of the new Data Studios feature now in private preview. You can view [Evan’s full talk here](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-modern-biotech/).
@@ -75,8 +74,8 @@ Day one wrapped up with a surprise [announcement](https://www.globenewswire.com/
 
 Day two kicked off with a brisk sunrise run along the iconic Barcelona Waterfront attended by a team of hardy Summit participants. After that, things kicked into high gear for the morning session with talks on everything from using Nextflow to power [Machine Learning pipelines for materials science](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-machine-learning-for-material-science/) to [standardized frameworks for protein structure prediction](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-proteinfold/) to discussions on [how to estimate the CO2 footprint of pipeline runs](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-nf-co2footprint/).
 
-<div style="margin-top: 1rem">
-    <img src="/img/blog-summit-2023-recap--img2b.jpg" alt="Hackathon photo" />
+<div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <img src="/img/blog-summit-2023-recap--img2b.jpg" alt="Summit 2023 photo" />
 </div>
 
 Nextflow creator and Seqera CTO and co-founder Paolo Di Tommaso provided an update on some of the technologies he and his team have been working on including a deep dive on the [Fusion file system](https://seqera.io/fusion/). Paolo also delved into [Wave containers](https://seqera.io/wave/), discussing the dynamic assembly of containers using the [Spack package manager](https://nextflow.io/docs/latest/process.html#spack), echoing a similar theme from AWS’s [Brendan Bouffler](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-brendan-bouffler/) earlier in the day. During the conference, Seqera announced Wave Containers as our latest [open-source](https://github.com/seqeralabs/wave) contribution to the bioinformatics community — a huge contribution to the open science movement.
@@ -89,8 +88,8 @@ Unfortunately, there were too many brilliant speakers and topics to mention them
 
 The Summit also featured an exhibition area, and attendees visited booths hosted by [event sponsors](https://summit.nextflow.io/barcelona/sponsors/) between talks and viewed the many excellent [scientific posters](https://summit.nextflow.io/barcelona/posters/) contributed for the event. Following a packed day of sessions that went into the evening, attendees relaxed and socialized with colleagues over dinner.
 
-<div style="margin-top: 1rem">
-    <img src="/img/blog-summit-2023-recap--img3b.jpg" alt="Hackathon photo" />
+<div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <img src="/img/blog-summit-2023-recap--img3b.jpg" alt="Morning run photo" />
 </div>
 
 ## Wrapping up
@@ -163,4 +162,3 @@ For your convenience, a handy list of talks from Nextflow Summit 2023 are summar
 - [nf-test at nf-core: empowering scalable and streamlined testing](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-nf-test-at-nf-core/) - Edmund Miller
 - [Performing large and reproducible GWAS analysis on biobank-scale data](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-gwas/) - Sebastian Schönherr
 - [Highlights from the nf-core hackathon](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-hackathon/) - Chris Hakkaart
-```
