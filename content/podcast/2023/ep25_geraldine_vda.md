@@ -22,5 +22,9 @@ Well, her first day was the first day of the Nextflow Summit and nf-core hackath
 We thought we'd grab the opportunity to speak to her in person.
 
 Tune in to hear a bit about Geraldine's back-story. We go over her scientific background,
-how she got into bioinformatics, her work at the Broad with GATK and WDL, and what
-led her to join Seqera to work with the Nextflow and nf-core communities.
+how she got into bioinformatics, her work at the Broad with [GATK](https://gatk.broadinstitute.org/)
+and [WDL](http://openwdl.org/), and what led her to join Seqera to work with the Nextflow
+and nf-core communities.
+
+Oh, and the WDL runner whose name got away is [miniWDL](https://github.com/chanzuckerberg/miniwdl/),
+by [Mike Lin](https://www.mlin.net/)!
