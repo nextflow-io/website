@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil) talks to [Evan Floden](https://twitter.com/EvanFloden) and [Harshil Patel](https://twitter.com/aka_hpatel) from Seqera Labs about automation of pipeline testing, Nextflow Tower CLI and automation. We wrap up with a sneak-preview of some future road map items coming soon to Nextflow Tower.
+In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil) talks to [Evan Floden](https://twitter.com/EvanFloden) and [Harshil Patel](https://twitter.com/aka_hpatel) from Seqera about automation of pipeline testing, Nextflow Tower CLI and automation. We wrap up with a sneak-preview of some future road map items coming soon to Nextflow Tower.
 
 <!-- end-archive-description -->
 

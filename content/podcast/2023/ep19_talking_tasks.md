@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil) and [Chris Hakkaart](https://twitter.com/chris_hakk) talk to Seqera Labs software engineer [Ben Sherman](https://github.com/bentsherman) about what's going on "under the hood" with Nextflow. We touch on task provenance, cloud cache databases and task / sub-workflow grouping. Gotta cache 'em all!
+In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil) and [Chris Hakkaart](https://twitter.com/chris_hakk) talk to Seqera software engineer [Ben Sherman](https://github.com/bentsherman) about what's going on "under the hood" with Nextflow. We touch on task provenance, cloud cache databases and task / sub-workflow grouping. Gotta cache 'em all!
 
 <!-- end-archive-description -->
 

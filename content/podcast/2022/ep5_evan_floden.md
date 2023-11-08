@@ -1,6 +1,6 @@
 title=Evan Floden
 episode=5
-description=CEO and Co-founder of Seqera Labs
+description=CEO and Co-founder of Seqera
 date=2022-03-11
 type=podcast
 subtype=interview
@@ -12,4 +12,4 @@ author=Rob Lalonde
 icon=rob.png
 ~~~~~~
 
-In this Podcast, Rob Lalonde, CCO of Seqera Labs speaks with Dr. Evan Floden, CEO and co-founder of Seqera Labs. Rob and Evan talk about the history of Nextflow, Evan's journey as the co-founder of a start-up, Breaking Bad, and the future of bioinformatics. Evan also provides a live demo of Nextflow Tower.
+In this Podcast, Rob Lalonde, CCO of Seqera speaks with Dr. Evan Floden, CEO and co-founder of Seqera. Rob and Evan talk about the history of Nextflow, Evan's journey as the co-founder of a start-up, Breaking Bad, and the future of bioinformatics. Evan also provides a live demo of Nextflow Tower.

@@ -38,7 +38,7 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 - Hacking with others is a lot of fun and local sites are our way of replicating the fun we had at the in-person hackathon prior to the 2022 Nextflow Summit.
 - Everything will still be online in Gather so you can join from anywhere.
 - There are more than [15 local sites](https://nf-co.re/events/2023/hackathon-march-2023#local-events) that are being hosted by community members.
-    - Thanks to funding from the Chan Zuckerberg Initiative and Seqera Labs all sites are being supported with goodies.
+    - Thanks to funding from the Chan Zuckerberg Initiative and Seqera all sites are being supported with goodies.
     - We are especially excited to have a site hosted by Google at the [Google Academy](https://nf-co.re/events/2023/hackathon-march-2023/uk-google.md) in London.
     - Just like the last hackathon, an [nf-core training event](https://nf-co.re/events/2023/training-march-2023) is being held prior to the hackathon for new community members to upskill.
 

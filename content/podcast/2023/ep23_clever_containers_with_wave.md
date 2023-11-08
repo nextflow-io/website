@@ -16,7 +16,7 @@ Software containers using Docker / Singularity are a core part of modern data sc
 
 <!-- end-archive-description -->
 
-He talks about "Wave", one of the newest tools to come out of Seqera Labs and how this can make Nextflow pipelines scale on the cloud, work behind closed doors in protected environments and how it can build & augment images with additional requirements on the fly. And all this whilst reducing the amount of boilerplate code required within your pipeline.
+He talks about "Wave", one of the newest tools to come out of Seqera and how this can make Nextflow pipelines scale on the cloud, work behind closed doors in protected environments and how it can build & augment images with additional requirements on the fly. And all this whilst reducing the amount of boilerplate code required within your pipeline.
 
 As if that wasn't enough, we get a live demo of Wavelit - the open source command-line interface tool, that allows you to leverage the full power of Wave as a stand-alone tool, outside of Nextflow.
 
