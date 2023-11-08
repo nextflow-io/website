@@ -4,8 +4,8 @@
         <footer>
             <ul class="list-inline pull-right">
                 <li style="position: relative; top: 5px">
-                    <a href="https://seqera.io" target="_blank" title="Developed by Seqera Labs" >
-                        <img src="/img/seqera-logo-wide_new.png" alt="Seqera Labs"  width="136" height="28">
+                    <a href="https://seqera.io" target="_blank" title="Developed by Seqera" >
+                        <img src="/img/seqera-logo-wide_new.png" alt="Seqera"  width="136" height="28">
                     </a>
                 </li>
             </ul>

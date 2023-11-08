@@ -12,4 +12,4 @@ author=Rob Lalonde
 icon=rob.png
 ~~~~~~
 
-Rob Lalonde of Seqera Labs interviews Robert Petit, a senior bioinformatics scientist at Wyoming Public Health Laboratory. In this interview, Rob and Rob discuss public health challenges unique to Wyoming, genomic surveillance, the Bactopia pipeline, and the latest fashion trends among leading bioinformaticians in the state.
+Rob Lalonde of Seqera interviews Robert Petit, a senior bioinformatics scientist at Wyoming Public Health Laboratory. In this interview, Rob and Rob discuss public health challenges unique to Wyoming, genomic surveillance, the Bactopia pipeline, and the latest fashion trends among leading bioinformaticians in the state.
