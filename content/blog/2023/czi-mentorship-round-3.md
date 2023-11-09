@@ -3,13 +3,11 @@ date=2023-11-13
 type=post
 description=With the third round of the mentorship program now complete, we celebrate the success of the most recent cohort of mentors and mentees.
 image=img/mentorship_3_share.png
-tags=nextflow,nf-core,czi,mentorship,training
+tags=nextflow,nf-core,czi,mentorship
 status=published
 author=Marcel Ribeiro-Dantas
 icon=marcel.png
 ~~~~~~
-
-## Introduction
 
 <div class="pull-right" style=" max-width: 30%; margin-left: 2rem; padding: 2rem;">
     <img src="/img/mentorship_3_sticker.png" alt="Mentorship rocket.">
@@ -23,7 +21,7 @@ As with the [first](https://www.nextflow.io/blog/2022/czi-mentorship-round-1.htm
 The mentor-mentee duos chose to tackle many interesting projects during the program. From learning how to develop pipelines with Nextflow and nf-core, setting up Nextflow on their institutional clusters, and translating Nextflow training materials into other languages, this cohort of mentors and mentees did it all. Regardless of all initial challenges, every pair emerged from the program brimming with confidence and a knack for building scalable and reproducible scientific workflows with Nextlfow. Way to go, team!
 
 ![Map of mentor and mentee pairs](/img/mentorship_3_map.png)<br>
-_The third round of the mentorship program._
+_Participants of the third round of the mentorship program._
 
 ## Abhay Rastogi (Mentee) and Matthias De Smet (Mentor)
 
