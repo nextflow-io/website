@@ -6,7 +6,7 @@ image=img/nextflow-goes-to-university.jpg
 tags=nextflow,nf-core
 status=published
 author=Marcel Ribeiro-Dantas
-icon=marcel.png
+icon=marcel.jpg
 ~~~~~~
 
 The Nextflow project originated from within an academic research group, so perhaps it’s no surprise that education is an essential part of the Nextflow and nf-core communities. Over the years, we have established several regular training resources: we have a weekly online seminar series called nf-core/bytesize and run hugely popular bi-annual [Nextflow and nf-core community training online](https://www.youtube.com/@nf-core/playlists?view=50&sort=dd&shelf_id=2). In 2022, Seqera established a new community and growth team, funded in part by a grant from the Chan Zuckerberg Initiative “Essential Open Source Software for Science” grant. We are all former bioinformatics researchers from academia and part of our mission is to build resources and programs to support academic institutions. We want to help to provide leading edge, high-quality, [Nextflow](https://www.nextflow.io/) and [nf-core](https://nf-co.re/) training for Masters and Ph.D. students in Bioinformatics and other related fields.

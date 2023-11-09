@@ -6,7 +6,7 @@ image=img/mentorship_3_share.png
 tags=nextflow,nf-core,czi,mentorship
 status=published
 author=Marcel Ribeiro-Dantas
-icon=marcel.png
+icon=marcel.jpg
 ~~~~~~
 
 <div class="pull-right" style=" max-width: 30%; margin-left: 2rem; padding: 2rem;">
