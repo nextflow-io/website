@@ -68,11 +68,11 @@ Raquel Manzano is a bioinformatician and Ph.D. candidate at the University of Ca
 We are thrilled to report that the feedback from both mentors and mentees has been overwhelmingly positive. Every participant, whether mentor or mentee, found the experience extremely valuable and expressed gratitude for the chance to participate.
 
 <blockquote>
-    <em>“I loved the experience and the opportunity to develop my autonomy in nextflow/nf-core. This community is totally amazing!”</em> - Icaro Castro (Mentee)
+    <em>“I loved the experience and the opportunity to develop my autonomy in nextflow/nf-core. This community is totally amazing!”</em> - Icaro Castro
 </blockquote>
 
 <blockquote>
-    <em>“I think this was a great opportunity to learn about a tool that can make our day-to-day easier and reproducible. Who knows, maybe it can give you a better chance when applying for jobs.”</em> - Alan Möbbs (Mentee)
+    <em>“I think this was a great opportunity to learn about a tool that can make our day-to-day easier and reproducible. Who knows, maybe it can give you a better chance when applying for jobs.”</em> - Alan Möbbs
 </blockquote>
 
 Thanks to the fantastic support of the Chan Zuckerberg Initiative Diversity and Inclusion grant, Seqera, and our fantastic community, who made it possible to run all three rounds of the Nextflow and nf-core mentorship program.
