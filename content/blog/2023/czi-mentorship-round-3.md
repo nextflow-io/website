@@ -47,7 +47,7 @@ Georgie Samaha, a bioinformatician from the University of Sydney, was mentored b
 
 Ícaro Maia Santos is a Ph.D. Candidate at the University of São Paulo. He was mentored by Robert, a Research Scientist from Wyoming Public Health Lab. After learning the basics of Nextflow and nf-core, they worked on a [metatranscriptomics pipeline](https://github.com/icaromsc/nf-core-phiflow) that simultaneously characterizes microbial composition and host gene expression RNA sequencing samples. As a part of this process, they used nf-core modules that were already available and developed and contributed new modules to the nf-core repository. Ícaro found having someone to help him learn and overcome issues as he was developing his pipeline was invaluable for his career.
 
-![phiflow metro map](/assets/img/phiflow_metro_map.png)<br>
+![phiflow metro map](/img/phiflow_metro_map.png)<br>
 _Metro map of the phiflow workflow._
 
 ## Lila Maciel Rodríguez Pérez and Priyanka Surana
