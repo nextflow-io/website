@@ -1,4 +1,4 @@
-title=Interview: Geraldine Van der Auwera
+title=Code & community at the 2023 nf-core hackathon
 episode=26
 description=Hear from participants of the nf-core hackathon discussing their work and the value of community
 date=2023-11-21
