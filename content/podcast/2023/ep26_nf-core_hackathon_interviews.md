@@ -12,7 +12,9 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 In a special edition of the Channels Podcast, Geraldine Van der Auwera interviews four members of the Nextflow community attending the 2023 nf-core hackathon: Raquel Manzano, Edmund Miller, Rieke Hanssen and Francesco Lescai. Recorded in-person at the Nextflow Summit Barcelona, we hear a bit about what they have been working on, how they came to use Nextflow and what motivated them to join the nf-core hackathon.
+
 <!-- end-archive-description -->
+
 Last October, the Nextflow community gathered in Barcelona for the 2023 Nextflow Summit and nf-core hackathon! We took advantage of the opportunity to interview four hackathon particpants in person.
 
 - Raquel Manzano, PhD candidate at Cambridge University, told us about her journey into bioinformatics and her work developing a pipeline for somatic variant calling in bulk RNAseq data. We also talked about her experience participating in the [nf-core mentorship program](https://nf-co.re/mentorships) and the importance of initiatives like the [Open Bioinformatics Foundation's Travel Fellowship](https://www.open-bio.org/category/travel-fellowship/) for enabling people to participate in events like the hackathon and summit. 
