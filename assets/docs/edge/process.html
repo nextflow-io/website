@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Processes &mdash; Nextflow 23.09.0-edge documentation</title>
+  <title>Processes &mdash; Nextflow 23.11.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -52,9 +52,13 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Processes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#script">Script</a><ul>
@@ -90,7 +94,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#output-type-stdout">Output type <code class="docutils literal notranslate"><span class="pre">stdout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-type-set">Output type <code class="docutils literal notranslate"><span class="pre">set</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#output-type-tuple">Output type <code class="docutils literal notranslate"><span class="pre">tuple</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#optional-outputs">Optional outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-options">Additional options</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#when">When</a></li>
@@ -142,22 +146,16 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -166,12 +164,39 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -201,7 +226,7 @@
   <section class="tex2jax_ignore mathjax_ignore" id="processes">
 <span id="process-page"></span><h1>Processes<a class="headerlink" href="#processes" title="Permalink to this heading"></a></h1>
 <p>In Nextflow, a <strong>process</strong> is the basic processing primitive to execute a user script.</p>
-<p>The process definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process body delimited by curly brackets. The process body must contain a string which represents the command or, more generally, a script that is executed by it. A basic process looks like the following example:</p>
+<p>The process definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">process</span></code>, followed by process name and finally the process body delimited by curly braces. The process body must contain a string which represents the command or, more generally, a script that is executed by it. A basic process looks like the following example:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">sayHello</span><span class="w"> </span><span class="o">{</span>
 <span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">    echo &#39;Hello world!&#39; &gt; file</span>
@@ -940,7 +965,7 @@ hola world!
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>In general, multiple input channels should be used to process <em>combinations</em> of different inputs, using the <code class="docutils literal notranslate"><span class="pre">each</span></code> qualifier or value channels. Having multiple queue channels as inputs is equivalent to using the <code class="docutils literal notranslate"><span class="pre">merge</span></code> operator, which is not recommended as it may lead to inputs being combined in a non-deterministic way.</p>
+<p>In general, multiple input channels should be used to process <em>combinations</em> of different inputs, using the <code class="docutils literal notranslate"><span class="pre">each</span></code> qualifier or value channels. Having multiple queue channels as inputs is equivalent to using the <a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a> operator, which is not recommended as it may lead to <a class="reference internal" href="cache-and-resume.html#cache-nondeterministic-inputs"><span class="std std-ref">non-deterministic process inputs</span></a>.</p>
 </div>
 <p>See also: <a class="reference internal" href="channel.html#channel-types"><span class="std std-ref">Channel types</span></a>.</p>
 </section>
@@ -1236,14 +1261,51 @@ even if only one file is produced.</p>
 </div>
 </div>
 </section>
-<section id="optional-outputs">
-<h3>Optional outputs<a class="headerlink" href="#optional-outputs" title="Permalink to this heading"></a></h3>
-<p>In most cases, a process is expected to produce an output for each output definition. However, there are situations where it is valid for a process to not generate output. In these cases, <code class="docutils literal notranslate"><span class="pre">optional:</span> <span class="pre">true</span></code> may be added to the output definition, which tells Nextflow not to fail the process if the declared output is not produced:</p>
-<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="nl">output:</span>
-<span class="w">    </span><span class="n">path</span><span class="o">(</span><span class="s2">&quot;output.txt&quot;</span><span class="o">),</span><span class="w"> </span><span class="nl">optional:</span><span class="w"> </span><span class="kc">true</span>
+<section id="additional-options">
+<span id="process-additional-options"></span><h3>Additional options<a class="headerlink" href="#additional-options" title="Permalink to this heading"></a></h3>
+<p>The following options are available for all process outputs:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">emit:</span> <span class="pre">&lt;name&gt;</span></code></dt><dd><p>Defines the name of the output channel, which can be used to access the channel by name from the process output:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">FOO</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;hello.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">emit:</span><span class="w"> </span><span class="n">hello</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;bye.txt&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">emit:</span><span class="w"> </span><span class="n">bye</span>
+
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    echo &quot;hello&quot; &gt; hello.txt</span>
+<span class="s2">    echo &quot;bye&quot; &gt; bye.txt</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">FOO</span><span class="o">()</span>
+<span class="w">    </span><span class="n">FOO</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">hello</span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+<span class="o">}</span>
 </pre></div>
 </div>
-<p>In this example, the process is normally expected to produce an <code class="docutils literal notranslate"><span class="pre">output.txt</span></code> file, but in the cases where the file is legitimately missing, the process does not fail. The output channel will only contain values for those processes that produce <code class="docutils literal notranslate"><span class="pre">output.txt</span></code>.</p>
+<p>See <a class="reference internal" href="workflow.html#workflow-process-invocation"><span class="std std-ref">Process invocation</span></a> for more details.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">optional:</span> <span class="pre">true</span> <span class="pre">|</span> <span class="pre">false</span></code></dt><dd><p>Normally, if a specified output is not produced by the task, the task will fail. Setting <code class="docutils literal notranslate"><span class="pre">optional:</span> <span class="pre">true</span></code> will cause the task to not fail, and instead emit nothing to the given output channel.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="nl">output:</span>
+<span class="n">path</span><span class="o">(</span><span class="s2">&quot;output.txt&quot;</span><span class="o">),</span><span class="w"> </span><span class="nl">optional:</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<p>In this example, the process is normally expected to produce an <code class="docutils literal notranslate"><span class="pre">output.txt</span></code> file, but in the cases where the file is missing, the task will not fail. The output channel will only contain values for those tasks that produced <code class="docutils literal notranslate"><span class="pre">output.txt</span></code>.</p>
+</dd>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While this option can be used with any process output, it cannot be applied to individual elements of a <a class="reference internal" href="#output-type-tuple"><span class="std std-doc">tuple</span></a> output. The entire tuple must be optional or not optional.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">topic:</span> <span class="pre">&lt;name&gt;</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p><em>Experimental: may change in a future release.</em></p>
+</dd>
+<dd><p>Defines the <span class="xref std std-ref">channel topic</span> to which the output will be sent.</p>
+</dd>
+</dl>
 </section>
 </section>
 <section id="when">
@@ -1274,9 +1336,20 @@ even if only one file is produced.</p>
 <span id="process-directives"></span><h2>Directives<a class="headerlink" href="#directives" title="Permalink to this heading"></a></h2>
 <p>Directives are optional settings that affect the execution of the current process.</p>
 <p>They must be entered at the top of the process body, before any other declaration blocks (<code class="docutils literal notranslate"><span class="pre">input</span></code>, <code class="docutils literal notranslate"><span class="pre">output</span></code>, etc), and have the following syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span> <span class="n">value</span> <span class="p">[,</span> <span class="n">value2</span> <span class="p">[,</span><span class="o">..</span><span class="p">]]</span>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// directive with simple value</span>
+<span class="n">name</span><span class="w"> </span><span class="n">value</span>
+
+<span class="c1">// directive with list value</span>
+<span class="n">name</span><span class="w"> </span><span class="n">arg1</span><span class="o">,</span><span class="w"> </span><span class="n">arg2</span><span class="o">,</span><span class="w"> </span><span class="n">arg3</span>
+
+<span class="c1">// directive with map value</span>
+<span class="n">name</span><span class="w"> </span><span class="nl">key1:</span><span class="w"> </span><span class="n">val1</span><span class="o">,</span><span class="w"> </span><span class="nl">key2:</span><span class="w"> </span><span class="n">val2</span>
+
+<span class="c1">// directive with value and options</span>
+<span class="n">name</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="nl">opt1:</span><span class="w"> </span><span class="n">val1</span><span class="o">,</span><span class="w"> </span><span class="nl">opt2:</span><span class="w"> </span><span class="n">val2</span>
 </pre></div>
 </div>
+<p>By default, directives are evaluated when the process is defined. However, if the value is a dynamic string or closure, it will be evaluated separately for each task, which allows task-specific variables like <code class="docutils literal notranslate"><span class="pre">task</span></code> and <code class="docutils literal notranslate"><span class="pre">val</span></code> inputs to be used.</p>
 <p>Some directives are generally available to all processes, while others depend on the <code class="docutils literal notranslate"><span class="pre">executor</span></code> currently defined.</p>
 <section id="accelerator">
 <span id="process-accelerator"></span><h3>accelerator<a class="headerlink" href="#accelerator" title="Permalink to this heading"></a></h3>
@@ -1365,9 +1438,8 @@ even if only one file is produced.</p>
 </section>
 <section id="cache">
 <span id="process-cache"></span><h3>cache<a class="headerlink" href="#cache" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive allows you to store the process results to a local cache. When the cache is enabled <em>and</em> the pipeline is launched with the <a class="reference internal" href="getstarted.html#getstarted-resume"><span class="std std-ref">resume</span></a> option, any following attempt to execute the process, along with the same inputs, will cause the process execution to be skipped, producing the stored data as the actual results.</p>
-<p>The caching feature generates a unique key by indexing the process script and inputs. This key is used to identify univocally the outputs produced by the process execution.</p>
-<p>The cache is enabled by default, you can disable it for a specific process by setting the <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive to <code class="docutils literal notranslate"><span class="pre">false</span></code>. For example:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive allows you to store the process results to a local cache. When the cache is enabled <em>and</em> the pipeline is launched with the <a class="reference internal" href="getstarted.html#getstarted-resume"><span class="std std-ref">resume</span></a> option, any task executions that are already cached will be re-used. See the <a class="reference internal" href="cache-and-resume.html#cache-resume-page"><span class="std std-ref">Caching and resuming</span></a> page for more information about how the cache works.</p>
+<p>The cache is enabled by default, but you can disable it for a specific process by setting the <code class="docutils literal notranslate"><span class="pre">cache</span></code> directive to <code class="docutils literal notranslate"><span class="pre">false</span></code>. For example:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">noCacheThis</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">cache</span><span class="w"> </span><span class="kc">false</span>
 
@@ -1376,15 +1448,17 @@ even if only one file is produced.</p>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The following values are available:</p>
+<p>The following options are available:</p>
 <dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">false</span></code></dt><dd><p>Disable caching.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">true</span></code> (default)</dt><dd><p>Enable caching. Cache keys are created indexing input files meta-data information (name, size and last update timestamp attributes).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">true</span></code> (default)</dt><dd><p>Enable caching. Input file metadata (name, size, last updated timestamp) are included in the cache keys.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'deep'</span></code></dt><dd><p>Enable caching. Cache keys are created indexing input files content.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">'deep'</span></code></dt><dd><p>Enable caching. Input file content is included in the cache keys.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">'lenient'</span></code></dt><dd><p>Enable caching. Cache keys are created indexing input files path and size attributes (this policy provides a workaround for incorrect caching invalidation observed on shared file systems due to inconsistent files timestamps).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">'lenient'</span></code></dt><dd><p>Enable caching. Minimal input file metadata (name and size only) are included in the cache keys.</p>
+</dd>
+<dd><p>This strategy provides a workaround for incorrect caching invalidation observed on shared file systems due to inconsistent file timestamps.</p>
 </dd>
 </dl>
 </section>
@@ -1679,13 +1753,21 @@ even if only one file is produced.</p>
 <span class="w">  </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">sampleId</span><span class="o">),</span><span class="w"> </span><span class="n">path</span><span class="o">(</span><span class="n">reads</span><span class="o">)</span>
 
 <span class="w">  </span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">  STAR --genomeDir $genome --readFilesIn $reads</span>
+<span class="s2">  STAR --genomeDir $genome --readFilesIn $reads ${task.ext.args ?: &#39;&#39;}</span>
 <span class="s2">  &quot;&quot;&quot;</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>In the above example, the process uses a container whose version is controlled by the <code class="docutils literal notranslate"><span class="pre">ext.version</span></code> property. This can be defined in the <code class="docutils literal notranslate"><span class="pre">nextflow.config</span></code> file as shown below:</p>
+<p>In the above example, the process container version is controlled by <code class="docutils literal notranslate"><span class="pre">ext.version</span></code>, and the script supports additional command line arguments through <code class="docutils literal notranslate"><span class="pre">ext.args</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ext</span></code> directive can be set in the process definition:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="n">ext</span><span class="w"> </span><span class="nl">version:</span><span class="w"> </span><span class="s1">&#39;2.5.3&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">args:</span><span class="w"> </span><span class="s1">&#39;--foo --bar&#39;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Or in the Nextflow configuration:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="o">.</span><span class="na">ext</span><span class="o">.</span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;2.5.3&#39;</span>
+<span class="n">process</span><span class="o">.</span><span class="na">ext</span><span class="o">.</span><span class="na">args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;--foo --bar&#39;</span>
 </pre></div>
 </div>
 </section>
@@ -1932,17 +2014,17 @@ queue named <code class="docutils literal notranslate"><span class="pre">on-dema
 </pre></div>
 </div>
 <p>The above snippet defines an environment variable named <code class="docutils literal notranslate"><span class="pre">FOO</span></code> whose value is <code class="docutils literal notranslate"><span class="pre">bar</span></code>.</p>
-<p>When defined in the Nextflow configuration file, pod settings should be defined as maps. For example:</p>
+<p>When defined in the Nextflow configuration file, a pod setting can be defined as a map:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">]</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>Multiple pod settings can be provided as a list of maps:</p>
+<p>Or as a list of maps:</p>
 <div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="o">{</span>
 <span class="w">  </span><span class="n">pod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span>
-<span class="w">      </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">],</span>
-<span class="w">      </span><span class="o">[</span><span class="nl">secret:</span><span class="w"> </span><span class="s1">&#39;my-secret/key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mountPath:</span><span class="w"> </span><span class="s1">&#39;/etc/file.txt&#39;</span><span class="o">]</span>
+<span class="w">    </span><span class="o">[</span><span class="nl">env:</span><span class="w"> </span><span class="s1">&#39;FOO&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">value:</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="o">],</span>
+<span class="w">    </span><span class="o">[</span><span class="nl">secret:</span><span class="w"> </span><span class="s1">&#39;my-secret/key1&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">mountPath:</span><span class="w"> </span><span class="s1">&#39;/etc/file.txt&#39;</span><span class="o">]</span>
 <span class="w">  </span><span class="o">]</span>
 <span class="o">}</span>
 </pre></div>
@@ -2018,6 +2100,14 @@ queue named <code class="docutils literal notranslate"><span class="pre">on-dema
 </dd>
 <dd><p>Defines an environment variable with the given name and value.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">hostPath:</span> <span class="pre">'/host/absolute/path',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/pod/absolute/path&gt;'</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+</dd>
+<dd><p><em>Can be specified multiple times</em></p>
+</dd>
+<dd><p>Allows creating <a class="reference external" href="https://kubernetes.io/docs/concepts/storage/volumes/#hostpath">hostPath</a> volume and access it with the specified <code class="docutils literal notranslate"><span class="pre">mountPath</span></code> in the pod.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">imagePullPolicy:</span> <span class="pre">'IfNotPresent'</span> <span class="pre">|</span> <span class="pre">'Always'</span> <span class="pre">|</span> <span class="pre">'Never'</span></code></dt><dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#image-pull-policy">image pull policy</a> used by the pod to pull the container image.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">imagePullSecret:</span> <span class="pre">'&lt;name&gt;'</span></code></dt><dd><p>Specifies the <a class="reference external" href="https://kubernetes.io/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod">image pull secret</a> used to access a private container image registry.</p>
@@ -2050,6 +2140,8 @@ queue named <code class="docutils literal notranslate"><span class="pre">on-dema
 <dd><p>Specifies whether the pod should run as a <em>privileged</em> container (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">runAsUser:</span> <span class="pre">'&lt;uid&gt;'</span></code></dt><dd><p>Specifies the user ID with which to run the container. Shortcut for the <code class="docutils literal notranslate"><span class="pre">securityContext</span></code> option.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">schedulerName:</span> <span class="pre">'&lt;name&gt;'</span></code></dt><dd><p>Specifies which <a class="reference external" href="https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/#specify-schedulers-for-pods">scheduler</a> is used to schedule the container.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">secret:</span> <span class="pre">'&lt;secret&gt;/&lt;key&gt;',</span> <span class="pre">mountPath:</span> <span class="pre">'&lt;/absolute/path&gt;'</span></code></dt><dd><p><em>Can be specified multiple times</em></p>
 </dd>

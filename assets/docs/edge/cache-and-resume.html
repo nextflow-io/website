@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caching and resuming &mdash; Nextflow 23.11.0-edge documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tracing &amp; visualisation" href="tracing.html" />
+    <link rel="prev" title="Executors" href="executor.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Caching and resuming</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#task-cache">Task cache</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#task-hash">Task hash</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#task-entry">Task entry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cache-stores">Cache stores</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#work-directory">Work directory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modified-input-files">Modified input files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-that-modifies-its-inputs">Process that modifies its inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inconsistent-file-attributes">Inconsistent file attributes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#race-condition-on-a-global-variable">Race condition on a global variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#non-deterministic-process-inputs">Non-deterministic process inputs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#resuming-from-a-specific-run">Resuming from a specific run</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#comparing-the-hashes-of-two-runs">Comparing the hashes of two runs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Caching and resuming</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/cache-and-resume.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="caching-and-resuming">
+<span id="cache-resume-page"></span><h1>Caching and resuming<a class="headerlink" href="#caching-and-resuming" title="Permalink to this heading"></a></h1>
+<p>One of the core features of Nextflow is the ability to cache task executions and re-use them in subsequent runs to minimize duplicate work. Resumability is useful both for recovering from errors and for iteratively developing a pipeline. It is similar to <a class="reference external" href="https://en.wikipedia.org/wiki/Application_checkpointing">checkpointing</a>, a common practice used by HPC applications.</p>
+<p>You can enable resumability in Nextflow with the <code class="docutils literal notranslate"><span class="pre">-resume</span></code> flag when launching a pipeline with <code class="docutils literal notranslate"><span class="pre">nextflow</span> <span class="pre">run</span></code>. In most cases, that is all you need to do and resumability will “just work”. This page describes Nextflow’s caching behavior in more detail in order to help advanced users understand how the cache works and troubleshoot it when it doesn’t work.</p>
+<section id="task-cache">
+<h2>Task cache<a class="headerlink" href="#task-cache" title="Permalink to this heading"></a></h2>
+<p>All task executions are automatically saved to the task cache, regardless of the <code class="docutils literal notranslate"><span class="pre">-resume</span></code> option (so that you always have the option to resume later). The task cache is a key-value store, where each key-value pair corresponds to a previously-executed task.</p>
+<p>The task cache is used in conjunction with the <a class="reference internal" href="#work-directory"><span class="std std-doc">work directory</span></a> to recover cached tasks in a resumed run. It is also used by the <a class="reference internal" href="cli.html#cli-log"><span class="std std-ref">log</span></a> sub-command to query task metadata.</p>
+<section id="task-hash">
+<h3>Task hash<a class="headerlink" href="#task-hash" title="Permalink to this heading"></a></h3>
+<p>The task hash is computed from the following metadata:</p>
+<ul class="simple">
+<li><p>Session ID (see <code class="docutils literal notranslate"><span class="pre">workflow.sessionId</span></code> in <a class="reference internal" href="metadata.html#metadata-workflow"><span class="std std-ref">Runtime metadata</span></a>)</p></li>
+<li><p>Task name (see <code class="docutils literal notranslate"><span class="pre">name</span></code> in <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace report</span></a>)</p></li>
+<li><p>Task container image (if applicable)</p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-module"><span class="std std-ref">environment modules</span></a> (if applicable)</p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-conda"><span class="std std-ref">Conda environment</span></a> (if applicable)</p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-spack"><span class="std std-ref">Spack environment</span></a> and <a class="reference internal" href="process.html#process-arch"><span class="std std-ref">CPU architecture</span></a> (if applicable)</p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-ext"><span class="std std-ref">ext</span></a> directive (if applicable)</p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-input"><span class="std std-ref">inputs</span></a></p></li>
+<li><p>Task <a class="reference internal" href="process.html#process-script"><span class="std std-ref">script</span></a></p></li>
+<li><p>Any global variables referenced in the task script</p></li>
+<li><p>Any <a class="reference internal" href="sharing.html#bundling-executables"><span class="std std-ref">bundled scripts</span></a> used in the task script</p></li>
+<li><p>Whether the task is a <a class="reference internal" href="process.html#process-stub"><span class="std std-ref">stub run</span></a></p></li>
+<li><p>Task attempt</p></li>
+</ul>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.09.2-edge: </span>The <a class="reference internal" href="process.html#process-ext"><span class="std std-ref">ext</span></a> directive was added to the task hash.</p>
+</div>
+<p>Nextflow computes this hash for every task when it is created but before it is executed. If resumability is enabled and there is an entry in the task cache with the same hash, Nextflow tries to recover the previous task execution. A cache hit does not guarantee that the task will be resumed, because it must also recover the task outputs from the <a class="reference internal" href="#work-directory"><span class="std std-doc">work directory</span></a>.</p>
+<p>Note that files are hashed differently depending on the caching mode. See the <a class="reference internal" href="process.html#process-cache"><span class="std std-ref">cache</span></a> directive for more details.</p>
+</section>
+<section id="task-entry">
+<h3>Task entry<a class="headerlink" href="#task-entry" title="Permalink to this heading"></a></h3>
+<p>The task entry is a serialized blob of the task metadata required to resume a task, including the fields used by the <a class="reference internal" href="tracing.html#trace-report"><span class="std std-ref">Trace report</span></a> and the task input variables.</p>
+</section>
+<section id="cache-stores">
+<h3>Cache stores<a class="headerlink" href="#cache-stores" title="Permalink to this heading"></a></h3>
+<p>The default cache store uses the <code class="docutils literal notranslate"><span class="pre">.nextflow/cache</span></code> directory, relative to the launch directory (i.e. <code class="docutils literal notranslate"><span class="pre">workflow.launchDir</span></code>), to store the task cache, with a separate subdirectory for each session ID backed by <a class="reference external" href="https://github.com/dain/leveldb">LevelDB</a>.</p>
+<p>Due to the limitations of LevelDB, the database for a given session ID can only be accessed by one reader/writer at a time. This means, for example, that you cannot use <code class="docutils literal notranslate"><span class="pre">nextflow</span> <span class="pre">log</span></code> to query the task metadata for a pipeline run while it is still running.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.07.0-edge.</span></p>
+</div>
+<p>The cloud cache is an alternative cache store that uses cloud storage instead of the local cache directory. You can use it by setting the <code class="docutils literal notranslate"><span class="pre">NXF_CLOUDCACHE_PATH</span></code> environment variable to the desired cache path (e.g. <code class="docutils literal notranslate"><span class="pre">s3://my-bucket/cache</span></code>) and providing the necessary credentials.</p>
+<p>The cloud cache is particularly useful when launching Nextflow from within the cloud, where the default cache would be lost once the pipeline completes and the VM instance is terminated. Furthermore, because it is backed by cloud storage, it can support multiple readers and writers.</p>
+</section>
+</section>
+<section id="work-directory">
+<h2>Work directory<a class="headerlink" href="#work-directory" title="Permalink to this heading"></a></h2>
+<p>While the <a class="reference internal" href="#task-cache"><span class="std std-doc">task cache</span></a> stores the task metadata for subsequent runs, the work directory stores various files used during a pipeline run.</p>
+<p>Each task uses a unique directory based on its hash. When a task is created, Nextflow stages the task input files, script, and other helper files into the task directory. The task writes any output files to this directory during its execution, and Nextflow uses these output files for downstream tasks and/or publishing.</p>
+<p>When a previous task is retrieved from the task cache on a resumed run, Nextflow then checks the corresponding task directory in the work directory. If all the required outputs are present and the exit code is valid, then the task is successfully cached; otherwise, the task is re-executed.</p>
+<p>For this reason, it is important to preserve both the task cache (<code class="docutils literal notranslate"><span class="pre">.nextflow/cache</span></code>) and work directories in order to resume runs successfully. You can use the <a class="reference internal" href="cli.html#cli-clean"><span class="std std-ref">clean</span></a> command to delete specific runs from the cache.</p>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this heading"></a></h2>
+<p>Cache failures happen when either (1) a task that was supposed to be cached was re-executed, or (2) a task that was supposed to be re-executed was cached.</p>
+<p>When this happens, consider the following questions:</p>
+<ul class="simple">
+<li><p>Is resume enabled via <code class="docutils literal notranslate"><span class="pre">-resume</span></code>?</p></li>
+<li><p>Is the <a class="reference internal" href="process.html#process-cache"><span class="std std-ref">cache</span></a> directive set to a non-default value?</p></li>
+<li><p>Is the task still present in the task cache and work directory?</p></li>
+<li><p>Were any of the task inputs changed?</p></li>
+</ul>
+<p>Changing any of the inputs included in the <a class="reference internal" href="#task-hash"><span class="std std-doc">task hash</span></a> will invalidate the cache, for example:</p>
+<ul class="simple">
+<li><p>Resuming from a different session ID</p></li>
+<li><p>Changing the process name</p></li>
+<li><p>Changing the task container image or Conda environment</p></li>
+<li><p>Changing the task script</p></li>
+<li><p>Changing an input file or bundled script used by the task</p></li>
+</ul>
+<p>While the following examples would not invalidate the cache:</p>
+<ul class="simple">
+<li><p>Changing the value of a directive (other than <a class="reference internal" href="process.html#process-ext"><span class="std std-ref">ext</span></a>), even if that directive is used in the task script</p></li>
+</ul>
+<p>In many cases, cache failures happen because of a change to the pipeline script or configuration, or because the pipeline itself has some non-deterministic behavior.</p>
+<p>Here are some common reasons for cache failures:</p>
+<section id="modified-input-files">
+<h3>Modified input files<a class="headerlink" href="#modified-input-files" title="Permalink to this heading"></a></h3>
+<p>Make sure that your input files have not been changed. Keep in mind that the default caching mode uses the complete file path, the last modified timestamp, and the file size. If any of these attributes change, the task will be re-executed, even if the file content is unchanged.</p>
+</section>
+<section id="process-that-modifies-its-inputs">
+<h3>Process that modifies its inputs<a class="headerlink" href="#process-that-modifies-its-inputs" title="Permalink to this heading"></a></h3>
+<p>If a process modifies its own input files, it cannot be resumed for the reasons described in the previous point. As a result, processes that modify their own input files are considered an anti-pattern and should be avoided.</p>
+</section>
+<section id="inconsistent-file-attributes">
+<h3>Inconsistent file attributes<a class="headerlink" href="#inconsistent-file-attributes" title="Permalink to this heading"></a></h3>
+<p>Some shared file systems, such as NFS, may report inconsistent file timestamps, which can invalidate the cache. If you encounter this problem, you can avoid it by using the <code class="docutils literal notranslate"><span class="pre">'lenient'</span></code> <a class="reference internal" href="process.html#process-cache"><span class="std std-ref">caching mode</span></a>, which ignores the last modified timestamp and uses only the file path and size.</p>
+</section>
+<section id="race-condition-on-a-global-variable">
+<span id="cache-global-var-race-condition"></span><h3>Race condition on a global variable<a class="headerlink" href="#race-condition-on-a-global-variable" title="Permalink to this heading"></a></h3>
+<p>While Nextflow tries to make it easy to write safe concurrent code, it is still possible to create race conditions, which can in turn impact the caching behavior of your pipeline.</p>
+<p>Consider the following example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">X</span><span class="o">=</span><span class="n">it</span><span class="o">;</span><span class="w"> </span><span class="n">X</span><span class="o">+=</span><span class="mi">2</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;ch1 = $it&quot;</span><span class="w"> </span><span class="o">}</span>
+<span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">X</span><span class="o">=</span><span class="n">it</span><span class="o">;</span><span class="w"> </span><span class="n">X</span><span class="o">*=</span><span class="mi">2</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;ch2 = $it&quot;</span><span class="w"> </span><span class="o">}</span>
+</pre></div>
+</div>
+<p>The problem here is that <code class="docutils literal notranslate"><span class="pre">X</span></code> is declared in each <code class="docutils literal notranslate"><span class="pre">map</span></code> closure without the <code class="docutils literal notranslate"><span class="pre">def</span></code> keyword (or other type qualifier). Using the <code class="docutils literal notranslate"><span class="pre">def</span></code> keyword makes the variable local to the enclosing scope; omitting the <code class="docutils literal notranslate"><span class="pre">def</span></code> keyword makes the variable global to the entire script.</p>
+<p>Because <code class="docutils literal notranslate"><span class="pre">X</span></code> is global, and operators are executed concurrently, there is a <em>race condition</em> on <code class="docutils literal notranslate"><span class="pre">X</span></code>, which means that the emitted values will vary depending on the particular order of the concurrent operations. If the values were passed as inputs into a process, the process would execute different tasks on each run due to the race condition.</p>
+<p>The solution is to not use a global variable where a local variable is enough (or in this simple example, avoid the variable altogether):</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="c1">// local variable</span>
+<span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">def</span><span class="w"> </span><span class="n">X</span><span class="o">=</span><span class="n">it</span><span class="o">;</span><span class="w"> </span><span class="n">X</span><span class="o">+=</span><span class="mi">2</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;ch1 = $it&quot;</span><span class="w"> </span><span class="o">}</span>
+
+<span class="c1">// no variable</span>
+<span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="s2">&quot;ch2 = $it&quot;</span><span class="w"> </span><span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="non-deterministic-process-inputs">
+<span id="cache-nondeterministic-inputs"></span><h3>Non-deterministic process inputs<a class="headerlink" href="#non-deterministic-process-inputs" title="Permalink to this heading"></a></h3>
+<p>Sometimes a process needs to merge inputs from different sources. Consider the following example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">ch_foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;1&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;1.foo&#39;</span><span class="o">],</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;2&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;2.foo&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">)</span>
+<span class="w">    </span><span class="n">ch_bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;2&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;2.bar&#39;</span><span class="o">],</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;1&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;1.bar&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">)</span>
+<span class="w">    </span><span class="n">gather</span><span class="o">(</span><span class="n">ch_foo</span><span class="o">,</span><span class="w"> </span><span class="n">ch_bar</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">gather</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">id</span><span class="o">),</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="n">foo</span><span class="o">)</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">id</span><span class="o">),</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="n">bar</span><span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    merge_command $foo $bar</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>It is tempting to assume that the process inputs will be matched by <code class="docutils literal notranslate"><span class="pre">id</span></code> like the <a class="reference internal" href="operator.html#operator-join"><span class="std std-ref">join</span></a> operator. But in reality, they are simply merged like the <a class="reference internal" href="operator.html#operator-merge"><span class="std std-ref">merge</span></a> operator. As a result, not only will the process inputs be incorrect, they will also be non-deterministic, thus invalidating the cache.</p>
+<p>The solution is to explicitly join the two channels before the process invocation:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">ch_foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;1&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;1.foo&#39;</span><span class="o">],</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;2&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;2.foo&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">)</span>
+<span class="w">    </span><span class="n">ch_bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;2&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;2.bar&#39;</span><span class="o">],</span><span class="w"> </span><span class="o">[</span><span class="s1">&#39;1&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;1.bar&#39;</span><span class="o">]</span><span class="w"> </span><span class="o">)</span>
+<span class="w">    </span><span class="n">gather</span><span class="o">(</span><span class="n">ch_foo</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">ch_bar</span><span class="o">))</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">gather</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">tuple</span><span class="w"> </span><span class="n">val</span><span class="o">(</span><span class="n">id</span><span class="o">),</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="n">foo</span><span class="o">),</span><span class="w"> </span><span class="n">file</span><span class="o">(</span><span class="n">bar</span><span class="o">)</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    merge_command $foo $bar</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="tips">
+<h2>Tips<a class="headerlink" href="#tips" title="Permalink to this heading"></a></h2>
+<section id="resuming-from-a-specific-run">
+<h3>Resuming from a specific run<a class="headerlink" href="#resuming-from-a-specific-run" title="Permalink to this heading"></a></h3>
+<p>Nextflow resumes from the previous run by default. If you want to resume from an earlier run, simply specify the session ID for that run with the <code class="docutils literal notranslate"><span class="pre">-resume</span></code> option:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>rnaseq-nf<span class="w"> </span>-resume<span class="w"> </span>4dc656d2-c410-44c8-bc32-7dd0ea87bebf
+</pre></div>
+</div>
+<p>You can use the <a class="reference internal" href="cli.html#cli-log"><span class="std std-ref">log</span></a> command to view all previous runs as well as the task executions for each run.</p>
+</section>
+<section id="comparing-the-hashes-of-two-runs">
+<span id="cache-compare-hashes"></span><h3>Comparing the hashes of two runs<a class="headerlink" href="#comparing-the-hashes-of-two-runs" title="Permalink to this heading"></a></h3>
+<p>One way to debug a resumed run is to compare the task hashes of each run using the <code class="docutils literal notranslate"><span class="pre">-dump-hashes</span></code> option.</p>
+<ol class="arabic simple">
+<li><p>Perform an initial run: <code class="docutils literal notranslate"><span class="pre">nextflow</span> <span class="pre">-log</span> <span class="pre">run_initial.log</span> <span class="pre">run</span> <span class="pre">&lt;pipeline&gt;</span> <span class="pre">-dump-hashes</span></code></p></li>
+<li><p>Perform a resumed run: <code class="docutils literal notranslate"><span class="pre">nextflow</span> <span class="pre">-log</span> <span class="pre">run_resumed.log</span> <span class="pre">run</span> <span class="pre">&lt;pipeline&gt;</span> <span class="pre">-dump-hashes</span> <span class="pre">-resume</span></code></p></li>
+<li><p>Extract the task hash lines from each log (search for <code class="docutils literal notranslate"><span class="pre">cache</span> <span class="pre">hash:</span></code>)</p></li>
+<li><p>Compare the runs with a diff viewer</p></li>
+</ol>
+<p>While some manual effort is required, the final diff can often reveal the exact change that caused a task to be re-executed.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+<p>When using <code class="docutils literal notranslate"><span class="pre">-dump-hashes</span> <span class="pre">json</span></code>, the task hashes can be more easily extracted into a diff. Here is an example Bash script to perform two runs and produce a diff:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>-log<span class="w"> </span>run_1.log<span class="w"> </span>run<span class="w"> </span><span class="nv">$pipeline</span><span class="w"> </span>-dump-hashes<span class="w"> </span>json
+nextflow<span class="w"> </span>-log<span class="w"> </span>run_2.log<span class="w"> </span>run<span class="w"> </span><span class="nv">$pipeline</span><span class="w"> </span>-dump-hashes<span class="w"> </span>json<span class="w"> </span>-resume
+
+get_hashes<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>cat<span class="w"> </span><span class="nv">$1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;cache hash:&#39;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">10</span>-<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{ print; print &quot;&quot;; }&#39;</span>
+<span class="o">}</span>
+
+get_hashes<span class="w"> </span>run_1.log<span class="w"> </span>&gt;<span class="w"> </span>run_1.tasks.log
+get_hashes<span class="w"> </span>run_2.log<span class="w"> </span>&gt;<span class="w"> </span>run_2.tasks.log
+
+diff<span class="w"> </span>run_1.tasks.log<span class="w"> </span>run_2.tasks.log
+</pre></div>
+</div>
+<p>You can then view the <code class="docutils literal notranslate"><span class="pre">diff</span></code> output or use a graphical diff viewer to compare <code class="docutils literal notranslate"><span class="pre">run_1.tasks.log</span></code> and <code class="docutils literal notranslate"><span class="pre">run_2.tasks.log</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="executor.html" class="btn btn-neutral float-left" title="Executors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tracing.html" class="btn btn-neutral float-right" title="Tracing &amp; visualisation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+</body>
+</html>

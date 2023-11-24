@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Command line interface (CLI) &mdash; Nextflow 23.09.0-edge documentation</title>
+  <title>Command line interface (CLI) &mdash; Nextflow 23.11.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Containers" href="container.html" />
-    <link rel="prev" title="DSL 2" href="dsl2.html" />
+    <link rel="next" title="Executors" href="executor.html" />
+    <link rel="prev" title="Migrating from DSL 1" href="dsl1.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -52,16 +52,24 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Command line interface (CLI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#options">Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#hard-configuration-override">Hard configuration override</a></li>
@@ -82,6 +90,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#config">config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#console">console</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#drop">drop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fs">fs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id1">help</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#info">info</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inspect">inspect</a></li>
@@ -98,18 +107,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#pipeline-parameters">Pipeline parameters</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -118,12 +117,39 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -171,7 +197,11 @@
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-c,</span> <span class="pre">-config</span></code></dt><dd><p>Add the specified file to configuration set.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-d,</span> <span class="pre">-dockerize</span></code></dt><dd><p>Launch nextflow via Docker (experimental).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-d,</span> <span class="pre">-dockerize</span></code></dt><dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 23.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Launch nextflow via Docker (experimental).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-h</span></code></dt><dd><p>Print this help.</p>
 </dd>
@@ -350,7 +380,7 @@ http://nextflow.io
 <section id="commands">
 <span id="cli-commands"></span><h2>Commands<a class="headerlink" href="#commands" title="Permalink to this heading"></a></h2>
 <section id="clean">
-<h3>clean<a class="headerlink" href="#clean" title="Permalink to this heading"></a></h3>
+<span id="cli-clean"></span><h3>clean<a class="headerlink" href="#clean" title="Permalink to this heading"></a></h3>
 <p>Clean up <em>cache</em> and <em>work</em> directories.</p>
 <p><strong>Usage</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>clean<span class="w"> </span><span class="o">[</span>run_name<span class="p">|</span>session_id<span class="o">]</span><span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
@@ -591,6 +621,49 @@ http://nextflow.io
 </pre></div>
 </div>
 </section>
+<section id="fs">
+<h3>fs<a class="headerlink" href="#fs" title="Permalink to this heading"></a></h3>
+<p>Perform basic filesystem operations.</p>
+<p><strong>Usage</strong></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span><span class="o">[</span>subcommands<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Description</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">fs</span></code> command is used to perform filesystem operations like copy, move, delete, list directory, etc. Like the <code class="docutils literal notranslate"><span class="pre">file()</span></code> method, it can work with local files, remote URLs, and remote object storage. Storage credentials can be provided through the same manner as launching a pipeline (Nextflow config, environment vars, etc).</p>
+<p><strong>Options</strong></p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">-h,</span> <span class="pre">-help</span></code></dt><dd><p>Print the command usage.</p>
+</dd>
+</dl>
+<p><strong>Examples</strong></p>
+<p>List a directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>list<span class="w"> </span>&lt;directory&gt;
+</pre></div>
+</div>
+<p>Print the contents of a file to standard output.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>cat<span class="w"> </span>&lt;file&gt;
+</pre></div>
+</div>
+<p>Copy a file or directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>cp<span class="w"> </span>&lt;source&gt;<span class="w"> </span>&lt;target&gt;
+</pre></div>
+</div>
+<p>Move a file or directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>mv<span class="w"> </span>&lt;source&gt;<span class="w"> </span>&lt;target&gt;
+</pre></div>
+</div>
+<p>Delete a file or directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>rm<span class="w"> </span>&lt;path&gt;
+</pre></div>
+</div>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+<p>Print file or directory attributes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>fs<span class="w"> </span>stat<span class="w"> </span>&lt;path&gt;
+</pre></div>
+</div>
+</section>
 <section id="id1">
 <h3>help<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <p>Print the top-level help or specific help for a command.</p>
@@ -821,7 +894,7 @@ http://nextflow.io
 </div>
 </section>
 <section id="log">
-<h3>log<a class="headerlink" href="#log" title="Permalink to this heading"></a></h3>
+<span id="cli-log"></span><h3>log<a class="headerlink" href="#log" title="Permalink to this heading"></a></h3>
 <p>Print the execution history and log information.</p>
 <p><strong>Usage</strong></p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>log<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>run_name<span class="w"> </span><span class="p">|</span><span class="w"> </span>session_id<span class="o">]</span>
@@ -1007,13 +1080,25 @@ http://nextflow.io
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-disable-jobs-cancellation</span></code></dt><dd><p>Prevent the cancellation of child jobs on execution termination</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-dsl1</span></code></dt><dd><p>Execute the workflow using DSL1 syntax.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-dsl1</span></code></dt><dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 23.09.0-edge.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-dsl2</span></code></dt><dd><p>Execute the workflow using DSL2 syntax.</p>
+<dd><p>Execute the workflow using DSL1 syntax.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-dsl2</span></code></dt><dd><div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 23.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Execute the workflow using DSL2 syntax.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-dump-channels</span></code></dt><dd><p>Dump channels for debugging purpose.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-dump-hashes</span></code></dt><dd><p>Dump task hash keys for debugging purpose.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-dump-hashes</span></code></dt><dd><p>Dump task hash keys for debugging purposes.</p>
+</dd>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0: </span>You can use <code class="docutils literal notranslate"><span class="pre">-dump-hashes</span> <span class="pre">json</span></code> to dump the task hash keys as JSON for easier post-processing. See the <a class="reference internal" href="cache-and-resume.html#cache-compare-hashes"><span class="std std-ref">caching and resuming tips</span></a> for more details.</p>
+</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-e.&lt;key&gt;=&lt;value&gt;</span></code></dt><dd><p>Add the specified variable to execution environment.</p>
 </dd>
@@ -1069,9 +1154,15 @@ http://nextflow.io
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-charliecloud</span></code></dt><dd><p>Enable process execution in a Charliecloud container.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-cloudcache</span></code></dt><dd><p>Enable the use of the Cloud cache plugin for storing cache metadata to an object storage bucket.</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-conda</span></code></dt><dd><p>Use the specified Conda environment package or file (must end with <code class="docutils literal notranslate"><span class="pre">.yml</span></code> or <code class="docutils literal notranslate"><span class="pre">.yaml</span></code>)</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> (<code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.dot</span></code>)</dt><dd><p>Create pipeline DAG file.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> (<code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.html</span></code>)</dt><dd><p>Create pipeline DAG file.</p>
+</dd>
+<dd><div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.10.0: </span>The default format was changed from <code class="docutils literal notranslate"><span class="pre">dot</span></code> to <code class="docutils literal notranslate"><span class="pre">html</span></code>.</p>
+</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">-with-docker</span></code></dt><dd><p>Enable process execution in a Docker container.</p>
 </dd>
@@ -1133,12 +1224,7 @@ http://nextflow.io
 </pre></div>
 </div>
 </li>
-<li><p>Execute the pipeline with DSL-2 syntax.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>run<span class="w"> </span>nextflow-io/hello<span class="w"> </span>-dsl2
-</pre></div>
-</div>
-</li>
-<li><p>Execute a pipeline with a specific workflow as the entry-point, this option is meant to be used with DSL-2. For more information on DSL-2, please refer to <a class="reference internal" href="dsl2.html#dsl2-page"><span class="std std-ref">DSL 2</span></a></p>
+<li><p>Invoke the pipeline with a specific workflow as the entry-point.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>nextflow<span class="w"> </span>run<span class="w"> </span>main.nf<span class="w"> </span>-entry<span class="w"> </span>workflow_A
 </pre></div>
 </div>
@@ -1303,8 +1389,8 @@ http://nextflow.io
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="dsl2.html" class="btn btn-neutral float-left" title="DSL 2" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="container.html" class="btn btn-neutral float-right" title="Containers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="dsl1.html" class="btn btn-neutral float-left" title="Migrating from DSL 1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="executor.html" class="btn btn-neutral float-right" title="Executors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

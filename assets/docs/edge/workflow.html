@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workflows &mdash; Nextflow 23.11.0-edge documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Modules" href="module.html" />
+    <link rel="prev" title="Operators" href="operator.html" />
+     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TNCXSWG');</script>
+    <!-- End Google Tag Manager -->
+
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/nextflow-logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div>
+    <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
+<li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Workflows</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#process-invocation">Process invocation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#process-composition">Process composition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-outputs">Process outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-named-outputs">Process named outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-named-stdout">Process named stdout</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#subworkflows">Subworkflows</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-parameters">Workflow parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-inputs">Workflow inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-outputs">Workflow outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-named-outputs">Workflow named outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-entrypoint">Workflow entrypoint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#workflow-composition">Workflow composition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#special-operators">Special operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pipe">Pipe <code class="docutils literal notranslate"><span class="pre">|</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#and">And <code class="docutils literal notranslate"><span class="pre">&amp;</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="metadata.html">Workflow introspection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mail.html">Mail &amp; Notifications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
+
+        </div>
+    <div class="nav-footer-logo">
+        <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
+            Nextflow is developed by:<br>
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
+        </a>
+    </div>
+
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nextflow</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Workflows</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/nextflow-io/nextflow/blob/master/docs/workflow.md" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="workflows">
+<span id="workflow-page"></span><h1>Workflows<a class="headerlink" href="#workflows" title="Permalink to this heading"></a></h1>
+<p>In Nextflow, a <strong>workflow</strong> is a composition of processes and dataflow logic (i.e. channels and operators).</p>
+<p>The workflow definition starts with the keyword <code class="docutils literal notranslate"><span class="pre">workflow</span></code>, followed by an optional name, and finally the workflow body delimited by curly braces. A basic workflow looks like the following example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Where <code class="docutils literal notranslate"><span class="pre">foo</span></code> could be a function, a process, or another workflow.</p>
+<p>Workflows are <em>lazily executed</em>, which means that Nextflow parses the entire workflow structure first, and then executes the entire workflow at once. The order in which a task is executed is determined only by its dependencies, so a task will be executed as soon as all of its required inputs are available.</p>
+<p>The syntax of a workflow is defined as follows:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">{</span>
+
+<span class="w">    </span><span class="nl">take:</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="w"> </span><span class="n">workflow</span><span class="w"> </span><span class="n">inputs</span><span class="w"> </span><span class="o">&gt;</span>
+
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="w"> </span><span class="n">dataflow</span><span class="w"> </span><span class="n">statements</span><span class="w"> </span><span class="o">&gt;</span>
+
+<span class="w">    </span><span class="nl">emit:</span>
+<span class="w">    </span><span class="o">&lt;</span><span class="w"> </span><span class="n">workflow</span><span class="w"> </span><span class="n">outputs</span><span class="w"> </span><span class="o">&gt;</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">main:</span></code> label can be omitted if there are no <code class="docutils literal notranslate"><span class="pre">take:</span></code> or <code class="docutils literal notranslate"><span class="pre">emit:</span></code> blocks.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Workflows were introduced in DSL2. If you are still using DSL1, see the <a class="reference internal" href="dsl1.html#dsl1-page"><span class="std std-ref">Migrating from DSL 1</span></a> page to learn how to migrate your Nextflow pipelines to DSL2.</p>
+</div>
+<section id="process-invocation">
+<span id="workflow-process-invocation"></span><h2>Process invocation<a class="headerlink" href="#process-invocation" title="Permalink to this heading"></a></h2>
+<p>A process can be invoked like a function in a workflow definition, passing the expected input channels like function arguments. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;foo.txt&#39;</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    your_command &gt; foo.txt</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="n">x</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;bar.txt&#39;</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    another_command $x &gt; bar.txt</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">channel</span><span class="o">.</span><span class="na">fromPath</span><span class="o">(</span><span class="s1">&#39;/some/path/*.txt&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>A process can be only be invoked once in a single workflow, however you can get around this restriction by using <a class="reference internal" href="module.html#module-aliases"><span class="std std-ref">Module aliases</span></a>.</p>
+</div>
+<section id="process-composition">
+<h3>Process composition<a class="headerlink" href="#process-composition" title="Permalink to this heading"></a></h3>
+<p>Processes with matching input/output declarations can be composed so that the output of the first process is passed as input to the second process. The previous example can be rewritten as follows:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">())</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="process-outputs">
+<h3>Process outputs<a class="headerlink" href="#process-outputs" title="Permalink to this heading"></a></h3>
+<p>A process output can be accessed using the <code class="docutils literal notranslate"><span class="pre">out</span></code> attribute on the corresponding process object. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>When a process defines multiple output channels, each output can be accessed by index (<code class="docutils literal notranslate"><span class="pre">out[0]</span></code>, <code class="docutils literal notranslate"><span class="pre">out[1]</span></code>, etc.) or by name (see below).</p>
+<p>The process output(s) can also be accessed like the return value of a function:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">f_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="o">(</span><span class="n">b1</span><span class="o">,</span><span class="w"> </span><span class="n">b2</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bar</span><span class="o">(</span><span class="n">f_out</span><span class="o">)</span>
+<span class="w">    </span><span class="n">b1</span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="process-named-outputs">
+<h3>Process named outputs<a class="headerlink" href="#process-named-outputs" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">emit</span></code> option can be added to the process output definition to assign a name identifier. This name can be used to reference the channel from the calling workflow. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">path</span><span class="w"> </span><span class="s1">&#39;*.bam&#39;</span><span class="o">,</span><span class="w"> </span><span class="nl">emit:</span><span class="w"> </span><span class="n">samples_bam</span>
+
+<span class="w">    </span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    your_command --here</span>
+<span class="s1">    &#39;&#39;&#39;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">samples_bam</span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>When referencing a named output directly from the process invocation, you can use a more concise syntax:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">ch_samples</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">foo</span><span class="o">().</span><span class="na">samples_bam</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>See <a class="reference internal" href="process.html#process-additional-options"><span class="std std-ref">process outputs</span></a> for more details.</p>
+</section>
+<section id="process-named-stdout">
+<h3>Process named stdout<a class="headerlink" href="#process-named-stdout" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">emit</span></code> option can also be used to name a <code class="docutils literal notranslate"><span class="pre">stdout</span></code> output:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">sayHello</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">cheers</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">stdout</span><span class="w"> </span><span class="nl">emit:</span><span class="w"> </span><span class="n">verbiage</span>
+
+<span class="w">    </span><span class="nl">script:</span>
+<span class="w">    </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    echo -n $cheers</span>
+<span class="s2">    &quot;&quot;&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">things</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">channel</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="s1">&#39;Hello world!&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;Yo, dude!&#39;</span><span class="o">,</span><span class="w"> </span><span class="s1">&#39;Duck!&#39;</span><span class="o">)</span>
+<span class="w">    </span><span class="n">sayHello</span><span class="o">(</span><span class="n">things</span><span class="o">)</span>
+<span class="w">    </span><span class="n">sayHello</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">verbiage</span><span class="o">.</span><span class="na">view</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Optional params for a process input/output are always prefixed with a comma, except for <code class="docutils literal notranslate"><span class="pre">stdout</span></code>. Because <code class="docutils literal notranslate"><span class="pre">stdout</span></code> does not have an associated name or value like other types, the first param should not be prefixed.</p>
+</div>
+</section>
+</section>
+<section id="subworkflows">
+<h2>Subworkflows<a class="headerlink" href="#subworkflows" title="Permalink to this heading"></a></h2>
+<p>A named workflow is a “subworkflow” that can be invoked from other workflows. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">()</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="w"> </span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">collect</span><span class="o">()</span><span class="w"> </span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">my_pipeline</span><span class="o">()</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The above snippet defines a workflow named <code class="docutils literal notranslate"><span class="pre">my_pipeline</span></code>, that can be invoked from another workflow as <code class="docutils literal notranslate"><span class="pre">my_pipeline()</span></code>, just like any other function or process.</p>
+<section id="workflow-parameters">
+<h3>Workflow parameters<a class="headerlink" href="#workflow-parameters" title="Permalink to this heading"></a></h3>
+<p>A workflow component can access any variable or parameter defined in the global scope:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="o">.</span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;/some/data/file&#39;</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="k">if</span><span class="o">(</span><span class="w"> </span><span class="n">params</span><span class="o">.</span><span class="na">data</span><span class="w"> </span><span class="o">)</span>
+<span class="w">        </span><span class="n">bar</span><span class="o">(</span><span class="n">params</span><span class="o">.</span><span class="na">data</span><span class="o">)</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">        </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">())</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-inputs">
+<h3>Workflow inputs<a class="headerlink" href="#workflow-inputs" title="Permalink to this heading"></a></h3>
+<p>A workflow can declare one or more input channels using the <code class="docutils literal notranslate"><span class="pre">take</span></code> keyword. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">take:</span><span class="w"> </span><span class="n">data</span>
+
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Multiple inputs must be specified on separate lines:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">take:</span>
+<span class="w">    </span><span class="n">data1</span>
+<span class="w">    </span><span class="n">data2</span>
+
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">(</span><span class="n">data1</span><span class="o">,</span><span class="w"> </span><span class="n">data2</span><span class="o">)</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When the <code class="docutils literal notranslate"><span class="pre">take</span></code> keyword is used, the beginning of the workflow body must be defined with the <code class="docutils literal notranslate"><span class="pre">main</span></code> keyword.</p>
+</div>
+<p>Inputs can be specified like arguments when invoking the workflow:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">my_pipeline</span><span class="o">(</span><span class="w"> </span><span class="n">channel</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="s1">&#39;/some/data&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</section>
+<section id="workflow-outputs">
+<h3>Workflow outputs<a class="headerlink" href="#workflow-outputs" title="Permalink to this heading"></a></h3>
+<p>A workflow can declare one or more output channels using the <code class="docutils literal notranslate"><span class="pre">emit</span></code> keyword. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">emit:</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">.</span><span class="na">out</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>When invoking the workflow, the output channel(s) can be accessed using the <code class="docutils literal notranslate"><span class="pre">out</span></code> property, i.e. <code class="docutils literal notranslate"><span class="pre">my_pipeline.out</span></code>. When multiple output channels are declared, use the array bracket notation or the assignment syntax to access each output channel as described for <a class="reference internal" href="#process-outputs"><span class="std std-doc">process outputs</span></a>.</p>
+</section>
+<section id="workflow-named-outputs">
+<h3>Workflow named outputs<a class="headerlink" href="#workflow-named-outputs" title="Permalink to this heading"></a></h3>
+<p>If an output channel is assigned to an identifier in the <code class="docutils literal notranslate"><span class="pre">emit</span></code> block, the identifier can be used to reference the channel from the calling workflow. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">my_pipeline</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">    </span><span class="n">foo</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">    </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+
+<span class="w">    </span><span class="nl">emit:</span>
+<span class="w">    </span><span class="n">my_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bar</span><span class="o">.</span><span class="na">out</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The result of the above workflow can be accessed using <code class="docutils literal notranslate"><span class="pre">my_pipeline.out.my_data</span></code>.</p>
+</section>
+<section id="workflow-entrypoint">
+<h3>Workflow entrypoint<a class="headerlink" href="#workflow-entrypoint" title="Permalink to this heading"></a></h3>
+<p>A workflow with no name (also known as the <em>implicit workflow</em>) is the default entrypoint of the Nextflow pipeline. A different workflow entrypoint can be specified using the <code class="docutils literal notranslate"><span class="pre">-entry</span></code> command line option.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Implicit workflow definitions are ignored when a script is included as a module. This way, a workflow script can be written in such a way that it can be used either as a library module or an application script.</p>
+</div>
+</section>
+<section id="workflow-composition">
+<h3>Workflow composition<a class="headerlink" href="#workflow-composition" title="Permalink to this heading"></a></h3>
+<p>Named workflows can be invoked and composed just like any other process or function.</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="n">flow1</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">take:</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">        </span><span class="n">foo</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">        </span><span class="n">bar</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="w">    </span><span class="nl">emit:</span>
+<span class="w">        </span><span class="n">bar</span><span class="o">.</span><span class="na">out</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="n">flow2</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">take:</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">        </span><span class="n">foo</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">        </span><span class="n">baz</span><span class="o">(</span><span class="n">foo</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="w">    </span><span class="nl">emit:</span>
+<span class="w">        </span><span class="n">baz</span><span class="o">.</span><span class="na">out</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">take:</span><span class="w"> </span><span class="n">data</span>
+<span class="w">    </span><span class="nl">main:</span>
+<span class="w">        </span><span class="n">flow1</span><span class="o">(</span><span class="n">data</span><span class="o">)</span>
+<span class="w">        </span><span class="n">flow2</span><span class="o">(</span><span class="n">flow1</span><span class="o">.</span><span class="na">out</span><span class="o">)</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Each workflow invocation has its own scope. As a result, the same process can be invoked in two different workflow scopes, like <code class="docutils literal notranslate"><span class="pre">foo</span></code> in the above snippet, which is used in both <code class="docutils literal notranslate"><span class="pre">flow1</span></code> and <code class="docutils literal notranslate"><span class="pre">flow2</span></code>. The workflow execution path, along with the process names, determines the <em>fully qualified process name</em> that is used to distinguish the different process invocations, i.e. <code class="docutils literal notranslate"><span class="pre">flow1:foo</span></code> and <code class="docutils literal notranslate"><span class="pre">flow2:foo</span></code> in the above example.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The fully qualified process name can be used as a <a class="reference internal" href="config.html#config-process-selectors"><span class="std std-ref">process selector</span></a> in a Nextflow configuration file, and it takes priority over the simple process name.</p>
+</div>
+</section>
+</section>
+<section id="special-operators">
+<h2>Special operators<a class="headerlink" href="#special-operators" title="Permalink to this heading"></a></h2>
+<section id="pipe">
+<h3>Pipe <code class="docutils literal notranslate"><span class="pre">|</span></code><a class="headerlink" href="#pipe" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">|</span></code> <em>pipe</em> operator can be used to compose Nextflow processes and operators. For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">data</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">result</span>
+
+<span class="w">    </span><span class="nl">exec:</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;$data world&quot;</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">   </span><span class="n">channel</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="s1">&#39;Hello&#39;</span><span class="o">,</span><span class="s1">&#39;Hola&#39;</span><span class="o">,</span><span class="s1">&#39;Ciao&#39;</span><span class="o">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()</span><span class="w"> </span><span class="o">}</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">view</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>The above snippet defines a process named <code class="docutils literal notranslate"><span class="pre">foo</span></code> and invokes it with the <code class="docutils literal notranslate"><span class="pre">data</span></code> channel. The result is then piped to the <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a> operator, which converts each string to uppercase, and finally to the <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> operator which prints it.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Statements can also be split across multiple lines for better readability:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">channel</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="s1">&#39;Hello&#39;</span><span class="o">,</span><span class="s1">&#39;Hola&#39;</span><span class="o">,</span><span class="s1">&#39;Ciao&#39;</span><span class="o">)</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">foo</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">view</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="and">
+<h3>And <code class="docutils literal notranslate"><span class="pre">&amp;</span></code><a class="headerlink" href="#and" title="Permalink to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> <em>and</em> operator can be used to feed multiple processes with the same channel(s). For example:</p>
+<div class="highlight-groovy notranslate"><div class="highlight"><pre><span></span><span class="n">process</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">data</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">result</span>
+
+<span class="w">    </span><span class="nl">exec:</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;$data world&quot;</span>
+<span class="o">}</span>
+
+<span class="n">process</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nl">input:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">data</span>
+
+<span class="w">    </span><span class="nl">output:</span>
+<span class="w">    </span><span class="n">val</span><span class="w"> </span><span class="n">result</span>
+
+<span class="w">    </span><span class="nl">exec:</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">workflow</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">channel</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="s1">&#39;Hello&#39;</span><span class="o">)</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">it</span><span class="o">.</span><span class="na">reverse</span><span class="o">()</span><span class="w"> </span><span class="o">}</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="o">(</span><span class="n">foo</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">bar</span><span class="o">)</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">mix</span>
+<span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="n">view</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>In the above snippet, the initial channel is piped to the <a class="reference internal" href="operator.html#operator-map"><span class="std std-ref">map</span></a> operator, which reverses the string value. Then, the result is passed to the processes <code class="docutils literal notranslate"><span class="pre">foo</span></code> and <code class="docutils literal notranslate"><span class="pre">bar</span></code>, which are executed in parallel. Each process outputs a channel, and the two channels are combined using the <a class="reference internal" href="operator.html#operator-mix"><span class="std std-ref">mix</span></a> operator. Finally, the result is printed using the <a class="reference internal" href="operator.html#operator-view"><span class="std std-ref">view</span></a> operator.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="operator.html" class="btn btn-neutral float-left" title="Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Seqera Labs, S.L.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+     
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+
+</body>
+</html>

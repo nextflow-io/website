@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Executors &mdash; Nextflow 23.09.0-edge documentation</title>
+  <title>Executors &mdash; Nextflow 23.11.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Configuration" href="config.html" />
-    <link rel="prev" title="Operators" href="operator.html" />
+    <link rel="next" title="Caching and resuming" href="cache-and-resume.html" />
+    <link rel="prev" title="Command line interface (CLI)" href="cli.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -52,13 +52,25 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Executors</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#aws-batch">AWS Batch</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#azure-batch">Azure Batch</a></li>
@@ -88,21 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#slurm">SLURM</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -111,12 +109,39 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -406,6 +431,10 @@
 <span id="local-executor"></span><h2>Local<a class="headerlink" href="#local" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">local</span></code> executor is used by default. It runs the pipeline processes on the computer where Nextflow is launched. The processes are parallelised by spawning multiple threads, taking advantage of the multi-core architecture of the CPU.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">local</span></code> executor is useful for developing and testing a pipeline script on your computer, before switching to a cluster or cloud environment with production data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While the <code class="docutils literal notranslate"><span class="pre">local</span></code> executor limits the number of concurrent tasks based on requested vs available resources, it does not enforce task resource requests. In other words, it is possible for a local task to use more CPUs and memory than it requested, in which case it may starve other tasks. An exception to this behavior is when using <a class="reference internal" href="container.html#container-docker"><span class="std std-ref">Docker</span></a> or <a class="reference internal" href="container.html#container-podman"><span class="std std-ref">Podman</span></a> containers, in which case the resource requests are enforced by the container runtime.</p>
+</div>
 </section>
 <section id="lsf">
 <span id="lsf-executor"></span><h2>LSF<a class="headerlink" href="#lsf" title="Permalink to this heading"></a></h2>
@@ -571,8 +600,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="operator.html" class="btn btn-neutral float-left" title="Operators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="config.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cli.html" class="btn btn-neutral float-left" title="Command line interface (CLI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cache-and-resume.html" class="btn btn-neutral float-right" title="Caching and resuming" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

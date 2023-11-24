@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; Nextflow 23.09.0-edge documentation</title>
+  <title>Configuration &mdash; Nextflow 23.11.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DSL 2" href="dsl2.html" />
-    <link rel="prev" title="Executors" href="executor.html" />
+    <link rel="next" title="Migrating from DSL 1" href="dsl1.html" />
+    <link rel="prev" title="Modules" href="module.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -52,14 +52,19 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration-file">Configuration file</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#config-syntax">Config syntax</a></li>
@@ -78,7 +83,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#scope-docker">Scope <code class="docutils literal notranslate"><span class="pre">docker</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-env">Scope <code class="docutils literal notranslate"><span class="pre">env</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-executor">Scope <code class="docutils literal notranslate"><span class="pre">executor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scope-google">Scope <code class="docutils literal notranslate"><span class="pre">google</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scope-google">Scope <code class="docutils literal notranslate"><span class="pre">google</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cloud-batch">Cloud Batch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloud-life-sciences">Cloud Life Sciences</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-k8s">Scope <code class="docutils literal notranslate"><span class="pre">k8s</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-mail">Scope <code class="docutils literal notranslate"><span class="pre">mail</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scope-manifest">Scope <code class="docutils literal notranslate"><span class="pre">manifest</span></code></a></li>
@@ -107,20 +116,13 @@
 <li class="toctree-l2"><a class="reference internal" href="#feature-flags">Feature flags</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tracing.html">Tracing &amp; visualisation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sharing.html">Pipeline sharing</a></li>
@@ -129,12 +131,39 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -234,7 +263,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">apptainer</span></code> scope controls how <a class="reference external" href="https://apptainer.org">Apptainer</a> containers are executed by Nextflow.</p>
 <p>The following settings are available:</p>
 <dl class="simple myst">
-<dt><code class="docutils literal notranslate"><span class="pre">apptainer.autoMounts</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed container. It requires the <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">bind</span> <span class="pre">control</span></code> feature to be enabled in your Apptainer installation (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">apptainer.autoMounts</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> Nextflow automatically mounts host paths in the executed container. It requires the <code class="docutils literal notranslate"><span class="pre">user</span> <span class="pre">bind</span> <span class="pre">control</span></code> feature to be enabled in your Apptainer installation (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">apptainer.cacheDir</span></code></dt><dd><p>The directory where remote Apptainer images are stored. When using a computing cluster it must be a shared folder accessible to all compute nodes.</p>
 </dd>
@@ -318,7 +347,7 @@
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">aws.batch.maxTransferAttempts</span></code></dt><dd><p>Max number of downloads attempts from S3 (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">aws.batch.retryMode</span></code></dt><dd><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>)</p>
+<dt><code class="docutils literal notranslate"><span class="pre">aws.batch.retryMode</span></code></dt><dd><p>The retry mode configuration setting, to accommodate rate-limiting on <a class="reference external" href="https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-retries.html">AWS services</a> (default: <code class="docutils literal notranslate"><span class="pre">standard</span></code>, other options: <code class="docutils literal notranslate"><span class="pre">legacy</span></code>, <code class="docutils literal notranslate"><span class="pre">adaptive</span></code>); this handling is delegated to AWS. To have Nextflow handle retries instead, use <code class="docutils literal notranslate"><span class="pre">built-in</span></code>.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">aws.batch.schedulingPriority</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 23.01.0-edge.</span></p>
@@ -348,7 +377,12 @@
 </dd>
 <dd><p><em>Experimental: may change in a future release.</em></p>
 </dd>
-<dd><p>Enable auto retrieval of S3 objects stored with Glacier class store (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+<dd><p>Enable auto retrieval of S3 objects with a Glacier storage class (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This feature only works for S3 objects that are downloaded by Nextflow directly. It is not supported for tasks (e.g. when using the AWS Batch executor), since that would lead to many tasks sitting idle for several hours and wasting resources. If you need to restore many objects from Glacier, consider restoring them in a script prior to launching the pipeline.</p>
+</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">aws.client.glacierExpirationDays</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.12.0-edge.</span></p>
@@ -396,7 +430,7 @@
 <p><span class="versionmodified added">New in version 22.05.0-edge.</span></p>
 </div>
 </dd>
-<dd><p>The AWS KMS key Id to be used to encrypt files stored in the target S3 bucket ().</p>
+<dd><p>The AWS KMS key Id to be used to encrypt files stored in the target S3 bucket.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">aws.client.userAgent</span></code></dt><dd><p>The HTTP user agent header passed with all HTTP requests.</p>
 </dd>
@@ -465,6 +499,10 @@
 <dt><code class="docutils literal notranslate"><span class="pre">azure.batch.pools.&lt;name&gt;.fileShareRootPath</span></code></dt><dd><p><em>New in <code class="docutils literal notranslate"><span class="pre">nf-azure</span></code> version <code class="docutils literal notranslate"><span class="pre">0.11.0</span></code></em></p>
 </dd>
 <dd><p>If mounting File Shares, this is the internal root mounting point. Must be <code class="docutils literal notranslate"><span class="pre">/mnt/resource/batch/tasks/fsmounts</span></code> for CentOS nodes or <code class="docutils literal notranslate"><span class="pre">/mnt/batch/tasks/fsmounts</span></code> for Ubuntu nodes (default is for CentOS).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">azure.batch.pools.&lt;name&gt;.lowPriority</span></code></dt><dd><p><em>New in <code class="docutils literal notranslate"><span class="pre">nf-azure</span></code> version <code class="docutils literal notranslate"><span class="pre">1.4.0</span></code></em></p>
+</dd>
+<dd><p>Enable the use of low-priority VMs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">azure.batch.pools.&lt;name&gt;.maxVmCount</span></code></dt><dd><p>Specify the max of virtual machine when using auto scale option.</p>
 </dd>
@@ -559,6 +597,8 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">conda</span></code> scope controls the creation of a Conda environment by the Conda package manager.</p>
 <p>The following settings are available:</p>
 <dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">conda.enabled</span></code></dt><dd><p>Enable Conda execution (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">conda.cacheDir</span></code></dt><dd><p>Defines the path where Conda environments are stored. When using a compute cluster make sure to provide a shared file system path accessible from all compute nodes.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">conda.createOptions</span></code></dt><dd><p>Defines any extra command line options supported by the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span></code> command. For details see the <a class="reference external" href="https://docs.conda.io/projects/conda/en/latest/commands/create.html">Conda documentation</a>.</p>
@@ -578,17 +618,41 @@
 </section>
 <section id="scope-dag">
 <span id="config-dag"></span><h3>Scope <code class="docutils literal notranslate"><span class="pre">dag</span></code><a class="headerlink" href="#scope-dag" title="Permalink to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope controls the layout of the execution graph diagram generated by Nextflow.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">dag</span></code> scope controls the workflow diagram generated by Nextflow.</p>
 <p>The following settings are available:</p>
 <dl class="simple myst">
-<dt><code class="docutils literal notranslate"><span class="pre">dag.enabled</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> turns on the generation of the DAG file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.enabled</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the generation of the DAG file (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">dag.file</span></code></dt><dd><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.dot</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.depth</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">dag.overwrite</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing DAG file with the same name.</p>
+<dd><p><em>Only supported by the HTML and Mermaid renderers.</em></p>
+</dd>
+<dd><p>Controls the maximum depth at which to render sub-workflows (default: no limit).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.direction</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+</dd>
+<dt>:::</dt><dd><p><em>Only supported by the HTML and Mermaid renderers.</em></p>
+</dd>
+<dd><p>Controls the direction of the DAG, can be <code class="docutils literal notranslate"><span class="pre">'LR'</span></code> (left-to-right) or <code class="docutils literal notranslate"><span class="pre">'TB'</span></code> (top-to-bottom) (default: <code class="docutils literal notranslate"><span class="pre">'TB'</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.file</span></code></dt><dd><p>Graph file name (default: <code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.html</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.overwrite</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> overwrites any existing DAG file with the same name (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">dag.verbose</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+</dd>
+<dd><p><em>Only supported by the HTML and Mermaid renderers.</em></p>
+</dd>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">false</span></code>, channel names are omitted, operators are collapsed, and empty workflow inputs are removed (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
 </dl>
-<p>Read the <a class="reference internal" href="tracing.html#dag-visualisation"><span class="std std-ref">DAG visualisation</span></a> page to learn more about the execution graph that can be generated by Nextflow.</p>
+<p>Read the <a class="reference internal" href="tracing.html#dag-visualisation"><span class="std std-ref">DAG visualisation</span></a> page to learn more about the workflow graph that can be generated by Nextflow.</p>
 </section>
 <section id="scope-docker">
 <span id="config-docker"></span><h3>Scope <code class="docutils literal notranslate"><span class="pre">docker</span></code><a class="headerlink" href="#scope-docker" title="Permalink to this heading"></a></h3>
@@ -789,7 +853,89 @@
 <span id="config-google"></span><h3>Scope <code class="docutils literal notranslate"><span class="pre">google</span></code><a class="headerlink" href="#scope-google" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">google</span></code> scope allows you to configure the interactions with Google Cloud, including Google Cloud Batch, Google Life Sciences, and Google Cloud Storage.</p>
 <p>Read the <a class="reference internal" href="google.html#google-page"><span class="std std-ref">Google Cloud</span></a> page for more information.</p>
-<p>The following settings are available:</p>
+<section id="cloud-batch">
+<h4>Cloud Batch<a class="headerlink" href="#cloud-batch" title="Permalink to this heading"></a></h4>
+<p>The following settings are available for Google Cloud Batch:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">google.enableRequesterPaysBuckets</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> uses the given Google Cloud project ID as the billing project for storage access. This is required when accessing data from <em>requester pays enabled</em> buckets. See <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">Requester Pays on Google Cloud Storage documentation</a> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.httpConnectTimeout</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Defines the HTTP connection timeout for Cloud Storage API requests (default: <code class="docutils literal notranslate"><span class="pre">'60s'</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.httpReadTimeout</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Defines the HTTP read timeout for Cloud Storage API requests (default: <code class="docutils literal notranslate"><span class="pre">'60s'</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.location</span></code></dt><dd><p>The Google Cloud location where jobs are executed (default: <code class="docutils literal notranslate"><span class="pre">us-central1</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.maxSpotAttempts</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Max number of execution attempts of a job interrupted by a Compute Engine spot reclaim event (default: <code class="docutils literal notranslate"><span class="pre">5</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.project</span></code></dt><dd><p>The Google Cloud project ID to use for pipeline execution</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.allowedLocations</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 22.12.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Define the set of allowed locations for VMs to be provisioned. See <a class="reference external" href="https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#locationpolicy">Google documentation</a> for details (default: no restriction).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.bootDiskSize</span></code></dt><dd><p>Set the size of the virtual machine boot disk, e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.cpuPlatform</span></code></dt><dd><p>Set the minimum CPU Platform, e.g. <code class="docutils literal notranslate"><span class="pre">'Intel</span> <span class="pre">Skylake'</span></code>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.network</span></code></dt><dd><p>The URL of an existing network resource to which the VM will be attached.</p>
+<p>You can specify the network as a full or partial URL. For example, the following are all valid URLs:</p>
+<ul class="simple">
+<li><p>https://www.googleapis.com/compute/v1/projects/{project}/global/networks/{network}</p></li>
+<li><p>projects/{project}/global/networks/{network}</p></li>
+<li><p>global/networks/{network}</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.serviceAccountEmail</span></code></dt><dd><p>Define the Google service account email to use for the pipeline execution. If not specified, the default Compute Engine service account for the project will be used.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.spot</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>spot</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.subnetwork</span></code></dt><dd><p>The URL of an existing subnetwork resource in the network to which the VM will be attached.</p>
+<p>You can specify the subnetwork as a full or partial URL. For example, the following are all valid URLs:</p>
+<ul class="simple">
+<li><p>https://www.googleapis.com/compute/v1/projects/{project}/regions/{region}/subnetworks/{subnetwork}</p></li>
+<li><p>projects/{project}/regions/{region}/subnetworks/{subnetwork}</p></li>
+<li><p>regions/{region}/subnetworks/{subnetwork}</p></li>
+</ul>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.batch.usePrivateAddress</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.storage.maxAttempts</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Max attempts when retrying failed API requests to Cloud Storage (default: <code class="docutils literal notranslate"><span class="pre">10</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.storage.maxDelay</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Max delay when retrying failed API requests to Cloud Storage (default: <code class="docutils literal notranslate"><span class="pre">'90s'</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">google.storage.multiplier</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Delay multiplier when retrying failed API requests to Cloud Storage (default: <code class="docutils literal notranslate"><span class="pre">2.0</span></code>).</p>
+</dd>
+</dl>
+</section>
+<section id="cloud-life-sciences">
+<h4>Cloud Life Sciences<a class="headerlink" href="#cloud-life-sciences" title="Permalink to this heading"></a></h4>
+<p>The following settings are available for Cloud Life Sciences:</p>
 <dl class="simple myst">
 <dt><code class="docutils literal notranslate"><span class="pre">google.enableRequesterPaysBuckets</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> uses the given Google Cloud project ID as the billing project for storage access. This is required when accessing data from <em>requester pays enabled</em> buckets. See <a class="reference external" href="https://cloud.google.com/storage/docs/requester-pays">Requester Pays on Google Cloud Storage documentation</a> (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
@@ -809,33 +955,9 @@
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">google.project</span></code></dt><dd><p>The Google Cloud project ID to use for pipeline execution</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.region</span></code></dt><dd><p><em>Available only for Google Life Sciences</em></p>
+<dt><code class="docutils literal notranslate"><span class="pre">google.region</span></code></dt><dd><p>The Google Cloud region where jobs are executed. Multiple regions can be provided as a comma-separated list. Cannot be used with the <code class="docutils literal notranslate"><span class="pre">google.zone</span></code> option. See the <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Google Cloud documentation</a> for a list of available regions and zones.</p>
 </dd>
-<dd><p>The Google Cloud region where jobs are executed. Multiple regions can be provided as a comma-separated list. Cannot be used with the <code class="docutils literal notranslate"><span class="pre">google.zone</span></code> option. See the <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Google Cloud documentation</a> for a list of available regions and zones.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.zone</span></code></dt><dd><p><em>Available only for Google Life Sciences</em></p>
-</dd>
-<dd><p>The Google Cloud zone where jobs are executed. Multiple zones can be provided as a comma-separated list. Cannot be used with the <code class="docutils literal notranslate"><span class="pre">google.region</span></code> option. See the <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Google Cloud documentation</a> for a list of available regions and zones.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.allowedLocations</span></code></dt><dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 22.12.0-edge.</span></p>
-</div>
-</dd>
-<dd><p>Define the set of allowed locations for VMs to be provisioned. See <a class="reference external" href="https://cloud.google.com/batch/docs/reference/rest/v1/projects.locations.jobs#locationpolicy">Google documentation</a> for details (default: no restriction).</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.bootDiskSize</span></code></dt><dd><p>Set the size of the virtual machine boot disk, e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.cpuPlatform</span></code></dt><dd><p>Set the minimum CPU Platform, e.g. <code class="docutils literal notranslate"><span class="pre">'Intel</span> <span class="pre">Skylake'</span></code>. See <a class="reference external" href="https://cloud.google.com/compute/docs/instances/specify-min-cpu-platform#specifications">Specifying a minimum CPU Platform for VM instances</a> (default: none).</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.network</span></code></dt><dd><p>Set network name to attach the VM’s network interface to. The value will be prefixed with <code class="docutils literal notranslate"><span class="pre">global/networks/</span></code> unless it contains a <code class="docutils literal notranslate"><span class="pre">/</span></code>, in which case it is assumed to be a fully specified network resource URL. If unspecified, the global default network is used.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.serviceAccountEmail</span></code></dt><dd><p>Define the Google service account email to use for the pipeline execution. If not specified, the default Compute Engine service account for the project will be used.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.spot</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> enables the usage of <em>spot</em> virtual machines or <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.subnetwork</span></code></dt><dd><p>Define the name of the subnetwork to attach the instance to must be specified here, when the specified network is configured for custom subnet creation. The value is prefixed with <code class="docutils literal notranslate"><span class="pre">regions/subnetworks/</span></code> unless it contains a <code class="docutils literal notranslate"><span class="pre">/</span></code>, in which case it is assumed to be a fully specified subnetwork resource URL.</p>
-</dd>
-<dt><code class="docutils literal notranslate"><span class="pre">google.batch.usePrivateAddress</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> the VM will NOT be provided with a public IP address, and only contain an internal IP. If this option is enabled, the associated job can only load docker images from Google Container Registry, and the job executable cannot use external services other than Google APIs (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">google.zone</span></code></dt><dd><p>The Google Cloud zone where jobs are executed. Multiple zones can be provided as a comma-separated list. Cannot be used with the <code class="docutils literal notranslate"><span class="pre">google.region</span></code> option. See the <a class="reference external" href="https://cloud.google.com/compute/docs/regions-zones/">Google Cloud documentation</a> for a list of available regions and zones.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">google.lifeSciences.bootDiskSize</span></code></dt><dd><p>Set the size of the virtual machine boot disk e.g <code class="docutils literal notranslate"><span class="pre">50.GB</span></code> (default: none).</p>
 </dd>
@@ -912,6 +1034,7 @@
 <dd><p>Defines the value for the option <code class="docutils literal notranslate"><span class="pre">GSUtil:parallel_thread_count</span></code> used by <code class="docutils literal notranslate"><span class="pre">gsutil</span></code> for transfer input and output data (default: <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 </dd>
 </dl>
+</section>
 </section>
 <section id="scope-k8s">
 <span id="config-k8s"></span><h3>Scope <code class="docutils literal notranslate"><span class="pre">k8s</span></code><a class="headerlink" href="#scope-k8s" title="Permalink to this heading"></a></h3>
@@ -1074,7 +1197,7 @@
 <span id="config-notification"></span><h3>Scope <code class="docutils literal notranslate"><span class="pre">notification</span></code><a class="headerlink" href="#scope-notification" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">notification</span></code> scope allows you to define the automatic sending of a notification email message when the workflow execution terminates.</p>
 <dl class="simple myst">
-<dt><code class="docutils literal notranslate"><span class="pre">notification.binding</span></code></dt><dd><p>An associative array modelling the variables in the template file.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">notification.binding</span></code></dt><dd><p>A map modelling the variables in the template file.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">notification.enabled</span></code></dt><dd><p>Enables the sending of a notification message when the workflow execution completes.</p>
 </dd>
@@ -1271,6 +1394,12 @@
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">singularity.noHttps</span></code></dt><dd><p>Pull the Singularity image with http protocol (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">singularity.oci</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Enable OCI-mode the allows the use of native OCI-compatible containers with Singularity. See <a class="reference external" href="https://docs.sylabs.io/guides/4.0/user-guide/oci_runtime.html#oci-mode">Singularity documentation</a> for more details and requirements (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">singularity.pullTimeout</span></code></dt><dd><p>The amount of time the Singularity pull can last, exceeding which the process is terminated (default: <code class="docutils literal notranslate"><span class="pre">20</span> <span class="pre">min</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">singularity.registry</span></code></dt><dd><div class="versionadded">
@@ -1462,6 +1591,12 @@ configuration strategies depending on the target runtime platform. The <code cla
 </dd>
 <dd><p>Defines the DSL version that should be used in not specified otherwise in the script of config file (default: <code class="docutils literal notranslate"><span class="pre">2</span></code>)</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_DISABLE_CHECK_LATEST</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.09.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Nextflow automatically checks for a newer version of itself unless this option is enabled (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_DISABLE_JOBS_CANCELLATION</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 21.12.0-edge.</span></p>
 </div>
@@ -1472,13 +1607,25 @@ configuration strategies depending on the target runtime platform. The <code cla
 <p><span class="versionmodified added">New in version 23.07.0-edge.</span></p>
 </div>
 </dd>
-<dt>:::</dt><dd><p>Disables the automatic type detection of command line parameters.</p>
+<dd><p>Disables the automatic type detection of command line parameters.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_DISABLE_WAVE_SERVICE</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 23.08.0-edge.</span></p>
 </div>
 </dd>
-<dt>:::</dt><dd><p>Disables the requirement for Wave service when enabling the Fusion file system.</p>
+<dd><p>Disables the requirement for Wave service when enabling the Fusion file system.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_ENABLE_AWS_SES</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.06.0-edge.</span></p>
+</div>
+</dd>
+<dd><p>Enable to use of AWS SES native API for sending emails in place of legacy SMTP settings (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_ENABLE_FS_SYNC</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.10.0.</span></p>
+</div>
+</dd>
+<dd><p>When enabled the job script will execute Linux <code class="docutils literal notranslate"><span class="pre">sync</span></code> command on job completion. This may be useful to synchronize the job state over shared file systems (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_ENABLE_SECRETS</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 21.09.0-edge.</span></p>
@@ -1512,7 +1659,15 @@ configuration strategies depending on the target runtime platform. The <code cla
 </dd>
 <dd><p>Allows the setting Java VM options. This is similar to <code class="docutils literal notranslate"><span class="pre">NXF_OPTS</span></code> however it’s only applied the JVM running Nextflow and not to any java pre-launching commands.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">NXF_OFFLINE</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> disables the project automatic download and update from remote repositories (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_OFFLINE</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code> prevents Nextflow from automatically downloading and updating remote project repositories (default: <code class="docutils literal notranslate"><span class="pre">false</span></code>).</p>
+</dd>
+<dd><div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.09.0-edge: </span>This option also disables the automatic version check (see <code class="docutils literal notranslate"><span class="pre">NXF_DISABLE_CHECK_LATEST</span></code>).</p>
+</div>
+</dd>
+<dd><div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.11.0-edge: </span>This option also prevents plugins from being downloaded. Plugin versions must be specified in offline mode, or else Nextflow will fail.</p>
+</div>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_OPTS</span></code></dt><dd><p>Provides extra options for the Java and Nextflow runtime. It must be a blank separated list of <code class="docutils literal notranslate"><span class="pre">-Dkey[=value]</span></code> properties.</p>
 </dd>
@@ -1525,6 +1680,10 @@ configuration strategies depending on the target runtime platform. The <code cla
 <dd><p>Defines the path location of the pipeline parameters file .</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_PID_FILE</span></code></dt><dd><p>Name of the file where the process PID is saved when Nextflow is launched in background.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DEFAULT</span></code></dt><dd><p>Whether to use the default plugins when no plugins are specified in the Nextflow configuration (default: <code class="docutils literal notranslate"><span class="pre">true</span></code>).</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_DIR</span></code></dt><dd><p>The path where the plugin archives are loaded and stored (default: <code class="docutils literal notranslate"><span class="pre">$NXF_HOME/plugins</span></code>).</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">NXF_PLUGINS_TEST_REPOSITORY</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 23.04.0.</span></p>
@@ -1610,7 +1769,7 @@ configuration strategies depending on the target runtime platform. The <code cla
 <p><span class="versionmodified added">New in version 22.12.0-edge: </span>DSL1 is no longer supported.</p>
 </div>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">nextflow.enable.moduleBinaries</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, enables the use of modules with binary scripts. See <a class="reference internal" href="dsl2.html#module-binaries"><span class="std std-ref">Module binaries</span></a> for more information.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">nextflow.enable.moduleBinaries</span></code></dt><dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, enables the use of modules with binary scripts. See <a class="reference internal" href="module.html#module-binaries"><span class="std std-ref">Module binaries</span></a> for more information.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">nextflow.enable.strict</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.05.0-edge.</span></p>
@@ -1639,6 +1798,14 @@ configuration strategies depending on the target runtime platform. The <code cla
 </dd>
 <dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, enables process and workflow recursion. See <a class="reference external" href="https://github.com/nextflow-io/nextflow/discussions/2521">this GitHub discussion</a> for more information.</p>
 </dd>
+<dt><code class="docutils literal notranslate"><span class="pre">nextflow.preview.topic</span></code></dt><dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 23.11.0-edge.</span></p>
+</div>
+</dd>
+<dd><p><em>Experimental: may change in a future release.</em></p>
+</dd>
+<dd><p>When <code class="docutils literal notranslate"><span class="pre">true</span></code>, enables <span class="xref std std-ref">topic channels</span> feature.</p>
+</dd>
 </dl>
 </section>
 </section>
@@ -1647,8 +1814,8 @@ configuration strategies depending on the target runtime platform. The <code cla
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="executor.html" class="btn btn-neutral float-left" title="Executors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="dsl2.html" class="btn btn-neutral float-right" title="DSL 2" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="module.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dsl1.html" class="btn btn-neutral float-right" title="Migrating from DSL 1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

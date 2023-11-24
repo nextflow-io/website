@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tracing &amp; visualisation &mdash; Nextflow 23.09.0-edge documentation</title>
+  <title>Tracing &amp; visualisation &mdash; Nextflow 23.11.0-edge documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/theme.css" type="text/css" />
@@ -19,11 +19,13 @@
         <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
+        <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+        <script>mermaid.initialize({startOnLoad:true});</script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Metrics" href="metrics.html" />
-    <link rel="prev" title="Kubernetes" href="kubernetes.html" />
+    <link rel="prev" title="Caching and resuming" href="cache-and-resume.html" />
      
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -52,29 +54,27 @@
 </div>
         </div>
     <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Get started</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="getstarted.html">Getting started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="basic.html">Basic concepts</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Language</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="script.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="process.html">Processes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="channel.html">Channels</a></li>
 <li class="toctree-l1"><a class="reference internal" href="operator.html">Operators</a></li>
-<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="workflow.html">Workflows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module.html">Modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="config.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dsl2.html">DSL 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dsl1.html">Migrating from DSL 1</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Execution</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Command line interface (CLI)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
-<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
-<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
-<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
-<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="executor.html">Executors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache-and-resume.html">Caching and resuming</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tracing &amp; visualisation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#execution-log">Execution log</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#customizing-fields">Customizing fields</a></li>
@@ -90,10 +90,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#trace-report">Trace report</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#timeline-report">Timeline report</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#mermaid-diagram">Mermaid diagram</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#dag-visualisation">DAG visualisation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a></li>
@@ -103,12 +100,39 @@
 <li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a></li>
 <li class="toctree-l1"><a class="reference internal" href="secrets.html">Secrets</a></li>
 </ul>
+<p class="caption" role="heading"><span class="caption-text">Software dependencies</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="container.html">Containers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Conda environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spack.html">Spack environments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wave.html">Wave containers</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Compute &amp; storage platforms</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="aws.html">Amazon Web Services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="amazons3.html">Amazon S3 storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="azure.html">Azure Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fusion.html">Fusion file system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="google.html">Google Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kubernetes.html">Kubernetes</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional integrations</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="flux.html">Flux Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ignite.html">Apache Ignite</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developer/index.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/packages.html">Packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer/plugins.html">Core plugins</a></li>
+</ul>
 
         </div>
     <div class="nav-footer-logo">
         <a href="https://seqera.io/" target="_blank" title="Developed by Seqera Labs">
             Nextflow is developed by:<br>
-            <img src="_static/seqera-logo.png" alt="Seqera Labs">
+            <img src="_static/seqera-logo.svg" alt="Seqera Labs">
         </a>
     </div>
 
@@ -215,7 +239,7 @@ task folder: $folder
 <span id="id2"></span><h2>Execution report<a class="headerlink" href="#execution-report" title="Permalink to this heading"></a></h2>
 <p>Nextflow can create an HTML execution report: a single document which includes many useful metrics about a workflow execution. The report is organised in the three main sections: <code class="docutils literal notranslate"><span class="pre">Summary</span></code>, <code class="docutils literal notranslate"><span class="pre">Resources</span></code> and <code class="docutils literal notranslate"><span class="pre">Tasks</span></code> (see below for details).</p>
 <p>To enable the creation of this report add the <code class="docutils literal notranslate"><span class="pre">-with-report</span></code> command line option when launching the pipeline execution. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>-with-report<span class="w"> </span><span class="o">[</span>file<span class="w"> </span>name<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline&gt;<span class="w"> </span>-with-report<span class="w"> </span><span class="o">[</span>file<span class="w"> </span>name<span class="o">]</span>
 </pre></div>
 </div>
 <p>The report file name can be specified as an optional parameter following the report option.</p>
@@ -228,7 +252,7 @@ task folder: $folder
 <h3>Resource Usage<a class="headerlink" href="#resource-usage" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">Resources</span></code> section plots the distribution of resource usage for each workflow process using the interactive <a class="reference external" href="https://plot.ly/javascript/">plotly.js</a> plotting library.</p>
 <p>Plots are shown for CPU, memory, job duration and disk I/O. They have two (or three) tabs with the raw values and a percentage representation showing what proportion of the requested resources were used. These plots are very helpful to check that task resources are used efficiently.</p>
-<img alt="_images/report-resource-cpu.png" src="_images/report-resource-cpu.png" />
+<img alt="_images/report-resource-cpu1.png" src="_images/report-resource-cpu1.png" />
 <p>Learn more about how resource usage is computed in the <a class="reference internal" href="metrics.html#metrics-page"><span class="std std-ref">Metrics documentation</span></a>.</p>
 </section>
 <section id="tasks">
@@ -250,7 +274,7 @@ task folder: $folder
 <span id="id3"></span><h2>Trace report<a class="headerlink" href="#trace-report" title="Permalink to this heading"></a></h2>
 <p>Nextflow creates an execution tracing file that contains some useful information about each process executed in your pipeline script, including: submission time, start time, completion time, cpu and memory used.</p>
 <p>In order to create the execution trace file add the <code class="docutils literal notranslate"><span class="pre">-with-trace</span></code> command line option when launching the pipeline execution. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>-with-trace
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline&gt;<span class="w"> </span>-with-trace
 </pre></div>
 </div>
 <p>It will create a file named <code class="docutils literal notranslate"><span class="pre">trace.txt</span></code> in the current directory. The content looks like the above example:</p>
@@ -628,9 +652,9 @@ task folder: $folder
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">write_bytes</span></code></dt><dd><p>Number of bytes the process originally dirtied in the page-cache (assuming they will go to disk later). This data is read from file <code class="docutils literal notranslate"><span class="pre">/proc/$pid/io</span></code>.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">vol_ctxt</span></code></dt><dd><p>Number of voluntary context switches.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">vol_ctxt</span></code></dt><dd><p>Number of voluntary context switches. This data is read from field <code class="docutils literal notranslate"><span class="pre">voluntary_ctxt_switches</span></code> in <code class="docutils literal notranslate"><span class="pre">/proc/$pid/status</span></code> file.</p>
 </dd>
-<dt><code class="docutils literal notranslate"><span class="pre">inv_ctxt</span></code></dt><dd><p>Number of involuntary context switches.</p>
+<dt><code class="docutils literal notranslate"><span class="pre">inv_ctxt</span></code></dt><dd><p>Number of involuntary context switches. This data is read from field <code class="docutils literal notranslate"><span class="pre">nonvoluntary_ctxt_switches</span></code> in <code class="docutils literal notranslate"><span class="pre">/proc/$pid/status</span></code> file.</p>
 </dd>
 <dt><code class="docutils literal notranslate"><span class="pre">env</span></code></dt><dd><p>The variables defined in task execution environment.</p>
 </dd>
@@ -670,108 +694,95 @@ task folder: $folder
 <p>Each bar displays two numbers: the task duration time and the virtual memory size peak.</p>
 <p>As each process can spawn many tasks, colors are used to identify those tasks belonging to the same process.</p>
 <p>To enable the creation of the timeline report add the <code class="docutils literal notranslate"><span class="pre">-with-timeline</span></code> command line option when launching the pipeline execution. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline<span class="w"> </span>name&gt;<span class="w"> </span>-with-timeline<span class="w"> </span><span class="o">[</span>file<span class="w"> </span>name<span class="o">]</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline&gt;<span class="w"> </span>-with-timeline<span class="w"> </span><span class="o">[</span>file<span class="w"> </span>name<span class="o">]</span>
 </pre></div>
 </div>
 <p>The report file name can be specified as an optional parameter following the timeline option.</p>
 </section>
 <section id="dag-visualisation">
 <span id="id5"></span><h2>DAG visualisation<a class="headerlink" href="#dag-visualisation" title="Permalink to this heading"></a></h2>
-<p>A Nextflow pipeline is implicitly modelled by a direct acyclic graph (DAG). The vertices in the graph represent the pipeline’s processes and operators, while the edges represent the data connections (i.e. channels) between them.</p>
-<p>The pipeline execution DAG can be outputted by adding the <code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> option to the run command line. It creates a file named <code class="docutils literal notranslate"><span class="pre">dag.dot</span></code> containing a textual representation of the pipeline execution graph in the <a class="reference external" href="http://www.graphviz.org/content/dot-language">DOT format</a>.</p>
-<p>The execution DAG can be rendered in a different format by specifying an output file name which has an extension corresponding to the required format. For example:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;script-name&gt;<span class="w"> </span>-with-dag<span class="w"> </span>flowchart.png
+<p>A Nextflow pipeline can be represented as a direct acyclic graph (DAG). The vertices in the graph represent the pipeline’s processes and operators, while the edges represent the data dependencies (i.e. channels) between them.</p>
+<p>To render the workflow DAG, run your pipeline with the <code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> option. By default, it creates a file named <code class="docutils literal notranslate"><span class="pre">dag-&lt;timestamp&gt;.html</span></code> with the workflow DAG rendered as a <a class="reference external" href="https://mermaid.js.org/">Mermaid</a> diagram.</p>
+<p>The workflow DAG can be rendered in a different format by specifying an output file name with a different extension based on the desired format. For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>&lt;pipeline&gt;<span class="w"> </span>-with-dag<span class="w"> </span>flowchart.png
 </pre></div>
 </div>
-<p>List of supported file formats:</p>
-<table class="colwidths-auto docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Extension</p></th>
-<th class="head"><p>File format</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>dot</p></td>
-<td><p>Graphviz DOT file</p></td>
-</tr>
-<tr class="row-odd"><td><p>html</p></td>
-<td><p>HTML file</p></td>
-</tr>
-<tr class="row-even"><td><p>mmd</p></td>
-<td><p>Mermaid diagram</p></td>
-</tr>
-<tr class="row-odd"><td><p>pdf</p></td>
-<td><p>PDF file (*)</p></td>
-</tr>
-<tr class="row-even"><td><p>png</p></td>
-<td><p>PNG file (*)</p></td>
-</tr>
-<tr class="row-odd"><td><p>svg</p></td>
-<td><p>SVG file (*)</p></td>
-</tr>
-<tr class="row-even"><td><p>gexf</p></td>
-<td><p>Graph Exchange XML file (Gephi)</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>File formats marked with “*” require the <a class="reference external" href="http://www.graphviz.org">Graphviz</a> tool to be installed.</p>
-</div>
-<p>The DAG produced by Nextflow for the <a class="reference external" href="https://github.com/cbcrg/unistrap/">Unistrap</a> pipeline:</p>
-<img alt="_images/dag.png" src="_images/dag.png" />
-<section id="mermaid-diagram">
-<h3>Mermaid diagram<a class="headerlink" href="#mermaid-diagram" title="Permalink to this heading"></a></h3>
 <div class="versionadded">
+<p><span class="versionmodified added">New in version 22.06.0-edge: </span>You can use the <code class="docutils literal notranslate"><span class="pre">-preview</span></code> option with <code class="docutils literal notranslate"><span class="pre">-with-dag</span></code> to render the workflow DAG without executing any tasks.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.10.0: </span>The default output format was changed from DOT to HTML.</p>
+</div>
+<p>The following file formats are supported:</p>
+<dl class="simple myst">
+<dt><code class="docutils literal notranslate"><span class="pre">dot</span></code></dt><dd><p>Graphviz <a class="reference external" href="http://www.graphviz.org/content/dot-language">DOT</a> file</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">gexf</span></code></dt><dd><p>Graph Exchange XML file (Gephi)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">html</span></code></dt><dd><p>HTML file with Mermaid diagram</p>
+</dd>
+<dd><div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 23.10.0: </span>The HTML format was changed to render a Mermaid diagram instead of a Cytoscape diagram.</p>
+</div>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">mmd</span></code></dt><dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 22.04.0.</span></p>
 </div>
-<p>Nextflow can render the DAG as a <a class="reference external" href="https://mermaid-js.github.io/">Mermaid</a> diagram. Mermaid diagrams are particularly useful because they can be embedded in <a class="reference external" href="https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/">GitHub Flavored Markdown</a> without having to render them yourself. You can customize the diagram with CSS, and you can even add links! Visit the <a class="reference external" href="https://mermaid-js.github.io/mermaid/#/flowchart?id=styling-and-classes">Mermaid documentation</a> for details.</p>
-<p>Here is the Mermaid diagram produced by Nextflow for the above example:</p>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>flowchart TD
-    p0((Channel.fromPath))
-    p1([ifEmpty])
-    p2[get_shuffle_replicates]
-    p3[get_msa_replicates]
-    p4[get_msa_trees]
-    p5([collectFile])
-    p6([first])
-    p7[get_stable_msa_trees]
-    p8(( ))
-    p9[get_seqboot_replicates]
-    p10[get_replicate_trees]
-    p11([collectFile])
-    p12([max])
-    p13[get_shootstrap_tree]
-    p14(( ))
-    p0 --&gt; p1
-    p1 --&gt;|file_names| p2
-    p2 --&gt;|shuffle_replicates| p3
-    p3 --&gt;|msa_replicates| p4
-    p3 --&gt;|msa_replicates2| p9
-    p4 --&gt;|msa_trees| p7
-    p4 --&gt;|msa_trees2| p5
-    p5 --&gt; p6
-    p6 --&gt; p7
-    p7 --&gt;|stable_trees| p8
-    p7 --&gt;|most_stable_tree| p12
-    p9 --&gt;|replicates| p10
-    p10 --&gt;|trees| p11
-    p11 --&gt; p13
-    p12 --&gt; p13
-    p13 --&gt;|shootstrap_tree| p14
+</dd>
+<dd><p>Mermaid diagram</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pdf</span></code></dt><dd><p><em>Requires <a class="reference external" href="http://www.graphviz.org">Graphviz</a> to be installed</em></p>
+</dd>
+<dd><p>Graphviz PDF file</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">png</span></code></dt><dd><p><em>Requires <a class="reference external" href="http://www.graphviz.org">Graphviz</a> to be installed</em></p>
+</dd>
+<dd><p>Graphviz PNG file</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">svg</span></code></dt><dd><p><em>Requires <a class="reference external" href="http://www.graphviz.org">Graphviz</a> to be installed</em></p>
+</dd>
+<dd><p>Graphviz SVG file</p>
+</dd>
+</dl>
+<p>Here is the Mermaid diagram produced by Nextflow for the <a class="reference external" href="https://github.com/nextflow-io/rnaseq-nf">rnaseq-nf</a> pipeline (using the <a class="reference external" href="https://mermaid-js.github.io/mermaid-live-editor/edit">Mermaid Live Editor</a> with the <code class="docutils literal notranslate"><span class="pre">default</span></code> theme):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>nextflow<span class="w"> </span>run<span class="w"> </span>rnaseq-nf<span class="w"> </span>-preview<span class="w"> </span>-with-dag
 </pre></div>
 </div>
-<p>And the final image produced with the <a class="reference external" href="https://mermaid-js.github.io/mermaid-live-editor/edit">Mermaid Live Editor</a> (using the <code class="docutils literal notranslate"><span class="pre">default</span></code> theme):</p>
-<img alt="_images/dag-mermaid.png" src="_images/dag-mermaid.png" />
-</section>
-</section>
+<div class="mermaid">
+            flowchart TB
+    subgraph &quot; &quot;
+    v0[&quot;Channel.fromFilePairs&quot;]
+    v1[&quot;transcriptome&quot;]
+    v7[&quot;config&quot;]
+    end
+    subgraph RNASEQ
+    v2([INDEX])
+    v3([FASTQC])
+    v4([QUANT])
+    end
+    v8([MULTIQC])
+    subgraph &quot; &quot;
+    v9[&quot; &quot;]
+    end
+    v5(( ))
+    v0 --&gt; v3
+    v0 --&gt; v4
+    v1 --&gt; v2
+    v2 --&gt; v4
+    v3 --&gt; v5
+    v4 --&gt; v5
+    v7 --&gt; v8
+    v5 --&gt; v8
+    v8 --&gt; v9
+
+        </div></section>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="kubernetes.html" class="btn btn-neutral float-left" title="Kubernetes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cache-and-resume.html" class="btn btn-neutral float-left" title="Caching and resuming" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="metrics.html" class="btn btn-neutral float-right" title="Metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
