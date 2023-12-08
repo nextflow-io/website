@@ -23,7 +23,7 @@ We cover:
 - The latest crop of nf-core pipelines that saw their first release this year and the expansion into domains beyond genomics (even beyond biology!)
 - Infrastructure updates including subworkflows and testing with nf-test
 - Community updates including [mentorships](https://nextflow.io/blog/2023/czi-mentorship-round-3.html) and training
-- Upcoming events in 2024: nf-core online hackathon in March, Boston Summit in May and Barcelona Summit in October. Look out for definitive announcements early next year.
+- Upcoming events in 2024: nf-core online hackathon in March, Boston Summit in May and Barcelona Summit in October. Look out for definitive announcements early next year and [sign up for updates about the 2024 summits](https://summit.nextflow.io/subscribe-2024/).
 
 After today’s episode, we’ll be going on break for the winter holiday and will return in January 2024 with a fun mix of topics. Stay tuned!
 
@@ -39,6 +39,11 @@ We ran out of time to discuss *everything* that happened in 2023, so here are a 
 ##### Community updates
 - [Introducing community.seqera.io](https://nextflow.io/blog/2023/community-forum.html)
 - [Introducing the Nextflow Ambassador Program](https://nextflow.io/blog/2023/introducing-nextflow-ambassador-program.html)
+
+##### Events
+- Summit Barcelona: [Website](https://summit.nextflow.io/barcelona/) / [Playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUotnP-tWRVNtuNWpN7xbpL)
+- Summit Boston: [Website](https://summit.nextflow.io/boston/) / [Playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmVeXGTg6aFNlaeTEMTs3GOt)
+- Sanger Symposium: [Website](https://sites.google.com/ebi.ac.uk/nextflow2023/home?authuser=0) / [Playlist](https://www.youtube.com/playlist?list=PLo5QmrytFHLFLfHxHW9WiB8o5RRCmQdco)
 
 
 
