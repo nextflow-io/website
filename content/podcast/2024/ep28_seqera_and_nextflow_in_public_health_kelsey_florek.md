@@ -1,14 +1,21 @@
 title=Seqera and Nextflow in public health — Interview with Kelsey Florek
 episode=28
-description=How genomic surveillance has changed since the COVID pandemic, and how Seqera Platform and Nextflow pipelines have substantially lowered the barrier to entry for bioinformaticians running workflows in public health labs and in the field.
+description=Rob Lalonde and Kelsey Florek discuss how genomic surveillance has changed since the COVID pandemic, and how Seqera Platform and Nextflow pipelines have substantially lowered the barrier to entry for bioinformaticians running workflows in public health labs and in the field.
 date=2024-01-08
 type=podcast
 subtype=Interview
 youtubeid=JiFS4NoEFik
 image=img/podcast_ep28.png
-tags=nextflow,opensource,community,nf-core
+tags=nextflow,opensource,nf-core,genomics
 status=published
 author=Rob Lalonde
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
+In this episode, [Rob Lalonde](https://twitter.com/HPC_Cloud_Rob) of Seqera interviews Kelsey Florek, Senior Genomics and Data Scientist at the Wisconsin State Laboratory of Hygiene. 
+
+<!-- end-archive-description -->
+
+Rob and Kelsey discuss how genomic surveillance has changed since the COVID pandemic, and how Seqera Platform and Nextflow pipelines have substantially lowered the barrier to entry for bioinformaticians running workflows in public health labs and in the field.
+
+The viralrecon pipeline Kelsey mentions in the interview can be found at [https://nf-co.re/viralrecon](https://nf-co.re/viralrecon).
