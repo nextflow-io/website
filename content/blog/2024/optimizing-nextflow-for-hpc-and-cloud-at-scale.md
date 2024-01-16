@@ -153,20 +153,20 @@ At larger scales, virtual threads significantly reduce the total runtime, at the
 
 The reason why virtual threads are faster in this case is that Nextflow usually spends extra time waiting for files to be published after all tasks have completed. Normally, these publishing tasks are executed by a fixed-size thread pool based on the number of CPUs, but with virtual threads there is no such limit, so Nextflow can fully utilize the available network bandwidth. In the largest case (1000x 100 MB files), virtual threads reduce the runtime by over 30%.
 
-<figure>
+<div style="margin-top: 1rem">
     <img src="/img/blog-2024-01-17--s3-upload-cpu.png" alt="CPU usage" />
-    <figcaption>Figure 1: CPU usage</figcaption>
-</figure>
+    <center>Figure 1: CPU usage</center>
+</div>
 
-<figure>
+<div style="margin-top: 1rem">
     <img src="/img/blog-2024-01-17--s3-upload-memory.png" alt="Memory usage" />
-    <figcaption>Figure 2: Memory usage</figcaption>
-</figure>
+    <center>Figure 2: Memory usage</center>
+</div>
 
-<figure>
+<div style="margin-top: 1rem">
     <img src="/img/blog-2024-01-17--s3-upload-walltime.png" alt="Workflow runtime" />
-    <figcaption>Figure 3: Workflow runtime</figcaption>
-</figure>
+    <center>Figure 3: Workflow runtime</center>
+</div>
 
 ### Realistic Benchmark: nf-core/rnaseq
 
