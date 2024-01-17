@@ -21,7 +21,7 @@ In this article, we will help you understand how the Nextflow head job works and
 
 ### CPUs
 
-Nextflow uses a thread pool to run native Groovy code (e.g. channel operators, `exec` processes), submit tasks to executors, and publish output files. The number of threads is based on the number of available CPUs, so if you want to provide more compute power to the head job, simply allocate more CPUs and Nextflow will use them. In Nextflow Tower, you can use **Head Job CPUs** or **Head Job submit options** (depending on the compute environment) to allocate more CPUs.
+Nextflow uses a thread pool to run native Groovy code (e.g. channel operators, `exec` processes), submit tasks to executors, and publish output files. The number of threads is based on the number of available CPUs, so if you want to provide more compute power to the head job, simply allocate more CPUs and Nextflow will use them. In the Seqera Platform, you can use **Head Job CPUs** or **Head Job submit options** (depending on the compute environment) to allocate more CPUs.
 
 ### Memory
 
