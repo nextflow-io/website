@@ -15,6 +15,8 @@ A Nextflow workflow run consists of the head job (Nextflow itself) and compute t
 
 In this article, we will help you understand how the Nextflow head job works and show you how to tune head job resources such as CPUs and memory for your use case.
 
+<!-- end-archive-description -->
+
 ## Head job resources
 
 ### CPUs
