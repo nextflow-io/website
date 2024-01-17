@@ -194,7 +194,7 @@ The key to right-sizing the Nextflow head job is to understand which parts of a 
 Here are the main takeaways:
 
 - Nextflow uses a thread pool based on the number of available CPUs.
-- Nextflow uses a maximum heap size based on the standard JVM options, which is typically 25% of physical memory (75% in Tower).
+- Nextflow uses a maximum heap size based on the standard JVM options, which is typically 25% of physical memory (75% in the Seqera Platform).
 - You can use `NXF_JVM_ARGS` to make more system memory available to Nextflow.
 - The easiest way to figure out how much memory Nextflow needs is to iteratively double the memory allocation until the workflow succeeds (but usually 2-4 GB is enough).
 - You can enable virtual threads in Nextflow, which may reduce overall runtime for some pipelines.
