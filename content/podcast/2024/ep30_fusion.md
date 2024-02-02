@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this episode of Channels, we talk to [Paolo Di Tommaso](https://twitter.com/PaoloDiTommaso) (creator of Nextflow, Seqera CTO & cofounder) and [Jordi Deu Pons](https://github.com/jordeu) (software engineer @ Seqera) about Fusion - a file system written specifically for Nextflow.
+In this episode of Channels, [Phil Ewels](https://tallphil.co.uk/twitter) talks to [Paolo Di Tommaso](https://twitter.com/PaoloDiTommaso) (creator of Nextflow, Seqera CTO & cofounder) and [Jordi Deu Pons](https://github.com/jordeu) (software engineer @ Seqera) about Fusion - a file system written specifically for Nextflow.
 
 <!-- end-archive-description -->
 
@@ -28,8 +28,12 @@ Specifically, Fusion is:
 - No need anymore for custom AMI to run Nextflow on AWS Batch
 
 We chat about how it's different to other comparable products, such
-as AWS Mountpoint, GoofyFS, Lustre FSX and others and pick over some
+as AWS Mountpoint, Goofys, AWS FSx and others and pick over some
 benchmark results in detail.
+We also clarify two super important points about Fusion:
+
+- The difference between Fusion v1 / v2 (they're totally different tools)
+- What AWS NVMe disks are, and why they matter
 
 We touch on some super-powers which are unique to Fusion:
 it's multi-cloud and multi-region abilities, abililty to work on HPC
