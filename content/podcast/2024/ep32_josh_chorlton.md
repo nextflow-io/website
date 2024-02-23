@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this episode of Channels, [Phil Ewels](https://tallphil.co.uk/twitter) talks to [Josh Chorlton](https://joshchorlton.com/) - CTO & cofounder of [BugSeq Bioinformatics Inc](https://bugseq.com/).
+In this episode of Channels, [Phil Ewels](https://twitter.com/tallphil) talks to [Josh Chorlton](https://joshchorlton.com/) - CTO & cofounder of [BugSeq Bioinformatics Inc](https://bugseq.com/).
 
 We talk about how BugSeq got into using Nextflow and MultiQC and the tips and tricks that they've employed to push scale and performace of their tools to the limit.
 
