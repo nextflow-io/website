@@ -50,6 +50,7 @@
 
     <!-- Resources -->
     <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/summit.css" rel="stylesheet">
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 		<link href="/fonts/degular/degular.css" rel="stylesheet">
