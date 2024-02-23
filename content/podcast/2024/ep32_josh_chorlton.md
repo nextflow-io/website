@@ -39,7 +39,7 @@ In this deeply technical chat, we cover topics like testing and CI/CD, passing a
     * Extensive use of [Custom Content](https://multiqc.info/docs/custom_content/) allows custom pipeline outputs to be presented alongside QC metrics parsed by MultiQC from standard bioinformatics tools
 * Running bioinformatics analyses as a service
     * BugSeq handles troubleshooting and customer requests with an engineer pager rotation system
-    * Customers expect O (hours) turnaround time, so production needs to be rock-solid. But they also expect rapid new features!
+    * Customers expect turnaround time within 1-2 hours, so production needs to be rock-solid. But they also expect rapid new features!
     * The CI/CD testing infrastructure is critical to allow BugSeq to ship rapidly with confidence
 
 Huge thanks to Josh for joining us on the podcast. Let's hope we can have him back in early 2025 and see where we're getting to on his wishlist for Nextflow and MultiQC!
