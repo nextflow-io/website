@@ -12,7 +12,7 @@ author=Developer advocates
 icon=logo_podcast_channels.jpg
 ~~~~~~
 
-In this episode of Channels, [Phil Ewels](https://tallphil.co.uk/twitter) talks to [Paolo Di Tommaso](https://twitter.com/PaoloDiTommaso) (creator of Nextflow, Seqera CTO & cofounder) and [Jordi Deu Pons](https://github.com/jordeu) (software engineer @ Seqera) about Fusion - a file system written specifically for Nextflow.
+In this episode of Channels, [Phil Ewels](https://twitter.com/tallphil) talks to [Paolo Di Tommaso](https://twitter.com/PaoloDiTommaso) (creator of Nextflow, Seqera CTO & cofounder) and [Jordi Deu Pons](https://github.com/jordeu) (software engineer @ Seqera) about Fusion - a file system written specifically for Nextflow.
 
 <!-- end-archive-description -->
 
