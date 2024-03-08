@@ -1,9 +1,8 @@
-title=RNA-Seq pipeline
-date=2014-07-23
-type=page
-status=published
-syntaxhighlighter=yes
-~~~~~~
+---
+title: RNA-Seq pipeline
+layout: ../layouts/Page.astro
+---
+
 
 <div class="blg-summary example">
 <h3><a href="javascript:void(0)">RNA-Seq pipeline</a></h3>
@@ -25,7 +24,7 @@ params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bp
 params.outdir = "results"
 
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
+    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
 
     INDEX(params.transcriptome)
     FASTQC(read_pairs_ch)
@@ -36,10 +35,10 @@ process INDEX {
     tag "$transcriptome.simpleName"
 
     input:
-    path transcriptome 
+    path transcriptome
 
     output:
-    path 'index' 
+    path 'index'
 
     script:
     """
@@ -55,7 +54,7 @@ process FASTQC {
     tuple val(sample_id), path(reads)
 
     output:
-    path "fastqc_${sample_id}_logs" 
+    path "fastqc_${sample_id}_logs"
 
     script:
     """
@@ -68,11 +67,11 @@ process QUANT {
     publishDir params.outdir
 
     input:
-    path index 
-    tuple val(pair_id), path(reads) 
+    path index
+    tuple val(pair_id), path(reads)
 
     output:
-    path pair_id 
+    path pair_id
 
     script:
     """

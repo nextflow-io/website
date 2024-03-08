@@ -1,9 +1,8 @@
-title=Machine Learning pipeline
-date=2022-10-31
-type=page
-status=published
-syntaxhighlighter=yes
-~~~~~~
+---
+title: Machine Learning pipeline
+layout: ../layouts/Page.astro
+---
+
 
 <div class="blg-summary example">
 <h3><a href="javascript:void(0)">Machine Learning pipeline</a></h3>

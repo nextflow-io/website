@@ -1,9 +1,7 @@
-title=Mixing scripting languages
-date=2014-07-23
-type=page
-status=published
-syntaxhighlighter=yes
-~~~~~~
+---
+title: Mixing scripting languages
+layout: ../layouts/Page.astro
+---
 
 <div class="blg-summary example">
 <h3><a href="javascript:void(0)">Mixing scripting languages</a></h3>

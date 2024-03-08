@@ -1,10 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+
+interface Props {
+    title: string;
+    description: string;
+    image: string|null;
+}
+
+const { title, description, image } = Astro.props;
+
+const page_title = title + " | Nextflow";
+const share_image = image ? image : "/img/share.png";
 ---
 
-<Layout title="A DSL for parallel and scalable computational pipelines"
-description="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages.">
+<Layout
+    title="A DSL for parallel and scalable computational pipelines"
+    description="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages."
+>
 		<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">

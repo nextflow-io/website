@@ -1,9 +1,8 @@
-title=BLAST pipeline
-date=2014-07-23
-type=page
-status=published
-syntaxhighlighter=yes
-~~~~~~
+---
+title: BLAST pipeline
+layout: ../layouts/Page.astro
+---
+
 
 <div class="blg-summary example">
 <h3><a href="javascript:void(0)">BLAST pipeline</a></h3>
