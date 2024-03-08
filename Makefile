@@ -17,4 +17,4 @@ invalidate:
 	aws cloudfront create-invalidation --distribution-id E3RPV5P71OW0UF --paths '/*'
 
 make build:
-	./jbake
+	npm run build

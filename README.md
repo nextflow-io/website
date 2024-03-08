@@ -4,23 +4,21 @@
 
 ## Project Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+Inside of your Astro project, you'll see the following folders:
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+└── src/
+    ├── content/
+    │   ├── blog/
+    │   └── podcast/
+    ├── components/
+    ├── layouts/
+    └── pages/
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Blog posts and podcast episodes go into `content` as markdown files. Other top-level pages should be named as `.astro` or `.md` files in the `src/pages/` directory. Astro finds all of this content and builds a page. Each page is exposed as a route based on its file name.
 
 There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
 
