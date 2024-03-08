@@ -1,6 +1,6 @@
 ---
 title: Basic pipeline
-layout: ../layouts/Page.astro
+layout: @layouts/Page.astro
 ---
 
 <div class="blg-summary example">

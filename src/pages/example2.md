@@ -1,6 +1,6 @@
 ---
 title: Mixing scripting languages
-layout: ../layouts/Page.astro
+layout: @layouts/Page.astro
 ---
 
 <div class="blg-summary example">

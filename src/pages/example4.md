@@ -1,6 +1,6 @@
 ---
 title: RNA-Seq pipeline
-layout: ../layouts/Page.astro
+layout: @layouts/Page.astro
 ---
 
 

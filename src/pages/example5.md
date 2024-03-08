@@ -1,6 +1,6 @@
 ---
 title: Machine Learning pipeline
-layout: ../layouts/Page.astro
+layout: @layouts/Page.astro
 ---
 
 
