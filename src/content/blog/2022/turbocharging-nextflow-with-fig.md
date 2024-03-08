@@ -3,7 +3,7 @@ title: Turbo-charging the Nextflow command line with Fig!
 date: 2022-09-22
 type: post
 description: Powerful autocomplete for Nextflow in your command line interface with Fig.
-image: img/turbocharging_nextflow_with_fig.jpg
+image: /img/turbocharging_nextflow_with_fig.jpg
 tags: nextflow,development,learning
 author: Marcel Ribeiro-Dantas
 icon: marcel.png

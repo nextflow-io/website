@@ -3,7 +3,7 @@ title: Configure Git private repositories with Nextflow
 date: 2021-10-21
 type: post
 description: A step-by-step guide to configure Nextflow with Git hosting solutions.
-image: img/nextflow-with-git-hosting.jpg
+image: /img/nextflow-with-git-hosting.jpg
 tags: git,github
 author: Abhinav Sharma
 icon: abhinav.jpg

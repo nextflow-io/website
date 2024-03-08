@@ -3,7 +3,7 @@ title: Optimizing Nextflow for HPC and Cloud at Scale
 date: 2024-01-17
 type: post
 description: There are several considerations when running large pipelines, including head job resources, storage, and virtual threads. In this in-depth article, Ben Sherman of Seqera explains how to optimize Nextflow for HPC and cloud at scale!
-image: img/blog-2024-01-17--share.jpg
+image: /img/blog-2024-01-17--share.jpg
 tags: nextflow,hpc,cloud
 author: Ben Sherman
 icon: ben.jpg

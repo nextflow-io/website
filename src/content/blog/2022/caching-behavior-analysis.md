@@ -3,7 +3,7 @@ title: Analyzing caching behavior of pipelines
 date: 2022-11-10
 type: post
 description: A guide to analysis of dump-hashes for troubleshooting caching behavior.
-image: img/rnaseq-nf.fastqc.modified.png
+image: /img/rnaseq-nf.fastqc.modified.png
 tags: nextflow,cache
 author: Abhinav Sharma
 icon: abhinav.jpg

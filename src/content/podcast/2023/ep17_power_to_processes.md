@@ -6,7 +6,7 @@ date: 2023-07-03
 type: podcast
 subtype: News and Views
 youtubeid: 8YT1yfm-XjA
-image: img/podcast_ep17.jpg
+image: /img/podcast_ep17.jpg
 tags: news and views,opensource,community
 author: Developer advocates
 icon: logo_podcast_channels.jpg

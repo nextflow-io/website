@@ -6,7 +6,7 @@ date: 2024-03-05
 type: podcast
 subtype: Interview
 youtubeid: Gjw7QC8cP_M
-image: img/podcast_ep32.png
+image: /img/podcast_ep32.png
 tags: nextflow,multiqc,opensource
 author: Developer advocates
 icon: logo_podcast_channels.jpg

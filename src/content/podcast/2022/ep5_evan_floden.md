@@ -6,7 +6,7 @@ date: 2022-03-11
 type: podcast
 subtype: interview
 youtubeid: SHppg_MuOPc
-image: img/podcast_ep05.jpg
+image: /img/podcast_ep05.jpg
 tags: nextflow,opensource
 author: Rob Lalonde
 icon: rob.png

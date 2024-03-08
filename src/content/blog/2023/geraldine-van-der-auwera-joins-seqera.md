@@ -3,7 +3,7 @@ title: Geraldine Van der Auwera joins Seqera
 date: 2023-10-11
 type: post
 description: We're excited to welcome Geraldine to Seqera as Lead Developer Advocate to help the Nextflow community in the USA grow and thrive!
-image: img/blog-geraldine-vda.jpg
+image: /img/blog-geraldine-vda.jpg
 tags: nextflow,community
 author: Geraldine Van der Auwera
 icon: geraldine-van-der-auwera_icon.png

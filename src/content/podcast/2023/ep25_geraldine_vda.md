@@ -6,7 +6,7 @@ date: 2023-11-06
 type: podcast
 subtype: Interview
 youtubeid: DbM0bMfc7-4
-image: img/podcast_ep25.png
+image: /img/podcast_ep25.png
 tags: nextflow,opensource,community
 author: Developer advocates
 icon: logo_podcast_channels.jpg

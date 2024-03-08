@@ -6,7 +6,7 @@ date: 2024-01-08
 type: podcast
 subtype: Interview
 youtubeid: JiFS4NoEFik
-image: img/podcast_ep28.png
+image: /img/podcast_ep28.png
 tags: nextflow,opensource,nf-core,genomics
 author: Rob Lalonde
 icon: logo_podcast_channels.jpg

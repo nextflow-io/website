@@ -3,7 +3,7 @@ title: "A Nextflow-Docker Murder Mystery: The mysterious case of the “OOM kill
 date: 2023-06-19
 type: post
 description: Helpful tips for troubleshooting out-of-memory errors in containerized execution environments.
-image: img/a-nextflow-docker-murder-mystery-the-mysterious-case-of-the-oom-killer.jpg
+image: /img/a-nextflow-docker-murder-mystery-the-mysterious-case-of-the-oom-killer.jpg
 tags: nextflow
 author: Graham Wright
 icon: graham.jpg

@@ -6,7 +6,7 @@ date: 2022-12-14
 type: podcast
 subtype: interview
 youtubeid: tPS6PhplLNA
-image: img/podcast_ep07.jpg
+image: /img/podcast_ep07.jpg
 tags: nextflow,opensource
 author: Rob Lalonde
 icon: rob.png

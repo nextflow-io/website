@@ -3,7 +3,7 @@ title: Nextflow Summit 2022
 date: 2022-06-17
 type: post
 description: Submit a talk or poster abstract for the Nextflow Summit 2022!
-image: img/nextflow-summit-call-for-abstracts-banner.jpg
+image: /img/nextflow-summit-call-for-abstracts-banner.jpg
 tags: nextflow,summit,event,hackathon
 author: Phil Ewels
 icon: phil.jpg

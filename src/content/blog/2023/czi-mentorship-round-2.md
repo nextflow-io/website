@@ -3,7 +3,7 @@ title: Nextflow and nf-core Mentorship, Round 2
 date: 2023-04-17
 type: post
 description: With the second round of the mentorship program now complete, we celebrate the success of the most recent cohort of mentors and mentees.
-image: img/mentorships-round2-social.jpg
+image: /img/mentorships-round2-social.jpg
 tags: nextflow,nf-core,czi,mentorship,training
 author: Chris Hakkaart
 icon: chris_h.png

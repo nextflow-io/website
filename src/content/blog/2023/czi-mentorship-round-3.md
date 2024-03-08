@@ -3,7 +3,7 @@ title: Nextflow and nf-core Mentorship, Round 3
 date: 2023-11-13
 type: post
 description: With the third round of the mentorship program now complete, we celebrate the success of the most recent cohort of mentors and mentees.
-image: img/mentorship_3_share.png
+image: /img/mentorship_3_share.png
 tags: nextflow,nf-core,czi,mentorship
 author: Marcel Ribeiro-Dantas
 icon: marcel.jpg

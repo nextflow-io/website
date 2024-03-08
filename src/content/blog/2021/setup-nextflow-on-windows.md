@@ -3,7 +3,7 @@ title: Setting up a Nextflow environment on Windows 10
 date: 2021-10-13
 type: post
 description: This document provides a step-by-step guide to setting up a Nextflow development environment on Windows 10.
-image: img/nf-windows-dev-guide-share.png
+image: /img/nf-windows-dev-guide-share.png
 tags: windows,learning
 author: Evan Floden
 icon: evan.jpg

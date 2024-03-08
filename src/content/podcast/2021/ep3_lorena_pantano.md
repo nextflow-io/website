@@ -6,7 +6,7 @@ date: 2021-09-15
 type: podcast
 subtype: interview
 youtubeid: h09yusZie_k
-image: img/podcast_ep03.jpg
+image: /img/podcast_ep03.jpg
 tags: nextflow,opensource
 author: Rob Lalonde
 icon: rob.png

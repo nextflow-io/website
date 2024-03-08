@@ -6,7 +6,7 @@ date: 2024-02-06
 type: podcast
 subtype: Technical discussion
 youtubeid: mMKnCS2Oy2A
-image: img/podcast_ep30.png
+image: /img/podcast_ep30.png
 tags: nextflow,opensource,fusion
 author: Developer advocates
 icon: logo_podcast_channels.jpg

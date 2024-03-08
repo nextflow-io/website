@@ -3,7 +3,7 @@ title: Celebrating our largest international training event and hackathon to dat
 date: 2023-04-25
 type: post
 description: An overview of the March 2023 Nextflow/nf-core training and hackathon events
-image: img/March_2023_hackathon_recap.jpg
+image: /img/March_2023_hackathon_recap.jpg
 tags: nextflow
 author: Phil Ewels
 icon: phil.jpg

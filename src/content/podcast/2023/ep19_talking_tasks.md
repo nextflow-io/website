@@ -6,7 +6,7 @@ date: 2023-07-31
 type: podcast
 subtype: News and Views
 youtubeid: HlOb_10KV-o
-image: img/podcast_ep19.jpg
+image: /img/podcast_ep19.jpg
 tags: news and views,opensource,community
 author: Developer advocates
 icon: logo_podcast_channels.jpg

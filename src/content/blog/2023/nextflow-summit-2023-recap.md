@@ -3,7 +3,7 @@ title: Nextflow Summit 2023 Recap
 date: 2023-10-25
 type: post
 description: The 2023 Summit was our best community event ever, drawing roughly 900 attendees across multiple channels.
-image: img/blog-summit-2023-recap.jpg
+image: /img/blog-summit-2023-recap.jpg
 tags: nextflow,summit,event,hackathon
 author: Noel Ortiz
 icon: noel.jpg

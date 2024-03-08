@@ -3,7 +3,7 @@ title: "Nextflow on BIG IRON: Twelve tips for improving the effectiveness of pip
 date: 2023-05-26
 type: post
 description: Learn how to deploy and manage Nextflow pipelines with HPC workload managers.
-image: img/nextflow-on-big-iron-twelve-tips-for-improving-the-effectiveness-of-pipelines-on-hpc-clusters.jpg
+image: /img/nextflow-on-big-iron-twelve-tips-for-improving-the-effectiveness-of-pipelines-on-hpc-clusters.jpg
 tags: nextflow
 author: Gordon Sissons
 icon: gordsissons.jpg

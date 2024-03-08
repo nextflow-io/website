@@ -6,7 +6,7 @@ date: 2024-02-20
 type: podcast
 subtype: Training
 youtubeid: JNuq82XXPDU
-image: img/podcast_ep31.png
+image: /img/podcast_ep31.png
 tags: nextflow,opensource
 author: Developer advocates
 icon: logo_podcast_channels.jpg

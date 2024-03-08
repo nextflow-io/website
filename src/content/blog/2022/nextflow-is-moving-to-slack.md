@@ -3,7 +3,7 @@ title: Nextflow’s community is moving to Slack!
 date: 2022-02-22
 type: post
 description: Join us to receive insights, resources and connect with the community first hand.
-image: img/nextflow-moving-to-slack.jpg
+image: /img/nextflow-moving-to-slack.jpg
 tags: community, slack, github
 author: Paolo Di Tommaso
 icon: paolo.jpg

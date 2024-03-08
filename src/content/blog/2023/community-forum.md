@@ -3,7 +3,7 @@ title: Introducing community.seqera.io
 date: 2023-10-18
 type: post
 description: We are very excited to introduce the Seqera community forum - the new home of the Nextflow community!
-image: img/announcing-forum.jpg
+image: /img/announcing-forum.jpg
 tags: nextflow,community
 author: Phil Ewels
 icon: phil.jpg

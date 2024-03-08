@@ -3,7 +3,7 @@ title: Introducing the Nextflow Ambassador Program
 date: 2023-10-18
 type: post
 description: We are excited to announce the launch of the Nextflow Ambassador Program, a worldwide initiative designed to foster collaboration, knowledge sharing, and community growth.
-image: img/ambassador-launch-art.png
+image: /img/ambassador-launch-art.png
 tags: nextflow,community
 author: Marcel Ribeiro-Dantas
 icon: marcel.png

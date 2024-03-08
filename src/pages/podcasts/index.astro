@@ -5,6 +5,10 @@ import Page from "@layouts/Page.astro";
 const episodes = (await getCollection("podcast")).sort(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
 );
+
+const dateString = (d) => {
+  return d.getDate() + " " + d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear();
+};
 ---
 
 <Page title="Podcast">
@@ -19,15 +23,19 @@ const episodes = (await getCollection("podcast")).sort(
             <section class="blg-summary">
 			    <h3 ><a href={"/podcasts/" + post.slug}>{post.data.title}</a></h3>
 				<div class="timeline-info hidden-xs">
-				  <img src={post.data.icon} class="blg-author" alt={post.data.author}>
+				  <img src={"/img/"+post.data.icon} class="blg-author" alt={post.data.author}>
 				</div>
 			    <ul class="text-muted list-inline blg-header">
-				  <li><i class="fa fa-user"></i> {post.data.icon}</li>
-				  <li><i class="fa fa-calendar"></i> {post.data.date} </li>
+				  <li><i class="fa fa-user"></i> {post.data.author}</li>
+				  <li><i class="fa fa-calendar"></i> {dateString(post.data.date)} </li>
 			    </ul>
 			    <hr>
-			    <p class="blg-text">...
-                </p>
+			    <p class="blg-text">
+            {async () => {
+                      const { remarkPluginFrontmatter } = await post.render();
+                      return remarkPluginFrontmatter.excerpt;
+                  }}
+            </p>
             </section>
           );
         })

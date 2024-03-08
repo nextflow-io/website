@@ -3,7 +3,7 @@ title: Deploy Nextflow Pipelines with Google Cloud Batch!
 date: 2022-07-13
 type: post
 description: Deploy Nextflow pipelines at scale with new the Google Cloud Batch compute service.
-image: img/google_cloud_batch_nextflow-min.png
+image: /img/google_cloud_batch_nextflow-min.png
 tags: nextflow,google,cloud
 author: Paolo Di Tommaso
 icon: paolo.jpg

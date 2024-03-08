@@ -6,7 +6,7 @@ date: 2021-03-02
 type: podcast
 subtype: interview
 youtubeid: Y619gTTSz3I
-image: img/podcast_ep01.jpg
+image: /img/podcast_ep01.jpg
 tags: nextflow,nf-core,opensource
 author: Rob Lalonde
 icon: rob.png

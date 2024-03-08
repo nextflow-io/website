@@ -3,7 +3,7 @@ title: Reflecting on ten years of Nextflow awesomeness
 date: 2023-06-06
 type: post
 description: A Nextflow retrospective describing ten years of community innovation
-image: img/nextflow_ten_years.png
+image: /img/nextflow_ten_years.png
 tags: nextflow
 author: Noel Ortiz
 icon: noel.jpg

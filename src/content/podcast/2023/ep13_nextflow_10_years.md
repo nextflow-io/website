@@ -6,7 +6,7 @@ date: 2023-03-22
 type: podcast
 subtype: Special episode
 youtubeid: YAy_YfuYodA
-image: img/podcast_ep13.jpg
+image: /img/podcast_ep13.jpg
 tags: news and views,opensource,community
 author: Developer advocates
 icon: logo_podcast_channels.jpg

@@ -3,7 +3,7 @@ title: Nextflow and nf-core mentorship, Round 1
 date: 2022-09-18
 type: post
 description: With the first round of the CZI Nextflow / nf-core mentorship now complete, we look back at the success of the program so far.
-image: img/mentorships-social-card.jpg
+image: /img/mentorships-social-card.jpg
 tags: nextflow,nf-core,czi,mentorship,training
 author: Chris Hakkaart
 icon: chris_h.png

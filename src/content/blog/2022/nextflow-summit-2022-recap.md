@@ -3,7 +3,7 @@ title: Nextflow Summit 2022 Recap
 date: 2022-11-03
 type: post
 description: Catch up on exciting developments from this year’s Nextflow Summit held in Barcelona
-image: img/nextflow-summit-2022-recap.jpg
+image: /img/nextflow-summit-2022-recap.jpg
 tags: nextflow,tower,cloud
 author: Noel Ortiz
 icon: noel.jpg

@@ -6,7 +6,7 @@ date: 2023-12-11
 type: podcast
 subtype: Community highlights
 youtubeid: CFnVcMl_04w
-image: img/podcast_ep27.png
+image: /img/podcast_ep27.png
 tags: nextflow,opensource,community,nf-core
 author: Developer advocates
 icon: logo_podcast_channels.jpg
