@@ -9,22 +9,20 @@ icon: paolo.jpg
 
 The recent tweet introducing the [Nextflow support for SQL databases](https://twitter.com/PaoloDiTommaso/status/1433120149888974854) raised a lot of positive reaction. In this post, I want to describe more in detail how this extension works.
 
-
 Nextflow was designed with the idea to streamline the deployment of complex data pipelines in a scalable, portable and reproducible manner across different computing platforms. To make this all possible, it was decided the resulting pipeline and the runtime should be self-contained i.e. to not depend on separate services such as database servers.
 
-This makes the resulting pipelines easier to configure,  deploy, and allows for testing them using [CI services](https://en.wikipedia.org/wiki/Continuous_integration), which is a critical best practice for delivering high-quality and stable software.
+This makes the resulting pipelines easier to configure, deploy, and allows for testing them using [CI services](https://en.wikipedia.org/wiki/Continuous_integration), which is a critical best practice for delivering high-quality and stable software.
 
-Another important consequence is that Nextflow pipelines do not retain the pipeline state on separate storage. Said in a different way, the idea was - and still is - to promote stateless pipeline execution in which the computed results are only determined by the pipeline inputs and the code itself, which is consistent with the *functional* dataflow paradigm on which Nextflow is based.
+Another important consequence is that Nextflow pipelines do not retain the pipeline state on separate storage. Said in a different way, the idea was - and still is - to promote stateless pipeline execution in which the computed results are only determined by the pipeline inputs and the code itself, which is consistent with the _functional_ dataflow paradigm on which Nextflow is based.
 
 However, the ability to access SQL data sources can be very useful in data pipelines, for example, to ingest input metadata or to store task executions logs.
-
 
 ### How does it work?
 
 The support for SQL databases in Nextflow is implemented as an optional plugin component. This plugin provides two new operations into your Nextflow script:
 
-1) `fromQuery` performs a SQL query against the specified database and returns a Nextflow channel emitting them. This channel can be used in your pipeline as any other Nextflow channel to trigger the process execution with the corresponding values.
-2) `sqlInsert` takes the values emitted by a Nextflow channel and inserts them into a database table.
+1. `fromQuery` performs a SQL query against the specified database and returns a Nextflow channel emitting them. This channel can be used in your pipeline as any other Nextflow channel to trigger the process execution with the corresponding values.
+2. `sqlInsert` takes the values emitted by a Nextflow channel and inserts them into a database table.
 
 The plugin supports out-of-the-box popular database servers such as MySQL, PostgreSQL and MariaDB. It should be noted that the technology is based on the Java JDBC database standard, therefore it could easily support any database technology implementing a driver for this standard interface.
 
@@ -42,7 +40,7 @@ plugins {
 }
 ```
 
-It is then required to specify the connection *coordinates* of the database service you want to connect to in your pipeline. This is done by adding a snippet similar to the following in your configuration file:
+It is then required to specify the connection _coordinates_ of the database service you want to connect to in your pipeline. This is done by adding a snippet similar to the following in your configuration file:
 
 ```
 sql {

@@ -54,4 +54,3 @@ In the nf-core project, there are almost a [thousand modules](https://nf-co.re/m
 It was an amazing experience to see what each participant had worked on for their final projects! 🤯 They were all able to master the skills required to write Nextflow pipelines in real-life scenarios, which can continue to be used well after the end of the course. For people just starting their adventure with Nextflow, it can feel overwhelming to use nf-core tools with all the associated best practices, but students surprised me by using nf-core tools from the very beginning and having their project almost perfectly fitting the best practices 🤩
 
 We’d love to help out with more university bioinformatics courses like this. If you think your institution could benefit from such an experience, please don't hesitate to reach out to us at community@seqera.io. We would love to hear from you!
-

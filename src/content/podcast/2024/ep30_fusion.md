@@ -45,7 +45,6 @@ If you'd like to read more about Fusion, please see the following links:
 - [Nextflow docs for Fusion](https://www.nextflow.io/docs/latest/fusion.html)
 - [Community forum](https://community.seqera.io/c/fusion/9)
 
-
 Finally, Phil mentioned some recent and upcoming community content:
 
 - New blog post: [Optimizing Nextflow for HPC and Cloud at Scale](https://nextflow.io/blog/2024/optimizing-nextflow-for-hpc-and-cloud-at-scale.html)

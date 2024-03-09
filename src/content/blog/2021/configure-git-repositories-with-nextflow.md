@@ -16,7 +16,7 @@ as GitHub, GitLab and Bitbucket between the others, which streamline managing ve
 and track changes in your pipeline projects and facilitate the collaboration across
 different users.
 
-In order to access public repositories Nextflow does not require any special configuration, just use the *http* URL of the pipeline project you want to run
+In order to access public repositories Nextflow does not require any special configuration, just use the _http_ URL of the pipeline project you want to run
 in the run command, for example:
 
 ```
@@ -60,9 +60,9 @@ As of the 21.09.0-edge release, Nextflow integrates with the following Git provi
 
 [GitHub](https://github.com) is one of the most well known Git providers and is home to some of the most popular open-source Nextflow pipelines from the [nf-core](https://github.com/nf-core/) community project.
 
-If you wish to use Nextflow code from a **public** repository hosted on GitHub.com, then you don't need to provide credentials  (`user` and `password`) to pull code from the repository. However, if you wish to interact with a private repository or are running into GitHub API rate limits for public repos, then you must provide elevated access to Nextflow by specifying your credentials in the `scm` file.
+If you wish to use Nextflow code from a **public** repository hosted on GitHub.com, then you don't need to provide credentials (`user` and `password`) to pull code from the repository. However, if you wish to interact with a private repository or are running into GitHub API rate limits for public repos, then you must provide elevated access to Nextflow by specifying your credentials in the `scm` file.
 
-It is worth noting that [GitHub recently phased out Git password authentication](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/#what-you-need-to-do-today) and now requires that users supply a more secure GitHub-generated *Personal Access Token* for authentication. With Nextflow, you can specify your *personal access token* in the `password` field.
+It is worth noting that [GitHub recently phased out Git password authentication](https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/#what-you-need-to-do-today) and now requires that users supply a more secure GitHub-generated _Personal Access Token_ for authentication. With Nextflow, you can specify your _personal access token_ in the `password` field.
 
 ```groovy
 providers {
@@ -75,9 +75,9 @@ providers {
 }
 ```
 
-To generate a `personal-access-token` for the GitHub platform, follow the instructions provided  [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). Ensure that the token has at a minimum all the permissions in the `repo` scope.
+To generate a `personal-access-token` for the GitHub platform, follow the instructions provided [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token). Ensure that the token has at a minimum all the permissions in the `repo` scope.
 
-Once you have provided your username and *personal access token*, as shown above, you can test the integration by pulling the repository code.
+Once you have provided your username and _personal access token_, as shown above, you can test the integration by pulling the repository code.
 
 ```
 nextflow pull https://github.com/user_name/private_repo
@@ -85,7 +85,7 @@ nextflow pull https://github.com/user_name/private_repo
 
 ## Bitbucket Cloud
 
-[Bitbucket](https://bitbucket.org/) is a publicly accessible Git solution hosted by Atlassian. Please note that if you are using an on-premises Bitbucket installation, you should follow the instructions for  *Bitbucket Server* in the following section.
+[Bitbucket](https://bitbucket.org/) is a publicly accessible Git solution hosted by Atlassian. Please note that if you are using an on-premises Bitbucket installation, you should follow the instructions for _Bitbucket Server_ in the following section.
 
 If your Nextflow code is in a public Bitbucket repository, then you don't need to specify your credentials to pull code from the repository. However, if you wish to interact with a private repository, you need to provide elevated access to Nextflow by specifying your credentials in the `scm` file.
 
@@ -112,7 +112,7 @@ nextflow pull https://bitbucket.org/user_name/private_repo
 
 ## Bitbucket Server
 
-[Bitbucket Server](https://www.atlassian.com/software/bitbucket/enterprise) is a Git hosting solution from Atlassian which is meant for teams that require a self-managed solution. If Nextflow code resides in an open Bitbucket repository, then you don't need to provide credentials  to pull code from this repository. However, if you wish to interact with a private repository, you need to give elevated access to Nextflow by specifying your credentials in the `scm` file.
+[Bitbucket Server](https://www.atlassian.com/software/bitbucket/enterprise) is a Git hosting solution from Atlassian which is meant for teams that require a self-managed solution. If Nextflow code resides in an open Bitbucket repository, then you don't need to provide credentials to pull code from this repository. However, if you wish to interact with a private repository, you need to give elevated access to Nextflow by specifying your credentials in the `scm` file.
 
 For example, if you'd like to call your hosted Bitbucket server as `mybitbucketserver`, then you'll need to add the following snippet in your `~/$HOME/.nextflow/scm` file.
 
@@ -129,7 +129,7 @@ providers {
 }
 ```
 
-To generate a *personal access token* for Bitbucket Server, refer to the [Bitbucket Support documentation](https://confluence.atlassian.com/bitbucketserver/managing-personal-access-tokens-1005339986.html) from Atlassian.
+To generate a _personal access token_ for Bitbucket Server, refer to the [Bitbucket Support documentation](https://confluence.atlassian.com/bitbucketserver/managing-personal-access-tokens-1005339986.html) from Atlassian.
 
 Once the configuration is saved, you can test the integration by pulling code from a private repository and specifying the `mybitbucketserver` Git provider using the `-hub` option.
 
@@ -143,9 +143,9 @@ NOTE: It is worth noting that [Atlassian is phasing out the Server offering](htt
 
 [GitLab](https://gitlab.com) is a popular Git provider that offers features covering various aspects of the DevOps cycle.
 
-If you wish to run a  Nextflow pipeline from a public GitLab repository, there is no need to provide credentials  to pull code. However, if you wish to interact with a private repository, then you must give elevated access to Nextflow by specifying your credentials in the `scm` file.
+If you wish to run a Nextflow pipeline from a public GitLab repository, there is no need to provide credentials to pull code. However, if you wish to interact with a private repository, then you must give elevated access to Nextflow by specifying your credentials in the `scm` file.
 
-Please note that you need to specify your *personal access token* in the `password` field.
+Please note that you need to specify your _personal access token_ in the `password` field.
 
 ```groovy
 providers {
@@ -159,7 +159,7 @@ providers {
 }
 ```
 
-In addition, you can specify the `server`  fields for your self-hosted instance of GitLab, by default [https://gitlab.com](https://gitlab.com) is assumed as the server.
+In addition, you can specify the `server` fields for your self-hosted instance of GitLab, by default [https://gitlab.com](https://gitlab.com) is assumed as the server.
 
 To generate a `personal-access-token` for the GitLab platform follow the instructions provided [here](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html). Please ensure that the token has at least `read_repository`, `read_api` permissions.
 
@@ -188,7 +188,7 @@ providers {
 }
 ```
 
-To generate a *personal access token* for your Gitea server, please refer to the [official guide](https://docs.gitea.io/en-us/api-usage/).
+To generate a _personal access token_ for your Gitea server, please refer to the [official guide](https://docs.gitea.io/en-us/api-usage/).
 
 Once the configuration is set, you can test the integration by pulling the repository code and specifying `mygiteaserver` as the Git provider using the `-hub` option.
 
@@ -215,7 +215,7 @@ providers {
 }
 ```
 
-To generate a *personal access token* for your Azure Repos integration, please refer to the [official guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) on Azure.
+To generate a _personal access token_ for your Azure Repos integration, please refer to the [official guide](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops&tabs=preview-page) on Azure.
 
 Once the configuration is set, you can test the integration by pulling the repository code and specifying `myazure` as the Git provider using the `-hub` option.
 

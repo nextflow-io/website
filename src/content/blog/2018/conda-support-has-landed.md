@@ -7,7 +7,6 @@ author: Paolo Di Tommaso
 icon: paolo.jpg
 ---
 
-
 Nextflow aims to ease the development of large scale, reproducible workflows allowing
 developers to focus on the main application logic and to rely on best community tools and
 best practices.
@@ -24,7 +23,6 @@ The native integration with Nextflow allows researchers to develop workflow appl
 in a rapid and easy repeatable manner, reusing community tools, whilst taking advantage of the
 configuration flexibility, portability and scalability provided by Nextflow.
 
-
 ### How it works
 
 Nextflow automatically creates and activates the Conda environment(s) given the dependencies
@@ -36,12 +34,11 @@ file or the path of an existing Conda environment directory.
 
 Conda environments are stored on the file system. By default Nextflow instructs Conda to save
 the required environments in the pipeline work directory. You can specify the directory where the
-Conda environments are stored using the ``conda.cacheDir`` configuration property.
-
+Conda environments are stored using the `conda.cacheDir` configuration property.
 
 #### Use Conda package names
 
-The simplest way to use one or more Conda packages consists in specifying their names using the ``conda`` directive.
+The simplest way to use one or more Conda packages consists in specifying their names using the `conda` directive.
 Multiple package names can be specified by separating them with a space. For example:
 
 ```
@@ -58,10 +55,10 @@ Using the above definition a Conda environment that includes BWA, Samtools and M
 is created and activated when the process is executed.
 
 The usual Conda package syntax and naming conventions can be used. The version of a package can be
-specified after the package name as shown here: ``bwa=0.7.15``.
+specified after the package name as shown here: `bwa=0.7.15`.
 
 The name of the channel where a package is located can be specified prefixing the package with
-the channel name as shown here: ``bioconda::bwa=0.7.15``.
+the channel name as shown here: `bioconda::bwa=0.7.15`.
 
 #### Use Conda environment files
 
@@ -80,7 +77,7 @@ dependencies:
   - bwa=0.7.15
 ```
 
-The path of the environment file can be specified using the ``conda`` directive:
+The path of the environment file can be specified using the `conda` directive:
 
 ```
 process foo {
@@ -92,12 +89,12 @@ process foo {
 }
 ```
 
-Note: the environment file name **must** end with a ``.yml`` or ``.yaml`` suffix otherwise
+Note: the environment file name **must** end with a `.yml` or `.yaml` suffix otherwise
 it won't be properly recognized. Also relative paths are resolved against the workflow
 launching directory.
 
 The suggested approach is to store the the Conda environment file in your project root directory
-and reference it in the `nextflow.config` directory using the ``baseDir`` variable as shown below:
+and reference it in the `nextflow.config` directory using the `baseDir` variable as shown below:
 
 ```
 process.conda = "$baseDir/my-env.yaml"
@@ -130,4 +127,3 @@ workflows along with [Environment Modules](/docs/latest/process.html#module) and
 
 The resulting workflow applications can easily be reconfigured and deployed across a range of different
 platforms choosing the best technology according to the requirements of the target system.
-

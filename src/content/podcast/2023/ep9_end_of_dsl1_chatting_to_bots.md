@@ -8,7 +8,7 @@ subtype: News and Views
 youtubeid: sClxiBlOcIw
 image: /img/podcast_ep09.jpg
 tags: news and views,opensource,community
-author:  Developer advocates
+author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
@@ -18,24 +18,23 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 #### New "fair" process directive
 
-- New Nextflow directive added! See [nextflow-io/nextflow@`60d34cf`](https://github.com/nextflow-io/nextflow/commit/60d34cfddba721a9544908f294d008f607a9071f)
-    - > This commit adds the process 'fair' directive. When fair is set to true the process outputs are guaranteed
-to me emitted in the same sequence as the inputs where received instead of the first-completed-first-output semantic that's usually used by nextflow tasks
+- New Nextflow directive added! See [nextflow-io/nextflow@`60d34cf`](https://github.com/nextflow-io/nextflow/commit/60d34cfddba721a9544908f294d008f607a9071f) - > This commit adds the process 'fair' directive. When fair is set to true the process outputs are guaranteed
+  to me emitted in the same sequence as the inputs where received instead of the first-completed-first-output semantic that's usually used by nextflow tasks
 
 #### The end of DSL1 support!
 
 - DSL1 now not supported in the latest edge release - `22.12.0-edge`
 - You can still run old pipelines with older versions of Nextflow
-    - Use `NXF_VER` before commands, this is good practice for reproducibility anyway
-    - eg. `NXF_VER=22.10.4 nextflow run [...]`
+  - Use `NXF_VER` before commands, this is good practice for reproducibility anyway
+  - eg. `NXF_VER=22.10.4 nextflow run [...]`
 - All documentation and training should now be about DSL2. Should be less confusing...
 - Never a better time to convert to DSL2!
 
 #### ChatGPT
 
 - The community is putting it to good use ;)
-    - [_""Write a song about Nextflow using "New York, I Love You but You're Bringing Me Down" as a template"_](https://twitter.com/LonsBio/status/1600266542876610560)
-    - If you don't know the song, it's by LCD Soundsystem ([have a listen here](https://youtu.be/-eohHwsplvY))
+  - [_""Write a song about Nextflow using "New York, I Love You but You're Bringing Me Down" as a template"_](https://twitter.com/LonsBio/status/1600266542876610560)
+  - If you don't know the song, it's by LCD Soundsystem ([have a listen here](https://youtu.be/-eohHwsplvY))
 - Careful with trusting it too much! It also comes out with a lot of rubbish.
 
 #### Stable diffusion ML pipeline
@@ -56,6 +55,6 @@ to me emitted in the same sequence as the inputs where received instead of the f
 #### Upcoming events
 
 - There's a [nf-core/bytesize talk on January 17th](https://nf-co.re/events/2023/bytesize_nf-core-taxprofiler) by Sofia Stamouli about the nf-core/taxprofiler pipeline
-    - > A bioinformatics best-practice analysis pipeline for taxonomic profiling of shotgun metagenomic data. It allows for in-parallel profiling with multiple profiling tools against multiple databases, produces standardised output tables.
+  - > A bioinformatics best-practice analysis pipeline for taxonomic profiling of shotgun metagenomic data. It allows for in-parallel profiling with multiple profiling tools against multiple databases, produces standardised output tables.
 - Please sign up for the March 2023 [Nextflow / nf-core Training](https://nf-co.re/events/2023/training-march-2023)!
 - Please sign up for the March 2023 [nf-core hackathon](https://nf-co.re/events/2023/hackathon-march-2023)!

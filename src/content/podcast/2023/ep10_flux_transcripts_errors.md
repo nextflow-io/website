@@ -8,7 +8,7 @@ subtype: News and Views
 youtubeid: 5UDIGQVo9hA
 image: /img/podcast_ep10.jpg
 tags: news and views,opensource,community
-author:  Developer advocates
+author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
@@ -33,12 +33,12 @@ In this News and Views episode, [Chris Hakkaart](https://twitter.com/chris_hakk)
 
 - Understanding error messages is a common challenge faced by the community.
 - There has been a lot of work on improving Nextflow error messages.
-    - Examples include improved messaging for errors created by passing a channel to a channel and operators that also work on folders and gave error messages that would refer to a file.
+  - Examples include improved messaging for errors created by passing a channel to a channel and operators that also work on folders and gave error messages that would refer to a file.
 - An example of community feedback guiding development.
 
 #### Upcoming events
 
 - There's a [nf-core/bytesize talk on January 25th](https://nf-co.re/events/2023/bytesize_funcscan) by Jasmin Frangenberg about the nf-core/funcscan pipeline.
-    - A bioinformatics best-practice analysis pipeline for the screening of functional components of nucleotide sequences.
+  - A bioinformatics best-practice analysis pipeline for the screening of functional components of nucleotide sequences.
 - The [Nextflow / nf-core training](https://nf-co.re/events/2023/training-march-2023) is being held March 13-16.
 - The [nf-core hackathon](https://nf-co.re/events/2023/hackathon-march-2023) is being held March 27-29.

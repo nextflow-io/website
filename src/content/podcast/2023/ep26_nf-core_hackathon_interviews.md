@@ -11,6 +11,7 @@ tags: nextflow,opensource,community
 author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
+
 In a special edition of the Channels Podcast, Geraldine Van der Auwera interviews four members of the Nextflow community attending the 2023 nf-core hackathon: Raquel Manzano, Edmund Miller, Rieke Hanssen and Francesco Lescai. Recorded in-person at the Nextflow Summit Barcelona, we hear a bit about what they have been working on, how they came to use Nextflow and what motivated them to join the nf-core hackathon.
 
 <!-- end-archive-description -->

@@ -27,7 +27,7 @@ However this approach does not scale well for workloads made up of a large numbe
 short-lived tasks (e.g. a few seconds or sub-seconds). In this scenario the resource
 manager scheduling time is much longer than the actual task execution time, thus resulting
 in an overall execution time that is much longer than the real execution time.
-In some cases this represents an unacceptable waste of  computing resources.
+In some cases this represents an unacceptable waste of computing resources.
 
 Moreover supercomputers, such as [MareNostrum](https://www.bsc.es/marenostrum-support-services/mn3)
 in the [Barcelona Supercomputer Center (BSC)](https://www.bsc.es/), are optimized for
@@ -56,11 +56,10 @@ example below:
     #$ -pe ompi <nodes>
     mpirun --pernode nextflow run <your-project-name> -with-mpi [pipeline parameters]
 
-
 This tool spawns a Nextflow instance in each of the computing nodes allocated by the
 cluster manager.
 
-Each Nextflow instance automatically connects with the other peers creating an *private*
+Each Nextflow instance automatically connects with the other peers creating an _private_
 internal cluster, thanks to the Apache Ignite clustering feature that
 is embedded within Nextflow itself.
 
@@ -69,7 +68,6 @@ workflow application, submitting the tasks to the remaining nodes that act as wo
 
 When the application is complete, the Nextflow driver automatically shuts down the
 Nextflow/Ignite cluster and terminates the job execution.
-
 
 ![Nextflow distributed execution](/img/nextflow-distributed-execution.png)
 
@@ -93,7 +91,3 @@ software components. This eventually makes it possible to implement an optimised
 using a low-level programming language in the second stage of a project.
 
 Read the documentation to learn more about the [Nextflow distributed execution model](https://www.nextflow.io/docs/latest/ignite.html#execution-with-mpi).
-
-
-
-

@@ -67,8 +67,8 @@ workflow {
     perlTask | pyTask | view
 }
 ```
-</div>
 
+</div>
 
 ### Synopsis
 

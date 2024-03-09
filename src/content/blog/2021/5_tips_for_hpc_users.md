@@ -22,7 +22,7 @@ process.executor = 'slurm'
 ```
 
 With the above setting Nextflow will submit the job executions to your Slurm cluster spawning a `sbatch` command for each job in your pipeline. Find the executor matching your system at [this link](https://www.nextflow.io/docs/latest/executor.html).
-Even better, to prevent the undesired use of the local executor in a specific environment, define the *default* executor to be used by Nextflow using the following system variable:
+Even better, to prevent the undesired use of the local executor in a specific environment, define the _default_ executor to be used by Nextflow using the following system variable:
 
 ```
 export NXF_EXECUTOR=slurm
@@ -39,7 +39,7 @@ Note: the queue where the Nextflow driver job is submitted should allow the spaw
 
 ### 3. Use the queueSize directive
 
-The `queueSize` directive is part of the executor configuration in the `nextflow.config` file, and defines how many processes are queued at a given time. By default, Nextflow will submit up to  100 jobs at a time for execution. Increase or decrease this setting depending your HPC system quota and throughput. For example:
+The `queueSize` directive is part of the executor configuration in the `nextflow.config` file, and defines how many processes are queued at a given time. By default, Nextflow will submit up to 100 jobs at a time for execution. Increase or decrease this setting depending your HPC system quota and throughput. For example:
 
 ```
 executor {
@@ -73,7 +73,7 @@ executor {
 }
 ```
 
-You  can also more explicitly specify it as a rate of # processes / time unit:
+You can also more explicitly specify it as a rate of # processes / time unit:
 
 ```
 executor {
@@ -82,7 +82,7 @@ executor {
 ```
 
 ### Conclusion
+
 Nextflow aims to give you control over every aspect of your workflow. These options allow you to shape how Nextflow communicates with your HPC system. This can make workflows more robust while avoiding overloading the executor. Some systems have hard limits, and if you do not take them into account, it will stop any jobs from being scheduled.
 
 Stay tuned for part two where we will discuss background executions, retry strategies, maxForks and other tips.
-

@@ -7,13 +7,11 @@ author: Paolo Di Tommaso
 icon: paolo.jpg
 ---
 
-
 When the Nextflow project was created, one of the main drivers was to enable reproducible data pipelines that could be deployed across a wide range of execution platforms with minimal effort as well as to empower users to scale their data analysis while facilitating the migration to the cloud.
 
 Throughout the years, the computing services provided by cloud vendors have evolved in a spectacular manner. Eight years ago, the model was focused on launching virtual machines in the cloud, then came containers and then the idea of serverless computing which changed everything again. However, the power of the Nextflow abstraction consists of hiding the complexity of the underlying platform. Through the concept of executors, emerging technologies and new platforms can be easily adapted with no changes required to user pipelines.
 
 With this in mind, we could not be more excited to announce that over the past months we have been working with Microsoft to implement built-in support for [Azure Batch](https://azure.microsoft.com/en-us/services/batch/) into Nextflow. Today we are delighted to make it available to all users as a beta release.
-
 
 ### How does it work
 
@@ -25,7 +23,7 @@ Each job run consists in practical terms of a container execution which ships th
 
 ### Let's get started!
 
-The support for Azure Batch requires the latest release of Nextflow from the *edge* channel (version 21.02-edge or later). If you don't have this, you can install it using these commands:
+The support for Azure Batch requires the latest release of Nextflow from the _edge_ channel (version 21.02-edge or later). If you don't have this, you can install it using these commands:
 
 ```
 export NXF_EDGE=1
@@ -33,7 +31,7 @@ curl get.nextflow.io | bash
 ./nextflow -self-update
 ```
 
-Note for Windows users, as Nextflow is *nix based tool you will need to run it using the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Also make sure Java 8 or later is installed in the Linux environment.
+Note for Windows users, as Nextflow is \*nix based tool you will need to run it using the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10). Also make sure Java 8 or later is installed in the Linux environment.
 
 Once Nextflow is installed, to run your data pipelines with Azure Batch, you will need to create an Azure Batch account in the region of your choice using the Azure Portal. In a similar manner, you will need an Azure Blob container.
 
@@ -79,4 +77,4 @@ refers to the Nextflow documentation at [this link](/docs/edge/azure.html).
 
 The support for Azure Batch further expands the wide range of computing platforms supported by Nextflow and empowers Nextflow users to deploy their data pipelines in the cloud provider of their choice. Above all, it allows researchers to scale, collaborate and share their work without being locked into a specific platform.
 
-We thank Microsoft, and in particular  [Jer-Ming Chia](https://www.linkedin.com/in/jermingchia/) who works in the HPC and AI team for having supported and sponsored this open source contribution to the Nextflow framework.
+We thank Microsoft, and in particular [Jer-Ming Chia](https://www.linkedin.com/in/jermingchia/) who works in the HPC and AI team for having supported and sponsored this open source contribution to the Nextflow framework.

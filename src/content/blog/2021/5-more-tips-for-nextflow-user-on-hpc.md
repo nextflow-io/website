@@ -20,10 +20,11 @@ process.scratch = true
 ```
 
 When using this option, Nextflow:
-* Creates a unique directory in the computing node's local `/tmp` or the path assigned by your cluster via the `TMPDIR` environment variable.
-* Creates a [symlink](https://en.wikipedia.org/wiki/Symbolic_link) for each input file required by the job execution.
-* Runs the job in the local scratch path.
-Copies the job output files into the job shared work directory assigned by Nextflow.
+
+- Creates a unique directory in the computing node's local `/tmp` or the path assigned by your cluster via the `TMPDIR` environment variable.
+- Creates a [symlink](https://en.wikipedia.org/wiki/Symbolic_link) for each input file required by the job execution.
+- Runs the job in the local scratch path.
+  Copies the job output files into the job shared work directory assigned by Nextflow.
 
 ### 2. Use -bg option to launch the execution in the background
 
@@ -48,7 +49,6 @@ These directives allow you to specify the request for a certain number of comput
 However, there can be settings that are only available on some specific cluster technology or vendors.
 
 The [clusterOptions](https://www.nextflow.io/docs/latest/process.html#clusterOptions) directive allows you to specify any option of your resource manager for which there isn't direct support in Nextflow.
-
 
 ### 5. Retry failing jobs increasing resource allocation
 
@@ -77,7 +77,6 @@ In the above example the memory and execution time limits are defined dynamicall
 If the task execution fails, reporting an exit status in the range between 137 and 140, the task is re-submitted (otherwise it terminates immediately). This time the value of task.attempt is 2, thus increasing the amount of the memory to four GB and the time to 2 hours, and so on.
 
 NOTE: These exit statuses are not standard and can change depending on the resource manager you are using. Consult your cluster administrator or scheduler administration guide for details on the exit statuses used by your cluster in similar error conditions.
-
 
 ### Conclusion
 

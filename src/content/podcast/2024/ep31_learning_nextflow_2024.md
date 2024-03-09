@@ -17,9 +17,11 @@ Join us in this episode of the Channels podcast as [Geraldine Van der Auwera](ht
 <!-- end-archive-description -->
 
 #### Upcoming training opportunities
+
 - [Community Foundational Nextflow Training — Online, 5-6 March 2024](https://nf-co.re/events/2024/training-foundational-march)
 - [Training at Seqera Sessions — London, 21 March 2024](https://seqera.io/seqera-sessions-london/)
 - [Training at Nextflow Summit — Boston, 21-22 May 2024](https://summit.nextflow.io/2024/boston/)
 
 #### Other upcoming events of interest
+
 - [nf-core Hackathon — Online + Local Hubs, 18-20 March 2024](https://nf-co.re/events/2024/hackathon-march-2024)

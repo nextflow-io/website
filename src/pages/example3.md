@@ -3,7 +3,6 @@ title: BLAST pipeline
 layout: "@layouts/Page.astro"
 ---
 
-
 <div class="blg-summary example">
 <h3>BLAST pipeline</h3>
 
@@ -88,15 +87,16 @@ process extract {
     """
 }
 ```
+
 </div>
 
 ### Try it on your computer
 
 To run this pipeline on your computer, you will need:
 
-* Unix-like operating system
-* Java 11 (or higher)
-* Docker
+- Unix-like operating system
+- Java 11 (or higher)
+- Docker
 
 Install Nextflow by entering the following command in the terminal:
 
@@ -108,4 +108,4 @@ Then launch the pipeline with this command:
 
 It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/blast-example) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
 
-__NOTE__: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.

@@ -20,14 +20,14 @@ In a bumper episode, we discuss the new [_nf-validation_ Nextflow plugin](https:
 
 #### Schema & Validation
 
-* nf-validation plugin: <https://nextflow-io.github.io/nf-validation/>
-* [Nextflow schema specification](https://nextflow-io.github.io/nf-validation/nextflow_schema/nextflow_schema_specification/)
-* nf-core: [pipeline schema builder](https://nf-co.re/pipeline_schema_builder)
-* nf-core/tools: [CLI docs for schema](https://nf-co.re/tools/#pipeline-schema)
-* nf-validation: [validating parameters](https://nextflow-io.github.io/nf-validation/parameters/validation/)
-* nf-validation: [`fromSamplesheet` channel factory](https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/)
+- nf-validation plugin: <https://nextflow-io.github.io/nf-validation/>
+- [Nextflow schema specification](https://nextflow-io.github.io/nf-validation/nextflow_schema/nextflow_schema_specification/)
+- nf-core: [pipeline schema builder](https://nf-co.re/pipeline_schema_builder)
+- nf-core/tools: [CLI docs for schema](https://nf-co.re/tools/#pipeline-schema)
+- nf-validation: [validating parameters](https://nextflow-io.github.io/nf-validation/parameters/validation/)
+- nf-validation: [`fromSamplesheet` channel factory](https://nextflow-io.github.io/nf-validation/samplesheets/fromSamplesheet/)
 
 #### nf-core components
 
-* nf-core modules: https://nf-co.re/modules
-* Subworkflows: New website coming soon! <small>ok fine [here's the preview](https://astro--nf-core.netlify.app/subworkflows/) _(link will break soon / expect buggy behaviour)_</small>
+- nf-core modules: https://nf-co.re/modules
+- Subworkflows: New website coming soon! <small>ok fine [here's the preview](https://astro--nf-core.netlify.app/subworkflows/) _(link will break soon / expect buggy behaviour)_</small>

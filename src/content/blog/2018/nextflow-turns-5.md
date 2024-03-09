@@ -11,21 +11,21 @@ Nextflow is growing up. The past week marked five years since the [first commit]
 
 A lot has happened recently and we thought it was time to highlight some of the recent evolutions. We also take the opportunity to extend the warmest of thanks to all those who have contributed to the development of Nextflow as well as the fantastic community of users who consistently provide ideas, feedback and the occasional late night banter on the [Gitter channel](https://gitter.im/nextflow-io/nextflow).
 
- Here are a few neat developments churning out of the birthday cake mix.
+Here are a few neat developments churning out of the birthday cake mix.
 
 ### nf-core
 
-[nf-core](https://nf-core.github.io/) is a community effort to provide a home for high quality, production-ready, curated analysis pipelines built using Nextflow. The project has been initiated and is being led by [Phil Ewels](https://github.com/ewels) of [MultiQC](http://multiqc.info/) fame. The principle is that *nf-core* pipelines can be used out-of-the-box or as inspiration for something different.
+[nf-core](https://nf-core.github.io/) is a community effort to provide a home for high quality, production-ready, curated analysis pipelines built using Nextflow. The project has been initiated and is being led by [Phil Ewels](https://github.com/ewels) of [MultiQC](http://multiqc.info/) fame. The principle is that _nf-core_ pipelines can be used out-of-the-box or as inspiration for something different.
 
-As well as being a place for best-practise pipelines, other features of *nf-core* include the [cookie cutter template tool](https://github.com/nf-core/cookiecutter) which provides a fast way to create a dependable workflow using many of Nextflow’s sweet capabilities such as:
+As well as being a place for best-practise pipelines, other features of _nf-core_ include the [cookie cutter template tool](https://github.com/nf-core/cookiecutter) which provides a fast way to create a dependable workflow using many of Nextflow’s sweet capabilities such as:
 
-* *Outline:* Skeleton pipeline script.
-* *Data:* Reference Genome implementation (AWS iGenomes).
-* *Configuration:* Robust configuration setup.
-* *Containers:* Skeleton files for Docker image generation.
-* *Reporting:* HTML email functionality and and HTML results output.
-* *Documentation:* Installation, Usage, Output, Troubleshooting, etc.
-* *Continuous Integration:* Skeleton files for automated testing using Travis CI.
+- _Outline:_ Skeleton pipeline script.
+- _Data:_ Reference Genome implementation (AWS iGenomes).
+- _Configuration:_ Robust configuration setup.
+- _Containers:_ Skeleton files for Docker image generation.
+- _Reporting:_ HTML email functionality and and HTML results output.
+- _Documentation:_ Installation, Usage, Output, Troubleshooting, etc.
+- _Continuous Integration:_ Skeleton files for automated testing using Travis CI.
 
 There is also a Python package with helper tools for Nextflow.
 
@@ -39,7 +39,7 @@ As of version 0.28.0 Nextflow now has support for Kubernetes. If you don’t kno
 
 Kubernetes looks be one of the key technologies for the application of containers in the cloud as well as for building Infrastructure as a Service (IaaS) and Platform and a Service (PaaS) applications. We have been approached by many users who wish to use Nextflow with Kubernetes to be able to deploy workflows across both academic and commercial settings. With enterprise versions of Kubernetes such as Red Hat's [OpenShift](https://www.openshift.com/), it was becoming apparent there was a need for native execution with Nextflow.
 
-The new command `nextflow kuberun` launches the Nextflow driver as a *pod* which is then able to run workflow tasks as other pods within a Kubernetes cluster. You can read more in the documentation on Kubernetes support for Nextflow [here](https://www.nextflow.io/docs/latest/kubernetes.html).
+The new command `nextflow kuberun` launches the Nextflow driver as a _pod_ which is then able to run workflow tasks as other pods within a Kubernetes cluster. You can read more in the documentation on Kubernetes support for Nextflow [here](https://www.nextflow.io/docs/latest/kubernetes.html).
 
 <img alt='Nextflow and Kubernetes' width='760' src='/img/nextflow-kubernetes-min.png' style='margin:1em auto'/>
 

@@ -55,7 +55,6 @@ In practice this means that Nextflow can now spin-up and configure a fully featu
 cluster in the cloud with a single command, after that you need only to login to the master
 node and launch the pipeline execution as you would do in your on-premise cluster.
 
-
 ### Demo !
 
 Since a demo is worth a thousands words, I've record a short screencast showing how
@@ -70,38 +69,38 @@ Note: in this screencast it has been cut the Ec2 instances startup delay. It req
 
 Let's recap the steps showed in the demo:
 
-* The user provides the cloud parameters (such as the VM image ID and the instance type)
+- The user provides the cloud parameters (such as the VM image ID and the instance type)
   in the `nextflow.config` file.
 
-* To configure the EFS file system you need to provide your EFS storage ID and the mount path
+- To configure the EFS file system you need to provide your EFS storage ID and the mount path
   by using the `sharedStorageId` and `sharedStorageMount` properties.
 
-* To use [EC2 Spot](https://aws.amazon.com/ec2/spot/) instances, just specify the price
+- To use [EC2 Spot](https://aws.amazon.com/ec2/spot/) instances, just specify the price
   you want to bid by using the `spotPrice` property.
 
-* The AWS access and secret keys are provided by using the usual environment variables.
+- The AWS access and secret keys are provided by using the usual environment variables.
 
-* The `nextflow cloud create` launches the requested number of instances, configures the user and
+- The `nextflow cloud create` launches the requested number of instances, configures the user and
   access key, mounts the EFS storage and setups the Nextflow cluster automatically.
   Any Linux AMI can be used, it is only required that the [cloud-init](https://cloudinit.readthedocs.io/en/latest/)
   package, a Java 7+ runtime and the Docker engine are present.
 
-* When the cluster is ready, you can SSH in the master node and launch the pipeline execution
+- When the cluster is ready, you can SSH in the master node and launch the pipeline execution
   as usual with the `nextflow run <pipeline name>` command.
 
-* For the sake of this demo we are using [paraMSA](https://github.com/pditommaso/paraMSA),
+- For the sake of this demo we are using [paraMSA](https://github.com/pditommaso/paraMSA),
   a pipeline for generating multiple sequence alignments and bootstrap replicates developed
   in our lab.
 
-* Nextflow automatically pulls the pipeline code from its GitHub repository when the
+- Nextflow automatically pulls the pipeline code from its GitHub repository when the
   execution is launched. This repository includes also a dataset which is used by default.
   [The many bioinformatic tools used by the pipeline](https://github.com/pditommaso/paraMSA#dependencies-)
   are packaged using a Docker image, which is downloaded automatically on each computing node.
 
-* The pipeline results are uploaded automatically in the S3 bucket specified
+- The pipeline results are uploaded automatically in the S3 bucket specified
   by the `--output s3://cbcrg-eu/para-msa-results` command line option.
 
-* When the computation is completed, the cluster can be safely shutdown and the
+- When the computation is completed, the cluster can be safely shutdown and the
   EC2 instances terminated with the `nextflow cloud shutdown` command.
 
 ### Try it yourself
@@ -116,7 +115,7 @@ Bare in mind that Nextflow requires a Unix-like operating system and a Java runt
 should be able to run it, at their risk..).
 
 Once you have installed it, you can follow the steps in the above demo. For your convenience
-we made publicly available the EC2 image <s>`ami-43f49030`</s> `ami-4b7daa32`<sup>* </sup> (EU Ireland region) used to record this
+we made publicly available the EC2 image <s>`ami-43f49030`</s> `ami-4b7daa32`<sup>\* </sup> (EU Ireland region) used to record this
 screencast.
 
 Also make sure you have the following the following variables defined in your environment:
@@ -124,7 +123,6 @@ Also make sure you have the following the following variables defined in your en
     AWS_ACCESS_KEY_ID="<your aws access key>"
     AWS_SECRET_ACCESS_KEY="<your aws secret key>"
     AWS_DEFAULT_REGION="<your aws region>"
-
 
 Referes to the <a href='/docs/latest/awscloud.html'>documentation</a> for configuration details.
 
@@ -144,8 +142,3 @@ a cost effective solution for the execution of your pipeline in the cloud.
 
 Thanks to [Evan Floden](https://github.com/skptic) for reviewing this post and for writing
 the [paraMSA](https://github.com/skptic/paraMSA/) pipeline.
-
-
-
-
-

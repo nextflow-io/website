@@ -10,7 +10,7 @@ icon: paolo.jpg
 Nextflow was one of the [first workflow framework](https://www.nextflow.io/blog/2014/nextflow-meets-docker.html)
 to provide built-in support for Docker containers. A couple of years ago we also started
 to experiment with the deployment of containerised bioinformatic pipelines at CRG,
-using Docker technology (see [here]((https://www.nextflow.io/blog/2014/using-docker-in-hpc-cluster.html)) and [here](https://www.nextplatform.com/2016/01/28/crg-goes-with-the-genomics-flow/)).
+using Docker technology (see [here](<(https://www.nextflow.io/blog/2014/using-docker-in-hpc-cluster.html)>) and [here](https://www.nextplatform.com/2016/01/28/crg-goes-with-the-genomics-flow/)).
 
 We found that by isolating and packaging the complete computational workflow environment
 with the use of Docker images, radically simplifies the burden of maintaining complex
@@ -71,7 +71,7 @@ The benchmarks consisted in the execution of three Nextflow based genomic pipeli
 
 In order to repeat the analyses, we converted the container images we used to perform
 the Docker benchmarks to Singularity image files by using the [docker2singularity](https://github.com/singularityware/docker2singularity) tool
-*(this is not required anymore, see the update below)*.
+_(this is not required anymore, see the update below)_.
 
 The only change needed to run these pipelines with Singularity was to replace the Docker
 specific settings with the following ones in the configuration file:
@@ -149,12 +149,10 @@ table#benchmark .l { text-align: left }
 
 </table>
 
-
 The benchmark results show that there isn't any significative difference in the
 execution times of containerised workflows between Docker and Singularity. In two
 cases Singularity was slightly faster and a third one it was almost identical although
 a little slower than Docker.
-
 
 ### Conclusion
 
@@ -167,7 +165,7 @@ even if Singularity supports user mount points to be defined dynamically when th
 container is launched, this feature requires the overlay file system which was not
 supported by the kernel available in our system.
 
-Docker surely will remain the *de facto* standard engine and image format for containers
+Docker surely will remain the _de facto_ standard engine and image format for containers
 due to its popularity and [impressive growth](http://www.coscale.com/blog/docker-usage-statistics-increased-adoption-by-enterprises-and-for-production-use).
 
 However, in our opinion, Singularity is the tool of choice for the execution of
@@ -179,12 +177,10 @@ guarantees the ability to deploy your workflows in a range of different platform
 cluster, supercomputer, etc). Nextflow transparently manages the deployment of the
 containerised workload according to the runtime available in the target system.
 
-
 #### Credits
 
 Thanks to Gabriel Gonzalez (CRG), Luis Exposito (CRG) and Carlos Tripiana Montes (BSC)
 for the support installing Singularity.
-
 
 **Update** Singularity, since version 2.3.x, is able to pull and run Docker images from the Docker Hub.
 This greatly simplifies the interoperability with existing Docker containers. You only need

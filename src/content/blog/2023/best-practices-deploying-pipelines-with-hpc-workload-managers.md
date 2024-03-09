@@ -8,14 +8,15 @@ tags: nextflow
 author: Gordon Sissons
 icon: gordsissons.jpg
 ---
+
 With all the focus on cloud computing, it's easy to forget that most Nextflow pipelines still run on traditional HPC clusters. In fact, according to our latest [State of the Workflow 2023](https://seqera.io/blog/the-state-of-the-workflow-the-2023-nextflow-and-nf-core-community-survey/) community survey, **62.8%** of survey respondents report running Nextflow on HPC clusters, and **75%** use an HPC workload manager.<sup>1</sup> While the cloud is making gains, traditional clusters aren't going away anytime soon.
 
 Tapping cloud infrastructure offers many advantages in terms of convenience and scalability. However, for organizations with the capacity to manage in-house clusters, there are still solid reasons to run workloads locally:
 
-- *Guaranteed access to resources*. Users don't need to worry about shortages of particular instance types, spot instance availability, or exceeding cloud spending caps.
-- *Predictable pricing*. Organizations are protected against price inflation and unexpected rate increases by capitalizing assets and depreciating them over time.
-- *Reduced costs*. Contrary to conventional wisdom, well-managed, highly-utilized, on-prem clusters are often less costly per core hour than cloud-based alternatives.
-- *Better performance and throughput*. While HPC infrastructure in the cloud is impressive, state-of-the-art on-prem clusters are still tough to beat.<sup>2</sup>
+- _Guaranteed access to resources_. Users don't need to worry about shortages of particular instance types, spot instance availability, or exceeding cloud spending caps.
+- _Predictable pricing_. Organizations are protected against price inflation and unexpected rate increases by capitalizing assets and depreciating them over time.
+- _Reduced costs_. Contrary to conventional wisdom, well-managed, highly-utilized, on-prem clusters are often less costly per core hour than cloud-based alternatives.
+- _Better performance and throughput_. While HPC infrastructure in the cloud is impressive, state-of-the-art on-prem clusters are still tough to beat.<sup>2</sup>
 
 This article provides some helpful tips for organizations running Nextflow on HPC clusters.
 
@@ -234,7 +235,7 @@ A complete list of available executors is available in the [Nextflow documentati
 
 ### 2. Select a queue
 
-Most HPC workload managers support the notion of queues. In a small cluster with a few users, queues may not be important. However, they are essential in large environments. Cluster administrators typically configure queues to reflect site-specific scheduling and resource-sharing policies. For example, a site may have a short queue that only supports short-running jobs and kills them after 60 seconds. A *night* queue may only dispatch jobs between midnight and 6:00 AM. Depending on the sophistication of the workload manager, different queues may have different priorities and access to queues may be limited to particular users or groups.
+Most HPC workload managers support the notion of queues. In a small cluster with a few users, queues may not be important. However, they are essential in large environments. Cluster administrators typically configure queues to reflect site-specific scheduling and resource-sharing policies. For example, a site may have a short queue that only supports short-running jobs and kills them after 60 seconds. A _night_ queue may only dispatch jobs between midnight and 6:00 AM. Depending on the sophistication of the workload manager, different queues may have different priorities and access to queues may be limited to particular users or groups.
 
 Workload managers typically have default queues. For example, `normal` is the default queue in LSF, while `all.q` is the default queue in Grid Engine. Slurm supports the notion of partitions that are essentially the same as queues, so Slurm partitions are referred to as queues within Nextflow. You should ask your HPC cluster administrator what queue to use when submitting Nextflow jobs.
 
@@ -251,7 +252,7 @@ Some organizations use queues as a mechanism to request particular types of reso
 
 ### 3. Specify process-level resource requirements
 
-Depending on the executor, you can pass various resource requirements for each process/job to the workload manager. Like *executors* and *queues*, these settings are configured at the process level. Not all executors support the same resource directives, but the settings below are common to most HPC workload managers.
+Depending on the executor, you can pass various resource requirements for each process/job to the workload manager. Like _executors_ and _queues_, these settings are configured at the process level. Not all executors support the same resource directives, but the settings below are common to most HPC workload managers.
 
 [cpus](https://nextflow.io/docs/latest/process.html#process-cpus) – specifies the number of logical CPUs requested for a particular process/job. A logical CPU maps to a physical processor core or thread depending on whether hyperthreading is enabled on the underlying cluster hosts.
 
@@ -376,7 +377,7 @@ To learn more about Nextflow and how it works with various storage architectures
 
 ### 8. Launch pipelines in the background
 
-If you are launching your pipeline from a login node or cluster head node, it is useful to run pipelines in the background without losing the execution output reported by Nextflow. You can accomplish this by using the -bg switch in Nextflow and redirecting *stdout* to a log file as shown:
+If you are launching your pipeline from a login node or cluster head node, it is useful to run pipelines in the background without losing the execution output reported by Nextflow. You can accomplish this by using the -bg switch in Nextflow and redirecting _stdout_ to a log file as shown:
 
 ```bash
 nextflow run <pipeline> -bg > my-file.log

@@ -16,10 +16,10 @@ performed to many differing standards, or [lack of thereof](http://journals.plos
 We all agree it is not good enough to simply note down the software version number.
 But what practical measures can be taken?
 
-The recent publication describing *Kallisto* [(Bray et al. 2016)](https://doi.org/10.1038/nbt.3519)
+The recent publication describing _Kallisto_ [(Bray et al. 2016)](https://doi.org/10.1038/nbt.3519)
 provides an excellent high profile example of the growing efforts to ensure reproducible
 science in computational biology. The authors provide a GitHub [repository](https://github.com/pachterlab/kallisto_paper_analysis)
-that *“contains all the analysis to reproduce the results in the kallisto paper”*.
+that _“contains all the analysis to reproduce the results in the kallisto paper”_.
 
 They should be applauded and indeed - in the Twittersphere - they were. The corresponding
 author Lior Pachter stated that the publication could be reproduced starting from raw
@@ -36,24 +36,25 @@ in productivity to be immense.
 
 As both users and developers of Nextflow, we have long discussed best practice to ensure
 reproducibility of our work. As a community, we are at the beginning of that conversation
-- there are still many ideas to be aired and details ironed out - nevertheless we wished
-to provide a *state-of-play* as we see it and to describe what is possible with Nextflow
-in this regard.
 
+- there are still many ideas to be aired and details ironed out - nevertheless we wished
+  to provide a _state-of-play_ as we see it and to describe what is possible with Nextflow
+  in this regard.
 
 ### Guaranteed Reproducibility
-This is our goal.  It is one thing for a pipeline to be able to be reproduced in your own
+
+This is our goal. It is one thing for a pipeline to be able to be reproduced in your own
 hands, on your machine, yet is another for this to be guaranteed so that anyone anywhere
 can reproduce it. What I mean by guaranteed is that when a given pipeline is executed,
 there is only one result which can be output.
-Envisage what I term the *reproducibility triangle*: consisting of data, code and
+Envisage what I term the _reproducibility triangle_: consisting of data, code and
 compute environment.
 
 ![Reproducibility Triangle](/img/reproducibility-triangle.png)
 
-**Figure 1:** The Reproducibility Triangle. *Data*: raw data such as sequencing reads,
-genomes and annotations but also metadata such as experimental design. *Code*:
-scripts, binaries and libraries/dependencies. *Environment*: operating system.
+**Figure 1:** The Reproducibility Triangle. _Data_: raw data such as sequencing reads,
+genomes and annotations but also metadata such as experimental design. _Code_:
+scripts, binaries and libraries/dependencies. _Environment_: operating system.
 
 If there is any change to one of these then the reproducibililty is no longer guaranteed.
 For years there have been solutions to each of these individual components. But they have
@@ -63,9 +64,11 @@ future science must embrace solutions that integrate each of these components na
 holistically.
 
 ### Implementation
+
 Nextflow provides a solution to reproduciblility through version control and sandboxing.
 
 #### Code
+
 Version control is provided via [native integration with GitHub](https://www.nextflow.io/docs/latest/sharing.html)
 and other popular code management platforms such as Bitbucket and GitLab.
 Pipelines can be pulled, executed, developed, collaborated on and shared. For example,
@@ -76,11 +79,12 @@ or revision that was previously defined in the Git repository.
     nextflow run cbcrg/kallisto-nf -r v0.9
 
 #### Environment
+
 Sandboxing during both development and execution is another key concept; version control
 alone does not ensure that all dependencies nor the compute environment are the same.
 
 A simplified implementation of this places all binaries, dependencies and libraries within
-the project repository. In Nextflow, any binaries within the the  `bin` directory of a
+the project repository. In Nextflow, any binaries within the the `bin` directory of a
 repository are added to the path. Also, within the Nextflow [config file](https://github.com/cbcrg/kallisto-nf/blob/master/nextflow.config),
 environmental variables such as `PERL5LIB` can be defined so that they are automatically
 added during the task executions.
@@ -107,7 +111,8 @@ manages the execution of the pipeline tasks from within the container in a trans
 i.e. without having to adapt or modify your code.
 
 #### Data
-Data is currently one of the more challenging aspect to address. *Small data* can be
+
+Data is currently one of the more challenging aspect to address. _Small data_ can be
 easily version controlled within git-like repositories. For larger files
 the [Git Large File Storage](https://git-lfs.github.com/), for which Nextflow provides
 built-in support, may be one solution. Ultimately though, the real home of scientific data
@@ -132,12 +137,12 @@ this does not guard against conceptual or implementation errors. It does not rep
 documentation. What it does is to provide transparency to a result.
 
 The assumption that the deterministic nature of computation makes results insusceptible
-to irreproducbility is clearly false.  We consider Nextflow with its other features such
+to irreproducbility is clearly false. We consider Nextflow with its other features such
 its polyglot nature, out-of-the-box portability and native support across HPC and Cloud
 environments to be an ideal solution in our everyday work. We hope to see more scientists
 adopt this approach to their workflows.
 
-The recent efforts by the *Kallisto* authors highlight the appetite for increasing these
+The recent efforts by the _Kallisto_ authors highlight the appetite for increasing these
 standards and we encourage the community at large to move towards ensuring this becomes
 the normal state of affairs for publishing in science.
 
@@ -147,4 +152,4 @@ Bray, Nicolas L., Harold Pimentel, Páll Melsted, and Lior Pachter. 2016. “Nea
 
 Di Tommaso P, Palumbo E, Chatzou M, Prieto P, Heuer ML, Notredame C. (2015) "The impact of Docker containers on the performance of genomic pipelines." PeerJ 3:e1273 doi.org:10.7717/peerj.1273.
 
- Garijo D, Kinnings S, Xie L, Xie L, Zhang Y, Bourne PE, et al. (2013) "Quantifying Reproducibility in Computational Biology: The Case of the Tuberculosis Drugome." PLoS ONE 8(11): e80278. doi:10.1371/journal.pone.0080278
+Garijo D, Kinnings S, Xie L, Xie L, Zhang Y, Bourne PE, et al. (2013) "Quantifying Reproducibility in Computational Biology: The Case of the Tuberculosis Drugome." PLoS ONE 8(11): e80278. doi:10.1371/journal.pone.0080278

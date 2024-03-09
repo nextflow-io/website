@@ -7,7 +7,7 @@ author: Evan Floden
 icon: evan.jpg
 ---
 
-*Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope that it may encourage others to join in the virtualization revolution.*
+_Below is a step-by-step guide for creating [Docker](http://www.docker.io) images for use with [Nextflow](http://www.nextflow.io) pipelines. This post was inspired by recent experiences and written with the hope that it may encourage others to join in the virtualization revolution._
 
 Modern science is built on collaboration. Recently I became involved with one such venture between several groups across Europe. The aim was to annotate long non-coding RNA (lncRNA) in farm animals and I agreed to help with the annotation based on RNA-Seq data. The basic procedure relies on mapping short read data from many different tissues to a genome, generating transcripts and then determining if they are likely to be lncRNA or protein coding genes.
 
@@ -15,7 +15,7 @@ During several successful 'hackathon' meetings the best approach was decided and
 
 Creating the Nextflow pipeline ([here](http://www.github.com/cbcrg/lncrna-annotation-nf)) in itself was not a difficult task. My collaborators had documented their work well and were on hand if anything was not clear. However installing and keeping aligned all the pipeline dependencies across different the data centers was still a challenging task.
 
-The pipeline is typical of many in bioinformatics, consisting of binary executions, BASH scripting, R, Perl, BioPerl and some custom Perl modules. We found the BioPerl modules in particular where very sensitive to the various versions in the *long* dependency tree. The solution was to turn to [Docker](https://www.docker.com/) containers.
+The pipeline is typical of many in bioinformatics, consisting of binary executions, BASH scripting, R, Perl, BioPerl and some custom Perl modules. We found the BioPerl modules in particular where very sensitive to the various versions in the _long_ dependency tree. The solution was to turn to [Docker](https://www.docker.com/) containers.
 
 I have taken this opportunity to document the process of developing the Docker side of a Nextflow + Docker pipeline in a step-by-step manner.
 
@@ -67,7 +67,6 @@ Notice that we use the command `RUN` before each line. The `RUN` instruction exe
 Also is good practice to group as many as possible commands in the same `RUN` statement. This reduces the size of the final Docker image. See [here](https://blog.replicated.com/2016/02/05/refactoring-a-dockerfile-for-image-size/) for these details and [here](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/) for more best practices.
 
 Next we can specify the install of the required perl modules using [cpan minus](http://search.cpan.org/~miyagawa/Menlo-1.9003/script/cpanm-menlo):
-
 
     # Install perl modules
     RUN cpanm --force CPAN::Meta \
@@ -130,7 +129,6 @@ We find it very helpful to test our images as we develop the Docker file. Once b
 
     exit # remember to exit the Docker image
 
-
 ###Tagging the Docker Image
 
 Once you are confident your image is built correctly, you can tag it, allowing you to push it to [Dockerhub.io](https://hub.docker.com/). Dockerhub is an online repository for docker images which allows anyone to pull public images and run them.
@@ -150,7 +148,6 @@ Now when we check our local images we can see the updated tag.
 
     REPOSITORY                               TAG                 IMAGE ID            CREATED             SIZE
     cbcrg/lncrna_annotation                 latest              d8ec49cbe3ed        2 minutes ago       821.5 MB
-
 
 ###Pushing the Docker Image to Dockerhub
 
@@ -174,14 +171,13 @@ We are now almost ready to run our pipeline. The last step is to set up the Nexf
 
 Within the `nextflow.config` file in the main project directory we can add the following line which links the Docker image to the Nexflow execution. The images can be:
 
-* General (same docker image for all processes):
+- General (same docker image for all processes):
 
         process {
             container = 'cbcrg/lncrna_annotation'
         }
 
-
-* Specific to a profile (specified by `-profile crg` for example):
+- Specific to a profile (specified by `-profile crg` for example):
 
         profile {
             crg {
@@ -189,7 +185,7 @@ Within the `nextflow.config` file in the main project directory we can add the f
             }
         }
 
-* Specific to a given process within a pipeline:
+- Specific to a given process within a pipeline:
 
         $processName.container = 'cbcrg/lncrna_annotation'
 
@@ -198,7 +194,6 @@ In most cases it is easiest to use the same Docker image for all processes. One 
         process {
             container = 'cbcrg/lncrna_annotation@sha256:9dfe233b...'
         }
-
 
 All that is left now to run the pipeline.
 
@@ -233,14 +228,12 @@ Within the GitHub README.md you can add a badge with the following:
 
     ![CircleCI status](https://circleci.com/gh/cbcrg/lncRNA-Annotation-nf.png?style=shield)
 
-
 ###Tips and Tricks
 
 **File permissions**: When a process is executed by a Docker container, the UNIX user running the process is not you. Therefore any files that are used as an input should have the appropriate file permissions. For example, I had to change the permissions of all the input data in the test data set with:
 
- 	 find <data-path> -type f -exec chmod 644 {} \;
- 	 find <data-path> -type d -exec chmod 755 {} \;
+find <data-path> -type f -exec chmod 644 {} \;
+find <data-path> -type d -exec chmod 755 {} \;
 
 ###Summary
 This was my first time building a Docker image and after a bit of trial-and-error the process was surprising straight forward. There is a wealth of information available for Docker and the almost seamless integration with Nextflow is fantastic. Our collaboration team is now looking forward to applying the pipeline to different datasets and publishing the work, knowing our results will be completely reproducible across any platform.
-

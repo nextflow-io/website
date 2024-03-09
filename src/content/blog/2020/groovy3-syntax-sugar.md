@@ -15,7 +15,6 @@ from Java 8, all the way up to the latest Java 15!
 Along with this, the new Groovy runtime brings a whole lot of syntax enhancements that can be useful in
 the everyday life of pipeline developers. Let's see them more in detail.
 
-
 ### Improved not operator
 
 The `!` (not) operator can now prefix the `in` and `instanceof` keywords.
@@ -48,7 +47,6 @@ else if( x !instanceof String ) {
 Again, this is a small syntax change which makes the code a little more
 readable.
 
-
 ### Elvis assignment operator
 
 The elvis assignment operator `?=` allows the assignment of a value only if it was not
@@ -75,7 +73,7 @@ if( some_variable != null ) {
 }
 ```
 
-If you are wondering why it's called *Elvis* assignment, well it's simple, because there's also the [Elvis operator](https://groovy-lang.org/operators.html#_elvis_operator) that you should know (and use!) already. 😆
+If you are wondering why it's called _Elvis_ assignment, well it's simple, because there's also the [Elvis operator](https://groovy-lang.org/operators.html#_elvis_operator) that you should know (and use!) already. 😆
 
 ### Java style lambda expressions
 
@@ -102,7 +100,7 @@ which can be simplified to the following form when the expression is a single st
 it -> SOME_EXPRESSION_HERE
 ```
 
-The good news is that the two syntaxes are interoperable in many cases and we can use the *lambda*
+The good news is that the two syntaxes are interoperable in many cases and we can use the _lambda_
 syntax to get rid-off of the curly bracket parentheses used by the Groovy notation to make our Nextflow
 script more readable.
 
@@ -124,7 +122,7 @@ Channel
     .view( it -> "the value is $it" )
 ```
 
-It is a bit more consistent. Note however that the `it ->` implicit argument is now mandatory (while when using the closure syntax it could be omitted). Also, when the operator argument is not *single* value, the lambda requires the
+It is a bit more consistent. Note however that the `it ->` implicit argument is now mandatory (while when using the closure syntax it could be omitted). Also, when the operator argument is not _single_ value, the lambda requires the
 round parentheses to define the argument e.g.
 
 ```
@@ -134,12 +132,11 @@ Channel
     .view( (a,b) -> "the values are $a and $b" )
 ```
 
-
 ### Full support for Java streams API
 
 Since version 8, Java provides a [stream library](https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/) that is very powerful and implements some concepts and operators similar to Nextflow channels.
 
-The main differences between the two are that Nextflow channels and the corresponding operators are *non-blocking*
+The main differences between the two are that Nextflow channels and the corresponding operators are _non-blocking_
 i.e. their evaluation is performed asynchronously without blocking your program execution, while Java streams are
 executed in a synchronous manner (at least by default).
 
@@ -161,7 +158,6 @@ methods are Java stream operator not the
 [Nextflow](https://www.nextflow.io/docs/latest/operator.html#filter)
 [homonymous](https://www.nextflow.io/docs/latest/operator.html#map)
 [ones](https://www.nextflow.io/docs/latest/operator.html#tolist).
-
 
 ### Java style method reference
 
@@ -186,7 +182,6 @@ The above prints:
 Because to [view](https://www.nextflow.io/docs/latest/operator.html#filter) operator applied
 the method [toUpperCase](https://docs.oracle.com/javase/8/docs/api/java/lang/String.html#toUpperCase--)
 to each element emitted by the channel.
-
 
 ### Conclusion
 

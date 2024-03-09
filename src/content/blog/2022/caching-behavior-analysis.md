@@ -15,11 +15,9 @@ We have previously written about Nextflow's [resume functionality](https://www.n
 
 In this post, we will take a more hands-on approach and highlight some strategies which we can use to understand what is causing a particular process (or processes) to re-run, instead of using the cache from previous runs of the pipeline. To demonstrate the process, we will introduce a minor change into one of the process definitions in the the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) pipeline and investigate how it affects the overall caching behavior when compared to the initial execution of the pipeline.
 
-
 ### Local setup for the test
 
-First, we clone the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf
-) pipeline locally:
+First, we clone the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) pipeline locally:
 
 ```bash
 $ git clone https://github.com/nextflow-io/rnaseq-nf
@@ -27,7 +25,6 @@ $ cd rnaseq-nf
 ```
 
 In the examples below, we have used Nextflow `v22.10.0`, Docker `v20.10.8` and `Java v17 LTS` on MacOS.
-
 
 ### Pipeline flowchart
 
@@ -144,8 +141,7 @@ $ cat ./resumed_run.log | grep 'INFO.*TaskProcessor.*cache hash' | cut -d '-' -f
 
 ### Inference from process top-level hashes
 
-Computing a hash is a multi-step process and various factors contribute to it such as the inputs of the process, platform, time-stamps of the input files and more ( as explained in [Demystifying Nextflow resume]( https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html)  blog post) . The change we made in the task level CPUs directive and script section of the `FASTQC` process triggered a re-computation of hashes:
-
+Computing a hash is a multi-step process and various factors contribute to it such as the inputs of the process, platform, time-stamps of the input files and more ( as explained in [Demystifying Nextflow resume](https://www.nextflow.io/blog/2019/demystifying-nextflow-resume.html) blog post) . The change we made in the task level CPUs directive and script section of the `FASTQC` process triggered a re-computation of hashes:
 
 ```diff
 --- ./fresh_run.tasks.log
@@ -165,11 +161,9 @@ Even though we only introduced changes in `FASTQC`, the `MULTIQC` process was re
 
 ![rnaseq-nf after modification](/img/rnaseq-nf.modified.png)
 
-
 ### Understanding why `FASTQC` was re-run
 
 We can see the full list of `FASTQC` process hashes within the `fresh_run.log` file
-
 
 ```console
 
@@ -212,6 +206,7 @@ When we isolate and compare the log entries for `FASTQC` between `fresh_run.log`
 ```
 
 Observations from the diff:
+
 1. We can see that the content of the script has changed, highlighting the new `$task.cpus` part of the command.
 2. There is a new entry in the `resumed_run.log` showing that the content of the process level directive `cpus` has been added.
 
@@ -251,4 +246,3 @@ Debugging the caching behavior of a pipeline can be tricky, however a systematic
 When analyzing large datasets, it may be worth using the `-dump-hashes` option by default for all pipeline runs, avoiding needing to run the pipeline again to obtain the hashes in the log file in case of problems.
 
 While this process works, it is not trivial. We would love to see some community-driven tooling for a better cache-debugging experience for Nextflow, perhaps an `nf-cache` plugin? Stay tuned for an upcoming blog post describing how to extend and add new functionality to Nextflow using plugins.
-

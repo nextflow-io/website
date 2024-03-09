@@ -29,7 +29,7 @@ For this reason, as for Nextflow version 22.03.0-edge and the upcoming 22.04.0 s
 
 In practical terms, this means it will no longer be necessary to add the declaration `nextflow.enable.dsl = 2` at the top of your script or use the command line option `-dsl2 ` to enable the use of this syntax.
 
-If you still want to continue to use DSL1 for your pipeline scripts, you will need to add the declaration  `nextflow.enable.dsl = 1` at the top of your pipeline script or use the command line option `-dsl1`.
+If you still want to continue to use DSL1 for your pipeline scripts, you will need to add the declaration `nextflow.enable.dsl = 1` at the top of your pipeline script or use the command line option `-dsl1`.
 
 To make this transition as smooth as possible, we have also added the possibility to declare the DSL version in the Nextflow configuration file, using the same syntax shown above.
 
@@ -51,24 +51,21 @@ Bear in mind, this does **not** mean it will not be possible to use DSL1 startin
 NXF_VER: 21.10.6 nextflow run <my/dsl1/pipeline>
 ```
 
-
 ### New configuration format
 
 The configuration file is a key component of the Nextflow framework since it allows workflow developers to decouple the pipeline logic from the execution parameters and infrastructure deployment settings.
 
-The current Nextflow configuration file mechanism is extremely powerful, but it also has some serious drawbacks due to its *dynamic* nature that makes it very hard to keep stable and maintainable over time.
+The current Nextflow configuration file mechanism is extremely powerful, but it also has some serious drawbacks due to its _dynamic_ nature that makes it very hard to keep stable and maintainable over time.
 
 For this reason, we are planning to re-engineer the current configuration component and replace it with a better configuration component with two major goals: 1) continue to provide a rich and human-readable configuration system (so, no YAML or JSON), 2) have a well-defined syntax with a solid foundation that guarantees predictable configurations, simpler troubleshooting and more sustainable maintenance.
 
 Currently, the most likely options are [Hashicorp HCL](https://github.com/hashicorp/hcl) (as used by Terraform and other Hashicorp tools) and [Lightbend HOCON](https://github.com/lightbend/config). You can read more about this feature at [this link](https://github.com/nextflow-io/nextflow/issues/2723).
-
 
 ### Ignite executor deprecation
 
 The executor for [Apache Ignite](https://www.nextflow.io/docs/latest/ignite.html) was an early attempt to provide Nextflow with a self-contained, distributed cluster for the deployment of pipelines into HPC environments. However, it had very little adoption over the years, which was not balanced by the increasing complexity of its maintenance.
 
 For this reason, it was decided to deprecate it and remove it from the default Nextflow distribution. The module is still available in the form of a separate project plugin and available at [this link](https://github.com/nextflow-io/nf-ignite), however, it will not be actively maintained.
-
 
 ### Conclusion
 

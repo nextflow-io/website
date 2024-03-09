@@ -12,7 +12,6 @@ icon: paolo.jpg
 </i>
 </div>
 
-
 Google Cloud and WuXi NextCODE are dedicated to advancing the state of the art in biomedical informatics, especially through open source, which allows developers to collaborate broadly and deeply.
 
 WuXi NextCODE is itself a user of Nextflow, and Google Cloud has many customers that use Nextflow. Together, we’ve collaborated to deliver Google Cloud Platform (GCP) support for Nextflow using the [Google Pipelines API](https://cloud.google.com/genomics/pipelines). Pipelines API is a managed computing service that allows the execution of containerized workloads on GCP.
@@ -32,38 +31,37 @@ WuXi NextCODE is itself a user of Nextflow, and Google Cloud has many customers 
 }
 
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+content: "";
+display: table;
+clear: both;
 }
 </style>
 
 Nextflow now provides built-in support for Google Pipelines API which allows the seamless deployment of a Nextflow pipeline in the cloud, offloading the process executions as pipelines running on Google's scalable infrastructure with a few commands. This makes it even easier for customers and partners like WuXi NextCODE to process biomedical data using Google Cloud.
 
-
 ### Get started!
 
 This feature is currently available in the Nextflow edge channel. Follow these steps to get started:
 
-* Install Nextflow from the edge channel exporting the variables shown below and then running the usual Nextflow installer Bash snippet:
+- Install Nextflow from the edge channel exporting the variables shown below and then running the usual Nextflow installer Bash snippet:
 
-    ```
-    export NXF_VER=18.12.0-edge
-    export NXF_MODE=google
-    curl https://get.nextflow.io | bash
-    ```
+  ```
+  export NXF_VER=18.12.0-edge
+  export NXF_MODE=google
+  curl https://get.nextflow.io | bash
+  ```
 
-* [Enable the Google Genomics API for your GCP projects](https://console.cloud.google.com/flows/enableapi?apiid=genomics.googleapis.com,compute.googleapis.com,storage-api.googleapis.com).
+- [Enable the Google Genomics API for your GCP projects](https://console.cloud.google.com/flows/enableapi?apiid=genomics.googleapis.com,compute.googleapis.com,storage-api.googleapis.com).
 
-* [Download and set credentials for your Genomics API-enabled project](https://cloud.google.com/docs/authentication/production#obtaining_and_providing_service_account_credentials_manually).
+- [Download and set credentials for your Genomics API-enabled project](https://cloud.google.com/docs/authentication/production#obtaining_and_providing_service_account_credentials_manually).
 
-* Change your `nextflow.config` file to use the Google Pipelines executor and specify the required config values for it as [described in the documentation](/docs/edge/google.html#google-pipelines).
+- Change your `nextflow.config` file to use the Google Pipelines executor and specify the required config values for it as [described in the documentation](/docs/edge/google.html#google-pipelines).
 
-* Finally, run your script with Nextflow like usual, specifying a Google Storage bucket as the pipeline work directory with the `-work-dir` option. For example:
+- Finally, run your script with Nextflow like usual, specifying a Google Storage bucket as the pipeline work directory with the `-work-dir` option. For example:
 
-    ```
-    nextflow run rnaseq-nf -work-dir gs://your-bucket/scratch
-    ```
+  ```
+  nextflow run rnaseq-nf -work-dir gs://your-bucket/scratch
+  ```
 
 <br>
 You can find more detailed info about available configuration settings and deployment options at [this link](/docs/edge/google.html).

@@ -29,22 +29,21 @@ After today’s episode, we’ll be going on break for the winter holiday and wi
 
 #### Bonus content
 
-We ran out of time to discuss *everything* that happened in 2023, so here are a few more cool things that happened which you can read about on the blogs:
+We ran out of time to discuss _everything_ that happened in 2023, so here are a few more cool things that happened which you can read about on the blogs:
 
 ##### Technical features
+
 - [Introducing the Seqera Platform - one platform for the data analysis lifecycle](https://seqera.io/blog/introducing-the-seqera-platform/)
 - [Introducing Data Explorer](https://seqera.io/blog/introducing-data-explorer/)
 - [Seqera and AWS Fargate](https://seqera.io/blog/seqera-and-aws-fargate/)
 
 ##### Community updates
+
 - [Introducing community.seqera.io](https://nextflow.io/blog/2023/community-forum.html)
 - [Introducing the Nextflow Ambassador Program](https://nextflow.io/blog/2023/introducing-nextflow-ambassador-program.html)
 
 ##### Events
+
 - Summit Barcelona: [Website](https://summit.nextflow.io/barcelona/) / [Playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUotnP-tWRVNtuNWpN7xbpL)
 - Summit Boston: [Website](https://summit.nextflow.io/boston/) / [Playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmVeXGTg6aFNlaeTEMTs3GOt)
 - Sanger Symposium: [Website](https://sites.google.com/ebi.ac.uk/nextflow2023/home?authuser=0) / [Playlist](https://www.youtube.com/playlist?list=PLo5QmrytFHLFLfHxHW9WiB8o5RRCmQdco)
-
-
-
-

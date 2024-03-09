@@ -18,4 +18,4 @@ We found that Docker containers have only a minor impact on the performance
 of common genomic data analysis, which is negligible when the executed tasks are demanding
 in terms of computational time.
 
-*[This publication is available as PeerJ preprint at this link](https://peerj.com/preprints/1171/).*
+_[This publication is available as PeerJ preprint at this link](https://peerj.com/preprints/1171/)._

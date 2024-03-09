@@ -27,7 +27,6 @@ The GATK job involved providing technical and scientific support to researchers,
 
 Anyway, I can’t fully summarize a decade in a couple of paragraphs, but suffice to say, I learned an enormous amount on the job. And in the process, I developed a passion for helping researchers take maximum advantage of the powerful bioinformatics at their disposal. Which inevitably involves workflows.
 
-
 ## Going with the flow
 
 Over time my responsibilities at the Broad grew into supporting not just GATK, but also the workflow systems people use to run tools like GATK at scale, both on premises and increasingly, on public cloud platforms. My own pipelining experience has been focused on WDL and Cromwell, but I’ve dabbled with most of the mainstream tools in the space.

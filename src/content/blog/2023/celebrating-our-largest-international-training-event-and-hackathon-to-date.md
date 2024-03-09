@@ -8,6 +8,7 @@ tags: nextflow
 author: Phil Ewels
 icon: phil.jpg
 ---
+
 In mid-March, we conducted our bi-annual Nextflow and [nf-core](https://nf-co.re/) training and hackathon in what was unquestionably our best-attended community events to date. This year we had an impressive **1,345 participants** attend the training from **76 countries**. Attendees came from far and wide — from Algeria to Andorra to Zambia to Zimbabwe!
 
 Among our event attendees, we observed the following statistics:
@@ -46,7 +47,7 @@ The videos accompany the written training material, which you can find at [https
 
 Along with the updated training and hackathon resources above, we’ve significantly enhanced our online training materials available at [https://training.nextflow.io/](https://training.nextflow.io/). Thanks to the efforts of our volunteers, technical training, [Gitpod resources](https://training.nextflow.io/basic_training/setup/#gitpod), and materials for hands-on, self-guided learning are now available in English and Portuguese. Some of the materials are also available in Spanish and French.
 
-The training comprises a significant set of resources covering topics including managing dependencies,  containers, channels, processes, operators, and an introduction to the Groovy language. It also includes topics related to nf-core for users and developers as well as Nextflow Tower. Marcel Ribeiro-Dantas describes his experience leading the translation effort for this documentation in his latest nf-core/bytesize [translation talk](https://nf-co.re/events/2023/bytesize_translations).
+The training comprises a significant set of resources covering topics including managing dependencies, containers, channels, processes, operators, and an introduction to the Groovy language. It also includes topics related to nf-core for users and developers as well as Nextflow Tower. Marcel Ribeiro-Dantas describes his experience leading the translation effort for this documentation in his latest nf-core/bytesize [translation talk](https://nf-co.re/events/2023/bytesize_translations).
 
 Additional educational resources are provided in the recent Seqera Labs blog article, [Learn Nextflow in 2023](https://nextflow.io/blog/2023/learn-nextflow-in-2023.html), posted in February before our latest training event.
 
@@ -84,7 +85,7 @@ The growing diversity of our community was also reflected in the results of our 
 
 ## Looking forward
 
-Running global events at this scale takes a tremendous team effort. The resources compiled will be valuable in introducing more people to Nextflow and nf-core.  Thanks to everyone who participated in this year’s training and hackathon events. We look forward to making these even bigger and better in the future!
+Running global events at this scale takes a tremendous team effort. The resources compiled will be valuable in introducing more people to Nextflow and nf-core. Thanks to everyone who participated in this year’s training and hackathon events. We look forward to making these even bigger and better in the future!
 
 The next community training will be held online September 2023. This will be followed by two Nextflow Summit events with associated nf-core hackathons:
 

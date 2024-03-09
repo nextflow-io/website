@@ -11,7 +11,6 @@ icon: paolo.jpg
 <i>Learn how to deploy an elastic computing cluster in the AWS cloud with Nextflow </i>
 </p>
 
-
 In the [previous post](/blog/2016/deploy-in-the-cloud-at-snap-of-a-finger.html) I introduced
 the new cloud native support for AWS provided by Nextflow.
 
@@ -39,7 +38,6 @@ of cloud computing.
 This ability is even more important for bioinformatic workflows, which frequently crunch
 not homogeneous datasets and are composed of tasks with very different computing requirements
 (eg. a few very long running tasks and many short-lived tasks in the same workload).
-
 
 ### Going elastic
 
@@ -95,12 +93,8 @@ instances are launched, instead of regular on-demand ones, bidding for the price
 ### Conclusion
 
 Nextflow implements an easy though effective cloud scheduler that is able to scale dynamically
-to meet the computing needs of deployed workloads taking advantage of the *elastic* nature
+to meet the computing needs of deployed workloads taking advantage of the _elastic_ nature
 of the cloud platform.
 
 This ability, along the support for spot/preemptible instances, allows a cost effective solution
 for the execution of your pipeline in the cloud.
-
-
-
-

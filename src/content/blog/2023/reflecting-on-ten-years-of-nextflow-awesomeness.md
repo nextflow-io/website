@@ -8,6 +8,7 @@ tags: nextflow
 author: Noel Ortiz
 icon: noel.jpg
 ---
+
 There's been a lot of water under the bridge since the first release of Nextflow in July 2013. From its humble beginnings at the [Centre for Genomic Regulation](https://www.crg.eu/) (CRG) in Barcelona, Nextflow has evolved from an upstart workflow orchestrator to one of the most consequential projects in open science software (OSS). Today, Nextflow is downloaded **120,000+** times monthly, boasts vibrant user and developer communities, and is used by leading pharmaceutical, healthcare, and biotech research firms.
 
 On the occasion of Nextflow's anniversary, I thought it would be fun to share some perspectives and point out how far we've come as a community. I also wanted to recognize the efforts of Paolo Di Tommaso and the many people who have contributed enormous time and effort to make Nextflow what it is today.
@@ -18,7 +19,7 @@ Bill Gates is credited with observing that "people often overestimate what they 
 
 Life sciences has seen a staggering amount of innovation. According to estimates from the National Human Genome Research Institute (NHGRI), the cost of sequencing a human genome in 2013 was roughly USD 10,000. Today, sequencing costs are in the range of USD 200—a **50-fold reduction**.<sup>1</sup>
 
-A fundamental principle of economics is that *"if you make something cheaper, you get more of it."* One didn't need a crystal ball to see that, driven by plummeting sequencing and computing costs, the need for downstream analysis was poised to explode. With advances in sequencing technology outpacing Moore's Law, It was clear that scaling analysis capacity would be a significant issue.<sup>2</sup>
+A fundamental principle of economics is that _"if you make something cheaper, you get more of it."_ One didn't need a crystal ball to see that, driven by plummeting sequencing and computing costs, the need for downstream analysis was poised to explode. With advances in sequencing technology outpacing Moore's Law, It was clear that scaling analysis capacity would be a significant issue.<sup>2</sup>
 
 ## Getting the fundamentals right
 
@@ -60,11 +61,11 @@ Since the [first Nextflow release](https://github.com/nextflow-io/nextflow/relea
 
 <img src="/img/nextflow_ten_years_graphic.jpg" alt="Nextflow ten year graphic" />
 
-As we look to the future, the pace of innovation continues to increase. It’s been exciting to see Nextflow expand beyond the various *omics* disciplines to new areas such as medical imaging, data science, and machine learning. We continue to evolve Nextflow, adding new features and capabilities to support these emerging use cases and support new compute and storage environments. I can hardly wait to see what the next ten years will bring.
+As we look to the future, the pace of innovation continues to increase. It’s been exciting to see Nextflow expand beyond the various _omics_ disciplines to new areas such as medical imaging, data science, and machine learning. We continue to evolve Nextflow, adding new features and capabilities to support these emerging use cases and support new compute and storage environments. I can hardly wait to see what the next ten years will bring.
 
 For those new to Nextflow and wishing to learn more about the project, we have compiled an excellent collection of resources to help you [Learn Nextflow in 2023](https://nextflow.io/blog/2023/learn-nextflow-in-2023.html).
 
-----
+---
 
 <sup>1</sup> [https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost](https://www.genome.gov/about-genomics/fact-sheets/Sequencing-Human-Genome-cost)
 <sup>2</sup> Coined by Gordon Moore of Intel in 1965, Moore’s Law predicted that transistor density, roughly equating to compute performance, would roughly double every two years. This was later revised in some estimates to 18 months. Over ten years, Moore’s law predicts roughly a 2^5 = 32X increase in performance – less than the ~50-fold decrease in sequencing costs. See [chart here](https://www.genome.gov/sites/default/files/inline-images/2021_Sequencing_cost_per_Human_Genome.jpg).

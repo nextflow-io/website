@@ -8,7 +8,7 @@ subtype: News and Views
 youtubeid: 44m4zVhj2sI
 image: /img/podcast_ep06.jpg
 tags: news and views,opensource,community
-author:  Developer advocates
+author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
@@ -23,8 +23,8 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 - Rob's interviews (previously called _nf-cast_) will continue and will also be released every 1-2 months.
 - We're hoping to live-stream and incorporate live comments in the next season (March 2023).
 - Subscribe on [YouTube](https://www.youtube.com/watch?v=44m4zVhj2sI) / [Spotify](https://open.spotify.com/show/1slEz7EL46cHa9vdRmPLY4).
-    - Nextflow website: https://nextflow.io/podcasts.html
-    - Slack channel: `#channels-podcast`
+  - Nextflow website: https://nextflow.io/podcasts.html
+  - Slack channel: `#channels-podcast`
 
 #### Nextflow for astronomers
 
@@ -43,9 +43,8 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 
 - A release of [nf-core/tools](https://github.com/nf-core/tools) 2.7 is underway.
 - New features include:
-    - New nf-core subworkflows subcommand for creating, removing, testing, updating, and finding subworkflows. More info [here](https://nf-co.re/tools/#subworkflows).
-    - Every pipeline has now its own GitHub codespace template, which can be used to develop the pipeline directly in the browser.
-    - Improved handling of modules and subworkflows from other repos than nf-core/modules.
-    - Pre-commit is now installed as a dependency, which allows us, besides other things, to automatically run prettier to properly format auto-generated JSON / YAML  on the fly even if Prettier has not already been manually installed locally.
-    - Shell completion for nf-core commands. More information [here](https://nf-co.re/tools/#shell-completion).
-
+  - New nf-core subworkflows subcommand for creating, removing, testing, updating, and finding subworkflows. More info [here](https://nf-co.re/tools/#subworkflows).
+  - Every pipeline has now its own GitHub codespace template, which can be used to develop the pipeline directly in the browser.
+  - Improved handling of modules and subworkflows from other repos than nf-core/modules.
+  - Pre-commit is now installed as a dependency, which allows us, besides other things, to automatically run prettier to properly format auto-generated JSON / YAML on the fly even if Prettier has not already been manually installed locally.
+  - Shell completion for nf-core commands. More information [here](https://nf-co.re/tools/#shell-completion).

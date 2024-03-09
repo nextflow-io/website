@@ -3,7 +3,6 @@ title: Machine Learning pipeline
 layout: "@layouts/Page.astro"
 ---
 
-
 <div class="blg-summary example">
 <h3>Machine Learning pipeline</h3>
 
@@ -46,16 +45,16 @@ workflow {
 // view the entire code on GitHub ...
 
 ```
-</div>
 
+</div>
 
 ### Try it in your computer
 
 To run this pipeline on your computer, you will need:
 
-* Unix-like operating system
-* Java 11 (or higher)
-* Docker
+- Unix-like operating system
+- Java 11 (or higher)
+- Docker
 
 Install Nextflow by entering the following command in the terminal:
 
@@ -67,4 +66,4 @@ Then launch the pipeline with this command:
 
 It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
 
-__NOTE__: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
+**NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.

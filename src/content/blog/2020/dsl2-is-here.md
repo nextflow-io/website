@@ -13,7 +13,6 @@ Nextflow DSL 2 represents a major evolution of the Nextflow language and makes i
 
 We spent more than one year collecting user feedback and making sure that DSL 2 would naturally fit the programming experience Nextflow developers are used to.
 
-
 #### DLS 2 in a nutshell
 
 Backward compatibility is a paramount value, for this reason the changes introduced in the syntax have been minimal and above all, guarantee the support of all existing applications. DSL 2 will be an opt-in feature for at least the next 12 to 18 months. After this transitory period, we plan to make it the default Nextflow execution mode.
@@ -62,9 +61,7 @@ workflow {
 }
 ```
 
-
 Also enhanced is the ability to use channels as inputs multiple times without the need to duplicate them (previously done with the special into operator) which makes the resulting pipeline code more concise, fluent and therefore readable!
-
 
 #### Sub-workflows
 
@@ -90,7 +87,6 @@ Now named sub-workflows can be used in the same way as processes, allowing you t
 
 #### More syntax sugar
 
-
 Another exciting feature of Nextflow DSL 2 is the ability to compose built-in operators, pipeline processes and sub-workflows with the pipe (|) operator! For example the last line in the above example could be written as:
 
 ```
@@ -100,7 +96,7 @@ emit:
 
 This syntax finally realizes the Nextflow vision of empowering developers to write complex data analysis applications with a simple but powerful language that mimics the expressiveness of the Unix pipe model but at the same time makes it possible to handle complex data structures and patterns as is required for highly parallelised and distributed computational workflows.
 
-Another change is the introduction of `channel` as an alternative name as a synonym of `Channel` type identifier and therefore allows the use of `channel.fromPath` instead of `Channel.fromPath` and so on. This is a small syntax sugar to keep the capitazionation  consistent with the rest of the language.
+Another change is the introduction of `channel` as an alternative name as a synonym of `Channel` type identifier and therefore allows the use of `channel.fromPath` instead of `Channel.fromPath` and so on. This is a small syntax sugar to keep the capitazionation consistent with the rest of the language.
 
 Moreover, several process inputs and outputs syntax shortcuts were removed when using the final version of DSL 2 to make it more predictable. For example, with DSL1, in a tuple input or output declaration the component type could be omitted, for example:
 
@@ -118,14 +114,13 @@ input:
 
 You can find more detailed migration notes at [this link](/docs/latest/dsl2.html#dsl2-migration-notes).
 
-
 #### What's next
 
 As always, reaching an important project milestone can be viewed as a major success, but at the same time the starting point for challenges and developments. Having a modularization mechanism opens new needs and possibilities. The first one of which will be focused on the ability to test and validate process modules independently using a unit-testing style approach. This will definitely help to make the resulting pipelines more resilient.
 
 Another important area for the development of the Nextflow language will be the ability to better formalise pipeline inputs and outputs and further decouple for the process declaration. Nextflow currently strongly relies on the `publishDir` constructor for the generation of the workflow outputs.
 
-However in the new *module* world, this approach results in `publishDir` being tied to a single process definition. The plan is instead to extend this concept in a more general and abstract manner, so that it will be possible to capture and redirect the result of any process and sub-workflow based on semantic annotations instead of hardcoding it at the task level.
+However in the new _module_ world, this approach results in `publishDir` being tied to a single process definition. The plan is instead to extend this concept in a more general and abstract manner, so that it will be possible to capture and redirect the result of any process and sub-workflow based on semantic annotations instead of hardcoding it at the task level.
 
 ### Conclusion
 

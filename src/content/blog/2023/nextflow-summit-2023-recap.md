@@ -52,13 +52,11 @@ This year, the focus of the hackathon was [nf-test](https://code.askimed.com/nf-
 
 For an overview of the tremendous progress made advancing the state of Nextflow and nf-core in three short days, view Chris Hakkaart’s talk on [highlights from the nf-core hackathon](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-hackathon/).
 
-
 ## The Summit kicks off
 
-The Summit began on Wednesday Oct 18 with excellent talks from [Australian BioCommons](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-the-national-nextflow-tower-service-for-australian-researchers/) and  [Genomics England](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-analysing-ont-long-read-data-for-cancer-with-nextflow/). This was followed by a presentation where [Pixelgen Technologies](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-pixelgen-technologies-heart-nextflow/) described their unique Molecular Pixelation (MPX) technologies and unveiled their new [nf-core/pixelator](https://nf-co.re/pixelator/1.0.0) community pipeline for molecular pixelation assays.
+The Summit began on Wednesday Oct 18 with excellent talks from [Australian BioCommons](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-the-national-nextflow-tower-service-for-australian-researchers/) and [Genomics England](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-analysing-ont-long-read-data-for-cancer-with-nextflow/). This was followed by a presentation where [Pixelgen Technologies](https://summit.nextflow.io/barcelona/agenda/summit/oct-18-pixelgen-technologies-heart-nextflow/) described their unique Molecular Pixelation (MPX) technologies and unveiled their new [nf-core/pixelator](https://nf-co.re/pixelator/1.0.0) community pipeline for molecular pixelation assays.
 
 Next, Seqera’s Phil Ewels took the stage providing a series of community updates, including the announcement of a new [Nextflow Ambassador](https://nextflow.io/blog/2023/introducing-nextflow-ambassador-program.html) program, [a new community forum](https://nextflow.io/blog/2023/community-forum.html) at [community.seqera.io](https://community.seqera.io), and the exciting appointment of [Geraldine Van der Auwera](https://nextflow.io/blog/2023/geraldine-van-der-auwera-joins-seqera.html) as lead developer advocate for the Nextflow. Geraldine is well known for her work on GATK, WDL, and Terra.bio and is the co-author of the book [Genomics on the Cloud](https://www.oreilly.com/library/view/genomics-in-the/9781491975183/). As Geraldine assumes leadership of the developer advocacy team, Phil will spend more time focusing on open-source development, as product manager of open source at Seqera.
-
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
     <img src="/img/blog-summit-2023-recap--img1b.jpg" alt="Hackathon 2023 photo" />
@@ -98,7 +96,7 @@ As things wound to a close on day three, there were additional talks on topics r
 
 Phil Ewels discussed [future plans for MultiQC](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-multiqc/), and Edmund Miller [shared his experience working on nf-test](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-nf-test-at-nf-core/) and how it is empowering scalable and streamlined testing for nf-core projects.
 
-To close the event, Evan took the stage a final time, thanking the many Summit organizers and contributors, and announcing the next  Nextflow Summit Barcelona, scheduled for **October 21-25, 2024**. He also reminded attendees of the upcoming North American Hackathon and [Nextflow Summit in Boston](https://summit.nextflow.io/boston/) beginning on November 28, 2023.
+To close the event, Evan took the stage a final time, thanking the many Summit organizers and contributors, and announcing the next Nextflow Summit Barcelona, scheduled for **October 21-25, 2024**. He also reminded attendees of the upcoming North American Hackathon and [Nextflow Summit in Boston](https://summit.nextflow.io/boston/) beginning on November 28, 2023.
 
 On behalf of the Seqera team, thank you to our fellow [sponsors](https://summit.nextflow.io/boston/sponsors/) who helped make the Nextflow Summit a resounding success. This year’s sponsors included:
 
@@ -132,7 +130,7 @@ For your convenience, a handy list of talks from Nextflow Summit 2023 are summar
 ### Day two (Thursday Oct 19):
 
 - [It’s been quite a year for research technology in the cloud: we’ve been busy](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-brendan-bouffler/) – Brendan Bouffler
-- [nf-validation: a Nextflow plugin to validate pipeline parameters and input files](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-nf-validation/) -  Júlia Mir Pedrol
+- [nf-validation: a Nextflow plugin to validate pipeline parameters and input files](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-nf-validation/) - Júlia Mir Pedrol
 - [Computational methods for allele-specific methylation with biomodal Duet](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-biomodal-duet/) – Michael Wilson
 - [How to use data pipelines in Machine Learning for Material Science](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-machine-learning-for-material-science/) – Jakob Zeitler
 - [nf-core/proteinfold: a standardized workflow framework for protein structure prediction tools](https://summit.nextflow.io/barcelona/agenda/summit/oct-19-proteinfold/) - Jose Espinosa-Carrasco

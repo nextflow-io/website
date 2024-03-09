@@ -41,7 +41,6 @@ As always, we thank you for being a part of the Nextflow community and for your 
 
 See you on Slack!
 
-
 ### Credits
 
 This was also made possible thanks to sponsorship from the <a target="_blank" href="https://chanzuckerberg.com/eoss/proposals/nextflow-and-nf-core/">Chan Zuckerberg Initiative</a>, the <a target="_blank" href="https://slack.com/intl/en-gb/about/slack-for-good" >Slack for Nonprofits program</a> and support from <a target="_blank" href="https://www.seqera.io">Seqera Labs</a>.

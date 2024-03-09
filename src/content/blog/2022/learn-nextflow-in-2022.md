@@ -25,16 +25,16 @@ We estimate that it will take at least 20 hours to complete the material. How qu
 
 ### Contents
 
-* Why learn Nextflow?
-* Introduction to Nextflow from 23andMe
-* An RNA-Seq hands-on tutorial
-* Nextflow workshop from Seqera Labs
-* Software Carpentries Course
-* Managing Pipelines in the Cloud
-* The nf-core tutorial
-* Advanced implementation patterns
-* Awesome Nextflow
-* Further resources
+- Why learn Nextflow?
+- Introduction to Nextflow from 23andMe
+- An RNA-Seq hands-on tutorial
+- Nextflow workshop from Seqera Labs
+- Software Carpentries Course
+- Managing Pipelines in the Cloud
+- The nf-core tutorial
+- Advanced implementation patterns
+- Awesome Nextflow
+- Further resources
 
 ### 1. Why learn Nextflow?
 
@@ -67,17 +67,17 @@ Here you’ll dive deeper into Nextflow’s most prominent features and learn ho
 
 The workshop includes topics on:
 
-* Environment Setup
-* Basic NF Script and Concepts
-* Nextflow Processes
-* Nextflow Channels
-* Nextflow Operators
-* Basic RNA-Seq pipeline
-* Containers & Conda
-* Nextflow Configuration
-* On-premise & Cloud Deployment
-* DSL 2 & Modules
-* [GATK hands-on exercise](https://seqera.io/training/handson/)
+- Environment Setup
+- Basic NF Script and Concepts
+- Nextflow Processes
+- Nextflow Channels
+- Nextflow Operators
+- Basic RNA-Seq pipeline
+- Containers & Conda
+- Nextflow Configuration
+- On-premise & Cloud Deployment
+- DSL 2 & Modules
+- [GATK hands-on exercise](https://seqera.io/training/handson/)
 
 👉 [Workshop](https://seqera.io/training) & [YouTube playlist](https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUv4W8ZRlmstkZwhb_fencI).
 
@@ -105,13 +105,13 @@ This advanced section discusses recurring patterns and solutions to many common 
 
 A tutorial covering the basics of using and creating nf-core pipelines. It provides an overview of the nf-core framework including:
 
-* How to run nf-core pipelines
-* What are the most commonly used nf-core tools
-* How to make new pipelines using the nf-core template
-* What are nf-core shared modules
-* How to add nf-core shared modules to a pipeline
-* How to make new nf-core modules using the nf-core module template
-* How nf-core pipelines are reviewed and ultimately released
+- How to run nf-core pipelines
+- What are the most commonly used nf-core tools
+- How to make new pipelines using the nf-core template
+- What are nf-core shared modules
+- How to add nf-core shared modules to a pipeline
+- How to make new nf-core modules using the nf-core module template
+- How nf-core pipelines are reviewed and ultimately released
 
 👉 [nf-core usage tutorials](https://nf-co.re/usage/usage_tutorials)
 and [nf-core developer tutorials](https://nf-co.re/developers/developer_tutorials)
@@ -176,13 +176,13 @@ The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/sat
 
 👉 You can find the course in [Nextflow Tutorial - Variant Calling Edition](https://sateeshperi.github.io/nextflow_varcal/nextflow/).
 
-###  Community and support
+### Community and support
 
-* Nextflow [Gitter channel](https://gitter.im/nextflow-io/nextflow)
-* Nextflow [Forums](https://groups.google.com/forum/#!forum/nextflow)
-* Nextflow Twitter [@nextflowio](https://twitter.com/nextflowio?lang=en)
-* [nf-core Slack](https://nfcore.slack.com/)
-* [Seqera Labs](https://www.seqera.io) and [Nextflow Tower](https://tower.nf)
+- Nextflow [Gitter channel](https://gitter.im/nextflow-io/nextflow)
+- Nextflow [Forums](https://groups.google.com/forum/#!forum/nextflow)
+- Nextflow Twitter [@nextflowio](https://twitter.com/nextflowio?lang=en)
+- [nf-core Slack](https://nfcore.slack.com/)
+- [Seqera Labs](https://www.seqera.io) and [Nextflow Tower](https://tower.nf)
 
 ### Credits
 

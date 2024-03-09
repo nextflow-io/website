@@ -7,8 +7,7 @@ author: Evan Floden
 icon: evan.jpg
 ---
 
-It's time for the monthly Nextflow release for March, *edge* version 19.03. This is another great release with some cool new features, bug fixes and improvements.
-
+It's time for the monthly Nextflow release for March, _edge_ version 19.03. This is another great release with some cool new features, bug fixes and improvements.
 
 ### SRA channel factory
 
@@ -43,7 +42,9 @@ process fastqc {
 See the [documentation](https://www.nextflow.io/docs/edge/channel.html#fromsra) for more details. When combined with downstream processes, you can quickly open a firehose of data on your workflow!
 
 ### Edge release
+
 Note that this is a monthly edge release. To use it simply execute the following command prior to running Nextflow:
+
 ```
 export NXF_VER=19.03.0-edge
 ```
@@ -60,16 +61,15 @@ Experiencing issues introduced by this release? Please report them in our [issue
 
 Special thanks to the contributors of this release:
 
-* Akira Sekiguchi - [pachiras](https://github.com/pachiras)
-* Jon Haitz Legarreta Gorroño - [jhlegarreta](https://github.com/jhlegarreta)
-* Jonathan Leitschuh - [JLLeitschuh](https://github.com/JLLeitschuh)
-* Kevin Sayers - [KevinSayers](https://github.com/KevinSayers)
-* Lukas Jelonek - [lukasjelonek](https://github.com/lukasjelonek)
-* Paolo Di Tommaso - [pditommaso](https://github.com/pditommaso)
-* Toni Hermoso Pulido - [toniher](https://github.com/toniher)
-* Philippe Hupé [phupe](https://github.com/phupe)
-* [phue](https://github.com/phue)
-
+- Akira Sekiguchi - [pachiras](https://github.com/pachiras)
+- Jon Haitz Legarreta Gorroño - [jhlegarreta](https://github.com/jhlegarreta)
+- Jonathan Leitschuh - [JLLeitschuh](https://github.com/JLLeitschuh)
+- Kevin Sayers - [KevinSayers](https://github.com/KevinSayers)
+- Lukas Jelonek - [lukasjelonek](https://github.com/lukasjelonek)
+- Paolo Di Tommaso - [pditommaso](https://github.com/pditommaso)
+- Toni Hermoso Pulido - [toniher](https://github.com/toniher)
+- Philippe Hupé [phupe](https://github.com/phupe)
+- [phue](https://github.com/phue)
 
 ### Complete changes
 

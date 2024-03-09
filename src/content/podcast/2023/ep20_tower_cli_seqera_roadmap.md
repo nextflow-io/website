@@ -20,21 +20,21 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil) talks
 
 We covered the following topics in this episode:
 
-* History of automation in nf-core
-    * GitHub Action to launch pipelines on Tower: <https://github.com/seqeralabs/action-tower-launch>
-* Infrastructure as code: Nextflow Tower
-    * Code for automation of the Tower "showcase" environment: <https://github.com/seqeralabs/showcase>
-* Python library for Tower infrastructure automation
-    * <https://github.com/seqeralabs/tw-pywrap>
-* Seqera road map items:
-    * Pipeline detail view and run linking
-    * Data Explorer - browse cloud buckets with Nextflow Tower
-    * Evolution of Datasets
+- History of automation in nf-core
+  - GitHub Action to launch pipelines on Tower: <https://github.com/seqeralabs/action-tower-launch>
+- Infrastructure as code: Nextflow Tower
+  - Code for automation of the Tower "showcase" environment: <https://github.com/seqeralabs/showcase>
+- Python library for Tower infrastructure automation
+  - <https://github.com/seqeralabs/tw-pywrap>
+- Seqera road map items:
+  - Pipeline detail view and run linking
+  - Data Explorer - browse cloud buckets with Nextflow Tower
+  - Evolution of Datasets
 
 #### Upcoming events
 
-* [Nextflow Summit 2023](https://summit.nextflow.io/) in Barcelona (October 16-20) and in Boston (November 28-30).
-    * Registration open now: <https://summit.nextflow.io/>
-* Two community training events are open for registration:
-    * [Foundational training](https://nf-co.re/events/2023/training-basic-2023) - September 6-8, 2023
-    * [Advanced training](https://nf-co.re/events/2023/training-sept-2023) - September 27-28, 2023
+- [Nextflow Summit 2023](https://summit.nextflow.io/) in Barcelona (October 16-20) and in Boston (November 28-30).
+  - Registration open now: <https://summit.nextflow.io/>
+- Two community training events are open for registration:
+  - [Foundational training](https://nf-co.re/events/2023/training-basic-2023) - September 6-8, 2023
+  - [Advanced training](https://nf-co.re/events/2023/training-sept-2023) - September 27-28, 2023

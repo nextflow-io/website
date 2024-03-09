@@ -8,7 +8,7 @@ subtype: News and Views
 youtubeid: oxZblH02MCA
 image: /img/podcast_ep14.jpg
 tags: news and views,opensource,community
-author:  Developer advocates
+author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
@@ -19,6 +19,7 @@ In this News and Views episode, [Phil Ewels](https://twitter.com/tallphil), [Chr
 #### Welcome back to the Summer Season
 
 We're back with another season of the coolest Nextflow podcast!
+
 - The plan is to have a new episode every two weeks
 - We will focus more on technical content, specially new Nextflow features
 - Semi-regularly, we'll have developer guests to talk about changes and updates
@@ -26,7 +27,7 @@ We're back with another season of the coolest Nextflow podcast!
 #### 23.04.x NF releases
 
 - Multiple things that were discussed in the past and publicized in edge releases finally made their way in a stable release
-    - this includes the `fair` process directive, Fusion, the Flux executor, Sarus container engine and the Spack package manager
+  - this includes the `fair` process directive, Fusion, the Flux executor, Sarus container engine and the Spack package manager
 - Apptainer is a new container engine supported by Nextflow
 - New config option `conda.channels`
 - Support to `rclone` and `fcp` for file transfer (`stageOutMode`)

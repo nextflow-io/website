@@ -23,20 +23,20 @@ This common design background made the support for AWS Batch a natural extension
 
 ### Batch in a nutshell
 
-Batch is organised in *Compute Environments*, *Job queues*, *Job definitions* and *Jobs*.
+Batch is organised in _Compute Environments_, _Job queues_, _Job definitions_ and _Jobs_.
 
-The *Compute Environment* allows you to define the computing resources required for a specific workload (type).
+The _Compute Environment_ allows you to define the computing resources required for a specific workload (type).
 You can specify the minimum and maximum number of CPUs that can be allocated,
 the EC2 provisioning model (On-demand or Spot), the AMI to be used and the allowed instance types.
 
-The *Job queue* definition allows you to bind a specific task to one or more Compute Environments.
+The _Job queue_ definition allows you to bind a specific task to one or more Compute Environments.
 
-Then, the *Job definition* is a template for one or more jobs in your workload. This is required
+Then, the _Job definition_ is a template for one or more jobs in your workload. This is required
 to specify the Docker image to be used in running a particular task along with other requirements
 such as the container mount points, the number of CPUs, the amount of memory and the number of
 retries in case of job failure.
 
-Finally the *Job* binds a Job definition to a specific Job queue
+Finally the _Job_ binds a Job definition to a specific Job queue
 and allows you to specify the actual task command to be executed in the container.
 
 The job input and output data management is delegated to the user. This means that if you
@@ -55,7 +55,7 @@ model and enabling transparent interoperability with other systems.
 To run Nextflow you will need to set-up in your AWS Batch account a [Compute Environment](http://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
 defining the required computing resources and associate it to a [Job Queue](http://docs.aws.amazon.com/batch/latest/userguide/job_queues.html).
 
-Nextflow takes care to create the required *Job Definitions* and *Job* requests as needed.
+Nextflow takes care to create the required _Job Definitions_ and _Job_ requests as needed.
 This spares some Batch configurations steps.
 
 In the `nextflow.config`, file specify the `awsbatch` executor, the Batch `queue` and
@@ -100,7 +100,7 @@ This pipeline takes as input a metadata file from the Encode project correspondi
 returning all human RNA-seq paired-end datasets](https://www.encodeproject.org/search/?type=Experiment&award.project=ENCODE&replicates.library.biosample.donor.organism.scientific_name=Homo+sapiens&files.file_type=fastq&files.run_type=paired-ended&replicates.library.nucleic_acid_term_name=RNA&replicates.library.depleted_in_term_name=rRNA)
 (the metadata file has been additionally filtered to retain only data having a SRA ID).
 
-The pipeline  automatically downloads the FASTQ files for each sample from the EBI ENA database,
+The pipeline automatically downloads the FASTQ files for each sample from the EBI ENA database,
 it assesses the overall quality of sequencing data using FastQC and then runs [Salmon](https://combine-lab.github.io/salmon/)
 to perform the quantification over the human transcript sequences. Finally all the QC and
 quantification outputs are summarised using the [MultiQC](http://multiqc.info/) tool.
@@ -108,7 +108,7 @@ quantification outputs are summarised using the [MultiQC](http://multiqc.info/) 
 For the sake of this benchmark we used the first 38 samples out of the full 375 samples dataset.
 
 The pipeline was executed both on AWS Batch cloud and in the CRG internal Univa cluster,
-using [Singularity](/blog/2016/more-fun-containers-hpc.html ) as containers runtime.
+using [Singularity](/blog/2016/more-fun-containers-hpc.html) as containers runtime.
 
 It's worth noting that with the exception of the two configuration changes detailed below,
 we used exactly the same pipeline implementation at [this GitHub repository](https://github.com/nextflow-io/rnaseq-encode-nf).
@@ -165,7 +165,7 @@ the use of the cloud even more cost effective. Running on a local cluster may st
 even if it is non trivial to account for all the real costs of a HPC infrastructure.
 However the cloud allows flexibility and scalability not possible with common on-premises clusters.
 
-We also demonstrate how the same Nextflow pipeline can be *transparently* deployed in two very
+We also demonstrate how the same Nextflow pipeline can be _transparently_ deployed in two very
 different computing infrastructure, using different containerisation technologies by simply
 providing a separate configuration profile.
 
@@ -179,5 +179,3 @@ who also helped to write the pipeline used for the benchmark in this post and co
 to and tested the AWS Batch integration. Thanks to [Emilio Palumbo](https://github.com/emi80)
 that helped to set-up and configure the AWS Batch environment and [Evan Floden](https://gitter.im/skptic)
 for the comments.
-
-

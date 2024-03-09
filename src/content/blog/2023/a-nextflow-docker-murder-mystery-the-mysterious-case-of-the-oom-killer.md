@@ -8,7 +8,8 @@ tags: nextflow
 author: Graham Wright
 icon: graham.jpg
 ---
-Most support tickets crossing our desks don’t warrant a blog article.  However, occasionally we encounter a genuine mystery—a bug so pervasive and vile that it threatens innocent containers and pipelines everywhere. Such was the case of the ***OOM killer***.
+
+Most support tickets crossing our desks don’t warrant a blog article. However, occasionally we encounter a genuine mystery—a bug so pervasive and vile that it threatens innocent containers and pipelines everywhere. Such was the case of the **_OOM killer_**.
 
 In this article, we alert our colleagues in the Nextflow community to the threat. We also discuss how to recognize the killer’s signature in case you find yourself dealing with a similar murder mystery in your own cluster or cloud.
 
@@ -24,7 +25,7 @@ While we’ve made great strides, and the number of killings has dropped dramati
 
 ## Establishing an MO
 
-Fortunately for our intrepid investigators, the killer exhibited a consistent *modus operandi*. Containerized jobs on [Amazon EC2](https://aws.amazon.com/ec2/) were being killed due to out-of-memory (OOM) errors, even when plenty of memory was available on the container host. While we initially thought the killer was native to the AWS cloud, we later realized it could also strike in other locales.
+Fortunately for our intrepid investigators, the killer exhibited a consistent _modus operandi_. Containerized jobs on [Amazon EC2](https://aws.amazon.com/ec2/) were being killed due to out-of-memory (OOM) errors, even when plenty of memory was available on the container host. While we initially thought the killer was native to the AWS cloud, we later realized it could also strike in other locales.
 
 What the killings had in common was that they tended to occur when Nextflow tasks copied large files from Amazon S3 to a container’s local file system via the AWS CLI. As some readers may know, Nextflow leverages the AWS CLI behind the scenes to facilitate data movement. The killer’s calling card was an `[Errno 12] Cannot allocate memory` message, causing the container to terminate with an exit status of 1.
 
@@ -63,7 +64,7 @@ Sure enough, we found that containers began dying with out-of-memory errors. Som
 
 From our testing, we were able to clear both Nextflow and the AWS S3 copy facility since we could replicate the out-of-memory error in our controlled environment independent of both.
 
-We had multiple theories of the case: ***Was it Colonel Mustard with an improper cgroups configuration? Was it Professor Plum and the size of the SWAP partition? Was it Mrs. Peacock running a Linux 5.20 kernel?***
+We had multiple theories of the case: **_Was it Colonel Mustard with an improper cgroups configuration? Was it Professor Plum and the size of the SWAP partition? Was it Mrs. Peacock running a Linux 5.20 kernel?_**
 
 _For the millennials and Gen Zs in the crowd, you can find a primer on the CLUE/Cluedo references [here](https://en.wikipedia.org/wiki/Cluedo)_
 
@@ -115,38 +116,38 @@ If you find evidence of foul play in your cloud or cluster, here are some useful
 
 - After manually starting a container, use [docker stats](https://docs.docker.com/engine/reference/commandline/stats/) to monitor the CPU and memory used by each container compared to available memory.
 
-    ```bash
-    $ watch docker stats
-    ```
+  ```bash
+  $ watch docker stats
+  ```
 
-- The Linux [free](https://linuxhandbook.com/free-command/) utility is an excellent way to monitor memory usage. You can track total, used, and free memory and monitor the combined memory used by kernel buffers and page cache reported in the *buff/cache* column.
+- The Linux [free](https://linuxhandbook.com/free-command/) utility is an excellent way to monitor memory usage. You can track total, used, and free memory and monitor the combined memory used by kernel buffers and page cache reported in the _buff/cache_ column.
 
-    ```bash
-    $ free -h
-    ```
+  ```bash
+  $ free -h
+  ```
 
 - After a container was killed, we executed the command below on the Docker host to confirm why the containerized Python script was killed.
 
-    ```bash
-    $ dmesg -T | grep -i ‘killed process’
-    ```
+  ```bash
+  $ dmesg -T | grep -i ‘killed process’
+  ```
 
 - We used the Linux [htop](https://man7.org/linux/man-pages/man1/htop.1.html) command to monitor CPU and memory usage to check the results reported by Docker and double-check CPU and memory use.
-- You can use the command [systemd-cgtop](https://www.commandlinux.com/man-page/man1/systemd-cgtop.1.html) to validate group settings and ensure you are not running into arbitrary limits imposed by *cgroups*.
-- Related to the *cgroups* settings described above, you can inspect various memory-related limits directly from the file system. You can also use an alias to make the large numbers associated with *cgroups* parameters easier to read. For example:
+- You can use the command [systemd-cgtop](https://www.commandlinux.com/man-page/man1/systemd-cgtop.1.html) to validate group settings and ensure you are not running into arbitrary limits imposed by _cgroups_.
+- Related to the _cgroups_ settings described above, you can inspect various memory-related limits directly from the file system. You can also use an alias to make the large numbers associated with _cgroups_ parameters easier to read. For example:
 
-    ```bash
-    $ alias n='numft --to=iec-i'
-    $ cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
-    512Mi
-    ```
+  ```bash
+  $ alias n='numft --to=iec-i'
+  $ cat /sys/fs/cgroup/memory/docker/DOCKER_CONTAINER/memory.limit_in_bytes | n
+  512Mi
+  ```
 
-- You can clear the kernel buffer and page cache that appears in the buff/cache columns reported by the Linux *free* command using either of these commands:
+- You can clear the kernel buffer and page cache that appears in the buff/cache columns reported by the Linux _free_ command using either of these commands:
 
-    ```bash
-    $ echo 1 > /proc/sys/vm/drop_caches
-    $ sysctl -w vm.drop_caches=1
-    ```
+  ```bash
+  $ echo 1 > /proc/sys/vm/drop_caches
+  $ sysctl -w vm.drop_caches=1
+  ```
 
 ## The bottom line
 

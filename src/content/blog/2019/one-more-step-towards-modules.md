@@ -29,7 +29,7 @@ nextflow.preview.dsl=2
 
 #### Module files
 
-A module file simply consists of one or more `process` definitions, written with the usual syntax. The *only* difference is that the `from` and `into` clauses in the `input:` and `output:` definition blocks has to be omitted. For example:
+A module file simply consists of one or more `process` definitions, written with the usual syntax. The _only_ difference is that the `from` and `into` clauses in the `input:` and `output:` definition blocks has to be omitted. For example:
 
 ```
 process INDEX {
@@ -85,7 +85,6 @@ times as you need removing the requirement to duplicate them using the `into` op
 For example, in the above snippet, the `read_pairs_ch` channel has been used twice, as input both for the `FASTQC` and `QUANT` processes. Nextflow forks it behind the scene for you.
 
 This makes the writing of workflow scripts much more fluent, readable and ... fun! No more channel names proliferation!
-
 
 ### Nextflow pipes!
 

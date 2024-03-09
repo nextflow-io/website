@@ -22,7 +22,7 @@ features.
 
 ### Mapping CWL to Nextflow
 
-Inputs in the CWL workflow file are initially parsed as *channels* or other Nextflow input types.
+Inputs in the CWL workflow file are initially parsed as _channels_ or other Nextflow input types.
 Each step specified in the workflow is then parsed independently. At the time of writing
 subworkflows are not supported, each step must be a CWL `CommandLineTool` file.
 
@@ -48,7 +48,6 @@ with minimal refactoring.
 These examples highlight some of the differences between the two approaches, and the difficulties
 converting complex use cases such as scatter, CWL expressions, and conditional command line inclusion.
 
-
 ### Current status
 
 The cwl2nxf is a Groovy based tool with a limited conversion ability. It parses the
@@ -58,7 +57,6 @@ provided as part of the repository along with documentation for each example spe
 This project was initially focused on developing an understanding of how to translate CWL to Nextflow.
 A number of CWL specific features such as scatter, secondary files and simple JavaScript expressions
 were analyzed and implemented.
-
 
 The GitHub repository includes instructions on how to build cwl2nxf and an example usage.
 The tool can be executed as either just a parser printing the converted CWL to stdout,
@@ -79,7 +77,6 @@ See the GitHub [repository](https://github.com/nextflow-io/cwl2nxf) for further 
 
 We are continuing to investigate ways to improve the interoperability of Nextflow with CWL.
 Although still an early prototype, the cwl2nxf tool provides some level of conversion of CWL to Nextflow.
-
 
 We are also planning to explore [CWL Avro](https://github.com/common-workflow-language/cwlavro),
 which may provide a more efficient way to parse and handle CWL objects for conversion to Nextflow.

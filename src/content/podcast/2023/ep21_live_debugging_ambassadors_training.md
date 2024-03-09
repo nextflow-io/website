@@ -8,7 +8,7 @@ subtype: News and Views
 youtubeid: jtdlJQEOA1g
 image: /img/podcast_ep21.jpg
 tags: news and views,opensource,community
-author:  Developer advocates
+author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 

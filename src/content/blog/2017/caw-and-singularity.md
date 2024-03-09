@@ -102,8 +102,8 @@ This approach ran (almost) perfectly on the first try, except a process failing 
 This switch was completed a couple of months ago and has been a great success.
 We are now using Singularity containers in almost all of our Nextflow pipelines developed at NGI.
 Even if we do enjoy the improved control, we must not forgot that:
-> With great power comes great responsibility!
 
+> With great power comes great responsibility!
 
 ### Credits
 

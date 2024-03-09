@@ -42,7 +42,7 @@ Moreover the Univa grid engine has been configured with a custom [complex](http:
 resource type. This allows us to request a specific Docker image as a resource type while
 submitting a job execution to the cluster.
 
-The Docker image is requested as a *soft* resource, by doing that the UGE scheduler
+The Docker image is requested as a _soft_ resource, by doing that the UGE scheduler
 tries to run a job to a node where that image has already been pulled,
 otherwise a lower priority is given to it and it is executed, eventually, by a node where
 the specified Docker image is not available. This will force the node to pull the required
@@ -89,7 +89,6 @@ reduced configuration and deployment problems. Also storing these images into th
 [public](https://registry.hub.docker.com/repos/cbcrg/) repositories with a unique tag allowed us
 to replicate the results without the usual burden required to set-up an identical computing environment.
 
-
 ## Conclusion
 
 The fast start-up time for Docker containers technology allows one to virtualise a single process or
@@ -100,9 +99,7 @@ The minimal performance loss introduced by the Docker engine is offset by the ad
 your analysis in a self-contained and dead easy to reproduce runtime environment, which guarantees
 the consistency of the results over time and across different computing platforms.
 
-
 #### Credits
 
 Thanks to Arnau Bria and the all scientific systems admins team to manage the Docker installation
 in the CRG computing cluster.
-

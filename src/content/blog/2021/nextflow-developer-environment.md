@@ -7,8 +7,7 @@ author: Evan Floden
 icon: evan.jpg
 ---
 
-
-*This blog follows up the Learning Nextflow in 2020 blog [post](https://www.nextflow.io/blog/2020/learning-nextflow-in-2020.html).*
+_This blog follows up the Learning Nextflow in 2020 blog [post](https://www.nextflow.io/blog/2020/learning-nextflow-in-2020.html)._
 
 This guide is designed to walk you through a basic development setup for writing Nextflow pipelines.
 
@@ -23,7 +22,6 @@ $ sudo mv nextflow /usr/local/bin
 
 The first line uses the curl command to download the nextflow executable, and the second line moves the executable to your PATH. Note `/usr/local/bin` is the default for MacOS, you might want to choose `~/bin` or `/usr/bin` depending on your PATH definition and operating system.
 
-
 ### 2. Text Editor or IDE?
 
 Nextflow pipelines can be written in any plain text editor. I'm personally a bit of a Vim fan, however, the advent of the modern IDE provides a more immersive development experience.
@@ -34,25 +32,23 @@ My current choice is Visual Studio Code which provides a wealth of add-ons, the 
 
 Other syntax highlighting has been made available by the community including:
 
-* [Atom](https://atom.io/packages/language-nextflow )
-* [Vim](https://github.com/LukeGoodsell/nextflow-vim)
-* [Emacs](https://github.com/Emiller88/nextflow-mode)
-
+- [Atom](https://atom.io/packages/language-nextflow)
+- [Vim](https://github.com/LukeGoodsell/nextflow-vim)
+- [Emacs](https://github.com/Emiller88/nextflow-mode)
 
 ### 3. The Nextflow REPL console
 
 The Nextflow console is a REPL (read-eval-print loop) environment that allows one to quickly test part of a script or segments of Nextflow code in an interactive manner. This can be particularly useful to quickly evaluate channels and operators behaviour and prototype small snippets that can be included in your pipeline scripts.
 
 Start the Nextflow console with the following command:
+
 ```
 $ nextflow console
 ```
 
-
 <img alt='Nextflow REPL console' width='796' height='549' src='/img/nf-repl-console.png' />
 
 Use the `CTRL+R` keyboard shortcut to run (`⌘+R`on the Mac) and to evaluate your code. You can also evaluate by selecting code and use the **Run selection**.
-
 
 ### 4. Containerize all the things
 
@@ -74,9 +70,7 @@ To learn more about building Docker containers, see the [Seqera Labs tutorial](h
 
 Additionally, you can install the VSCode marketplace addon for Docker to manage and interactively run and test the containers and images on your machine. You can even connect to remote registries such as Dockerhub, Quay.io, AWS ECR, Google Cloud and Azure Container registries.
 
-
 <img alt='VSCode with Docker Extension' width='796' height='482' src='/img/vs-code-with-docker-extension.png' />
-
 
 ### 5. Use Tower to monitor your pipelines
 
@@ -93,7 +87,6 @@ We can then add the `-with-tower` child-option to any Nextflow run command. A UR
 ```
 $ nextflow run nextflow-io/rnaseq-nf -with-tower
 ```
-
 
 ### 6. nf-core tools
 
@@ -113,10 +106,10 @@ or
 $ pip install nf-core
 ```
 
-
 <img alt='nf-core tools' width='796' height='561' src='/img/nf-core-tools.png' />
 
 ### Conclusion
+
 Developer workspaces are evolving rapidly. While your own development environment may be highly dependent on personal preferences, community contributions are keeping Nextflow users at the forefront of the modern developer experience.
 
 Solutions such as [GitHub Codespaces](https://github.com/features/codespaces) and [Gitpod](https://www.gitpod.io/) are now offering extendible, cloud-based options that may well be the future. I’m sure we can all look forward to a one-click, pre-configured, cloud-based, Nextflow developer environment sometime soon!

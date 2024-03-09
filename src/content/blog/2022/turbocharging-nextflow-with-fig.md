@@ -22,7 +22,7 @@ We have now added Nextflow for Fig. Thanks to Figs open source core we were able
 
 ![GIF with a demo of nextflow log/list subcommands](/img/nxf-log-list-params.gif)
 
-The Fig autocomplete functionality can also be adjusted to suit our preferences. Suggestions can be displayed in alphabetical order or as a list of your most recent commands. Similarly,  suggestions can be displayed all the time or only when you press tab.
+The Fig autocomplete functionality can also be adjusted to suit our preferences. Suggestions can be displayed in alphabetical order or as a list of your most recent commands. Similarly, suggestions can be displayed all the time or only when you press tab.
 
 The Fig specification that we've written not only suggests commands and options, but dynamic inputs too. For example, finding previous run names when resuming or cleaning runs is tedious and error prone. Similarly, pipelines that you’ve already downloaded with `nextflow pull` will be autocompleted if they have been run in the past. You won't have to remember the full names anymore, as Fig generators in the autocomplete allow you to automatically complete the run name after typing a few letters where a run name is expected. Importantly, this also works for pipeline names!
 

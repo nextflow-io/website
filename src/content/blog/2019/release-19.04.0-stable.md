@@ -9,7 +9,6 @@ icon: paolo.jpg
 
 We are excited to announce the new Nextflow 19.04.0 stable release!
 
-
 This version includes numerous bug fixes, enhancement and new features.
 
 #### Rich logging
@@ -38,16 +37,15 @@ Remember that updating can be done with the `nextflow -self-update` command.
 
 The complete list of changes and bug fixes is available on GitHub at [this link](https://github.com/nextflow-io/nextflow/releases/tag/v19.04.0).
 
-
 ### Contributions
 
 Special thanks to all people contributed to this release by reporting issues, improving the docs or submitting (patiently) a pull request (sorry if we have missed somebody):
 
-* [Alex Cerjanic](https://github.com/acerjanic)
-* [Anthony Underwood](https://github.com/aunderwo)
-* [Akira Sekiguchi](https://github.com/pachiras)
-* [Bill Flynn](https://github.com/wflynny)
-* [Jorrit Boekel](https://github.com/glormph)
-* [Olga Botvinnik](https://github.com/olgabot)
-* [Ólafur Haukur Flygenring](https://github.com/olifly)
-* [Sven Fillinger](https://github.com/sven1103)
+- [Alex Cerjanic](https://github.com/acerjanic)
+- [Anthony Underwood](https://github.com/aunderwo)
+- [Akira Sekiguchi](https://github.com/pachiras)
+- [Bill Flynn](https://github.com/wflynny)
+- [Jorrit Boekel](https://github.com/glormph)
+- [Olga Botvinnik](https://github.com/olgabot)
+- [Ólafur Haukur Flygenring](https://github.com/olifly)
+- [Sven Fillinger](https://github.com/sven1103)

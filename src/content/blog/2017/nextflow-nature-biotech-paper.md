@@ -7,7 +7,7 @@ author: Paolo Di Tommaso
 icon: paolo.jpg
 ---
 
-We are excited to announce the publication of our work *[Nextflow enables reproducible computational workflows](http://rdcu.be/qZVo)* in Nature Biotechnology.
+We are excited to announce the publication of our work _[Nextflow enables reproducible computational workflows](http://rdcu.be/qZVo)_ in Nature Biotechnology.
 
 The article provides a description of the fundamental components and principles of Nextflow.
 We illustrate how the unique combination of containers, pipeline sharing and portable

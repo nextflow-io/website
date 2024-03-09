@@ -15,10 +15,10 @@ icon: phil.jpg
 
 Today we’re excited to open the call for abstracts! We’re looking for talks and posters about anything and everything happening in the Nextflow world. Specifically, we’re aiming to shape the program into four key areas:
 
-* Nextflow: central tool / language / plugins
-* Community: pipelines / applications / use cases
-* Ecosystem: infrastructure / environments
-* Software: containers / tool packaging
+- Nextflow: central tool / language / plugins
+- Community: pipelines / applications / use cases
+- Ecosystem: infrastructure / environments
+- Software: containers / tool packaging
 
 Speaking at the summit will primarily be in-person, but we welcome posters from remote attendees. Posters will be submitted digitally and available online during and after the event. Talks will be streamed live and be available after the event.
 
@@ -30,13 +30,13 @@ Speaking at the summit will primarily be in-person, but we welcome posters from 
 
 Registration for the event will happen separately, with key dates as follows (subject to change):
 
-* Jun 17: Call for abstracts opens
-* July 1: Registration opens
-* July 22: Call for abstracts closes
-* July 29: Accepted speakers notified
-* Sept 9: Registration closes
-* Oct 10-12: Hackathon
-* Oct 12-14: Summit
+- Jun 17: Call for abstracts opens
+- July 1: Registration opens
+- July 22: Call for abstracts closes
+- July 29: Accepted speakers notified
+- Sept 9: Registration closes
+- Oct 10-12: Hackathon
+- Oct 12-14: Summit
 
 Abstracts will be read and speakers notified on a rolling basis, so apply soon!
 

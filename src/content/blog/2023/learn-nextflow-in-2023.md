@@ -1,5 +1,5 @@
 ---
-title:  Learn Nextflow in 2023
+title: Learn Nextflow in 2023
 date: 2023-02-24
 type: post
 description: An updated compilation of the best Nextflow learning resources for 2023.
@@ -25,34 +25,34 @@ So, let's get started! These resources will guide you from beginner to expert an
 
 - [Why Learn Nextflow](#why-learn-nextflow)
 - [Meet the Tutorials!](#meet-the-tutorials)
-    1. [Basic Nextflow Community Training](#introduction-to-nextflow-by-community)
-    2. [Hands-on Nextflow Community Training](#nextflow-hands-on-by-community)
-    3. [Advanced Nextflow Community Training](#advanced-nextflow-by-community)
-    4. [Software Carpentry workshop](#software-carpentry-workshop)
-    5. [An introduction to Nextflow course by Uppsala University](#intro-nexflow-by-uppsala)
-    6. [Introduction to Nextflow workshop by VIB](#intro-nextflow-by-vib)
-    7. [Nextflow Training by Curtin Institute of Radio Astronomy (CIRA)](#nextflow-training-cira)
-    8. [Managing Pipelines in the Cloud - GenomeWeb Webinar](#managing-pipelines-in-the-cloud-genomeweb-webinar)
-    9. [Nextflow implementation patterns](#nextflow-implementation-patterns)
-    10. [nf-core tutorials](#nf-core-tutorials)
-    11. [Awesome Nextflow](#awesome-nextflow)
-    12. [Wave showcase: Wave and Fusion tutorials](#wave-showcase-wave-and-fusion-tutorials)
-    13. [Building Containers for Scientific Workflows](#building-containers-for-scientific-workflows)
-    14. [Best Practices for Deploying Pipelines with Nextflow Tower](#best-practices-for-deploying-pipelines-with-nextflow-tower)
+  1. [Basic Nextflow Community Training](#introduction-to-nextflow-by-community)
+  2. [Hands-on Nextflow Community Training](#nextflow-hands-on-by-community)
+  3. [Advanced Nextflow Community Training](#advanced-nextflow-by-community)
+  4. [Software Carpentry workshop](#software-carpentry-workshop)
+  5. [An introduction to Nextflow course by Uppsala University](#intro-nexflow-by-uppsala)
+  6. [Introduction to Nextflow workshop by VIB](#intro-nextflow-by-vib)
+  7. [Nextflow Training by Curtin Institute of Radio Astronomy (CIRA)](#nextflow-training-cira)
+  8. [Managing Pipelines in the Cloud - GenomeWeb Webinar](#managing-pipelines-in-the-cloud-genomeweb-webinar)
+  9. [Nextflow implementation patterns](#nextflow-implementation-patterns)
+  10. [nf-core tutorials](#nf-core-tutorials)
+  11. [Awesome Nextflow](#awesome-nextflow)
+  12. [Wave showcase: Wave and Fusion tutorials](#wave-showcase-wave-and-fusion-tutorials)
+  13. [Building Containers for Scientific Workflows](#building-containers-for-scientific-workflows)
+  14. [Best Practices for Deploying Pipelines with Nextflow Tower](#best-practices-for-deploying-pipelines-with-nextflow-tower)
 - [Cloud integration tutorials](#cloud-integration-tutorials)
-    1. [Nextflow and AWS Batch  Inside the Integration](#nextflow-and-aws-batch-inside-the-integration)
-    2. [Nextflow and Azure Batch  Inside the Integration](#nextflow-and-azure-batch-inside-the-integration)
-    3. [Get started with Nextflow on Google Cloud Batch](#get-started-with-nextflow-on-google-cloud-batch)
-    4. [Nextflow and K8s Rebooted: Running Nextflow on Amazon EKS](#nextflow-and-k8s-rebooted-running-nextflow-on-amazon-eks)
+  1. [Nextflow and AWS Batch Inside the Integration](#nextflow-and-aws-batch-inside-the-integration)
+  2. [Nextflow and Azure Batch Inside the Integration](#nextflow-and-azure-batch-inside-the-integration)
+  3. [Get started with Nextflow on Google Cloud Batch](#get-started-with-nextflow-on-google-cloud-batch)
+  4. [Nextflow and K8s Rebooted: Running Nextflow on Amazon EKS](#nextflow-and-k8s-rebooted-running-nextflow-on-amazon-eks)
 - [Additional resources](#additional-resources)
-    1. [Nextflow docs](#nextflow-docs)
-    2. [Seqera Labs docs](#seqera-labs-docs)
-    3. [nf-core](#nf-core)
-    4. [Nextflow Tower](#nextflow-tower)
-    5. [Nextflow on AWS](#nextflow-on-aws)
-    6. [Nextflow Data pipelines on Azure Batch](#nextflow-data-pipelines-on-azure-batch)
-    7. [Running Nextflow with Google Life Sciences](#running-nextflow-with-google-life-sciences)
-    8. [Bonus: Nextflow Tutorial - Variant Calling Edition](#bonus-nextflow-tutorial-variant-calling-edition)
+  1. [Nextflow docs](#nextflow-docs)
+  2. [Seqera Labs docs](#seqera-labs-docs)
+  3. [nf-core](#nf-core)
+  4. [Nextflow Tower](#nextflow-tower)
+  5. [Nextflow on AWS](#nextflow-on-aws)
+  6. [Nextflow Data pipelines on Azure Batch](#nextflow-data-pipelines-on-azure-batch)
+  7. [Running Nextflow with Google Life Sciences](#running-nextflow-with-google-life-sciences)
+  8. [Bonus: Nextflow Tutorial - Variant Calling Edition](#bonus-nextflow-tutorial-variant-calling-edition)
 - [Community and support](#community-and-support)
 
 <h2 id="why-learn-nextflow">Why Learn Nextflow</h2>
@@ -114,7 +114,6 @@ The workshop can be opened on Gitpod where you can try the exercises in an onlin
 The workshop can be opened on [Gitpod](https://gitpod.io/#https://github.com/carpentries-incubator/workflows-nextflow) where you can try the exercises in an online computing environment at your own pace while referencing the course material in another window alongside the tutorials.
 
 You can find the course in [The Carpentries incubator](https://carpentries-incubator.github.io/workflows-nextflow/index.html).
-
 
 <h3 id="intro-nexflow-by-uppsala">5. An introduction to Nextflow course from Uppsala University</h3>
 

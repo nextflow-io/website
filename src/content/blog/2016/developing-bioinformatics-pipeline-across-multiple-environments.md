@@ -58,11 +58,9 @@ For the UGE I simply needed to specify the following in the `nextflow.config` fi
             queue='my_queue'
     }
 
-
 And then launch the pipeline execution as we did before:
 
     nextflow run myproject.nf
-
 
 #### Load Sharing Facility (LSF)
 
@@ -81,7 +79,6 @@ declaring the resources that I want to reserve for the pipeline execution:
     #BSUB -R "span[ptile=16]"
     export NXF_CLUSTER_SEED=$(shuf -i 0-16777216 -n 1)
     mpirun --pernode bin/nextflow run concMSA.nf -with-mpi
-
 
 And then can execute it using `bsub` as shown below:
 

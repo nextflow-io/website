@@ -35,7 +35,7 @@ when a large number of tasks have been executed.
 with the outcome being a very impressive working prototype which can be found in the Nextflow
 branch `html-trace`.
 
-An  image of the example report is shown below with the interactive HTML available
+An image of the example report is shown below with the interactive HTML available
 [here](/misc/nf-trace-report.html). It is expected to be merged into the main branch of Nextflow
 with documentation in a near-future release.
 
@@ -59,13 +59,13 @@ who are already familiar with Nextflow as well as used as a tool for training ne
 
 ### Nextflow modules prototyping
 
-*Toolboxing* allows users to incorporate software into their pipelines in an efficient and
+_Toolboxing_ allows users to incorporate software into their pipelines in an efficient and
 reproducible manner. Various software repositories are becoming increasing popular,
 highlighted by the over 5,000 tools available in the [Galaxy Toolshed](https://toolshed.g2.bx.psu.edu/).
 
 Projects such as [Biocontainers](http://biocontainers.pro/) aim to wrap up the execution
 environment using containers. [Myself](https://github.com/skptic) and [Johan Viklund](https://github.com/viklund)
-wished to piggyback  off existing repositories and settled on [Dockstore](https://dockstore.org)
+wished to piggyback off existing repositories and settled on [Dockstore](https://dockstore.org)
 which is an open platform compliant with the [GA4GH](http://genomicsandhealth.org) initiative.
 
 The majority of tools in Dockstore are written in the CWL and therefore we required a parser
@@ -73,12 +73,12 @@ between the CWL CommandLineTool class and Nextflow processes. Johan was able to 
 a parser which generates Nextflow processes for several Dockstore tools.
 
 As these resources such as Dockstore become mature and standardised, it will be
-possible to automatically generate a *Nextflow Store* and enable efficient incorporation
+possible to automatically generate a _Nextflow Store_ and enable efficient incorporation
 of tools into workflows.
 
 <script src="https://gist.github.com/pditommaso/7ccdb6e8af80133a25f259ae801371bf.js"></script>
 
-*Example showing a Nextflow process generated from the Dockstore CWL repository for the tool BAMStats.*
+_Example showing a Nextflow process generated from the Dockstore CWL repository for the tool BAMStats._
 
 ### Nextflow pipeline for de novo assembly of nanopore reads
 
@@ -86,7 +86,7 @@ of tools into workflows.
 and emerging technology which promises to change the landscape of nucleotide sequencing.
 
 With keen interest in Nanopore specific pipelines, [Hadrien Gourlé](https://github.com/HadrienG)
-lead the hackathon project for *Nanoflow*.
+lead the hackathon project for _Nanoflow_.
 
 [Nanoflow](https://github.com/HadrienG/nanoflow) is a de novo assembler of bacterials genomes
 from nanopore reads using Nextflow.

@@ -7,7 +7,7 @@ author: Evan Floden
 icon: evan.jpg
 ---
 
-*This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](/blog/2019/demystifying-nextflow-resume.html)*.
+_This two-part blog aims to help users understand Nextflow’s powerful caching mechanism. Part one describes how it works whilst part two will focus on execution provenance and troubleshooting. You can read part one [here](/blog/2019/demystifying-nextflow-resume.html)_.
 
 ### Troubleshooting resume
 
@@ -15,7 +15,7 @@ If your workflow execution is not resumed as expected, there exists several stra
 
 #### Modified input file(s)
 
-Make sure that there has been no change in your input files. Don’t forget the unique task hash is computed by taking into account the complete file path, the last modified timestamp and the file size. If any of these change, the workflow will be re-executed,  even if the input content is the same.
+Make sure that there has been no change in your input files. Don’t forget the unique task hash is computed by taking into account the complete file path, the last modified timestamp and the file size. If any of these change, the workflow will be re-executed, even if the input content is the same.
 
 #### A process modifying one or more inputs
 
@@ -109,7 +109,7 @@ process gather {
 These are most frequent causes of problems with the Nextflow resume mechanism. If you are still not able to resolve
 your problem, identify the first process not resuming correctly, then run your script twice using `-dump-hashes`. You can then compare the resulting `.nextflow.log` files (the first will be named `.nextflow.log.1`).
 
-Unfortunately, the information reported by `-dump-hashes` can be quite cryptic, however, with the help of a good *diff* tool it is possible to compare the two log files to identify the reason for the cache to be invalidated.
+Unfortunately, the information reported by `-dump-hashes` can be quite cryptic, however, with the help of a good _diff_ tool it is possible to compare the two log files to identify the reason for the cache to be invalidated.
 
 #### The golden rule
 

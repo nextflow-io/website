@@ -8,6 +8,7 @@ tags: nextflow,tower,cloud
 author: Paolo Di Tommaso
 icon: paolo.jpg
 ---
+
 Containers have become an essential part of well-structured data analysis pipelines. They encapsulate applications and dependencies in portable, self-contained packages that can be easily distributed. Containers are also key to enabling predictable and [reproducible results](https://www.nature.com/articles/nbt.3820).
 
 Nextflow was one of the first workflow technologies to fully embrace [containers](https://www.nextflow.io/blog/2014/using-docker-in-hpc-cluster.html) for data analysis pipelines. Community curated container collections such as [BioContainers](https://biocontainers.pro/) also helped speed container adoption.
@@ -50,7 +51,7 @@ By automatically building and provisioning containers, Wave dramatically simplif
 
 Nextflow allows for the definition of pipeline level (and more recently module level) scripts executed in the context of the task execution environment. These scripts can be made accessible to the container environment by mounting a host volume. However, this approach only works when using a local or shared file system.
 
-Wave solves these problems by dynamically adding one or more layers to an existing container image during the container image download phase from the registry. Developers can use container augmentation to inject an arbitrary payload into any container without re-building it.  Wave then recomputes the image's final manifest adding new layers and checksums on-the-fly, so that the final downloaded image reflects the added content.
+Wave solves these problems by dynamically adding one or more layers to an existing container image during the container image download phase from the registry. Developers can use container augmentation to inject an arbitrary payload into any container without re-building it. Wave then recomputes the image's final manifest adding new layers and checksums on-the-fly, so that the final downloaded image reflects the added content.
 
 With container augmentation, developers can include a directory called `resources` in pipeline [module directories](https://www.nextflow.io/docs/latest/dsl2.html#module-directory). When the corresponding containerized task is executed, Wave automatically mirrors the content of the resources directory in the root path of the container where it can be accessed by scripts running within the container.
 
@@ -77,13 +78,13 @@ tower {
 }
 ```
 
-The use of the Tower access token is not mandatory, however, it's required to enable the access to private repositories. The use of authentication also allows higher service rate limits compared to anonymous users.  You can run a Nextflow pipeline such as rnaseq-nf with Wave, as follows:
+The use of the Tower access token is not mandatory, however, it's required to enable the access to private repositories. The use of authentication also allows higher service rate limits compared to anonymous users. You can run a Nextflow pipeline such as rnaseq-nf with Wave, as follows:
 
 ```
 nextflow run nextflow-io/rnaseq-nf -with-wave
 ```
 
-The configuration in the nextflow.config snippet above will enable the provisioning  of Wave containers created starting from the `conda` requirements specified in the pipeline processes.
+The configuration in the nextflow.config snippet above will enable the provisioning of Wave containers created starting from the `conda` requirements specified in the pipeline processes.
 
 You can find additional information and examples in the Nextflow [documentation](https://www.nextflow.io/docs/latest/wave.html) and in the Wave [showcase project](https://github.com/seqeralabs/wave-showcase).
 

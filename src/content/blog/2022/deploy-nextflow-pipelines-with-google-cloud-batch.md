@@ -19,14 +19,14 @@ For this reason, we are delighted to announce that Nextflow now supports [Google
 
 Google Cloud Batch is a comprehensive cloud service suitable for multiple use cases, including HPC, AI/ML, and data processing. While it is similar to the Google Cloud Life Sciences API, used by many Nextflow users today, Google Cloud Batch offers a broader set of capabilities. As with Google Cloud Life Sciences, Google Cloud Batch automatically provisions resources, manages capacity, and allows batch workloads to run at scale. It offers several advantages, including:
 
-* The ability to re-use VMs across jobs steps to reduce overhead and boost performance.
-* Granular control over task execution, compute, and storage resources.
-* Infrastructure, application, and task-level logging.
-* Improved task parallelization, including support for multi-node MPI jobs, with support for array jobs, and subtasks.
-* Improved support for spot instances, which provides a significant cost saving when compared to regular instance.
-* Streamlined data handling and provisioning.
+- The ability to re-use VMs across jobs steps to reduce overhead and boost performance.
+- Granular control over task execution, compute, and storage resources.
+- Infrastructure, application, and task-level logging.
+- Improved task parallelization, including support for multi-node MPI jobs, with support for array jobs, and subtasks.
+- Improved support for spot instances, which provides a significant cost saving when compared to regular instance.
+- Streamlined data handling and provisioning.
 
-A nice feature of Google Cloud Batch API, that fits nicely with Nextflow, is its built-in support for data ingestion from Google Cloud Storage buckets. A batch job can *mount* a storage bucket and make it directly accessible to a container running a Nextflow task. This feature makes data ingestion and sharing resulting data sets more efficient and reliable than other solutions.
+A nice feature of Google Cloud Batch API, that fits nicely with Nextflow, is its built-in support for data ingestion from Google Cloud Storage buckets. A batch job can _mount_ a storage bucket and make it directly accessible to a container running a Nextflow task. This feature makes data ingestion and sharing resulting data sets more efficient and reliable than other solutions.
 
 ### Getting started with Google Cloud Batch
 
@@ -64,17 +64,15 @@ With this information, you are ready to start. You can verify that the integrati
 nextflow run https://github.com/nextflow-io/hello
 ```
 
-
 ### Migrating Google Cloud Life Sciences pipelines to Google Cloud Batch
 
 Google Cloud Life Sciences users can easily migrate their pipelines to Google Cloud Batch by making just a few edits to their pipeline configuration settings. Simply replace the `google-lifesciences` executor with `google-batch`.
 
-For each setting having the prefix `google.lifeScience.`, there is a corresponding  `google.batch.` setting. Simply update these configuration settings to reflect the new service.
+For each setting having the prefix `google.lifeScience.`, there is a corresponding `google.batch.` setting. Simply update these configuration settings to reflect the new service.
 
 The usual process directives such as: [cpus](https://www.nextflow.io/docs/latest/process.html#cpus), [memory](https://www.nextflow.io/docs/latest/process.html#memory), [time](https://www.nextflow.io/docs/latest/process.html#time), [machineType](https://www.nextflow.io/docs/latest/process.html#machinetype) are natively supported by Google Cloud Batch, and should not be modified.
 
 Find out more details in the [Nextflow documentation](https://www.nextflow.io/docs/edge/google.html#cloud-batch).
-
 
 ### 100% Open, Built to Scale
 

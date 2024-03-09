@@ -6,6 +6,7 @@ tags: docker,github,reproducibility,data-analysis
 author: Maria Chatzou
 icon: maria.png
 ---
+
 The scientific world nowadays operates on the basis of published articles.
 These are used to report novel discoveries to the rest of the scientific community.
 
@@ -56,9 +57,9 @@ tools or implement from scratch state-of-the-art data processing algorithms.
 ### Here comes Docker
 
 [Docker](http://www.docker.com) containers technology is a solution to many of the computational
-research reproducibility problems.  Basically, it is a kind of a lightweight virtual machine
+research reproducibility problems. Basically, it is a kind of a lightweight virtual machine
 where you can set up a computing environment including all the libraries, code and data that you need,
-within a single *image*.
+within a single _image_.
 
 This image can be distributed publicly and can seamlessly run on any major Linux operating system.
 No need for the user to mess with installation, paths, etc.
@@ -69,7 +70,7 @@ and [here](https://bcbio.wordpress.com/2014/03/06/improving-reproducibility-and-
 
 ### Docker and Nextflow: a perfect match
 
-One big advantage Docker has compared to *traditional* machine virtualisation technology
+One big advantage Docker has compared to _traditional_ machine virtualisation technology
 is that it doesn't need a complete copy of the operating system, thus it has a minimal
 startup time. This makes it possible to virtualise single applications or launch the execution
 of multiple containers, that can run in parallel, in order to speedup a large computation.
@@ -92,15 +93,14 @@ By integrating Docker with Nextflow, every pipeline process can be executed inde
 in its own container, this guarantees that each of them run in a predictable
 manner without worrying about the configuration of the target execution platform. Moreover the
 minimal overhead added by Docker allows us to spawn multiple container executions in a parallel
-manner with a negligible performance loss when compared to a platform *native* execution.
-
+manner with a negligible performance loss when compared to a platform _native_ execution.
 
 ### An example
 
 As a proof of concept of the Docker integration with Nextflow you can try out the
 pipeline example at this [link](https://github.com/nextflow-io/examples/blob/master/blast-parallel.nf).
 
-It splits a protein sequences multi FASTA file into chunks of *n* entries, executes a BLAST query
+It splits a protein sequences multi FASTA file into chunks of _n_ entries, executes a BLAST query
 for each of them, then extracts the top 10 matching sequences and
 finally aligns the results with the T-Coffee multiple sequence aligner.
 
@@ -108,7 +108,7 @@ In a common scenario you generally need to install and configure the tools requi
 script: BLAST and T-Coffee. Moreover you should provide a formatted protein database in order
 to execute the BLAST search.
 
-By using  Docker with Nextflow you only need to have the Docker engine installed in your
+By using Docker with Nextflow you only need to have the Docker engine installed in your
 computer and a Java VM. In order to try this example out, follow these steps:
 
 Install the latest version of Nextflow by entering the following command in your shell terminal:
@@ -126,13 +126,11 @@ Now you are ready to run the demo by launching the pipeline execution as shown b
 
     nextflow run examples/blast-parallel.nf -with-docker
 
-
 This will run the pipeline printing the final alignment out on the terminal screen.
 You can also provide your own protein sequences multi FASTA file by adding, in the above command line,
-the option ``--query <file>`` and change the splitting chunk size with ``--chunk n`` option.
+the option `--query <file>` and change the splitting chunk size with `--chunk n` option.
 
 Note: the result doesn't have a real biological meaning since it uses a very small protein database.
-
 
 ### Conclusion
 
@@ -141,13 +139,7 @@ self-contained and truly replicable pipelines. It requires zero configuration an
 enables the reproducibility of data analysis pipelines in any system in which a Java VM and
 the Docker engine are available.
 
-
 ### Learn how to do it!
 
 Follow our documentation for a quick start using Docker with Nextflow at
 the following link https://www.nextflow.io/docs/latest/docker.html
-
-
-
-
-
