@@ -1,18 +1,17 @@
 ---
 title: RNA-Seq pipeline
-layout: @layouts/Page.astro
+layout: "@layouts/Page.astro"
 ---
 
 
 <div class="blg-summary example">
-<h3><a href="javascript:void(0)">RNA-Seq pipeline</a></h3>
+<h3>RNA-Seq pipeline</h3>
 
 <p class="text-muted">
     This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
 </p>
 
-<script type="syntaxhighlighter" class="brush: groovy">
-<![CDATA[
+```groovy
 #!/usr/bin/env nextflow
 
 /*
@@ -78,8 +77,7 @@ process QUANT {
     salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
     """
 }
-]]>
-</script>
+```
 </div>
 
 

@@ -1,17 +1,16 @@
 ---
 title: Mixing scripting languages
-layout: @layouts/Page.astro
+layout: "@layouts/Page.astro"
 ---
 
 <div class="blg-summary example">
-<h3><a href="javascript:void(0)">Mixing scripting languages</a></h3>
+<h3>Mixing scripting languages</h3>
 
 <p class="text-muted">
     With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
 </p>
 
-<script type="syntaxhighlighter" class="brush: groovy">
-<![CDATA[
+```groovy
 #!/usr/bin/env nextflow
 
 params.range = 100
@@ -67,8 +66,7 @@ process pyTask {
 workflow {
     perlTask | pyTask | view
 }
-]]>
-</script>
+```
 </div>
 
 

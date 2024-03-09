@@ -1,18 +1,17 @@
 ---
 title: Basic pipeline
-layout: @layouts/Page.astro
+layout: "@layouts/Page.astro"
 ---
 
 <div class="blg-summary example">
-<h3><a href="javascript:void(0)">Basic pipeline</a></h3>
+<h3>Basic pipeline</h3>
 
 <p class="text-muted" >
     This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.
 </p>
 
 
-<script type="syntaxhighlighter" class="brush: groovy">
-<![CDATA[
+```groovy
 #!/usr/bin/env nextflow
 
 params.in = "$baseDir/data/sample.fa"
@@ -57,8 +56,7 @@ workflow {
       | reverse \
       | view
 }
-]]>
-</script>
+```
 </div>
 
 

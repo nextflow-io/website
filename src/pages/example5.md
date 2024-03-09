@@ -1,18 +1,17 @@
 ---
 title: Machine Learning pipeline
-layout: @layouts/Page.astro
+layout: "@layouts/Page.astro"
 ---
 
 
 <div class="blg-summary example">
-<h3><a href="javascript:void(0)">Machine Learning pipeline</a></h3>
+<h3>Machine Learning pipeline</h3>
 
 <p class="text-muted">
     This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
 </p>
 
-<script type="syntaxhighlighter" class="brush: groovy">
-<![CDATA[
+```groovy
 #!/usr/bin/env nextflow
 
 params.dataset_name = 'wdbc'
@@ -46,8 +45,7 @@ workflow {
 
 // view the entire code on GitHub ...
 
-]]>
-</script>
+```
 </div>
 
 

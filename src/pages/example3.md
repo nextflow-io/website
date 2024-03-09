@@ -1,18 +1,17 @@
 ---
 title: BLAST pipeline
-layout: @layouts/Page.astro
+layout: "@layouts/Page.astro"
 ---
 
 
 <div class="blg-summary example">
-<h3><a href="javascript:void(0)">BLAST pipeline</a></h3>
+<h3>BLAST pipeline</h3>
 
 <p class="text-muted">
     This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
 </p>
 
-<script type="syntaxhighlighter" class="brush: groovy">
-<![CDATA[
+```groovy
 #!/usr/bin/env nextflow
 
 /*
@@ -88,8 +87,7 @@ process extract {
     blastdbcmd -db $db/$db_name -entry_batch top_hits | head -n 10 > sequences
     """
 }
-]]>
-</script>
+```
 </div>
 
 ### Try it on your computer
