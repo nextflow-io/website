@@ -15,96 +15,116 @@ const dateString = (d) => {
   <div class="col-xs-12">
     <div class="row">
       <div class="col-sm-4">
-        <img src="/img/podcast_logo_horiz.svg" style="width:100%;">
+        <img src="/img/podcast_logo_horiz.svg" style="width:100%;" />
       </div>
       <div class="col-sm-8">
-        <h4 class='text-muted' style="margin-top: 7rem;">Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.</h4>
+        <h4 class="text-muted" style="margin-top: 7rem;">
+          Talking about news in the Nextflow ecosytem and speaking with pioneers in the field.
+        </h4>
       </div>
     </div>
-    <hr>
-  <div class="row">
-       <div class="col-sm-8">
-          <div class="timeline">
+    <hr />
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="timeline">
           {
-              episodes.map((post) => {
-                return (
+            episodes.map((post) => {
+              return (
                 <div class="blg-summary podcast" data-golive={post.data.date}>
-                <h3 ><a href={"/podcasts/" + post.slug}><span class="label label-success">Episode {post.data.episode}</span> {post.data.title}</a></h3>
-                <h4 class="text-muted blg-description future-show">Episode coming soon! Subscribe to listen live..</h4>
-               <h4 class="text-muted blg-description future-hide">{post.data.description}</h4>
-               <div class="timeline-info hidden-xs">
-				        <img src="/img/coming-soon.png" class="blg-author future-show" alt="Coming soon">
-				        <img src={`/img/${post.data.icon}`} class="blg-author future-hide" alt={post.author}>
-				       </div>
-                <ul class="text-muted list-inline blg-header">
-                <li><i class="fa fa-info-circle"></i> {post.data.subtype}</li>
-                <li><i class="fa fa-calendar"></i> {dateString(post.data.date)} </li>
-                </ul>
-                <hr>
-                <a href={"/podcasts/" + post.slug}><img src={post.data.image} class="podcast-thumb-img"></a>
-                <p class="blg-text">{post.data.description}</p>
+                  <h3>
+                    <a href={"/podcasts/" + post.slug}>
+                      <span class="label label-success">Episode {post.data.episode}</span> {post.data.title}
+                    </a>
+                  </h3>
+                  <h4 class="text-muted blg-description future-show">
+                    Episode coming soon! Subscribe to listen live..
+                  </h4>
+                  <h4 class="text-muted blg-description future-hide">{post.data.description}</h4>
+                  <div class="timeline-info hidden-xs">
+                    <img src="/img/coming-soon.png" class="blg-author future-show" alt="Coming soon" />
+                    <img src={`/img/${post.data.icon}`} class="blg-author future-hide" alt={post.author} />
                   </div>
-                );
-              })
-            }
-          </div>
-        <div class="clearfix"></div>
-           </div>
-           <div class="col-sm-4">
-           <h3>Stay Tuned <small>Where to listen</small></h3>
-           <hr>
-           <ul class="blg-social">
-             <li>
-               <a href="https://open.spotify.com/show/1slEz7EL46cHa9vdRmPLY4" target='_blank'>
-                 <span class="icon spotify">
-                   <img src="/img/spotify.png" alt="Spotify">
-                 </span>
-                 <span class="text-muted">Listen on Spotify</span>
-               </a>
-             </li>
-             <li>
-               <a href="https://podcasts.apple.com/ca/podcast/the-next-bio-informatics-podcast/id1554921146" target='_blank'>
-                <span class="icon applepodcasts">
-                   <img src="/img/apple_podcasts.png" alt="Apple Podcasts">
-                 </span>
-                 <span class="text-muted">Listen on Apple Podcasts</span>
-               </a>
-             </li>
-             <li>
-               <a href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9hbmNob3IuZm0vcy80ZTAzZGMxOC9wb2RjYXN0L3Jzcw==" target='_blank'>
-                <span class="icon googlepodcasts">
-                   <img src="/img/google_podcasts.png" alt="Google Podcasts">
-                 </span>
-                 <span class="text-muted">Listen on Google Podcasts</span>
-               </a>
-             </li>
-             <li>
-               <a href="https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUAV23hZ9lcZFtt3MAa9IOj" target='_blank'>
-                 <span class="icon googlepodcasts">
-                   <img src="/img/youtube.png" alt="YoyTube">
-                </span>
-                <span class="text-muted">Watch on YouTube</span>
-             </a>
-             </li>
-             <li>
-               <a href="https://twitter.com/nextflowio" target='_blank'>
-                 <span class="icon twitter">
-                 <i class="fa fa-twitter fa-2x"></i>
-               </span>
-               <span class="text-muted">Watch on Twitter spaces</span>
-             </a>
-             </li>
-            <li>
-              <a href="https://anchor.fm/s/4e03dc18/podcast/rss">
-                <span class="icon rss">
-                  <i class="fa fa-rss fa-2x"></i>
-                </span>
-                <span class="text-muted">Podcast RSS Feed</span>
-              </a>
-            </li>
-           </ul>
-           </div>
-         </div>
-        <hr>
+                  <ul class="text-muted list-inline blg-header">
+                    <li>
+                      <i class="fa fa-info-circle" /> {post.data.subtype}
+                    </li>
+                    <li>
+                      <i class="fa fa-calendar" /> {dateString(post.data.date)}{" "}
+                    </li>
+                  </ul>
+                  <hr />
+                  <a href={"/podcasts/" + post.slug}>
+                    <img src={post.data.image} class="podcast-thumb-img" />
+                  </a>
+                  <p class="blg-text">{post.data.description}</p>
+                </div>
+              );
+            })
+          }
         </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="col-sm-4">
+        <h3>Stay Tuned <small>Where to listen</small></h3>
+        <hr />
+        <ul class="blg-social">
+          <li>
+            <a href="https://open.spotify.com/show/1slEz7EL46cHa9vdRmPLY4" target="_blank">
+              <span class="icon spotify">
+                <img src="/img/spotify.png" alt="Spotify" />
+              </span>
+              <span class="text-muted">Listen on Spotify</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://podcasts.apple.com/ca/podcast/the-next-bio-informatics-podcast/id1554921146"
+              target="_blank"
+            >
+              <span class="icon applepodcasts">
+                <img src="/img/apple_podcasts.png" alt="Apple Podcasts" />
+              </span>
+              <span class="text-muted">Listen on Apple Podcasts</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.google.com/podcasts?feed=aHR0cHM6Ly9hbmNob3IuZm0vcy80ZTAzZGMxOC9wb2RjYXN0L3Jzcw=="
+              target="_blank"
+            >
+              <span class="icon googlepodcasts">
+                <img src="/img/google_podcasts.png" alt="Google Podcasts" />
+              </span>
+              <span class="text-muted">Listen on Google Podcasts</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/playlist?list=PLPZ8WHdZGxmUAV23hZ9lcZFtt3MAa9IOj" target="_blank">
+              <span class="icon googlepodcasts">
+                <img src="/img/youtube.png" alt="YoyTube" />
+              </span>
+              <span class="text-muted">Watch on YouTube</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://twitter.com/nextflowio" target="_blank">
+              <span class="icon twitter">
+                <i class="fa fa-twitter fa-2x"></i>
+              </span>
+              <span class="text-muted">Watch on Twitter spaces</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://anchor.fm/s/4e03dc18/podcast/rss">
+              <span class="icon rss">
+                <i class="fa fa-rss fa-2x"></i>
+              </span>
+              <span class="text-muted">Podcast RSS Feed</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+  </div>
 </Page>
