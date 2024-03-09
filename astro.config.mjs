@@ -6,8 +6,8 @@ export default defineConfig({
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
-      // https://github.com/shikijs/shiki/blob/main/docs/themes.md
-      theme: "min-light",
+      // https://shiki.style/themes
+      theme: "light-plus",
     },
   },
 });
