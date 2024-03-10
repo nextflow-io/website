@@ -1,9 +1,11 @@
-title=NF-web: a web interface for Nextflow
-date=2019-05-28
-type=col8
-tags=nextflow,nfcamp,2019,workshop
-status=published
-~~~~~~
+---
+title: NF-web: a web interface for Nextflow
+date: 2019-05-28
+type: col8
+tags: nextflow,nfcamp,2019,workshop
+status: published
+layout: "@layouts/Page.astro"
+---
 
 ## NF-web: a web interface for Nextflow
 
@@ -14,8 +16,8 @@ We are presenting an open-source web application for running Nextflow pipelines 
 
 ### Bio
 
-Senior Software Developer in Cellular Genetics Informatics support group at Sanger Institute. Developing internal services (NF-web) and paper supplement websites, working with computational infrastructure (Openstack, Kubernetes), maintaining the department JupyterHub deployment. Contributed to the development of multiple workflow engines (primarily CWL - cwltool, REANA, Rabix). Bachelor of System Analysis and Master of Computer Science, Kyiv Polytechnic Institute. 
+Senior Software Developer in Cellular Genetics Informatics support group at Sanger Institute. Developing internal services (NF-web) and paper supplement websites, working with computational infrastructure (Openstack, Kubernetes), maintaining the department JupyterHub deployment. Contributed to the development of multiple workflow engines (primarily CWL - cwltool, REANA, Rabix). Bachelor of System Analysis and Master of Computer Science, Kyiv Polytechnic Institute.
 
-### Registration 
+### Registration
 
 To attend Nextflow Camp 2019 register at [this link](https://www.crg.eu/en/event/coursescrg-nextflow-2019).

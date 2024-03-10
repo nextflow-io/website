@@ -1,14 +1,14 @@
-title=nf-core: A community effort to collect curated Nextflow pipelines
-date=2018-10-11
-type=col8
-tags=nextflow,nfhack18,workshop
-status=published
-~~~~~~
+---
+title: nf-core: A community effort to collect curated Nextflow pipelines
+date: 2018-10-11
+tags: nextflow,nfhack18,workshop
+layout: "@layouts/Page.astro"
+---
 
 ## nf-core: A community effort to collect curated Nextflow pipelines
 
 ### Philip Ewels
-*Head of Genomics Applications Development at SciLifeLab National Genomics Infrastructure, Sweden* 
+*Head of Genomics Applications Development at SciLifeLab National Genomics Infrastructure, Sweden*
 
 The [Swedish National Genomics Infrastructure](https://ngisweden.scilifelab.se/) (NGI) has been a key user and proponent of nextflow since soon after its initial release. We have produced several popular pipelines as well as writing recommendations on best practices. Our oldest pipeline for RNA sequencing analysis is used in production at NGI Stockholm and has been used to process nearly 20,000 samples since April 2017.
 
@@ -22,13 +22,13 @@ There has been fantastic feedback from the user community about nf-core. The fir
 
 <a href='/misc/nfhack18/phil.pdf'><img src='/img/deck.png' width='45pt' /></a>
 
-### Bio 
+### Bio
 
 [Phil Ewels](https://www.linkedin.com/in/philewels/) is the head of the Genomics Applications Development facility at the National Genomics Infrastructure (NGI) at SciLifeLab in Stockholm, Sweden. SciLifeLab is a national centre for molecular biosciences for Sweden; the NGI is the largest platform at SciLifeLab. We provide library preparation, sequencing and bioinformatics analysis support for research groups across the country.
 
 Phil has been working at SciLifeLab for four years and moved to Sweden after a PhD and postdoc at the University of Cambridge and Babraham Institute in Cambridge, UK. He has has a history of lab and bioinformatics work in epigenetics and has a soft spot for software development with a focus on user friendliness. More recently he's developed [MultiQC](https://multiqc.info/) - a tool that parses log file outputs from multiple samples and bioinformatics tools and generates a single interactive HTML report. Now head of the Genomics Applications Development facility, he and his team focus on the development and scaling up of new lab protocols and bioinformatics solutions for the ISO accredited NGI Genomics Production facility. They develop new analysis pipelines and try to ensure that the tools they write are scalable, reproducible and transferable.
 
 
-### More information 
+### More information
 
 The event program is available at [this link](https://github.com/nextflow-io/nf-hack18/blob/master/schedule.md). For registration and other information check it out [this page](http://www.crg.eu/en/event/coursescrg-nextflow-reproducible-silico-genomics-0).

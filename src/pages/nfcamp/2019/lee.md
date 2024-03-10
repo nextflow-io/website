@@ -1,9 +1,11 @@
-title=Governance & Guardrails: Managing your AWS account to ensure your data is secure and your budget is safe
-date=2019-05-28
-type=col8
-tags=nextflow,nfcamp,2019,workshop
-status=published
-~~~~~~
+---
+title: Governance & Guardrails: Managing your AWS account to ensure your data is secure and your budget is safe
+date: 2019-05-28
+type: col8
+tags: nextflow,nfcamp,2019,workshop
+status: published
+layout: "@layouts/Page.astro"
+---
 
 ## Governance & Guardrails: Managing your AWS account to ensure your data is secure and your budget is safe
 
@@ -16,6 +18,6 @@ The most common questions asked by new AWS customers involve finding the tools a
 
 Lee is a Technical Business Development Manager specializing in Genomics and Life Sciences workloads on AWS. He has over 10 years of hands-on experience as a practicing research scientist and software engineer in bioinformatics, computational systems biology, and data science developing tools ranging from high throughput pipelines for *omics data processing to HIPAA compliant software for clinical data capture and analysis.
 
-### Registration 
+### Registration
 
 To attend Nextflow Camp 2019 register at [this link](https://www.crg.eu/en/event/coursescrg-nextflow-2019).
