@@ -1,5 +1,5 @@
 ---
-title: NF-web: a web interface for Nextflow
+title: "NF-web: a web interface for Nextflow"
 date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop

@@ -1,5 +1,5 @@
 ---
-title: DolphinNext: A graphical user interface for distributed data processing of high throughput genomics
+title: "DolphinNext: A graphical user interface for distributed data processing of high throughput genomics"
 date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop

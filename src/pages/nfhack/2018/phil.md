@@ -1,5 +1,5 @@
 ---
-title: nf-core: A community effort to collect curated Nextflow pipelines
+title: "nf-core: A community effort to collect curated Nextflow pipelines"
 date: 2018-10-11
 tags: nextflow,nfhack18,workshop
 layout: "@layouts/Page.astro"

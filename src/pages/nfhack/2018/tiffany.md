@@ -1,5 +1,5 @@
 ---
-title: IARC Nextflow pipelines: towards efficient cancer genomics analyses
+title: "IARC Nextflow pipelines: towards efficient cancer genomics analyses"
 date: 2018-10-16
 tags: nextflow,nfhack18,workshop
 layout: "@layouts/Page.astro"

@@ -1,5 +1,5 @@
 ---
-title: QCloud: A web-based quality control system for mass spectrometry-based proteomics laboratories
+title: "QCloud: A web-based quality control system for mass spectrometry-based proteomics laboratories"
 date: 2018-10-30
 tags: nextflow,nfhack18,workshop
 layout: "@layouts/Page.astro"

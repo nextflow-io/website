@@ -1,5 +1,5 @@
 ---
-title: U-DAWS: Developing and maintaining reproducible workflows for bioinformatics data
+title: "U-DAWS: Developing and maintaining reproducible workflows for bioinformatics data"
 date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop

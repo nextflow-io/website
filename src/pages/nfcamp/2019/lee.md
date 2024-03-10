@@ -1,5 +1,5 @@
 ---
-title: Governance & Guardrails: Managing your AWS account to ensure your data is secure and your budget is safe
+title: "Governance & Guardrails: Managing your AWS account to ensure your data is secure and your budget is safe"
 date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop
