@@ -114,7 +114,7 @@ Start by creating a folder for your project on your local machine, such as “rn
 
 Inside the folder that you created for the project, create a file named `nextflow.config` with the following content (remember to replace PROJECT-ID with the project id you created above):
 
-```Nextflow
+```groovy
 workDir = 'gs://rnaseq-pipeline-bckt/scratch'
 
 process {

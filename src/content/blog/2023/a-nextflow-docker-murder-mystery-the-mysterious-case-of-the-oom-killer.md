@@ -29,7 +29,7 @@ Fortunately for our intrepid investigators, the killer exhibited a consistent _m
 
 What the killings had in common was that they tended to occur when Nextflow tasks copied large files from Amazon S3 to a container’s local file system via the AWS CLI. As some readers may know, Nextflow leverages the AWS CLI behind the scenes to facilitate data movement. The killer’s calling card was an `[Errno 12] Cannot allocate memory` message, causing the container to terminate with an exit status of 1.
 
-```txt
+```
 Nov-08 21:54:07.926 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'NFCORE_SAREK:SAREK:MARKDUPLICATES:BAM_TO_CRAM:SAMTOOLS_STATS_CRAM (004-005_L3.SSHT82)'
 Caused by:
   Essential container in task exited
