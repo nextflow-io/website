@@ -1297,9 +1297,23 @@ p {
   white-space: normal;
 }
 
-pre code.hljs {
-  padding: 0;
+code {
+  counter-reset: step;
+  counter-increment: step 0;
   background-color: transparent;
+}
+
+/* Line numbers for code blocks */
+code .line:not(:only-child)::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 3rem;
+  padding-right: 0.5rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115,138,148,.4);
+  border-right: 2px solid #6ce26c99;
 }
 
 /* Ambassadors */
