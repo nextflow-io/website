@@ -4,11 +4,12 @@ export interface Props {
   img: string;
   country: string;
   github: string;
-  linkedin: string;
-  twitter: string;
+  linkedin?: string;
+  twitter?: string;
+  mastodon?: string;
 }
 
-const { name, img, country, github, linkedin, twitter } = Astro.props;
+const { name, img, country, github, linkedin, twitter, mastodon } = Astro.props;
 ---
 
 <div class="feature">
@@ -23,8 +24,27 @@ const { name, img, country, github, linkedin, twitter } = Astro.props;
       <img src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`} class="ambassador" width="15" height="15" />
       <br />
       <a href={`https://github.com/${github}`} target="_blank"><i class="fa fa-github fa-lg fa-lg"></i></a>
-      <a href={`https://linkedin.com/in/${linkedin}`} target="_blank"><i class="fa fa-linkedin fa-lg fa-lg"></i></a>
-      <a href={`https://twitter.com/${twitter}`} target="_blank"><i class="fa fa-twitter fa-lg fa-lg"></i></a>
+      {
+        linkedin && (
+          <a href={`https://linkedin.com/in/${linkedin}`} target="_blank">
+            <i class="fa fa-linkedin fa-lg fa-lg" />
+          </a>
+        )
+      }
+      {
+        twitter && (
+          <a href={`https://twitter.com/${twitter}`} target="_blank">
+            <i class="fa fa-twitter fa-lg fa-lg" />
+          </a>
+        )
+      }
+      {
+        mastodon && (
+          <a href={mastodon} target="_blank">
+            <i class="fa fa-rss fa-lg fa-lg" />
+          </a>
+        )
+      }
       <br />
     </p>
   </div>
