@@ -2,7 +2,7 @@
 title: Exploiting orthology and de novo transcriptome assembly to refine target sequence information
 date: 2018-10-20
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Exploiting orthology and de novo transcriptome assembly to refine target sequence information

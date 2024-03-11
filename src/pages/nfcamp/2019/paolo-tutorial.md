@@ -4,7 +4,7 @@ date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop
 status: published
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## What's new in Nextflow: DSL-2 and beyond

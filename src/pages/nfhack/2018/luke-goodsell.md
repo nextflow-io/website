@@ -2,7 +2,7 @@
 title: Industrial Personalised Immunotherapy Pipeline Development with Nextflow
 date: 2018-10-11
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Industrial Personalised Immunotherapy Pipeline Development with Nextflow

@@ -2,7 +2,7 @@
 title: "FlowCraft: A modular, extensible and flexible tool to build, monitor and report Nextflow pipelines"
 date: 2018-10-30
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## FlowCraft: A modular, extensible and flexible tool to build, monitor and report Nextflow pipelines

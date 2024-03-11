@@ -4,7 +4,7 @@ date: 2019-05-28
 type: col8
 tags: nextflow,nfcamp,2019,workshop
 status: published
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Parallel and scalable workflow for the analysis of RNA modifications using Oxford Nanopore direct RNA sequencing

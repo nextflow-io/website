@@ -2,7 +2,7 @@
 title: Scaling genomics in the AWS cloud
 date: 2018-10-22
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Scaling genomics in the AWS cloud

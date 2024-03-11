@@ -2,7 +2,7 @@
 title: Nextflow at the heart of UK genomics
 date: 2018-10-11
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Nextflow at the heart of UK genomics

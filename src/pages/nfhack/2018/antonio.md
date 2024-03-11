@@ -2,7 +2,7 @@
 title: Nextflow for supporting the European Reference Laboratory for GMO Food and Feed
 date: 2018-11-15
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Nextflow for supporting the European Reference Laboratory for GMO Food and Feed

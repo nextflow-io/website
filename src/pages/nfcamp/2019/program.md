@@ -4,7 +4,7 @@ date: 2019-06-05
 type: col8
 tags: nextflow,nfcamp,2019,workshop
 status: published
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Nextflow Camp 2019 Program

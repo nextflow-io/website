@@ -2,7 +2,7 @@
 title: Using Nextflow to create scalable and reproducible pipelines at Genomics Medicine Ireland
 date: 2018-11-02
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Using Nextflow to create scalable and reproducible pipelines at Genomics Medicine Ireland

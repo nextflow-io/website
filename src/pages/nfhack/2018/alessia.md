@@ -2,7 +2,7 @@
 title: Nextflow on the go
 date: 2018-10-16
 tags: nextflow,nfhack18,workshop
-layout: "@layouts/Page.astro"
+layout: "@layouts/MarkdownPage.astro"
 ---
 
 ## Nextflow on the go
