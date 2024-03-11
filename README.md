@@ -13,6 +13,8 @@ There is a `Makefile` with a few standard commands for working with the website:
 | `make publish`    | Publish the website to s3            |
 | `make invalidate` | Invalidate the Cloudfront cache      |
 
+The `dev` server builds pages on request and live-updates as you make changes. It includes additional debugging tools, but does not do all type-checking.
+
 There are also a bunch of `npm` commands for more fine-grained control:
 
 <details>
@@ -28,13 +30,28 @@ There are also a bunch of `npm` commands for more fine-grained control:
 
 </details>
 
+## Code formatting
+
+Code syntax is enforced using [Prettier](https://prettier.io/). You can use a plugin in your code editor to run this automatically on save and it also runs as a CI check on push and pull-requests.
+
+To make it easier to catch formatting errors before pushing, the repo is set up to use [pre-commit](https://pre-commit.com/). If installed, this will run Prettier on any edited files before allowing a commit.
+
+To use, set up as follows:
+
+```bash
+pip install pre-commit  # Install the pre-commit tool itself
+pre-commit install  # Set up in the Nextflow website repo
+```
+
+After that, checks will automatically run every time you do `git commit` in the repo. Note that formatting changes will be applied automatically but the commit will be aborted - you must do `git add .` and `git commit` again.
+
 ## Publishing
 
 The Nextflow website is hosted on AWS s3, behind a Cloudfront cache. There are three components to the website:
 
-- Front end (this repository)
-- Docs (`/docs`, built from the main Nextflow repo using Sphinx)
-- Nextflow binary downloads (`https://get.nextflow.io`, built from the main Nextflow repo)
+1. Front end (this repository)
+2. Docs (`/docs`, built from the main Nextflow repo using Sphinx)
+3. Nextflow binary downloads (`https://get.nextflow.io`, built from the main Nextflow repo)
 
 All three parts of the website are published separately. Care must be taken not to clobber anything by overwriting.
 
