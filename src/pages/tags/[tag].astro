@@ -25,14 +25,11 @@ export async function getStaticPaths() {
 }
 
 // Fetch posts for the current tag
-const { tag } = Astro.params;
+const { tag } = Astro.params as { tag: string };
 const posts = (await getCollection("blog"))
   .filter((post) => post.data.tags && post.data.tags.split(",").includes(tag))
   .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
 
-const dateString = (d: Date) => {
-  return `${d.getDate()} ${d.toLocaleString("default", { month: "long" })} ${d.getFullYear()}`;
-};
 let lastMonth = "";
 ---
 
@@ -43,7 +40,7 @@ let lastMonth = "";
       <hr />
       <ul>
         {
-          posts.map((post, index) => {
+          posts.map((post) => {
             const currentMonth = new Date(post.data.date).toLocaleString("default", { month: "long", year: "numeric" });
             let items = [];
             if (lastMonth !== currentMonth) {
