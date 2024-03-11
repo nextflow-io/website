@@ -16,10 +16,10 @@ publish:
 invalidate:
 	aws cloudfront create-invalidation --distribution-id E3RPV5P71OW0UF --paths '/*'
 
-make build:
+build:
 	npm install
 	npm run build
 
-make dev:
+dev:
 	npm install
 	npm run dev
