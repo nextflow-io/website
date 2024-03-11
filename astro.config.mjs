@@ -35,4 +35,8 @@ export default defineConfig({
       ],
     }),
   ],
+  build: {
+    // Same as old site - eg. /ambassadors.html instead of /ambassadors/
+    format: "file",
+  },
 });
