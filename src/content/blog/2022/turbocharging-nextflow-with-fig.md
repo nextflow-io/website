@@ -2,11 +2,11 @@
 title: Turbo-charging the Nextflow command line with Fig!
 date: 2022-09-22
 type: post
-description: Powerful autocomplete for Nextflow in your command line interface with Fig.
+description: Powerful autocomplete for Nextflowin your command line interface with Fig.
 image: /img/turbocharging_nextflow_with_fig.jpg
 tags: nextflow,development,learning
 author: Marcel Ribeiro-Dantas
-icon: marcel.png
+icon: marcel.jpg
 ---
 
 Nextflow is a powerful workflow manager that supports multiple container technologies, cloud providers and HPC job schedulers. It shouldn't be a surprise that wide ranging functionality leads to a complex interface, but comes with the drawback of many subcommands and options to remember. For a first-time user (and sometimes even for some long-time users) it can be difficult to remember everything. This is not a new problem for the command-line; even very common applications such as grep and tar are famous for having a bewildering array of options.

@@ -6,7 +6,7 @@ description: We are excited to announce the launch of the Nextflow Ambassador Pr
 image: /img/ambassador-launch-art.png
 tags: nextflow,community
 author: Marcel Ribeiro-Dantas
-icon: marcel.png
+icon: marcel.jpg
 ---
 
 <img src="/img/ambassadors-hackathon.jpeg" style="float:right;width:250px;margin: 0 0 15px 15px"></img>
