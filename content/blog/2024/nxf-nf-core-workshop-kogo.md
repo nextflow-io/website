@@ -9,13 +9,13 @@ author=Yuk Kei Wan
 icon=yukkei.jpg
 ~~~~~~
 
-<div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-03-15-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
-</div>
-
 Through a partnership between AWS Asia Pacific and Japan, and Seqera, Nextflow touched ground in South Korea for the first time with a training session at the Korea Genome Organization (KOGO) Winter Symposium. The objective was to introduce participants to Nextflow, empowering them to craft their own pipelines. Recognizing the interest among bioinformaticians, MinSung Cho from AWS Korea’s Healthcare & Research Team decided to sponsor this 90-minute workshop session. This initiative covered my travel expenses and accommodations.
 
 <!-- end-archive-description -->
+
+<div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <img src="/img/blog-2024-03-15-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
+</div>
 
 The training commenced with an overview of Nextflow pipelines, exemplified by the [nf-core/nanoseq](https://nf-co.re/nanoseq/3.1.0) Nextflow pipeline, highlighting the subworkflows and modules. nfcore/nanoseq is a bioinformatics analysis pipeline for Nanopore DNA/RNA sequencing data that can be used to perform base-calling, demultiplexing, QC, alignment, and downstream analysis. Following this, participants engaged in a hands-on workshop using the AWS Cloud9 environment. In 70 minutes, they constructed a basic pipeline for analyzing nanopore sequencing data, incorporating workflow templates, modules, and subworkflows from [nf-core/tools](https://github.com/nf-core/tools). If you're interested in learning more about the nf-core/nanoseq Nextflow pipeline, I recorded a video talking about it in the nf-core bytesize meeting. You can watch it [here](https://www.youtube.com/watch?v=KM1A0_GD2vQ).
 
