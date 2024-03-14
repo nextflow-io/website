@@ -40,6 +40,9 @@ There are also a bunch of `npm` commands for more fine-grained control:
 
 </details>
 
+Note that `make build` / `npm run build` fetch the Nextflow repo and build the docs automatically.
+When running `make dev` / `npm run dev` this doesn't happen, so the docs will not be visible.
+
 ## Code formatting
 
 Code syntax is enforced using [Prettier](https://prettier.io/). You can use a plugin in your code editor to run this automatically on save and it also runs as a CI check on push and pull-requests.
