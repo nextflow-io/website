@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://nextflow.io/",
+  outDir: "./output",
   markdown: {
     shikiConfig: {
       // Choose from Shiki's built-in themes (or add your own)
