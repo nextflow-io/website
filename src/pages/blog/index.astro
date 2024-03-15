@@ -1,14 +1,11 @@
 ---
 import { getCollection } from "astro:content";
 import Page from "@layouts/Page.astro";
+import DateStr from "@components/DateStr.astro";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
 );
-
-const dateString = (d: Date) => {
-  return d.getDate() + " " + d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear();
-};
 ---
 
 <Page title="Blog">
@@ -32,7 +29,7 @@ const dateString = (d: Date) => {
                     <i class="fa fa-user" /> {post.data.author}
                   </li>
                   <li>
-                    <i class="fa fa-calendar" /> {dateString(post.data.date)}
+                    <i class="fa fa-calendar" /> <DateStr d={post.data.date} />
                   </li>
                 </ul>
                 <hr />
