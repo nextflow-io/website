@@ -17,10 +17,36 @@ export default defineConfig({
         remarkDescription,
         {
           name: "excerpt",
+          // transform: (desc) => desc.split(' ').length < 150 ? desc : `${desc.split(' ').slice(150).join(' ')}...`,
           node: (node, i, parent) => {
-            const sibling = parent?.children[i + 1];
-            return sibling?.type === "html" && sibling?.value === "<!-- end-archive-description -->";
-          },
+                // check if parent has a child that is an html comment with the text 'end of excerpt'
+                if (
+                    parent?.children?.some(
+                        (child) =>
+                            (child.type === 'html' && child.value === "<!-- end-archive-description -->")
+                    )
+                ) {
+                    const sibling = parent?.children[i + 1];
+                    return (
+                        (sibling?.type === 'html' && sibling?.value === "<!-- end-archive-description -->")
+                    );
+                } else {
+                    // return the first paragraph otherwise
+
+                    // get the index of the first paragraph
+                    const firstParagraphIndex = parent?.children.findIndex(
+                        (child) => child.type === 'paragraph',
+                    );
+                    // if the node is the first paragraph, return true
+                    return i === firstParagraphIndex;
+                }
+            },
+            filter: (options, { path }) => {
+                if (!path.startsWith('/src/content/blog')) {
+                    return false; // Return falsey value to skip
+                }
+                return options;
+            },
         },
       ],
     ],
