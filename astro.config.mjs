@@ -31,8 +31,10 @@ export default defineConfig({
               // return the first paragraph otherwise
 
               // get the index of the first paragraph and check that it doesn't start with an image
-              const firstParagraphIndex = parent?.children.findIndex((child) => child.type === "paragraph" && !child.children[0].value?.startsWith('<img '));
-              
+              const firstParagraphIndex = parent?.children.findIndex(
+                (child) => child.type === "paragraph" && !child.children[0].value?.startsWith("<img "),
+              );
+
               // if the node is the first paragraph, return true
               return i === firstParagraphIndex;
             }
