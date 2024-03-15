@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Page from "@layouts/Page.astro";
-import DateStr from "@components/DateStr.astro";
 
 const episodes = (await getCollection("podcast")).sort(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
@@ -43,7 +42,7 @@ const episodes = (await getCollection("podcast")).sort(
                     <i class="fa fa-info-circle" /> {post.data.subtype}
                   </li>
                   <li>
-                    <i class="fa fa-calendar" /> <DateStr d={post.data.date} />
+                    <i class="fa fa-calendar" /> {post.data.date}
                   </li>
                 </ul>
                 <hr />

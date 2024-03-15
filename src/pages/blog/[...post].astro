@@ -1,7 +1,6 @@
 ---
 import { getCollection } from "astro:content";
 import Page from "@layouts/Page.astro";
-import DateStr from "@components/DateStr.astro";
 
 export async function getStaticPaths() {
   const blogPosts = await getCollection("blog");
@@ -23,7 +22,7 @@ const tags = entry.data.tags.split(",");
         <h2><a href="#">{entry.data.title}</a></h2>
         <ul class="text-muted list-inline blg-header">
           <li><i class="fa fa-user"></i> {entry.data.author}</li>
-          <li><i class="fa fa-calendar"></i> <DateStr d={entry.data.date} /></li>
+          <li><i class="fa fa-calendar"></i> {entry.data.date}</li>
         </ul>
         <hr />
         <div class="blg-text">

@@ -11,7 +11,9 @@ const blogCollection = defineCollection({
     icon: z.string(),
     tags: z.string(),
     // tags: z.array(z.string()).optional(),
-    date: z.date(),
+    date: z
+      .date()
+      .transform((d) => d.getDate() + " " + d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear()),
   }),
 });
 
@@ -28,7 +30,9 @@ const podcastCollection = defineCollection({
     icon: z.string(),
     tags: z.string(),
     // tags: z.array(z.string()).optional(),
-    date: z.date(),
+    date: z
+      .date()
+      .transform((d) => d.getDate() + " " + d.toLocaleString("default", { month: "long" }) + " " + d.getFullYear()),
   }),
 });
 
