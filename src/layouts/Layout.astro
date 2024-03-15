@@ -1,0 +1,83 @@
+---
+import Menu from "@components/Menu.astro";
+import Footer from "@components/Footer.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+
+const page_title = title + " | Nextflow";
+const share_image = image ? image : "/img/share.png";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{page_title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={page_title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={share_image} />
+    <meta property="og:type" content="website" />
+    <meta data-react-helmet="true" name="twitter:card" content="summary_large_image" />
+    <meta data-react-helmet="true" name="twitter:creator" content="@nextflowio" />
+    <meta property="twitter:title" content={page_title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={share_image} />
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="/css/color-styles.css" rel="stylesheet" />
+    <link href="/css/ui-elements.css" rel="stylesheet" />
+    <link href="/css/custom.css" rel="stylesheet" />
+
+    <!-- Resources -->
+    <link href="/css/animate.css" rel="stylesheet" />
+    <link href="/css/summit.css" rel="stylesheet" />
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <link href="/fonts/degular/degular.css" rel="stylesheet" />
+
+    <!-- Google Tag Manager -->
+    <script is:inline>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-TNCXSWG");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body class="body-green">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
+
+    <Menu />
+
+    <slot />
+
+    <Footer />
+  </body>
+</html>
