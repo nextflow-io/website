@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import Page from "@layouts/Page.astro";
+
+// Define getStaticPaths
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  const tags = new Set();
+
+  // Extract tags from all posts
+  allPosts.forEach((post) => {
+    if (post.data.tags) {
+      post.data.tags.split(",").forEach((tag) => {
+        const trimmedTag = tag.trim();
+        if (trimmedTag) {
+          // Ensure the tag is not empty
+          tags.add(trimmedTag);
+        }
+      });
+    }
+  });
+
+  // Create paths for each tag
+  return Array.from(tags).map((tag) => ({ params: { tag } }));
+}
+
+// Fetch posts for the current tag
+const { tag } = Astro.params as { tag: string };
+const posts = (await getCollection("blog"))
+  .filter((post) => post.data.tags && post.data.tags.split(",").includes(tag))
+  .sort((a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf());
+
+let lastMonth = "";
+---
+
+<Page title="Blog">
+  <div class="row">
+    <div class="col-sm-8">
+      <h3>Tag: {tag}</h3>
+      <hr />
+      <ul>
+        {
+          posts.map((post) => {
+            const currentMonth = new Date(post.data.date).toLocaleString("default", { month: "long", year: "numeric" });
+            let items = [];
+            if (lastMonth !== currentMonth) {
+              items.push(<h4>{currentMonth}</h4>);
+              lastMonth = currentMonth;
+            }
+            items.push(
+              <ul>
+                <li>
+                  {new Date(post.data.date).getDate().toString().padStart(2, "0")} -{" "}
+                  <a href={"/blog/" + post.slug + ".html"}>{post.data.title}</a>
+                </li>
+              </ul>,
+            );
+            return items;
+          })
+        }
+      </ul>
+
+      <div class="clearfix"></div>
+    </div>
+    <div class="col-sm-4">
+      <h3>Stay Tuned <small>Social Links</small></h3>
+      <hr />
+      <ul class="blg-social">
+        <li>
+          <a href="/feed.xml">
+            <span class="icon rss">
+              <i class="fa fa-rss fa-2x"></i>
+            </span>
+            <span class="text-muted">Subscribe to our blog RSS Feed.</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/nextflowio" target="_blank">
+            <span class="icon twitter">
+              <i class="fa fa-twitter fa-2x"></i>
+            </span>
+            <span class="text-muted">Subscribe to our Twitter Feed.</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</Page>

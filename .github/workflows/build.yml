@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+  pull_request:
 
 jobs:
   build:
@@ -20,11 +21,22 @@ jobs:
         run: env | sort
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install website deps
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
 
       - name: Publish website
+        if: github.event_name != 'pull_request'
         run: |
-          make build
           make publish
           make invalidate
         env:
