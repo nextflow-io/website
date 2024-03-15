@@ -33,7 +33,10 @@ const posts = (await getCollection("blog")).sort(
                 </ul>
                 <hr />
                 <p class="blg-text">
-                  <pre>{JSON.stringify(post.data, null, 2)}</pre>
+                  {async () => {
+                      const { remarkPluginFrontmatter } = await post.render();
+                      return remarkPluginFrontmatter.excerpt;
+                  }}
                 </p>
               </section>
             );
