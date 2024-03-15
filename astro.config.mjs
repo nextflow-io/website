@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-
+import remarkDescription from "astro-remark-description";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
@@ -12,6 +12,18 @@ export default defineConfig({
       // https://shiki.style/themes
       theme: "light-plus",
     },
+    remarkPlugins: [
+      [
+        remarkDescription,
+        {
+          name: "excerpt",
+          node: (node, i, parent) => {
+            const sibling = parent?.children[i + 1];
+            return sibling?.type === "html" && sibling?.value === "<!-- end-archive-description -->";
+          },
+        },
+      ],
+    ],
   },
   integrations: [
     sitemap({
