@@ -17,9 +17,17 @@ export default defineConfig({
         remarkDescription,
         {
           name: "excerpt",
-          // transform: (desc) => desc.split(' ').length < 150 ? desc : `${desc.split(' ').slice(150).join(' ')}...`,
           node: (node, i, parent) => {
-            // check if parent has a child that is an html comment with the text 'end of excerpt'
+            // Directly find and return true for the first paragraph that doesn't start with an image
+            const firstParagraphIndex = parent?.children.findIndex(
+              (child) => child.type === "paragraph" && !child.children[0]?.value?.startsWith("<img "),
+            );
+
+            if (i === firstParagraphIndex) {
+              return true;
+            }
+
+            // If the first paragraph is not what we're looking for, then check for 'end of excerpt' comment
             if (
               parent?.children?.some(
                 (child) => child.type === "html" && child.value === "<!-- end-archive-description -->",
@@ -27,17 +35,9 @@ export default defineConfig({
             ) {
               const sibling = parent?.children[i + 1];
               return sibling?.type === "html" && sibling?.value === "<!-- end-archive-description -->";
-            } else {
-              // return the first paragraph otherwise
-
-              // get the index of the first paragraph and check that it doesn't start with an image
-              const firstParagraphIndex = parent?.children.findIndex(
-                (child) => child.type === "paragraph" && !child.children[0].value?.startsWith("<img "),
-              );
-
-              // if the node is the first paragraph, return true
-              return i === firstParagraphIndex;
             }
+
+            return false;
           },
         },
       ],
