@@ -18,10 +18,12 @@ We dive into how they use Nextflow and Seqera Platform for materials science res
 
 <!-- end-archive-description -->
 
-It may not be bioinformatics, but there's a lot that's in common!
-
 Jakob is currently finishing his PhD at UCL, and he started Matterhorn STUDIO in 2022
 to bring machine learning to materials science.
+
+> You might remember Jakob's name from an [excellent talk](https://summit.nextflow.io/2023/barcelona/agenda/summit/oct-19-machine-learning-for-material-science/)
+> that he gave at the 2022 Nextflow Summit in Barcelona.
+> You can watch that video on [YouTube](https://youtu.be/kFDNRWXa_Mg?si=mZ-HoDnVrZ0hoqa3).
 
 We talk about how advances in materials science can bring many benefits to mankind,
 for example better materials to help the fight against climate change.
@@ -35,6 +37,3 @@ and how they built on top of the Seqera Platform API to create their tools and a
 the complexity of cloud computing away from users. All the time whilst staying true to
 open-source science, with reproducible and portable analysis pipelines.
 
-You might remember Jakob's name from an [excellent talk](https://summit.nextflow.io/2023/barcelona/agenda/summit/oct-19-machine-learning-for-material-science/)
-that he gave at the 2022 Nextflow Summit in Barcelona.
-You can watch that video on [YouTube](https://youtu.be/kFDNRWXa_Mg?si=mZ-HoDnVrZ0hoqa3).
