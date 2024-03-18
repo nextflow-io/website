@@ -36,4 +36,3 @@ We talk about why Matterhorn STUDIO chose Nextflow to run their computational wo
 and how they built on top of the Seqera Platform API to create their tools and abstract
 the complexity of cloud computing away from users. All the time whilst staying true to
 open-source science, with reproducible and portable analysis pipelines.
-
