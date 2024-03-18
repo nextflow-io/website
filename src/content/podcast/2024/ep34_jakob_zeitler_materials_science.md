@@ -12,9 +12,9 @@ author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
-In this episode of Channels, we talk to Jakob Zeitler - Head of R&D at Matterhorn Studios.
+In this episode of Channels, we talk to [Jakob Zeitler](https://jakobzeitler.github.io/) - Head of R&D at [Matterhorn Studios](https://matterhorn.studio/).
 
-We dive into how they use Nextflow and Seqera Platform for material science research, paving the way for cheaper and more eco-friendly products for the future ⚗️👩🏻‍🔬🔬🌎
+We dive into how they use Nextflow and Seqera Platform for materials science research, paving the way for cheaper and more eco-friendly products for the future ⚗️ 👩🏻‍🔬 🔬 🌎
 
 <!-- end-archive-description -->
 
@@ -34,3 +34,7 @@ We talk about why Matterhorn STUDIO chose Nextflow to run their computational wo
 and how they built on top of the Seqera Platform API to create their tools and abstract
 the complexity of cloud computing away from users. All the time whilst staying true to
 open-source science, with reproducible and portable analysis pipelines.
+
+You might remember Jakob's name from an [excellent talk](https://summit.nextflow.io/2023/barcelona/agenda/summit/oct-19-machine-learning-for-material-science/)
+that he gave at the 2022 Nextflow Summit in Barcelona.
+You can watch that video on [YouTube](https://youtu.be/kFDNRWXa_Mg?si=mZ-HoDnVrZ0hoqa3).
