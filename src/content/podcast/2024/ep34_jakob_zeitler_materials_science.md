@@ -25,9 +25,10 @@ to bring machine learning to materials science.
 > that he gave at the 2022 Nextflow Summit in Barcelona.
 > You can watch that video on [YouTube](https://youtu.be/kFDNRWXa_Mg?si=mZ-HoDnVrZ0hoqa3).
 
-We talk about how advances in materials science can bring many benefits to mankind,
+Join to hear about how advances in materials science can bring many benefits to mankind,
 for example better materials to help the fight against climate change.
-However, the current paradigms are too slow, with and average 20 years form inception to market.
+Jakob tells us about how the current paradigms are too slow, with and average 20 years
+from inception to market.
 
 Matterhorn STUDIO was founded to bring efficient experimentation to materials science,
 using Nextflow to structure ML routines - specifically Bayesian Optimisation.
