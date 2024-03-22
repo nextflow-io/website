@@ -9,7 +9,7 @@ WEBSITE_DIR=$(pwd)
 # Make the empty target directories
 mkdir -p output/docs/latest/
 mkdir -p output/docs/edge/
-mkdir -p output/docs/dev/
+mkdir -p output/docs/master/
 
 # Fetch the Nextflow repo
 git clone https://github.com/nextflow-io/nextflow.git
@@ -37,8 +37,8 @@ pip install -r requirements.txt
 make clean html
 mv _build/html/* $WEBSITE_DIR/output/docs/latest/
 
-# Build current dev docs
+# Build current docs on master
 git checkout master
 pip install -r requirements.txt
 make clean html
-mv _build/html/* $WEBSITE_DIR/output/docs/dev/
+mv _build/html/* $WEBSITE_DIR/output/docs/master/
