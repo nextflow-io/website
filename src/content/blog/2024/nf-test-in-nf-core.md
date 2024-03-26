@@ -46,11 +46,11 @@ nf-core is a community-driven initiative that aims to provide high-quality, Next
 
 Created by [Lukas Forer](https://github.com/lukfor) and [Sebastian Schönherr](https://github.com/seppinho), nf-test has emerged as the leading solution for testing Nextflow pipelines. Their goal was to enhance the evaluation of reproducibility in complex Nextflow pipelines. To this end, they have implemented several notable features, creating a robust testing platform:
 
-**Comprehensive Output Testing**: nf-test employs [snapshots](https://www.nf-test.com/docs/assertions/snapshots/) for handling complex data structures. This feature evaluates the contents of any specified channel/file output, enabling comprehensive and reliable tests that ensure data integrity through changes.
-**A Consistent Testing Framework for All Nextflow Components**: nf-test provides a unified framework for testing everything from individual functions to entire pipelines, ensuring consistency across all components.
-**A DSL for Tests**: Designed in the likeness of Nextflow, nf-test's intuitive domain-specific language (DSL) uses 'when' and 'then' blocks to describe expected behaviors in pipelines, facilitating easier test script writing.
-**Readable Assertions**: nf-test offers a wide range of functions for writing clear and understandable [assertions](https://www.nf-test.com/docs/assertions/assertions/), improving the clarity and maintainability of tests.
-**Boilerplate Code Generation**: To accelerate the testing process, nf-test and nf-core tools feature commands that generate boilerplate code, streamlining the development of new tests.
+1. **Comprehensive Output Testing**: nf-test employs [snapshots](https://www.nf-test.com/docs/assertions/snapshots/) for handling complex data structures. This feature evaluates the contents of any specified output channel/file, enabling comprehensive and reliable tests that ensure data integrity through changes.
+2. **A Consistent Testing Framework for All Nextflow Components**: nf-test provides a unified framework for testing everything from individual functions to entire pipelines, ensuring consistency across all components.
+3. **A DSL for Tests**: Designed in the likeness of Nextflow, nf-test's intuitive domain-specific language (DSL) uses 'when' and 'then' blocks to describe expected behaviors in pipelines, facilitating easier test script writing.
+4. **Readable Assertions**: nf-test offers a wide range of functions for writing clear and understandable [assertions](https://www.nf-test.com/docs/assertions/assertions/), improving the clarity and maintainability of tests.
+5. **Boilerplate Code Generation**: To accelerate the testing process, nf-test and nf-core tools feature commands that generate boilerplate code, streamlining the development of new tests.
 
 # But wait… there's more!
 
@@ -58,8 +58,8 @@ The merits of having a consistent and comprehensive testing platform are signifi
 
 # Adding nf-test to pipelines
 
-Several nf-core pipelines have begun to adopt nf-test as their testing framework. Among these, methylseq was the first to implement pipeline-level nf-tests as a proof-of-concept. However, since this initial implementation, nf-core maintainers have identified that the existing nf-core pipeline template needs modifications to better support nf-test. These adjustments aim to enhance compatibility with nf-test across components (modules, subworkflows, workflows) and ensure that tests are included and shipped with each component. A more detailed blog post about these changes will be published in the future.
-Following these insights, fetchngs has been at the forefront of incorporating nf-test for testing modules, subworkflows, workflows, and at the pipeline level. Currently, fetchngs serves as the best-practice example for nf-test implementation within the nf-core community. Other pipelines actively integrating nf-test include mag, sarek, readsimulator, and rnaseq.
+Several nf-core pipelines have begun to adopt nf-test as their testing framework. Among these, [nf-core/methylseq](https://nf-co.re/methylseq/) was the first to implement pipeline-level nf-tests as a proof-of-concept. However, since this initial implementation, nf-core maintainers have identified that the existing nf-core pipeline template needs modifications to better support nf-test. These adjustments aim to enhance compatibility with nf-test across components (modules, subworkflows, workflows) and ensure that tests are included and shipped with each component. A more detailed blog post about these changes will be published in the future.
+Following these insights, [nf-core/fetchngs](https://nf-co.re/fetchngs) has been at the forefront of incorporating nf-test for testing modules, subworkflows, and at the pipeline level. Currently, fetchngs serves as the best-practice example for nf-test implementation within the nf-core community. Other nf-core pipelines actively integrating nf-test include [mag](https://nf-co.re/mag), [sarek](https://nf-co.re/sarek), [readsimulator](https://nf-co.re/readsimulator), and [rnaseq](https://nf-co.re/fetchngs).
 
 # Pipeline development with nf-test
 
@@ -67,19 +67,19 @@ Following these insights, fetchngs has been at the forefront of incorporating nf
 For those embarking on creating new Nextflow pipelines, here are a few key takeaways from our experience:
 
 1. **Leverage nf-core modules/subworkflows extensively**. Devoting time early to contributing modules/subworkflows to nf-core not only streamlines future development for you and your PR reviewers but also simplifies maintaining, linting, and updating pipeline components through nf-core tools. Furthermore, these modules will likely benefit others in the community with similar research interests.
-2. **Prioritize incremental changes over large overhauls**. Incremental changes are almost always preferable to large, unwieldy modifications. This approach is particularly beneficial when monitoring and updating nf-tests at the module, subworkflow, workflow, and pipeline levels. Introducing too many changes simultaneously can overwhelm both developers and reviewers, making it challenging to track what has been modified and what requires testing. Aim to keep changes straightforward and manageable.
+2. **Prioritize incremental changes over large overhauls**. Incremental changes are almost always preferable to large, unwieldy modifications. This approach is particularly beneficial when monitoring and updating nf-tests at the module, subworkflow, and pipeline levels. Introducing too many changes simultaneously can overwhelm both developers and reviewers, making it challenging to track what has been modified and what requires testing. Aim to keep changes straightforward and manageable.
 3. **Facilitate parallel execution of nf-test to generate and test snapshots**. By default, nf-test runs each test sequentially, which can make the process of running multiple tests to generate or update snapshots time-consuming. Implementing scripts that enable tests to run in parallel—whether through a workload manager or in the cloud—can save a considerable amount of time and simplify the monitoring of passing and failing tests.
 
 # Community and contribution
 
 nf-core is a community that relies on consistent contributions, evaluation, and feedback from its members to improve and stay up-to-date. This holds as we transition to a new testing framework as well. Currently, there are two primary ways that people have been contributing in this transition:
 
-1. **Adding nf-tests to new and existing nf-core module/subworkflows**. There has been a recent emphasis on migrating modules/subworkflows from pytest to nf-test because of the advantages mentioned previously. Fortunately, the nf-core team has added very helpful [instructions](https://nf-co.re/docs/contributing/modules#migrating-from-pytest-to-nf-test) to the website, which has made this process much more streamlined.
+1. **Adding nf-tests to new and existing nf-core modules/subworkflows**. There has been a recent emphasis on migrating modules/subworkflows from pytest to nf-test because of the advantages mentioned previously. Fortunately, the nf-core team has added very helpful [instructions](https://nf-co.re/docs/contributing/modules#migrating-from-pytest-to-nf-test) to the website, which has made this process much more streamlined.
 2. **Adding nf-tests to nf-core pipelines**. Another area of focus is the addition of nf-tests to nf-core pipelines. This process can be quite difficult for large, complex pipelines, but there are now several examples of pipelines with nf-tests that can be used as a blueprint for getting started ([fetchngs](https://github.com/nf-core/fetchngs/tree/master), [sarek](https://github.com/nf-core/sarek/tree/master), [readsimulator](https://github.com/nf-core/readsimulator/tree/master), [phageannotator](https://github.com/nf-core/phageannotator)).
 
-> These are great areas to work on & contribute in the upcoming nf-core [hackathon in March 2024](https://nf-co.re/events/2024/hackathon-march-2024)
+> These are great areas to work on & contribute in nf-core hackathons
 
-Yet the role of the community is not limited to adding test code. A robust testing infrastructure requires nf-core users to identify testing errors, and additional test cases, and provide feedback so that the system can continually be improved. Each of us brings a different perspective, and the development-feedback loop that results from collaboration brings about much a more effective, transparent, and inclusive system than if we worked in isolation.
+That's exactly what happened in the recent [hackathon in March 2024](https://nf-co.re/events/2024/hackathon-march-2024). Yet the role of the community is not limited to adding test code. A robust testing infrastructure requires nf-core users to identify testing errors, and additional test cases, and provide feedback so that the system can continually be improved. Each of us brings a different perspective, and the development-feedback loop that results from collaboration brings about a much more effective, transparent, and inclusive system than if we worked in isolation.
 
 # Future directions
 
