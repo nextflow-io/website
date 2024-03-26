@@ -26,6 +26,7 @@ Software testing has two primary purposes: determining whether an operation cont
 # Writing effective tests
 
 Although having any test is certainly better than having no tests at all, there are several considerations to keep in mind when adding tests to pipelines and/or tools to maximize their effectiveness. These considerations can be broadly categorized into two groups:
+
 1. Which inputs/functionalities should be tested?
 2. What contents should be tested?
 
@@ -89,4 +90,3 @@ Looking ahead, nf-core and nf-test are poised for tighter integration and signif
 The integration of nf-test within the nf-core ecosystem marks a significant leap forward in ensuring the reproducibility and reliability of bioinformatics pipelines. By adopting nf-test, developers and researchers alike can contribute to a culture of excellence and collaboration, driving forward the quality and accuracy of bioinformatics research.
 
 > Special thanks to everyone in the #nf-test channel in the nf-core slack workspace for their invaluable contributions, feedback, and support throughout this adoption. We are immensely grateful for your commitment and look forward to continuing our productive collaboration.
-
