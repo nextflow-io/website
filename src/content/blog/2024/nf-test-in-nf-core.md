@@ -2,7 +2,7 @@
 title: Leveraging nf-test for enhanced quality control in nf-core
 date: 2024-03-28
 type: post
-description: Reproducibility is an important attribute of all good science. This is especially true in the realm of bioinformatics, where software is hopefully being constantly updated, and pipelines are ideally being maintained. Improvements and maintenance are great, but they also bring about an important question: Do bioinformatics tools and pipelines continue to run successfully and produce consistent results despite these changes? Fortunately for us, there is an existing approach to ensure software reproducibility: testing.
+description: Reproducibility is an important attribute of all good science. This is specially true in the realm of bioinformatics, where software is hopefully being constantly updated, and pipelines are ideally being maintained. This blog post covers nf-test in the nf-core context.
 image: img/blog-2024-03-28--share.jpg
 tags: nextflow,nf-core,nf-test
 status: published
