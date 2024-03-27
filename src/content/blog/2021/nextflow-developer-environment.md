@@ -28,7 +28,7 @@ Nextflow pipelines can be written in any plain text editor. I'm personally a bit
 
 My current choice is Visual Studio Code which provides a wealth of add-ons, the most obvious of these being syntax highlighting. With [VSCode installed](https://code.visualstudio.com/download), you can search for the Nextflow extension in the marketplace.
 
-<img alt='VSCode with Nextflow Syntax Highlighting' width='796' height='482' src='/img/vscode-nf-highlighting.png' />
+![VSCode with Nextflow Syntax Highlighting](/img/vscode-nf-highlighting.png)
 
 Other syntax highlighting has been made available by the community including:
 
@@ -46,7 +46,7 @@ Start the Nextflow console with the following command:
 $ nextflow console
 ```
 
-<img alt='Nextflow REPL console' width='796' height='549' src='/img/nf-repl-console.png' />
+![Nextflow REPL console](/img/nf-repl-console.png)
 
 Use the `CTRL+R` keyboard shortcut to run (`⌘+R`on the Mac) and to evaluate your code. You can also evaluate by selecting code and use the **Run selection**.
 
@@ -70,7 +70,7 @@ To learn more about building Docker containers, see the [Seqera Labs tutorial](h
 
 Additionally, you can install the VSCode marketplace addon for Docker to manage and interactively run and test the containers and images on your machine. You can even connect to remote registries such as Dockerhub, Quay.io, AWS ECR, Google Cloud and Azure Container registries.
 
-<img alt='VSCode with Docker Extension' width='796' height='482' src='/img/vs-code-with-docker-extension.png' />
+![VSCode with Docker Extension](/img/vs-code-with-docker-extension.png)
 
 ### 5. Use Tower to monitor your pipelines
 
@@ -106,7 +106,7 @@ or
 $ pip install nf-core
 ```
 
-<img alt='nf-core tools' width='796' height='561' src='/img/nf-core-tools.png' />
+![nf-core tools](/img/nf-core-tools.png)
 
 ### Conclusion
 
