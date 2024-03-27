@@ -12,7 +12,7 @@ icon: carson_sateesh.png
 
 # The ever-changing landscape of bioinformatics
 
-Reproducibility is an important attribute of all good science. This is especially true in the realm of bioinformatics, where software is *hopefully* being updated, and pipelines are *ideally* being maintained. Improvements and maintenance are great, but they also bring about an important question: Do bioinformatics tools and pipelines continue to run successfully and produce consistent results despite these changes? Fortunately for us, there is an existing approach to ensure software reproducibility: testing.
+Reproducibility is an important attribute of all good science. This is especially true in the realm of bioinformatics, where software is **hopefully** being updated, and pipelines are **ideally** being maintained. Improvements and maintenance are great, but they also bring about an important question: Do bioinformatics tools and pipelines continue to run successfully and produce consistent results despite these changes? Fortunately for us, there is an existing approach to ensure software reproducibility: testing.
 
 <!-- end-archive-description -->
 
