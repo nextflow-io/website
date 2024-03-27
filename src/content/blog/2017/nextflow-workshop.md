@@ -177,4 +177,4 @@ The registration form is [available here](http://apps.crg.es/content/internet/ev
 <br>
 See you in Barcelona!
 
-<img alt='Nextflow workshop' width='640' src='/img/nf-workshop.png' style='padding-top: 1em'/>
+![Nextflow workshop](/img/nf-workshop.png)
