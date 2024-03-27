@@ -1,6 +1,6 @@
 ---
 title: Nextflow's colorful new console output
-date: 2024-05-05
+date: 2024-03-28
 type: post
 description: Bringing a splash of color to your pipeline monitoring.
 image: img/blog-2024-03-14--share.jpg
@@ -79,6 +79,10 @@ The end result is console output that makes the most of the available space in y
 ## Contributing to Nextflow
 
 Despite building tools that use Nextflow for many years, I’ve spent relatively little time venturing into the main codebase myself. Just as with any contributor, part of the challenge was figuring out how to build Nextflow, how to navigate its code structure and how to write tests. I found it quite a fun experience, so I described and demoed the process in a recent nf-core Bytesize talk titled "[Contributing to Nextflow](https://nf-co.re/events/2024/bytesize_nextflow_dev)". You can watch the talk on [YouTube](https://www.youtube.com/watch?v=R0fqk5OS-nw), where I explain the mechanics of forking Nextflow, enhancing, compiling, and testing changes locally, and contributing enhancements back to the main code base.
+
+<div class="text-center" style="margin: 1em 0 2em;">
+  <iframe style="max-width:100%;" width="560" height="315" src="https://www.youtube.com/embed/R0fqk5OS-nw?si=vBVE9IM8hseN3FSC&amp;start=84" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## But wait, there’s more!
 
