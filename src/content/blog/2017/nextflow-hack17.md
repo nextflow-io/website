@@ -39,7 +39,7 @@ An image of the example report is shown below with the interactive HTML availabl
 [here](/misc/nf-trace-report.html). It is expected to be merged into the main branch of Nextflow
 with documentation in a near-future release.
 
-<img alt='Nextflow HTML execution report' width='760' src='/img/nf-trace-report-min.png' style='margin:1em auto'/>
+![Nextflow HTML execution report](/img/nf-trace-report-min.png)
 
 ### Nextflow pipeline for 16S microbial data
 

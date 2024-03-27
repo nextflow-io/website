@@ -21,7 +21,7 @@ This solution is characterised by using a lean application stack which does not
 require any third party component installed in the EC2 instances other than a Java VM and the
 Docker engine (the latter it's only required in order to deploy pipeline binary dependencies).
 
-<img alt='Nextflow cloud deployment' width='640' height='448' src='/img/cloud-deployment.png' />
+![Nextflow cloud deployment](/img/cloud-deployment.png)
 
 Each EC2 instance runs a script, at bootstrap time, that mounts the [EFS](https://aws.amazon.com/efs/)
 storage and downloads and launches the Nextflow cluster daemon. This daemon is self-configuring,
