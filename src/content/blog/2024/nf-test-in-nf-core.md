@@ -36,7 +36,7 @@ Generally, the software will have a default or most common use case. For instanc
 
 ## Consideration 2: Testing outputs
 
-Once test cases are established, the next step is determining what specifically should be evaluated in each test. Generally, these evaluations are referred to as assertions. Assertions can range from verifying whether a job has been completed successfully to comparing the output channel/file contents between runs. Ideally, tests should incorporate all outputs, although there are scenarios where this is not feasible. In such cases, it's often best to include at least a portion of the contents from the problematic file or, at the minimum, the name of the file to ensure that it is consistently produced.
+Once test cases are established, the next step is determining what specifically should be evaluated in each test. Generally, these evaluations are referred to as assertions. Assertions can range from verifying whether a job has been completed successfully to comparing the output channel/file contents between runs. Ideally, tests should incorporate all outputs, although there are scenarios where this is not feasible (for example, outputs containing timestamps or paths). In such cases, it's often best to include at least a portion of the contents from the problematic file or, at the minimum, the name of the file to ensure that it is consistently produced.
 
 # Testing in nf-core
 
