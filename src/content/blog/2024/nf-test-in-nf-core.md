@@ -54,7 +54,7 @@ Created by [Lukas Forer](https://github.com/lukfor) and [Sebastian Schönherr](h
 
 # But wait… there's more!
 
-The merits of having a consistent and comprehensive testing platform are significantly amplified with nf-test's integration into nf-core. This integration provides an abundance of resources for incorporating nf-test into your Nextflow development. Thanks to this collaboration, you can utilize common nf-test commands via nf-core tools and easily install nf-core modules/subworkflows that already have testing implemented. Moreover, an expanding collection of examples is available to guide you in adopting nf-test for your projects.
+The merits of having a consistent and comprehensive testing platform are significantly amplified with nf-test's integration into nf-core. This integration provides an abundance of resources for incorporating nf-test into your Nextflow development. Thanks to this collaboration, you can utilize common nf-test commands via nf-core tools and easily install nf-core modules/subworkflows that already have testing implemented. Moreover, an [expanding collection of examples](https://nf-co.re/docs/contributing/tutorials/nf-test_assertions) is available to guide you in adopting nf-test for your projects.
 
 # Adding nf-test to pipelines
 
