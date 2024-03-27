@@ -4,7 +4,7 @@ date: 2024-05-05
 type: post
 description: Bringing a splash of color to your pipeline monitoring.
 image: img/blog-2024-03-14--share.jpg
-tags: nextflow,nf-core,workshop
+tags: nextflow
 status: published
 author: Phil Ewels
 icon: phil.jpg
