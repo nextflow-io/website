@@ -2,12 +2,9 @@ import { defineConfig } from "astro/config";
 
 import sitemap from "@astrojs/sitemap";
 
-const netlifyPrimeURL = import.meta.env.DEPLOY_PRIME_URL;
-const siteURL = netlifyPrimeURL ? netlifyPrimeURL : "https://nextflow.io";
-
 // https://astro.build/config
 export default defineConfig({
-  site: siteURL + "/",
+  site: "https://nextflow.io/",
   outDir: "./output",
   markdown: {
     shikiConfig: {
