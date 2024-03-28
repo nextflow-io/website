@@ -27,7 +27,9 @@ The Nextflow console output hasn’t changed much over the 10 years that it’s 
 <figure>
   <img src="/img/blog-nextflow-colored-logs/nextflow_log_with_without_ansi.png" alt="Nextflow console output with and without ANSI logging">
   <figcaption>
-    ANSI console output. Nextflow log output from running the nf-core/rnaseq pipeline before (Left) and after (Right) enabling ANSI logging.
+
+ANSI console output. Nextflow log output from running the nf-core/rnaseq pipeline before (Left) and after (Right) enabling ANSI logging.
+
   </figcaption>
 </figure>
 
@@ -40,7 +42,9 @@ The console output shown by Nextflow describes a range of information. Much of i
 <figure>
   <img src="/img/blog-nextflow-colored-logs/nextflow_coloured_logs.png" alt="New coloured output from Nextflow">
   <figcaption>
-    Introducing: colored console output. Output from running nf-core/rnaseq with the new colors applied (nf-core header removed for clarity).
+
+Introducing: colored console output. Output from running nf-core/rnaseq with the new colors applied (nf-core header removed for clarity).
+
   </figcaption>
 </figure>
 
@@ -51,7 +55,9 @@ Probably the most difficult aspect technically was the `NEXTFLOW` header line. I
 <figure>
   <img src="/img/blog-nextflow-colored-logs/testing_terminal_themes.png" alt="Testing many horrible terminal themes">
   <figcaption>
-    Testing color rendering across a wide range of themes in the OS X Terminal app.
+
+Testing color rendering across a wide range of themes in the OS X Terminal app.
+
   </figcaption>
 </figure>
 
@@ -72,7 +78,9 @@ The end result is console output that makes the most of the available space in y
 <figure>
   <img src="/img/blog-nextflow-colored-logs/nextflow_console_varying_widths.png" alt="Nextflow console output at different terminal window widths">
   <figcaption>
-    Progress of the nf-core/rnaseq shown across 3 different terminal-width breakpoints, with varying levels of text truncation.
+
+Progress of the nf-core/rnaseq shown across 3 different terminal-width breakpoints, with varying levels of text truncation.
+
   </figcaption>
 </figure>
 
@@ -93,7 +101,9 @@ This project was a little different because the logs are just files on the disk,
 <figure>
   <img src="/img/blog-nextflow-colored-logs/nextflow_logs_side_by_side.png" alt="Formatting .nextflow.log files with Toolong">
   <figcaption>
-    The tail end of a `.nextflow.log` file, rendered with `less` (Left) and Toolong (Right). Try finding the warning log message in both!
+
+The tail end of a `.nextflow.log` file, rendered with `less` (Left) and Toolong (Right). Try finding the warning log message in both!
+
   </figcaption>
 </figure>
 
@@ -105,7 +115,9 @@ By using Toolong as a viewer we get much more than just syntax highlighting too 
     Your browser does not support the video tag.
   </video>
   <figcaption>
-    Running nf-core/rnaseq with the new Nextflow coloured console output (Left) whilst simultaneously tailing the `.nextflow.log` file using `nf-core log` (Right).
+
+Running nf-core/rnaseq with the new Nextflow coloured console output (Left) whilst simultaneously tailing the `.nextflow.log` file using `nf-core log` (Right).
+
   </figcaption>
 </figure>
 
