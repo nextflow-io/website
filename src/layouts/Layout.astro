@@ -11,7 +11,9 @@ interface Props {
 const { title, description, image } = Astro.props;
 
 const page_title = title + " | Nextflow";
-const share_image = Astro.url.origin + (image ? image : "/img/share.png");
+
+const netlifyPrimeURL = import.meta.env.DEPLOY_PRIME_URL;
+const share_image = (netlifyPrimeURL || Astro.url.origin) + (image || "/img/share.png");
 ---
 
 <!doctype html>
