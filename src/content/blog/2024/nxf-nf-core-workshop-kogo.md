@@ -3,7 +3,7 @@ title: Nextflow workshop at the 20th KOGO Winter Symposium
 date: 2024-03-14
 type: post
 description: This is the first time we have a Nextflow workshop in Korea, and the feedback was amazing!
-image: img/blog-2024-03-14--share.jpg
+image: /img/blog-2024-03-14--share.jpg
 tags: nextflow,nf-core,workshop
 status: published
 author: Yuk Kei Wan

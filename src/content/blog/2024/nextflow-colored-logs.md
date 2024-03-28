@@ -3,7 +3,7 @@ title: Nextflow's colorful new console output
 date: 2024-03-28
 type: post
 description: Bringing a splash of color to your pipeline monitoring.
-image: img/blog-2024-03-28-nextflow-colorful-console.output.png
+image: /img/blog-2024-03-28-nextflow-colorful-console.output.png
 tags: nextflow
 status: published
 author: Phil Ewels
