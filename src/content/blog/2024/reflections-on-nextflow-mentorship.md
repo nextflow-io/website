@@ -1,9 +1,9 @@
 ---
 title: One-Year Reflections on Nextflow Mentorship
-date: 2024-04-14
+date: 2024-04-10
 type: post
 description: From a mentee in the Nextflow and nf-core mentorship program to a Senior Bioinformatician at ZS. Come and read this post as I share a bit of my journay in the Nextflow community.
-image: img/blog-2024-03-14--share.jpg
+image: img/blog-2024-04-10--share.jpg
 tags: nextflow,nf-core,workshop
 status: published
 author: Anabella Trigila
@@ -25,7 +25,7 @@ I was lucky enough to have Matthias De Smet as a mentor. He is a member of the C
 During my first days, he guided me to the most useful Nextflow resources available online, tailored to my goals. Then, I drafted a pipeline that I wanted to build and attempted to write my first lines of code in Nextflow. We communicated via Slack and Matthias reviewed and corrected my code via GitHub. He introduced me to the supportive nf-core community, to ask for help when needed, and to acknowledge every success along the way.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-03-14-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
+    <img src="/img/blog-2024-04-10-img1a.png" alt="Mentor compliment about new module added" />
 </div>
 
 # Highlights of the program
@@ -35,7 +35,7 @@ We decided to start small, setting step-by-step goals. Matthias suggested that a
 For those unfamiliar, contributing to nf-core requires another member of the community, usually a maintainer, to review your code. As a newcomer, I was obviously curious about how the process would be. In academia, where anonymity often prevails, feedback can occasionally be a bit stringent. Conversely, during my submission to the nf-core project, I was pleasantly surprised that reviewers look for collective improvement, providing quick, constructive and amicable reviews, leading to a positive environment.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-03-14-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
+    <img src="/img/blog-2024-04-10-img1b.png" alt="Review comment in GitHub" />
 </div>
 
 For my final project in the mentorship program, I successfully ported a complete pipeline from Bash to Nextflow. This was a learning experience that allowed me to explore a diverse range of skills, such as modularizing content, understanding how crucial the meta map is, and creating Docker container images for software. This process not only enhanced my proficiency in Nextflow but also allowed me to interact with and contribute to related projects like Bioconda and BioContainers.
@@ -48,7 +48,7 @@ Finally, I was honored to become a Nextflow ambassador. The program’s goal is 
 As part of this program, I was invited to speak at the second Chilean Congress of Bioinformatics, where I gave a talk about how Nextflow and nf-core can support scaling bioinformatics projects in the cloud. It was incredibly rewarding to introduce Nextflow to a community for the first time and witness the genuine enthusiasm it sparks among students and attendees for the potential in their research projects.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-03-14-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
+    <img src="/img/blog-2024-04-10-img1c.png" alt="Second Chilean Congress of Bioinformatics" />
 </div>
 
 # What’s next?
@@ -58,7 +58,7 @@ The comprehensive skill set acquired in my journey resonated positively and allo
 In addition, we organized the first Nextflow Hackathon in Argentina, fostering a space to advance our skills in workflow management collectively. It was a pleasure to see how beginners got their first PRs approved and how they interacted with the nf-core community for the first time.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-03-14-kogo-img1a.jpg" alt="Nextflow workshop at KOGO Winter Symposium 2024" />
+    <img src="/img/blog-2024-04-10-img1d.png" alt="nf-core March 2024 Hackathon site in Argentina" />
 </div>
 
 My current (and probably future!) day-to-day work involves working and developing pipelines with Nextflow, while also mentoring younger bioinformaticians into this language. The commitment to open-source projects remains a cornerstone of my journey and I am thankful that it has provided me the opportunity to collaborate with individuals from diverse backgrounds all over the world.
