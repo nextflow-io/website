@@ -7,7 +7,7 @@ image: img/blog-2024-03-28--share.jpg
 tags: nextflow,nf-core,nf-test
 status: published
 author: Carson Miller & Sateesh Peri
-icon: carson_sateesh.png
+icon: carson_sateesh.jpg
 ---
 
 # The ever-changing landscape of bioinformatics
