@@ -1,6 +1,6 @@
 ---
 title: Leveraging nf-test for enhanced quality control in nf-core
-date: 2024-03-28
+date: 2024-04-03
 type: post
 description: Reproducibility is an important attribute of all good science. This is specially true in the realm of bioinformatics, where software is hopefully being constantly updated, and pipelines are ideally being maintained. This blog post covers nf-test in the nf-core context.
 image: /img/blog-2024-03-28--share.jpg
