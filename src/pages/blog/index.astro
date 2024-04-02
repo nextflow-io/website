@@ -21,11 +21,15 @@ const posts = (await getCollection("blog")).sort(
                   <a href={"/blog/" + post.slug + ".html"}>{post.data.title}</a>
                 </h3>
                 <div class="timeline-info hidden-xs">
+                  {post.data.author2 && post.data.icon2 && (
+                    <img src={"/img/" + post.data.icon2} class="blg-author blg-author-2" alt={post.data.author} />
+                  )}
                   <img src={"/img/" + post.data.icon} class="blg-author" alt={post.data.author} />
                 </div>
                 <ul class="text-muted list-inline blg-header">
                   <li>
                     <i class="fa fa-user" /> {post.data.author}
+                    {post.data.author2 && <> and {post.data.author2}</>}
                   </li>
                   <li>
                     <i class="fa fa-calendar" /> {post.data.date}

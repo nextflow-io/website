@@ -6,8 +6,10 @@ description: Reproducibility is an important attribute of all good science. This
 image: /img/blog-2024-03-28--share.jpg
 tags: nextflow,nf-core,nf-test
 status: published
-author: Carson Miller & Sateesh Peri
+author: Carson Miller
 icon: carson_sateesh.jpg
+author2: Sateesh Peri
+icon2: carson_sateesh.jpg
 ---
 
 # The ever-changing landscape of bioinformatics
