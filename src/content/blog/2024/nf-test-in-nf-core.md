@@ -13,7 +13,7 @@ icon2: SateeshPeri.png
 ---
 
 <div class="alert alert-info">
-This post has been written by our valued community members. It’s important to note that the opinions shared here are solely those of the authors.
+This post has been written by our valued community members 🤝
 </div>
 
 # The ever-changing landscape of bioinformatics
