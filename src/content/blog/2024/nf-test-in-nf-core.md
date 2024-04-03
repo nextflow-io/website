@@ -4,13 +4,17 @@ date: 2024-04-03
 type: post
 description: Reproducibility is an important attribute of all good science. This is specially true in the realm of bioinformatics, where software is hopefully being constantly updated, and pipelines are ideally being maintained. This blog post covers nf-test in the nf-core context.
 image: /img/blog-2024-03-28--share.jpg
-tags: nextflow,nf-core,nf-test
+tags: nextflow,nf-core,nf-test,ambassador_post
 status: published
 author: Carson Miller
 icon: Carson.png
 author2: Sateesh Peri
 icon2: SateeshPeri.png
 ---
+
+<div class="alert alert-info">
+This post has been written by our valued community members. It’s important to note that the opinions shared here are solely those of the authors.
+</div>
 
 # The ever-changing landscape of bioinformatics
 
@@ -91,4 +95,11 @@ Looking ahead, nf-core and nf-test are poised for tighter integration and signif
 
 The integration of nf-test within the nf-core ecosystem marks a significant leap forward in ensuring the reproducibility and reliability of bioinformatics pipelines. By adopting nf-test, developers and researchers alike can contribute to a culture of excellence and collaboration, driving forward the quality and accuracy of bioinformatics research.
 
-> Special thanks to everyone in the #nf-test channel in the nf-core slack workspace for their invaluable contributions, feedback, and support throughout this adoption. We are immensely grateful for your commitment and look forward to continuing our productive collaboration.
+Special thanks to everyone in the #nf-test channel in the nf-core slack workspace for their invaluable contributions, feedback, and support throughout this adoption. We are immensely grateful for your commitment and look forward to continuing our productive collaboration.
+
+<br>
+<div class="footer-wrapper">
+<img src="/img/nextflow_ambassador_logo.svg" height="70" class="pull-right" style="padding: 1rem 1rem;">
+
+> This post was contributed by a Nextflow Ambassador, passionate individuals who support the Nextflow community. Interested in becoming an ambassador? Read more about it <a href="https://www.nextflow.io/ambassadors.html">here</a>.
+</div>
