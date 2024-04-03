@@ -31,7 +31,11 @@ There is also a Python package with helper tools for Nextflow.
 
 You can find more information about the community via the project [website](https://nf-core.github.io), [GitHub repository](https://github.com/nf-core), [Twitter account](https://twitter.com/nf_core) or join the dedicated [Gitter](https://gitter.im/nf-core/Lobby) chat.
 
-<img alt='nf-core logo' width='560' src='/img/nf-core-logo-min.png' style='margin:1em auto; cursor: pointer;' onclick="window.open('https://nf-core.github.io')" />
+<div class="row"><div class="col-md-6 col-md-offset-3">
+
+[![nf-core logo](/img/nf-core-logo-min.png)](https://nf-co.re)
+
+</div></div>
 
 ### Kubernetes has landed
 
@@ -41,7 +45,7 @@ Kubernetes looks be one of the key technologies for the application of container
 
 The new command `nextflow kuberun` launches the Nextflow driver as a _pod_ which is then able to run workflow tasks as other pods within a Kubernetes cluster. You can read more in the documentation on Kubernetes support for Nextflow [here](https://www.nextflow.io/docs/latest/kubernetes.html).
 
-<img alt='Nextflow and Kubernetes' width='760' src='/img/nextflow-kubernetes-min.png' style='margin:1em auto'/>
+![Nextflow and Kubernetes](/img/nextflow-kubernetes-min.png)
 
 ### Improved reporting and notifications
 
@@ -57,14 +61,21 @@ There has also been additions to workflow notifications. Currently these can be 
 
 Writing workflows no longer has to be done in monochrome. There is now syntax highlighting for Nextflow in the popular [Atom editor](https://atom.io) as well as in [Visual Studio Code](https://code.visualstudio.com).
 
-<img alt='Nextflow syntax highlighting with Atom' width='360' src='/img/atom-min.png' style='margin:1em auto; cursor: pointer;' onclick="window.open(this.src)" />
-<img alt='Nextflow syntax highlighting with VSCode' width='360' src='/img/vscode-min.png' style='margin:1em auto; cursor: pointer;' onclick="window.open(this.src)" />
+<div class="row"><div class="col-md-6">
+
+[![Nextflow syntax highlighting with Atom](/img/atom-min.png)](/img/atom-min.png)
+
+</div><div class="col-md-6">
+
+[![Nextflow syntax highlighting with VSCode](/img/vscode-min.png)](/img/vscode-min.png)
+
+</div></div>
 
 You can find the Atom plugin by searching for Nextflow in Atoms package installer or clicking [here](https://atom.io/packages/language-nextflow). The Visual Studio plugin can be downloaded [here](https://marketplace.visualstudio.com/items?itemName=nextflow.nextflow).
 
 On a related note, Nextflow is now an official language on GitHub!
 
-<img alt='GitHub nextflow syntax' width='760' src='/img/github-nf-syntax-min.png' style='margin:1em auto'/>
+![GitHub nextflow syntax](/img/github-nf-syntax-min.png)
 
 ### Conclusion
 

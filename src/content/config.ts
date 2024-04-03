@@ -7,7 +7,10 @@ const blogCollection = defineCollection({
     title: z.string(),
     description: z.string().optional(),
     author: z.string(),
-    image: z.string().optional(),
+    image: z
+      .string()
+      .regex(/^\/img\//)
+      .optional(),
     icon: z.string(),
     tags: z.string(),
     // tags: z.array(z.string()).optional(),
@@ -26,7 +29,7 @@ const podcastCollection = defineCollection({
     subtype: z.string(),
     author: z.string(),
     youtubeid: z.string().length(11),
-    image: z.string(),
+    image: z.string().regex(/^\/img\//),
     icon: z.string(),
     tags: z.string(),
     // tags: z.array(z.string()).optional(),
