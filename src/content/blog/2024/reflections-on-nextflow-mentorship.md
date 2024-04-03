@@ -3,12 +3,16 @@ title: One-Year Reflections on Nextflow Mentorship
 date: 2024-04-10
 type: post
 description: From a mentee in the Nextflow and nf-core mentorship program to a Senior Bioinformatician at ZS. Come and read this post as I share a bit of my journay in the Nextflow community.
-image: img/blog-2024-04-10--share.jpg
+image: /img/blog-2024-04-10--share.jpg
 tags: nextflow,nf-core,workshop
 status: published
 author: Anabella Trigila
 icon: anabella.jpg
 ---
+
+<div class="alert alert-info">
+This post has been written by our valued community members 🤝
+</div>
 
 During December 2022 to March 2023, I was part of the second cohort of the Nextflow and nf-core mentorship program, which spanned four months and attracted participants globally. I could not have anticipated the extent to which my participation in this program and the associated learning experiences would positively change my professional growth.
 The program aims to foster collaboration, knowledge exchange, flexible learning, collaborative coding, and contributions to the nf-core community. It is funded by the Chan Zuckerberg Initiative and is guided by experienced mentors in the community.
@@ -65,4 +69,10 @@ My current (and probably future!) day-to-day work involves working and developin
 
 Whether you're interested in the mentorship program, curious about the hackathon, or simply wish to connect, feel free to reach out at the nf-core Slack!
 
-TODO: ADD CALL TO ACTION (Join the ambassadors program)
+<br>
+<div class="footer-wrapper">
+<img src="/img/nextflow_ambassador_logo.svg" height="70" class="pull-right" style="padding: 1rem 1rem;">
+
+> This post was contributed by a Nextflow Ambassador, passionate individuals who support the Nextflow community. Interested in becoming an ambassador? Read more about it <a href="https://www.nextflow.io/ambassadors.html">here</a>.
+
+</div>
