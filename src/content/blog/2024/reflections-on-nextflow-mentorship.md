@@ -4,10 +4,10 @@ date: 2024-04-10
 type: post
 description: From a mentee in the Nextflow and nf-core mentorship program to a Senior Bioinformatician at ZS. Come and read this post as I share a bit of my journay in the Nextflow community.
 image: /img/blog-2024-04-10--share.jpg
-tags: nextflow,nf-core,workshop
+tags: nextflow,nf-core,workshop,ambassador_post
 status: published
 author: Anabella Trigila
-icon: anabella.jpg
+icon: anabella.jpeg
 ---
 
 <div class="alert alert-info">
