@@ -102,4 +102,5 @@ Special thanks to everyone in the #nf-test channel in the nf-core slack workspac
 <img src="/img/nextflow_ambassador_logo.svg" height="70" class="pull-right" style="padding: 1rem 1rem;">
 
 > This post was contributed by a Nextflow Ambassador, passionate individuals who support the Nextflow community. Interested in becoming an ambassador? Read more about it <a href="https://www.nextflow.io/ambassadors.html">here</a>.
+
 </div>
