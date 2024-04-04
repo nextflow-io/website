@@ -9,6 +9,7 @@ status: published
 author: Yuk Kei Wan
 icon: yukkei.jpg
 community_post: true
+ambassador_post: true
 ---
 
 Through a partnership between AWS Asia Pacific and Japan, and Seqera, Nextflow touched ground in South Korea for the first time with a training session at the Korea Genome Organization (KOGO) Winter Symposium. The objective was to introduce participants to Nextflow, empowering them to craft their own pipelines. Recognizing the interest among bioinformaticians, MinSung Cho from AWS Korea’s Healthcare & Research Team decided to sponsor this 90-minute workshop session. This initiative covered my travel expenses and accommodations.

@@ -11,6 +11,7 @@ icon: Carson.png
 author2: Sateesh Peri
 icon2: SateeshPeri.png
 community_post: true
+ambassador_post: true
 ---
 
 # The ever-changing landscape of bioinformatics
@@ -93,11 +94,3 @@ Looking ahead, nf-core and nf-test are poised for tighter integration and signif
 The integration of nf-test within the nf-core ecosystem marks a significant leap forward in ensuring the reproducibility and reliability of bioinformatics pipelines. By adopting nf-test, developers and researchers alike can contribute to a culture of excellence and collaboration, driving forward the quality and accuracy of bioinformatics research.
 
 Special thanks to everyone in the #nf-test channel in the nf-core slack workspace for their invaluable contributions, feedback, and support throughout this adoption. We are immensely grateful for your commitment and look forward to continuing our productive collaboration.
-
-<br>
-<div class="footer-wrapper">
-<img src="/img/nextflow_ambassador_logo.svg" height="70" class="pull-right" style="padding: 1rem 1rem;">
-
-> This post was contributed by a Nextflow Ambassador, passionate individuals who support the Nextflow community. Interested in becoming an ambassador? Read more about it <a href="https://www.nextflow.io/ambassadors.html">here</a>.
-
-</div>

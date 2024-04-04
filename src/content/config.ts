@@ -15,6 +15,7 @@ const blogCollection = defineCollection({
     icon: z.string(),
     icon2: z.string().optional(),
     community_post: z.boolean().optional(),
+    ambassador_post: z.boolean().optional(),
     tags: z.string(),
     // tags: z.array(z.string()).optional(),
     date: z
