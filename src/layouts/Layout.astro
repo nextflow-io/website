@@ -2,6 +2,9 @@
 import Menu from "@components/Menu.astro";
 import Footer from "@components/Footer.astro";
 
+import { existsSync } from "fs";
+import path from "path";
+
 interface Props {
   title: string;
   description?: string;
@@ -13,7 +16,13 @@ const { title, description, image } = Astro.props;
 const page_title = title + " | Nextflow";
 
 const netlifyPrimeURL = import.meta.env.DEPLOY_PRIME_URL;
-const share_image = (netlifyPrimeURL || Astro.url.origin) + (image || "/img/share.png");
+const image_path = image || "/img/share.png";
+const share_image = (netlifyPrimeURL || Astro.url.origin) + image_path;
+
+// Check that the share card image exists
+if (!existsSync(path.join(path.resolve("./public"), image_path))) {
+  throw new Error(`The file at public${image_path} does not exist.`);
+}
 ---
 
 <!doctype html>
