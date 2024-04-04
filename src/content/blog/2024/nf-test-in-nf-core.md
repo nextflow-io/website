@@ -10,11 +10,8 @@ author: Carson Miller
 icon: Carson.png
 author2: Sateesh Peri
 icon2: SateeshPeri.png
+community_post: true
 ---
-
-<div class="alert alert-info">
-This post has been written by our valued community members 🤝
-</div>
 
 # The ever-changing landscape of bioinformatics
 
