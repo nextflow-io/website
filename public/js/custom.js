@@ -179,3 +179,8 @@ $('.podcast').each(function () {
 		$(this).addClass('podcast-future')
     }
 });
+
+// Tooltips
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
