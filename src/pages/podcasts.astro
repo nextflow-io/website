@@ -51,10 +51,22 @@ const episodes = (await getCollection("podcast")).sort(
                   <hr />
                   {post.data.image && (
                     <a href={"/podcast/" + post.slug + ".html"}>
-                      <img src={post.data.image} class="podcast-thumb-img" />
+                      <img src={post.data.image} class="podcast-thumb-img" style="margin-bottom: 10px;" />
                     </a>
                   )}
-                  <p class="blg-text">{post.data.description}</p>
+                  <p class="blg-text">
+                    {async () => {
+                      let { remarkPluginFrontmatter } = await post.render();
+                      // shorten excerpt if it is longer than 150 words
+                      if (remarkPluginFrontmatter.excerpt.split(" ").length > 150) {
+                        return (
+                          remarkPluginFrontmatter.excerpt.split(" ").slice(0, 150).join(" ") +
+                          ` ...(<a href=${post.slug}>click here to read more</a>)`
+                        );
+                      }
+                      return remarkPluginFrontmatter.excerpt;
+                    }}
+                  </p>
                 </div>
               </div>
             );
