@@ -66,4 +66,3 @@ In addition, we organized a local site for the nf-core hackathon in March 2024, 
 My current (and probably future!) day-to-day work involves working and developing pipelines with Nextflow, while also mentoring younger bioinformaticians into this language. The commitment to open-source projects remains a cornerstone of my journey and I am thankful that it has provided me the opportunity to collaborate with individuals from diverse backgrounds all over the world.
 
 Whether you're interested in the mentorship program, curious about the hackathon, or simply wish to connect, feel free to reach out at the nf-core Slack!
-
