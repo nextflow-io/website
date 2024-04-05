@@ -12,8 +12,8 @@ community_post: true
 ambassador_post: true
 ---
 
-During December 2022 to March 2023, I was part of the second cohort of the Nextflow and nf-core mentorship program, which spanned four months and attracted participants globally. I could not have anticipated the extent to which my participation in this program and the associated learning experiences would positively change my professional growth.
-The program aims to foster collaboration, knowledge exchange, flexible learning, collaborative coding, and contributions to the nf-core community. It is funded by the Chan Zuckerberg Initiative and is guided by experienced mentors in the community.
+From December 2022 to March 2023, I was part of the second cohort of the Nextflow and nf-core mentorship program, which spanned four months and attracted participants globally. I could not have anticipated the extent to which my participation in this program and the associated learning experiences would positively change my professional growth.
+The program aims to foster collaboration, knowledge exchange, flexible learning, collaborative coding, and contributions to the nf-core community. It was funded by the Chan Zuckerberg Initiative and is guided by experienced mentors in the community.
 In the upcoming paragraphs, I'll be sharing more details about the program—its structure, the valuable learning experiences it brought, and the exciting opportunities it opened up for me.
 
 <!-- end-archive-description -->
@@ -45,7 +45,7 @@ For my final project in the mentorship program, I successfully ported a complete
 # Life after the mentorship
 
 With the skills I acquired during the mentorship as a mentee, I proposed and successfully implemented a custom solution in Nextflow for a precision medicine start-up I worked at the time that could sequentially do several diagnostics and consumer-genetics applications in the cloud, resulting in substantial cost savings and increasing flexibility for the company.
-Beyond my immediate projects, I joined a group actively developing an open-source Nextflow pipeline for genetic imputation. This project allowed me to be in close contact with members of the nf-core community working on similar projects, adding new tools to this pipeline, giving and receiving feedback, and continuing to improve my overall Nextflow skills while also contributing to the broader bioinformatics community. You can learn more about this project with the fantastic talk by Louis Le Nézet at Nextflow Summit 2023 Nextflow Summit 2023 - Louis Le Nézet
+Beyond my immediate projects, I joined a group actively developing an open-source Nextflow pipeline for genetic imputation. This project allowed me to be in close contact with members of the nf-core community working on similar projects, adding new tools to this pipeline, giving and receiving feedback, and continuing to improve my overall Nextflow skills while also contributing to the broader bioinformatics community. You can learn more about this project with the fantastic talk by Louis Le Nézet at Nextflow Summit 2023 [here](https://www.youtube.com/watch?v=GHb2Wt9VCOg).
 Finally, I was honored to become a Nextflow ambassador. The program’s goal is to extend the awareness of Nextflow around the world while also building a supportive community. In particular, the South American community is underrepresented, so I serve as a point of contact for any institution or newcomer who wants to implement pipelines with Nextflow.
 As part of this program, I was invited to speak at the second Chilean Congress of Bioinformatics, where I gave a talk about how Nextflow and nf-core can support scaling bioinformatics projects in the cloud. It was incredibly rewarding to introduce Nextflow to a community for the first time and witness the genuine enthusiasm it sparks among students and attendees for the potential in their research projects.
 
@@ -55,9 +55,9 @@ As part of this program, I was invited to speak at the second Chilean Congress o
 
 # What’s next?
 
-The comprehensive skill set acquired in my journey resonated positively and allowed me to join the ZS Discovery Team. This organization accelerates transformation in research and early development with direct contribution to impactful bioinformatics projects with a globally distributed, multidisciplinary talented team.
+The comprehensive skill set acquired in my journey proved to be incredibly valuable for my professional development and allowed me to join the ZS Discovery Team as a Senior Bioinformatician. This organization accelerates transformation in research and early development with direct contribution to impactful bioinformatics projects with a globally distributed, multidisciplinary talented team.
 
-In addition, we organized the first Nextflow Hackathon in Argentina, fostering a space to advance our skills in workflow management collectively. It was a pleasure to see how beginners got their first PRs approved and how they interacted with the nf-core community for the first time.
+In addition, we organized a local site for the nf-core hackathon in March 2024, the first Nextflow Hackathon in Argentina, fostering a space to advance our skills in workflow management collectively. It was a pleasure to see how beginners got their first PRs approved and how they interacted with the nf-core community for the first time.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
     <img src="/img/blog-2024-04-10-img1d.png" alt="nf-core March 2024 Hackathon site in Argentina" />
