@@ -8,11 +8,9 @@ tags: nextflow,nf-core,workshop,ambassador_post
 status: published
 author: Anabella Trigila
 icon: anabella.jpeg
+community_post: true
+ambassador_post: true
 ---
-
-<div class="alert alert-info">
-This post has been written by our valued community members 🤝
-</div>
 
 During December 2022 to March 2023, I was part of the second cohort of the Nextflow and nf-core mentorship program, which spanned four months and attracted participants globally. I could not have anticipated the extent to which my participation in this program and the associated learning experiences would positively change my professional growth.
 The program aims to foster collaboration, knowledge exchange, flexible learning, collaborative coding, and contributions to the nf-core community. It is funded by the Chan Zuckerberg Initiative and is guided by experienced mentors in the community.
@@ -69,10 +67,3 @@ My current (and probably future!) day-to-day work involves working and developin
 
 Whether you're interested in the mentorship program, curious about the hackathon, or simply wish to connect, feel free to reach out at the nf-core Slack!
 
-<br>
-<div class="footer-wrapper">
-<img src="/img/nextflow_ambassador_logo.svg" height="70" class="pull-right" style="padding: 1rem 1rem;">
-
-> This post was contributed by a Nextflow Ambassador, passionate individuals who support the Nextflow community. Interested in becoming an ambassador? Read more about it <a href="https://www.nextflow.io/ambassadors.html">here</a>.
-
-</div>
