@@ -41,3 +41,37 @@ Links to resources used / mentioned in this episode:
 - Phil's plugin created during recording: [ewels/channels-demo](https://github.com/ewels/channels-demo/)
 - Provenance reporting plugin: [nextflow-io/nf-prov](https://github.com/nextflow-io/nf-prov)
 - Schema validation plugin: [nextflow-io/nf-schema](https://github.com/nextflow-io/nf-schema/)
+
+Time stamps:
+
+<ul class="list-unstyled">
+  <li><code>00:00:00</code> Welcome</li>
+  <li><code>00:03:27</code> Nextflow docs</li>
+  <li><code>00:08:34</code> Starting by forking nf-hello</li>
+  <li><code>00:10:32</code> Overview of project files</li>
+  <li><code>00:17:13</code> Trying a first compile</li>
+  <li><code>00:18:12</code> Different publishing methods</li>
+  <li><code>00:19:54</code> nf-boost local publish method</li>
+  <li><code>00:23:05</code> Trying the new compile</li>
+  <li><code>00:24:00</code> Running locally with the plugin</li>
+  <li><code>00:27:32</code> Looking at the nf-hello plugin code</li>
+  <li><code>00:39:29</code> Deleting files we don't need</li>
+  <li><code>00:42:34</code> Finding event names in the Nextflow source</li>
+  <li><code>00:47:46</code> Writing some custom functions</li>
+  <li><code>00:49:41</code> Testing our new code</li>
+  <li><code>00:51:51</code> Modifying the test pipeline to create files</li>
+  <li><code>00:54:14</code> Coding up the JSON output</li>
+  <li><code>00:59:20</code> Looking at nf-prov code for BCO files</li>
+  <li><code>01:05:30</code> Testing JSON output</li>
+  <li><code>01:09:39</code> Automatic work dir cleanup / nf-boost</li>
+  <li><code>01:12:17</code> Publishing a release on GitHub</li>
+  <li><code>01:19:07</code> Custom plugin repositories</li>
+  <li><code>01:26:47</code> Publishing for all Nextflow users</li>
+  <li><code>01:29:52</code> Conclusion and end</li>
+</ul>
+
+<style>
+.dl-horizontal dt {
+  max-width: 50px;
+}
+</style>
