@@ -1,5 +1,7 @@
+import admonitionsPlugin from "./bin/remark-admonitions.js";
 import { defineConfig } from "astro/config";
 import remarkDescription from "astro-remark-description";
+import remarkDirective from "remark-directive";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
@@ -13,6 +15,8 @@ export default defineConfig({
       theme: "light-plus",
     },
     remarkPlugins: [
+      remarkDirective,
+      admonitionsPlugin,
       [
         remarkDescription,
         {
