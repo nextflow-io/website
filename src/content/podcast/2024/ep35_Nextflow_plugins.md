@@ -2,7 +2,7 @@
 title: "Nextflow plugins: development walkthrough"
 episode: 35
 description: A walk through of how to create and publish a plugin from scratch.
-date: 2024-04-13
+date: 2024-04-16
 type: podcast
 subtype: Tutorial
 youtubeid: 2NSRA78C-jg
