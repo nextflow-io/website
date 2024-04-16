@@ -1,6 +1,6 @@
 ---
 title: Application of Nextflow and nf-core to ancient environmental eDNA
-date: 2024-04-16
+date: 2024-04-17
 type: post
 description: In this blog post, James goes through a workshop he organized to demonstrate the efficiency and reproducibility Nextflow and nf-core can bring to analyze ancient environmental DNA.
 image: /img/blog-2024-04-10--share.jpg
@@ -19,14 +19,14 @@ Ancient environmental DNA (eDNA) is currently a hot topic in archaeological, eco
 This need to work at scale, while also conducting reproducible analyses to demonstrate the authenticity of ancient DNA, lends itself to the processing of DNA with high-quality pipelines and open source workflow managers such as Nextflow. In this context, I was invited to the Australian Center for Ancient DNA (ACAD) at the University of Adelaide in February 2024 to co-teach a graduate-level course on ‘Hands-on bioinformatics for ancient environmental DNA’, alongside other members of the ancient eDNA community. Workshop participants included PhD students from across Australia, New Zealand, and even from as far away as Estonia.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-04-10-img1a.png" alt="Mentor compliment about new module added" />
+    <img src="/img/blog-2024-04-17-img1a.jpg" alt="Mentor compliment about new module added" />
 </div>
 © Photo: Peter Mundy and Australian Center for Ancient DNA
 
 We began the five-day workshop with an overview of the benefits of using workflow managers and pipelines in academic research, which include efficiency, portability, reproducibility, and fault-tolerance, and we then proceeded to introduce the Ph.D. students to installing Nextflow, and configure pipelines for running on different types of computing infrastructure.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
-    <img src="/img/blog-2024-04-10-img1b.png" alt="Review comment in GitHub" />
+    <img src="/img/blog-2024-04-17-img1b.jpg" alt="Review comment in GitHub" />
 </div>
 © Photo: Peter Mundy and Australian Center for Ancient DNA
 
@@ -40,6 +40,5 @@ The workshop was well received by students, and many were eager (pun intended) t
 I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and I would like to acknowledge ACAD, the University of Adelaide Environment Institute, the Werner Siemens-Stiftung, Leibniz HKI, and MPI for Evolutionary Anthropology for financial support to attend the workshop and support in developing nf-core pipelines.
 
 1 Kjær, K.H., Winther Pedersen, M., De Sanctis, B. et al. A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA. Nature 612, 283–291 (2022). https://doi.org/10.1038/s41586-022-05453-y
-2 Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U.,
-Neukamm, J., Peltzer, A.. Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager. PeerJ 9:e10947 (2021) http://doi.org/10.7717/peerj.10947
+2 Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U., Neukamm, J., Peltzer, A.. Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager. PeerJ 9:e10947 (2021) http://doi.org/10.7717/peerj.10947
 3 Krakau, S., Straub, D.,, Gourlé, H., Gabernet, G., Nahnsen, S., nf-core/mag: a best-practice pipeline for metagenome hybrid assembly and binning, NAR Genomics and Bioinformatics, 4:1 (2022) https://doi.org/10.1093/nargab/lqac007
