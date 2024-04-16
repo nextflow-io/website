@@ -3,7 +3,7 @@ title: Application of Nextflow and nf-core to ancient environmental eDNA
 date: 2024-04-16
 type: post
 description: In this blog post, James goes through a workshop he organized to demonstrate the efficiency and reproducibility Nextflow and nf-core can bring to analyze ancient environmental DNA.
-image: /img/blog-2024-04-16--share.jpg
+image: /img/blog-2024-04-10--share.jpg
 tags: nextflow,nf-core,workshop,ambassador_post
 status: published
 author: James Fellows Yates
