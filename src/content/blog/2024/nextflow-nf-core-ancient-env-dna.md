@@ -40,6 +40,7 @@ The workshop was well received by students, and many were eager (pun intended) t
 I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and I would like to acknowledge [ACAD](https://www.adelaide.edu.au/acad/), the [University of Adelaide Environment Institute](https://www.adelaide.edu.au/environment/), the [Werner Siemens-Stiftung](https://www.wernersiemens-stiftung.ch/), [Leibniz HKI](https://www.leibniz-hki.de/), and [MPI for Evolutionary Anthropology](https://www.eva.mpg.de) for financial support to attend the workshop and support in developing nf-core pipelines.
 
 ---
+
 <sup>1</sup> Kjær, K.H., Winther Pedersen, M., De Sanctis, B. et al. A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA. Nature **612**, 283–291 (2022). [https://doi.org/10.1038/s41586-022-05453-y](https://doi.org/10.1038/s41586-022-05453-y)
 
 <sup>2</sup> Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U., Neukamm, J., Peltzer, A.. Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager. PeerJ 9:10947 (2021) [http://doi.org/10.7717/peerj.10947](http://doi.org/10.7717/peerj.10947)
