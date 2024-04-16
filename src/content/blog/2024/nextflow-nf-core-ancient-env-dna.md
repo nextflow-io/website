@@ -21,23 +21,23 @@ This need to work at scale, while also conducting reproducible analyses to demon
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
     <img src="/img/blog-2024-04-10-img1a.png" alt="Mentor compliment about new module added" />
 </div>
-© Photo: Peter Mundy and Australian Center for Ancient DNA 
+© Photo: Peter Mundy and Australian Center for Ancient DNA
 
 We began the five-day workshop with an overview of the benefits of using workflow managers and pipelines in academic research, which include efficiency, portability, reproducibility, and fault-tolerance, and we then proceeded to introduce the Ph.D. students to installing Nextflow, and configure pipelines for running on different types of computing infrastructure.
 
 <div style="margin-top: 2rem; margin-bottom: 2rem;">
     <img src="/img/blog-2024-04-10-img1b.png" alt="Review comment in GitHub" />
 </div>
-© Photo: Peter Mundy and Australian Center for Ancient DNA 
+© Photo: Peter Mundy and Australian Center for Ancient DNA
 
-Over the next two days, I then introduced two well-established nf-core pipelines: nf-core/eager  and nf-core/mag , and explained to students how these pipelines can be applied to various aspects of environmental metagenomic and ancient DNA analysis:
-nf-core/eager is a dedicated ‘swiss-army-knife’ style pipeline for ancient DNA analysis that performs genetic data preprocessing, genomic alignment, variant calling, and metagenomic screening with specific tools and parameters to account for the characteristics of degraded DNA. 
-nf-core/mag is a best-practice pipeline for metagenomic de novo assembly of microbial genomes that performs preprocessing, assembly, binning, bin-refinement and validation. It also contains a specific subworkflow for the authentication of ancient contigs. 
+Over the next two days, I then introduced two well-established nf-core pipelines: nf-core/eager and nf-core/mag , and explained to students how these pipelines can be applied to various aspects of environmental metagenomic and ancient DNA analysis:
+nf-core/eager is a dedicated ‘swiss-army-knife’ style pipeline for ancient DNA analysis that performs genetic data preprocessing, genomic alignment, variant calling, and metagenomic screening with specific tools and parameters to account for the characteristics of degraded DNA.
+nf-core/mag is a best-practice pipeline for metagenomic de novo assembly of microbial genomes that performs preprocessing, assembly, binning, bin-refinement and validation. It also contains a specific subworkflow for the authentication of ancient contigs.
 In both cases, the students of the workshops were given practical tasks to set up and run both pipelines on real data, and time was spent exploring the extensive nf-core documentation and evaluating the outputs from MultiQC, both important components that contribute to the quality of nf-core pipelines.
 
 The workshop was well received by students, and many were eager (pun intended) to start running Nextflow and nf-core pipelines on their own data at their own institutions.
 
-I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and  I would like to acknowledge ACAD, the University of Adelaide Environment Institute, the Werner Siemens-Stiftung, Leibniz HKI, and MPI for Evolutionary Anthropology for financial support to attend the workshop and support in developing nf-core pipelines.
+I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and I would like to acknowledge ACAD, the University of Adelaide Environment Institute, the Werner Siemens-Stiftung, Leibniz HKI, and MPI for Evolutionary Anthropology for financial support to attend the workshop and support in developing nf-core pipelines.
 
 1 Kjær, K.H., Winther Pedersen, M., De Sanctis, B. et al. A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA. Nature 612, 283–291 (2022). https://doi.org/10.1038/s41586-022-05453-y
 2 Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U.,
