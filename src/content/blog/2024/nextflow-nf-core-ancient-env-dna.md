@@ -37,7 +37,7 @@ In both cases, the students of the workshops were given practical tasks to set u
 
 The workshop was well received by students, and many were eager (pun intended) to start running Nextflow and nf-core pipelines on their own data at their own institutions.
 
-I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and I would like to acknowledge [ACAD](https://www.adelaide.edu.au/acad/), the [University of Adelaide Environment Institute](https://www.adelaide.edu.au/environment/), the [Werner Siemens-Stiftung](https://www.wernersiemens-stiftung.ch/), [Leibniz HKI](https://www.leibniz-hki.de/), and [MPI for Evolutionary Anthropology](https://www.eva.mpg.de) for financial support to attend the workshop and support in developing nf-core pipelines.
+I would like to thank Vilma Pérez at ACAD for the invitation to contribute to the workshop as well as Mikkel Winther Pedersen for being my co-instructor, and the nf-core community for continued support in the development of the pipelines. Thank you also to Tina Warinner for proof-reading this blog post, and I would like to acknowledge [ACAD](https://www.adelaide.edu.au/acad/), the [University of Adelaide Environment Institute](https://www.adelaide.edu.au/environment/), the [Werner Siemens-Stiftung](https://www.wernersiemens-stiftung.ch/), [Leibniz HKI](https://www.leibniz-hki.de/), and [MPI for Evolutionary Anthropology](https://www.eva.mpg.de) for financial support to attend the workshop and support in developing nf-core pipelines.
 
 ---
 
