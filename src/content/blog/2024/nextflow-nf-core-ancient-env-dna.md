@@ -12,7 +12,7 @@ community_post: true
 ambassador_post: true
 ---
 
-Ancient environmental DNA (eDNA) is currently a hot topic in archaeological, ecological, and metagenomic research fields. Recent eDNA studies have shown that authentic ‘ancient’ DNA can be recovered from soil and sediments even as far back as 2 million years ago<sup>1</sup>. However, as with most things metagenomics (the simultaneous analysis of the entire DNA content of a sample), there is a need to work at scale, processing the large datasets of many sequencing libraries to ‘fish’ out the tiny amounts of temporally degraded ancient DNA from amongst a huge swamp of contaminating modern biomolecules.
+Ancient environmental DNA (eDNA) is currently a hot topic in archaeological, ecological, and metagenomic research fields. Recent eDNA studies have shown that authentic ‘ancient’ DNA can be recovered from soil and sediments even as far back as 2 million years ago(1). However, as with most things metagenomics (the simultaneous analysis of the entire DNA content of a sample), there is a need to work at scale, processing the large datasets of many sequencing libraries to ‘fish’ out the tiny amounts of temporally degraded ancient DNA from amongst a huge swamp of contaminating modern biomolecules.
 
 <!-- end-archive-description -->
 
@@ -30,7 +30,7 @@ We began the five-day workshop with an overview of the benefits of using workflo
     © Photo: Peter Mundy and Australian Center for Ancient DNA
 </div>
 
-Over the next two days, I then introduced two well-established nf-core pipelines: [nf-core/eager](https://nf-co.re/eager)<sup>2</sup> and [nf-core/mag](https://nf-co.re/mag)<sup>3</sup>, and explained to students how these pipelines can be applied to various aspects of environmental metagenomic and ancient DNA analysis:
+Over the next two days, I then introduced two well-established nf-core pipelines: [nf-core/eager](https://nf-co.re/eager) (2) and [nf-core/mag](https://nf-co.re/mag) (3), and explained to students how these pipelines can be applied to various aspects of environmental metagenomic and ancient DNA analysis:
 nf-core/eager is a dedicated ‘swiss-army-knife’ style pipeline for ancient DNA analysis that performs genetic data preprocessing, genomic alignment, variant calling, and metagenomic screening with specific tools and parameters to account for the characteristics of degraded DNA.
 nf-core/mag is a best-practice pipeline for metagenomic de novo assembly of microbial genomes that performs preprocessing, assembly, binning, bin-refinement and validation. It also contains a specific subworkflow for the authentication of ancient contigs.
 In both cases, the students of the workshops were given practical tasks to set up and run both pipelines on real data, and time was spent exploring the extensive nf-core documentation and evaluating the outputs from MultiQC, both important components that contribute to the quality of nf-core pipelines.
@@ -41,8 +41,8 @@ I would like to thank Vilma Pérez at ACAD for the invitation to contribute to t
 
 ---
 
-<sup>1</sup> Kjær, K.H., Winther Pedersen, M., De Sanctis, B. et al. A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA. Nature **612**, 283–291 (2022). [https://doi.org/10.1038/s41586-022-05453-y](https://doi.org/10.1038/s41586-022-05453-y)
+(1) Kjær, K.H., Winther Pedersen, M., De Sanctis, B. et al. A 2-million-year-old ecosystem in Greenland uncovered by environmental DNA. Nature **612**, 283–291 (2022). [https://doi.org/10.1038/s41586-022-05453-y](https://doi.org/10.1038/s41586-022-05453-y)
 
-<sup>2</sup> Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U., Neukamm, J., Peltzer, A.. Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager. PeerJ 9:10947 (2021) [http://doi.org/10.7717/peerj.10947](http://doi.org/10.7717/peerj.10947)
+(2) Fellows Yates, J.A., Lamnidis, T.C., Borry, M., Andrades Valtueña, A., Fagernäs, Z., Clayton, S., Garcia, M.U., Neukamm, J., Peltzer, A.. Reproducible, portable, and efficient ancient genome reconstruction with nf-core/eager. PeerJ 9:10947 (2021) [http://doi.org/10.7717/peerj.10947](http://doi.org/10.7717/peerj.10947)
 
-<sup>3</sup> Krakau, S., Straub, D., Gourlé, H., Gabernet, G., Nahnsen, S., nf-core/mag: a best-practice pipeline for metagenome hybrid assembly and binning, NAR Genomics and Bioinformatics, **4**:1 (2022) [https://doi.org/10.1093/nargab/lqac007](https://doi.org/10.1093/nargab/lqac007)
+(3) Krakau, S., Straub, D., Gourlé, H., Gabernet, G., Nahnsen, S., nf-core/mag: a best-practice pipeline for metagenome hybrid assembly and binning, NAR Genomics and Bioinformatics, **4**:1 (2022) [https://doi.org/10.1093/nargab/lqac007](https://doi.org/10.1093/nargab/lqac007)
