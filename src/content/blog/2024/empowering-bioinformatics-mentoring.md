@@ -3,7 +3,7 @@ title: "Empowering Bioinformatics: Mentoring Across Continents with Nextflow"
 date: 2024-04-25
 type: post
 description: The post highlights Robert Petit's involvement in the nf-core Mentorship Program, where he mentored individuals from Malawi, Chile, and Brazil in Nextflow and nf-core. Despite geographical barriers, his mentees successfully adapted their workflows, contributing to the open-source community. The narrative underscores the transformative impact of mentorship, encouraging participation in future rounds.
-image: /img/blog-2024-04-17--share.png
+image: /img/blog-2024-04-25--share.png
 tags: nextflow,nf-core,mentorship,ambassador_post
 status: published
 author: Robert Petit
