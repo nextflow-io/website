@@ -12,12 +12,12 @@ author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
-Join us in this episode of the Channels podcast for a closer look at the Nextflow Ambassadors, a worldwide initiative designed to foster collaboration, knowledge sharing, and community growth. It is intended to recognize and support the efforts of our community leaders and marks another step forward in our mission to advance scientific research and empower researchers. Marcel Ribeiro-Dantas and Geraldine Van der Auwera discuss the origins of the program, recent highlights and next steps, including the open call for new Ambassadors, which will close June 14. 
+Join us in this episode of the Channels podcast for a closer look at the Nextflow Ambassadors, a worldwide initiative designed to foster collaboration, knowledge sharing, and community growth. It is intended to recognize and support the efforts of our community leaders and marks another step forward in our mission to advance scientific research and empower researchers. Marcel Ribeiro-Dantas and Geraldine Van der Auwera discuss the origins of the program, recent highlights and next steps, including the open call for new Ambassadors, which will close June 14.
 
 
 <!-- end-archive-description -->
 
-Relevant links: 
+Relevant links:
 
 - Call for applications: https://www.nextflow.io/ambassadors.html
 - Original announcement: https://www.nextflow.io/blog/2023/introducing-nextflow-ambassador-program.html
