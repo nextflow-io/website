@@ -5,7 +5,7 @@ description: "A closer look at the Ambassadors program's origins, recent highlig
 date: 2024-04-16
 type: podcast
 subtype: Community
-youtubeid: XYZ
+youtubeid: fqp73cmR99Y
 image: /img/podcast_ep36.png
 tags: nextflow,opensource,community
 author: Developer advocates
