@@ -1,6 +1,6 @@
 ---
 title: "The Nextflow Ambassadors Program"
-episode: 35
+episode: 36
 description: "A closer look at the Ambassadors program's origins, recent highlights and next steps."
 date: 2024-04-16
 type: podcast
