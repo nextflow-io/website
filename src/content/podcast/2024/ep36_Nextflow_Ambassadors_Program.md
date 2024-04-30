@@ -2,7 +2,7 @@
 title: "The Nextflow Ambassadors Program"
 episode: 36
 description: "A closer look at the Ambassadors program's origins, recent highlights and next steps."
-date: 2024-04-16
+date: 2024-04-30
 type: podcast
 subtype: Community
 youtubeid: fqp73cmR99Y
