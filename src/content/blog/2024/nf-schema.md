@@ -12,7 +12,7 @@ community_post: true
 ambassador_post: true
 ---
 
-Check out the revamped Nextflow plugin, nf-schema! It's an enhanced version of nf-validation, utilizing JSON schemas to validate parameters and sample sheets. Unlike its predecessor, it supports the latest JSON schema draft and can convert pipeline-generated files. But what's the story behind its development?
+Check out Nextflow's newest plugin, nf-schema! It's an enhanced version of nf-validation, utilizing JSON schemas to validate parameters and sample sheets. Unlike its predecessor, it supports the latest JSON schema draft and can convert pipeline-generated files. But what's the story behind its development?
 
 <!-- end-archive-description -->
 
