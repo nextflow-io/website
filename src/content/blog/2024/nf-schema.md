@@ -12,11 +12,13 @@ community_post: true
 ambassador_post: true
 ---
 
+Check out the revamped Nextflow plugin, nf-schema! It's an enhanced version of nf-validation, utilizing JSON schemas to validate parameters and sample sheets. Unlike its predecessor, it supports the latest JSON schema draft and can convert pipeline-generated files. But what's the story behind its development?
+
+<!-- end-archive-description -->
+
 `nf-validation` is a well-known Nextflow plugin that uses JSON schemas to validate parameters and sample sheets. It can also convert sample sheets to channels using a built-in channel factory. On top of that, it can create a nice summary of pipeline parameters and can even be used to generate a help message for the pipeline.
 
 All of this has made the plugin very popular in the Nextflow community, but it wasn’t without its issues. For example, the plugin uses an older version of the JSON schema draft, namely draft `07` while the latest draft is `2020-12`. It also can’t convert any files/sample sheets created by the pipeline itself since the channel factory is only able to access values from pipeline parameters.
-
-<!-- end-archive-description -->
 
 But then `nf-schema` came to the rescue! In this plugin we rewrote large parts of the `nf-validation` code, making the plugin way faster and more flexible while adding a lot of requested features. Let’s see what’s been changed in this new and improved version of `nf-validation`.
 
