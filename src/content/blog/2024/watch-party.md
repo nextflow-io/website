@@ -18,7 +18,7 @@ Nextflow and nf-core provide frequent community fundamentals training events to 
 
 <!-- end-archive-description -->
 
-Learning something new by yourself can be a daunting task. Having colleagues and friends go through the learning and discovering process alongside you can really enrich the experience and be a lot of fun! With that in mind, we decided to host a watch party for the fundamentals training streams in person for anybody from the scientific community in and around Heidelberg who wanted to learn Nextflow. 
+Learning something new by yourself can be a daunting task. Having colleagues and friends go through the learning and discovering process alongside you can really enrich the experience and be a lot of fun! With that in mind, we decided to host a watch party for the fundamentals training streams in person for anybody from the scientific community in and around Heidelberg who wanted to learn Nextflow.
 
 We advertised the event about a month beforehand in our local communities (genomics, transcriptomics, spatial omics among others) to give people enough time to decide whether they want to join. We decided to reserve a relatively small room (capacity 20 people), since this was the first time organizing such a local viewing party. There was some interest in this event, and we had a total of 15 people participating. The event took place at the Marsilius Arkaden at the University Clinic campus in Heidelberg. Participants brought their laptops and followed along with the stream, which we projected for everyone, so people could use their laptops exclusively for coding and did not have to switch between stream and coding environment.
 
@@ -37,4 +37,3 @@ There was also a site in Heidelberg for the [nf-core hackathon](https://nf-co.re
 The ability to follow training sessions, bytesize talks, and other events from nf-core and Nextflow remotely online is absolutely fantastic and enables the free dissemination of knowledge. However, having local in-person events to watch some of this content together can really enrich the experience and bring users closer together. Who knows, maybe you will meet someone interested in the same topic, a new collaborator or even a new friend in your local Nextflow community!
 
 If you're looking for a training opportunity, there will be one in Basel, Switzerland, on June 25 and another one in Cambridge, UK, on September 12. These and many more events will be displayed in the [Seqera Events](https://seqera.io/events/) page when it gets closer to the events dates 😉
-
