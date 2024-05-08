@@ -14,7 +14,7 @@ community_post: true
 ambassador_post: true
 ---
 
-Nextflow and nf-core provide frequent community training events to new users, which offer an opportunity to get started using and understanding Nextflow, Groovy and nf-core. The event was live-streamed and is available for on-demand viewing on [YouTube](https://www.youtube.com/playlist?list=PL3xpfTVZLcNgLBGLAiY6Rl9fizsz-DTCT), but what if you could join friends in person and watch it live?
+Nextflow and nf-core provide frequent community training events to new users, which offer an opportunity to get started using and understanding Nextflow, Groovy and nf-core. These events are live-streamed and are available for on-demand viewing on YouTube (check the last one [here](https://www.youtube.com/playlist?list=PL3xpfTVZLcNgLBGLAiY6Rl9fizsz-DTCT)), but what if you could join friends in person and watch it live?
 
 <!-- end-archive-description -->
 
