@@ -11,7 +11,7 @@ icon: marcel.jpg
 ambassador_post: true
 ---
 
-Nextflow ambassadors are passionate individuals within the Nextflow community who play a more active role in fostering collaboration, knowledge sharing, and engagement. We launched this program at the Nextflow Summit in Barcelona last year, and it's been a great experience so far, so we've been recruiting more volunteers to expand the program. We’re going to close applications in June with the goal of having new Ambassadors start in July, so if you’re interested in becoming an Ambassador, now is your chance to apply!
+Nextflow Ambassadors are passionate individuals within the Nextflow community who play a more active role in fostering collaboration, knowledge sharing, and engagement. We launched this program at the Nextflow Summit in Barcelona last year, and it's been a great experience so far, so we've been recruiting more volunteers to expand the program. We’re going to close applications in June with the goal of having new ambassadors start in July, so if you’re interested in becoming an ambassador, now is your chance to apply!
 
 <!-- end-archive-description -->
 
