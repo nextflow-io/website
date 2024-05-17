@@ -40,4 +40,3 @@ Thanks to all our current ambassadors for their incredible work and dedication. 
 ---
 
 Stay tuned for more updates and follow us on our [social](https://twitter.com/nextflowio) [media](https://x.com/seqeralabs) [channels](https://www.linkedin.com/company/seqera/posts/) to keep up with the latest news and events from the Nextflow community.
-
