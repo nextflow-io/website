@@ -12,8 +12,10 @@ const blogCollection = defineCollection({
       .regex(/^\/img\//)
       .optional(),
     author2: z.string().optional(),
+    author3: z.string().optional(),
     icon: z.string(),
     icon2: z.string().optional(),
+    icon3: z.string().optional(),
     community_post: z.boolean().optional(),
     ambassador_post: z.boolean().optional(),
     tags: z.string(),
