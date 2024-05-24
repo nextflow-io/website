@@ -25,20 +25,20 @@ We release an "edge" version of Nextflow every month and a "stable" version ever
 The workflow output definition is a new syntax for defining workflow outputs:
 
 ```groovy
-nextflow.preview.output = true
+nextflow.preview.output = true // [!code ++]
 
 workflow {
   ch_foo = foo(data)
   bar(ch_foo)
 
   publish:
-  ch_foo >> 'foo/'
+  ch_foo >> 'foo/' // [!code ++]
 }
 
-output {
-  directory 'results'
-  mode 'copy'
-}
+output { // [!code ++]
+  directory 'results' // [!code ++]
+  mode 'copy' // [!code ++]
+} // [!code ++]
 ```
 
 It essentially provides a DSL2-style approach for publishing, and will replace `publishDir` once it is finalized. It also provides extra flexibility as it allows you to publish _any_ channel, not just process outputs. See the [Nextflow docs](https://nextflow.io/docs/latest/workflow.html#publishing-outputs) for more information.
@@ -52,19 +52,19 @@ Topic channels are a new channel type introduced in 23.11.0-edge. A topic channe
 ```groovy
 process foo {
   output:
-  val('foo'), topic: 'my-topic'
+  val('foo'), topic: 'my-topic' // [!code ++]
 }
 
 process bar {
   output:
-  val('bar'), topic: 'my-topic'
+  val('bar'), topic: 'my-topic' // [!code ++]
 }
 
 workflow {
   foo()
   bar()
 
-  Channel.topic('my-topic').view()
+  Channel.topic('my-topic').view() // [!code ++]
 }
 ```
 
@@ -77,7 +77,7 @@ Process `eval` outputs are a new type of process output which allows you to capt
 ```groovy
 process sayHello {
   output:
-  eval('bash --version')
+  eval('bash --version') // [!code ++]
 
   """
   echo Hello world!
@@ -102,7 +102,7 @@ process FASTQC {
 
   output:
   tuple val(meta), path('*.html'), emit: html
-  tuple val("${task.process}"), val('fastqc'), cmd('fastqc --version'), topic: versions
+  tuple val("${task.process}"), val('fastqc'), eval('fastqc --version'), topic: versions // [!code ++]
 
   """
   fastqc $reads
@@ -110,7 +110,7 @@ process FASTQC {
 }
 
 workflow {
-  Channel.topic('versions')
+  Channel.topic('versions') // [!code ++]
     | unique()
     | collectFile(name: 'collated_versions.yml')
     | CUSTOM_DUMPSOFTWAREVERSIONS
@@ -160,9 +160,9 @@ A new flagship community offering was revealed at the Nextflow Summit 2024 Bosto
 In order to use Seqera Containers in Nextflow, simply set `wave.freeze` _without_ setting `wave.build.repository` - for example, by using the following config for your pipeline:
 
 ```groovy
-wave.enabled            = true
-wave.freeze             = true
-wave.strategy           = 'conda'
+wave.enabled = true
+wave.freeze = true
+wave.strategy = 'conda'
 ```
 
 Any processes in your pipeline specifying Conda packages will have Docker or Singularity images created on the fly (depending on whether `singularity.enabled` is set or not) and cached for immediate access in subsequent runs. These images will be publicly available. You can view all container image names with the `nextflow inspect` command.
