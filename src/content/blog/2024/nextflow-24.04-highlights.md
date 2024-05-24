@@ -5,7 +5,7 @@ type: post
 description: >
   A highlight of some of the goodies that have just been
   released in the 24.04 stable release of Nextflow 24.04 stable.
-image: /img/blog-2024-04-25--share.png
+image: /img/blog-nextflow-24.04-highlights.png
 tags: nextflow
 status: published
 author: Paolo Di Tommaso
