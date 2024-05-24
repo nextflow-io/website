@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import remarkDescription from "astro-remark-description";
 import remarkDirective from "remark-directive";
 import sitemap from "@astrojs/sitemap";
+import { transformerNotationDiff, transformerNotationFocus, transformerMetaHighlight } from "@shikijs/transformers";
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,6 +14,7 @@ export default defineConfig({
       // Choose from Shiki's built-in themes (or add your own)
       // https://shiki.style/themes
       theme: "light-plus",
+      transformers: [transformerNotationDiff(), transformerNotationFocus(), transformerMetaHighlight()],
     },
     remarkPlugins: [
       remarkDirective,
