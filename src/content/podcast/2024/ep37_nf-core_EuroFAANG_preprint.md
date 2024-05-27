@@ -22,4 +22,7 @@ of the EuroFAANG consortia as they integrated with nf-core.
 
 <!-- end-archive-description -->
 
-Link to the pre-print coming soon!
+You can find the preprint on bioRxiv `2024.05.10.592912`;
+doi: `10.1101/2024.05.10.592912`.
+
+<https://www.biorxiv.org/content/10.1101/2024.05.10.592912v1>
