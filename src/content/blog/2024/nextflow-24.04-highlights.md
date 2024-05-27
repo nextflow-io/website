@@ -18,7 +18,41 @@ icon3: phil.jpg
 
 We release an "edge" version of Nextflow every month and a "stable" version every six months. The stable releases are recommended for production usage and represent a significant milestone. The [release changelogs](https://github.com/nextflow-io/nextflow/releases) contain a lot of detail, so we thought we'd highlight some of the goodies that have just been released in Nextflow 24.04 stable. Let's get into it!
 
+## Table of contents
+
+- [New features](#new-features)
+  - [Seqera Containers](#seqera-containers)
+  - [Workflow output definition](#workflow-output-definition)
+  - [Topic channels](#topic-channels)
+  - [Process eval outputs](#process-eval-outputs)
+  - [Resource limits](#resource-limits)
+  - [Job arrays](#job-arrays)
+- [Enhancements](#enhancements)
+  - [Colored logs](#colored-logs)
+  - [AWS Fargate support](#aws-fargate-support)
+  - [OCI auto pull mode for Singularity and Apptainer](#oci-auto-pull-mode-for-singularity-and-apptainer)
+  - [Support for GA4GH TES](#support-for-ga4gh-tes)
+- [Fusion](#fusion)
+  - [Enhanced Garbage Collection](#enhanced-garbage-collection)
+  - [Increased File Handling Capacity](#increased-file-handling-capacity)
+  - [Correct Publishing of Symbolic Links](#correct-publishing-of-symbolic-links)
+- [Other notable changes](#other-notable-changes)
+
 ## New features
+
+### Seqera Containers
+
+A new flagship community offering was revealed at the Nextflow Summit 2024 Boston - **Seqera Containers**. This is a free-to-use container cache powered by Wave, allowing anyone to request an image with a combination of packages from Conda and PyPI. The image will be built on demand and cached (for at least 5 years after creation). There is a [dedicated blog post](https://seqera.io/blog/introducing-seqera-pipelines-containers/) about this, but it's worth noting that the service can be used directly from Nextflow and not only through [https://seqera.io/containers/](https://seqera.io/containers/)
+
+In order to use Seqera Containers in Nextflow, simply set `wave.freeze` _without_ setting `wave.build.repository` - for example, by using the following config for your pipeline:
+
+```groovy
+wave.enabled = true
+wave.freeze = true
+wave.strategy = 'conda'
+```
+
+Any processes in your pipeline specifying Conda packages will have Docker or Singularity images created on the fly (depending on whether `singularity.enabled` is set or not) and cached for immediate access in subsequent runs. These images will be publicly available. You can view all container image names with the `nextflow inspect` command.
 
 ### Workflow output definition
 
@@ -127,7 +161,7 @@ The **resourceLimits** directive is a new process directive which allows you to 
 process.resourceLimits = [ cpus: 24, memory: 768.GB, time: 72.h ]
 ```
 
-If a task requests more than the specified limit (e.g. due to [retry with dynamic resources](https://nextflow.io/docs/latest/process.html#dynamic-computing-resources)), Nextflow will automatically reduce the task resources to satisfy the limit, whereas normally the task would be rejected by the scheduler or would simply wait in the queue forever! The nf-core community has maintained a custom workaround for this problem, the `check_max()` function, which can now be replaced with `resourceLimits``. See the [Nextflow docs](https://nextflow.io/docs/latest/process.html#resourcelimits) for more information.
+If a task requests more than the specified limit (e.g. due to [retry with dynamic resources](https://nextflow.io/docs/latest/process.html#dynamic-computing-resources)), Nextflow will automatically reduce the task resources to satisfy the limit, whereas normally the task would be rejected by the scheduler or would simply wait in the queue forever! The nf-core community has maintained a custom workaround for this problem, the `check_max()` function, which can now be replaced with `resourceLimits`. See the [Nextflow docs](https://nextflow.io/docs/latest/process.html#resourcelimits) for more information.
 
 ### Job arrays
 
@@ -141,31 +175,27 @@ process.array = 100
 
 You can also enable job arrays for individual processes like any other directive. See the [Nextflow docs](https://nextflow.io/docs/latest/process.html#array) for more information.
 
-> Note: On Google Batch, using job arrays also allows you to pack multiple tasks onto the same VM by using the `machineType` directive in conjunction with the `cpus` and `memory` directives.
+:::tip
+On Google Batch, using job arrays also allows you to pack multiple tasks onto the same VM by using the `machineType` directive in conjunction with the `cpus` and `memory` directives.
+:::
 
 ## Enhancements
 
 ### Colored logs
 
+<div class="row"><div class="col-lg-6">
+
 **Colored logs** have come to Nextflow! Specifically, the process log which is continuously printed to the terminal while the pipeline is running. Not only is it more colorful, but it also makes better use of the available space to show you what's most important. But we already wrote an entire [blog post](https://nextflow.io/blog/2024/nextflow-colored-logs.html) about it, so go check that out for more details!
+
+</div><div class="col-lg-6">
+
+![New coloured output from Nextflow](/img/blog-nextflow-colored-logs/nextflow_coloured_logs.png)
+
+</div></div>
 
 ### AWS Fargate support
 
 Nextflow now supports **AWS Fargate** for AWS Batch jobs. See the [Nextflow docs](https://nextflow.io/docs/latest/aws.html#aws-fargate) for details.
-
-### Seqera Containers
-
-A new flagship community offering was revealed at the Nextflow Summit 2024 Boston - **Seqera Containers**. This is a free-to-use container cache powered by Wave, allowing anyone to request an image with a combination of packages from Conda and PyPI. The image will be built on demand and cached (for at least 5 years after creation). There is a [dedicated blog post](https://seqera.io/blog/introducing-seqera-pipelines-containers/) about this, but it's worth noting that the service can be used directly from Nextflow and not only through [https://seqera.io/containers/](https://seqera.io/containers/)
-
-In order to use Seqera Containers in Nextflow, simply set `wave.freeze` _without_ setting `wave.build.repository` - for example, by using the following config for your pipeline:
-
-```groovy
-wave.enabled = true
-wave.freeze = true
-wave.strategy = 'conda'
-```
-
-Any processes in your pipeline specifying Conda packages will have Docker or Singularity images created on the fly (depending on whether `singularity.enabled` is set or not) and cached for immediate access in subsequent runs. These images will be publicly available. You can view all container image names with the `nextflow inspect` command.
 
 ### OCI auto pull mode for Singularity and Apptainer
 
@@ -198,7 +228,27 @@ tes.endpoint = '...'
 
 See the [Nextflow docs](https://nextflow.io/docs/latest/executor.html#ga4gh-tes) for more information.
 
-> Note: To better facilitate community contributions, the nf-ga4gh plugin will soon be moved from the Nextflow repository into its own repository, `nextflow-io/nf-ga4gh``. To ensure a smooth transition with your pipelines, make sure to explicitly include the plugin in your configuration as shown above.
+:::note
+To better facilitate community contributions, the nf-ga4gh plugin will soon be moved from the Nextflow repository into its own repository, `nextflow-io/nf-ga4gh`. To ensure a smooth transition with your pipelines, make sure to explicitly include the plugin in your configuration as shown above.
+:::
+
+## Fusion
+
+Fusion is a distributed virtual file system for cloud-native data pipeline and optimized for Nextflow workloads. Nextflow 24.04 now works with a new release, Fusion 2.3. This brings a few notable quality-of-life improvements:
+
+### Enhanced Garbage Collection
+
+Fusion 2.3 features an improved garbage collection system, enabling it to operate effectively with reduced scratch storage. This enhancement ensures that your pipelines run more efficiently, even with limited temporary storage.
+
+### Increased File Handling Capacity
+
+Support for more concurrently open files is another significant improvement in Fusion 2.3. This means that larger directories, such as those used by Alphafold2, can now be utilized without issues, facilitating the handling of extensive datasets.
+
+### Correct Publishing of Symbolic Links
+
+In previous versions, output files that were symbolic links were not published correctly — instead of the actual file, a text file containing the file path was published. Fusion 2.3 addresses this issue, ensuring that symbolic links are published correctly.
+
+These enhancements in Fusion 2.3 contribute to a more robust and efficient filesystem for Nextflow users.
 
 ## Other notable changes
 
@@ -210,12 +260,4 @@ See the [Nextflow docs](https://nextflow.io/docs/latest/executor.html#ga4gh-tes)
 - Add `k8s.cpuLimits` config option ([`3c6e96`](https://github.com/nextflow-io/nextflow/commit/3c6e96d07c9a4fa947cf788a927699314d5e5ec7))
 - Removed `seqera` and `defaults` from the standard channels used by the nf-wave plugin. ([`ec5ebd`](https://github.com/nextflow-io/nextflow/commit/ec5ebd0bc96e986415e7bac195928b90062ed062))
 
-View the full [release notes](https://github.com/nextflow-io/nextflow/releases/tag/v24.04.0).
-
-## Fusion
-
-Fusion is a distributed virtual file system for cloud-native data pipeline and optimized for Nextflow workloads. Nextflow 24.04 now works with a new release, Fusion 2.3. This brings a few notable quality-of-life improvements:
-
-- Better garbage collection, which means Fusion 2.3 can work just as effectively with less scratch storage
-- Support for more concurrently open files, which means that larger directories (such as those used by Alphafold2) can be used without issue
-- Output files which are symbolic links are now published correctly (previously, a text file containing the file path would be published instead of the file itself)
+You can view the full [Nextflow release notes on GitHub](https://github.com/nextflow-io/nextflow/releases/tag/v24.04.0).
