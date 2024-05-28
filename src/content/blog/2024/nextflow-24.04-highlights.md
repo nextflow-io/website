@@ -77,7 +77,10 @@ output { // [!code ++]
 
 It essentially provides a DSL2-style approach for publishing, and will replace `publishDir` once it is finalized. It also provides extra flexibility as it allows you to publish _any_ channel, not just process outputs. See the [Nextflow docs](https://nextflow.io/docs/latest/workflow.html#publishing-outputs) for more information.
 
-> Note: this feature is still in preview and may change in a future release. We hope to finalize it in version 24.10, so don't hesitate to share any feedback with us!
+:::info
+This feature is still in preview and may change in a future release.
+We hope to finalize it in version 24.10, so don't hesitate to share any feedback with us!
+:::
 
 ### Topic channels
 
