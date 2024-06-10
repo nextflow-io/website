@@ -204,10 +204,10 @@ Nextflow now supports **AWS Fargate** for AWS Batch jobs. See the [Nextflow docs
 
 Nextflow now supports OCI auto pull mode both Singularity and Apptainer. Historically, Singularity could run a Docker container image converting to the Singularity image file format via the Singularity pull command and using the resulting image file in the exec command. This adds extra overhead to the head node running Nextflow for converting all container images to the Singularity format.
 
-Now Nextflow allows specifying the option `autoPullMode` both for Singularity and Apptainer. When enabling this setting Nextflow delegates the pull and conversion of the Docker image directly to the `exec` command.
+Now Nextflow allows specifying the option `ociAutoPull` both for Singularity and Apptainer. When enabling this setting Nextflow delegates the pull and conversion of the Docker image directly to the `exec` command.
 
 ```groovy
-singularity.autoPullMode = true
+singularity.ociAutoPull = true
 ```
 
 This results in the running of the pull and caching of the Singularity images to the compute jobs instead of the head job and removing the need to maintain a separate image files cache.
