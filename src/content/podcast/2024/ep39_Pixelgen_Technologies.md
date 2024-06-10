@@ -2,7 +2,7 @@
 title: Spatial proteomics at Pixelgen
 episode: 39
 description: Meet nf-core/pixelator - the Molecular Pixelation pipeline
-date: 2024-06-10
+date: 2024-06-11
 type: podcast
 subtype: Community
 youtubeid: 326ZUvuWrdw
@@ -22,16 +22,21 @@ and why they chose to develop their analysis suite as an open-source nf-core pip
 
 Links:
 
-- [Pixelgen Technologies](https://www.pixelgen.com/) homepage
-- [nf-core/pixelator](https://nf-co.re/pixelator) pipeline
-- [Pixelator Python package](https://github.com/PixelgenTechnologies/pixelator)
-- [BioLizard](https://lizard.bio/) homepage
-- [Nature Methods publication](https://www.nature.com/articles/s41592-024-02268-9): _"Molecular pixelation: spatial proteomics of single cells by sequencing"_
-- [Nextflow Summit 2022 talk](https://summit.nextflow.io/2023/barcelona/agenda/summit/oct-18-pixelgen-technologies-heart-nextflow/): _"Pixelgen Technologies ❤︎ Nextflow"_
-- [Nextflow Summit 2024 Boston talk](https://summit.nextflow.io/2024/boston/agenda/05-23--nextflow-allows-pixelgen-innovation-engine/): _"Nextflow allows Pixelgen innovation engine to reach the market quicker"_
-- [Nextflow Summit 2024 Barcelona](https://summit.nextflow.io/2024/barcelona/)
-- [@PixelgenTech](https://x.com/PixelgenTech) on twitter / X and [LinkedIn](https://www.linkedin.com/company/pixelgen-technologies/)
-- [@BioLizard_nv](https://x.com/BioLizard_nv) on twitter / X and [LinkedIn](https://www.linkedin.com/company/biolizard/)
+- Software:
+  - [nf-core/pixelator](https://nf-co.re/pixelator) pipeline
+  - [Pixelator Python package](https://github.com/PixelgenTechnologies/pixelator)
+- Science:
+  - [Nature Methods publication](https://www.nature.com/articles/s41592-024-02268-9): _"Molecular pixelation: spatial proteomics of single cells by sequencing"_
+- Presentations:
+  - [Nextflow Summit 2022 talk](https://summit.nextflow.io/2023/barcelona/agenda/summit/oct-18-pixelgen-technologies-heart-nextflow/): _"Pixelgen Technologies ❤︎ Nextflow"_
+  - [Nextflow Summit 2024 Boston talk](https://summit.nextflow.io/2024/boston/agenda/05-23--nextflow-allows-pixelgen-innovation-engine/): _"Nextflow allows Pixelgen innovation engine to reach the market quicker"_
+  - [Nextflow Summit 2024 Barcelona](https://summit.nextflow.io/2024/barcelona/)
+- Pixelgen:
+  - [Pixelgen Technologies](https://www.pixelgen.com/) homepage
+  - [@PixelgenTech](https://x.com/PixelgenTech) on twitter / X and [LinkedIn](https://www.linkedin.com/company/pixelgen-technologies/)
+- BioLizard:
+  - [BioLizard](https://lizard.bio/) homepage
+  - [@BioLizard_nv](https://x.com/BioLizard_nv) on twitter / X and [LinkedIn](https://www.linkedin.com/company/biolizard/)
 
 Video chapters (links to YouTube):
 
