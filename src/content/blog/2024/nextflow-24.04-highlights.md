@@ -18,6 +18,11 @@ icon3: phil.jpg
 
 We release an "edge" version of Nextflow every month and a "stable" version every six months. The stable releases are recommended for production usage and represent a significant milestone. The [release changelogs](https://github.com/nextflow-io/nextflow/releases) contain a lot of detail, so we thought we'd highlight some of the goodies that have just been released in Nextflow 24.04 stable. Let's get into it!
 
+:::tip
+We also did a podcast episode about some of these changes!
+Check it out here: [Channels Episode 41](/podcast/2024/ep41_nextflow_2404.html).
+:::
+
 ## Table of contents
 
 - [New features](#new-features)
