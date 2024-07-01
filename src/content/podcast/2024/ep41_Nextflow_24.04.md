@@ -5,7 +5,7 @@ description: Workflow output definitions, topics, eval and more.
 date: 2024-07-09
 type: podcast
 subtype: Technical discussion
-youtubeid: bFJPN4bH-L4
+youtubeid: SFwcOMXKzVE
 image: /img/podcast_ep41.png
 tags: Nextflow, Seqera
 author: Developer advocates
