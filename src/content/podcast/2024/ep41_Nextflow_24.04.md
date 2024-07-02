@@ -20,7 +20,9 @@ Join us in exploring the latest Nextflow release, 24.04. [Phil Ewels](https://x.
 We're actively seeking feedback from the community on these new features.
 **We would love for you to experiment with the new syntax and let us know your thoughts.**
 
-Please let us know what you think either via [Nextflow GitHub issues](https://github.com/nextflow-io/nextflow/issues) or via the [community forum](https://community.seqera.io/).
+There is a GitHub issue with ideas / discussion around how to finalise this syntax
+at [nextflow-io/nextflow#5103](https://github.com/nextflow-io/nextflow/issues/5103).
+Feel free to also share your thoughts via the [community forum](https://community.seqera.io/).
 :::
 
 :::note
