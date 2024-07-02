@@ -67,11 +67,12 @@ The workflow output definition is a new syntax for defining workflow outputs:
 nextflow.preview.output = true // [!code ++]
 
 workflow {
+  main:
   ch_foo = foo(data)
   bar(ch_foo)
 
   publish:
-  ch_foo >> 'foo/' // [!code ++]
+  ch_foo >> 'foo' // [!code ++]
 }
 
 output { // [!code ++]
@@ -154,6 +155,12 @@ process FASTQC {
 workflow {
   Channel.topic('versions') // [!code ++]
     | unique()
+    | map { process, name, version ->
+      """
+      ${process.tokenize(':').last()}:
+        ${name}: ${version}
+      """.stripIndent().trim()
+    }
     | collectFile(name: 'collated_versions.yml')
     | CUSTOM_DUMPSOFTWAREVERSIONS
 }
