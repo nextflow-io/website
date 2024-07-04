@@ -74,6 +74,8 @@ The concept of workflow output definitions has been introduced. This new syntax 
 
 # Full transcript
 
+:::note{title=Transcript}
+
 ## Introduction
 
 **Phil:** Hello and welcome to channels for Nextflow podcast. You're joining us today on episode 41, going out on July the 9th, 2024. My name is Phil Ewels. I'm joining you from Stockholm in Sweden, and I'm a product manager at Seqera and today we've got Ben Sherman also from Seqera joining us to talk all about some of the new Nextflow syntax.
@@ -534,3 +536,5 @@ We're going to stamp this as official come Barcelona, in October. So you don't h
 Fantastic. Ben, thanks so much! As always, it's been an absolute pleasure. Thanks very much for listening, everyone. We'll be back with you very soon.
 
 **Ben:** Bye everybody.
+
+:::
