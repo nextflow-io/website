@@ -5,6 +5,9 @@ import Page from "@layouts/Page.astro";
 const episodes = (await getCollection("podcast")).sort(
   (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf(),
 );
+
+const netlify_context = import.meta.env.CONTEXT;
+const is_deployment_preview = netlify_context == "deploy-preview";
 ---
 
 <Page title="Podcast">
@@ -134,3 +137,6 @@ const episodes = (await getCollection("podcast")).sort(
     </div>
   </div>
 </Page>
+
+<!-- Podcast - styling for future events -->
+{!is_deployment_preview && <script src="/js/podcast_future.js" is:inline />}
