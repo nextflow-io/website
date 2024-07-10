@@ -40,7 +40,6 @@ The program has been shown to welcome a variety of backgrounds and both new and 
   <img src="/img/blog-2024-07-10-img1a.png" alt="Map with colored countries based on ambassadors residency" />
 </div>
 
-
 ## Looking Ahead
 
 The upcoming semester promises to be an exciting period of growth and innovation for the Nextflow Ambassador Program. Based on current plans, our ambassadors are set to make sure people worldwide know Nextflow and have all the support they need to use it to advance the field of computational biology, among others. I look forward to seeing the incredible work that will emerge from this talented group.
