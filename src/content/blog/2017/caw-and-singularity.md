@@ -5,6 +5,7 @@ type: post
 tags: pipelines,nextflow,genomic,workflow,singularity,cancer
 author: Maxime Garcia
 icon: maxime.jpeg
+community_post: true
 ---
 
 <i>This is a guest post authored by Maxime Garcia from the Science for Life Laboratory in Sweden. Max
