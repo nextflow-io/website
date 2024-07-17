@@ -39,4 +39,3 @@ Switching from Bash scripting to Nextflow was more than just adopting a new tool
 ## Invitation for researchers over the world
 
 As a Nextflow Ambassador, I invite you to become part of a dynamic group of experts and enthusiasts dedicated to advancing workflow automation. Whether you're just starting or looking to deepen your knowledge, our community offers invaluable resources, support, and networking opportunities. You can chat with us on the [Nextflow Slack Workspace](https://join.slack.com/t/nextflow/shared_invite/zt-2mtjkpncj-AUXZ9v7Q1MOvVGecWAeCoA) and ask your questions at the [Seqera Community Forum](https://community.seqera.io).
-
