@@ -170,16 +170,6 @@ $(".scroll").click(function (event) {
     }, 1000, 'swing');
 });
 
-// Podcast - styling for future events
-// ====================================
-$('.podcast').each(function () {
-    var golive = parseFloat($(this).data("golive"));
-	var now = new Date().getTime();
-	if (golive > now) {
-		$(this).addClass('podcast-future')
-    }
-});
-
 // Tooltips
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()

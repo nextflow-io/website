@@ -13,6 +13,9 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 const tags = entry.data.tags.split(",");
+
+const netlify_context = import.meta.env.CONTEXT;
+const is_deployment_preview = netlify_context == "deploy-preview";
 ---
 
 <Page title={entry.data.title} description={entry.data.description} image={entry.data.image}>
@@ -122,3 +125,7 @@ const tags = entry.data.tags.split(",");
     </div>
   </div>
 </Page>
+
+<!-- Podcast - styling for future events -->
+
+{!is_deployment_preview && <script src="/js/podcast_future.js" is:inline />}
