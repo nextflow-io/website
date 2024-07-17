@@ -3,14 +3,14 @@ title: "How I became a Nextflow Ambassador!"
 date: 2024-07-20
 type: post
 description: This blog describes my journey from bash to nextflow community.
-image: 
+image: /img/
 tags: nextflow,ambassador_post
-status: 
+status: published
 author: Firas Zemzem
 icon: FirasZemzemblogIcon.jpeg
 ---
 
-** As a PhD student in bioinformatics, I aimed to build robust pipelines to analyze diverse datasets throughout my research. Initially, mastering Bash scripting was a time-consuming challenge, but this journey ultimately led me to become a Nextflow Ambassador, engaging actively with the expert Nextflow community.
+As a PhD student in bioinformatics, I aimed to build robust pipelines to analyze diverse datasets throughout my research. Initially, mastering Bash scripting was a time-consuming challenge, but this journey ultimately led me to become a Nextflow Ambassador, engaging actively with the expert Nextflow community.
 
 <!-- end-archive-description -->
 
