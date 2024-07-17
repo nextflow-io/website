@@ -24,12 +24,12 @@ One evening, I received a call from my friend Mr.HERO, a bioinformatician. As we
 
 ## Diving Into the process
 
-Reading the documentation, watching tutorials were my first steps. Nextflow's approach to workflow management was a revelation. Unlike Bash, Nextflow was designed for the complexities of modern computational questions. It provided a clear, declarative syntax for defining tasks and their dependencies, and it supported parallel execution out of the box.
-Here was my breakpoint when I decided to convert one of my existing Bash scripts into a Nextflow pipeline, as first initiative I started with experimenting simple code, . This was no small feat. I had to rethink my approach to workflow design and embrace a new way of defining tasks and dependencies. My learning curve was not too steep, so understanding how to translate my Bash logic into Nextflow's domain-specific language (DSL) was not that hard.
+Reading the documentation, watching tutorials were my first steps. Nextflow's approach to workflow management was a revelation. Unlike Bash, Nextflow was designed for the complexities of modern computational questions. It provided a clear, declarative syntax for defining tasks and their dependencies, and it supported parallel execution out of the box.Here was my breakpoint when I decided to convert one of my existing Bash scripts into a Nextflow pipeline, as first initiative I started with experimenting simple code, . This was no small feat. I had to rethink my approach to workflow design and embrace a new way of defining tasks and dependencies. My learning curve was not too steep, so understanding how to translate my Bash logic into Nextflow's domain-specific language (DSL) was not that hard.
 
 ## Eureka Moment : First RUN
 
 The first time I ran my Nextflow pipeline, I was amazed. Tasks that had taken hours to debug and execute in Bash were now running smoothly and efficiently. Nextflow handled task dependencies, parallel execution, and error management with ease. The pipeline was not only faster but also more reliable and easier to maintain. The ability to run pipelines on different computing environments, from local machines to high-performance clusters and cloud platforms, was a game-changer.
+
 ## New Horizons: Becoming a Nextflow Ambassador
 
 Switching from Bash scripting to Nextflow was more than just adopting a new tool. It was about embracing a new mindset. Nextflow’s emphasis on scalability, reproducibility, and ease of use transformed the way I approached bioinformatics. The initial effort to learn Nextflow paid off in spades, leading to more robust, maintainable, and scalable workflows.My enthusiasm and advocacy for Nextflow didn't go unnoticed. Recently, I was offered the opportunity to become a Nextflow ambassador. This role allows me to further contribute to the community, promote best practices, and support new users as they embark on their own Nextflow journeys.
