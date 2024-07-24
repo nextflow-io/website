@@ -3,7 +3,7 @@ title: "How I became a Nextflow Ambassador!"
 date: 2024-07-20
 type: post
 description: This blog describes my journey from bash to nextflow community.
-image: /img/
+image: /img/blog-2024-07-24--share.png
 tags: nextflow,ambassador_post
 status: published
 author: Firas Zemzem
