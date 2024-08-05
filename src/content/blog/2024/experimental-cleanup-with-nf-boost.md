@@ -18,7 +18,6 @@ ambassador_post: true
 
 When I (Ben) was in grad school, I worked on a Nextflow pipeline called [GEMmaker](https://github.com/systemsgenetics/gemmaker), an RNA-seq analysis pipeline similar to [nf-core/rnaseq](https://github.com/nf-core/rnaseq). We quickly ran into a problem, which is that on large runs, we were running out of storage! As it turns out, it wasn’t the final outputs, but the intermediate outputs (the BAM files, etc) that were taking up so much space, and we figured that if we could just delete those intermediate files sooner, we might be able to make it through a pipeline run without running out of storage. We were far from alone.
 
-
 <!-- end-archive-description -->
 
 Automatic cleanup is currently the [oldest open issue](https://github.com/nextflow-io/nextflow/issues/452) on the Nextflow repository. For many users, the ability to quickly delete intermediate files makes the difference between a run being possible or impossible. [Stephen Ficklin](https://github.com/spficklin), the creator of GEMmaker, came up with a clever way to delete intermediate files and even “trick” Nextflow into skipping deleted tasks on a resumed run, which you can read about in the GitHub issue. It involved wiring the intermediate output channels to a “cleanup” process, along with a “done” signal from the relevant downstream processes to ensure that the intermediates were deleted at the right time.
@@ -30,6 +29,7 @@ This hack worked, but it required a lot of manual effort to wire up the cleanup 
 Many users have told me that they would gladly take the cleanup without the resume, so I found a way to provide the cleanup functionality in a plugin, which I call [nf-boost](https://github.com/bentsherman/nf-boost). This plugin is not just about automatic cleanup – it contains a variety of experimental features, like new operators and functions, that anyone can try today with a few extra lines of config, which is much less tedious than building Nextflow from a pull request. Not every new feature can be implemented via plugin, but for those features that can, it’s nice for the community to be able to try it out before we make it official.
 
 The nf-boost plugin requires Nextflow v23.10.0 or later. You can enable the experimental cleanup by adding the following lines to your config file:
+
 ```
 plugins {
   id 'nf-boost'
@@ -43,10 +43,12 @@ boost {
 ### Automatic cleanup: how it works
 
 The strategy of automatic cleanup is simple:
+
 1. As soon as an output file can be deleted, delete it
 2. An output file can be deleted when:
-  * all downstream tasks that use the output file as an input have completed; AND
-  * the output file has been published (if it needs to be published)
+
+- all downstream tasks that use the output file as an input have completed; AND
+- the output file has been published (if it needs to be published)
 
 In practice, the conditions for 2(a) are tricky to get right because Nextflow doesn’t know the full task graph from the start (thanks to the flexibility of Nextflow’s dataflow operators). But you don’t have to worry about any of that because we already figured out how to make it work! All you have to do is flip a switch (`boost.cleanup = true`) and enjoy the ride.
 
@@ -60,7 +62,7 @@ We tested this use-case with a paired WES sample (total input size of 26.8 GB), 
 
 <img src="/img/blog-2024-08-07-nfboost-img1a.png" alt="disk usage with and without nf-boost" width="700px" />
 
-*Note: we also changed the `boost.cleanupInterval` config option to 180 seconds, which was more optimal for our system.*
+_Note: we also changed the `boost.cleanupInterval` config option to 180 seconds, which was more optimal for our system._
 
 As expected, we see that without automatic cleanup, the size of the work directory reaches 110 GB when all BAM files are produced and never deleted. On the other hand, when the nf-boost cleanup is enabled, the work directory occasionally peaks at ~50 GB (i.e. no more than two BAM files are stored at the same time), but always returns to ~25 GB, since the previous BAM is deleted immediately after the next BAM is ready. There is no impact on the size of the results (since they are identical) or the total runtime (since cleanup happens in parallel with the workflow itself).
 
