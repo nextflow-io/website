@@ -45,9 +45,7 @@ boost {
 The strategy of automatic cleanup is simple:
 
 1. As soon as an output file can be deleted, delete it
-2. An output file can be deleted when:
-  - all downstream tasks that use the output file as an input have completed; AND
-  - the output file has been published (if it needs to be published)
+2. An output file can be deleted when (1) all downstream tasks that use the output file as an input have completed AND (2) the output file has been published (if it needs to be published)
 
 In practice, the conditions for 2(a) are tricky to get right because Nextflow doesn’t know the full task graph from the start (thanks to the flexibility of Nextflow’s dataflow operators). But you don’t have to worry about any of that because we already figured out how to make it work! All you have to do is flip a switch (`boost.cleanup = true`) and enjoy the ride.
 
@@ -66,6 +64,7 @@ _Note: we also changed the `boost.cleanupInterval` config option to 180 seconds,
 As expected, we see that without automatic cleanup, the size of the work directory reaches 110 GB when all BAM files are produced and never deleted. On the other hand, when the nf-boost cleanup is enabled, the work directory occasionally peaks at ~50 GB (i.e. no more than two BAM files are stored at the same time), but always returns to ~25 GB, since the previous BAM is deleted immediately after the next BAM is ready. There is no impact on the size of the results (since they are identical) or the total runtime (since cleanup happens in parallel with the workflow itself).
 
 In this case, automatic cleanup reduced the total storage by 50-75% (depending on how you measure the storage). In general, the effectiveness of automatic cleanup will depend greatly on how you write your pipeline. Here are a few rules of thumb that we’ve come up with so far:
+
 - As your pipeline becomes “deeper” (i.e. more processing steps in sequence), automatic cleanup becomes more effective, because it only needs to keep two steps’ worth of data, regardless of the total number of steps
 - As your pipeline becomes “wider” (i.e. more inputs being processed in parallel), automatic cleanup should have roughly the same level of effectiveness. If some samples take longer to process than others, the peak storage should be lower with automatic cleanup, since the “peaks” for each sample will happen at different times.
 - As you add more dependencies between processes, automatic cleanup becomes less effective, because it has to wait longer before it can delete the upstream outputs. Note that each output is tracked independently, so for example, sending logs to a summary process won’t affect the cleanup of other outputs from that same process.
