@@ -1,9 +1,9 @@
 ---
 title: "Experimental cleanup with nf-boost"
-date: 2024-08-07
+date: 2024-08-08
 type: post
 description: nf-boost is a Nextflow plugin that tackles storage issues by cleaning intermediate files on the fly, inspired by challenges faced with the GEMmaker pipeline. This blog post tells the backstory and what you can achieve with the plugin today.
-image: /img/blog-2024-08-07--share.png
+image: /img/blog-2024-08-08--share.png
 tags: nextflow,ambassador_post
 status: published
 author: Ben Sherman
@@ -57,7 +57,7 @@ Now suppose that we want to analyze a cohort of 100 patients – that’s ~10 TB
 
 We tested this use-case with a paired WES sample (total input size of 26.8 GB), by tracking the work directory size for a run with and a run without automatic cleanup. The results are shown below.
 
-<img src="/img/blog-2024-08-07-nfboost-img1a.png" alt="disk usage with and without nf-boost" style="width: 2500px;" />
+<img src="/img/blog-2024-08-08-nfboost-img1a.png" alt="disk usage with and without nf-boost" style="width: 2500px;" />
 
 _Note: we also changed the `boost.cleanupInterval` config option to 180 seconds, which was more optimal for our system._
 
