@@ -38,15 +38,16 @@ const is_deployment_preview = netlify_context == "deploy-preview";
           {
             entry.data.youtubeid.length > 6 && (
               <>
-                <iframe
-                  width="560"
-                  height="315"
-                  src={"https://www.youtube.com/embed/" + entry.data.youtubeid}
-                  title="YouTube video player"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
-                />
+                <div style="position: relative; overflow: hidden; width:100%; padding-top: 56.25%;">
+                  <iframe
+                    src={"https://www.youtube.com/embed/" + entry.data.youtubeid}
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                  />
+                </div>
                 <hr />
               </>
             )
