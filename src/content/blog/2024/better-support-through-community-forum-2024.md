@@ -8,7 +8,7 @@ tags: nextflow,community
 status: published
 author: Geraldine Van der Auwera
 icon: geraldine-van-der-auwera_icon.png
-community_post: true
+community_post: false
 ambassador_post: false
 ---
 
