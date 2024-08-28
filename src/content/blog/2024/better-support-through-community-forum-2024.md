@@ -16,6 +16,8 @@ As the Nextflow community continues to grow, fostering a space where users can e
 
 <!-- end-archive-description -->
 
+<hr>
+
 One of the things that impressed me the most when I joined Seqera last year as a developer advocate for the Nextflow community, was how engaged people are, and how much peer-to-peer interaction there is across a vast range of scientific domains, cultures, and geographies. That’s wonderful for a number of reasons, not least of which is that whenever you run into a problem —or you’re trying to do something a bit complicated or new— it’s very likely that there is someone out there who is able and willing to help you figure it out.
 
 For the past few months, our small team of developer advocates have been thinking about how to nurture that dynamism, and how to further improve the experience of peer-to-peer support as the Nextflow community continues to grow. We’ve come to the conclusion that the best thing we can do is make the [community forum](https://community.seqera.io/) an awesome place to go for help, answers, and resources.
