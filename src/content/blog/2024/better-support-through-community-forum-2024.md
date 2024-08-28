@@ -12,7 +12,7 @@ community_post: true
 ambassador_post: false
 ---
 
-(need to add the summary)
+As the Nextflow community continues to grow, fostering a space where users can easily find help and share knowledge is more important than ever. In this post, we’ll explore our ongoing efforts to enhance the community forum, transitioning from Slack as the primary platform for peer-to-peer support. By improving the forum’s usability and accessibility, we’re aiming to create a more efficient and welcoming environment for everyone. Read on to learn about the changes we’re implementing and how you can contribute to making the forum an even better resource for the community.
 
 <!-- end-archive-description -->
 
