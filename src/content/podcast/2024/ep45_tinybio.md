@@ -12,7 +12,7 @@ author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
-In episode 45 of the Channels podcast, [Sasha Dagayev](https://www.linkedin.com/in/sasha-dagayev/) from Seqera (formerly [tinybio](https://www.tinybio.cloud/)) shares his journey from working in tech and consumer spaces to entering bioinformatics during the pandemic. Sasha discusses the challenges and innovations behind tinybio, including the evolution towards integrating Generative AI (ChatGPT) to simplify bioinformatics tasks. Key points include:
+In episode 45 of the Channels podcast, [Sasha Dagayev](https://www.linkedin.com/in/sasha-dagayev/) from Seqera (formerly [tinybio](https://www.tinybio.cloud/)) shares his journey from working in tech and consumer spaces to entering bioinformatics during the pandemic. Sasha discusses the challenges and innovations behind tinybio, including the evolution towards integrating Generative AI (ChatGPT) to simplify bioinformatics tasks. <!-- end-archive-description --> We discuss:
 
 - Sasha's transition from tech to bioinformatics post-pandemic.
 - Initial challenges and pivot towards Generative AI for tinybio.
