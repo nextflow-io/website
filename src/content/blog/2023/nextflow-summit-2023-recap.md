@@ -160,3 +160,7 @@ For your convenience, a handy list of talks from Nextflow Summit 2023 are summar
 - [nf-test at nf-core: empowering scalable and streamlined testing](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-nf-test-at-nf-core/) - Edmund Miller
 - [Performing large and reproducible GWAS analysis on biobank-scale data](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-gwas/) - Sebastian Schönherr
 - [Highlights from the nf-core hackathon](https://summit.nextflow.io/barcelona/agenda/summit/oct-20-hackathon/) - Chris Hakkaart
+
+_In this event, we're showcasing some of the results of the project 'Optimization of computational resources for HPC workloads in the cloud using ML/AI' by Seqera Labs S.L. This project has been funded by the European Regional Development Fund (ERDF) of the European Union, coordinated and managed by RED.es, with the aim of carrying out the development of technological entrepreneurship and technological demand, within the framework of the Strategic Action on Digital Economy and Society of the State Program for R&D&I oriented towards societal challenges._
+
+![grant logos](/img/blog-2022-11-03--img1.png)

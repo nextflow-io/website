@@ -47,7 +47,7 @@ Check it out here: [Channels Episode 41](/podcast/2024/ep41_nextflow_2404.html).
 
 ### Seqera Containers
 
-A new flagship community offering was revealed at the Nextflow Summit 2024 Boston - **Seqera Containers**. This is a free-to-use container cache powered by Wave, allowing anyone to request an image with a combination of packages from Conda and PyPI. The image will be built on demand and cached (for at least 5 years after creation). There is a [dedicated blog post](https://seqera.io/blog/introducing-seqera-pipelines-containers/) about this, but it's worth noting that the service can be used directly from Nextflow and not only through [https://seqera.io/containers/](https://seqera.io/containers/)
+A new flagship community offering was revealed at the Nextflow Summit 2024 Boston - **Seqera Containers**. This is a free-to-use container cache powered by [Wave](https://seqera.io/wave/), allowing anyone to request an image with a combination of packages from Conda and PyPI. The image will be built on demand and cached (for at least 5 years after creation). There is a [dedicated blog post](https://seqera.io/blog/introducing-seqera-pipelines-containers/) about this, but it's worth noting that the service can be used directly from Nextflow and not only through [https://seqera.io/containers/](https://seqera.io/containers/)
 
 In order to use Seqera Containers in Nextflow, simply set `wave.freeze` _without_ setting `wave.build.repository` - for example, by using the following config for your pipeline:
 
@@ -249,7 +249,7 @@ To better facilitate community contributions, the nf-ga4gh plugin will soon be m
 
 ## Fusion
 
-Fusion is a distributed virtual file system for cloud-native data pipeline and optimized for Nextflow workloads. Nextflow 24.04 now works with a new release, Fusion 2.3. This brings a few notable quality-of-life improvements:
+[Fusion](https://seqera.io/fusion/) is a distributed virtual file system for cloud-native data pipeline and optimized for Nextflow workloads. Nextflow 24.04 now works with a new release, Fusion 2.3. This brings a few notable quality-of-life improvements:
 
 ### Enhanced Garbage Collection
 

@@ -21,7 +21,7 @@ In this article, we will help you understand how the Nextflow head job works and
 
 ### CPUs
 
-Nextflow uses a thread pool to run native Groovy code (e.g. channel operators, `exec` processes), submit tasks to executors, and publish output files. The number of threads is based on the number of available CPUs, so if you want to provide more compute power to the head job, simply allocate more CPUs and Nextflow will use them. In the Seqera Platform, you can use **Head Job CPUs** or **Head Job submit options** (depending on the compute environment) to allocate more CPUs.
+Nextflow uses a thread pool to run native Groovy code (e.g. channel operators, `exec` processes), submit tasks to executors, and publish output files. The number of threads is based on the number of available CPUs, so if you want to provide more compute power to the head job, simply allocate more CPUs and Nextflow will use them. In the [Seqera Platform](https://seqera.io/platform/), you can use **Head Job CPUs** or **Head Job submit options** (depending on the compute environment) to allocate more CPUs.
 
 ### Memory
 
@@ -98,7 +98,7 @@ Many users have encountered head job errors when running large-scale workloads, 
 
 Singularity / Apptainer can download and convert Docker images on the fly, and it uses the head job’s local scratch storage to do so. This is a common pattern in HPC environments, since container images are usually published as Docker images but HPC environments usually require the use of a rootless container runtime like Singularity. In this case, make sure the head job has enough scratch storage to build each image, even if the image is eventually saved to shared storage.
 
-Since Nextflow version [23.10.0](https://github.com/nextflow-io/nextflow/releases/tag/v23.10.0), you can use Wave to build Singularity images for you. Refer to the [Nextflow documentation](https://nextflow.io/docs/latest/wave.html#build-singularity-native-images) for more details.
+Since Nextflow version [23.10.0](https://github.com/nextflow-io/nextflow/releases/tag/v23.10.0), you can use [Wave](https://seqera.io/wave/) to build Singularity images for you. Refer to the [Nextflow documentation](https://nextflow.io/docs/latest/wave.html#build-singularity-native-images) for more details.
 
 Additionally, Nextflow version [23.11.0-edge](https://github.com/nextflow-io/nextflow/releases/tag/v23.11.0-edge) introduced support for [Singularity OCI mode](https://docs.sylabs.io/guides/3.1/user-guide/oci_runtime.html), which allows Singularity / Apptainer to use the OCI container format (the same as Docker) instead of having to build and store a SIF container image locally.
 
