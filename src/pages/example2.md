@@ -1,10 +1,10 @@
 ---
-title: Mixing scripting languages
+title: Mixed language pipeline
 layout: "@layouts/MarkdownPage.astro"
 ---
 
 <div class="blg-summary example">
-<h3>Mixing scripting languages</h3>
+<h3>Mixed language pipeline</h3>
 
 <p class="text-muted">
     You are not limited to Bash scripts with Nextflow -- you can use any scripting language that can be executed by the Linux platform.
