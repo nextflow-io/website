@@ -7,12 +7,17 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Basic pipeline</h3>
 
 <p class="text-muted" >
-    This example shows a simple Nextflow pipeline consisting of two Bash processes, where the output from the first process is used as input for the second process.
+    Nextflow pipelines are made by joining together different processes.
 </p>
 
 ```groovy
 #!/usr/bin/env nextflow
 
+/*
+ * Pipeline parameters
+ */
+
+// Primary input
 params.greeting = "Hello World!"
 
 /*
@@ -26,6 +31,7 @@ process sayHello {
     output:
     path 'output.txt'
 
+    script:
     """
     echo '$x' > output.txt
     """
@@ -42,6 +48,7 @@ process convertToUpper {
     output:
     stdout
 
+    script:
     """
     cat $y | tr '[a-z]' '[A-Z]'
     """
@@ -51,62 +58,32 @@ process convertToUpper {
  * Workflow definition
  */
 workflow {
+
+    // Redirects a string to a text file
     sayHello(params.greeting)
-        | convertToUpper
-        | view
+
+    // Concatenates a text file and transforms lowercase letters to uppercase letters
+    convertToUpper(sayHello.out)
+
+    // View convertToUpper output
+    convertToUpper.out.view()
 }
 ```
 
 </div>
+
+### Script synopsis
+
+This example shows a simple Nextflow pipeline consisting of two Bash processes. The `sayHello` process takes a string as input and redirects it to an output text file. The `convertToUpper` process takes the output text file from `sayHello` as input, concatenates the text, and converts all of the lowercase letters to uppercase letters. The output from the `convertToUpper` process is then printed to screen.
 
 ### Try it
 
 To try this pipeline:
 
 1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
-2. Copy the script above and save it as `hello-world.nf`.
+2. Copy the script above and save as `hello-world.nf`.
 3. Launch the pipeline:
 
-    nextflow run hell-world.nf
+    nextflow run hello-world.nf
 
-4. Launch the pipeline again with a custom greeting:
-
-    nextflow run hello-world.nf --greeting "Bonjour le monde!"
-
-### Script synopsis
-
-- **Line 1** Declares Nextflow as the interpreter.
-
-- **Line 3**: Declares a pipeline parameter named `greeting` that is initialized with the value `"Hello World!"`.
-
-- **Lines 8-19**: Declares a process named `sayHello` that redirects a string to a text file.
-
-  - **Line 10**: Opens the input declaration block.
-
-  - **Line 11**: Defines the process input `x`.
-
-  - **Line 13**: Opens the output declaration block.
-
-  - **Line 14**: Defines the process output `'output.txt'`.
-
-  - **Lines 16-18**: Defines a script that redirects the string `x` to a text file named `output.txt`.
-
-- **Lines 24-35**: Declares a process named `convertToUpper` that concatenates a file and transforms all of the lowercase letters to uppercase letters.
-
-  - **Line 26**: Opens the input declaration block.
-
-  - **Line 27**: Defines the process input `y`.
-
-  - **Line 29**: Opens the output declaration block.
-
-  - **Line 30**: Defines standard output (`stdout`) as the output.
-
-  - **Lines 32-34**: Defines a script that concatenates the variable `y` and transforms all of the lowercase letters to uppercase letters.
-
-- **Lines 40-44**: Declares the workflow that connects everything together!
-
-  - **Line 41**: Passes the string specified by `params.greeting` to the `sayHello` process.
-
-  - **Line 42**: Passes of the output from `sayHello` to the `convertToUpper` process.
-
-  - **Line 43**: Prints the standard output from `convertToUpper`.
+**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.

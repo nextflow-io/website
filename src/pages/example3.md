@@ -1,96 +1,86 @@
 ---
-title: BLAST pipeline
+title: RNA-Seq pipeline
 layout: "@layouts/MarkdownPage.astro"
 ---
 
 <div class="blg-summary example">
-<h3>BLAST pipeline</h3>
+<h3>RNA-Seq pipeline</h3>
 
 <p class="text-muted">
-    This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
+    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
 </p>
 
 ```groovy
 #!/usr/bin/env nextflow
 
 /*
- * Defines the pipeline input parameters (with a default value for each one).
- * Each of the following parameters can be specified as command line options.
+ * The following pipeline parameters specify the reference genomes
+ * and read pairs and can be provided as command line options
  */
-params.query = "$baseDir/data/sample.fa"
-params.db = "$baseDir/blast-db/pdb/tiny"
-params.out = "result.txt"
-params.chunkSize = 100
-
-db_name = file(params.db).name
-db_dir = file(params.db).parent
-
+params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
+params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+params.outdir = "results"
 
 workflow {
-    /*
-     * Create a channel emitting the given query fasta file(s).
-     * Split the file into chunks containing as many sequences as defined by the parameter 'chunkSize'.
-     * Finally, assign the resulting channel to the variable 'ch_fasta'
-     */
-    Channel
-        .fromPath(params.query)
-        .splitFasta(by: params.chunkSize, file:true)
-        .set { ch_fasta }
+    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
 
-    /*
-     * Execute a BLAST job for each chunk emitted by the 'ch_fasta' channel
-     * and emit the resulting BLAST matches.
-     */
-    ch_hits = blast(ch_fasta, db_dir)
-
-    /*
-     * Each time a file emitted by the 'blast' process, an extract job is executed,
-     * producing a file containing the matching sequences.
-     */
-    ch_sequences = extract(ch_hits, db_dir)
-
-    /*
-     * Collect all the sequences files into a single file
-     * and print the resulting file contents when complete.
-     */
-    ch_sequences
-        .collectFile(name: params.out)
-        .view { file -> "matching sequences:\n ${file.text}" }
+    INDEX(params.transcriptome)
+    FASTQC(read_pairs_ch)
+    QUANT(INDEX.out, read_pairs_ch)
 }
 
+process INDEX {
+    tag "$transcriptome.simpleName"
 
-process blast {
     input:
-    path 'query.fa'
-    path db
+    path transcriptome
 
     output:
-    path 'top_hits'
+    path 'index'
 
+    script:
     """
-    blastp -db $db/$db_name -query query.fa -outfmt 6 > blast_result
-    cat blast_result | head -n 10 | cut -f 2 > top_hits
+    salmon index --threads $task.cpus -t $transcriptome -i index
     """
 }
 
+process FASTQC {
+    tag "FASTQC on $sample_id"
+    publishDir params.outdir
 
-process extract {
     input:
-    path 'top_hits'
-    path db
+    tuple val(sample_id), path(reads)
 
     output:
-    path 'sequences'
+    path "fastqc_${sample_id}_logs"
 
+    script:
     """
-    blastdbcmd -db $db/$db_name -entry_batch top_hits | head -n 10 > sequences
+    fastqc.sh "$sample_id" "$reads"
+    """
+}
+
+process QUANT {
+    tag "$pair_id"
+    publishDir params.outdir
+
+    input:
+    path index
+    tuple val(pair_id), path(reads)
+
+    output:
+    path pair_id
+
+    script:
+    """
+    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
     """
 }
 ```
 
 </div>
 
-### Try it on your computer
+### Try it in your computer
 
 To run this pipeline on your computer, you will need:
 
@@ -100,12 +90,12 @@ To run this pipeline on your computer, you will need:
 
 Install Nextflow by entering the following command in the terminal:
 
-    $ curl -fsSL https://get.nextflow.io | bash
+    $ curl -fsSL get.nextflow.io | bash
 
 Then launch the pipeline with this command:
 
-    $ ./nextflow run blast-example -with-docker
+    $ nextflow run rnaseq-nf -with-docker
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/blast-example) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
 
 **NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.

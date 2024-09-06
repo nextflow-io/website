@@ -7,18 +7,27 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Mixing scripting languages</h3>
 
 <p class="text-muted">
-    With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
+    You are not limited to Bash scripts with Nextflow -- you can use any scripting language that can be executed by the Linux platform.
 </p>
 
 ```groovy
 #!/usr/bin/env nextflow
 
+/*
+ * Pipeline parameters
+ */
+
+// Range
 params.range = 100
 
 /*
  * A trivial Perl script that produces a list of number pairs
  */
 process perlTask {
+
+    input:
+    val x
+
     output:
     stdout
 
@@ -29,7 +38,7 @@ process perlTask {
     use warnings;
 
     my $count;
-    my $range = !{params.range};
+    my $range = !{x};
     for ($count = 0; $count < 10; $count++) {
         print rand($range) . ', ' . rand($range) . "\n";
     }
@@ -40,12 +49,14 @@ process perlTask {
  * A Python script which parses the output of the previous script
  */
 process pyTask {
+
     input:
     stdin
 
     output:
     stdout
 
+    script:
     """
     #!/usr/bin/env python
     import sys
@@ -64,7 +75,15 @@ process pyTask {
 }
 
 workflow {
-    perlTask | pyTask | view
+
+    // A Perl script that produces a list of number pairs
+    perlTask(params.range)
+
+    // A Python script which parses the output of the previous script
+    pyTask(perlTask.out)
+
+    // View pyTask output
+    pyTask.out.view()
 }
 ```
 
@@ -72,9 +91,16 @@ workflow {
 
 ### Synopsis
 
-In the above example we define a simple pipeline with two processes.
+This example shows a simple Nextflow pipeline consisting of two processes written in different languages. The `perlTask` process starts with a Perl _shebang_ declaration and executes a Perl script that produces pairs of numbers. Since Perl uses the `$` character for variables, the special `shell` block is used instead of the normal `script` block to distinguish the Perl variables from Nextflow variables. Similarly, the `pyTask` process starts with a Python _shebang_ declaration. It takes the output from the Perl script and executes a Python script that averages the number pairs. The output from the `pyTask` process is then printed to screen.
 
-The first process executes a Perl script, because the script block definition starts
-with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instead of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
+### Try it
 
-In the same way, the second process will execute a Python script, because the script block starts with a Python shebang (line 36).
+To try this pipeline:
+
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+2. Copy the script above and save as `mixed-languages.nf`.
+3. Launch the pipeline:
+
+    nextflow run mixed-languages.nf
+
+**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.

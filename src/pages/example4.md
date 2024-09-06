@@ -1,81 +1,49 @@
 ---
-title: RNA-Seq pipeline
+title: Machine Learning pipeline
 layout: "@layouts/MarkdownPage.astro"
 ---
 
 <div class="blg-summary example">
-<h3>RNA-Seq pipeline</h3>
+<h3>Machine Learning pipeline</h3>
 
 <p class="text-muted">
-    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
+    This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
 </p>
 
 ```groovy
 #!/usr/bin/env nextflow
 
-/*
- * The following pipeline parameters specify the reference genomes
- * and read pairs and can be provided as command line options
- */
-params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
-params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
-params.outdir = "results"
+params.dataset_name = 'wdbc'
+params.train_models = ['dummy', 'gb', 'lr', 'mlp', 'rf']
+params.outdir = 'results'
 
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
+    // fetch dataset from OpenML
+    ch_datasets = fetch_dataset(params.dataset_name)
 
-    INDEX(params.transcriptome)
-    FASTQC(read_pairs_ch)
-    QUANT(INDEX.out, read_pairs_ch)
+    // split dataset into train/test sets
+    (ch_train_datasets, ch_predict_datasets) = split_train_test(ch_datasets)
+
+    // perform training
+    (ch_models, ch_train_logs) = train(ch_train_datasets, params.train_models)
+
+    // perform inference
+    ch_predict_inputs = ch_models.combine(ch_predict_datasets, by: 0)
+    (ch_scores, ch_predict_logs) = predict(ch_predict_inputs)
+
+    // select the best model based on inference score
+    ch_scores
+        | max {
+            new JsonSlurper().parse(it[2])['value']
+        }
+        | subscribe { dataset_name, model_type, score_file ->
+            def score = new JsonSlurper().parse(score_file)
+            println "The best model for ${dataset_name} was ${model_type}, with ${score['name']} = ${score['value']}"
+        }
 }
 
-process INDEX {
-    tag "$transcriptome.simpleName"
+// view the entire code on GitHub ...
 
-    input:
-    path transcriptome
-
-    output:
-    path 'index'
-
-    script:
-    """
-    salmon index --threads $task.cpus -t $transcriptome -i index
-    """
-}
-
-process FASTQC {
-    tag "FASTQC on $sample_id"
-    publishDir params.outdir
-
-    input:
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "fastqc_${sample_id}_logs"
-
-    script:
-    """
-    fastqc.sh "$sample_id" "$reads"
-    """
-}
-
-process QUANT {
-    tag "$pair_id"
-    publishDir params.outdir
-
-    input:
-    path index
-    tuple val(pair_id), path(reads)
-
-    output:
-    path pair_id
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
-    """
-}
 ```
 
 </div>
@@ -94,8 +62,8 @@ Install Nextflow by entering the following command in the terminal:
 
 Then launch the pipeline with this command:
 
-    $ nextflow run rnaseq-nf -with-docker
+    $ nextflow run ml-hyperopt -profile wave
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+**NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
