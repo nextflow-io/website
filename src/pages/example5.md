@@ -48,22 +48,18 @@ workflow {
 
 </div>
 
-### Try it in your computer
+### Try it
 
-To run this pipeline on your computer, you will need:
+This pipeline is available on the [nextflow-io/ml-hyperopt](https://github.com/nextflow-io/ml-hyperopt) GitHub repository.
 
-- Unix-like operating system
-- Java 11 (or higher)
-- Docker
+An active internet connection and Docker are required for Nextflow to download the pipeline and necessary images and run the pipeline. The data used by this pipeline will download automatically.
 
-Install Nextflow by entering the following command in the terminal:
+To try this pipeline:
 
-    curl -fsSL get.nextflow.io | bash
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
+3. Launch the pipeline:
 
-Then launch the pipeline with this command:
-
-    nextflow run ml-hyperopt -profile wave
-
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
+    nextflow run nextflow-io/ml-hyperopt -profile wave
 
 **NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
