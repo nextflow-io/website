@@ -7,7 +7,7 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Basic pipeline</h3>
 
 <p class="text-muted" >
-    Nextflow pipelines are made by joining together different processes.
+    This example shows a simple Nextflow pipeline consisting of two Bash processes.
 </p>
 
 ```groovy
@@ -80,7 +80,7 @@ This example shows a simple Nextflow pipeline consisting of two Bash processes. 
 
 To try this pipeline:
 
-1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow (if not already available).
 2. Copy the script above and save as `hello-world.nf`.
 3. Launch the pipeline:
 

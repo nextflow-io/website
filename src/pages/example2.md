@@ -7,7 +7,7 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Mixed language pipeline</h3>
 
 <p class="text-muted">
-    You are not limited to Bash scripts with Nextflow -- you can use any scripting language that can be executed by the Linux platform.
+    This example shows a simple Nextflow pipeline consisting of two processes written in different languages.
 </p>
 
 ```groovy
@@ -97,7 +97,7 @@ This example shows a simple Nextflow pipeline consisting of two processes writte
 
 To try this pipeline:
 
-1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow (if not already available).
 2. Copy the script above and save as `mixed-languages.nf`.
 3. Launch the pipeline:
 
