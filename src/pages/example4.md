@@ -174,6 +174,6 @@ To try this pipeline:
 2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
 3. Launch the pipeline:
 
-    nextflow run seqeralabs/nf-hello-gatk
+   nextflow run seqeralabs/nf-hello-gatk
 
 **NOTE**: The `nf-hello-gatk` pipeline will use Docker to manage software dependencies by default. To use an alternate method the Docker configuration option in the `nextflow.config` must be set to false.

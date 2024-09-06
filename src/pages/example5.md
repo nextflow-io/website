@@ -60,6 +60,6 @@ To try this pipeline:
 2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
 3. Launch the pipeline:
 
-    nextflow run nextflow-io/ml-hyperopt -profile wave
+   nextflow run nextflow-io/ml-hyperopt -profile wave
 
 **NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.

@@ -104,6 +104,6 @@ To try this pipeline:
 2. Copy the script above and save it as `mixed-languages.nf`.
 3. Launch the pipeline:
 
-    nextflow run mixed-languages.nf
+   nextflow run mixed-languages.nf
 
 **NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.

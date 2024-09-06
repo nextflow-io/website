@@ -87,6 +87,6 @@ To try this pipeline:
 2. Copy the script above and save it as `hello-world.nf`.
 3. Launch the pipeline:
 
-    nextflow run hello-world.nf
+   nextflow run hello-world.nf
 
 **NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
