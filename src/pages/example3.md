@@ -107,7 +107,7 @@ To try this pipeline:
 
 1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
 2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
-2. Launch the pipeline:
+3. Launch the pipeline:
 
     nextflow run nextflow-io/rnaseq-nf -with-docker
 

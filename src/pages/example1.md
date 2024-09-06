@@ -59,8 +59,11 @@ process convertToUpper {
  */
 workflow {
 
+    // Creates channel using the Channel.of() channel factory
+    greeting_ch = Channel.of(params.greeting)
+
     // Redirects a string to a text file
-    sayHello(params.greeting)
+    sayHello(greeting_ch)
 
     // Concatenates a text file and transforms lowercase letters to uppercase letters
     convertToUpper(sayHello.out)
@@ -81,7 +84,7 @@ This example shows a simple Nextflow pipeline consisting of two Bash processes. 
 To try this pipeline:
 
 1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow (if not already available).
-2. Copy the script above and save as `hello-world.nf`.
+2. Copy the script above and save it as `hello-world.nf`.
 3. Launch the pipeline:
 
     nextflow run hello-world.nf

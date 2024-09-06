@@ -76,8 +76,11 @@ process pyTask {
 
 workflow {
 
+    // Creates channel using the Channel.of() channel factory
+    range_ch = Channel.of(params.range)
+
     // A Perl script that produces a list of number pairs
-    perlTask(params.range)
+    perlTask(range_ch)
 
     // A Python script which parses the output of the previous script
     pyTask(perlTask.out)
@@ -98,7 +101,7 @@ This example shows a simple Nextflow pipeline consisting of two processes writte
 To try this pipeline:
 
 1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow (if not already available).
-2. Copy the script above and save as `mixed-languages.nf`.
+2. Copy the script above and save it as `mixed-languages.nf`.
 3. Launch the pipeline:
 
     nextflow run mixed-languages.nf
