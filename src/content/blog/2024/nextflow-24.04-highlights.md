@@ -156,10 +156,10 @@ workflow {
   Channel.topic('versions') // [!code ++]
     | unique()
     | map { process, name, version ->
-      """
+      """\
       ${process.tokenize(':').last()}:
         ${name}: ${version}
-      """.stripIndent().trim()
+      """.stripIndent()
     }
     | collectFile(name: 'collated_versions.yml')
     | CUSTOM_DUMPSOFTWAREVERSIONS
