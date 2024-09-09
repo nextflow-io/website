@@ -166,7 +166,7 @@ This example shows a basic variant calling Nextflow pipeline consisting of three
 
 This pipeline is available on the [seqeralabs/nf-hello-gatk](https://github.com/seqeralabs/nf-hello-gatk) GitHub repository.
 
-An active internet connection and Docker are required for Nextflow to download the pipeline and necessary Docker images and run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
+An active internet connection and Docker are required for Nextflow to download the pipeline and the necessary Docker images to run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
 
 To try this pipeline:
 
@@ -176,4 +176,4 @@ To try this pipeline:
 
    nextflow run seqeralabs/nf-hello-gatk
 
-**NOTE**: The `nf-hello-gatk` pipeline will use Docker to manage software dependencies by default. To use an alternate method the Docker configuration option in the `nextflow.config` must be set to false.
+**NOTE**: The `nf-hello-gatk` pipeline will use Docker to manage software dependencies by default.

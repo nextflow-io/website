@@ -7,7 +7,7 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Machine Learning pipeline</h3>
 
 <p class="text-muted">
-    This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
+    This example shows how to put together a basic Machine Learning pipeline.
 </p>
 
 ```groovy
@@ -48,11 +48,15 @@ workflow {
 
 </div>
 
+### Synopsis
+
+This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
+
 ### Try it
 
 This pipeline is available on the [nextflow-io/ml-hyperopt](https://github.com/nextflow-io/ml-hyperopt) GitHub repository.
 
-An active internet connection and Docker are required for Nextflow to download the pipeline and necessary images and run the pipeline. The data used by this pipeline will download automatically.
+An active internet connection and Docker are required for Nextflow to download the pipeline and the necessary Docker images to run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
 
 To try this pipeline:
 
