@@ -2,16 +2,16 @@ import sanityClient from '@sanity/client';
 import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 
 const client = sanityClient({
-  projectId: 'your-project-id',
-  dataset: 'your-dataset',
-  token: 'your-write-token',
+  projectId: 'o2y1bt2g',
+  dataset: 'seqera',
+  token: process.env.SANITY_TOKEN,
   useCdn: false,
 });
 
-const postsFile = path.join(process.cwd(), 'blog-posts.json');
+const postsFile = path.join(process.cwd(), 'export.json');
 const posts = JSON.parse(fs.readFileSync(postsFile, 'utf8'));
 
 async function downloadImage(url) {
@@ -35,7 +35,8 @@ async function replaceImageUrls(content, imageMap) {
 }
 
 async function migratePosts() {
-  for (const post of posts) {
+  const p = [posts[0]]
+  for (const post of p) {
     const imageMap = {};
     for (const imageUrl of post.images) {
       try {
@@ -51,9 +52,9 @@ async function migratePosts() {
     const updatedContent = await replaceImageUrls(post.content, imageMap);
 
     const sanityPost = {
-      _type: 'post',
+      _type: 'blogPostDev',
       title: post.title,
-      slug: { current: post.slug },
+      meta: { slug: { current: post.slug } },
       publishedAt: new Date(post.date).toISOString(),
       body: [
         {
