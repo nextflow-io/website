@@ -41,7 +41,7 @@ Ben Sherman, a software engineer at Seqera and one of the main developers of Nex
 ### Introduction to WDL
 
 WDL, or Workflow Description Language, was developed at the Broad Institute starting around 2014. This language emerged during a period when existing workflow solutions were struggling to scale with increasing data volumes and the need for greater reproducibility. The Broad Institute, a nonprofit research institution in Cambridge, MA, needed a more effective software stack for its genome analysis pipeline, which was moving to the cloud.
-Several workflow management tools were considered, including Queue (integrated with the GATK), Firehose, and Zamboni. The CWL (Common Workflow Language) which was emerging at the time was also reviewed but deemed too machine-oriented. This led to the development of WDL as a user-friendly, cloud-native DSL (domain-specific language) designed for high reproducibility. Today, WDL is an open-source project supported by two main engines: [Cromwell](https://github.com/broadinstitute/cromwell) (focused on high-scale execution) and [MiniWDL](https://github.com/mlin/miniwdl) (geared towards prototyping).
+This led to the development of WDL as a user-friendly, cloud-native DSL (domain-specific language) designed for high reproducibility. Today, WDL is an open-source project supported by two main engines: Cromwell (focused on high-scale execution) and MiniWDL (geared towards prototyping).
 
 ### WDL Development History
 
