@@ -5,14 +5,18 @@ description: Exploring what Nextflow can learn from WDL
 date: 2024-09-17
 type: podcast
 subtype: Technical discussion
-youtubeid: TBD12345678
+youtubeid: qeJqdV_d8vI
 image: /img/podcast_ep46.png
 tags: Nextflow
 author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
-In this episode of Channels, the Nextflow podcast, host Geraldine from Seqera and her colleague Ben Sherman dive into the differences and similarities between Nextflow and the [Workflow Description Language](https://openwdl.org/) (WDL). They discuss the origins and development of WDL at the Broad Institute, the challenges of working with different workflow languages, and how Nextflow's channel-based data flow model compares to WDL's approach. The conversation covers key features, type systems, and runtime specifications, highlighting the strengths and limitations of both languages. Ben hints at upcoming improvements and enhancements for Nextflow, aimed at making the language more robust and user-friendly. The episode offers valuable insights for bioinformaticians and developers navigating the complexities of workflow management. <!-- end-archive-description --> We discuss the following technical features:
+In this episode of Channels, the Nextflow podcast, host Geraldine from Seqera and her colleague Ben Sherman dive into the differences and similarities between Nextflow and the [Workflow Description Language](https://openwdl.org/) (WDL). They discuss the origins and development of WDL at the Broad Institute, the challenges of working with different workflow languages, and how Nextflow's channel-based data flow model compares to WDL's approach. The conversation covers key features, type systems, and runtime specifications, highlighting the strengths and limitations of both languages. Ben hints at upcoming improvements and enhancements for Nextflow, aimed at making the language more robust and user-friendly. The episode offers valuable insights for bioinformaticians and developers navigating the complexities of workflow management. 
+
+<!-- end-archive-description --> 
+
+**Some key points from the episode**
 
 - Tasks vs. processes: basically the same thing
 - Channels: why they're awesome once you 'get it' and how to make it easier to leverage their power
@@ -24,7 +28,7 @@ In this episode of Channels, the Nextflow podcast, host Geraldine from Seqera an
 - Portability across infrastructure backends: who wore it best?
 - Cloud-native vs. HPC-to-cloud
 
-## Summary of the episode
+## Podcast overview
 
 ### Introduction
 
