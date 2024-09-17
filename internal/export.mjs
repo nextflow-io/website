@@ -6,12 +6,16 @@ import * as cheerio from 'cheerio';
 const postsDirectory = path.join(process.cwd(), '../src/content/blog');
 const outputFile = path.join(process.cwd(), 'export.json');
 
-function extractImageUrls(content) {
+function extractImagePaths(content, postPath) {
   const $ = cheerio.load(content);
   const images = [];
   $('img').each((i, elem) => {
     const src = $(elem).attr('src');
-    if (src) images.push(src);
+    if (src) {
+      // Convert the src to a path relative to the content root
+      const imagePath = path.relative(contentRoot, path.resolve(path.dirname(postPath), src));
+      images.push(imagePath);
+    }
   });
   return images;
 }
@@ -28,7 +32,7 @@ function getPostsRecursively(dir) {
     } else if (item.isFile() && item.name.endsWith('.md')) {
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
-      const images = extractImageUrls(content);
+      const images = extractImagePaths(content, fullPath);
       
       posts.push({
         slug: path.relative(postsDirectory, fullPath).replace('.md', ''),

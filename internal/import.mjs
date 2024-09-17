@@ -1,7 +1,6 @@
 import sanityClient from '@sanity/client';
 import fs from 'fs';
 import path from 'path';
-import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { customAlphabet } from 'nanoid'
 
@@ -15,11 +14,16 @@ const client = sanityClient({
 });
 
 const postsFile = path.join(process.cwd(), 'export.json');
-const posts = JSON.parse(fs.readFileSync(postsFile, 'utf8'));
+const contentRoot = path.join(process.cwd(), '../public'); // Adjust this to your content root
 
-async function downloadImage(url) {
-  const response = await axios.get(url, { responseType: 'arraybuffer' });
-  return Buffer.from(response.data, 'binary');
+async function readPosts() {
+  const data = await fs.promises.readFile(postsFile, 'utf8');
+  return JSON.parse(data);
+}
+
+async function readImageFromFileSystem(imagePath) {
+  const fullPath = path.join(contentRoot, imagePath);
+  return fs.promises.readFile(fullPath);
 }
 
 async function uploadImageToSanity(imageBuffer, filename) {
@@ -38,22 +42,23 @@ async function replaceImageUrls(content, imageMap) {
 }
 
 async function migratePosts() {
-  const p = [posts[0], posts[1]]
+  const posts = await readPosts();
+  const p = [posts[4]];
+
   for (const post of p) {
     const imageMap = {};
-    for (const imageUrl of post.images) {
+    for (const imagePath of post.images) {
       try {
-        const imageBuffer = await downloadImage(imageUrl);
-        const filename = path.basename(imageUrl);
+        const imageBuffer = await readImageFromFileSystem(imagePath);
+        const filename = path.basename(imagePath);
         const uploadedImage = await uploadImageToSanity(imageBuffer, filename);
-        imageMap[imageUrl] = uploadedImage.url;
+        imageMap[imagePath] = uploadedImage.url;
       } catch (error) {
-        console.error(`Failed to process image: ${imageUrl}`, error);
+        console.error(`Failed to process image: ${imagePath}`, error);
       }
     }
 
     const updatedContent = await replaceImageUrls(post.content, imageMap);
-
 
     const sanityPost = {
       _type: 'blogPostDev',
