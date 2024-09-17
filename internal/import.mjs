@@ -3,6 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import axios from 'axios';
 import * as cheerio from 'cheerio';
+import { customAlphabet } from 'nanoid'
+
+const nanoid = customAlphabet('0123456789abcdef', 12)
 
 const client = sanityClient({
   projectId: 'o2y1bt2g',
@@ -35,7 +38,7 @@ async function replaceImageUrls(content, imageMap) {
 }
 
 async function migratePosts() {
-  const p = [posts[0]]
+  const p = [posts[0], posts[1]]
   for (const post of p) {
     const imageMap = {};
     for (const imageUrl of post.images) {
@@ -51,6 +54,7 @@ async function migratePosts() {
 
     const updatedContent = await replaceImageUrls(post.content, imageMap);
 
+
     const sanityPost = {
       _type: 'blogPostDev',
       title: post.title,
@@ -59,7 +63,8 @@ async function migratePosts() {
       body: [
         {
           _type: 'block',
-          children: [{ _type: 'span', text: updatedContent }],
+          _key: nanoid(),
+          children: [{ _type: 'span', text: updatedContent, _key: nanoid() }],
         },
       ],
     };
