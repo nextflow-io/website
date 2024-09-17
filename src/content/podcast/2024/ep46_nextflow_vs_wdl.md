@@ -12,9 +12,9 @@ author: Developer advocates
 icon: logo_podcast_channels.jpg
 ---
 
-In this episode of Channels, the Nextflow podcast, host Geraldine from Seqera and her colleague Ben Sherman dive into the differences and similarities between Nextflow and the [Workflow Description Language](https://openwdl.org/) (WDL). They discuss the origins and development of WDL at the Broad Institute, the challenges of working with different workflow languages, and how Nextflow's channel-based data flow model compares to WDL's approach. The conversation covers key features, type systems, and runtime specifications, highlighting the strengths and limitations of both languages. Ben hints at upcoming improvements and enhancements for Nextflow, aimed at making the language more robust and user-friendly. The episode offers valuable insights for bioinformaticians and developers navigating the complexities of workflow management. 
+In this episode of Channels, the Nextflow podcast, host Geraldine from Seqera and her colleague Ben Sherman dive into the differences and similarities between Nextflow and the [Workflow Description Language](https://openwdl.org/) (WDL). They discuss the origins and development of WDL at the Broad Institute, the challenges of working with different workflow languages, and how Nextflow's channel-based data flow model compares to WDL's approach. The conversation covers key features, type systems, and runtime specifications, highlighting the strengths and limitations of both languages. Ben hints at upcoming improvements and enhancements for Nextflow, aimed at making the language more robust and user-friendly. The episode offers valuable insights for bioinformaticians and developers navigating the complexities of workflow management.
 
-<!-- end-archive-description --> 
+<!-- end-archive-description -->
 
 **Some key points from the episode**
 
