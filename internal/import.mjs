@@ -36,6 +36,7 @@ function markdownToPortableText(markdown, imageMap) {
 }
 
 function tokenToPortableText(imageMap, token) {
+  
   switch (token.type) {
     case 'heading':
       return {
@@ -51,13 +52,17 @@ function tokenToPortableText(imageMap, token) {
         children: token.tokens.map(inlineTokenToPortableText.bind(null, imageMap)),
       };
     case 'image':
-      const imageUrl = imageMap[token.href] || token.href;
+      const image = imageMap[src];
+      if (!image?._id) {
+        console.warn(`Failed to find image for token: ${token.href}`);
+        return null;
+      }
       return {
         _type: 'image',
         _key: nanoid(),
         asset: {
           _type: 'reference',
-          _ref: imageUrl.split('-')[1],
+          _ref: image._id,
         },
         alt: token.text,
       };
@@ -67,7 +72,33 @@ function tokenToPortableText(imageMap, token) {
         _key: nanoid(),
         code: token.text
       };
-    // Add more cases for other block-level elements as needed
+    case 'html':
+      if (token.text.includes('<img')) {
+        const imgTag = token.text.match(/<img.*?>/)[0];
+        const srcMatch = imgTag.match(/src=(['"])(.*?)\1/);
+        const altMatch = imgTag.match(/alt=(['"])(.*?)\1/);
+        const src = srcMatch ? srcMatch[2] : '';
+        const alt = altMatch ? altMatch[2] : '';
+
+        const image = imageMap[src];
+        if (!image?._id) {
+          console.warn(`Failed to find image for token: ${token.text}`);
+          return null;
+        }
+        
+        return {
+          _type: 'image',
+          _key: nanoid(),
+          asset: {
+            _type: 'reference',
+            _ref: image._id,
+          },
+          alt,
+        };
+      } else {
+        console.warn(`Unsupported HTML token: ${token.text}`);
+        return null;
+      }
     default:
       console.warn(`Unsupported token type: ${token.type}`, token);
       return null;
@@ -77,7 +108,15 @@ function tokenToPortableText(imageMap, token) {
 function inlineTokenToPortableText(imageMap, token) {
   switch (token.type) {
     case 'text':
-      return { _type: 'span', text: token.text, _key: nanoid() };
+      let marks = [];
+      if (token.bold) marks.push('strong');
+      if (token.italic) marks.push('em');
+      return { 
+        _type: 'span', 
+        text: token.text, 
+        marks: marks,
+        _key: nanoid() 
+      };
     case 'link':
       return {
         _type: 'span',
@@ -87,13 +126,17 @@ function inlineTokenToPortableText(imageMap, token) {
         data: { href: token.href },
       };
     case 'image':
-      const imageUrl = imageMap[token.href] || token.href;
+      const image = imageMap[token.href];
+      if (!image?._id) {
+        console.warn(`Failed to find image for token: ${token.href}`);
+        return null;
+      }
       return {
         _type: 'image',
         _key: nanoid(),
         asset: {
           _type: 'reference',
-          _ref: imageUrl.split('-')[1],
+          _ref: image._id,
         },
         alt: token.text,
       };
@@ -121,11 +164,13 @@ async function migratePosts() {
         const imageBuffer = await readImageFromFileSystem(imagePath);
         const filename = path.basename(imagePath);
         const uploadedImage = await uploadImageToSanity(imageBuffer, filename);
-        imageMap[imagePath] = uploadedImage.url;
+        imageMap[imagePath] = uploadedImage;
       } catch (error) {
         console.error(`Failed to process image: ${imagePath}`, error);
       }
     }
+    console.log('Image map:', imageMap);
+    
 
     const portableTextContent = markdownToPortableText(post.content, imageMap);
 
