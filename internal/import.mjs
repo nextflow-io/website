@@ -1,10 +1,10 @@
 import sanityClient from '@sanity/client';
 import fs from 'fs';
 import path from 'path';
-import * as cheerio from 'cheerio';
-import { customAlphabet } from 'nanoid'
+import { customAlphabet } from 'nanoid';
+import { marked } from 'marked';
 
-const nanoid = customAlphabet('0123456789abcdef', 12)
+const nanoid = customAlphabet('0123456789abcdef', 12);
 
 const client = sanityClient({
   projectId: 'o2y1bt2g',
@@ -14,7 +14,7 @@ const client = sanityClient({
 });
 
 const postsFile = path.join(process.cwd(), 'export.json');
-const contentRoot = path.join(process.cwd(), '../public'); // Adjust this to your content root
+const contentRoot = path.join(process.cwd(), '../public');
 
 async function readPosts() {
   const data = await fs.promises.readFile(postsFile, 'utf8');
@@ -30,15 +30,84 @@ async function uploadImageToSanity(imageBuffer, filename) {
   return client.assets.upload('image', imageBuffer, { filename });
 }
 
-async function replaceImageUrls(content, imageMap) {
-  const $ = cheerio.load(content);
-  $('img').each((i, elem) => {
-    const src = $(elem).attr('src');
-    if (src && imageMap[src]) {
-      $(elem).attr('src', imageMap[src]);
-    }
-  });
-  return $.html();
+function markdownToPortableText(markdown, imageMap) {
+  const tokens = marked.lexer(markdown);
+  return tokens.map(tokenToPortableText.bind(null, imageMap)).filter(Boolean);
+}
+
+function tokenToPortableText(imageMap, token) {
+  switch (token.type) {
+    case 'heading':
+      return {
+        _type: 'block',
+        _key: nanoid(),
+        style: `h${token.depth}`,
+        children: [{ _type: 'span', text: token.text, _key: nanoid() }],
+      };
+    case 'paragraph':
+      return {
+        _type: 'block',
+        _key: nanoid(),
+        children: token.tokens.map(inlineTokenToPortableText.bind(null, imageMap)),
+      };
+    case 'image':
+      const imageUrl = imageMap[token.href] || token.href;
+      return {
+        _type: 'image',
+        _key: nanoid(),
+        asset: {
+          _type: 'reference',
+          _ref: imageUrl.split('-')[1],
+        },
+        alt: token.text,
+      };
+    case 'code':
+      return {
+        _type: 'code',
+        _key: nanoid(),
+        code: token.text
+      };
+    // Add more cases for other block-level elements as needed
+    default:
+      console.warn(`Unsupported token type: ${token.type}`, token);
+      return null;
+  }
+}
+
+function inlineTokenToPortableText(imageMap, token) {
+  switch (token.type) {
+    case 'text':
+      return { _type: 'span', text: token.text, _key: nanoid() };
+    case 'link':
+      return {
+        _type: 'span',
+        _key: nanoid(),
+        marks: ['link'],
+        text: token.text,
+        data: { href: token.href },
+      };
+    case 'image':
+      const imageUrl = imageMap[token.href] || token.href;
+      return {
+        _type: 'image',
+        _key: nanoid(),
+        asset: {
+          _type: 'reference',
+          _ref: imageUrl.split('-')[1],
+        },
+        alt: token.text,
+      };
+    case 'codespan':
+      return {
+        _type: 'span',
+        _key: nanoid(),
+        marks: ['code'],
+        text: token.text,
+      };
+    default:
+      console.warn(`Unsupported inline token type: ${token.type}`);
+      return { _type: 'span', text: token.raw, _key: nanoid() };
+  }
 }
 
 async function migratePosts() {
@@ -58,20 +127,14 @@ async function migratePosts() {
       }
     }
 
-    const updatedContent = await replaceImageUrls(post.content, imageMap);
+    const portableTextContent = markdownToPortableText(post.content, imageMap);
 
     const sanityPost = {
       _type: 'blogPostDev',
       title: post.title,
       meta: { slug: { current: post.slug } },
       publishedAt: new Date(post.date).toISOString(),
-      body: [
-        {
-          _type: 'block',
-          _key: nanoid(),
-          children: [{ _type: 'span', text: updatedContent, _key: nanoid() }],
-        },
-      ],
+      body: portableTextContent,
     };
 
     try {
