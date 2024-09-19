@@ -35,9 +35,13 @@ function markdownToPortableText(markdown, imageMap) {
   return tokens.map(tokenToPortableText.bind(null, imageMap)).filter(Boolean);
 }
 
-function sanitizeText(text) {
+function sanitizeText(text, removeLineBreaks = false) {
   // Replace all instances of &#39; with '
-  return text.replace(/&#39;/g, "'");
+  const t = text.replace(/&#39;/g, "'");
+  
+  if (removeLineBreaks) return t.replace(/\n/g, ' ');
+  
+  return t
 }
 
 function tokenToPortableText(imageMap, token) {
@@ -164,13 +168,10 @@ function inlineTokenToPortableText(imageMap, token) {
       if (token.italic) marks.push('em');
       return { 
         _type: 'span', 
-        text: sanitizeText(token.text), 
+        text: sanitizeText(token.text, true), 
         marks: marks,
         _key: nanoid() 
       };
-    case 'link':
-      // This case is now handled in tokenToPortableText
-      return null;
     case 'image':
       const image = imageMap[token.href];
       if (!image?._id) {
@@ -197,7 +198,7 @@ function inlineTokenToPortableText(imageMap, token) {
       return {
         _type: 'span',
         _key: nanoid(),
-        text: sanitizeText(token.text),
+        text: sanitizeText(token.text, true),
       };
     default:
       console.warn(`Unsupported inline token type: ${token.type}`, token);
@@ -208,7 +209,11 @@ function inlineTokenToPortableText(imageMap, token) {
 async function migratePosts() {
   const posts = await readPosts();
   const firstTen = posts.slice(0, 10);
-  const selectedPost = posts.find(p => p.slug === '2016/deploy-in-the-cloud-at-snap-of-a-finger');
+  const selected = [
+    '2016/deploy-in-the-cloud-at-snap-of-a-finger',
+    '2017/caw-and-singularity',
+  ]
+  const selectedPosts = posts.filter(post => selected.includes(post.slug));
 
   console.log('');
   console.log('');
@@ -216,11 +221,14 @@ async function migratePosts() {
   console.log('');
   console.log('');
   console.log('');
-  console.log('🪣 Migrating posts...');
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log('🟢🟢🟢 Migrating posts...');
   console.log('');
   
 
-  for (const post of [selectedPost]) {
+  for (const post of selectedPosts) {
     
     const imageMap = {};
     for (const imagePath of post.images) {

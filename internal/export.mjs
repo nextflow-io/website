@@ -12,9 +12,7 @@ function extractImagePaths(content, postPath) {
   $('img').each((i, elem) => {
     const src = $(elem).attr('src');
     if (src) {
-      // Convert the src to a path relative to the content root
-      const imagePath = path.relative(contentRoot, path.resolve(path.dirname(postPath), src));
-      images.push(imagePath);
+      images.push(src);
     }
   });
   return images;
