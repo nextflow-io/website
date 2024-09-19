@@ -51,10 +51,34 @@ function tokenToPortableText(imageMap, token) {
         children: [{ _type: 'span', text: sanitizeText(token.text), _key: nanoid() }],
       };
     case 'paragraph':
+      const children = [];
+      const markDefs = [];
+      
+      token.tokens.forEach(t => {
+        if (t.type === 'link') {
+          const linkKey = nanoid();
+          children.push({
+            _type: 'span',
+            _key: nanoid(),
+            marks: [linkKey],
+            text: sanitizeText(t.text)
+          });
+          markDefs.push({
+            _key: linkKey,
+            _type: 'link',
+            href: t.href
+          });
+        } else {
+          children.push(inlineTokenToPortableText(imageMap, t));
+        }
+      });
+      
       return {
         _type: 'block',
         _key: nanoid(),
-        children: token.tokens.map(inlineTokenToPortableText.bind(null, imageMap)),
+        style: 'normal',
+        children: children,
+        markDefs: markDefs
       };
     case 'image':
       const image = imageMap[src];
@@ -145,13 +169,8 @@ function inlineTokenToPortableText(imageMap, token) {
         _key: nanoid() 
       };
     case 'link':
-      return {
-        _type: 'span',
-        _key: nanoid(),
-        marks: ['link'],
-        text: sanitizeText(token.text),
-        data: { href: token.href },
-      };
+      // This case is now handled in tokenToPortableText
+      return null;
     case 'image':
       const image = imageMap[token.href];
       if (!image?._id) {
@@ -181,7 +200,7 @@ function inlineTokenToPortableText(imageMap, token) {
         text: sanitizeText(token.text),
       };
     default:
-      console.warn(`Unsupported inline token type: ${token.type}`);
+      console.warn(`Unsupported inline token type: ${token.type}`, token);
       return { _type: 'span', text: token.raw, _key: nanoid() };
   }
 }
