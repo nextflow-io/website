@@ -35,6 +35,11 @@ function markdownToPortableText(markdown, imageMap) {
   return tokens.map(tokenToPortableText.bind(null, imageMap)).filter(Boolean);
 }
 
+function sanitizeText(text) {
+  // Replace all instances of &#39; with '
+  return text.replace(/&#39;/g, "'");
+}
+
 function tokenToPortableText(imageMap, token) {
   
   switch (token.type) {
@@ -43,7 +48,7 @@ function tokenToPortableText(imageMap, token) {
         _type: 'block',
         _key: nanoid(),
         style: `h${token.depth}`,
-        children: [{ _type: 'span', text: token.text, _key: nanoid() }],
+        children: [{ _type: 'span', text: sanitizeText(token.text), _key: nanoid() }],
       };
     case 'paragraph':
       return {
@@ -95,10 +100,32 @@ function tokenToPortableText(imageMap, token) {
           },
           alt,
         };
+
+      } else if (token.text.startsWith('<script')) {
+
+        const idMatch = token.text.match(/id=(['"])(.*?)\1/);
+        const srcMatch = token.text.match(/src=(['"])(.*?)\1/);
+        const id = idMatch ? idMatch[2] : '';
+        const src = srcMatch ? srcMatch[2] : '';
+        if (!src) {
+          console.warn(`Failed to find src for script: ${token.text}`);
+          return null;
+        }
+        return { _type: 'script', _key: nanoid(), id, src };
+
       } else {
         console.warn(`Unsupported HTML token: ${token.text}`);
         return null;
       }
+    case 'list':
+      return {
+        _type: 'block',
+        _key: nanoid(),
+        style: token.ordered ? 'number' : 'bullet',
+        children: token.items.flatMap(item => 
+          item.tokens.map(inlineTokenToPortableText.bind(null, imageMap))
+        ),
+      };
     default:
       console.warn(`Unsupported token type: ${token.type}`, token);
       return null;
@@ -113,7 +140,7 @@ function inlineTokenToPortableText(imageMap, token) {
       if (token.italic) marks.push('em');
       return { 
         _type: 'span', 
-        text: token.text, 
+        text: sanitizeText(token.text), 
         marks: marks,
         _key: nanoid() 
       };
@@ -122,7 +149,7 @@ function inlineTokenToPortableText(imageMap, token) {
         _type: 'span',
         _key: nanoid(),
         marks: ['link'],
-        text: token.text,
+        text: sanitizeText(token.text),
         data: { href: token.href },
       };
     case 'image':
@@ -147,6 +174,12 @@ function inlineTokenToPortableText(imageMap, token) {
         marks: ['code'],
         text: token.text,
       };
+    case 'list_item':
+      return {
+        _type: 'span',
+        _key: nanoid(),
+        text: sanitizeText(token.text),
+      };
     default:
       console.warn(`Unsupported inline token type: ${token.type}`);
       return { _type: 'span', text: token.raw, _key: nanoid() };
@@ -155,9 +188,21 @@ function inlineTokenToPortableText(imageMap, token) {
 
 async function migratePosts() {
   const posts = await readPosts();
-  const p = [posts[4]];
+  const firstTen = posts.slice(0, 10);
+  const selectedPost = posts.find(p => p.slug === '2016/deploy-in-the-cloud-at-snap-of-a-finger');
 
-  for (const post of p) {
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log('');
+  console.log('🪣 Migrating posts...');
+  console.log('');
+  
+
+  for (const post of [selectedPost]) {
+    
     const imageMap = {};
     for (const imagePath of post.images) {
       try {
@@ -169,22 +214,22 @@ async function migratePosts() {
         console.error(`Failed to process image: ${imagePath}`, error);
       }
     }
-    console.log('Image map:', imageMap);
     
-
     const portableTextContent = markdownToPortableText(post.content, imageMap);
+
+    const newSlug = post.slug.split('/').pop();
 
     const sanityPost = {
       _type: 'blogPostDev',
       title: post.title,
-      meta: { slug: { current: post.slug } },
+      meta: { slug: { current: newSlug } },
       publishedAt: new Date(post.date).toISOString(),
       body: portableTextContent,
     };
 
     try {
       const result = await client.create(sanityPost);
-      console.log(`Successfully migrated post: ${result.title}`);
+      console.log(`✅ Successfully migrated post: ${result.title}`);
     } catch (error) {
       console.error(`Failed to migrate post: ${post.title}`, error);
     }
