@@ -38,14 +38,14 @@ function markdownToPortableText(markdown, imageMap) {
 function sanitizeText(text, removeLineBreaks = false) {
   // Replace all instances of &#39; with '
   const t = text.replace(/&#39;/g, "'");
-  
+
   if (removeLineBreaks) return t.replace(/\n/g, ' ');
-  
+
   return t
 }
 
 function tokenToPortableText(imageMap, token) {
-  
+
   switch (token.type) {
     case 'heading':
       return {
@@ -57,7 +57,7 @@ function tokenToPortableText(imageMap, token) {
     case 'paragraph':
       const children = [];
       const markDefs = [];
-      
+
       token.tokens.forEach(t => {
         if (t.type === 'link') {
           const linkKey = nanoid();
@@ -76,7 +76,7 @@ function tokenToPortableText(imageMap, token) {
           children.push(inlineTokenToPortableText(imageMap, t));
         }
       });
-      
+
       return {
         _type: 'block',
         _key: nanoid(),
@@ -118,7 +118,7 @@ function tokenToPortableText(imageMap, token) {
           console.warn(`Failed to find image for token: ${token.text}`);
           return null;
         }
-        
+
         return {
           _type: 'image',
           _key: nanoid(),
@@ -149,8 +149,9 @@ function tokenToPortableText(imageMap, token) {
       return {
         _type: 'block',
         _key: nanoid(),
-        style: token.ordered ? 'number' : 'bullet',
-        children: token.items.flatMap(item => 
+        listItem: 'bullet',
+        style: 'normal',
+        children: token.items.flatMap(item =>
           item.tokens.map(inlineTokenToPortableText.bind(null, imageMap))
         ),
       };
@@ -166,11 +167,11 @@ function inlineTokenToPortableText(imageMap, token) {
       let marks = [];
       if (token.bold) marks.push('strong');
       if (token.italic) marks.push('em');
-      return { 
-        _type: 'span', 
-        text: sanitizeText(token.text, true), 
+      return {
+        _type: 'span',
+        text: sanitizeText(token.text, true),
         marks: marks,
-        _key: nanoid() 
+        _key: nanoid()
       };
     case 'image':
       const image = imageMap[token.href];
@@ -199,6 +200,7 @@ function inlineTokenToPortableText(imageMap, token) {
         _type: 'span',
         _key: nanoid(),
         text: sanitizeText(token.text, true),
+        marks: [],
       };
     default:
       console.warn(`Unsupported inline token type: ${token.type}`, token);
@@ -226,10 +228,10 @@ async function migratePosts() {
   console.log('');
   console.log('🟢🟢🟢 Migrating posts...');
   console.log('');
-  
+
 
   for (const post of selectedPosts) {
-    
+
     const imageMap = {};
     for (const imagePath of post.images) {
       try {
@@ -241,7 +243,7 @@ async function migratePosts() {
         console.error(`Failed to process image: ${imagePath}`, error);
       }
     }
-    
+
     const portableTextContent = markdownToPortableText(post.content, imageMap);
 
     const newSlug = post.slug.split('/').pop();
