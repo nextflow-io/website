@@ -7,15 +7,26 @@ const postsDirectory = path.join(process.cwd(), '../src/content/blog');
 const outputFile = path.join(process.cwd(), 'export.json');
 
 function extractImagePaths(content, postPath) {
-  const $ = cheerio.load(content);
   const images = [];
+
+  // Extract HTML images
+  const $ = cheerio.load(content);
   $('img').each((i, elem) => {
     const src = $(elem).attr('src');
     if (src) {
       images.push(src);
     }
   });
-  return images;
+
+  // Extract Markdown images
+  const markdownImageRegex = /!\[.*?\]\((.*?)\)/g;
+  let match;
+  while ((match = markdownImageRegex.exec(content)) !== null) {
+    images.push(match[1]);
+  }
+
+  // Remove duplicates
+  return [...new Set(images)];
 }
 
 function sanitizeMarkdown(content) {
@@ -44,7 +55,7 @@ function sanitizeMarkdown(content) {
   $('a').each((i, elem) => {
     const $elem = $(elem);
     const href = $elem.attr('href');
-    const text = $elem.text();
+    const text = $elem.text().replace(/\n/g, ' ');
     $elem.replaceWith(`[${text}](${href})`);
   });
 
@@ -56,12 +67,12 @@ function sanitizeMarkdown(content) {
 
   $('em, i').each((i, elem) => {
     const $elem = $(elem);
-    $elem.replaceWith(`*${$elem.html()}*`);
+    $elem.replaceWith(`*${$elem.html().replace(/\n/g, ' ')}*`);
   });
 
   $('strong, b').each((i, elem) => {
     const $elem = $(elem);
-    $elem.replaceWith(`**${$elem.html()}**`);
+    $elem.replaceWith(`**${$elem.html().replace(/\n/g, ' ')}**`);
   });
 
   $('code').each((i, elem) => {

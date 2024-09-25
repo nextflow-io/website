@@ -46,7 +46,6 @@ function sanitizeText(text, removeLineBreaks = false) {
 }
 
 function tokenToPortableText(imageMap, token) {
-
   switch (token.type) {
     case 'heading':
       return {
@@ -58,8 +57,22 @@ function tokenToPortableText(imageMap, token) {
     case 'paragraph':
       const children = [];
       const markDefs = [];
+      let img;
 
       token.tokens.forEach(t => {
+        if (t.type === 'image') {
+          img = {
+            _type: 'image',
+            _key: nanoid(),
+            asset: {
+              _type: 'reference',
+              _ref: imageMap[t.href]._id,
+            },
+            alt: t.text,
+          };
+          return;
+        }
+
         if (t.type === 'link') {
           const linkKey = nanoid();
           children.push({
@@ -78,6 +91,8 @@ function tokenToPortableText(imageMap, token) {
         }
       });
 
+      if (img) return img;
+
       return {
         _type: 'block',
         _key: nanoid(),
@@ -88,8 +103,11 @@ function tokenToPortableText(imageMap, token) {
     case 'image':
       const image = imageMap[src];
       if (!image?._id) {
-        console.warn(`Failed to find image for token: ${token.href}`);
-        return null;
+        console.warn(`🚸 Failed to find image for token: ${token.href}`);
+        return {
+          _type: 'image',
+          _key: nanoid(),
+        };
       }
       return {
         _type: 'image',
@@ -116,8 +134,11 @@ function tokenToPortableText(imageMap, token) {
 
         const image = imageMap[src];
         if (!image?._id) {
-          console.warn(`Failed to find image for token: ${token.text}`);
-          return null;
+          console.warn(`🚸 Failed to find image for token: ${token.text}`);
+          return {
+            _type: 'image',
+            _key: nanoid(),
+          };
         }
 
         return {
@@ -138,13 +159,13 @@ function tokenToPortableText(imageMap, token) {
         const src = srcMatch ? srcMatch[2] : '';
         if (!src) {
           console.warn(`Failed to find src for script: ${token.text}`);
-          return null;
+          return { _type: 'block', _key: nanoid() };
         }
         return { _type: 'script', _key: nanoid(), id, src };
 
       } else {
         console.warn(`Unsupported HTML token: ${token.text}`);
-        return null;
+        return { _type: 'block', _key: nanoid() };
       }
     case 'list':
       return {
@@ -158,11 +179,21 @@ function tokenToPortableText(imageMap, token) {
       };
 
     case 'space':
-      return null;
+      return {
+        _type: 'block',
+        _key: nanoid(),
+        style: 'normal',
+        children: [{ _type: 'span', text: '', _key: nanoid() }]
+      };
 
     default:
-      console.warn(`Unsupported token type: ${token.type}`);
-      return null;
+      console.warn(`ℹ️ Unsupported token type: ${token.type}`);
+      return {
+        _type: 'block',
+        _key: nanoid(),
+        style: 'normal',
+        children: [{ _type: 'span', text: token.raw || '', _key: nanoid() }]
+      };
   }
 }
 
@@ -181,8 +212,11 @@ function inlineTokenToPortableText(imageMap, token) {
     case 'image':
       const image = imageMap[token.href];
       if (!image?._id) {
-        console.warn(`Failed to find image for token: ${token.href}`);
-        return null;
+        console.warn(`🚸 Failed to find image for token: ${token.href}`);
+        return {
+          _type: 'image',
+          _key: nanoid(),
+        };
       }
       return {
         _type: 'image',
@@ -207,8 +241,30 @@ function inlineTokenToPortableText(imageMap, token) {
         text: sanitizeText(token.text, true),
         marks: [],
       };
+    case 'em':
+      return {
+        _type: 'span',
+        text: sanitizeText(token.text, true),
+        marks: ['em'],
+        _key: nanoid()
+      };
+    case 'strong':
+      return {
+        _type: 'span',
+        text: sanitizeText(token.text, true),
+        marks: ['strong'],
+        _key: nanoid()
+      };
+    case 'html':
+    case 'del':
+    case 'escape':
+      return {
+        _type: 'span',
+        text: token.raw,
+        _key: nanoid()
+      };
     default:
-      console.warn(`Unsupported inline token type: ${token.type}`);
+      console.warn(`ℹ️ Unsupported inline token type: ${token.type}`);
       return { _type: 'span', text: token.raw, _key: nanoid() };
   }
 }
@@ -219,6 +275,7 @@ async function migratePosts() {
   const selected = [
     '2016/deploy-in-the-cloud-at-snap-of-a-finger',
     '2017/caw-and-singularity',
+    '2015/mpi-like-execution-with-nextflow'
   ]
   const selectedPosts = posts.filter(post => selected.includes(post.slug));
 
@@ -261,7 +318,6 @@ async function migratePosts() {
 
     let dateStr = post.date.split('T')[0];
     dateStr = `${dateStr} 8:00`;
-
 
     const sanityPost = {
       _type: 'blogPostDev',
