@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { customAlphabet } from 'nanoid';
 import { marked } from 'marked';
+import findPerson from './findPerson.mjs';
 
 const nanoid = customAlphabet('0123456789abcdef', 12);
 
@@ -244,16 +245,25 @@ async function migratePosts() {
       }
     }
 
+    const person = await findPerson(post.author);
+    if (!person) return false;
+
     const portableTextContent = markdownToPortableText(post.content, imageMap);
 
     const newSlug = post.slug.split('/').pop();
+
+    let dateStr = post.date.split('T')[0];
+    dateStr = `${dateStr} 8:00`;
+    console.log(dateStr);
+
 
     const sanityPost = {
       _type: 'blogPostDev',
       title: post.title,
       meta: { slug: { current: newSlug } },
-      publishedAt: new Date(post.date).toISOString(),
+      publishedAt: new Date(dateStr).toISOString(),
       body: portableTextContent,
+      author: { _type: 'reference', _ref: person._id },
     };
 
     try {
@@ -265,4 +275,7 @@ async function migratePosts() {
   }
 }
 
-migratePosts().then(() => console.log('Migration complete'));
+migratePosts().then((isSuccess) => {
+  if (isSuccess) console.log('✅ Migration complete')
+  else console.log('❌ Migration failed')
+});

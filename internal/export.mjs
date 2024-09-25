@@ -24,20 +24,22 @@ function getPostsRecursively(dir) {
 
   for (const item of items) {
     const fullPath = path.join(dir, item.name);
-    
+
     if (item.isDirectory()) {
       posts = posts.concat(getPostsRecursively(fullPath));
     } else if (item.isFile() && item.name.endsWith('.md')) {
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
       const images = extractImagePaths(content, fullPath);
-      
+
       posts.push({
         slug: path.relative(postsDirectory, fullPath).replace('.md', ''),
         title: data.title,
         date: data.date,
         content: content,
         images: images,
+        author: data.author,
+        tags: data.tags,
       });
     }
   }
