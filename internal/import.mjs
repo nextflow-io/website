@@ -156,8 +156,12 @@ function tokenToPortableText(imageMap, token) {
           item.tokens.map(inlineTokenToPortableText.bind(null, imageMap))
         ),
       };
+
+    case 'space':
+      return null;
+
     default:
-      console.warn(`Unsupported token type: ${token.type}`, token);
+      console.warn(`Unsupported token type: ${token.type}`);
       return null;
   }
 }
@@ -204,7 +208,7 @@ function inlineTokenToPortableText(imageMap, token) {
         marks: [],
       };
     default:
-      console.warn(`Unsupported inline token type: ${token.type}`, token);
+      console.warn(`Unsupported inline token type: ${token.type}`);
       return { _type: 'span', text: token.raw, _key: nanoid() };
   }
 }
@@ -231,7 +235,7 @@ async function migratePosts() {
   console.log('');
 
 
-  for (const post of selectedPosts) {
+  for (const post of firstTen) {
 
     const imageMap = {};
     for (const imagePath of post.images) {
@@ -246,7 +250,10 @@ async function migratePosts() {
     }
 
     const person = await findPerson(post.author);
-    if (!person) return false;
+    if (!person) {
+      console.log(`⭕ No person found with the name "${post.author}"; skipping import.`);
+      continue;
+    }
 
     const portableTextContent = markdownToPortableText(post.content, imageMap);
 
@@ -254,7 +261,6 @@ async function migratePosts() {
 
     let dateStr = post.date.split('T')[0];
     dateStr = `${dateStr} 8:00`;
-    console.log(dateStr);
 
 
     const sanityPost = {
@@ -273,6 +279,8 @@ async function migratePosts() {
       console.error(`Failed to migrate post: ${post.title}`, error);
     }
   }
+
+  return true;
 }
 
 migratePosts().then((isSuccess) => {

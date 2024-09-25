@@ -18,6 +18,85 @@ function extractImagePaths(content, postPath) {
   return images;
 }
 
+function sanitizeMarkdown(content) {
+  const $ = cheerio.load(`<div id="root">${content}</div>`);
+
+  $('p').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`\n\n${$elem.html().trim()}\n\n`);
+  });
+
+  $('s, del, strike').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`~~${$elem.html()}~~`);
+  });
+
+  $('sup').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`^${$elem.html()}^`);
+  });
+
+  $('sub').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`~${$elem.html()}~`);
+  });
+
+  $('a').each((i, elem) => {
+    const $elem = $(elem);
+    const href = $elem.attr('href');
+    const text = $elem.text();
+    $elem.replaceWith(`[${text}](${href})`);
+  });
+
+  $('blockquote').each((i, elem) => {
+    const $elem = $(elem);
+    const text = $elem.html().trim().replace(/\n/g, '\n> ');
+    $elem.replaceWith(`\n\n> ${text}\n\n`);
+  });
+
+  $('em, i').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`*${$elem.html()}*`);
+  });
+
+  $('strong, b').each((i, elem) => {
+    const $elem = $(elem);
+    $elem.replaceWith(`**${$elem.html()}**`);
+  });
+
+  $('code').each((i, elem) => {
+    const $elem = $(elem);
+    if ($elem.parent().is('pre')) {
+      // This is a code block, leave it as is
+      return;
+    }
+    $elem.replaceWith(`\`${$elem.html()}\``);
+  });
+
+  $('hr').each((i, elem) => {
+    $(elem).replaceWith('\n\n---\n\n');
+  });
+
+  $('ul, ol').each((i, elem) => {
+    const $elem = $(elem);
+    const listItems = $elem.children('li').map((i, li) => {
+      const prefix = $elem.is('ul') ? '- ' : `${i + 1}. `;
+      return prefix + $(li).html().trim();
+    }).get().join('\n');
+    $elem.replaceWith(`\n\n${listItems}\n\n`);
+  });
+
+  // Remove any remaining HTML tags
+  // $('*').each((i, elem) => {
+  //   const $elem = $(elem);
+  //   $elem.replaceWith($elem.html());
+  // });
+
+  let markdown = $('#root').html().trim();
+  markdown = markdown.replace(/\n{3,}/g, '\n\n');
+  return markdown;
+}
+
 function getPostsRecursively(dir) {
   let posts = [];
   const items = fs.readdirSync(dir, { withFileTypes: true });
@@ -30,13 +109,14 @@ function getPostsRecursively(dir) {
     } else if (item.isFile() && item.name.endsWith('.md')) {
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
-      const images = extractImagePaths(content, fullPath);
+      const convertedContent = sanitizeMarkdown(content);
+      const images = extractImagePaths(convertedContent, fullPath);
 
       posts.push({
         slug: path.relative(postsDirectory, fullPath).replace('.md', ''),
         title: data.title,
         date: data.date,
-        content: content,
+        content: convertedContent,
         images: images,
         author: data.author,
         tags: data.tags,

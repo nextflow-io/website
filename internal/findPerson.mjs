@@ -9,13 +9,7 @@ export const client = sanityClient({
 
 async function findPerson(name) {
   const person = await client.fetch(`*[_type == "person" && name == $name][0]`, { name });
-  if (!person) {
-    console.log(`⭕ No person found with the name "${name}".`);
-    return;
-  } else {
-    console.log(`Person found`, person.name);
-    return person;
-  }
+  return person
 }
 
 export default findPerson;
