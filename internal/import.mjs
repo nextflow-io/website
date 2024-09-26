@@ -4,6 +4,7 @@ import path from 'path';
 import { customAlphabet } from 'nanoid';
 import { marked } from 'marked';
 import findPerson from './findPerson.mjs';
+import findTag from './findTag.mjs';
 
 const nanoid = customAlphabet('0123456789abcdef', 12);
 
@@ -306,6 +307,15 @@ async function migratePosts() {
       }
     }
 
+    const tags = []
+
+    for (const tag of post.tags.split(',')) {
+      const tagObj = await findTag(tag);
+      if (tagObj) tags.push(tagObj);
+    }
+
+    const tagRefs = tags.map(tag => ({ _type: 'reference', _ref: tag._id, _key: nanoid() }));
+
     const person = await findPerson(post.author);
     if (!person) {
       console.log(`⭕ No person found with the name "${post.author}"; skipping import.`);
@@ -319,6 +329,19 @@ async function migratePosts() {
     let dateStr = post.date.split('T')[0];
     dateStr = `${dateStr} 8:00`;
 
+    const existingPost = await client.fetch(`*[_type == "blogPostDev" && meta.slug.current == $slug][0]`, { slug: newSlug });
+
+    if (existingPost) {
+      console.log(`Updating post: ${existingPost.title}`, tagRefs);
+      try {
+        await client.patch(existingPost._id).set({ tags: tagRefs }).commit();
+      } catch (error) {
+        console.error(`Failed to update post: ${existingPost.title}`);
+        console.error(error);
+      }
+      continue;
+    }
+
     const sanityPost = {
       _type: 'blogPostDev',
       title: post.title,
@@ -326,6 +349,7 @@ async function migratePosts() {
       publishedAt: new Date(dateStr).toISOString(),
       body: portableTextContent,
       author: { _type: 'reference', _ref: person._id },
+      tags: tags.map(tag => ({ _type: 'reference', _ref: tag._id })),
     };
 
     try {
