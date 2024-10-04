@@ -30,7 +30,7 @@ async function getLinks() {
   const oldPosts = await readPosts();
   const newPosts = await fetchNewPosts();
 
-  let csvContent = 'title,oldURL,devURL,prodURL\n';
+  let csvContent = 'title,oldURL,devURL,prodURL,cmsURL\n';
 
   for (const title of titles) {
     const oldPost = oldPosts.find(p => p.title === title);
@@ -46,9 +46,10 @@ async function getLinks() {
     const oldURL = oldPost ? `https://nextflow.io/blog/${oldPost.slug}.html` : '';
     const devURL = newPost ? `https://seqera.io/preview?type=blogPostDev&id=${id}` : '';
     const prodURL = newPost ? `https://seqera.io/blog/${newSlug}` : '';
+    const cmsURL = 'https://seqera-cms.netlify.app/seqera/structure/blogPostDev;' + id;
 
     const escapedTitle = title.includes(',') ? `"${title}"` : title;
-    csvContent += `${escapedTitle},${oldURL},${devURL},${prodURL}\n`;
+    csvContent += `${escapedTitle},${oldURL},${devURL},${prodURL},${cmsURL}\n`;
   }
 
   fs.writeFileSync(outputFile, csvContent, 'utf8');
