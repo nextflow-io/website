@@ -27,4 +27,3 @@ To get started, copy one of the implementations of the NEXTFLOW_RUN process from
 The benefits of this method include the straightforward daisy-chaining of workflows. A child workflow runs as it would from the command line, requiring no modifications for integration. However, there are some downsides: you are limited to what the child workflow allows, meaning you must wait for the entire pipeline to finish even if you only need a portion of it. Configuration can also be tricky, particularly in creating profiles to ensure all workflows run under the same execution conditions.
 
 nf-cascade demonstrates how multiple existing workflows can be connected into a single workflow with minimal effort. While there are some caveats, as mentioned above, it is generally applicable and effective. It provides a suitable interim solution for connecting workflows together as a single workflow.
-
