@@ -2,7 +2,7 @@
 title: "Daisy-chaining workflows: the nf-cascade concept"
 date: 2024-10-09
 type: post
-description: ""
+description: "nf-cascade is a proof-of-concept Nextflow pipeline that demonstrates how multiple workflows, such as nf-core pipelines, can be seamlessly integrated and daisy-chained into a single workflow without modifying the original workflows."
 image: /img/blog-2024-10-09--share.png
 tags: nextflow,ambassador_post
 status: published
