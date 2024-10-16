@@ -24,7 +24,7 @@ async function migrateBlogType() {
   const posts = await fetchBlogPosts();
 
   for (const post of devPosts) {
-    console.log('🔵 >> ', post.meta.slug.current);
+    console.log('🔵 >>         ', post.meta.slug.current);
     const existing = posts.find(p => p.meta.slug.current === post.meta.slug.current);
     if (!!existing) {
       console.log('🟡 exists   >> ', existing.meta.slug.current);
@@ -37,7 +37,7 @@ async function migrateBlogType() {
       _id: nanoid(),
       _rev: undefined,
     }
-    const p = await client.create(newPost);
+    const p = await client.createIfNotExists(newPost);
     console.log('🟢 created >> ', p.title);
   }
   console.log('🟢🟢🟢 Done');

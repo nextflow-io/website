@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import sanityClient from '@sanity/client';
 
-const outputFile = path.join(process.cwd(), 'backup.json');
+const outputFile = path.join(process.cwd(), 'backup3.json');
 
 export const client = sanityClient({
   projectId: 'o2y1bt2g',
