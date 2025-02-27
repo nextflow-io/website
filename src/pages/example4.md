@@ -1,101 +1,179 @@
 ---
-title: RNA-Seq pipeline
+title: Simple variant calling pipeline
 layout: "@layouts/MarkdownPage.astro"
 ---
 
 <div class="blg-summary example">
-<h3>RNA-Seq pipeline</h3>
+<h3>Simple variant calling pipeline</h3>
 
 <p class="text-muted">
-    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
+    This example shows a simple variant calling pipeline using container technology.
 </p>
 
 ```groovy
-#!/usr/bin/env nextflow
+/*
+ * Pipeline parameters
+ */
+
+// Primary input
+params.reads_bam = "${workflow.projectDir}/data/bam/*.bam"
+
+// Accessory files
+params.reference = "${workflow.projectDir}/data/ref/ref.fasta"
+params.reference_index = "${workflow.projectDir}/data/ref/ref.fasta.fai"
+params.reference_dict = "${workflow.projectDir}/data/ref/ref.dict"
+params.calling_intervals = "${workflow.projectDir}/data/ref/intervals.bed"
+
+// Base name for final output file
+params.cohort_name = "family_trio"
 
 /*
- * The following pipeline parameters specify the reference genomes
- * and read pairs and can be provided as command line options
+ * Generate BAM index file
  */
-params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
-params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
-params.outdir = "results"
+process SAMTOOLS_INDEX {
+
+    container 'community.wave.seqera.io/library/samtools:1.20--b5dfbd93de237464'
+    conda "bioconda::samtools=1.20"
+
+    input:
+        path input_bam
+
+    output:
+        tuple path(input_bam), path("${input_bam}.bai")
+
+    """
+    samtools index '$input_bam'
+
+    """
+}
+
+/*
+ * Call variants with GATK HapolotypeCaller in GVCF mode
+ */
+process GATK_HAPLOTYPECALLER {
+
+    container "community.wave.seqera.io/library/gatk4:4.5.0.0--730ee8817e436867"
+    conda "bioconda::gatk4=4.5.0.0"
+
+    input:
+        tuple path(input_bam), path(input_bam_index)
+        path ref_fasta
+        path ref_index
+        path ref_dict
+        path interval_list
+
+    output:
+        path "${input_bam}.g.vcf"
+        path "${input_bam}.g.vcf.idx"
+
+    """
+    gatk HaplotypeCaller \
+        -R ${ref_fasta} \
+        -I ${input_bam} \
+        -O ${input_bam}.g.vcf \
+        -L ${interval_list} \
+        -ERC GVCF
+    """
+}
+
+/*
+ * Consolidate GVCFs and apply joint genotyping analysis
+ */
+process GATK_JOINTGENOTYPING {
+
+    container "community.wave.seqera.io/library/gatk4:4.5.0.0--730ee8817e436867"
+    conda "bioconda::gatk4=4.5.0.0"
+
+    input:
+        path vcfs
+        path idxs
+        val cohort_name
+        path ref_fasta
+        path ref_index
+        path ref_dict
+        path interval_list
+
+    output:
+        path "${cohort_name}.joint.vcf"
+        path "${cohort_name}.joint.vcf.idx"
+
+    script:
+    def input_vcfs = vcfs.collect { "-V ${it}" }.join(' ')
+    """
+    gatk GenomicsDBImport \
+        ${input_vcfs} \
+        --genomicsdb-workspace-path ${cohort_name}_gdb \
+        -L ${interval_list}
+
+    gatk GenotypeGVCFs \
+        -R ${ref_fasta} \
+        -V gendb://${cohort_name}_gdb \
+        -O ${cohort_name}.joint.vcf \
+        -L ${interval_list}
+    """
+}
 
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
 
-    INDEX(params.transcriptome)
-    FASTQC(read_pairs_ch)
-    QUANT(INDEX.out, read_pairs_ch)
-}
+    // Create input channel from BAM files
+    // We convert it to a tuple with the file name and the file path
+    // See https://www.nextflow.io/docs/latest/script.html#getting-file-attributes
+    bam_ch = Channel.fromPath(params.reads_bam, checkIfExists: true)
 
-process INDEX {
-    tag "$transcriptome.simpleName"
+    // Create reference channels using the fromPath channel factory
+    // The collect converts from a queue channel to a value channel
+    // See https://www.nextflow.io/docs/latest/channel.html#channel-types for details
+    ref_ch               = Channel.fromPath(params.reference, checkIfExists: true).collect()
+    ref_index_ch         = Channel.fromPath(params.reference_index, checkIfExists: true).collect()
+    ref_dict_ch          = Channel.fromPath(params.reference_dict, checkIfExists: true).collect()
+    calling_intervals_ch = Channel.fromPath(params.calling_intervals, checkIfExists: true).collect()
 
-    input:
-    path transcriptome
+    // Create index file for input BAM file
+    SAMTOOLS_INDEX(bam_ch)
 
-    output:
-    path 'index'
+    // Call variants from the indexed BAM file
+    GATK_HAPLOTYPECALLER(
+        SAMTOOLS_INDEX.out,
+        ref_ch,
+        ref_index_ch,
+        ref_dict_ch,
+        calling_intervals_ch
+    )
 
-    script:
-    """
-    salmon index --threads $task.cpus -t $transcriptome -i index
-    """
-}
+    all_vcfs = GATK_HAPLOTYPECALLER.out[0].collect()
+    all_tbis = GATK_HAPLOTYPECALLER.out[1].collect()
 
-process FASTQC {
-    tag "FASTQC on $sample_id"
-    publishDir params.outdir
-
-    input:
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "fastqc_${sample_id}_logs"
-
-    script:
-    """
-    fastqc.sh "$sample_id" "$reads"
-    """
-}
-
-process QUANT {
-    tag "$pair_id"
-    publishDir params.outdir
-
-    input:
-    path index
-    tuple val(pair_id), path(reads)
-
-    output:
-    path pair_id
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
-    """
+    // Consolidate GVCFs and apply joint genotyping analysis
+    GATK_JOINTGENOTYPING(
+        all_vcfs,
+        all_tbis,
+        params.cohort_name,
+        ref_ch,
+        ref_index_ch,
+        ref_dict_ch,
+        calling_intervals_ch
+    )
 }
 ```
 
 </div>
 
-### Try it in your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+This example shows a basic variant calling Nextflow pipeline consisting of three processes. The `SAMTOOLS_INDEX` process creates index files for the input BAM files. The `GATK_HAPLOTYPECALLER` process takes the index bam files created by the `SAMTOOLS_INDEX` process and accessory files and creates variant call files. Finally, the `GATK_JOINTGENOTYPING` process consolidates the variant call files generated by `GATK_HAPLOTYPECALLER` and applies a joint genotyping analysis.
 
-- Unix-like operating system
-- Java 11 (or higher)
-- Docker
+### Try it
 
-Install Nextflow by entering the following command in the terminal:
+This pipeline is available on the [seqeralabs/nf-hello-gatk](https://github.com/seqeralabs/nf-hello-gatk) GitHub repository.
 
-    $ curl -fsSL get.nextflow.io | bash
+An active internet connection and Docker are required for Nextflow to download the pipeline and the necessary Docker images to run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
 
-Then launch the pipeline with this command:
+To try this pipeline:
 
-    $ nextflow run rnaseq-nf -with-docker
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
+3. Launch the pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+   nextflow run seqeralabs/nf-hello-gatk
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+**NOTE**: The `nf-hello-gatk` pipeline will use Docker to manage software dependencies by default.
