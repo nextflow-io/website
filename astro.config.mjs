@@ -4,6 +4,8 @@ import remarkDescription from "astro-remark-description";
 import remarkDirective from "remark-directive";
 import sitemap from "@astrojs/sitemap";
 import { transformerNotationDiff, transformerNotationFocus, transformerMetaHighlight } from "@shikijs/transformers";
+import react from "@astrojs/react";
+import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
@@ -50,6 +52,8 @@ export default defineConfig({
     ],
   },
   integrations: [
+    react(),
+    tailwind(),
     sitemap({
       // Just copying what was manually added in the old jbake site for now
       customPages: [
