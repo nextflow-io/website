@@ -3,232 +3,252 @@
 @tailwind utilities;
 
 * {
-    font-family: Inter, Helvetica, sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  html {
-    scroll-padding-top: 100px;
+  font-family: Inter, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-padding-top: 100px;
+}
+/* TODO: Remove this. Is a quick fix for the Tailwind integration */
+h1,
+h2,
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 36px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+
+ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+  unicode-bidi: isolate;
+}
+p {
+  margin: 0 0 12px;
+}
+/* TODO: Finish here */
+
+@layer components {
+  .container-xl {
+    @apply mx-auto;
+    max-width: 1440px;
   }
 
-  @layer components {
-    .container-xl {
-      @apply mx-auto;
-      max-width: 1440px;
-    }
-  
-    .container-lg {
-      @apply mx-auto;
-      max-width: 1248px;
-    }
-  
-    .container-md {
-      @apply mx-auto;
-      max-width: 1008px;
-    }
-  
-    .container-sm {
-      @apply mx-auto;
-      max-width: 900px;
-    }
-  
-    .gradient-indigo {
-      background-image: linear-gradient(180deg, #4256e7 0%, #7f91eb 100%);
-    }
-  
-    .bg-gradient {
-      background-image: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        rgba(66, 86, 231, 0.1) 100%
-      );
-    }
-  
-    .bg-accent {
-      background-image: linear-gradient(
-        210.05deg,
-        #778ff5 18.12%,
-        rgba(231, 57, 124, 0.66) 94.13%
-      );
-    }
-  
-    .bg-light {
-      background-color: rgba(66, 86, 231, 0.1);
-    }
-  
-    .row {
-      @apply -mx-4 flex flex-row flex-wrap;
-    }
-  
-    .col {
-      @apply px-4;
-    }
-  
-    .col-full {
-      @apply col flex-1/1 min-w-full;
-    }
-  
-    .col-1 {
-      @apply col flex-1/12 min-w-1/12;
-    }
-  
-    .col-2 {
-      @apply col flex-2/12 min-w-2/12;
-    }
-  
-    .col-3 {
-      @apply col flex-3/12 min-w-3/12;
-    }
-  
-    .col-4 {
-      @apply col flex-4/12 min-w-4/12;
-    }
-  
-    .col-5 {
-      @apply col flex-5/12 min-w-5/12;
-    }
-  
-    .col-6 {
-      @apply col flex-6/12 min-w-6/12;
-    }
-  
-    .col-7 {
-      @apply col flex-7/12 min-w-7/12;
-    }
-  
-    .col-8 {
-      @apply col flex-8/12 min-w-8/12;
-    }
-  
-    .col-9 {
-      @apply col flex-9/12 min-w-9/12;
-    }
-  
-    .col-10 {
-      @apply col flex-10/12 min-w-10/12;
-    }
-  
-    .col-11 {
-      @apply col flex-11/12 min-w-11/12;
-    }
-  
-    .col-1\/5 {
-      @apply col flex-1/5 min-w-1/5;
-    }
-  
-    .col-p-0\.5 {
-      padding-left: 2px !important;
-      padding-right: 2px !important;
-    }
-  
-    .text-gradient-1 {
-      background: #f18046;
-      background: linear-gradient(
-        to right,
-        #f18046 0%,
-        #fa6863 25%,
-        #52428c 50%,
-        #3d95fd 75%,
-        #0dc09d 100%
-      );
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .typo-display,
-    .typo-display span {
-      @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
-    }
-  
-    .typo-hero {
-      @apply font-display font-semibold text-5xl lg:text-6xl antialiased;
-    }
-  
-    .typo-h1 {
-      @apply font-display font-semibold text-2xl md:text-4xl lg:text-5xl antialiased;
-    }
-  
-    .typo-h2 {
-      @apply font-display font-semibold text-2xl md:text-3xl lg:text-4xl antialiased;
-    }
-  
-    .typo-h3 {
-      @apply font-display font-semibold text-2xl md:text-3xl antialiased;
-    }
-  
-    .typo-h4 {
-      @apply font-display font-semibold text-xl md:text-2xl antialiased;
-    }
-  
-    .typo-h5 {
-      @apply font-display text-base font-semibold antialiased tracking-wide;
-    }
-  
-    .typo-h6 {
-      @apply font-display text-[20px] font-normal antialiased;
-    }
-    .typo-h7 {
-      @apply text-sm font-medium antialiased text-gray-800;
-    }
-  
-    .typo-h1,
-    .typo-h2,
-    .typo-h3,
-    .typo-h4,
-    .typo-h5,
-    .typo-h6,
-    .typo-h7 {
-      & a {
-        @apply font-display;
-      }
-    }
-  
-    .typo-blockquote {
-      @apply font-body text-xl antialiased;
-    }
-  
-    .typo-intro {
-      @apply font-body text-base font-semibold antialiased;
-    }
-  
-    .typo-body {
-      @apply text-base font-light antialiased;
-      font-weight: 400;
-    }
-  
-    .typo-small {
-      @apply font-body text-sm antialiased;
-      font-weight: 400;
-    }
-  
-    .btn-primary {
-      @apply bg-indigo-600 text-white;
-    }
-  
-    .btn-secondary {
-      @apply bg-white text-indigo-600 hover:bg-indigo-200;
-    }
-  
-    .btn-accent {
-    }
-  
-    .btn-primary-alt {
-      @apply bg-green-600 text-white;
-    }
-  
-    .btn-secondary-alt {
-      @apply bg-white text-green-600 hover:bg-green-200;
-    }
-  
-    .btn-accent-alt {
-    }
-  
-    .typed {
-      background: linear-gradient(210.05deg, #778ff5 18.12%, #d22081 94.23%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-  
-    figcaption {
-      @apply font-body text-xs antialiased text-center font-light mt-3 opacity-70;
+  .container-lg {
+    @apply mx-auto;
+    max-width: 1248px;
+  }
+
+  .container-md {
+    @apply mx-auto;
+    max-width: 1008px;
+  }
+
+  .container-sm {
+    @apply mx-auto;
+    max-width: 900px;
+  }
+
+  .gradient-indigo {
+    background-image: linear-gradient(180deg, #4256e7 0%, #7f91eb 100%);
+  }
+
+  .bg-gradient {
+    background-image: linear-gradient(180deg, #ffffff 0%, rgba(66, 86, 231, 0.1) 100%);
+  }
+
+  .bg-accent {
+    background-image: linear-gradient(210.05deg, #778ff5 18.12%, rgba(231, 57, 124, 0.66) 94.13%);
+  }
+
+  .bg-light {
+    background-color: rgba(66, 86, 231, 0.1);
+  }
+
+  .row {
+    @apply -mx-4 flex flex-row flex-wrap;
+  }
+
+  .col {
+    @apply px-4;
+  }
+
+  .col-full {
+    @apply col flex-1/1 min-w-full;
+  }
+
+  .col-1 {
+    @apply col flex-1/12 min-w-1/12;
+  }
+
+  .col-2 {
+    @apply col flex-2/12 min-w-2/12;
+  }
+
+  .col-3 {
+    @apply col flex-3/12 min-w-3/12;
+  }
+
+  .col-4 {
+    @apply col flex-4/12 min-w-4/12;
+  }
+
+  .col-5 {
+    @apply col flex-5/12 min-w-5/12;
+  }
+
+  .col-6 {
+    @apply col flex-6/12 min-w-6/12;
+  }
+
+  .col-7 {
+    @apply col flex-7/12 min-w-7/12;
+  }
+
+  .col-8 {
+    @apply col flex-8/12 min-w-8/12;
+  }
+
+  .col-9 {
+    @apply col flex-9/12 min-w-9/12;
+  }
+
+  .col-10 {
+    @apply col flex-10/12 min-w-10/12;
+  }
+
+  .col-11 {
+    @apply col flex-11/12 min-w-11/12;
+  }
+
+  .col-1\/5 {
+    @apply col flex-1/5 min-w-1/5;
+  }
+
+  .col-p-0\.5 {
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+  }
+
+  .text-gradient-1 {
+    background: #f18046;
+    background: linear-gradient(to right, #f18046 0%, #fa6863 25%, #52428c 50%, #3d95fd 75%, #0dc09d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .typo-display,
+  .typo-display span {
+    @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
+  }
+
+  .typo-hero {
+    @apply font-display font-semibold text-5xl lg:text-6xl antialiased;
+  }
+
+  .typo-h1 {
+    @apply font-display font-semibold text-2xl md:text-4xl lg:text-5xl antialiased;
+  }
+
+  .typo-h2 {
+    @apply font-display font-semibold text-2xl md:text-3xl lg:text-4xl antialiased;
+  }
+
+  .typo-h3 {
+    @apply font-display font-semibold text-2xl md:text-3xl antialiased;
+  }
+
+  .typo-h4 {
+    @apply font-display font-semibold text-xl md:text-2xl antialiased;
+  }
+
+  .typo-h5 {
+    @apply font-display text-base font-semibold antialiased tracking-wide;
+  }
+
+  .typo-h6 {
+    @apply font-display text-[20px] font-normal antialiased;
+  }
+  .typo-h7 {
+    @apply text-sm font-medium antialiased text-gray-800;
+  }
+
+  .typo-h1,
+  .typo-h2,
+  .typo-h3,
+  .typo-h4,
+  .typo-h5,
+  .typo-h6,
+  .typo-h7 {
+    & a {
+      @apply font-display;
     }
   }
+
+  .typo-blockquote {
+    @apply font-body text-xl antialiased;
+  }
+
+  .typo-intro {
+    @apply font-body text-base font-semibold antialiased;
+  }
+
+  .typo-body {
+    @apply text-base font-light antialiased;
+    font-weight: 400;
+  }
+
+  .typo-small {
+    @apply font-body text-sm antialiased;
+    font-weight: 400;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-600 text-white;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-indigo-600 hover:bg-indigo-200;
+  }
+
+  .btn-accent {
+  }
+
+  .btn-primary-alt {
+    @apply bg-green-600 text-white;
+  }
+
+  .btn-secondary-alt {
+    @apply bg-white text-green-600 hover:bg-green-200;
+  }
+
+  .btn-accent-alt {
+  }
+
+  .typed {
+    background: linear-gradient(210.05deg, #778ff5 18.12%, #d22081 94.23%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  figcaption {
+    @apply font-body text-xs antialiased text-center font-light mt-3 opacity-70;
+  }
+}
