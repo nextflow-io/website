@@ -17,7 +17,7 @@ export const screens = {
   sm: "640px",
   md: "768px",
   lg: "1024px",
-  xl: "1280px",
+  xl: "1240px",
   xxl: "1500px",
 };
 
@@ -168,10 +168,6 @@ export default {
       width: {
         "1/7": "14.2857143%",
         "1/8": "12.5%",
-      },
-      shadow: {
-        default: "0px 5px 10px rgba(0, 0, 0, 0.1)",
-        xl: "0 2px 21px 11px rgba(0,0,0,0.05)",
       },
       spacing: getSpacing(),
       zIndex: {
