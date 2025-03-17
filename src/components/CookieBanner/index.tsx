@@ -39,7 +39,7 @@ const CookieBanner = () => {
   };
 
   const acceptAll = () => {
-    const expireDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365); // 1 año
+    const expireDate = new Date(Date.now() + 1000 * 60 * 60 * 24 * 365);
     setCookie("preferencesSet", "true", { expires: expireDate, path: "/" });
     setCookie("preferencesChoice", "all", { expires: expireDate, path: "/" });
     giveConsent();
@@ -92,8 +92,8 @@ const CookieBanner = () => {
               </div>
               <div className="px-1 py-1">
                 <button
-                  className="bg-nextflow-600 text-white px-4 py-2 rounded-md hover:bg-nextflow-700 transition"
                   onClick={acceptAll}
+                  className="bg-nextflow-600 text-white px-4 py-2 rounded-md hover:bg-nextflow-700 transition"
                 >
                   Accept all cookies
                 </button>
