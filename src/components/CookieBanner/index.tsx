@@ -64,12 +64,20 @@ const CookieBanner = () => {
       >
         <div className="flex items-center justify-between flex-wrap -my-2">
           <div className="flex items-center py-2 md:pr-4">
-            <div className="mr-4 hidden sm:block">
-              <img src={CookieIcon.src} alt="Cookie" className="h-8 w-8" />
-            </div>
-
-            <div className="flex-auto text-xs">
-              This website uses cookies to offer you a better browsing experience. <br className="hidden md:block" />
+            {/* <div className="mr-4 hidden sm:block">
+              <img src={CookieIcon.src} alt="Cookie" className="h-8 w-8"/>
+            </div>      */}
+            <div className="flex-auto text-xs ml-5">
+              This website uses cookies to offer you a better browsing
+              experience. <br className="hidden md:block" />
+              Find out more on{" "}
+              <a
+                href="https://seqera.io/privacy-policy/#cookies"
+                className="text-white underline"
+              >
+                how we use cookies
+              </a>
+              .
             </div>
           </div>
           <div className="py-2">
