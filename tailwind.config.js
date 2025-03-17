@@ -28,7 +28,7 @@ export default {
     screens,
     fontFamily: {
       display: ["Degular", "Helvetica", "sans-serif"],
-      body: ["Inter", "Helvetica", "sans-serif"],
+      body: ["Arial", "Helvetica", "sans-serif"],
       sans: ["Inter", "Helvetica", "sans-serif"],
       mono: ["Roboto Mono", "Monaco", "monospace", "sans-serif"],
     },
