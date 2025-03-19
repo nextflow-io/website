@@ -1,111 +1,152 @@
 ---
-title: BLAST pipeline
+title: RNA-Seq pipeline
 layout: "@layouts/MarkdownPage.astro"
 ---
 
 <div class="blg-summary example">
-<h3>BLAST pipeline</h3>
+<h3>RNA-Seq pipeline</h3>
 
 <p class="text-muted">
-    This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
+    This example shows a basic RNA-Seq pipeline.
 </p>
 
 ```groovy
 #!/usr/bin/env nextflow
 
 /*
- * Defines the pipeline input parameters (with a default value for each one).
- * Each of the following parameters can be specified as command line options.
+ * Pipeline parameters
  */
-params.query = "$baseDir/data/sample.fa"
-params.db = "$baseDir/blast-db/pdb/tiny"
-params.out = "result.txt"
-params.chunkSize = 100
 
-db_name = file(params.db).name
-db_dir = file(params.db).parent
+// Input data
+params.reads = "${workflow.projectDir}/data/ggal/ggal_gut_{1,2}.fq"
 
+// Reference file
+params.transcriptome = "${workflow.projectDir}/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+
+// Output directory
+params.outdir = "results"
+
+/*
+ * Index reference transcriptome file
+ */
+process INDEX {
+    tag "$transcriptome.simpleName"
+    container "community.wave.seqera.io/library/salmon:1.10.3--482593b6cd04c9b7"
+    conda "bioconda::salmon=1.10.3"
+
+    input:
+    path transcriptome
+
+    output:
+    path 'index'
+
+    script:
+    """
+    salmon index --threads $task.cpus -t $transcriptome -i index
+    """
+}
+
+/*
+ * Generate FastQC reports
+ */
+process FASTQC {
+    tag "FASTQC on $sample_id"
+    publishDir params.outdir, mode:'copy'
+    container "community.wave.seqera.io/library/fastqc:0.12.1--5cfd0f3cb6760c42"
+    conda "bioconda::fastqc:0.12.1"
+
+    input:
+    tuple val(sample_id), path(reads)
+
+    output:
+    path "fastqc_${sample_id}_logs"
+
+    script:
+    """
+    mkdir fastqc_${sample_id}_logs
+    fastqc -o fastqc_${sample_id}_logs -f fastq -q ${reads}
+    """
+}
+
+/*
+ * Quantify reads
+ */
+process QUANT {
+    tag "$pair_id"
+    publishDir params.outdir, mode:'copy'
+    container "community.wave.seqera.io/library/salmon:1.10.3--482593b6cd04c9b7"
+    conda "bioconda::salmon=1.10.3"
+
+    input:
+    path index
+    tuple val(pair_id), path(reads)
+
+    output:
+    path pair_id
+
+    script:
+    """
+    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
+    """
+}
+
+/*
+ * Generate MultiQC report
+ */
+process MULTIQC {
+  publishDir params.outdir, mode:'copy'
+    container "community.wave.seqera.io/library/multiqc:1.24.1--789bc3917c8666da"
+    conda "bioconda::multiqc:1.24.1"
+
+    input:
+    path '*'
+
+    output:
+    path 'multiqc_report.html'
+
+    script:
+    """
+    multiqc .
+    """
+}
 
 workflow {
-    /*
-     * Create a channel emitting the given query fasta file(s).
-     * Split the file into chunks containing as many sequences as defined by the parameter 'chunkSize'.
-     * Finally, assign the resulting channel to the variable 'ch_fasta'
-     */
-    Channel
-        .fromPath(params.query)
-        .splitFasta(by: params.chunkSize, file:true)
-        .set { ch_fasta }
 
-    /*
-     * Execute a BLAST job for each chunk emitted by the 'ch_fasta' channel
-     * and emit the resulting BLAST matches.
-     */
-    ch_hits = blast(ch_fasta, db_dir)
+    // Paired reference data
+    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
 
-    /*
-     * Each time a file emitted by the 'blast' process, an extract job is executed,
-     * producing a file containing the matching sequences.
-     */
-    ch_sequences = extract(ch_hits, db_dir)
+    // Index reference transcriptome file
+    INDEX(params.transcriptome)
 
-    /*
-     * Collect all the sequences files into a single file
-     * and print the resulting file contents when complete.
-     */
-    ch_sequences
-        .collectFile(name: params.out)
-        .view { file -> "matching sequences:\n ${file.text}" }
-}
+    // Generate FastQC reports
+    FASTQC(read_pairs_ch)
 
+    // Quantify reads
+    QUANT(INDEX.out, read_pairs_ch)
 
-process blast {
-    input:
-    path 'query.fa'
-    path db
-
-    output:
-    path 'top_hits'
-
-    """
-    blastp -db $db/$db_name -query query.fa -outfmt 6 > blast_result
-    cat blast_result | head -n 10 | cut -f 2 > top_hits
-    """
-}
-
-
-process extract {
-    input:
-    path 'top_hits'
-    path db
-
-    output:
-    path 'sequences'
-
-    """
-    blastdbcmd -db $db/$db_name -entry_batch top_hits | head -n 10 > sequences
-    """
+    // Generate MultiQC report
+    MULTIQC(QUANT.out.mix(FASTQC.out).collect())
 }
 ```
 
 </div>
 
-### Try it on your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+This example shows a basic Nextflow pipeline consisting of four processes. The `INDEX` process indexes a reference transcriptome file. The `FASTQC` process creates reports for the input fastq files. The `QUANT` process takes the indexed transcriptome and input fastq files and quantifies the reads. The `MULTIQC` process collects the output from the `QUANT` and `FASTQC` processes and generates a html report.
 
-- Unix-like operating system
-- Java 11 (or higher)
-- Docker
+### Try it
 
-Install Nextflow by entering the following command in the terminal:
+This pipeline is available on the [nextflow-io/rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf/tree/example) GitHub repository.
 
-    $ curl -fsSL https://get.nextflow.io | bash
+An active internet connection and Docker are required for Nextflow to download the pipeline and the necessary Docker images to run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
 
-Then launch the pipeline with this command:
+To try this pipeline:
 
-    $ ./nextflow run blast-example -with-docker
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
+3. Launch the `example` branch of the pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/blast-example) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+   nextflow run nextflow-io/rnaseq-nf -r example
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+**NOTE**: The main branch of the `rnaseq-nf` pipeline on GitHub is under active development and differs from the example shown above. The `rnaseq-nf` pipeline will use Docker to manage software dependencies by default.

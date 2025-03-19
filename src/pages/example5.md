@@ -7,7 +7,7 @@ layout: "@layouts/MarkdownPage.astro"
 <h3>Machine Learning pipeline</h3>
 
 <p class="text-muted">
-    This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
+    This example shows how to put together a basic Machine Learning pipeline.
 </p>
 
 ```groovy
@@ -48,22 +48,22 @@ workflow {
 
 </div>
 
-### Try it in your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
 
-- Unix-like operating system
-- Java 11 (or higher)
-- Docker
+### Try it
 
-Install Nextflow by entering the following command in the terminal:
+This pipeline is available on the [nextflow-io/ml-hyperopt](https://github.com/nextflow-io/ml-hyperopt) GitHub repository.
 
-    $ curl -fsSL get.nextflow.io | bash
+An active internet connection and Docker are required for Nextflow to download the pipeline and the necessary Docker images to run the pipeline within containers. The data used by this pipeline is stored on the GitHub repository and will download automatically.
 
-Then launch the pipeline with this command:
+To try this pipeline:
 
-    $ nextflow run ml-hyperopt -profile wave
+1. Follow the [Nextflow installation guide](https://www.nextflow.io/docs/latest/install.html#install-nextflow) to install Nextflow.
+2. Follow the [Docker installation guide](https://docs.docker.com/get-started/get-docker/) to install Docker.
+3. Launch the pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
+   nextflow run nextflow-io/ml-hyperopt -profile wave
 
 **NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
