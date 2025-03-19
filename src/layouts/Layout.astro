@@ -1,6 +1,8 @@
 ---
+import "../styles/main.css";
 import Menu from "@components/Menu.astro";
 import Footer from "@components/Footer.astro";
+import CookieBanner from "@components/CookieBanner/index.tsx";
 
 import { existsSync } from "fs";
 import path from "path";
@@ -70,6 +72,18 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
       })(window, document, "script", "dataLayer", "GTM-TNCXSWG");
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      window.gtag = gtag;
+      gtag("consent", "default", {
+        ad_storage: "denied",
+        analytics_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      });
     </script>
     <!-- End Google Tag Manager -->
   </head>
@@ -87,7 +101,7 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
     <Menu />
 
     <slot />
-
+    <CookieBanner client:only="react" />
     <Footer />
   </body>
 </html>
