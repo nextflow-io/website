@@ -16,6 +16,7 @@ export default function SeqeraHub() {
       stars: 786,
       size: "198 KB",
       updated: "11 months ago",
+      url: "https://seqera.io/pipelines/rnaseq--nf-core/",
     },
     {
       name: "nf-core/sarek",
@@ -26,6 +27,7 @@ export default function SeqeraHub() {
       stars: 340,
       size: "470 KB",
       updated: "11 months ago",
+      url: "https://seqera.io/pipelines/sarek--nf-core/",
     },
   ];
 
@@ -37,6 +39,7 @@ export default function SeqeraHub() {
       stars: 450,
       downloads: "120k",
       updated: "2 months ago",
+      url: "https://seqera.io/containers/?packages=bioconda::bcftools=1.2",
     },
     {
       name: "bioconda::samtools",
@@ -45,6 +48,7 @@ export default function SeqeraHub() {
       stars: 380,
       downloads: "95k",
       updated: "3 months ago",
+      url: "https://seqera.io/containers/?packages=pip:numpy==2.0.0rc1",
     },
   ];
 
@@ -59,7 +63,11 @@ export default function SeqeraHub() {
           </h2>
           <div className="grid grid-cols-1 auto-rows-fr gap-4">
             {pipelines.map((pipeline, index) => (
-              <div key={index} className="border-brand-opacity border  p-6 bg-white h-full min-h-[208px]">
+              <a 
+                key={index} 
+                href={pipeline.url} 
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline"
+              >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
                     <span className="text-blue-500 font-medium text-lg">{pipeline.name}</span>
@@ -91,7 +99,7 @@ export default function SeqeraHub() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
           <div className="mt-6 flex justify-center">
@@ -109,7 +117,11 @@ export default function SeqeraHub() {
           </h2>
           <div className="grid grid-cols-1 auto-rows-fr gap-4">
             {containers.map((container, index) => (
-              <div key={index} className="border-brand-opacity border  p-6 bg-white h-full  min-h-[208px]">
+              <a 
+                key={index} 
+                href={container.url}
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline"
+              >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
                     <span className="text-blue-500 font-medium text-lg flex items-center">
@@ -143,7 +155,7 @@ export default function SeqeraHub() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
           <div className="mt-6 flex justify-center">

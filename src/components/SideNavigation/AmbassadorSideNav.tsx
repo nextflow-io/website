@@ -18,11 +18,6 @@ const AmbassadorSideNav = () => {
       title: 'Become an ambassador',
       href: 'become-ambassador'
     },
-    {
-      id: 'our-ambassadors',
-      title: 'Our ambassadors',
-      href: 'our-ambassadors'
-    }
   ];
 
   return (
