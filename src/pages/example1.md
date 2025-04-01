@@ -1,12 +1,12 @@
 ---
 title: Basic pipeline
-layout: "@layouts/MarkdownPage.astro"
+layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
 <h3>Basic pipeline</h3>
 
-<p class="text-muted" >
+<p class="" >
     This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.
 </p>
 

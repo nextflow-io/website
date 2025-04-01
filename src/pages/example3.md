@@ -1,12 +1,12 @@
 ---
 title: BLAST pipeline
-layout: "@layouts/MarkdownPage.astro"
+layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
 <h3>BLAST pipeline</h3>
 
-<p class="text-muted">
+<p class="">
     This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
 </p>
 
