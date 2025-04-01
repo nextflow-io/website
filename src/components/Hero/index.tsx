@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
 import styles from "./styles.module.css";
-import useMediaQuery from "../../hooks/useMediaQuery";
-import { screens } from "../../../tailwind.config";
 import BackgroundGrid from "./src/BackgroundGrid";
 
 const Hero = ({ children, large }: { children: React.ReactNode; large?: boolean }) => {
