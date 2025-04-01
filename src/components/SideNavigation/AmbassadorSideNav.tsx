@@ -4,6 +4,11 @@ import SideNavigation from './index';
 const AmbassadorSideNav = () => {
   const items = [
     {
+      id: 'introduction',
+      title: 'Become an ambassador',
+      href: 'introduction'
+    },
+    {
       id: 'why-become',
       title: 'Why become an ambassador',
       href: 'why-become'
@@ -24,7 +29,7 @@ const AmbassadorSideNav = () => {
     <SideNavigation 
       items={items} 
       title="Ambassador program"
-      activeItem="why-become" 
+      activeItem="Become an ambassador" 
       className="font-sans text-sm"
       mode="anchor"
     />
