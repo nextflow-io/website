@@ -1,10 +1,13 @@
 ---
 const currentPath = Astro.url.pathname;
 const isHomepage = currentPath === "/" || currentPath === "/index.html";
+import externalLink from "../../public/img/assets/external-link-arrow.svg"
+import angleDown from "../../public/img/assets/angle-down.svg"
+
 ---
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  {
+  <!-- {
     isHomepage && (
       <a href="https://github.com/nextflow-io/nextflow" target="_blank" class="hidden-xs">
         <img
@@ -14,7 +17,7 @@ const isHomepage = currentPath === "/" || currentPath === "/index.html";
         />
       </a>
     )
-  }
+  } -->
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,28 +26,48 @@ const isHomepage = currentPath === "/" || currentPath === "/index.html";
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/index.html">
+      <a class="navbar-brand max-w-[155px]" href="/index.html">
         <img src="/img/nextflow.svg" title="Nextflow" />
       </a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="show animated flipInX">
-          <a href="/docs/latest/index.html">Documentation</a>
+          <a href="/docs/latest/index.html" class="text-black">Documentation</a>
         </li>
 
         <li class="dropdown show animated flipInX">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="/example1.html">Basic pipeline</a></li>
-            <li><a href="/example2.html">Mixing scripting languages</a></li>
-            <li><a href="/example3.html">BLAST pipeline</a></li>
-            <li><a href="/example4.html">RNA-Seq pipeline</a></li>
-            <li><a href="/example5.html">Machine Learning pipeline</a></li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0">Examples <img src={angleDown.src} alt="Expand" class="dropdown-icon" /></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/example1.html" tabindex="0">Basic pipeline</a></li>
+            <li><a href="/example2.html" tabindex="0">Mixing scripting languages</a></li>
+            <li><a href="/example3.html" tabindex="0">BLAST pipeline</a></li>
+            <li><a href="/example4.html" tabindex="0">RNA-Seq pipeline</a></li>
+            <li><a href="/example5.html" tabindex="0">Machine Learning pipeline</a></li>
             <li>
-              <a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank">
-                Simple RNAseq pipeline
-                <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank" tabindex="0">
+                Simple RNAseq pipeline<img src={externalLink.src} alt="External link" class="inline-block" />
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="dropdown show animated flipInX">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0">Scientists <img src={angleDown.src} alt="Expand" class="dropdown-icon" /></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="https://seqera.io/pipelines/" target="_blank" tabindex="0">
+                Pipelines<img src={externalLink.src} alt="External link" class="inline-block" />
+              </a>
+            </li>
+            <li>
+              <a href="https://seqera.io/containers/" target="_blank" tabindex="0">
+                Containers<img src={externalLink.src} alt="External link" class="inline-block" />
+              </a>
+            </li>
+            <li>
+              <a href="https://seqera.io/ask-ai/" target="_blank" tabindex="0">
+                Seqera AI<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
           </ul>
@@ -55,56 +78,51 @@ const isHomepage = currentPath === "/" || currentPath === "/index.html";
         </li>
 
         <li class="dropdown show animated flipInX">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
-          <ul class="dropdown-menu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0">Resources <img src={angleDown.src} alt="Expand" class="dropdown-icon" /></a>
+          <ul class="dropdown-menu" role="menu">
             <li>
-              <a href="https://seqera.io/blog/tag-nextflow/">
-                Blog
-                <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="https://seqera.io/blog/tag-nextflow/" tabindex="0">
+                Blog<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
             <li>
-              <a href="https://seqera.io/podcasts/">
-                Podcast <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="https://seqera.io/podcasts/" tabindex="0">
+                Podcast<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
             <li>
-              <a href="http://nextflow-io.github.io/patterns/index.html">
-                Implementation patterns
-                <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="http://nextflow-io.github.io/patterns/index.html" tabindex="0">
+                Implementation patterns<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
-            <li><a href="/ambassadors.html">Nextflow Ambassadors</a></li>
+            <li><a href="/ambassadors.html" tabindex="0">Nextflow Ambassadors</a></li>
             <li>
-              <a href="https://www.nextflow.io/slack-invite.html">
-                Slack community chat
-                <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="https://www.nextflow.io/slack-invite.html" tabindex="0">
+                Slack community chat<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
             <li>
-              <a href="https://nf-co.re">
-                nf-core pipelines
-                <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+              <a href="https://nf-co.re" tabindex="0">
+                nf-core pipelines<img src={externalLink.src} alt="External link" class="inline-block" />
               </a>
             </li>
-            <li><a href="/about-us.html">About Nextflow</a></li>
+            <li><a href="/about-us.html" tabindex="0">About Nextflow</a></li>
           </ul>
         </li>
 
         <li class="show animated flipInX">
-          <a href="https://community.seqera.io/tag/nextflow" target="_blank">
-            Forums
-            <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
+          <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabindex="0">
+            Forums<img src={externalLink.src} alt="External link" class="inline-block" />
           </a>
         </li>
 
-        <li class="show animated flipInX">
-          <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository">
-            <i class="fa fa-github hidden-xs" aria-hidden="true"></i>
-            <span class="visible-xs">GitHub repository</span>
-          </a>
-        </li>
       </ul>
+      <div class="navbar-right">
+        <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabindex="0">
+          <i class="fa fa-github hidden-xs" aria-hidden="true"></i>
+          <span class="visible-xs">GitHub repository</span>
+        </a>
+      </div>
     </div>
   </div>
 </div>
