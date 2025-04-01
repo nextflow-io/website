@@ -61,7 +61,7 @@ export default {
           900: "#087F68",
           1000: "#065647",
           DEFAULT: "#0DC09D",
-          "100-opacity": "rgba(226, 247, 243, 0.20)", 
+          "100-opacity": "rgba(226, 247, 243, 0.20)",
           "200-opacity": "rgba(182, 236, 226, 0.20)",
           "300-opacity": "rgba(134, 224, 206, 0.20)",
           "400-opacity": "rgba(86, 211, 186, 0.20)",
@@ -85,7 +85,7 @@ export default {
           1000: "#2D273C",
           1100: "#160F26",
           DEFAULT: "#160F26",
-          "100-opacity": "rgba(243, 243, 244, 0.20)", 
+          "100-opacity": "rgba(243, 243, 244, 0.20)",
           "200-opacity": "rgba(232, 231, 233, 0.20)",
           "300-opacity": "rgba(208, 207, 212, 0.20)",
           "400-opacity": "rgba(185, 183, 190, 0.20)",
@@ -115,7 +115,7 @@ export default {
           300: "#A1ABF3",
           400: "#7B89EE",
           500: "#5E6FEB",
-          600: "#4256E7", 
+          600: "#4256E7",
           700: "#3C4ED1",
           800: "#3443B4",
           900: "#2C3999",
@@ -124,7 +124,7 @@ export default {
         },
       },
       borderColor: {
-        'brand-opacity': 'var(--color-brand-900-opacity)',
+        "brand-opacity": "var(--color-brand-900-opacity)",
       },
       borderRadius: {
         sm: "4px",
@@ -238,7 +238,7 @@ export default {
       });
       addBase({
         ":root": customVars,
-        "p": {
+        p: {
           fontSize: theme("fontSize.base[0]"),
           lineHeight: theme("fontSize.base[1]"),
         },
