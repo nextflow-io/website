@@ -49,7 +49,7 @@ export default function SeqeraHub() {
   ];
 
   return (
-    <div className=" mx-auto py-8 px-4">
+    <div className=" mx-auto py-0 px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Pipelines Column */}
         <div>

@@ -1,5 +1,7 @@
 ---
 import "../styles/main.css";
+import "../styles/dropdown-hover.css";
+import "../styles/focus-styles.css";
 import Menu from "@components/Menu.astro";
 import Footer from "@components/Footer.astro";
 import CookieBanner from "@components/CookieBanner/index.tsx";
@@ -103,5 +105,25 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
     <slot />
     <CookieBanner client:only="react" />
     <Footer />
+
+    <script is:inline>
+      // Quick fix hover effect
+      const dropdowns = document.querySelectorAll('.navbar-nav .dropdown');
+      dropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('mouseenter', function() {
+          this.classList.add('open');
+          const toggle = this.querySelector('.dropdown-toggle');
+          if (toggle) toggle.setAttribute('aria-expanded', 'true');
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          if (!this.contains(document.activeElement)) {
+            this.classList.remove('open');
+            const toggle = this.querySelector('.dropdown-toggle');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

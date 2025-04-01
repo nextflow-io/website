@@ -51,7 +51,7 @@ const ExamplesSideNav = () => {
   return (
     <SideNavigation 
       items={items} 
-      title="Examples"
+      title="All examples"
       activeItem={activeId} 
       className="font-sans text-sm"
       mode="page"
