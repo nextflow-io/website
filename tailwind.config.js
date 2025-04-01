@@ -123,6 +123,9 @@ export default {
           DEFAULT: "#4256E7",
         },
       },
+      borderColor: {
+        'brand-opacity': 'var(--color-brand-900-opacity)',
+      },
       borderRadius: {
         sm: "4px",
         md: "8px",
@@ -233,9 +236,12 @@ export default {
         customVars[`--size-${key}`] = theme("fontSize")[key][0];
         customVars[`--leading-${key}`] = theme("fontSize")[key][1];
       });
-
       addBase({
         ":root": customVars,
+        "p": {
+          fontSize: theme("fontSize.base[0]"),
+          lineHeight: theme("fontSize.base[1]"),
+        },
       });
     },
   ],

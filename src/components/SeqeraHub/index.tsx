@@ -59,7 +59,7 @@ export default function SeqeraHub() {
           </h2>
           <div className="grid grid-cols-1 auto-rows-fr gap-4">
             {pipelines.map((pipeline, index) => (
-              <div key={index} className="border p-6 bg-white shadow-sm h-full min-h-[208px]">
+              <div key={index} className="border-brand-opacity border  p-6 bg-white h-full min-h-[208px]">
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
                     <span className="text-blue-500 font-medium text-lg">{pipeline.name}</span>
@@ -109,7 +109,7 @@ export default function SeqeraHub() {
           </h2>
           <div className="grid grid-cols-1 auto-rows-fr gap-4">
             {containers.map((container, index) => (
-              <div key={index} className="border p-6 bg-white shadow-sm h-full  min-h-[208px]">
+              <div key={index} className="border-brand-opacity border  p-6 bg-white h-full  min-h-[208px]">
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
                     <span className="text-blue-500 font-medium text-lg flex items-center">

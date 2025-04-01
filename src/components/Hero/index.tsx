@@ -5,7 +5,7 @@ import BackgroundGrid from "./src/BackgroundGrid";
 
 const Hero = ({ children, large }: { children: React.ReactNode; large?: boolean }) => {
   return (
-    <div className={clsx(styles.hero, "hero-section w-full")}>
+    <div className={clsx(styles.hero, "hero-section w-full px-0")}>
       <div className={styles.bgSvgContainer}>
         <BackgroundGrid />
       </div>
