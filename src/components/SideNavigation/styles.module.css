@@ -1,0 +1,148 @@
+/* Estilo para el título en ambas vistas */
+.titleDisplay {
+  width: 100%;
+  text-align: center;
+}
+
+.activeLink {
+  background-color: var(--nextflow-light-green, #e0f7f5);
+  color: #333; /* Color oscuro para mejor contraste */
+  font-weight: 500;
+}
+
+/* Estilos para la versión móvil */
+@media (max-width: 1024px) {
+  .activeLink {
+    border-bottom: 3px solid var(--nextflow-green, #4db6ac) !important;
+    border-left: none !important;
+    box-sizing: border-box;
+  }
+
+  .scrollContainer {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .scrollContainer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+
+  /* Añadir un indicador de desplazamiento horizontal en móviles */
+  .scrollIndicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      rgba(77, 182, 172, 0.5) 0%, 
+      rgba(77, 182, 172, 0.8) 50%, 
+      rgba(77, 182, 172, 0.5) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .scrollContainer:hover .scrollIndicator,
+  .scrollContainer:focus .scrollIndicator {
+    opacity: 1;
+  }
+
+  /* Estilo para el título en móvil */
+  .titleDisplay {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 8px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 11;
+  }
+  
+  /* Contenedor scrollable solo para tabs */
+  .mobileNavList {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: flex-start !important;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+  }
+  
+  .mobileNavList::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+  
+  .mobileNavList li {
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .mobileNavList li a {
+    display: inline-block;
+    text-align: center;
+    margin: 0 3px;
+    box-sizing: border-box;
+    padding: 9px 10px !important; /* Padding consistente para todas las pestañas */
+  }
+
+  /* Ajuste específico para el elemento activo */
+  .mobileNavList li a.activeLink {
+    padding-bottom: 6px !important; /* 9px - 3px (del borde) = 6px */
+  }
+}
+
+/* Estilos específicos para desktop */
+@media (min-width: 1025px) {
+  .scrollContainer {
+    overflow: visible !important; /* Asegurar que no hay scroll en desktop */
+    text-align: left;
+  }
+  
+  .scrollContainer ul li a {
+    letter-spacing: -0.01em;
+    border-left: 3px solid transparent;
+    padding-left: 10px !important;
+  }
+  
+  .scrollContainer ul li a:hover {
+    border-left: 3px solid var(--nextflow-green, #4db6ac);
+  }
+
+  .activeLink {
+    border-left: 3px solid var(--nextflow-green, #4db6ac) !important;
+    padding-left: 10px !important;
+  }
+
+  /* Estilo para el título en desktop */
+  .titleDisplay {
+    text-align: left;
+    padding-left: 10px;
+  }
+  
+  .mobileNavList {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  
+  .mobileNavList li {
+    text-align: left;
+  }
+  
+  .mobileNavList li a {
+    text-align: left;
+    margin: 0;
+  }
+} 
