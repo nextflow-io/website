@@ -1,49 +1,66 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Hero from "@components/Hero";
+import logoSeqera from "../../public/img/assets/logo_seqera.svg"
+import Button from "@components/Button"
+import Card from "@components/Card" 
+import SeqeraHub from "@components/SeqeraHub"
+import TerminalComponent from "@components/QuickInstaller/index";
+import CommunityGrid from "@components/CommunityGrid/CommunityGrid.astro";
+
+
+// import LogoSlider from "@components/LogoSlider/index"
+// import LogoSliderPlacegolder from "@components/LogoSlider/src/placeholder.svg"
 ---
 
 <Layout
   title="A DSL for parallel and scalable computational pipelines"
   description="Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the adaptation of pipelines written in the most common scripting languages."
 >
-  <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <div class="container-lg">
-      <div class="row">
-        <div class="col-md-6 col-sm-6">
-          <img src="img/home-dsl2.png" alt="Nextflow code example" class="img-responsive animated fadeInDown delay1" />
+<div class="container container-xl mt-20">
+  <Hero large >
+    <div class="flex flex-col md:flex-row w-full justify-around items-center gap-auto px-10 py-20 z-20">        
+      <div class="flex flex-col gap-7 max-w-[640px]">
+          <h1 class="font-display text-4xl md:text-6xl text-brand">Reproducible Scientific Workflows at Scale</h1>
+          <p class="text-lg">
+            Nextflow enables scalable, reproducible, and portable scientific workflows for research and production use cases. 
+          </p>
+          <div class="flex flex-row gap-2"> 
+            <Button url="https://www.nextflow.io/docs/latest/getstarted.html" variant="primary">
+              Get Started
+            </Button>
+            <Button url="https://www.nextflow.io/docs/latest/getstarted.html" variant="secondary">
+              Get Started
+            </Button>
+          </div>
+
+   
+          <div class="flex flex-row gap-2 text-mono">
+            <p>
+              Developed by 
+            </p>
+            <span>
+              <a href="https://seqera.io" target="_blank">
+                <img src={logoSeqera.src} alt="Seqera" width="100" height="100" />              
+              </a>
+            </span>
+            <p> and the community</p>
+          </div>
+
+
         </div>
-        <div class="col-md-6 col-sm-6">
-          <h1 class="text-color text-center animated fadeInDown delay1">Nextflow</h1>
 
-          <p class="lead text-muted text-center animated fadeInDown delay2">Data-driven computational pipelines</p>
+        <!-- <QuickInstaller variant="light" img="check.svg" country="us" github="nextflow-io" /> -->
+        <TerminalComponent client:only="react" />
 
-          <p class="text-center animated fadeInDown">
-            Nextflow enables scalable and reproducible scientific workflows using software containers. It allows the
-            adaptation of pipelines written in the most common scripting languages.
-          </p>
-
-          <p class="text-center animated fadeInDown">
-            Its fluent DSL simplifies the implementation and the deployment of complex parallel and reactive workflows
-            on clouds and clusters.
-          </p>
-          <p class="text-center">
-            <a href="/docs/latest/index.html" class="btn btn-color btn-xxl animated fadeInUp delay4"> Documentation </a>
-            <a
-              href="https://community.seqera.io/c/nextflow/5"
-              target="_blank"
-              class="btn btn-outline-color btn-xxl animated fadeInUp delay5"
-            >
-              Community forums
-              <i class="fa fa-sm fa-external-link" aria-hidden="true"></i>
-            </a>
-          </p>
-        </div>
       </div>
-    </div>
-  </div>
-  {
-    /* * /
+
+    </Hero> 
+</div>
+  <!-- </div> -->
+
+  <!-- {
+    /* */
   <div id="summit-banner-container">
     <div id="summit-banner" class="animated fadeInDown">
       <div>
@@ -64,127 +81,102 @@ import Layout from "@layouts/Layout.astro";
     </div>
   </div>
   /* */
-  }
+  } -->
 
   <div class="clearfix"></div>
 
-  <!-- Main Features -->
-  <div class="container">
+  <!-- <div class="">
     <div class="row">
-      <div class="features">
-        <div class="feature">
-          <div class="feature-body">
-            <p><i class="fa fa-cog fa-3x text-color"></i></p>
-            <h4>Zero config</h4>
-          </div>
-          <div class="feature-hover border-color">
-            <p><i class="fa fa-cog fa-3x text-color"></i></p>
-            <h4>Zero config</h4>
-
-            <p class="text-muted">Just download and play with it. No installation is required.</p>
-          </div>
+        <div class="flex flex-col gap-2 my-12 text-center w-full">
+          <span class="font-mono text-[#087F68]  text-center font-menlo text-l font-normal leading-normal"> > 10.000 organizations run with Nextflow</span>
         </div>
+         <img src={LogoSliderPlacegolder.src} alt="Logo Slider" /> 
+    </div>
+  </div> -->
 
-        <div class="feature">
-          <div class="feature-body">
-            <p><i class="fa fa-bolt fa-3x text-color"></i></p>
-            <h4>Polyglot</h4>
-          </div>
-          <div class="feature-hover border-color">
-            <p><i class="fa fa-bolt fa-3x text-color"></i></p>
-            <h4>Polyglot</h4>
 
-            <p class="text-muted">
-              Are you a Python geek or a Perl hacker? <br />
-              You can start fast with it.
-            </p>
-          </div>
+  <!-- Seqera Hub -->
+
+  <div class="container container-lg m-auto" id="seqeraHub">
+    <div class="row">
+      <div class="m-auto">
+        <div class="flex flex-col gap-2 my-12">
+          <span class="font-mono text-[#087F68] m-auto text-center font-menlo text-l font-normal leading-normal"> > Seqera Hub</span>
+          <h2 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">Containers, tools and workflows for everyone</h2>
         </div>
+        <SeqeraHub />
 
-        <div class="feature">
-          <div class="feature-body">
-            <p><i class="fa fa-random fa-3x text-color"></i></p>
-            <h4>Concurrency</h4>
-          </div>
-          <div class="feature-hover border-color">
-            <p><i class="fa fa-random fa-3x text-color"></i></p>
-            <h4>Concurrency</h4>
 
-            <p class="text-muted">Lightweight processes with message passing, no shared memory</p>
-          </div>
-        </div>
-
-        <div class="feature">
-          <div class="feature-body">
-            <p><i class="fa fa-cloud fa-3x text-color"></i></p>
-            <h4>Scale easily</h4>
-          </div>
-          <div class="feature-hover border-color">
-            <p><i class="fa fa-cloud fa-3x text-color"></i></p>
-            <h4>Scale easily</h4>
-
-            <p class="text-muted">Develop on your laptop, run in the grid or scale-out in the cloud with no changes.</p>
-          </div>
-        </div>
+      
       </div>
     </div>
   </div>
 
+    <!-- Main Features -->
+
   <div class="container" id="Features">
     <div class="row">
-      <div class="text-center w-full">
-        <hr class="double-margin" />
-        <h1>Features</h1>
-
-        <p class="lead text-muted">
-          Nextflow is built around the idea that Linux is the <em>lingua franca</em> of data science.
-        </p>
+      <div class="features">
+        <div class="flex flex-col gap-2 my-12">
+          <span class="font-mono text-[#087F68] m-auto text-center font-menlo text-l font-normal leading-normal"> > Key Features</span>
+          <h2 class="text-[#160F26] text-center font-degular text-2xl font-normal leading-[32px] md:max-w-[70%] m-auto">Nextflow is built around the idea that Linux is the lingua franca of data science.</h2>
+        </div>
+      
       </div>
     </div>
 
     <div class="row example-blocks">
       <div class="col-md-6 col-sm-6 text-left">
-        <span class="fa-stack fa-3x pull-left"> </span>
 
-        <div class="block">
-          <h3 class="text-center text-color">Fast prototyping</h3>
+          <div class="border border-grey-500 p-5">
+            <div class="flex flex-row gap-2 align-center mb-5 ">
+              <i class="fa fa-cog fa-2x text-nextflow-600 bg-nextflow-600-opacity rounded-[8px] p-2 border border-nextflow-600 w-fit"></i> 
+              <h3 class="flex flex-row text-center text-xl my-auto">Fast prototyping</h3>
+            </div>
+            
+            <p>
+              Nextflow allows you to write a computational pipeline by making it simpler to put together many different
+              tasks.
+            </p>
+            <p>
+              You may reuse your existing scripts and tools and you don't need to learn a new language or API to start
+              using it.
+            </p>         
+          </div>
 
-          <p>
-            Nextflow allows you to write a computational pipeline by making it simpler to put together many different
-            tasks.
-          </p>
-          <p>
-            You may reuse your existing scripts and tools and you don't need to learn a new language or API to start
-            using it.
-          </p>
-        </div>
+
       </div>
       <div class="col-md-6 col-sm-6 text-left-xs">
-        <span class="fa-stack fa-3x pull-right-xs"> </span>
-
-        <div class="block">
-          <h3 class="text-center text-color">Reproducibility</h3>
+        <div class="border border-grey-500 p-5">
+          <div class="flex flex-row gap-2 align-center mb-5">
+            <i class="fa fa-cog fa-2x text-nextflow-600 bg-nextflow-600-opacity rounded-[8px] p-2 border border-nextflow-600 w-fit"></i> 
+            <h3 class="flex flex-row text-center text-xl my-auto">Reproducibility</h3>
+          </div>
+          
           <p>
-            Nextflow supports <a href="http://docker.io" target="_blank">Docker</a> and <a
+            Nextflow supports <a href="http://docker.io" target="_blank" class="link">Docker</a> and <a
               href="http://singularity.lbl.gov/"
-              target="_blank">Singularity</a
+              target="_blank" class="link">Singularity</a
             > containers technology.
           </p>
           <p>
-            This, along with the integration of the <a href="http://github.com" target="_blank">GitHub</a> code sharing platform,
+            This, along with the integration of the <a href="http://github.com" target="_blank" class="link">GitHub</a> code sharing platform,
             allows you to write self-contained pipelines, manage versions and to rapidly reproduce any former configuration.
-          </p>
+          </p>        
         </div>
+
       </div>
     </div>
 
     <div class="row example-blocks">
       <div class="col-md-6 col-sm-6 text-left">
-        <span class="fa-stack fa-3x pull-left"> </span>
 
-        <div class="block">
-          <h3 class="text-center text-color">Portable</h3>
 
+        <div class=" mt-10">
+          <div class="flex flex-row gap-2 align-center mb-5">
+            <i class="fa fa-cog fa-2x text-nextflow-600 bg-nextflow-600-opacity rounded-[8px] p-2 border border-nextflow-600 w-fit"></i> 
+            <h3 class="flex flex-row text-center text-xl my-auto">Portable</h3>
+          </div>
           <p>
             Nextflow provides an abstraction layer between your pipeline's logic and the execution layer, so that it can
             be executed on multiple platforms without it changing.
@@ -192,18 +184,26 @@ import Layout from "@layouts/Layout.astro";
 
           <p>
             It provides out of the box executors for GridEngine, SLURM, LSF, PBS, Moab and HTCondor batch schedulers and
-            for <a href="http://kubernetes.io/" target="_blank">Kubernetes</a>,
-            <a href="http://aws.amazon.com" target="_blank">Amazon AWS</a>,
-            <a href="https://cloud.google.com/compute/" target="_blank">Google Cloud</a> and
-            <a href="https://azure.microsoft.com/" target="_blank">Microsoft Azure</a> platforms.
-          </p>
+            for <a href="http://kubernetes.io/" target="_blank" class="link">Kubernetes</a>,
+            <a href="http://aws.amazon.com" target="_blank" class="link">Amazon AWS</a>,
+            <a href="https://cloud.google.com/compute/" target="_blank" class="link"  >Google Cloud</a> and
+            <a href="https://azure.microsoft.com/" target="_blank" class="link">Microsoft Azure</a> platforms.
+          </p>      
         </div>
+
+
+
+
       </div>
 
       <div class="col-md-6 col-sm-6 text-left-xs">
-        <span class="fa-stack fa-3x pull-right-xs"> </span>
-        <div class="block">
-          <h3 class="text-center text-color">Unified parallelism</h3>
+
+
+        <div class="mt-10">
+          <div class="flex flex-row gap-2 align-center mb-5">
+            <i class="fa fa-cog fa-2x text-nextflow-600 bg-nextflow-600-opacity rounded-[8px] p-2 border border-nextflow-600 w-fit"></i> 
+            <h3 class="flex flex-row text-center text-xl my-auto">Unified parallelism</h3>
+          </div>
           <p>
             Nextflow is based on the <em>dataflow</em> programming model which greatly simplifies writing complex distributed
             pipelines.
@@ -213,11 +213,52 @@ import Layout from "@layouts/Layout.astro";
             Parallelisation is implicitly defined by the processes input and output declarations. The resulting
             applications are inherently parallel and can scale-up or scale-out, transparently, without having to adapt
             to a specific platform architecture.
-          </p>
+          </p>    
         </div>
+
+
+      
       </div>
     </div>
 
+    <div class="flex flex-col gap-2">
+      <!-- <div class="flex flex-col gap-2 my-12">
+        <span class="font-mono text-[#087F68] m-auto text-center font-menlo text-l font-normal leading-normal"> > Support</span>
+        <h3 class="text-[#160F26] text-center font-degular text-2xl font-normal  leading-[32px] md:max-w-[70%] m-auto">What's next?      </h3>
+      </div> -->
+      <div class="flex flex-col md:flex-row gap-10">
+        <div class="flex flex-col gap-2 border border-grey-500 rounded-sm">
+          <div class="grid-bg p-5 flex flex-col gap-2 justify-center items-center">
+              <img src="/img/assets/vscode.svg" alt="Visual Studio Code extension for Nextflow" class="w-full max-h-[170px]">
+            </span>
+          </div>
+          <div class="flex flex-col gap-5 p-5">
+            <h3>Not nextflow? 
+              Get into nextflow</h3>
+            <p class="mb-0">Get started writing your own pipeline from scratch, converting your scripts to Nextflow, or debugging your existing pipeline! </p>
+            <Button url="https://www.nextflow.io/docs/latest/getstarted.html" variant="link">
+              Sign up
+            </Button>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2 border border-grey-500 rounded-sm">
+          <div class="grid-bg p-5 flex flex-col gap-2 justify-center items-center">
+              <img src="/img/assets/seqeraai.svg" alt="Seqera AI assistant for Nextflow" class="w-full max-h-[170px]">
+            </span>
+          </div>
+          <div class="flex flex-col gap-5 p-5">
+            <h3>Not nextflow? 
+              Get into nextflow</h3>
+            <p class="mb-0">Get started writing your own pipeline from scratch, converting your scripts to Nextflow, or debugging your existing pipeline! </p>
+            <Button url="https://www.nextflow.io/docs/latest/getstarted.html" variant="link">
+              Ask Seqera AI             
+            </Button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </div>
+<!-- 
     <div class="row example-blocks">
       <div class="col-md-6 col-sm-6 text-left">
         <span class="fa-stack fa-3x pull-left"> </span>
@@ -247,145 +288,43 @@ import Layout from "@layouts/Layout.astro";
           </p>
         </div>
       </div>
+    </div> -->
+  </div>
+
+
+  <div id="WhatsNext" class="container mb-12">
+    <div class="flex flex-col gap-2 my-12">
+      <span class="font-mono text-[#087F68] m-auto text-center font-menlo text-l font-normal leading-normal"> > Support</span>
+      <h2 class="text-[#160F26] text-center font-degular text-2xl font-normal  leading-[32px] md:max-w-[70%] m-auto">What's next?</h2>
+    </div>
+    <div class="row">
+
+
+      <div class="flex flex-wrap gap-5 ">
+        <Card title="Check out the documentation" text="The Nextflow reference manual is available at the above link." isHoverable button="/docs/latest/index.html" />
+        <Card title="Look at the examples" text="Some examples are provided to help you get started. More examples on their way." isHoverable button="/example1.html" />
+  
+        <Card title="Watch the videos" text="Here you can find some Nextflow presentations and other materials." isHoverable button="/presentations.html" />
+
+      </div>
+      <div class="flex flex-wrap gap-5 mt-5">
+        <Card title="Confused? Ask the community" text="A Nextflow Community Chat is available on Slack. Just click the link above." isHoverable button="slack-invite.html" />
+        <Card title="Report bugs" text="Bug reports help Nextflow improve, so please report any issue you may have!" isHoverable button="https://github.com/nextflow-io/nextflow/issues" />
+        <Card title="Applications showcase" text="  A collection of Nextflow applications developed by the Nextflow users community." isHoverable button="https://www.nextflow.io/docs/latest/index.html" />
+  
+      </div>
+      <div class="col-md-4 col-md-offset-2">
+       
+
+
+      </div>
+
+
     </div>
   </div>
 
-  <div id="GetStarted" class="body-inverse">
-    <hr class="double-margin" />
-    <div class="container">
-      <div class="flex flex-col items-center">
-        <div class="col-sm-12">
-          <h2 class="text-center">Getting started</h2>
-          <p class="lead text-muted text-center">
-            It can be used on any POSIX compatible system (Linux, OS X, etc).
-            <br />Simply follow these three steps.
-          </p>
-        </div>
-      </div>
-      <div class="flex flex-col md:flex-row items-top">
-        <div class="col-sm-4">
-          <div class="pricing fadeInDown">
-            <h3 class="text-center">Check prerequisites</h3>
+  <!-- <div class="container container-lg m-auto" id="community">
+    <CommunityGrid />
+  </div> -->
 
-            <p class="text-muted text-center">Java 11 or later is required</p>
-
-            <div class="price">1</div>
-            <div class="pricing-text text-center text-muted">
-              Make sure 11 or later is installed
-              <br />on your computer by using the command:
-              <br /><code>java -version </code>
-            </div>
-
-            <div style="font-size:0.8em" class="text-muted">
-              Note: If you are having trouble installing or upgrading Java
-              <br />check out our documentation <a
-                href="https://www.nextflow.io/docs/latest/getstarted.html#requirements"
-                target="_blank">here</a
-              >.
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="pricing fadeInDown delay1">
-            <h3 class="text-center">Set up</h3>
-
-            <p class="text-muted text-center">Dead easy to install</p>
-
-            <div class="price">2</div>
-            <div class="pricing-text text-center text-muted">
-              Enter this command in your terminal:
-              <br /><code class="white-space-normal">curl -s https://get.nextflow.io | bash</code>
-              <br />(it creates a file <code>nextflow</code> in the current dir)
-            </div>
-
-            <div style="font-size:0.8em" class="text-muted">
-              Note: it can also be downloaded from <a
-                href="https://github.com/nextflow-io/nextflow/releases"
-                target="_blank">GitHub</a
-              >
-              or installed by using <a href="https://bioconda.github.io/recipes/nextflow/README.html" target="_blank"
-                >Bioconda</a
-              > package manager.
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="pricing fadeInDown delay2">
-            <h3 class="text-center">Launch</h3>
-
-            <p class="text-muted text-center">Try a simple demo</p>
-
-            <div class="price">3</div>
-            <div class="pricing-text text-center text-muted">
-              Run the classic <i>Hello world</i>
-              <br />by entering the following command:
-              <br /><code>./nextflow run hello</code>
-            </div>
-
-            <div style="font-size:0.8em" class="text-muted">
-              <br /><br />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <hr class="double-margin" />
-  </div>
-
-  <div id="WhatsNext" class="container">
-    <div class="flex flex-col items-center">
-      <div class="">
-        <h2 class="text-center">What's next</h2>
-      </div>
-      <div>
-        <div class="col-md-4 col-md-offset-2">
-          <ul class="crp-blg-list">
-            <li>
-              <h3>
-                <a href="https://www.nextflow.io/docs/latest/index.html" target="_blank">Check out the documentation</a>
-              </h3>
-              <div class="text-muted">The Nextflow reference manual is available at the above link.</div>
-            </li>
-
-            <li>
-              <h3><a href="example1.html">Look at the examples</a></h3>
-              <div class="text-muted">
-                Some examples are provided to help you get started. More examples on their way.
-              </div>
-            </li>
-
-            <li>
-              <h3><a href="presentations.html">Watch the videos</a></h3>
-              <div class="text-muted">Here you can find some Nextflow presentations and other materials.</div>
-            </li>
-          </ul>
-        </div>
-
-        <div class="col-md-4 col-md-offset-1">
-          <ul class="crp-blg-list">
-            <li>
-              <h3>
-                <a href="https://www.nextflow.io/slack-invite.html" target="_blank">Confused? Ask the community</a>
-              </h3>
-              <div class="text-muted">A Nextflow Community Chat is available on Slack. Just click the link above.</div>
-            </li>
-
-            <li>
-              <h3><a href="https://github.com/nextflow-io/nextflow/issues" target="_blank">Report bugs</a></h3>
-              <div class="text-muted">Bug reports help Nextflow improve, so please report any issue you may have!</div>
-            </li>
-
-            <li>
-              <h3>
-                <a target="_blank" href="https://github.com/nextflow-io/awesome-nextflow">Applications showcase</a>
-              </h3>
-              <div class="text-muted">
-                A collection of Nextflow applications developed by the Nextflow users community.
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
 </Layout>
