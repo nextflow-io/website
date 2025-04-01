@@ -1,0 +1,301 @@
+<div class="community-grid">
+  <div class="grid-container">
+    <div class="grid-fade-container">
+      <div class="grid-bg-squares">
+        {Array(96).fill(0).map(() => (
+          <div class="grid-square"></div>
+        ))}
+      </div>
+    </div>
+    
+    <div class="community-content">
+      <h2 class="join-title">Join our <span class="open-community">open community</span></h2>
+      <p class="community-description">
+        Nextflow is built by a global community of thousand of developers.
+      </p>
+      <a href="slack-invite.html" class="join-button">Join the community</a>
+    </div>
+    
+    <div class="floating-stats">
+      <div class="stat-block contributors">
+        <span class="stat-number">695</span>
+        <span class="stat-label">Contributors</span>
+      </div>
+      
+      <div class="stat-block stars">
+        <span class="stat-number">45</span>
+        <span class="stat-label">Stars</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .community-grid {
+    position: relative;
+    padding: 6rem 0;
+    margin: 4rem 0;
+    overflow: hidden;
+  }
+  
+  .grid-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Contenedor con efecto de desvanecimiento en los bordes */
+  .grid-fade-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(90deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    );
+    mask-image: linear-gradient(180deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    ), linear-gradient(90deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-image: linear-gradient(180deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    ), linear-gradient(90deg, 
+      rgba(0,0,0,0) 0%, 
+      rgba(0,0,0,1) 10%, 
+      rgba(0,0,0,1) 90%, 
+      rgba(0,0,0,0) 100%
+    );
+    -webkit-mask-composite: source-over;
+    mask-composite: intersect;
+  }
+  
+  .grid-bg-squares {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    right: -50px;
+    bottom: -50px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    gap: 10px;
+    z-index: 1;
+  }
+  
+  .grid-square {
+    background-color: #f5f5f5;
+    width: 100%;
+    padding-bottom: 100%;
+    border-radius: 0;
+  }
+  
+  .community-content {
+    text-align: center;
+    z-index: 10;
+    position: relative;
+    max-width: 600px;
+    padding: 2rem;
+  }
+  
+  .join-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #160F26;
+  }
+  
+  .open-community {
+    color: #4db6ac;
+  }
+  
+  .community-description {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .join-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .join-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .floating-stats {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+  }
+  
+  .stat-block {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #4db6ac;
+    color: white;
+    padding: 1.5rem;
+    width: 120px;
+    height: 120px;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    will-change: transform;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    line-height: 1;
+  }
+  
+  .stat-label {
+    font-size: 0.9rem;
+  }
+  
+  .contributors {
+    top: 40%;
+    left: 15%;
+    transform: translateY(40px);
+  }
+  
+  .stars {
+    top: 30%;
+    right: 15%;
+    transform: translateY(60px);
+  }
+
+  @media (max-width: 768px) {
+    .contributors {
+      left: 5%;
+    }
+    
+    .stars {
+      right: 5%;
+    }
+  }
+</style>
+
+<script>
+  // Efecto de flotación en scroll
+  document.addEventListener('DOMContentLoaded', () => {
+    const statBlocks = document.querySelectorAll('.stat-block');
+    const container = document.querySelector('.community-grid');
+    
+    if (container) {
+      // Iniciar con los bloques fuera de la vista (flotando más abajo)
+      statBlocks.forEach((block) => {
+        (block as HTMLElement).style.opacity = '0';
+        (block as HTMLElement).style.transform = 'translateY(100px)';
+      });
+      
+      // Función para comprobar si un elemento está en el viewport
+      const isInViewport = (element: Element) => {
+        const rect = element.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+          rect.bottom >= 0
+        );
+      };
+      
+      // Función para actualizar la posición
+      const updatePosition = () => {
+        if (isInViewport(container)) {
+          const rect = container.getBoundingClientRect();
+          const scrollProgress = Math.min(1, 1 - (rect.top / (window.innerHeight * 1.2)));
+          
+          // Hacer que los bloques aparezcan y floten sobre la cuadrícula
+          statBlocks.forEach((block, index) => {
+            const delay = index * 0.2; // Retraso para que aparezcan secuencialmente
+            const translateY = Math.max(0, 100 - (scrollProgress * 150));
+            const opacity = Math.min(1, scrollProgress * 3);
+            
+            (block as HTMLElement).style.transform = `translateY(${translateY}px)`;
+            (block as HTMLElement).style.opacity = opacity.toString();
+            (block as HTMLElement).style.zIndex = '10';
+            
+            // Añadir movimiento sutil continuo
+            const floatAmount = 15;
+            const speed = 4 + index;
+            const posY = translateY + Math.sin(Date.now() / 1000 * speed) * floatAmount;
+            
+            (block as HTMLElement).style.transform = `translateY(${posY}px)`;
+          });
+        }
+      };
+      
+      // Iniciar la animación
+      window.addEventListener('scroll', updatePosition);
+      window.addEventListener('resize', updatePosition);
+      
+      // Animación continua suave para los bloques
+      const animateFloating = () => {
+        statBlocks.forEach((block, index) => {
+          if (isInViewport(container)) {
+            const floatAmount = 15;
+            const speed = 0.5 + (index * 0.2);
+            const currentTransform = (block as HTMLElement).style.transform || '';
+            const currentY = currentTransform.match(/translateY\(([^)]+)\)/) 
+                             ? parseFloat(currentTransform.match(/translateY\(([^)]+)\)/)![1]) 
+                             : 0;
+            
+            // Solo animar si ya están visibles (con opacity > 0)
+            if ((block as HTMLElement).style.opacity && parseFloat((block as HTMLElement).style.opacity) > 0) {
+              const baseY = Math.floor(currentY / floatAmount) * floatAmount; // Mantener la base estable
+              const posY = baseY + Math.sin(Date.now() / 1000 * speed) * floatAmount;
+              
+              (block as HTMLElement).style.transform = `translateY(${posY}px)`;
+            }
+          }
+        });
+        
+        requestAnimationFrame(animateFloating);
+      };
+      
+      setTimeout(() => {
+        updatePosition();
+        animateFloating();
+      }, 100);
+    }
+  });
+</script> 

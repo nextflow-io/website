@@ -45,7 +45,7 @@ const steps: Step[] = [
     subtitle: "Try a simple demo",
     main: "Run the classic Hello world by entering the following command:",
     code: "./nextflow run hello",
-  }
+  },
 ];
 
 const TerminalComponent: React.FC = () => {
@@ -60,7 +60,7 @@ const TerminalComponent: React.FC = () => {
       },
       (err) => {
         console.error("Error al copiar: ", err);
-      }
+      },
     );
   };
 
@@ -69,19 +69,21 @@ const TerminalComponent: React.FC = () => {
       if (code.startsWith("curl") || code.startsWith("./nextflow") || code.startsWith("java")) {
         const parts = code.split(" ");
         let formattedCode = `<span style="color: #22863a">${parts[0]}</span> `;
-        
+
         if (parts.length > 1) {
-          formattedCode += parts.slice(1).map(part => {
-            if (part.startsWith("-")) {
-              return `<span style="color: #032f62">${part}</span>`;
-            }
-            else if (part.startsWith("http") || part.includes(".com") || part.includes(".io")) {
-              return `<span style="color: #0366d6">${part}</span>`;
-            }
-            return part;
-          }).join(" ");
+          formattedCode += parts
+            .slice(1)
+            .map((part) => {
+              if (part.startsWith("-")) {
+                return `<span style="color: #032f62">${part}</span>`;
+              } else if (part.startsWith("http") || part.includes(".com") || part.includes(".io")) {
+                return `<span style="color: #0366d6">${part}</span>`;
+              }
+              return part;
+            })
+            .join(" ");
         }
-        
+
         return formattedCode;
       }
       return code;
@@ -100,7 +102,7 @@ const TerminalComponent: React.FC = () => {
       .replace(/\b(\d+)\b/g, (match, num) => {
         return `<span style="color: #005cc5">${num}</span>`;
       });
-    
+
     return formatted;
   };
 
@@ -110,26 +112,29 @@ const TerminalComponent: React.FC = () => {
         <div className="title-with-icon flex flex-col items-start gap-2">
           <div className="flex flex-row items-center gap-2">
             <span className="icon" dangerouslySetInnerHTML={{ __html: Square }} />
-            <h2>{steps[currentStep].title}</h2>
+
+            <div className="flex flex-col ">
+              <h2 className="my-0">{steps[currentStep].title}</h2>
+              {steps[currentStep].subtitle && <p className="subtitle">{steps[currentStep].subtitle}</p>}
+            </div>
           </div>
-          {steps[currentStep].subtitle && <p className="subtitle">{steps[currentStep].subtitle}</p>}
         </div>
       </div>
 
       <div className="terminal-content">
         <p className="main-text">{steps[currentStep].main}</p>
-        
+
         {steps[currentStep].code && (
           <div className="code-block">
             <div className="code-content">
               <code dangerouslySetInnerHTML={{ __html: formatCodeAsTag(steps[currentStep].code || "") }}></code>
-              <button 
+              <button
                 className="copy-button"
                 onClick={() => copyToClipboard(steps[currentStep].code || "")}
                 title="Copy to clipboard"
               >
                 <SvgClipboard />
-                <span className={`copy-tooltip ${copySuccess ? 'visible' : ''}`}>Copied!</span>
+                <span className={`copy-tooltip ${copySuccess ? "visible" : ""}`}>Copied!</span>
               </button>
             </div>
           </div>
@@ -138,7 +143,9 @@ const TerminalComponent: React.FC = () => {
         {steps[currentStep].note && (
           <p className="note-text">
             {steps[currentStep].note.text}{" "}
-            <a href={steps[currentStep].note.link.url} className="link">{steps[currentStep].note.link.text}</a>
+            <a href={steps[currentStep].note.link.url} className="link">
+              {steps[currentStep].note.link.text}
+            </a>
           </p>
         )}
       </div>
