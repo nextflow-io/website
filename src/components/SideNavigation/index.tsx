@@ -53,55 +53,65 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
           setActiveId(activeItem);
         }
         
-        // Añadir listener para detectar cambios en el scroll
         const handleScroll = () => {
-          // Solo procesar si no estamos en una transición de scroll suave
-          if (!window.isScrolling) {
-            const viewportHeight = window.innerHeight;
-            const sectionIds = items.map(item => item.href);
-            
-            const visibleSections: VisibleSection[] = sectionIds
-              .map(id => {
-                const element = document.getElementById(id);
-                if (!element) return null;
-                
-                const rect = element.getBoundingClientRect();
-                const visibleHeight = Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0);
-                const visiblePercentage = visibleHeight > 0 ? visibleHeight / element.offsetHeight : 0;
-                
-                return {
-                  id,
-                  visiblePercentage,
-                  top: rect.top
-                };
-              })
-              .filter((section): section is VisibleSection => section !== null)
-              .sort((a, b) => {
-                if (a.visiblePercentage !== b.visiblePercentage) {
-                  return b.visiblePercentage - a.visiblePercentage;
-                }
-                return a.top - b.top;
-              });
-            
-            if (visibleSections.length > 0 && visibleSections[0].visiblePercentage > 0) {
-              const mostVisibleSection = visibleSections[0].id;
-              const matchingItem = items.find(item => item.href === mostVisibleSection);
-              if (matchingItem && matchingItem.id !== activeId) {
-                setActiveId(matchingItem.id);
+          const viewportHeight = window.innerHeight;
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const sectionIds = items.map(item => item.href);
+          
+          const visibleSections: VisibleSection[] = sectionIds
+            .map(id => {
+              const element = document.getElementById(id);
+              if (!element) return null;
+              
+              const rect = element.getBoundingClientRect();
+              const elementTop = rect.top + scrollTop;
+              const elementBottom = elementTop + element.offsetHeight;
+              
+              const visibleTop = Math.max(elementTop, scrollTop);
+              const visibleBottom = Math.min(elementBottom, scrollTop + viewportHeight);
+              const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+              
+              const percentInView = visibleHeight / element.offsetHeight;
+              let bonus = 0;
+              
+              if (rect.top >= 0 && rect.top < viewportHeight * 0.25) {
+                bonus = 0.5; 
               }
+              
+              return {
+                id,
+                visiblePercentage: percentInView + bonus,
+                top: rect.top
+              };
+            })
+            .filter((section): section is VisibleSection => section !== null);
+          
+          visibleSections.sort((a, b) => {
+            if (Math.abs(a.visiblePercentage - b.visiblePercentage) > 0.2) {
+              return b.visiblePercentage - a.visiblePercentage;
+            }
+            return a.top - b.top;
+          });
+          
+          if (visibleSections.length > 0) {
+            const mostVisibleSection = visibleSections[0].id;
+            const matchingItem = items.find(item => item.href === mostVisibleSection);
+            if (matchingItem && matchingItem.id !== activeId) {
+              setActiveId(matchingItem.id);
             }
           }
         };
         
-        window.addEventListener('scroll', handleScroll);
-        handleScroll(); // Ejecutar inmediatamente
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        handleScroll();
         
         return () => {
           window.removeEventListener('scroll', handleScroll);
         };
       }
     }
-  }, [items, activeItem, mode]);
+  }, [items, activeItem, mode, activeId]);
   
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     if (mode === 'page') {
@@ -134,8 +144,8 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
   
   return (
     <nav className={clsx(
-      'lg:w-64 lg:sticky lg:top-24 lg:self-start',
-      'w-full sticky top-0 z-10',
+      'sticky lg:top-24 lg:self-start lg:w-60',
+      'sticky top-0 z-20 w-full',
       className
     )}>
       <div 
@@ -143,7 +153,8 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
         className={clsx(
           "lg:border-l border-gray-200",
           "lg:overflow-visible",
-          styles.scrollContainer
+          styles.scrollContainer,
+          "bg-white pt-2" 
         )}
       >
         {title && (
@@ -156,7 +167,7 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
         )}
         
         <ul className={clsx(
-          "flex lg:flex-col p-0 mt-0",
+          "flex lg:flex-col p-0 mt-0 justify-center",
           styles.mobileNavList
         )}>
           {items.map((item) => (
