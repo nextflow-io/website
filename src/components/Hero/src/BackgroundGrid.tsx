@@ -109,17 +109,17 @@ const BackgroundGrid: React.FC = () => {
   
   return (
     <svg width="100%" height="100%" viewBox="0 0 1472 778" fill="none"
-        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <defs>
             <linearGradient id="paint0_linear_907_740" x1="172.5" y1="750" x2="172.5" y2="824" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#0CAE8E"/>
                 <stop offset="0.96" stopColor="white" stopOpacity="0"/>
             </linearGradient>
-            <linearGradient id="paint1_linear_907_740" x1="557.5" y1="35" x2="557.5" y2="-14" gradientUnits="userSpaceOnUse">
+            <linearGradient id="paint1_linear_907_740" x1="557.5" y1="0.335937" x2="557.5" y2="-48.664063" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#0CAE8E"/>
                 <stop offset="0.96" stopColor="white" stopOpacity="0"/>
             </linearGradient>
-            <linearGradient id="paint2_linear_907_740" x1="941.5" y1="16" x2="941.5" y2="-38" gradientUnits="userSpaceOnUse">
+            <linearGradient id="paint2_linear_907_740" x1="941.5" y1="0.335937" x2="941.5" y2="-54.664063" gradientUnits="userSpaceOnUse">
                 <stop stopColor="#0CAE8E"/>
                 <stop offset="0.96" stopColor="white" stopOpacity="0"/>
             </linearGradient>
@@ -151,7 +151,7 @@ const BackgroundGrid: React.FC = () => {
             <g clipPath="url(#clip0_907_740)">
                 <g id="BG__2">
                     <line id="Line 8" x1="173.383" y1="0.335937" x2="173.383" y2="777.336" stroke="#160F26" strokeOpacity="0.15"/>
-                    <line id="Line 17" x1="941.5" y1="35.002" x2="941.5" y2="777.002" stroke="#160F26" strokeOpacity="0.15"/>
+                    <line id="Line 17" x1="941.5" y1="0.335937" x2="941.5" y2="777.336" stroke="#160F26" strokeOpacity="0.15"/>
                     <line id="Line 18" x1="1324.94" y1="0.335937" x2="1324.94" y2="777.336" stroke="#160F26" strokeOpacity="0.15"/>
                     <line id="Line 9" x1="-12.6836" y1="108.836" x2="1472" y2="108.836" stroke="#160F26" strokeOpacity="0.15"/>
                     <path id="Line 10" d="M0 218.336H1484.68" stroke="#160F26" strokeOpacity="0.15"/>
@@ -161,11 +161,11 @@ const BackgroundGrid: React.FC = () => {
                     <line id="Line 19" x1="-12.6836" y1="683.836" x2="1472" y2="683.836" stroke="#160F26" strokeOpacity="0.15"/>
                     <line id="Line 20" x1="-12.6836" y1="776.836" x2="1472" y2="776.836" stroke="#160F26" strokeOpacity="0.15"/>
                     <line id="Line 15" x1="-12.6836" y1="497.836" x2="1472" y2="497.836" stroke="#160F26" strokeOpacity="0.15"/>
-                    <line id="Line 11" x1="557.5" y1="39.002" x2="557.5" y2="777.002" stroke="#160F26" strokeOpacity="0.15"/>
+                    <line id="Line 11" x1="557.5" y1="0.335937" x2="557.5" y2="777.336" stroke="#160F26" strokeOpacity="0.15"/>
                 </g>
                 <path id="spark-0" ref={setSparkleRef(0)} className="sparkle sparkle-0" d="M173 750V824" stroke="url(#paint0_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
-                <path id="spark-1" ref={setSparkleRef(1)} className="sparkle sparkle-1" d="M557 35V-14" stroke="url(#paint1_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
-                <path id="spark-2" ref={setSparkleRef(2)} className="sparkle sparkle-2" d="M941 16L941 -38" stroke="url(#paint2_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
+                <path id="spark-1" ref={setSparkleRef(1)} className="sparkle sparkle-1" d="M557 0.335937V-48.664063" stroke="url(#paint1_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
+                <path id="spark-2" ref={setSparkleRef(2)} className="sparkle sparkle-2" d="M941 0.335937L941 -54.664063" stroke="url(#paint2_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
                 <path id="spark-3" ref={setSparkleRef(3)} className="sparkle sparkle-3" d="M12 109.336L-60 109.336" stroke="url(#paint3_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
                 <path id="spark-4" ref={setSparkleRef(4)} className="sparkle sparkle-4" d="M12 312L-60 312" stroke="url(#paint4_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
                 <path id="spark-5" ref={setSparkleRef(5)} className="sparkle sparkle-5" d="M12 499L-60 499" stroke="url(#paint5_linear_907_740)" strokeOpacity="0.6" strokeWidth="2" strokeLinecap="round"/>
