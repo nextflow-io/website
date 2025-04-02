@@ -24,10 +24,12 @@
     position: sticky;
     top: 0;
     background-color: white;
-    z-index: 10;
+    z-index: 30;
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid #f0f0f0;
   }
   
   .scrollContainer::-webkit-scrollbar {
@@ -41,10 +43,6 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, 
-      rgba(45, 121, 113, 0.5) 0%, 
-      rgba(45, 121, 113, 0.8) 50%, 
-      rgba(45, 121, 113, 0.5) 100%);
     opacity: 0;
     transition: opacity 0.3s;
   }
@@ -54,34 +52,31 @@
     opacity: 1;
   }
 
-  /* Estilo para el título en móvil */
   .titleDisplay {
     padding: 12px 0;
     border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 8px;
     text-align: center;
     position: sticky;
     top: 0;
     background-color: white;
-    z-index: 11;
+    z-index: 31; 
   }
   
-  /* Contenedor scrollable solo para tabs */
   .mobileNavList {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: flex-start !important;
+    display: flex ;
+    flex-direction: row ;
+    justify-content: center;
     width: 100%;
     padding: 0;
     margin: 0 auto;
     overflow-x: auto;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 10px;
   }
   
   .mobileNavList::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    display: none; 
   }
   
   .mobileNavList li {
@@ -94,26 +89,33 @@
     text-align: center;
     margin: 0 3px;
     box-sizing: border-box;
-    padding: 9px 10px !important; /* Padding consistente para todas las pestañas */
+    padding: 9px 10px !important; 
+    transition: all 0.2s ease;
   }
 
-  /* Ajuste específico para el elemento activo */
   .mobileNavList li a.activeLink {
-    padding-bottom: 6px !important; /* 9px - 3px (del borde) = 6px */
+    padding-bottom: 6px !important; 
   }
 }
 
-/* Estilos específicos para desktop */
 @media (min-width: 1025px) {
   .scrollContainer {
-    overflow: visible !important; /* Asegurar que no hay scroll en desktop */
+    overflow: visible !important; 
     text-align: left;
+    position: sticky;
+    top: 96px; 
+    max-height: calc(100vh - 96px); 
+    overflow-y: auto !important;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    border-left: 1px solid #e5e7eb;
   }
   
   .scrollContainer ul li a {
     letter-spacing: -0.01em;
     border-left: 3px solid transparent;
     padding-left: 10px !important;
+    transition: all 0.2s ease;
   }
   
   .scrollContainer ul li a:hover {
@@ -125,10 +127,10 @@
     padding-left: 10px !important;
   }
 
-  /* Estilo para el título en desktop */
   .titleDisplay {
     text-align: left;
     padding-left: 10px;
+    margin-bottom: 0.5rem;
   }
   
   .mobileNavList {

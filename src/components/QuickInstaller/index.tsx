@@ -108,38 +108,38 @@ const TerminalComponent: React.FC = () => {
 
   return (
     <div className="terminal-wrapper">
-      <div className="terminal-title">
-        <div className="title-with-icon flex flex-col items-start gap-2">
-          <div className="flex flex-row items-center gap-2">
-            <span className="icon" dangerouslySetInnerHTML={{ __html: Square }} />
+      <div>
+        <div className="terminal-title">
+          <div className="title-with-icon flex flex-col items-start gap-2">
+            <div className="flex flex-row items-center gap-2">
+              <span className="icon" dangerouslySetInnerHTML={{ __html: Square }} />
 
-            <div className="flex flex-col ">
-              <h2 className="my-0">{steps[currentStep].title}</h2>
-              {steps[currentStep].subtitle && <p className="subtitle">{steps[currentStep].subtitle}</p>}
+              <div className="flex flex-col ">
+                <h2 className="my-0">{steps[currentStep].title}</h2>
+                {steps[currentStep].subtitle && <p className="subtitle">{steps[currentStep].subtitle}</p>}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="terminal-content">
+          <p className="main-text">{steps[currentStep].main}</p>
 
-      <div className="terminal-content">
-        <p className="main-text">{steps[currentStep].main}</p>
-
-        {steps[currentStep].code && (
-          <div className="code-block">
-            <div className="code-content">
-              <code dangerouslySetInnerHTML={{ __html: formatCodeAsTag(steps[currentStep].code || "") }}></code>
-              <button
-                className="copy-button"
-                onClick={() => copyToClipboard(steps[currentStep].code || "")}
-                title="Copy to clipboard"
-              >
-                <SvgClipboard />
-                <span className={`copy-tooltip ${copySuccess ? "visible" : ""}`}>Copied!</span>
-              </button>
+          {steps[currentStep].code && (
+            <div className="code-block">
+              <div className="code-content">
+                <code dangerouslySetInnerHTML={{ __html: formatCodeAsTag(steps[currentStep].code || "") }}></code>
+                <button
+                  className="copy-button"
+                  onClick={() => copyToClipboard(steps[currentStep].code || "")}
+                  title="Copy to clipboard"
+                >
+                  <SvgClipboard />
+                  <span className={`copy-tooltip ${copySuccess ? "visible" : ""}`}>Copied!</span>
+                </button>
+              </div>
             </div>
-          </div>
-        )}
-
+          )}
+        </div>
         {steps[currentStep].note && (
           <p className="note-text">
             {steps[currentStep].note.text}{" "}
