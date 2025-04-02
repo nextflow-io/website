@@ -56,7 +56,7 @@ export default function SeqeraHub() {
     <div className=" mx-auto py-0 px-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Pipelines Column */}
-        <div>
+        <div className="flex flex-col h-full">
           <h2 className="text-lg mb-6 md:text-center flex items-center justify-center">
             <img src={PipelinesIcon.src} alt="Pipelines Icon" className="w-5 h-5 mr-2" />
             Pipelines
@@ -73,7 +73,7 @@ export default function SeqeraHub() {
                     <span className="text-blue-500 font-medium text-lg">{pipeline.name}</span>
                   </div>
 
-                  <p className=" mt-3 mb-auto">{pipeline.description}</p>
+                  <p className=" mt-3 mb-auto text-[14px]">{pipeline.description}</p>
 
                   <div className="mt-4">
                     <div className="flex flex-wrap gap-2 mb-3">
@@ -110,12 +110,12 @@ export default function SeqeraHub() {
         </div>
 
         {/* Containers Column */}
-        <div>
+        <div className="flex flex-col h-full justify-between">
           <h2 className="text-lg mb-6 md:text-center flex items-center justify-center">
             <img src={ContainersIcon.src} alt="Containers Icon" className="w-5 h-5 mr-2" />
             Containers
           </h2>
-          <div className="grid grid-cols-1 auto-rows-fr gap-4">
+          <div className="grid grid-cols-1 auto-rows-fr gap-4 h-full">
             {containers.map((container, index) => (
               <a 
                 key={index} 
@@ -134,7 +134,7 @@ export default function SeqeraHub() {
                     </span>
                   </div>
 
-                  <p className=" mt-3 mb-auto">{container.description}</p>
+                  <p className=" mt-3 mb-auto text-[14px]">{container.description}</p>
 
                   <div className="mt-4">
                     <div className="flex items-center text-gray-500 text-sm mb-3">

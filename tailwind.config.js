@@ -28,8 +28,8 @@ export default {
     screens,
     fontFamily: {
       display: ["Degular", "Helvetica", "sans-serif"],
-      body: ["Arial", "Helvetica", "sans-serif"],
-      sans: ["Inter", "Helvetica", "sans-serif"],
+      body: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+      sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
       mono: ["Menlo", "Monaco", "monospace", "sans-serif"],
     },
     fontSize: {
