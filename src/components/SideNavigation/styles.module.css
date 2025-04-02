@@ -10,6 +10,16 @@
   font-weight: 500;
 }
 
+:global([id]) {
+  scroll-margin-top: 130px;
+}
+
+@media (min-width: 1025px) {
+  :global([id]) {
+    scroll-margin-top: 96px; 
+  }
+}
+
 /* Estilos para la versión móvil */
 @media (max-width: 1024px) {
   .activeLink {
@@ -22,7 +32,6 @@
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none; /* Firefox */
     position: sticky;
-    top: 0;
     background-color: white;
     z-index: 30;
     display: flex;
@@ -30,6 +39,7 @@
     text-align: center;
     padding: 0 0 5px 0;
     border-bottom: 1px solid #f0f0f0;
+    width: 100%;
   }
   
   .scrollContainer::-webkit-scrollbar {
@@ -63,16 +73,18 @@
   }
   
   .mobileNavList {
-    display: flex ;
-    flex-direction: row ;
-    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Cambiado para permitir scroll horizontal completo */
     width: 100%;
     padding: 0;
-    margin: 0 auto;
+    margin: 0;
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 10px;
+    padding-top: 10px; /* Añadido para evitar truncamiento */
+    padding-left: 10px; /* Asegurar que el primer elemento sea visible */
   }
   
   .mobileNavList::-webkit-scrollbar {
@@ -82,6 +94,7 @@
   .mobileNavList li {
     text-align: center;
     white-space: nowrap;
+    flex-shrink: 0; /* Evita que los elementos se compriman */
   }
   
   .mobileNavList li a {

@@ -1,24 +1,17 @@
 import React from 'react';
 import { AmbassadorNav } from './examples';
 
-// Este es un ejemplo de cómo implementar el componente SideNavigation en una página
-// Se mantiene la navegación a la izquierda en escritorio y arriba en móvil
-
 const PageExample = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8 lg:text-center">Ambassador Program</h1>
       
-      {/* Contenedor principal con flex para posicionar nav y contenido */}
       <div className="flex flex-col lg:flex-row lg:gap-8">
-        {/* Navegación - aparece arriba en móvil, a la izquierda en escritorio */}
         <div className="mb-6 lg:mb-0">
           <AmbassadorNav />
         </div>
         
-        {/* Contenido principal */}
         <div className="flex-1">
-          {/* Sección 1 */}
           <section id="nextflow-ambassadors" className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Nextflow ambassadors</h2>
             <p className="mb-4">
@@ -33,7 +26,6 @@ const PageExample = () => {
             </p>
           </section>
           
-          {/* Sección 2 */}
           <section id="become-ambassador" className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Become an ambassador</h2>
             <p className="mb-4">
@@ -52,7 +44,6 @@ const PageExample = () => {
             </p>
           </section>
           
-          {/* Sección 3 */}
           <section id="our-ambassadors" className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Our ambassadors</h2>
             <p className="mb-4">
@@ -60,7 +51,6 @@ const PageExample = () => {
               Nextflow community and are actively helping others succeed with the platform.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Aquí irían los cards de embajadores */}
               <div className="p-4 border rounded-lg">
                 <h3 className="font-bold">Jane Doe</h3>
                 <p className="text-sm text-gray-600">Bioinformatics Scientist</p>
@@ -76,7 +66,6 @@ const PageExample = () => {
             </div>
           </section>
           
-          {/* Sección 4 */}
           <section id="fundings" className="mb-12">
             <h2 className="text-2xl font-bold mb-4">Fundings</h2>
             <p className="mb-4">

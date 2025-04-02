@@ -4,7 +4,7 @@ layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h3>BLAST pipeline</h3>
+<h2>BLAST pipeline</h2>
 
 <p class="">
     This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.

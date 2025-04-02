@@ -4,7 +4,7 @@ layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h3>Basic pipeline</h3>
+<h2>Basic pipeline</h2>
 
 <p class="" >
     This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.

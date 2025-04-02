@@ -25,6 +25,22 @@ interface VisibleSection {
 function SideNavigation({ items, activeItem, title, className, mode = 'page' }: SideNavigationProps) {
   const [activeId, setActiveId] = useState<string>('');
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const checkIsMobile = () => {
+        setIsMobile(window.innerWidth < 1025);
+      };
+      
+      checkIsMobile();
+      window.addEventListener('resize', checkIsMobile);
+      
+      return () => {
+        window.removeEventListener('resize', checkIsMobile);
+      };
+    }
+  }, []);
   
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -54,6 +70,8 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
         }
         
         const handleScroll = () => {
+          if (window.isScrolling) return;
+          
           const viewportHeight = window.innerHeight;
           const scrollTop = window.scrollY || document.documentElement.scrollTop;
           const sectionIds = items.map(item => item.href);
@@ -98,6 +116,13 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
             const matchingItem = items.find(item => item.href === mostVisibleSection);
             if (matchingItem && matchingItem.id !== activeId) {
               setActiveId(matchingItem.id);
+              
+              if (isMobile && scrollRef.current) {
+                const activeElement = scrollRef.current.querySelector(`[href="#${matchingItem.href}"]`);
+                if (activeElement) {
+                  scrollIntoViewIfNeeded(activeElement as HTMLElement, scrollRef.current);
+                }
+              }
             }
           }
         };
@@ -111,7 +136,18 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
         };
       }
     }
-  }, [items, activeItem, mode, activeId]);
+  }, [items, activeItem, mode, isMobile]);
+  
+  const scrollIntoViewIfNeeded = (element: HTMLElement, container: HTMLElement) => {
+    const containerRect = container.getBoundingClientRect();
+    const elementRect = element.getBoundingClientRect();
+    
+    if (elementRect.left < containerRect.left) {
+      container.scrollLeft += elementRect.left - containerRect.left - 10;
+    } else if (elementRect.right > containerRect.right) {
+      container.scrollLeft += elementRect.right - containerRect.right + 10;
+    }
+  };
   
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, item: NavItem) => {
     if (mode === 'page') {
@@ -135,6 +171,11 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
           window.location.hash = item.href;
         }
         
+        if (isMobile && scrollRef.current) {
+          const activeElement = e.currentTarget;
+          scrollIntoViewIfNeeded(activeElement, scrollRef.current);
+        }
+        
         setTimeout(() => {
           window.isScrolling = false;
         }, 1000); 
@@ -142,10 +183,19 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
     }
   };
   
+  useEffect(() => {
+    if (isMobile && scrollRef.current && activeId) {
+      const activeElement = scrollRef.current.querySelector(`a.${styles.activeLink}`);
+      if (activeElement) {
+        scrollIntoViewIfNeeded(activeElement as HTMLElement, scrollRef.current);
+      }
+    }
+  }, [activeId, isMobile]);
+  
   return (
     <nav className={clsx(
-      'sticky lg:top-24 lg:self-start lg:w-60',
-      'sticky top-0 z-20 w-full',
+      'sticky lg:top-24 lg:self-start lg:w-55',
+      'sticky top-[64px] z-20 w-full', 
       className
     )}>
       <div 
@@ -167,7 +217,7 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
         )}
         
         <ul className={clsx(
-          "flex lg:flex-col p-0 mt-0 justify-center",
+          "flex lg:flex-col p-0 mt-0",
           styles.mobileNavList
         )}>
           {items.map((item) => (

@@ -4,7 +4,7 @@ layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h3>Mixing scripting languages</h3>
+<h2>Mixing scripting languages</h2>
 
 <p class="">
     With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
