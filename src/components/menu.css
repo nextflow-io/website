@@ -1,0 +1,99 @@
+/* Estilos para el menú con transición de scroll */
+
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.header-hidden {
+  transform: translateY(-100%);
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    padding: 15px 10px;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .navbar-nav > li > a:hover {
+    color: var(--color-brand, #1FB2A6);
+  }
+  
+  .dropdown-menu {
+    border-radius: 4px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-open {
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+    background-color: white;
+  }
+  
+  .menu-open .navbar-collapse.in {
+    display: block;
+    height: calc(100vh - 60px) !important;
+    max-height: none !important;
+    overflow-y: auto;
+    padding-bottom: 70px; 
+  }
+  
+  .mobile-menu-toggle {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 2000;
+  }
+  
+  .navbar-nav {
+    margin: 0;
+    padding: 20px 0;
+  }
+  
+  .navbar-nav > li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .navbar-nav > li:last-child {
+    border-bottom: none;
+  }
+  
+  .navbar-nav > li > a {
+    padding: 15px;
+    display: block;
+  }
+  
+  /* Estilo para los menús desplegables en móvil */
+  .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    padding: 0;
+  }
+  
+  .dropdown.open .dropdown-menu {
+    max-height: 1000px;
+    padding: 5px 0;
+  }
+  
+  .navbar-brand {
+    padding: 10px 15px;
+    height: 60px;
+  }
+} 

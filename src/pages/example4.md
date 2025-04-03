@@ -1,12 +1,12 @@
 ---
 title: RNA-Seq pipeline
-layout: "@layouts/MarkdownPage.astro"
+layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h3>RNA-Seq pipeline</h3>
+<h2>RNA-Seq pipeline</h2>
 
-<p class="text-muted">
+<p class="">
     This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
 </p>
 

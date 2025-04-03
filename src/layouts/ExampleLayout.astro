@@ -1,0 +1,39 @@
+---
+import Page from "./Page.astro";
+import ExamplesSideNav from "@components/SideNavigation/ExamplesSideNav";
+import CodeCopyButton from "@components/CodeBlock/CodeCopy";
+import "../components/CodeBlock/styles.css";
+
+const { frontmatter } = Astro.props;
+const title = frontmatter?.title || "Nextflow Example";
+const description = frontmatter?.description || "";
+const image = frontmatter?.image || "";
+---
+
+<Page title={title} description={description} image={image}>
+  <div class="container container-lg">
+    <div class="flex flex-col lg:flex-row lg:gap-12">
+      <div class="mb-6 lg:mb-0 -mx-2 px-2 lg:mx-0 lg:w-50">
+        <ExamplesSideNav client:load />
+      </div>
+
+      <div class="flex-1">
+        <div class="code-examples">
+          <slot />
+        </div>
+        <CodeCopyButton client:load />
+      </div>
+    </div>
+  </div>
+</Page>
+
+<style>
+  .code-examples :global(.blg-summary) {
+    overflow: visible !important;
+    position: relative;
+  }
+
+  .code-examples :global(pre) {
+    margin-top: 1.5rem !important;
+  }
+</style>

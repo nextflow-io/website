@@ -1,12 +1,12 @@
 ---
-title: Machine Learning pipeline
-layout: "@layouts/MarkdownPage.astro"
+title: Error strategies
+layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h3>Machine Learning pipeline</h3>
+<h2>Machine Learning pipeline</h2>
 
-<p class="text-muted">
+<p class="">
     This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
 </p>
 
