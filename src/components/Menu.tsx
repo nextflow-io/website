@@ -1,0 +1,266 @@
+import React, { useEffect, useState, useRef } from "react";
+import "./menu.css"; // Importamos un archivo CSS externo
+import Hamburger from "./Hamburger";
+
+const Menu = ({}) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const lastScrollTop = useRef(0);
+  const headerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 767);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Usar directamente scrollY, que es estándar en navegadores modernos
+      const scrollTop = window.scrollY;
+      console.log("scrollY:", scrollTop);
+
+      // Marcar si ha habido scroll
+      if (scrollTop > 10 && !hasScrolled) {
+        setHasScrolled(true);
+      } else if (scrollTop <= 10 && hasScrolled) {
+        setHasScrolled(false);
+      }
+
+      // Comportamiento para ocultar/mostrar el header
+      if (scrollTop > 200) {
+        if (scrollTop > lastScrollTop.current) {
+          // Scroll hacia abajo - ocultar
+          setIsVisible(false);
+        } else {
+          // Scroll hacia arriba - mostrar
+          setIsVisible(true);
+        }
+      } else {
+        // Siempre visible en la parte superior
+        setIsVisible(true);
+      }
+
+      // Guardar la posición actual
+      lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
+    };
+
+    // No aplicar el comportamiento de scroll cuando el menú está abierto
+    if (!isMenuOpen) {
+      // Capturar en fase de captura para asegurar que recibimos el evento
+      window.addEventListener("scroll", handleScroll, { passive: true, capture: true });
+
+      // Asegurar que document.body puede ser scrolleado
+      document.body.style.overflowY = "auto";
+
+      // Ejecutar una vez para establecer el estado inicial
+      handleScroll();
+    } else {
+      window.removeEventListener("scroll", handleScroll, { capture: true } as EventListenerOptions);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll, { capture: true } as EventListenerOptions);
+    };
+  }, [hasScrolled, isMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+
+    if (!isMenuOpen) {
+      setIsVisible(true);
+    }
+  };
+
+  // Clases dinámicas para la transición
+  const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container 
+    ${!isVisible ? "header-hidden" : ""} 
+    ${isMenuOpen ? "menu-open" : ""}`;
+
+  return (
+    <div id="header" ref={headerRef} className={headerClasses} role="navigation">
+      <div className="container ">
+        <div className="navbar-header">
+          {isMobile && (
+            <div className="mobile-menu-toggle bottom-20">
+              <Hamburger isOpen={isMenuOpen} toggleMenu={toggleMobileMenu} />
+            </div>
+          )}
+          <a className="navbar-brand max-w-[155px] flex items-center" href="/index.html">
+            <img src="/img/nextflow.svg" title="Nextflow Logo" className="mt-1" />
+          </a>
+        </div>
+        <div className={`navbar-collapse ${isMenuOpen && isMobile ? "in" : "collapse"}`}>
+          <ul className="nav navbar-nav py-2">
+            <li className="show animated ">
+              <a href="/docs/latest/index.html" className="text-black">
+                Documentation
+              </a>
+            </li>
+
+            <li className="dropdown show ">
+              <a
+                href="#"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                tabIndex={0}
+              >
+                Examples <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+              </a>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <a href="/example1.html" tabIndex={0}>
+                    Basic pipeline
+                  </a>
+                </li>
+                <li>
+                  <a href="/example2.html" tabIndex={0}>
+                    Mixing scripting languages
+                  </a>
+                </li>
+                <li>
+                  <a href="/example3.html" tabIndex={0}>
+                    BLAST pipeline
+                  </a>
+                </li>
+                <li>
+                  <a href="/example4.html" tabIndex={0}>
+                    RNA-Seq pipeline
+                  </a>
+                </li>
+                <li>
+                  <a href="/example5.html" tabIndex={0}>
+                    Machine Learning pipeline
+                  </a>
+                </li>
+                <li>
+                  <a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank" tabIndex={0}>
+                    Simple RNAseq pipeline
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li className="dropdown show  ">
+              <a
+                href="#"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                tabIndex={0}
+              >
+                Scientists <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+              </a>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <a href="https://seqera.io/pipelines/" target="_blank" tabIndex={0}>
+                    Pipelines
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://seqera.io/containers/" target="_blank" tabIndex={0}>
+                    Containers
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://seqera.io/ask-ai/" target="_blank" tabIndex={0}>
+                    Seqera AI
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li className="show animated ">
+              <a href="http://training.nextflow.io">Training</a>
+            </li>
+
+            <li className="dropdown show  ">
+              <a
+                href="#"
+                className="dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                tabIndex={0}
+              >
+                Resources <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+              </a>
+              <ul className="dropdown-menu" role="menu">
+                <li>
+                  <a href="https://seqera.io/blog/tag-nextflow/" tabIndex={0}>
+                    Blog
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://seqera.io/podcasts/" tabIndex={0}>
+                    Podcast
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="http://nextflow-io.github.io/patterns/index.html" tabIndex={0}>
+                    Implementation patterns
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="/ambassadors.html" tabIndex={0}>
+                    Nextflow Ambassadors
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.nextflow.io/slack-invite.html" tabIndex={0}>
+                    Slack community chat
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://nf-co.re" tabIndex={0}>
+                    nf-core pipelines
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="/about-us.html" tabIndex={0}>
+                    About Nextflow
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li className="show animated ">
+              <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
+                Forums
+                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+              </a>
+            </li>
+            <li className="navbar-right">
+            <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
+              <i className="fa fa-github hidden-xs" aria-hidden="true"></i>
+              <span className="visible-xs">GitHub repository</span>
+            </a>
+          </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Menu;
