@@ -229,7 +229,7 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
                   "block whitespace-nowrap transition-colors duration-200 mx-1 lg:mx-0 lg:py-4 lg:px-4",
                   activeId === item.id 
                     ? styles.activeLink
-                    : "text-gray-900 hover:bg-nextflow-light-green hover:text-nextflow-green"
+                    : " hover:bg-nextflow-light-green hover:text-nextflow-green"
                 )}
               >
                 {item.title}

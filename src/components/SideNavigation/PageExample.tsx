@@ -18,7 +18,7 @@ const PageExample = () => {
               Nextflow ambassadors are members of the Nextflow community who are passionate about the platform
               and want to help others learn and use it effectively. They are volunteers who contribute to the
               community in various ways, including speaking at events, writing blog posts, and helping others
-              on the community forums.
+              on the community forum.
             </p>
             <p>
               Our ambassadors come from diverse backgrounds and have different levels of experience with Nextflow,
