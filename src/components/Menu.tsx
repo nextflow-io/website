@@ -102,6 +102,7 @@ const Menu = ({}) => {
             <li className="show animated ">
               <a href="/docs/latest/index.html" className="text-black">
                 Documentation
+                <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
               </a>
             </li>
 
@@ -185,7 +186,9 @@ const Menu = ({}) => {
             </li>
 
             <li className="show animated ">
-              <a href="http://training.nextflow.io">Training</a>
+              <a href="http://training.nextflow.io">Training
+              <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
+              </a>
             </li>
 
             <li className="dropdown show  ">
@@ -238,6 +241,12 @@ const Menu = ({}) => {
                 <li>
                   <a href="/about-us.html" tabIndex={0}>
                     About Nextflow
+                  </a>
+                </li>
+                <li>
+                  <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
+                    Community forum
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
                   </a>
                 </li>
               </ul>
