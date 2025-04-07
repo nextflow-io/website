@@ -4,11 +4,18 @@ import Square from "./svg/square.svg?raw";
 import SvgClipboard from "./Clipboard";
 
 interface Note {
-  text: string;
-  link: {
+  text?: string;
+  link?: {
     text: string;
     url: string;
   };
+  parts?: Array<{
+    text: string;
+    link?: {
+      text: string;
+      url: string;
+    };
+  }>;
 }
 
 interface Step {
@@ -21,23 +28,24 @@ interface Step {
 
 const steps: Step[] = [
   {
-  //   title: "Check prerequisites",
-  //   subtitle: "Java 11 or later is required",
-  //   main: "Make sure Java 11 or later is installed on your computer by using the command:",
-  //   code: "java -version",
-  //   note: {
-  //     text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
-  //     link: { text: "here", url: "/docs/java-installation" },
-  //   },
-  // },
-  // {
     title: "Set up",
     subtitle: "Java 11 or later is required",
     main: "Enter this command in your terminal:",
     code: "curl -s https://get.nextflow.io | bash",
     note: {
-      text: "Note: It can also be downloaded from GitHub or installed by using Bioconda package manager. ",
-      link: { text: "here", url: "/docs/java-installation" },
+      parts: [
+        {
+          text: "Note: It can also be downloaded from ",
+          link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" }
+        },
+        {
+          text: " or installed by using ",
+          link: { text: "Bioconda", url: "https://bioconda.github.io/recipes/nextflow/README.html" }
+        },
+        {
+          text: " package manager."
+        }
+      ]
     },
   },
   {
@@ -142,10 +150,27 @@ const TerminalComponent: React.FC = () => {
         </div>
         {steps[currentStep].note && (
           <p className="note-text">
-            {steps[currentStep].note.text}{" "}
-            <a href={steps[currentStep].note.link.url} className="link">
-              {steps[currentStep].note.link.text}
-            </a>
+            {steps[currentStep].note.parts ? (
+              steps[currentStep].note.parts.map((part, i) => (
+                <React.Fragment key={i}>
+                  {part.text}
+                  {part.link && (
+                    <a href={part.link.url} className="link">
+                      {part.link.text}
+                    </a>
+                  )}
+                </React.Fragment>
+              ))
+            ) : (
+              <>
+                {steps[currentStep].note.text}{" "}
+                {steps[currentStep].note.link && (
+                  <a href={steps[currentStep].note.link.url} className="link">
+                    {steps[currentStep].note.link.text}
+                  </a>
+                )}
+              </>
+            )}
           </p>
         )}
       </div>
