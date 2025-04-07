@@ -21,18 +21,18 @@ interface Step {
 
 const steps: Step[] = [
   {
-    title: "Check prerequisites",
-    subtitle: "Java 11 or later is required",
-    main: "Make sure Java 11 or later is installed on your computer by using the command:",
-    code: "java -version",
-    note: {
-      text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
-      link: { text: "here", url: "/docs/java-installation" },
-    },
-  },
-  {
+  //   title: "Check prerequisites",
+  //   subtitle: "Java 11 or later is required",
+  //   main: "Make sure Java 11 or later is installed on your computer by using the command:",
+  //   code: "java -version",
+  //   note: {
+  //     text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
+  //     link: { text: "here", url: "/docs/java-installation" },
+  //   },
+  // },
+  // {
     title: "Set up",
-    subtitle: "Dead easy to install",
+    subtitle: "Java 11 or later is required",
     main: "Enter this command in your terminal:",
     code: "curl -s https://get.nextflow.io | bash",
     note: {
@@ -158,7 +158,7 @@ const TerminalComponent: React.FC = () => {
             data-active={(index === currentStep).toString()}
             onClick={() => setCurrentStep(index)}
           >
-            Step {index + 1}
+            {step.title}
           </div>
         ))}
       </div>
