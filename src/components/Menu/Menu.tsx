@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./menu.css"; // Importamos un archivo CSS externo
-import Hamburger from "./Hamburger";
+import "./menu.css"; 
+import Hamburger from "../Hamburger";
 
 const Menu = ({}) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -23,44 +23,30 @@ const Menu = ({}) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Usar directamente scrollY, que es estándar en navegadores modernos
       const scrollTop = window.scrollY;
-      console.log("scrollY:", scrollTop);
 
-      // Marcar si ha habido scroll
       if (scrollTop > 10 && !hasScrolled) {
         setHasScrolled(true);
       } else if (scrollTop <= 10 && hasScrolled) {
         setHasScrolled(false);
       }
 
-      // Comportamiento para ocultar/mostrar el header
       if (scrollTop > 200) {
         if (scrollTop > lastScrollTop.current) {
-          // Scroll hacia abajo - ocultar
           setIsVisible(false);
         } else {
-          // Scroll hacia arriba - mostrar
           setIsVisible(true);
         }
       } else {
-        // Siempre visible en la parte superior
         setIsVisible(true);
       }
 
-      // Guardar la posición actual
       lastScrollTop.current = scrollTop <= 0 ? 0 : scrollTop;
     };
 
-    // No aplicar el comportamiento de scroll cuando el menú está abierto
     if (!isMenuOpen) {
-      // Capturar en fase de captura para asegurar que recibimos el evento
       window.addEventListener("scroll", handleScroll, { passive: true, capture: true });
-
-      // Asegurar que document.body puede ser scrolleado
       document.body.style.overflowY = "auto";
-
-      // Ejecutar una vez para establecer el estado inicial
       handleScroll();
     } else {
       window.removeEventListener("scroll", handleScroll, { capture: true } as EventListenerOptions);
@@ -79,7 +65,6 @@ const Menu = ({}) => {
     }
   };
 
-  // Clases dinámicas para la transición
   const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container 
     ${!isVisible ? "header-hidden" : ""} 
     ${isMenuOpen ? "menu-open" : ""}`;
@@ -102,7 +87,11 @@ const Menu = ({}) => {
             <li className="show animated ">
               <a href="/docs/latest/index.html" className="text-black">
                 Documentation
-                <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
+                <img
+                  src="/img/assets/external-link-arrow.svg"
+                  alt="External link to forum page"
+                  className="inline-block"
+                />
               </a>
             </li>
 
@@ -186,8 +175,13 @@ const Menu = ({}) => {
             </li>
 
             <li className="show animated ">
-              <a href="http://training.nextflow.io">Training
-              <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
+              <a href="http://training.nextflow.io">
+                Training
+                <img
+                  src="/img/assets/external-link-arrow.svg"
+                  alt="External link to forum page"
+                  className="inline-block"
+                />
               </a>
             </li>
 
@@ -246,7 +240,11 @@ const Menu = ({}) => {
                 <li>
                   <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
                     Community forum
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link to forum page" className="inline-block" />
+                    <img
+                      src="/img/assets/external-link-arrow.svg"
+                      alt="External link to forum page"
+                      className="inline-block"
+                    />
                   </a>
                 </li>
               </ul>
@@ -258,14 +256,25 @@ const Menu = ({}) => {
                 <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
               </a>
             </li>
-            <li className="navbar-right">
-            <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
-              <i className="fa fa-github hidden-xs" aria-hidden="true"></i>
-              <span className="visible-xs">GitHub repository</span>
-            </a>
-          </li>
+            {isMobile && (
+              <li className="navbar-right">
+                <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
+                  <i className="fa fa-github hidden-xs" aria-hidden="true"></i>
+                  <span className="visible-xs">GitHub repository</span>
+                </a>
+              </li>
+            )}
           </ul>
-
+          {!isMobile && (
+          <ul className="navbar-right">
+            <li className="navbar-right">
+              <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
+                <i className="fa fa-github hidden-xs" aria-hidden="true"></i>
+                <span className="visible-xs">GitHub repository</span>
+              </a>
+              </li>
+            </ul>
+          )}
         </div>
       </div>
     </div>
