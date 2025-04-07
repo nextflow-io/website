@@ -35,15 +35,19 @@ const steps: Step[] = [
     note: {
       parts: [
         {
-          text: "Note: It can also be downloaded from ",
-          link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" }
-        },
-        {
-          text: " or installed by using ",
+          text: "Nextflow can also be installed from ",
           link: { text: "Bioconda", url: "https://bioconda.github.io/recipes/nextflow/README.html" }
         },
         {
-          text: " package manager."
+          text: " or downloaded from ",
+          link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" }
+        },
+        {
+          text: ". See the ",
+          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html"}
+        },
+        {
+          text: " for more information."
         }
       ]
     },
@@ -53,6 +57,20 @@ const steps: Step[] = [
     subtitle: "Try a simple demo",
     main: "Run the classic Hello world by entering the following command:",
     code: "./nextflow run hello",
+    note: {
+      parts: [
+        {
+          text: "You'll want to make the binary executable and move it to a directory in your PATH. "
+        },
+        {
+          text: "See the ",
+          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html"}
+        },
+        {
+          text: "."
+        }
+      ]
+    },
   },
 ];
 
