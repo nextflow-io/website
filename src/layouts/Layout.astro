@@ -1,6 +1,5 @@
 ---
 import "../styles/main.css";
-import "../styles/dropdown-hover.css";
 import "../styles/focus-styles.css";
 import MenuComponent from "@components/Menu/Menu";
 import Footer from "@components/Footer.astro";
@@ -104,7 +103,6 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
 
       body {
         position: relative;
-        /* Asegurar que el scroll funciona correctamente */
         overflow-y: auto !important;
       }
     </style>
@@ -128,74 +126,111 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
 
     <script is:inline>
       const dropdowns = document.querySelectorAll(".navbar-nav .dropdown");
-      dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener("mouseenter", function () {
-          this.classList.add("open");
-          const toggle = this.querySelector(".dropdown-toggle");
-          if (toggle) toggle.setAttribute("aria-expanded", "true");
-        });
+      const isMobile = window.innerWidth <= 767;
+      
+      if (!isMobile) {
+        let clickedDropdown = null;
+        dropdowns.forEach(function (dropdown) {
+          dropdown.addEventListener("mouseenter", function () {
+            if (!clickedDropdown) {
+              this.classList.add("open");
+              const toggle = this.querySelector(".dropdown-toggle");
+              if (toggle) toggle.setAttribute("aria-expanded", "true");
+            }
+          });
 
-        dropdown.addEventListener("mouseleave", function () {
-          if (!this.contains(document.activeElement)) {
-            this.classList.remove("open");
-            const toggle = this.querySelector(".dropdown-toggle");
-            if (toggle) toggle.setAttribute("aria-expanded", "false");
+          dropdown.addEventListener("mouseleave", function () {
+            if (!clickedDropdown || clickedDropdown !== this) {
+              if (!this.contains(document.activeElement)) {
+                this.classList.remove("open");
+                const toggle = this.querySelector(".dropdown-toggle");
+                if (toggle) toggle.setAttribute("aria-expanded", "false");
+              }
+            }
+          });
+          
+          const toggle = dropdown.querySelector('.dropdown-toggle');
+          if (toggle) {
+            toggle.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              if (clickedDropdown === dropdown) {
+                dropdown.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
+                clickedDropdown = null;
+              } else {
+                if (clickedDropdown) {
+                  clickedDropdown.classList.remove("open");
+                  const prevToggle = clickedDropdown.querySelector(".dropdown-toggle");
+                  if (prevToggle) prevToggle.setAttribute("aria-expanded", "false");
+                }
+                
+                dropdown.classList.add("open");
+                toggle.setAttribute("aria-expanded", "true");
+                clickedDropdown = dropdown;
+              }
+            });
           }
         });
-      });
+        
+        document.addEventListener('click', function(e) {
+          if (clickedDropdown && !clickedDropdown.contains(e.target)) {
+            clickedDropdown.classList.remove("open");
+            const toggle = clickedDropdown.querySelector(".dropdown-toggle");
+            if (toggle) toggle.setAttribute("aria-expanded", "false");
+            clickedDropdown = null;
+          }
+        });
+      }
+      
+      function isTouchDevice() {
+        return (('ontouchstart' in window) ||
+                (navigator.maxTouchPoints > 0) ||
+                (navigator.msMaxTouchPoints > 0));
+      }
+      
+      if (isMobile && isTouchDevice()) {
+        document.addEventListener('DOMContentLoaded', function() {
+          const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+          dropdownToggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+              if (isMobile) {
+                e.stopPropagation();
+              }
+            }, true); 
+          });
+        });
+      }
 
-      // Diagnóstico de scroll
       document.addEventListener("DOMContentLoaded", function () {
-        console.log("Altura del documento:", document.documentElement.scrollHeight);
-        console.log("Altura de la ventana:", window.innerHeight);
-        console.log("¿Se debe mostrar scroll?", document.documentElement.scrollHeight > window.innerHeight);
-
-        // Verificar qué elemento se está scrolleando
         const scrollingElement = document.scrollingElement || document.documentElement;
-        console.log("Elemento de scroll:", scrollingElement);
-
-        // Verificar si hay contenedores con position: fixed o absolute que puedan estar afectando
         const fixedElements = document.querySelectorAll(
           '*[style*="position: fixed"], *[style*="position:fixed"], *[style*="position: absolute"], *[style*="position:absolute"]',
         );
-        console.log("Elementos con posición fija o absoluta:", fixedElements);
 
-        // Forzar un scrollTo para verificar si funciona
         setTimeout(() => {
           window.scrollTo(0, 10);
-          console.log("scrollY después de forzar scroll:", window.scrollY);
         }, 1000);
 
-        // Verificar otros elementos que puedan estar capturando el scroll
         const scrollableElements = Array.from(document.querySelectorAll("*")).filter((el) => {
           const style = window.getComputedStyle(el);
           return (style.overflowY === "auto" || style.overflowY === "scroll") && el.scrollHeight > el.clientHeight;
         });
-        console.log("Elementos scrolleables:", scrollableElements);
 
-        // Monitorear scrollY continuamente
         let scrollMonitor = setInterval(() => {
-          console.log("Monitoreando scrollY:", window.scrollY);
           if (window.scrollY > 0) {
-            console.log("¡scrollY es mayor a 0!");
             clearInterval(scrollMonitor);
           }
         }, 2000);
 
-        // Limpiar después de 30 segundos para no seguir consumiendo recursos
         setTimeout(() => {
           clearInterval(scrollMonitor);
         }, 30000);
       });
 
-      // Depuración de scroll
       window.addEventListener(
         "scroll",
         function () {
-          console.log("scrollY:", window.scrollY);
-          console.log("pageYOffset:", window.pageYOffset);
-          console.log("documentElement.scrollTop:", document.documentElement.scrollTop);
-          console.log("body.scrollTop:", document.body.scrollTop);
         },
         { passive: true },
       );

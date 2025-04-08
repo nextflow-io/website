@@ -7,8 +7,10 @@ const Menu = ({}) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
   const lastScrollTop = useRef(0);
   const headerRef = useRef<HTMLDivElement>(null);
+  const dropdownRefs = useRef<Array<HTMLLIElement | null>>([null, null, null]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -20,6 +22,46 @@ const Menu = ({}) => {
       window.removeEventListener("resize", checkMobile);
     };
   }, []);
+
+  useEffect(() => {
+    setActiveDropdown(null);
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (isMobile) {
+      const handleGlobalClick = (e: MouseEvent) => {
+        if (activeDropdown !== null) {
+          const activeDropdownElement = dropdownRefs.current[activeDropdown];
+          if (activeDropdownElement && !activeDropdownElement.contains(e.target as Node)) {
+            setActiveDropdown(null);
+          }
+        }
+      };
+
+      document.addEventListener('click', handleGlobalClick);
+      return () => {
+        document.removeEventListener('click', handleGlobalClick);
+      };
+    }
+  }, [isMobile, activeDropdown]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      const handleDesktopClickOutside = (e: MouseEvent) => {
+        if (activeDropdown !== null) {
+          const activeDropdownElement = dropdownRefs.current[activeDropdown];
+          if (activeDropdownElement && !activeDropdownElement.contains(e.target as Node)) {
+            setActiveDropdown(null);
+          }
+        }
+      };
+
+      document.addEventListener('click', handleDesktopClickOutside);
+      return () => {
+        document.removeEventListener('click', handleDesktopClickOutside);
+      };
+    }
+  }, [isMobile, activeDropdown]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,9 +107,33 @@ const Menu = ({}) => {
     }
   };
 
+  const handleDropdownClick = (e: React.MouseEvent, index: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
+  const handleMenuItemClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
   const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container 
     ${!isVisible ? "header-hidden" : ""} 
     ${isMenuOpen ? "menu-open" : ""}`;
+
+  const handleLiClick = (e: React.MouseEvent, index: number) => {
+    if (isMobile) {
+      if ((e.target as HTMLElement).tagName === 'LI') {
+        e.preventDefault();
+        e.stopPropagation();
+        setActiveDropdown(activeDropdown === index ? null : index);
+      }
+    }
+  };
+
+  const setDropdownRef = (index: number) => (el: HTMLLIElement | null) => {
+    dropdownRefs.current[index] = el;
+  };
 
   return (
     <div id="header" ref={headerRef} className={headerClasses} role="navigation">
@@ -95,18 +161,24 @@ const Menu = ({}) => {
               </a>
             </li>
 
-            <li className="dropdown show ">
+            <li 
+              ref={setDropdownRef(0)} 
+              className={`dropdown show ${activeDropdown === 0 ? "open" : ""}`}
+              onClick={(e) => handleLiClick(e, 0)}
+            >
               <a
                 href="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false"
+                aria-expanded={activeDropdown === 0 ? "true" : "false"}
                 tabIndex={0}
+                onClick={(e) => handleDropdownClick(e, 0)}
               >
-                Examples <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+                <span className="menu-label">Examples</span> 
+                <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
-              <ul className="dropdown-menu" role="menu">
+              <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
                   <a href="/example1.html" tabIndex={0}>
                     Basic pipeline
@@ -141,18 +213,24 @@ const Menu = ({}) => {
               </ul>
             </li>
 
-            <li className="dropdown show  ">
+            <li 
+              ref={setDropdownRef(1)} 
+              className={`dropdown show ${activeDropdown === 1 ? "open" : ""}`}
+              onClick={(e) => handleLiClick(e, 1)}
+            >
               <a
                 href="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false"
+                aria-expanded={activeDropdown === 1 ? "true" : "false"}
                 tabIndex={0}
+                onClick={(e) => handleDropdownClick(e, 1)}
               >
-                Scientists <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+                <span className="menu-label">Scientists</span> 
+                <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
-              <ul className="dropdown-menu" role="menu">
+              <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
                   <a href="https://seqera.io/pipelines/" target="_blank" tabIndex={0}>
                     Pipelines
@@ -185,18 +263,24 @@ const Menu = ({}) => {
               </a>
             </li>
 
-            <li className="dropdown show  ">
+            <li 
+              ref={setDropdownRef(2)} 
+              className={`dropdown show ${activeDropdown === 2 ? "open" : ""}`}
+              onClick={(e) => handleLiClick(e, 2)}
+            >
               <a
                 href="#"
                 className="dropdown-toggle"
                 data-toggle="dropdown"
                 aria-haspopup="true"
-                aria-expanded="false"
+                aria-expanded={activeDropdown === 2 ? "true" : "false"}
                 tabIndex={0}
+                onClick={(e) => handleDropdownClick(e, 2)}
               >
-                Resources <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon" />
+                <span className="menu-label">Resources</span> 
+                <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
-              <ul className="dropdown-menu" role="menu">
+              <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
                   <a href="https://seqera.io/blog/tag-nextflow/" tabIndex={0}>
                     Blog
