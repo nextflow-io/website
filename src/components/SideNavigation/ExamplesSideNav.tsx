@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SideNavigation from './index';
 
 const ExamplesSideNav = () => {
-  const [activeId, setActiveId] = useState('example1');
+  const [activeId, setActiveId] = useState('basic-pipeline');
   
   // Detectar la página actual en el cliente
   useEffect(() => {
@@ -22,29 +22,29 @@ const ExamplesSideNav = () => {
   
   const items = [
     {
-      id: 'example1',
+      id: 'basic-pipeline',
       title: 'Basic pipeline',
-      href: 'example1.html'
+      href: 'basic-pipeline.html'
     },
     {
-      id: 'example2',
+      id: 'mixing-scripting-languages',
       title: 'Mixing scripting languages',
-      href: 'example2.html'
+      href: 'mixing-scripting-languages.html'
     },
     {
-      id: 'example3',
+      id: 'blast-pipeline',
       title: 'BLAST pipeline',
-      href: 'example3.html'
+      href: 'blast-pipeline.html'
     },
     {
-      id: 'example4',
+      id: 'rna-seq-pipeline',
       title: 'RNA-Seq pipeline',
-      href: 'example4.html'
+      href: 'rna-seq-pipeline.html'
     },
     {
-      id: 'example5',
+      id: 'machine-learning-pipeline',
       title: 'Machine Learning pipeline',
-      href: 'example5.html'
+      href: 'machine-learning-pipeline.html'
     }
   ];
 

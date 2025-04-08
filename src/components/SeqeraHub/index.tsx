@@ -70,6 +70,7 @@ export default function SeqeraHub() {
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
+                    <img src={nfcore.src} alt="nf-core" className="w-5 h-5" />
                     <span className="text-blue-500 font-medium text-lg">{pipeline.name}</span>
                   </div>
 
@@ -83,11 +84,11 @@ export default function SeqeraHub() {
                         </span>
                       ))}
                       {pipeline.additionalTags > 0 && (
-                        <span className="text-gray-500 text-sm flex items-center">+ {pipeline.additionalTags} more</span>
+                        <span className="text-gray-900 text-sm flex items-center">+ {pipeline.additionalTags} more</span>
                       )}
                     </div>
 
-                    <div className="flex items-center text-gray-500 text-sm gap-3">
+                    <div className="flex items-center text-gray-900 text-sm gap-3">
                       <div className="flex items-center gap-1">
                         <img src={Star.src} alt="Star icon" className="w-4 h-4" />
                         <span>{pipeline.stars}</span>
@@ -126,9 +127,7 @@ export default function SeqeraHub() {
                   <div className="flex items-center gap-2">
                     <span className="text-blue-500 font-medium text-lg flex items-center">
                       <span className="mr-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-orange-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M6 5a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm-2 3a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zm0 3a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zm0 3a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z" clipRule="evenodd" />
-                        </svg>
+                        <img src={ContainersIcon.src} alt="nf-core" className="w-5 h-5" />
                       </span>
                       {container.name}
                     </span>
@@ -137,13 +136,13 @@ export default function SeqeraHub() {
                   <p className=" mt-3 mb-auto text-[14px]">{container.description}</p>
 
                   <div className="mt-4">
-                    <div className="flex items-center text-gray-500 text-sm mb-3">
+                    <div className="flex items-center text-gray-900 text-sm mb-3">
                       {container.platforms.map((platform, platformIndex) => (
                         <span key={platformIndex} className="mr-3">{platform}</span>
                       ))}
                     </div>
 
-                    <div className="flex items-center text-gray-500 text-sm gap-3">
+                    <div className="flex items-center text-gray-900 text-sm gap-3">
                       <div className="flex items-center gap-1">
                         <img src={Star.src} alt="Star icon" className="w-4 h-4" />
                         <span>{container.stars}</span>

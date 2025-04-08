@@ -180,27 +180,27 @@ const Menu = ({}) => {
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
-                  <a href="/example1.html" tabIndex={0}>
+                  <a href="/basic-pipeline.html" tabIndex={0}>
                     Basic pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/example2.html" tabIndex={0}>
+                  <a href="/mixing-scripting-languages.html" tabIndex={0}>
                     Mixing scripting languages
                   </a>
                 </li>
                 <li>
-                  <a href="/example3.html" tabIndex={0}>
+                  <a href="/blast-pipeline.html" tabIndex={0}>
                     BLAST pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/example4.html" tabIndex={0}>
+                  <a href="/rna-seq-pipeline.html" tabIndex={0}>
                     RNA-Seq pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/example5.html" tabIndex={0}>
+                  <a href="/machine-learning-pipeline.html" tabIndex={0}>
                     Machine Learning pipeline
                   </a>
                 </li>
