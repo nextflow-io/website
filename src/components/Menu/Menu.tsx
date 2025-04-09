@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./menu.css"; 
+import "./menu.css";
 import Hamburger from "../Hamburger";
 
 const Menu = ({}) => {
@@ -117,8 +117,8 @@ const Menu = ({}) => {
     e.stopPropagation();
   };
 
-  const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container 
-    ${!isVisible ? "header-hidden" : ""} 
+  const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container
+    ${!isVisible ? "header-hidden" : ""}
     ${isMenuOpen ? "menu-open" : ""}`;
 
   const handleLiClick = (e: React.MouseEvent, index: number) => {
@@ -161,8 +161,26 @@ const Menu = ({}) => {
               </a>
             </li>
 
-            <li 
-              ref={setDropdownRef(0)} 
+            <li className="show animated ">
+              <a href="http://training.nextflow.io">
+                Training
+                <img
+                  src="/img/assets/external-link-arrow.svg"
+                  alt="External link to forum page"
+                  className="inline-block"
+                />
+              </a>
+            </li>
+
+            <li className="show animated ">
+              <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
+                Forums
+                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+              </a>
+            </li>
+
+            <li
+              ref={setDropdownRef(0)}
               className={`dropdown show ${activeDropdown === 0 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 0)}
             >
@@ -175,7 +193,7 @@ const Menu = ({}) => {
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 0)}
               >
-                <span className="menu-label">Examples</span> 
+                <span className="menu-label">Examples</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -210,11 +228,17 @@ const Menu = ({}) => {
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
+                <li>
+                  <a href="http://nextflow-io.github.io/patterns/index.html" tabIndex={0}>
+                    Implementation patterns
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                  </a>
+                </li>
               </ul>
             </li>
 
-            <li 
-              ref={setDropdownRef(1)} 
+            <li
+              ref={setDropdownRef(1)}
               className={`dropdown show ${activeDropdown === 1 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 1)}
             >
@@ -227,7 +251,7 @@ const Menu = ({}) => {
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 1)}
               >
-                <span className="menu-label">Scientists</span> 
+                <span className="menu-label">Scientists</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -252,19 +276,10 @@ const Menu = ({}) => {
               </ul>
             </li>
 
-            <li className="show animated ">
-              <a href="http://training.nextflow.io">
-                Training
-                <img
-                  src="/img/assets/external-link-arrow.svg"
-                  alt="External link to forum page"
-                  className="inline-block"
-                />
-              </a>
-            </li>
 
-            <li 
-              ref={setDropdownRef(2)} 
+
+            <li
+              ref={setDropdownRef(2)}
               className={`dropdown show ${activeDropdown === 2 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 2)}
             >
@@ -277,7 +292,7 @@ const Menu = ({}) => {
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 2)}
               >
-                <span className="menu-label">Resources</span> 
+                <span className="menu-label">Resources</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -294,14 +309,13 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
-                  <a href="http://nextflow-io.github.io/patterns/index.html" tabIndex={0}>
-                    Implementation patterns
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
-                  </a>
-                </li>
-                <li>
-                  <a href="/ambassadors.html" tabIndex={0}>
-                    Nextflow Ambassadors
+                  <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
+                    Community forum
+                    <img
+                      src="/img/assets/external-link-arrow.svg"
+                      alt="External link to forum page"
+                      className="inline-block"
+                    />
                   </a>
                 </li>
                 <li>
@@ -317,29 +331,18 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
-                  <a href="/about-us.html" tabIndex={0}>
-                    About Nextflow
+                  <a href="/ambassadors.html" tabIndex={0}>
+                    Nextflow Ambassadors
                   </a>
                 </li>
                 <li>
-                  <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
-                    Community forum
-                    <img
-                      src="/img/assets/external-link-arrow.svg"
-                      alt="External link to forum page"
-                      className="inline-block"
-                    />
+                  <a href="/about-us.html" tabIndex={0}>
+                    About Nextflow
                   </a>
                 </li>
               </ul>
             </li>
 
-            <li className="show animated ">
-              <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
-                Forums
-                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
-              </a>
-            </li>
             {isMobile && (
               <li className="navbar-right">
                 <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
