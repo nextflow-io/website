@@ -5,14 +5,11 @@ export default function CodeCopyButton() {
   const [tooltipPosition, setTooltipPosition] = useState<{ x: number, y: number }>({ x: 0, y: 0 });
 
   const addCopyButtons = useCallback(() => {
-    // Seleccionar todos los bloques pre > code
     const codeBlocks = document.querySelectorAll('pre > code');
     
     codeBlocks.forEach((codeBlock) => {
-      // No añadir botón si ya existe uno
       const parent = codeBlock.parentElement;
       if (parent && !parent.querySelector('.copy-button')) {
-        // Crear el botón de copia
         const button = document.createElement('button');
         button.className = 'copy-button';
         button.title = 'Copy to clipboard';
@@ -24,17 +21,12 @@ export default function CodeCopyButton() {
           <span class="copy-tooltip">Copied!</span>
         `;
         
-        // Hacer que el contenedor tenga posición relativa para el posicionamiento absoluto del botón
         parent.style.position = 'relative';
         
-        // Añadir evento de clic para copiar el texto
         button.addEventListener('click', (e) => {
-          // Obtener el texto del bloque de código
           const code = codeBlock.textContent || '';
           
-          // Copiar al portapapeles
           navigator.clipboard.writeText(code).then(() => {
-            // Mostrar tooltip de "Copiado"
             const tooltip = button.querySelector('.copy-tooltip');
             if (tooltip) {
               tooltip.classList.add('visible');
@@ -47,22 +39,18 @@ export default function CodeCopyButton() {
           });
         });
         
-        // Añadir el botón al bloque de código
         parent.appendChild(button);
       }
     });
   }, []);
 
   const addLinkClassToAnchors = useCallback(() => {
-    // Buscar todos los párrafos dentro de los contenedores de ejemplos y blogs
     const paragraphs = document.querySelectorAll('.code-examples p, .blg-summary p');
     
     paragraphs.forEach((paragraph) => {
-      // Encontrar todos los enlaces dentro del párrafo
       const links = paragraph.querySelectorAll('a');
       
       links.forEach((link) => {
-        // Añadir la clase si no la tiene ya
         if (!link.classList.contains('link')) {
           link.classList.add('link');
         }
@@ -71,28 +59,22 @@ export default function CodeCopyButton() {
   }, []);
 
   useEffect(() => {
-    // Función que ejecuta ambas operaciones
     const setupPage = () => {
       addCopyButtons();
       addLinkClassToAnchors();
     };
 
-    // Ejecutar al montar el componente
     setupPage();
 
-    // Configurar un observador de mutaciones para detectar cambios en el DOM
     const observer = new MutationObserver(setupPage);
     
-    // Observar cambios en todo el documento
     observer.observe(document.documentElement, {
       childList: true,
       subtree: true
     });
 
-    // También agregar un evento de carga para asegurar que funcione después de cargar completamente
     window.addEventListener('load', setupPage);
 
-    // Limpieza al desmontar
     return () => {
       observer.disconnect();
       window.removeEventListener('load', setupPage);
@@ -102,5 +84,5 @@ export default function CodeCopyButton() {
     };
   }, [addCopyButtons, addLinkClassToAnchors]);
 
-  return null; // Este componente no renderiza nada, solo añade funcionalidad
+  return null;
 } 

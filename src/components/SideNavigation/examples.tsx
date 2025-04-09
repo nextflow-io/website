@@ -1,8 +1,6 @@
 import React from 'react';
 import SideNavigation from './index';
 
-// Ejemplos de uso del componente SideNavigation
-
 export const AmbassadorNav = () => {
   const items = [
     {

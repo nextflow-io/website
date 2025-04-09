@@ -4,14 +4,12 @@ import SideNavigation from './index';
 const ExamplesSideNav = () => {
   const [activeId, setActiveId] = useState('basic-pipeline');
   
-  // Detectar la página actual en el cliente
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       const filename = path.split('/').pop();
       
       if (filename) {
-        // Buscar coincidencia con alguno de los ejemplos
         const match = filename.match(/example(\d+)/);
         if (match && match[1]) {
           setActiveId(`example${match[1]}`);
