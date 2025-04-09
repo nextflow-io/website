@@ -153,29 +153,18 @@ const Menu = ({}) => {
             <li className="show animated ">
               <a href="/docs/latest/index.html" className="text-black">
                 Documentation
-                <img
-                  src="/img/assets/external-link-arrow.svg"
-                  alt="External link to forum page"
-                  className="inline-block"
-                />
               </a>
             </li>
 
             <li className="show animated ">
               <a href="http://training.nextflow.io">
                 Training
-                <img
-                  src="/img/assets/external-link-arrow.svg"
-                  alt="External link to forum page"
-                  className="inline-block"
-                />
               </a>
             </li>
 
             <li className="show animated ">
               <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
-                Forums
-                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
+                Forum
               </a>
             </li>
 
@@ -225,13 +214,11 @@ const Menu = ({}) => {
                 <li>
                   <a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank" tabIndex={0}>
                     Simple RNAseq pipeline
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="http://nextflow-io.github.io/patterns/index.html" tabIndex={0}>
                     Implementation patterns
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
               </ul>
@@ -258,19 +245,16 @@ const Menu = ({}) => {
                 <li>
                   <a href="https://seqera.io/pipelines/" target="_blank" tabIndex={0}>
                     Pipelines
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="https://seqera.io/containers/" target="_blank" tabIndex={0}>
                     Containers
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="https://seqera.io/ask-ai/" target="_blank" tabIndex={0}>
                     Seqera AI
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
               </ul>
@@ -299,35 +283,26 @@ const Menu = ({}) => {
                 <li>
                   <a href="https://seqera.io/blog/tag-nextflow/" tabIndex={0}>
                     Blog
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="https://seqera.io/podcasts/" tabIndex={0}>
                     Podcast
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
                     Community forum
-                    <img
-                      src="/img/assets/external-link-arrow.svg"
-                      alt="External link to forum page"
-                      className="inline-block"
-                    />
                   </a>
                 </li>
                 <li>
                   <a href="https://www.nextflow.io/slack-invite.html" tabIndex={0}>
                     Slack community chat
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
                   <a href="https://nf-co.re" tabIndex={0}>
                     nf-core pipelines
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="inline-block" />
                   </a>
                 </li>
                 <li>
