@@ -313,8 +313,8 @@ const Menu = ({}) => {
                     Community forum
                     <img
                       src="/img/assets/external-link-arrow.svg"
-                      alt="External link to forum pagexternalLink e"
-                      className="inline-block"
+                      alt="External link to forum page"
+                      className="externalLink  inline-block"
                     />
                   </a>
                 </li>
