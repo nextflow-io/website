@@ -20,7 +20,22 @@
 }
 
 .menu-label {
-  margin-right: 0; 
+  margin-right: 0;
+}
+/* External Arrow animation */
+.navbar-inverse .navbar-nav > li > a img.externalLink,
+.dropdown-menu > li > a img.externalLink {
+  opacity: 0;
+  transform: scale(1) translate(0, 0);
+  transition:
+    opacity 0.1s ease-in-out,
+    transform 0.7s cubic-bezier(0.25, 2.7, 0.5, 1);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover img.externalLink,
+.dropdown-menu > li > a:hover img.externalLink {
+  opacity: 0.9;
+  transform: scale(1.1) translate(1px, -1px);
 }
 
 @media (min-width: 768px) {
@@ -28,11 +43,9 @@
     padding: 15px 10px;
     transition: color 0.2s ease-in-out;
   }
-  
   .navbar-nav > li > a:hover {
-    color: var(--color-brand, #1FB2A6);
+    color: var(--color-brand, #1fb2a6);
   }
-  
   .dropdown-menu {
     border-radius: 4px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -48,52 +61,55 @@
     overflow-y: auto;
     background-color: white;
   }
-  
+
   .menu-open .navbar-collapse.in {
     display: block;
     height: calc(100vh - 60px) !important;
     max-height: none !important;
     overflow-y: auto;
   }
-  
+  .navbar-inverse .navbar-nav > li > a img.externalLink,
+  .dropdown-menu > li > a img.externalLink {
+    opacity: 1;
+  }
   .mobile-menu-toggle {
     position: absolute;
     right: 15px;
     top: 15px;
     z-index: 2000;
   }
-  
+
   .navbar-nav {
     margin: 0;
     padding: 20px 0;
   }
-  
+
   .navbar-nav > li {
     padding: 10px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
   }
-  
+
   .navbar-nav > li:last-child {
     border-bottom: none;
   }
-  
+
   .navbar-nav > li > a {
     padding: 15px;
     display: flex;
     align-items: center;
     gap: 5px;
     font-size: 16px;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);    
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     touch-action: manipulation;
     min-height: 44px;
   }
-  
+
   .dropdown-menu {
     position: static;
     float: none;
     width: auto;
-    margin: 0; 
+    margin: 0;
     background-color: transparent;
     border: 0;
     box-shadow: none;
@@ -101,32 +117,32 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-in-out;
-    padding: 0 0; 
+    padding: 0 0;
     opacity: 1;
     visibility: visible;
   }
-  
+
   .dropdown.open .dropdown-menu {
     max-height: 1000px;
     padding: 0 0;
   }
-  
+
   .dropdown-menu > li {
     padding: 5px 0;
   }
-  
+
   .dropdown-menu > li > a {
     padding: 12px 15px;
     min-height: 44px;
     display: flex;
     align-items: center;
   }
-  
+
   .dropdown.open .dropdown-icon {
     transform: rotate(180deg);
     transition: transform 0.3s ease;
   }
-  
+
   .dropdown-icon {
     transition: transform 0.3s ease;
     pointer-events: none;
@@ -136,40 +152,40 @@
     width: 10px;
     height: 7px;
   }
-  
+
   .dropdown-toggle {
     position: relative;
-    align-items: center; 
+    align-items: center;
     justify-content: flex-start;
     touch-action: manipulation;
     cursor: pointer;
   }
-  
+
   @media screen and (-webkit-min-device-pixel-ratio: 0) {
     .dropdown-toggle {
       -webkit-tap-highlight-color: transparent;
       display: flex;
       align-items: center;
     }
-    
+
     .dropdown-menu > li > a {
-      -webkit-tap-highlight-color: rgba(0,0,0,0.05);
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
       min-height: 44px;
     }
   }
-  
+
   .navbar-brand {
     padding: 10px 15px;
     height: 60px;
   }
-  
+
   .navbar-header a,
   .navbar-nav a,
   .navbar-header span,
   .navbar-nav span {
     font-size: 16px;
   }
-} 
+}
 
 @media (min-width: 768px) {
   .navbar-nav .dropdown:not(.open):hover .dropdown-menu {
@@ -210,7 +226,10 @@
   }
 
   .navbar-nav .dropdown .dropdown-menu {
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease,
+      transform 0.3s ease;
     opacity: 0;
     visibility: hidden;
     display: block;
@@ -254,12 +273,12 @@
   display: flex !important;
   align-items: center;
   color: #333;
-  border-bottom: none !important; 
+  border-bottom: none !important;
 }
 
 .dropdown-menu > li > a:hover {
   background-color: var(--nextflow-light-green, #e0f7f5);
-  color: #333; 
+  color: #333;
   text-decoration: none;
   border-left: 3px solid var(--color-nextflow-600);
   padding-left: 15px;
@@ -286,4 +305,4 @@
 
 .dropdown-menu > li > a {
   border-bottom: none !important;
-} 
+}
