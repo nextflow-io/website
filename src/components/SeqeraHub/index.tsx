@@ -104,7 +104,7 @@ export default function SeqeraHub() {
             ))}
           </div>
           <div className="mt-6 flex justify-center">
-            <Button url="https://seqera.io/pipelines/" variant="link">
+            <Button url="https://seqera.io/pipelines/" variant="link" target="_blank">
               Launch pipelines
             </Button>
           </div>
@@ -158,7 +158,7 @@ export default function SeqeraHub() {
             ))}
           </div>
           <div className="mt-6 flex justify-center">
-            <Button url="https://seqera.io/containers/" variant="link">
+            <Button url="https://seqera.io/containers/" variant="link" target="_blank">
               Build containers
             </Button>
           </div>

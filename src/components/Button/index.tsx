@@ -8,14 +8,16 @@ interface ButtonProps {
     state?: 'default' | 'disabled'; 
     children: React.ReactNode;
     className?: string;
+    target?: string;
 }
 
-function Button({ url, variant = 'primary', state = 'default', children, className }: ButtonProps) {
+function Button({ url, variant = 'primary', state = 'default', children, className, target }: ButtonProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
         <a
             href={url}
+            target={target}
             className={clsx('button-link', styles.button, 'w-fit', styles[variant], styles[state], className)}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

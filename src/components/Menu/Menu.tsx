@@ -296,20 +296,20 @@ const Menu = ({}) => {
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
-                  <a href="https://seqera.io/blog/tag-nextflow/" tabIndex={0}>
+                  <a href="https://seqera.io/blog/tag-nextflow/" target="_blank"tabIndex={0}>
                     Blog
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://seqera.io/podcasts/" tabIndex={0}>
+                  <a href="https://seqera.io/podcasts/" target="_blank" tabIndex={0}>
                     Podcast
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
                 </li>
                 
                 <li>
-                  <a href="https://community.seqera.io/tag/nextflow" tabIndex={0}>
+                  <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
                     Community forum
                     <img
                       src="/img/assets/external-link-arrow.svg"
@@ -319,13 +319,13 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.nextflow.io/slack-invite.html" tabIndex={0}>
+                  <a href="https://www.nextflow.io/slack-invite.html" target="_blank" tabIndex={0}>
                     Slack community chat
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
                 </li>
                 <li>
-                  <a href="https://nf-co.re" tabIndex={0}>
+                  <a href="https://nf-co.re" target="_blank" tabIndex={0}>
                     nf-core pipelines
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
