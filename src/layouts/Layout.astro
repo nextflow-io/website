@@ -190,84 +190,100 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
       if (isMobile && isTouchDevice()) {
         document.addEventListener("DOMContentLoaded", function () {
           const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
-          
+
           dropdownToggles.forEach(function (toggle) {
-            toggle.addEventListener("click", function (e) {
-              if (isMobile) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                const parentLi = toggle.closest('.dropdown');
-                if (parentLi) {
-                  const isOpen = parentLi.classList.contains('open');
-                  if (isOpen) {
-                    parentLi.classList.remove('open');
-                    toggle.setAttribute('aria-expanded', 'false');
-                  } else {
-                    parentLi.classList.add('open');
-                    toggle.setAttribute('aria-expanded', 'true');
+            toggle.addEventListener(
+              "click",
+              function (e) {
+                if (isMobile) {
+                  e.preventDefault();
+                  e.stopPropagation();
+
+                  const parentLi = toggle.closest(".dropdown");
+                  if (parentLi) {
+                    const isOpen = parentLi.classList.contains("open");
+                    if (isOpen) {
+                      parentLi.classList.remove("open");
+                      toggle.setAttribute("aria-expanded", "false");
+                    } else {
+                      parentLi.classList.add("open");
+                      toggle.setAttribute("aria-expanded", "true");
+                    }
                   }
                 }
-              }
-            }, false);
-            
-            toggle.addEventListener("touchstart", function (e) {
-            }, { passive: true });
-            
-            toggle.addEventListener("touchend", function (e) {
-              if (isMobile) {
-                e.preventDefault();
-              }
-            }, false);
+              },
+              false,
+            );
+
+            toggle.addEventListener("touchstart", function (e) {}, { passive: true });
+
+            toggle.addEventListener(
+              "touchend",
+              function (e) {
+                if (isMobile) {
+                  e.preventDefault();
+                }
+              },
+              false,
+            );
           });
-          
-          document.removeEventListener('click', clearMenus);
-          
+
+          document.removeEventListener("click", clearMenus);
+
           // Función auxiliar para cerrar todos los menús
           function clearMenus() {
-            dropdownToggles.forEach(function(toggle) {
-              const parentLi = toggle.closest('.dropdown');
-              if (parentLi && parentLi.classList.contains('open')) {
-                parentLi.classList.remove('open');
-                toggle.setAttribute('aria-expanded', 'false');
+            dropdownToggles.forEach(function (toggle) {
+              const parentLi = toggle.closest(".dropdown");
+              if (parentLi && parentLi.classList.contains("open")) {
+                parentLi.classList.remove("open");
+                toggle.setAttribute("aria-expanded", "false");
               }
             });
           }
-          
+
           // Solo cerrar los menús cuando se toca fuera de ellos
-          document.addEventListener('touchstart', function(e) {
-            if (!e.target.closest('.dropdown')) {
-              clearMenus();
-            }
-          }, false);
-          
+          document.addEventListener(
+            "touchstart",
+            function (e) {
+              if (!e.target.closest(".dropdown")) {
+                clearMenus();
+              }
+            },
+            false,
+          );
+
           // Función de depuración para verificar eventos táctiles
           // Comentar o eliminar en producción
           function debugMobileEvents() {
-            const debugStyle = 'position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; z-index: 9999; font-size: 12px; max-width: 80%; border-radius: 4px; display: none;';
-            const debugElement = document.createElement('div');
-            debugElement.setAttribute('style', debugStyle);
+            const debugStyle =
+              "position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; z-index: 9999; font-size: 12px; max-width: 80%; border-radius: 4px; display: none;";
+            const debugElement = document.createElement("div");
+            debugElement.setAttribute("style", debugStyle);
             document.body.appendChild(debugElement);
-            
+
             // Mostrar mensajes de depuración para eventos táctiles
-            document.addEventListener('touchstart', function(e) {
+            document.addEventListener("touchstart", function (e) {
               const target = e.target;
-              const isDropdown = target && target.closest && !!target.closest('.dropdown-toggle');
-              debugElement.style.display = 'block';
+              const isDropdown = target && target.closest && !!target.closest(".dropdown-toggle");
+              debugElement.style.display = "block";
               debugElement.textContent = `Touchstart en: ${target.tagName} ${target.className}. Es dropdown: ${isDropdown}`;
-              setTimeout(() => { debugElement.style.display = 'none'; }, 3000);
+              setTimeout(() => {
+                debugElement.style.display = "none";
+              }, 3000);
             });
-            
+
             // Verificar eventos en los elementos dropdown
             dropdownToggles.forEach((toggle, index) => {
-              toggle.addEventListener('touchstart', function() {
-                debugElement.style.display = 'block';
+              toggle.addEventListener("touchstart", function () {
+                debugElement.style.display = "block";
                 debugElement.textContent = `Dropdown ${index} tocado`;
-                setTimeout(() => { debugElement.style.display = 'none'; }, 3000);
+                setTimeout(() => {
+                  debugElement.style.display = "none";
+                }, 3000);
               });
             });
           }
-          
+
           // Descomentar para activar depuración
           // debugMobileEvents();
         });
