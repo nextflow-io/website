@@ -107,7 +107,7 @@ const Menu = ({}) => {
     }
   };
 
-  const handleDropdownClick = (e: React.MouseEvent, index: number) => {
+  const handleDropdownClick = (e: React.MouseEvent | React.TouchEvent, index: number) => {
     e.preventDefault();
     e.stopPropagation();
     setActiveDropdown(activeDropdown === index ? null : index);
@@ -135,6 +135,12 @@ const Menu = ({}) => {
     dropdownRefs.current[index] = el;
   };
 
+  const handleTouchStart = (e: React.TouchEvent, index: number) => {
+    if (isMobile) {
+      handleDropdownClick(e, index);
+    }
+  };
+
   return (
     <div id="header" ref={headerRef} className={headerClasses} role="navigation">
       <div className="container ">
@@ -153,11 +159,6 @@ const Menu = ({}) => {
             <li className="show animated ">
               <a href="/docs/latest/index.html" className="text-black">
                 Documentation
-                <img
-                  src="/img/assets/external-link-arrow.svg"
-                  alt="External link to forum page"
-                  className="inline-block"
-                />
               </a>
             </li>
 
@@ -174,6 +175,7 @@ const Menu = ({}) => {
                 aria-expanded={activeDropdown === 0 ? "true" : "false"}
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 0)}
+                onTouchStart={(e) => handleTouchStart(e, 0)}
               >
                 <span className="menu-label">Examples</span> 
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
@@ -226,6 +228,7 @@ const Menu = ({}) => {
                 aria-expanded={activeDropdown === 1 ? "true" : "false"}
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 1)}
+                onTouchStart={(e) => handleTouchStart(e, 1)}
               >
                 <span className="menu-label">Scientists</span> 
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
@@ -255,11 +258,6 @@ const Menu = ({}) => {
             <li className="show animated ">
               <a href="http://training.nextflow.io">
                 Training
-                <img
-                  src="/img/assets/external-link-arrow.svg"
-                  alt="External link to forum page"
-                  className="inline-block"
-                />
               </a>
             </li>
 
@@ -276,6 +274,7 @@ const Menu = ({}) => {
                 aria-expanded={activeDropdown === 2 ? "true" : "false"}
                 tabIndex={0}
                 onClick={(e) => handleDropdownClick(e, 2)}
+                onTouchStart={(e) => handleTouchStart(e, 2)}
               >
                 <span className="menu-label">Resources</span> 
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
