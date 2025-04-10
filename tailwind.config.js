@@ -28,9 +28,9 @@ export default {
     screens,
     fontFamily: {
       display: ["Degular", "Helvetica", "sans-serif"],
-      body: ["Arial", "Helvetica", "sans-serif"],
-      sans: ["Inter", "Helvetica", "sans-serif"],
-      mono: ["Roboto Mono", "Monaco", "monospace", "sans-serif"],
+      body: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+      sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+      mono: ["Menlo", "Monaco", "monospace", "sans-serif"],
     },
     fontSize: {
       xs: ["12px", "18px"],
@@ -61,6 +61,16 @@ export default {
           900: "#087F68",
           1000: "#065647",
           DEFAULT: "#0DC09D",
+          "100-opacity": "rgba(226, 247, 243, 0.20)",
+          "200-opacity": "rgba(182, 236, 226, 0.20)",
+          "300-opacity": "rgba(134, 224, 206, 0.20)",
+          "400-opacity": "rgba(86, 211, 186, 0.20)",
+          "500-opacity": "rgba(49, 201, 172, 0.20)",
+          "600-opacity": "rgba(13, 192, 157, 0.20)",
+          "700-opacity": "rgba(12, 174, 142, 0.20)",
+          "800-opacity": "rgba(10, 150, 123, 0.20)",
+          "900-opacity": "rgba(8, 127, 104, 0.20)",
+          "1000-opacity": "rgba(6, 86, 71, 0.20)",
         },
         brand: {
           100: "#F3F3F4",
@@ -75,6 +85,17 @@ export default {
           1000: "#2D273C",
           1100: "#160F26",
           DEFAULT: "#160F26",
+          "100-opacity": "rgba(243, 243, 244, 0.20)",
+          "200-opacity": "rgba(232, 231, 233, 0.20)",
+          "300-opacity": "rgba(208, 207, 212, 0.20)",
+          "400-opacity": "rgba(185, 183, 190, 0.20)",
+          "500-opacity": "rgba(162, 159, 168, 0.20)",
+          "600-opacity": "rgba(138, 135, 146, 0.20)",
+          "700-opacity": "rgba(115, 111, 125, 0.20)",
+          "800-opacity": "rgba(92, 87, 103, 0.20)",
+          "900-opacity": "rgba(69, 63, 81, 0.20)",
+          "1000-opacity": "rgba(45, 39, 60, 0.20)",
+          "1100-opacity": "rgba(22, 15, 38, 0.20)",
         },
         gray: {
           100: "#F7F7F7",
@@ -88,20 +109,22 @@ export default {
           900: "#7B7B7B",
           1000: "#545555",
         },
-        // Taken from the new (new) DS
-        blu: {
+        blue: {
           100: "#E8EBFC",
           200: "#C6CCF8",
           300: "#A1ABF3",
           400: "#7B89EE",
           500: "#5E6FEB",
-          600: "#4256E7", // Can replace sl-blue
+          600: "#4256E7",
           700: "#3C4ED1",
           800: "#3443B4",
           900: "#2C3999",
           1000: "#1E2768",
           DEFAULT: "#4256E7",
         },
+      },
+      borderColor: {
+        "brand-opacity": "var(--color-brand-900-opacity)",
       },
       borderRadius: {
         sm: "4px",
@@ -213,9 +236,12 @@ export default {
         customVars[`--size-${key}`] = theme("fontSize")[key][0];
         customVars[`--leading-${key}`] = theme("fontSize")[key][1];
       });
-
       addBase({
         ":root": customVars,
+        p: {
+          fontSize: theme("fontSize.base[0]"),
+          lineHeight: theme("fontSize.base[1]"),
+        },
       });
     },
   ],

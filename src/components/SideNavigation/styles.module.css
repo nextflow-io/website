@@ -1,0 +1,162 @@
+.titleDisplay {
+  width: 100%;
+  text-align: center;
+}
+
+.activeLink {
+  background-color: var(--nextflow-light-green, #e0f7f5);
+  color: var(--color-brand-1000); 
+  font-weight: 500;
+}
+
+:global([id]) {
+  scroll-margin-top: 130px;
+}
+
+@media (min-width: 1025px) {
+  :global([id]) {
+    scroll-margin-top: 96px; 
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .activeLink {
+    border-bottom: 3px solid var(--color-nextflow-600) !important;
+    border-left: none !important;
+    box-sizing: border-box;
+  }
+
+  .scrollContainer {
+    -webkit-overflow-scrolling: touch;/* Firefox */
+    position: sticky;
+    background-color: white;
+    z-index: 30;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-bottom: 1px solid #f0f0f0;
+    width: 100%;
+  }
+  
+  .scrollContainer::-webkit-scrollbar {
+    display: none; 
+  }
+
+  .scrollIndicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .scrollContainer:hover .scrollIndicator,
+  .scrollContainer:focus .scrollIndicator {
+    opacity: 1;
+  }
+
+  .titleDisplay {
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 31; 
+  }
+  
+  .mobileNavList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    list-style-type: none;
+  }
+  
+  .mobileNavList::-webkit-scrollbar {
+    display: none; 
+  }
+  
+  .mobileNavList li {
+    text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0; 
+    list-style-type: none;
+  }
+  
+  .mobileNavList li a {
+    display: inline-block;
+    text-align: center;
+    margin: 0 3px;
+    box-sizing: border-box;
+    padding: 9px 10px !important; 
+    transition: all 0.2s ease;
+  }
+
+  .mobileNavList li a.activeLink {
+    padding-bottom: 6px !important; 
+  }
+}
+
+@media (min-width: 1025px) {
+  .scrollContainer {
+    overflow: visible !important; 
+    text-align: left;
+    position: sticky;
+    top: 96px; 
+    max-height: calc(100vh - 96px); 
+    overflow-y: auto !important;
+    padding-top: 0.5rem;
+    padding-bottom: 1rem;
+    border-left: 1px solid #e5e7eb;
+  }
+  
+  .scrollContainer ul li a {
+    letter-spacing: -0.01em;
+    border-left: 3px solid transparent;
+    padding-left: 10px !important;
+    transition: all 0.2s ease;
+  }
+  
+  .scrollContainer ul li a:hover {
+    border-left: 3px solid var(--color-nextflow-600) 
+  }
+
+  .activeLink {
+    border-left: 3px solid var(--color-nextflow-600) !important;
+    padding-left: 10px !important;
+  }
+
+  .titleDisplay {
+    text-align: left;
+    padding-left: 10px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .mobileNavList {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+  
+  .mobileNavList li {
+    text-align: left;
+    list-style-type: none;
+  }
+  
+  .mobileNavList li a {
+    text-align: left;
+    margin: 0;
+  }
+} 
