@@ -35,7 +35,7 @@ const steps: Step[] = [
     code: "java -version",
     note: {
       text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
-      link: { text: "here", url: "/docs/java-installation" },
+      link: { text: "here.", url: "https://www.nextflow.io/docs/latest/index.html" },
     },
     pill: "Step 1"
   },
