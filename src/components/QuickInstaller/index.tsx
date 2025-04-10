@@ -24,33 +24,46 @@ interface Step {
   main: string;
   code?: string;
   note?: Note;
+  pill?: string;
 }
 
 const steps: Step[] = [
   {
-    title: "Set up",
+    title: "Check prerequisites",
     subtitle: "Java 11 or later is required",
+    main: "Make sure Java 11 or later is installed on your computer by using the command:",
+    code: "java -version",
+    note: {
+      text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
+      link: { text: "here", url: "/docs/java-installation" },
+    },
+    pill: "Step 1"
+  },
+  {
+    title: "Set up",
+    subtitle: "Dead easy to install",
     main: "Enter this command in your terminal:",
     code: "curl -s https://get.nextflow.io | bash",
     note: {
       parts: [
         {
           text: "Nextflow can also be installed from ",
-          link: { text: "Bioconda", url: "https://bioconda.github.io/recipes/nextflow/README.html" }
+          link: { text: "Bioconda", url: "https://bioconda.github.io/recipes/nextflow/README.html" },
         },
         {
           text: " or downloaded from ",
-          link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" }
+          link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" },
         },
         {
           text: ". See the ",
-          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html"}
+          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html" },
         },
         {
-          text: " for more information."
-        }
-      ]
+          text: " for more information.",
+        },
+      ],
     },
+    pill: "Step 2"
   },
   {
     title: "Launch",
@@ -60,17 +73,18 @@ const steps: Step[] = [
     note: {
       parts: [
         {
-          text: "You'll want to make the binary executable and move it to a directory in your PATH. "
+          text: "You'll want to make the binary executable and move it to a directory in your PATH. ",
         },
         {
           text: "See the ",
-          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html"}
+          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html" },
         },
         {
-          text: "."
-        }
-      ]
+          text: ".",
+        },
+      ],
     },
+    pill: "Step 3"
   },
 ];
 
@@ -201,7 +215,7 @@ const TerminalComponent: React.FC = () => {
             data-active={(index === currentStep).toString()}
             onClick={() => setCurrentStep(index)}
           >
-            {step.title}
+            {step.pill}
           </div>
         ))}
       </div>
