@@ -66,7 +66,7 @@ export default function SeqeraHub() {
               <a 
                 key={index} 
                 href={pipeline.url} 
-                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand"
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
@@ -121,7 +121,7 @@ export default function SeqeraHub() {
               <a 
                 key={index} 
                 href={container.url}
-                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand"
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
