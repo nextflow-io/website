@@ -13,7 +13,7 @@ export default function SeqeraHub() {
         "RNA sequencing analysis pipeline using STAR, RSEM, HISAT2 or Salmon with gene/isoform counts and extensive quality control.",
       tags: ["nextflow", "pipeline", "workflow", "nf-core"],
       additionalTags: 2,
-      stars: 786,
+      stars: 1015,
       size: "198 KB",
       updated: "11 months ago",
       url: "https://seqera.io/pipelines/rnaseq--nf-core/",
@@ -24,7 +24,7 @@ export default function SeqeraHub() {
         "Analysis pipeline to detect germline or somatic variants (pre-processing, variant calling and annotation) from WGS / targeted sequencing",
       tags: ["nextflow", "pipeline", "workflow", "nf-core"],
       additionalTags: 16,
-      stars: 340,
+      stars: 439,
       size: "470 KB",
       updated: "11 months ago",
       url: "https://seqera.io/pipelines/sarek--nf-core/",
@@ -36,7 +36,6 @@ export default function SeqeraHub() {
       name: "bioconda::bcftools",
       description: "BCFtools is a set of utilities that manipulate variant calls in the Variant Call Format (VCF) and its binary counterpart BCF.",
       platforms: ["linux/amd64", "linux/arm64"],
-      stars: 450,
       downloads: "120k",
       updated: "2 months ago",
       url: "https://seqera.io/containers/?packages=bioconda::bcftools=1.2",
@@ -45,7 +44,6 @@ export default function SeqeraHub() {
       name: "bioconda::samtools",
       description: "Tools for manipulating next-generation sequencing data",
       platforms: ["linux/amd64", "linux/arm64"],
-      stars: 380,
       downloads: "95k",
       updated: "3 months ago",
       url: "https://seqera.io/containers/?packages=pip:numpy==2.0.0rc1",
@@ -66,7 +64,7 @@ export default function SeqeraHub() {
               <a 
                 key={index} 
                 href={pipeline.url} 
-                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand"
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
@@ -121,7 +119,7 @@ export default function SeqeraHub() {
               <a 
                 key={index} 
                 href={container.url}
-                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand"
+                className="border-brand-opacity border p-6 bg-white h-full min-h-[212px] block no-underline transition-all duration-300 hover:border-brand hover:text-inherit"
               >
                 <div className="flex flex-col h-full">
                   <div className="flex items-center gap-2">
@@ -143,11 +141,6 @@ export default function SeqeraHub() {
                     </div>
 
                     <div className="flex items-center text-gray-900 text-sm gap-3">
-                      <div className="flex items-center gap-1">
-                        <img src={Star.src} alt="Star icon" className="w-4 h-4" />
-                        <span>{container.stars}</span>
-                      </div>
-                      <span>•</span>
                       <span>{container.downloads} downloads</span>
                       <span>•</span>
                       <span>Updated {container.updated}</span>

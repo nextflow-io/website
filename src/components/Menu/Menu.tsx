@@ -246,7 +246,7 @@ const Menu = ({}) => {
                 onClick={(e) => handleDropdownClick(e, 1)}
                 onTouchStart={(e) => handleTouchStart(e, 1)}
               >
-                <span className="menu-label">Scientists</span> 
+                <span className="menu-label">Tools</span> 
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>

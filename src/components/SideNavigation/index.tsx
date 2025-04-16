@@ -143,9 +143,9 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
     const elementRect = element.getBoundingClientRect();
     
     if (elementRect.left < containerRect.left) {
-      container.scrollLeft += elementRect.left - containerRect.left - 10;
+      container.scrollLeft += elementRect.left - containerRect.left - 20;
     } else if (elementRect.right > containerRect.right) {
-      container.scrollLeft += elementRect.right - containerRect.right + 10;
+      container.scrollLeft += elementRect.right - containerRect.right + 20;
     }
   };
   
@@ -209,10 +209,10 @@ function SideNavigation({ items, activeItem, title, className, mode = 'page' }: 
       >
         {title && (
           <div className={clsx(
-            "py-4 lg:py-0 font-['Menlo']",
+            "pb-4 pt-2 lg:py-4 font-['Menlo']",
             styles.titleDisplay
           )}>
-            <h3 className="text-[16px]">{title}</h3>
+            <h3 className="text-[16px] my-0">{title}</h3>
           </div>
         )}
         
