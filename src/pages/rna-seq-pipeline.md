@@ -85,7 +85,7 @@ process QUANT {
 To run this pipeline on your computer, you will need:
 
 - Unix-like operating system
-- Java 11 (or higher)
+- Java 17 (or higher)
 - Docker
 
 Install Nextflow by entering the following command in the terminal:
