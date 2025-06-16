@@ -30,8 +30,8 @@ interface Step {
 const steps: Step[] = [
   {
     title: "Check prerequisites",
-    subtitle: "Java 11 or later is required",
-    main: "Make sure Java 11 or later is installed on your computer by using the command:",
+    subtitle: "Java 17 or later is required",
+    main: "Make sure Java 17 or later is installed on your computer by using the command:",
     code: "java -version",
     note: {
       text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
