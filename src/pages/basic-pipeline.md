@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.
 </p>
 
-```groovy
+```nextflow {1,3,8-18,21-32,39-43}
 #!/usr/bin/env nextflow
 
 params.in = "$baseDir/data/sample.fa"
