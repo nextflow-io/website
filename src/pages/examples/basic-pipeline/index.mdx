@@ -4,58 +4,62 @@ layout: "@layouts/ExampleLayout.astro"
 ---
 
 import { Code } from "astro-expressive-code/components";
-import pipelineCode from "./main.nf?raw";
+import pipelineCode from "./_main.nf?raw";
 
-<div class="blg-summary example">
 <h2>Basic pipeline</h2>
 
 <p class="">
-  This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first
-  process are consumed by the second process.
+  This example shows how to write a pipeline with two simple Bash processes, so that the results
+  produced by the first process are consumed by the second process.
 </p>
 
-<Code code={pipelineCode} lang="nextflow" meta="{1,3,8-18,21-32,39-43}" />
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[1, 3, {range: "8-19"}, {range: "24-35"}, {range: "40-44"}]}
+/>
 
-</div>
+<Code
+  lang="bash"
+  title="Running the pipeline"
+  frame="terminal"
+  code={`nextflow run main.nf
 
-### Synopsis
+N E X T F L O W ~ version 24.10.0
+Launching \`main.nf\` [peaceful-jepsen] DSL2 - revision: a9012339ce
 
-- **Line 1** The script starts with a shebang declaration. This allows you to launch your pipeline just like any other Bash script.
+executor > local (3)
+[ba/2ef6e7] process > splitSequences [100%] 1 of 1 ✓
+[37/1ef9a2] process > reverse (2) [100%] 2 of 2 ✓
 
-- **Line 3**: Declares a pipeline parameter named `params.in` that is initialized with the value `$HOME/sample.fa`. This value can be overridden when launching the pipeline, by simply adding the option `--in <value>` to the script command line.
+sey lacol edoN
+tset a si sihT
 
-- **Lines 8-19**: The process that splits the provided file.
+Completed at: 16-Nov-2024 15:42:33
+Duration : 1.2s
+CPU hours : (a few seconds)
+Succeeded : 3`}
+/>
 
-  - **Line 10**: Opens the input declaration block. The lines following this clause are interpreted as input definitions.
+### Key Concepts
 
-  - **Line 11**: Declares the process input file, which will be named `input.fa` in the process script.
+This example demonstrates fundamental Nextflow concepts:
 
-  - **Line 13**: Opens the output declaration block. The lines following this clause are interpreted as output declarations.
+- **Pipeline Parameters**: Use `params.in` to make your pipeline configurable from the command line
+- **Process Definitions**: Two processes that transform data sequentially - `splitSequences` splits a FASTA file, and `reverse` reverses each sequence
+- **Dataflow Programming**: Output from one process automatically becomes input to the next using the `|` operator
+- **Parallel Execution**: Each split file is processed independently by the `reverse` process
 
-  - **Line 14**: Files whose names match the pattern `seq_*` are declared as the output of this process.
+### Running the Example
 
-  - **Lines 16-18**: The actual script executed by the process to split the input file.
+```bash
+# Use default input file
+nextflow run main.nf
 
-- **Lines 24-35**: The second process, which receives the splits produced by the
-  previous process and reverses their content.
+# Override input file
+nextflow run main.nf --in /path/to/your/sequences.fa
+```
 
-  - **Line 26**: Opens the input declaration block. Lines following this clause are
-    interpreted as input declarations.
-
-  - **Line 27**: Defines the process input file.
-
-  - **Line 29**: Opens the output declaration block. Lines following this clause are
-    interpreted as output declarations.
-
-  - **Line 30**: The standard output of the executed script is declared as the process
-    output.
-
-  - **Lines 32-34**: The actual script executed by the process to reverse the content of the input files.
-
-- **Lines 40-44**: The workflow that connects everything together!
-
-  - **Line 41**: First, the input file specified by `params.in` is passed to the `splitSequences` process.
-
-  - **Line 42**: The outputs of `splitSequences` are passed as inputs to the `reverse` process, which processes each split file in parallel.
-
-  - **Line 43**: Finally, each output emitted by `reverse` is printed.
+The pipeline will split your FASTA file into individual sequences, reverse each one, and print the results.
