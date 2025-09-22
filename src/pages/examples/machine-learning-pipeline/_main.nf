@@ -9,16 +9,17 @@ workflow {
     ch_dataset = Channel.fromPath(params.input_data)
 
     // Split dataset into training and test sets
-    (ch_train_data, ch_test_data) = split_dataset(ch_dataset)
+    split_dataset(ch_dataset)
 
     // Train multiple models in parallel
-    ch_models = train_models(ch_train_data, params.models)
+    ch_models_input = Channel.of(params.models)
+    train_models(split_dataset.out.train, ch_models_input)
 
     // Evaluate each model on test data
-    ch_results = evaluate_models(ch_models, ch_test_data)
+    evaluate_models(train_models.out, split_dataset.out.test)
 
     // Find the best performing model
-    ch_results.view { "Model: ${it[0]}, Accuracy: ${it[1]}" }
+    evaluate_models.out.view { "Model: ${it[0]}, Accuracy: ${it[1]}" }
 }
 
 process split_dataset {
