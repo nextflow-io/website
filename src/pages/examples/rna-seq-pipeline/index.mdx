@@ -10,8 +10,8 @@ import terminalOutput from "./_nextflow_run_output.log?raw";
 <h2>RNA-Seq pipeline</h2>
 
 <p class="">
-  This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given
-  reference transcriptome and quantifies gene expression levels using modern tools.
+  This example shows the actual RNA-Seq pipeline from the nextflow-io/rnaseq-nf repository. It demonstrates a complete
+  RNA-seq analysis workflow including indexing, quality control, quantification, and report generation.
 </p>
 
 <Code
@@ -20,24 +20,25 @@ import terminalOutput from "./_nextflow_run_output.log?raw";
   title="main.nf"
   frame="code"
   mark={[
-    { range: "7-9" },
-    { range: "11-17" },
-    { range: "19-32" },
-    { range: "34-48" },
-    { range: "50-65" },
+    { range: "2", label: "1. Pipeline Header & Description" },
+    { range: "6", label: "2. Parameter Definitions" },
+    { range: "11", label: "3. Module Imports" },
+    { range: "15", label: "4. Workflow Information Banner" },
+    { range: "24", label: "5. Workflow Execution" },
   ]}
 />
 
 ### Key Concepts
 
-This example demonstrates essential RNA-seq analysis patterns:
+This production RNA-seq pipeline demonstrates advanced Nextflow patterns:
 
-- **Transcriptome Indexing**: Build a searchable index from the reference transcriptome for efficient alignment
-- **Quality Control**: Run FastQC to assess read quality and identify potential issues in the sequencing data
-- **Expression Quantification**: Use Salmon for accurate transcript abundance estimation with lightweight alignment
-- **Paired-end Processing**: Handle paired-end reads properly throughout the workflow
-- **Output Publishing**: Use `publishDir` to organize results in a structured output directory
-- **Resource Management**: Leverage `task.cpus` for optimal multi-threading performance
+- **Real Production Pipeline**: Fetched directly from the official nextflow-io/rnaseq-nf repository
+- **Comprehensive Workflow**: Complete RNA-seq analysis from raw reads to final reports
+- **Modern Tools Integration**: Uses Salmon for quantification, FastQC for QC, and MultiQC for aggregated reporting
+- **Parameter Validation**: Robust input validation and help documentation
+- **Resource Optimization**: Proper CPU and memory allocation for each process
+- **Container Support**: Full Docker/Singularity container integration
+- **Output Organization**: Structured result publishing with meaningful directory names
 
 ### Try it on your computer
 
@@ -48,4 +49,4 @@ This example demonstrates essential RNA-seq analysis patterns:
   code={terminalOutput}
 />
 
-**NOTE**: This example requires Salmon and FastQC tools to run successfully. The pipeline processes paired-end RNA-seq reads and produces quantified expression estimates.
+**NOTE**: This pipeline automatically downloads from GitHub and includes all necessary tools via containers. Run with `-with-docker` for the complete containerized experience.
