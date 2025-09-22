@@ -39,6 +39,12 @@ export default defineEcConfig({
       // Make highlighting more visible but still clean
       backgroundOpacity: "0.4", // More visible highlighting
       borderOpacity: "0", // No border opacity
+
+      // Make text more readable on light green background
+      markForeground: "#1f2937", // Dark text for better contrast
+
+      // Label styling with bright green background
+      lineMarkerLabelColor: "#0dc09d", // Bright green for labels
     },
 
     // Frames - clean, minimal styling
