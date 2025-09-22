@@ -33,7 +33,7 @@ example-name/
 
    # Then convert text escape sequences to actual binary escape characters
    # Replace \x1B[ patterns with actual escape characters using printf
-   printf "nextflow run main.nf\n\n\x1B[1;42m N E X T F L O W \x1B[0m  ~  version X.X.X\n..." > _nextflow_run_output.log
+   printf "nextflow run _main.nf\n\n\x1B[1;42m N E X T F L O W \x1B[0m  ~  version X.X.X\n..." > _nextflow_run_output.log
    ```
 5. Create an `index.mdx` file that imports both files:
    ```javascript
