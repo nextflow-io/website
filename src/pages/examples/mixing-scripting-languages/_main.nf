@@ -2,14 +2,13 @@
 
 params.range = 100
 
-/*
- * A trivial Perl script that produces a list of number pairs
- */
+
 process perlTask {
     output:
     stdout
 
     shell:
+
     '''
     #!/usr/bin/env perl
     use strict;
@@ -23,15 +22,15 @@ process perlTask {
     '''
 }
 
-/*
- * A Python script which parses the output of the previous script
- */
+
 process pyTask {
     input:
     stdin
 
     output:
     stdout
+
+    script:
 
     """
     #!/usr/bin/env python
@@ -51,5 +50,6 @@ process pyTask {
 }
 
 workflow {
+
     perlTask | pyTask | view
 }

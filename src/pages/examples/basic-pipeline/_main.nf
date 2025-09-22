@@ -35,6 +35,7 @@ process reverse {
 workflow {
 
     splitSequences(params.in)
+
         | reverse
         | view
 }

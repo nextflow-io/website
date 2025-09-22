@@ -1,5 +1,5 @@
 ---
-title: Multiple inputs
+title: Mixing scripting languages
 layout: "@layouts/ExampleLayout.astro"
 ---
 
@@ -10,19 +10,31 @@ import pipelineCode from "./_main.nf?raw";
 <h2>Mixing scripting languages</h2>
 
 <p class="">
-  With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each{" "}
-  <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
+  This example shows how to use different scripting languages within the same pipeline. Each process can use the language that best fits the task - Perl for text processing, Python for data analysis, or any other interpreter.
 </p>
 
-<Code code={pipelineCode} lang="nextflow" />
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "5", label: "1. Perl Process - Using shell block for Perl variables" },
+    { range: "11-13", label: "2. Perl Shebang - Defines script language" },
+    { range: "25", label: "3. Python Process - Using script block" },
+    { range: "34-36", label: "4. Python Shebang - Different scripting language" },
+    { range: "53", label: "5. Connect different languages" },
+  ]}
+/>
 
 </div>
 
-### Synopsis
+### Key Concepts
 
-In the above example we define a simple pipeline with two processes.
+This example demonstrates Nextflow's flexibility with multiple scripting languages:
 
-The first process executes a Perl script, because the script block definition starts
-with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instead of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
-
-In the same way, the second process will execute a Python script, because the script block starts with a Python shebang (line 36).
+- **Language Flexibility**: Use any scripting language per process - Perl, Python, R, or any interpreter
+- **Shebang Declarations**: Define the script language with `#!/usr/bin/env <language>`
+- **Shell vs Script Blocks**: Use `shell` blocks for languages with `$` variables (like Perl) to avoid conflicts with Nextflow variables
+- **Script Block Standard**: Use `script` blocks for languages like Python that don't conflict with Nextflow syntax
+- **Seamless Integration**: Different scripting languages work together seamlessly in the same pipeline
