@@ -22,7 +22,7 @@ export default defineEcConfig({
 
     // Typography - match site's exact monospace stack
     codeFontFamily: "Menlo, Monaco, Consolas, 'Courier New', monospace",
-    codeFontSize: "1.5rem", // 24px - much larger, very readable code size
+    codeFontSize: "1.25rem", // 20px - readable code size, smaller than before
     codeLineHeight: "1.5",
 
     // Borders - subtle gray matching site's container styling
@@ -72,5 +72,8 @@ export default defineEcConfig({
     // Ensure clean, minimal appearance throughout
     uiSelectionBackground: "var(--nextflow-light-green)",
     uiSelectionForeground: "#1f2937", // Dark text for contrast
+
+    // Larger UI text for better readability of frame titles
+    uiFontSize: "1.2rem", // Increased from default 0.9rem for more prominent titles
   },
 });
