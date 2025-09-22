@@ -4,12 +4,12 @@
  * The following pipeline parameters specify the reference genomes
  * and read pairs and can be provided as command line options
  */
-params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
-params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+params.reads = "${baseDir}/data/ggal/ggal_gut_{1,2}.fq"
+params.transcriptome = "${baseDir}/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
 params.outdir = "results"
 
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
+    read_pairs_ch = channel.fromFilePairs(params.reads, checkIfExists: true)
 
     INDEX(params.transcriptome)
     FASTQC(read_pairs_ch)
@@ -17,7 +17,7 @@ workflow {
 }
 
 process INDEX {
-    tag "$transcriptome.simpleName"
+    tag "${transcriptome.simpleName}"
 
     input:
     path transcriptome
@@ -27,12 +27,12 @@ process INDEX {
 
     script:
     """
-    salmon index --threads $task.cpus -t $transcriptome -i index
+    salmon index --threads ${task.cpus} -t ${transcriptome} -i index
     """
 }
 
 process FASTQC {
-    tag "FASTQC on $sample_id"
+    tag "FASTQC on ${sample_id}"
     publishDir params.outdir
 
     input:
@@ -43,12 +43,12 @@ process FASTQC {
 
     script:
     """
-    fastqc.sh "$sample_id" "$reads"
+    fastqc.sh "${sample_id}" "${reads}"
     """
 }
 
 process QUANT {
-    tag "$pair_id"
+    tag "${pair_id}"
     publishDir params.outdir
 
     input:
@@ -60,6 +60,6 @@ process QUANT {
 
     script:
     """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
+    salmon quant --threads ${task.cpus} --libType=U -i ${index} -1 ${reads[0]} -2 ${reads[1]} -o ${pair_id}
     """
 }
