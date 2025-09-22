@@ -1,10 +1,9 @@
 #!/usr/bin/env nextflow
 
+
 params.in = "$baseDir/data/sample.fa"
 
-/*
- * Split a fasta file into multiple files
- */
+
 process splitSequences {
 
     input:
@@ -18,9 +17,7 @@ process splitSequences {
     """
 }
 
-/*
- * Reverse the sequences
- */
+
 process reverse {
 
     input:
@@ -34,11 +31,11 @@ process reverse {
     """
 }
 
-/*
- * Define the workflow
- */
+
 workflow {
+
     splitSequences(params.in) \
+
       | reverse \
       | view
 }
