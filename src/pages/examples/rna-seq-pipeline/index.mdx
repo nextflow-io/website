@@ -5,35 +5,47 @@ layout: "@layouts/ExampleLayout.astro"
 
 import { Code } from "astro-expressive-code/components";
 import pipelineCode from "./_main.nf?raw";
+import terminalOutput from "./_nextflow_run_output.log?raw";
 
-<div class="blg-summary example">
 <h2>RNA-Seq pipeline</h2>
 
 <p class="">
   This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given
-  reference genome and outputs the respective transcript model.
+  reference transcriptome and quantifies gene expression levels using modern tools.
 </p>
 
-<Code code={pipelineCode} lang="nextflow" />
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "7-9" },
+    { range: "11-17" },
+    { range: "19-32" },
+    { range: "34-48" },
+    { range: "50-65" },
+  ]}
+/>
 
-</div>
+### Key Concepts
 
-### Try it in your computer
+This example demonstrates essential RNA-seq analysis patterns:
 
-To run this pipeline on your computer, you will need:
+- **Transcriptome Indexing**: Build a searchable index from the reference transcriptome for efficient alignment
+- **Quality Control**: Run FastQC to assess read quality and identify potential issues in the sequencing data
+- **Expression Quantification**: Use Salmon for accurate transcript abundance estimation with lightweight alignment
+- **Paired-end Processing**: Handle paired-end reads properly throughout the workflow
+- **Output Publishing**: Use `publishDir` to organize results in a structured output directory
+- **Resource Management**: Leverage `task.cpus` for optimal multi-threading performance
 
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
+### Try it on your computer
 
-Install Nextflow by entering the following command in the terminal:
+<Code
+  lang="ansi"
+  title="Launch the pipeline with this command"
+  frame="terminal"
+  code={terminalOutput}
+/>
 
-    $ curl -fsSL get.nextflow.io | bash
-
-Then launch the pipeline with this command:
-
-    $ nextflow run rnaseq-nf -with-docker
-
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
-
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+**NOTE**: This example requires Salmon and FastQC tools to run successfully. The pipeline processes paired-end RNA-seq reads and produces quantified expression estimates.
