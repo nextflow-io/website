@@ -90,46 +90,48 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
       <div className="relative country-filter-dropdown">
         <div
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="px-3 py-2 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-sm min-w-[300px] max-w-[500px] cursor-pointer"
+          className="px-3 py-2 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-sm min-w-[300px] max-w-[300px] cursor-pointer"
         >
-          <div className="flex flex-wrap items-center gap-1 min-h-[24px]">
-            {selectedCountries.map((countryCode) => {
-              const country = countries.find(c => c.code === countryCode);
-              return (
-                <div
-                  key={countryCode}
-                  className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs mr-1 mb-1"
-                  onClick={(e) => e.stopPropagation()} 
-                >
-                  <img
-                    className="w-3 h-2 mr-1 rounded overflow-hidden object-cover"
-                    src={`https://flagicons.lipis.dev/flags/4x3/${countryCode}.svg`}
-                    alt={`${country?.name} flag`}
-                  />
-                  <span className="mr-1">{country?.name}</span>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeCountry(countryCode);
-                    }}
-                    className="text-nextflow-600 hover:text-nextflow-900 ml-1"
-                    title={`Remove ${country?.name}`}
+          <div className="flex items-center min-h-[24px]">
+            <div className="flex items-center gap-1 overflow-x-auto flex-1 mr-2">
+              {selectedCountries.map((countryCode) => {
+                const country = countries.find(c => c.code === countryCode);
+                return (
+                  <div
+                    key={countryCode}
+                    className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs flex-shrink-0"
+                    onClick={(e) => e.stopPropagation()} 
                   >
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M18 6L6 18M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              );
-            })}
+                    <img
+                      className="w-3 h-2 mr-1 rounded overflow-hidden object-cover"
+                      src={`https://flagicons.lipis.dev/flags/4x3/${countryCode}.svg`}
+                      alt={`${country?.name} flag`}
+                    />
+                    <span className="mr-1 whitespace-nowrap">{country?.name}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        removeCountry(countryCode);
+                      }}
+                      className="text-nextflow-600 hover:text-nextflow-900 ml-1"
+                      title={`Remove ${country?.name}`}
+                    >
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                );
+              })}
+              
+              {/* Placeholder text when no selection */}
+              {selectedCountries.length === 0 && (
+                <span className="text-sm text-gray-500 whitespace-nowrap">Select countries...</span>
+              )}
+            </div>
             
-            {/* Placeholder text when no selection */}
-            {selectedCountries.length === 0 && (
-              <span className="text-sm">Select countries...</span>
-            )}
-            
-            {/* Dropdown arrow */}
-            <div className="ml-auto">
+            {/* Dropdown arrow - always visible on the right */}
+            <div className="flex-shrink-0">
               <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
