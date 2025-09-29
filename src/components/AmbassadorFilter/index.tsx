@@ -86,7 +86,6 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
 
   return (
     <div className="mb-8 flex flex-col sm:flex-row gap-4 items-center justify-center">
-      <label className="">Filter by country:</label>
       <div className="relative country-filter-dropdown">
         <div
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -126,7 +125,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
               
               {/* Placeholder text when no selection */}
               {selectedCountries.length === 0 && (
-                <span className="text-sm text-gray-500 whitespace-nowrap">Select countries...</span>
+                <span className="text-sm whitespace-nowrap">Filter by country</span>
               )}
             </div>
             
