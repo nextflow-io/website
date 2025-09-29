@@ -26,6 +26,7 @@ const countryMap: { [key: string]: string } = {
   ng: "Nigeria",
   no: "Norway",
   nz: "New Zealand",
+  pk: "Pakistan",
   rs: "Serbia",
   se: "Sweden",
   tn: "Tunisia",
