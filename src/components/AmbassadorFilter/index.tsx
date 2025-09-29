@@ -35,85 +35,138 @@ const countryMap: { [key: string]: string } = {
 };
 
 interface AmbassadorFilterProps {
-  onFilterChange: (country: string) => void;
+  onFilterChange: (countries: string[]) => void;
 }
 
 const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const countries = Object.entries(countryMap)
     .sort(([, a], [, b]) => a.localeCompare(b, "en"))
     .map(([code, name]) => ({ code, name }));
 
-  const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const country = event.target.value;
-    setSelectedCountry(country);
-    onFilterChange(country);
+  const handleCountryToggle = (countryCode: string) => {
+    const updatedCountries = selectedCountries.includes(countryCode)
+      ? selectedCountries.filter(code => code !== countryCode)
+      : [...selectedCountries, countryCode];
+    
+    setSelectedCountries(updatedCountries);
+    onFilterChange(updatedCountries);
   };
+
+  const clearAllFilters = () => {
+    setSelectedCountries([]);
+    onFilterChange([]);
+  };
+
+  const removeCountry = (countryCode: string) => {
+    const updatedCountries = selectedCountries.filter(code => code !== countryCode);
+    setSelectedCountries(updatedCountries);
+    onFilterChange(updatedCountries);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.country-filter-dropdown')) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   return (
     <div className="mb-8 flex flex-col sm:flex-row gap-4 items-center justify-center">
-      <label htmlFor="country-filter">Filter by country:</label>
-      <div className="relative">
-        <select
-          id="country-filter"
-          value={selectedCountry}
-          onChange={handleCountryChange}
-          className="px-4 py-2 pl-12 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-sm min-w-[200px] appearance-none"
+      <label className="">Filter by country:</label>
+      <div className="relative country-filter-dropdown">
+        <div
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className="px-3 py-2 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-sm min-w-[300px] max-w-[500px] cursor-pointer"
         >
-          <option value="">All countries</option>
-          {countries.map(({ code, name }) => (
-            <option key={code} value={code}>
-              {name}
-            </option>
-          ))}
-        </select>
-
-        {selectedCountry && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-4 rounded overflow-hidden">
-            <img
-              className="w-full h-full object-cover"
-              src={`https://flagicons.lipis.dev/flags/4x3/${selectedCountry}.svg`}
-              alt={`${selectedCountry} flag`}
-            />
-          </div>
-        )}
-
-        {!selectedCountry && (
-          <div className="absolute left-3 top-7  transform -translate-y-1/2 pointer-events-none">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </div>
-        )}
-        {selectedCountry && (
-          <div className="absolute right-3 top-2 m-auto flex justify-end h-5 rounded-full">
-            <button
-              onClick={() => {
-                setSelectedCountry("");
-                onFilterChange("");
-              }}
-              className="px-1 py-1  text-sm bg-gray-200 hover:bg-gray-300 rounded-full transition-colors flex items-center justify-center"
-              title="Clear filter"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 6L6 18M6 6l12 12" />
+          <div className="flex flex-wrap items-center gap-1 min-h-[24px]">
+            {selectedCountries.map((countryCode) => {
+              const country = countries.find(c => c.code === countryCode);
+              return (
+                <div
+                  key={countryCode}
+                  className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs mr-1 mb-1"
+                  onClick={(e) => e.stopPropagation()} 
+                >
+                  <img
+                    className="w-3 h-2 mr-1 rounded overflow-hidden object-cover"
+                    src={`https://flagicons.lipis.dev/flags/4x3/${countryCode}.svg`}
+                    alt={`${country?.name} flag`}
+                  />
+                  <span className="mr-1">{country?.name}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeCountry(countryCode);
+                    }}
+                    className="text-nextflow-600 hover:text-nextflow-900 ml-1"
+                    title={`Remove ${country?.name}`}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6L6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              );
+            })}
+            
+            {/* Placeholder text when no selection */}
+            {selectedCountries.length === 0 && (
+              <span className="text-sm">Select countries...</span>
+            )}
+            
+            {/* Dropdown arrow */}
+            <div className="ml-auto">
+              <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
-            </button>
+            </div>
+          </div>
+        </div>
+
+        {isDropdownOpen && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-nextflow-600 shadow-lg min-h-[300px] overflow-y-auto z-10">
+            <div className="p-2 border-b">
+              {/* <button
+                onClick={clearAllFilters}
+                className="text-sm text-nextflow-600 hover:text-nextflow-900"
+              >
+                Clear all filters
+              </button> */}
+            </div>
+            {countries.map(({ code, name }) => (
+              <div
+                key={code}
+                className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => handleCountryToggle(code)}
+              >
+                <input
+                  type="checkbox"
+                  checked={selectedCountries.includes(code)}
+                    onChange={() => {}} // Handled by the div onClick
+                  className="mr-3 accent-nextflow-600"
+                />
+                <img
+                  className="w-6 h-4 mr-3 rounded overflow-hidden object-cover"
+                  src={`https://flagicons.lipis.dev/flags/4x3/${code}.svg`}
+                  alt={`${name} flag`}
+                />
+                <span className="text-sm">{name}</span>
+              </div>
+            ))}
           </div>
         )}
       </div>

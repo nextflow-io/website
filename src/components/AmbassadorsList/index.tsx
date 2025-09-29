@@ -1066,7 +1066,7 @@ const ambassadors: Ambassador[] = [
 ];
 
 const AmbassadorsList: React.FC = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>('');
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([]);
 
   const ambassadorsByCategory = useMemo(() => {
     const regular = ambassadors.filter(amb => !amb.title || amb.title === "Nextflow Ambassador");
@@ -1077,19 +1077,19 @@ const AmbassadorsList: React.FC = () => {
   }, []);
 
   const filteredCategories = useMemo(() => {
-    if (!selectedCountry) {
+    if (selectedCountries.length === 0) {
       return ambassadorsByCategory;
     }
     
     return {
-      regular: ambassadorsByCategory.regular.filter(amb => amb.country === selectedCountry),
-      staff: ambassadorsByCategory.staff.filter(amb => amb.country === selectedCountry),
-      alumni: ambassadorsByCategory.alumni.filter(amb => amb.country === selectedCountry)
+      regular: ambassadorsByCategory.regular.filter(amb => selectedCountries.includes(amb.country)),
+      staff: ambassadorsByCategory.staff.filter(amb => selectedCountries.includes(amb.country)),
+      alumni: ambassadorsByCategory.alumni.filter(amb => selectedCountries.includes(amb.country))
     };
-  }, [selectedCountry, ambassadorsByCategory]);
+  }, [selectedCountries, ambassadorsByCategory]);
 
-  const handleFilterChange = (country: string) => {
-    setSelectedCountry(country);
+  const handleFilterChange = (countries: string[]) => {
+    setSelectedCountries(countries);
   };
 
   const renderAmbassadorGrid = (ambassadorsArray: Ambassador[], defaultTitle: string = "Nextflow Ambassador") => (
@@ -1148,9 +1148,9 @@ const AmbassadorsList: React.FC = () => {
         </div>
       )}
       
-      {totalFiltered === 0 && selectedCountry && (
+      {totalFiltered === 0 && selectedCountries.length > 0 && (
         <div className="text-center mt-8">
-          <p className="">No ambassadors found in the selected country.</p>
+          <p className="">No ambassadors found in the selected countries.</p>
         </div>
       )}
     </div>
