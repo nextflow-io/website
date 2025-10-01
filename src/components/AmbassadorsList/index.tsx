@@ -382,6 +382,13 @@ const ambassadors: Ambassador[] = [
     twitter: "IraIosub",
   },
   {
+    name: "Isha Parikh",
+    img: "ishaparikh.png",
+    country: "us",
+    github: "isha2106",
+    linkedin: "isha2106",
+  },
+  {
     name: "Jacques Dainat",
     img: "jacques-dainat.jpg",
     country: "fr",
@@ -1222,15 +1229,15 @@ const AmbassadorsList: React.FC = () => {
     if (selectedCountries.length === 0) {
       return ambassadorsByCategory;
     }
-    
+
     // Function to check if an ambassador should be included based on selected countries
     const shouldIncludeAmbassador = (ambassador: Ambassador) => {
-      if (selectedCountries.includes('es') && ambassador.country === 'es-ct') {
+      if (selectedCountries.includes("es") && ambassador.country === "es-ct") {
         return true;
       }
       return selectedCountries.includes(ambassador.country);
     };
-    
+
     return {
       regular: ambassadorsByCategory.regular.filter(shouldIncludeAmbassador),
       staff: ambassadorsByCategory.staff.filter(shouldIncludeAmbassador),
