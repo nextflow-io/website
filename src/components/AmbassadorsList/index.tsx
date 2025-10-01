@@ -382,6 +382,13 @@ const ambassadors: Ambassador[] = [
     twitter: "IraIosub",
   },
   {
+    name: "Isha Parikh",
+    img: "ishaparikh.png",
+    country: "us",
+    github: "isha2106",
+    linkedin: "isha2106",
+  },
+  {
     name: "Jacques Dainat",
     img: "jacques-dainat.jpg",
     country: "fr",
