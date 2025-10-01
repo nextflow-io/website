@@ -58,8 +58,6 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
       <div className="flex flex-col ">
         <div className="p-4 pb-3">
           <h2 className="text-lg font-semibold text-brand-1100 my-0">{name}</h2>
-          {title && <p className="text-sm text-brand-900 mt-1 mb-2">{title}</p>}
-
           <div className="flex items-center mb-0 min-h-[24px]">
             {children && (
               <button
