@@ -498,7 +498,7 @@ const ambassadors: Ambassador[] = [
   {
     name: "Júlia Mir Pedrol",
     img: "juliamirpedrol.png",
-    country: "es",
+    country: "es-ct",
     github: "mirpedrol",
     linkedin: "juliamirpedrol",
     twitter: "juliamirpedrol",
@@ -1222,11 +1222,21 @@ const AmbassadorsList: React.FC = () => {
     if (selectedCountries.length === 0) {
       return ambassadorsByCategory;
     }
-
+    
+    // Function to check if an ambassador should be included based on selected countries
+    const shouldIncludeAmbassador = (ambassador: Ambassador) => {
+      // If Spain (es) is selected, also include Catalonia (es-ct)
+      if (selectedCountries.includes('es') && ambassador.country === 'es-ct') {
+        return true;
+      }
+      // Standard check for exact country match
+      return selectedCountries.includes(ambassador.country);
+    };
+    
     return {
-      regular: ambassadorsByCategory.regular.filter((amb) => selectedCountries.includes(amb.country)),
-      staff: ambassadorsByCategory.staff.filter((amb) => selectedCountries.includes(amb.country)),
-      alumni: ambassadorsByCategory.alumni.filter((amb) => selectedCountries.includes(amb.country)),
+      regular: ambassadorsByCategory.regular.filter(shouldIncludeAmbassador),
+      staff: ambassadorsByCategory.staff.filter(shouldIncludeAmbassador),
+      alumni: ambassadorsByCategory.alumni.filter(shouldIncludeAmbassador),
     };
   }, [selectedCountries, ambassadorsByCategory]);
 

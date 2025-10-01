@@ -116,7 +116,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
                       className="text-nextflow-600 hover:text-nextflow-900 ml-1"
                       title={`Remove ${country?.name}`}
                     >
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M18 6L6 18M6 6l12 12" />
                       </svg>
                     </button>
