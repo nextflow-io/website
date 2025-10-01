@@ -54,7 +54,7 @@ const ambassadors: Ambassador[] = [
     twitter: "abdo3a",
     title: "Nextflow Ambassador",
     children:
-      'Abdoallah is a senior bioinformatician at SequAna - Sequencing Analysis Core Facility <a href="https://www.biologie.uni-konstanz.de/sequana/sequana/" target="_blank" > University of Konstanz, Germany </a>, Passionate about developing efficient and scalable pipelines to tackle complex bioinformatics challenges.',
+      'Abdoallah is a senior bioinformatician at SequAna - Sequencing Analysis Core Facility <a href="https://www.biologie.uni-konstanz.de/sequana/sequana/" target="_blank" > University of Konstanz, Germany</a>, Passionate about developing efficient and scalable pipelines to tackle complex bioinformatics challenges.',
   },
   {
     name: "Agyekum Richard",
@@ -764,7 +764,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "pritam-kumar-panda",
     twitter: "pritamkpanda",
     children:
-      'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine </a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine </a>, California, designing novel anesthetics suitable for battlefield conditions.',
+      'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine</a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine</a>, California, designing novel anesthetics suitable for battlefield conditions.',
   },
   {
     name: "Ramiro Barrantes Reynolds",
