@@ -1225,11 +1225,9 @@ const AmbassadorsList: React.FC = () => {
     
     // Function to check if an ambassador should be included based on selected countries
     const shouldIncludeAmbassador = (ambassador: Ambassador) => {
-      // If Spain (es) is selected, also include Catalonia (es-ct)
       if (selectedCountries.includes('es') && ambassador.country === 'es-ct') {
         return true;
       }
-      // Standard check for exact country match
       return selectedCountries.includes(ambassador.country);
     };
     
