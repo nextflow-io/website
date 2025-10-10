@@ -793,6 +793,15 @@ const ambassadors: Ambassador[] = [
       'Raquel is a senior bioinformatician and final year PhD student at <a href="https://www.cruk.cam.ac.uk/" target="_blank" >CRUK Cambridge Institute</a >. She is also a trainer at the <a href="https://bioinfotraining.bio.cam.ac.uk" target="_blank" >University of Cambridge Bioinformatics Training Unit</a >. For her PhD she developed <a href="https://nf-co.re/rnadnavar/dev" target="_blank" >#rnadnavar.</a>',
   },
   {
+    name: "Rayan Hassaïne",
+    img: "rhassaine.jpg",
+    country: "nl",
+    github: "rhassaine",
+    linkedin: "rayan-hassaine",
+    children:
+      'Rayan is a Bioinformatician at <a href="https://https://www.hartwigmedicalfoundation.nl/en/">Hartwig Medical Foundation</a > in Amsterdam. He's one of the developpers of WiGiTS & among the maintainers of <a href="https://github.com/nf-core/oncoanalyser">nf-core/oncoanalyser</a> pipeline.',
+  },
+  {
     name: "Riley Grindle",
     img: "rgrindle.jpg",
     country: "us",
