@@ -794,7 +794,7 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Rayan Hassaïne",
-    img: "rhassaine.jpg",
+    img: "RayanHassaine.jpg‎",
     country: "nl",
     github: "rhassaine",
     linkedin: "rayan-hassaine",
