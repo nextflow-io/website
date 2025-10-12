@@ -799,7 +799,7 @@ const ambassadors: Ambassador[] = [
     github: "rhassaine",
     linkedin: "rayan-hassaine",
     children:
-      "Rayan is a Bioinformatician at <a href="https://https://www.hartwigmedicalfoundation.nl/en/">Hartwig Medical Foundation</a > in Amsterdam. He's one of the developpers of WiGiTS & among the maintainers of <a href="https://github.com/nf-core/oncoanalyser">nf-core/oncoanalyser</a> pipeline.",
+      'Rayan is a Bioinformatician at <a href="https://https://www.hartwigmedicalfoundation.nl/en/">Hartwig Medical Foundation</a > in Amsterdam. He is one of the developpers of WiGiTS & among the maintainers of <a href="https://github.com/nf-core/oncoanalyser">nf-core/oncoanalyser</a> pipeline.',
   },
   {
     name: "Riley Grindle",
