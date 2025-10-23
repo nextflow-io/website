@@ -1,16 +1,3 @@
----
-title: RNA-Seq pipeline
-layout: "@layouts/ExampleLayout.astro"
----
-
-<div class="blg-summary example">
-<h2>RNA-Seq pipeline</h2>
-
-<p class="">
-    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
-</p>
-
-```groovy
 #!/usr/bin/env nextflow
 
 /*
@@ -76,26 +63,3 @@ process QUANT {
     salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
     """
 }
-```
-
-</div>
-
-### Try it in your computer
-
-To run this pipeline on your computer, you will need:
-
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
-
-Install Nextflow by entering the following command in the terminal:
-
-    $ curl -fsSL get.nextflow.io | bash
-
-Then launch the pipeline with this command:
-
-    $ nextflow run rnaseq-nf -with-docker
-
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
-
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
