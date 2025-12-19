@@ -523,6 +523,15 @@ const ambassadors: Ambassador[] = [
       "Kimberly is a PhD candidate in Bioinformatics and Computational Biology at Stellenbosch University, South Africa. She has experience in clinical proteomics and human genetics, specifically in the field of rare diseases.",
   },
   {
+    name: "Kobe Lavaerts",
+    img: "kobelavaerts.png",
+    country: "be",
+    github: "kobelavaerts",
+    linkedin: "kobe-lavaerts-170489191",
+    children:
+      'Kobe Lavaerts is a staff bioinformatician at the genomics core facility <a href="https://nucleomicscore.sites.vib.be/en" target="_blank" >Nucleomics Core</a > in <a href="https://vib.be/en" target="_blank" >VIB</a >, Belgium. He develops and maintains the Nextflow pipelines used in the core facility. He also teaches the <a href="https://github.com/vib-tcp/nextflow-workshop" target="_blank" >VIB Nextflow training</a > twice a year.',
+  },
+  {
     name: "Kristina K. Gagalova",
     img: "KristinaGagalova.jpg",
     country: "au",
