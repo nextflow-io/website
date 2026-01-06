@@ -901,6 +901,15 @@ const ambassadors: Ambassador[] = [
       '<a href="https://www.biocommons.org.au/lb-ziad">Ziad</a> is the Product Manager, Bioinformatics Platforms at <a href="http://biocommons.org.au/">Australian BioCommons</a >. He leads several bioinformatics focused services such as <a href="https://www.biocommons.org.au/seqera-platform">the Australian Nextflow Seqera Service</a > and <a href="https://www.biocommons.org.au/ables">ABLeS.</a>',
   },
   {
+    name: "Ze Yu",
+    img: "zeyu.png",
+    country: "us",
+    github: "EZUY",
+    linkedin: "ze-yu-9024b215b",
+    children:
+      'Ze Yu is a Computational biologist at UT Southwestern <a href="https://labs.utsouthwestern.edu/bioinformatics-lab" target="_blank">Bioinformatics Lab</a>, focusing on scalable genomics workflows and production-grade Nextflow DSL2 pipelines.',
+  },
+  {
     name: "Zohaib Anwar",
     img: "zohaibanwar.jpeg",
     country: "ca",
