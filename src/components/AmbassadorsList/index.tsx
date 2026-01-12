@@ -783,6 +783,15 @@ const ambassadors: Ambassador[] = [
       'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine</a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine</a>, California, designing novel anesthetics suitable for battlefield conditions.',
   },
   {
+    name: "Rachel Griffard-Smith",
+    img: "rachelgriffardsmith.jpg",
+    country: "us",
+    github: "rachelgriffard",
+    linkedin: "rachelgriffard",
+    children:
+      'Rachel is a bioinformatician in the <a href="https://www.kumc.edu/school-of-medicine/academics/departments/biostatistics-and-data-science.html"> Department of Biostatistics & Data Science</a> at the University of Kansas Medical Center in Kansas City, Kansas analyzing and developing tools for microbiome data and other next generation sequencing data.',
+  },
+  {
     name: "Ramiro Barrantes Reynolds",
     img: "ramiro.jpg",
     country: "us",
