@@ -181,7 +181,15 @@ const ambassadors: Ambassador[] = [
     children:
       'Chiachun is a bioinformatician at the <a href="http://sub.chimei.org.tw/55480/index.php/english/english03/13-english" target="_blank" > Center for Precision Medicine of Chi Mei Medical Center</a >. He\'s also the community organizer of <a href="https://www.facebook.com/groups/446434039038963" target="_blank" >Taipei Bioinformatics Omnibus</a >.',
   },
-
+  {
+    name: "Clément Igiraneza",
+    img: "ClementIgiraneza.jpg",
+    country: "rw",
+    github: "igiraclement",
+    linkedin: "igiraneza-clement-56441897",
+    twitter: "IGIRANEZACLEME1",
+    children:
+      "Clement Igiraneza is a molecular biologist with expertise in infectious disease genomics, and bioinformatics data analysis. He has worked at the Rwanda Biomedical Center in the Molecular and Genomic Unit and focuses on genomic surveillance, sequencing technologies, diagnostic innovation, and capacity building for malaria drug-resistance monitoring.",
   {
     name: "Cris Tuñi",
     img: "cristuni.jpeg",
