@@ -928,7 +928,15 @@ const ambassadors: Ambassador[] = [
     github: "sofstam",
     linkedin: "sofia-stamouli-a22b5477",
   },
-
+  {
+    name: "Thai-Huy Tran",
+    img: "thai-huytran.jpg",
+    country: "vn",
+    github: "huymtraan",
+    linkedin: "thaihuy-tran",
+    children:
+      'Thai-Huy Tran is a final-year student at International University (VNU-HCM), Vietnam, with experience developing cfDNA data analysis pipelines and performing single-cell RNA analysis for cancer biology.',
+  },
   {
     name: "Ziad Al-Bkhetan",
     img: "Ziad.jpg",
