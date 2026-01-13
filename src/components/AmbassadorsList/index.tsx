@@ -857,6 +857,18 @@ const ambassadors: Ambassador[] = [
       'Sameesh Kher is a Bioinformatician at <a href="https://www.ghga.de/">GHGA</a> in Heidelberg. He is the developer of the <a href="https://github.com/nf-core/spatialxe">nf-core/spatialxe</a> pipeline.',
   },
   {
+    name: "Samuel Ruiz-Pérez",
+    img: "samuelruizperez.jpg",
+    country: "mx",
+    github: "samuelruizperez",
+    linkedin: "samuelruizperez",
+    twitter: "samuelruizperez",
+    mastodon: "https://genomic.social/@samuelruizperez",
+    bluesky: "https://bsky.app/profile/samuelruizperez.bsky.social",
+    children:
+      'Sam is a MSc in Bioinformatics student at the University of Copenhagen and a bioinformatician at the <a href="https://www.cancer.dk/danish-cancer-institute/research-groups/epigenome-replication-and-maintenance/" target="_blank"> Center for Epigenetic Cell Memory (EpiC)</a>, Danish Cancer Institute. He works with nascent DNA sequencing data and develops pipelines and machine learning models to study replication and epigenome maintenance.',
+  },
+  {
     name: "Sanzida Akhter",
     img: "sanzida.jpg",
     country: "bd",
