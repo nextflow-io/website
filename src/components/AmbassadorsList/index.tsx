@@ -579,7 +579,7 @@ const ambassadors: Ambassador[] = [
     github: "lynnlangit",
     linkedin: "lynnlangit",
     children:
-      'Lynn is an independent cloud architect supporting bioinformatics teams world-wide. She is also part of <a href="https://dimi-lab.github.io/team/" target="_blank" >DIMI Lab</a >.',
+      'Lynn is an independent cloud AI architect building tools for bioinformatics teams world-wide. She is also part of <a href="https://dimi-lab.github.io/team/" target="_blank" >DIMI Lab</a >.',
   },
   {
     name: "Louis Le Nézet",
