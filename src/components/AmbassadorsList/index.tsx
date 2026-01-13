@@ -523,6 +523,15 @@ const ambassadors: Ambassador[] = [
       "Kimberly is a PhD candidate in Bioinformatics and Computational Biology at Stellenbosch University, South Africa. She has experience in clinical proteomics and human genetics, specifically in the field of rare diseases.",
   },
   {
+    name: "Kim Huy Vo",
+    img: "kimhuyvo.png",
+    country: "vn",
+    github: "vkhuy",
+    linkedin: "kimhuyvo",
+    children:
+      'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
+    },
+  {
     name: "Kobe Lavaerts",
     img: "kobelavaerts.png",
     country: "be",
