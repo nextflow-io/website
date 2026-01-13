@@ -908,7 +908,13 @@ const ambassadors: Ambassador[] = [
     github: "sofstam",
     linkedin: "sofia-stamouli-a22b5477",
   },
-
+  {
+    name: "Thai-Huy Tran",
+    img: "thai-huytran.jpg",
+    country: "vn",
+    github: "huymtraan",
+    linkedin: "thaihuy-tran",
+  },
   {
     name: "Ziad Al-Bkhetan",
     img: "Ziad.jpg",
