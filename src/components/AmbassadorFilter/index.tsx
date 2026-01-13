@@ -32,6 +32,7 @@ const countryMap: { [key: string]: string } = {
   tn: "Tunisia",
   tw: "Taiwan",
   us: "United States",
+  vn: "Vietnam",
   za: "South Africa",
 };
 
