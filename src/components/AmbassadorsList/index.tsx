@@ -100,6 +100,14 @@ const ambassadors: Ambassador[] = [
       'Justice is a Bioinformatician and a ML/AI engineer at the <a href="https://noguchi.ug.edu.gh" target="_blank" >Noguchi Memorial Institute For Medical Research</a >. He is currently on the <a href="https://pangens.org" target="_blank" >PANGenS Project.</a>',
   },
   {
+    name: "Amrei Binzer-Panchal",
+    img: "Amrei.png",
+    country: "se",
+    github: "amrei-bp",
+    children:
+      'Amrei is a Bioinformatician at the <a href="https://www.slubi.se" target="_blank" >Bioinformatics Infrastructure</a > of the <a href="https://www.slu.se/" target="_blank" >Swedish University for Agricultural Sciences</a >, where she supports researchers and teaches reproducible bioinformatics, including Nextflow.',
+  },
+  {
     name: "Anabella Trigila",
     img: "anabella.jpeg",
     country: "ar",
