@@ -930,7 +930,7 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Susan Collins",
-    img: "SusanCollins.jpg",
+    img: "susancollins.jpg",
     country: "us",
     github: "susancollins",
     linkedin: "susan--collins",
