@@ -543,7 +543,7 @@ const ambassadors: Ambassador[] = [
     img: "kimhuyvo.png",
     country: "vn",
     github: "vkhuy",
-    linkedin: "kimhuyvo",
+    linkedin: "kimhuyvo", 
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
     },
