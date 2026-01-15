@@ -947,6 +947,15 @@ const ambassadors: Ambassador[] = [
     linkedin: "sofia-stamouli-a22b5477",
   },
   {
+    name: "Susan Collins",
+    img: "susancollins.jpg",
+    country: "us",
+    github: "susancollins",
+    linkedin: "susan--collins",
+    children:
+      'Susan Collins is a Bioinformatics Engineer based in Vermont, building scalable, production-grade genomics workflows with Nextflow.',
+  },
+  {
     name: "Thai-Huy Tran",
     img: "thai-huytran.jpg",
     country: "vn",
