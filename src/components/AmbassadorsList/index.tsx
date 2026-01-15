@@ -190,6 +190,7 @@ const ambassadors: Ambassador[] = [
     twitter: "IGIRANEZACLEME1",
     children:
       "Clement Igiraneza is a molecular biologist with expertise in infectious disease genomics, and bioinformatics data analysis. He has worked at the Rwanda Biomedical Center in the Molecular and Genomic Unit and focuses on genomic surveillance, sequencing technologies, diagnostic innovation, and capacity building for malaria drug-resistance monitoring.",
+      },
   {
     name: "Cris Tuñi",
     img: "cristuni.jpeg",
