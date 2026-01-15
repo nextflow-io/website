@@ -37,19 +37,19 @@ if [ ${#EDGE_TAG} -le 4 ]; then echo "Version string too short" ; exit 1; fi
 echo "===============  Building edge docs: $EDGE_TAG  ==============="
 git checkout $EDGE_TAG
 pip install -r requirements.txt
-make clean html
+make clean html SPHINXBUILD="python -m sphinx"
 mv _build/html/* $WEBSITE_DIR/output/docs/edge/
 
 # Build stable docs
 echo "===============  Building stable docs: $STABLE_TAG  ==============="
 git checkout $STABLE_TAG
 pip install -r requirements.txt
-make clean html
+make clean html SPHINXBUILD="python -m sphinx"
 mv _build/html/* $WEBSITE_DIR/output/docs/stable/
 
 # Build current docs on master
 echo "===============  Building latest docs: master  ==============="
 git checkout master
 pip install -r requirements.txt
-make clean html
+make clean html SPHINXBUILD="python -m sphinx"
 mv _build/html/* $WEBSITE_DIR/output/docs/latest/
