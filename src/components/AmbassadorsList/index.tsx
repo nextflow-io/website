@@ -464,6 +464,15 @@ const ambassadors: Ambassador[] = [
       "Jen is a Software Developer with NetValue Ltd in Hamilton, New Zealand. Her current work uses Nextflow in biomedical contexts, but her scientific background spans microbiology, biochemistry and geochemistry.",
   },
   {
+    name: "Jimmy Trace Lail",
+    img: "jimmylail.jpg",
+    country: "us",
+    github: "tracelail",
+    linkedin: "tracelail",
+    children:
+      "Trace is a graduate student in the Master of Bioinformatics program at Northeastern University. He brings industry experience in gene therapy and cell culture, with interests in conservation and environmental biotechnology applications.",
+  },
+  {
     name: "John Vusich",
     img: "johnvusich.png",
     country: "us",
