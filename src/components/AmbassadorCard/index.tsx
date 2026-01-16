@@ -76,14 +76,14 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
       </div>
 
       <div className="ambassador-info flex flex-col flex-1 bg-white">
-        <div className="flex flex-col justify-between h-full">
-          <div className="p-4">
-            <h2 className="text-lg font-semibold text-brand-1000 my-0">{name}</h2>
+        <div className="flex flex-col h-full">
+          <div className="p-4 pb-2 flex-1 flex items-start">
+            <h2 className="text-lg font-semibold text-brand-1000 my-0 leading-tight">{name}</h2>
           </div>
-          <div className="flex flex-col px-4">
+          <div className="flex flex-col px-4 pb-3">
             <div className="flex items-center mb-0 min-h-[24px]">{children && <BioToggleButton />}</div>
           </div>
-          <div className="p-4 flex gap-4 items-center social-container bg-white">
+          <div className="p-4 pt-2 flex gap-4 items-center social-container bg-white">
           {github && (
             <a
               href={`https://github.com/${github}`}
