@@ -27,7 +27,8 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
   bluesky,
   className,
   children,
-  title,}) => {
+  title,
+}) => {
   const [showBio, setShowBio] = useState(false);
 
   const toggleBio = useCallback(() => {
@@ -44,10 +45,29 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
     [toggleBio],
   );
 
+  const BioToggleButton = () => (
+    <button
+      onClick={toggleBio}
+      onKeyDown={handleKeyDown}
+      type="button"
+      tabIndex={0}
+      className={clsx(
+        "text-nextflow-900 text-sm cursor-pointer flex items-center gap-1 hover:text-nextflow-1000 focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm p-1 -ml-1 transition-all duration-200",
+        showBio && "text-nextflow-1000",
+      )}
+      aria-label={showBio ? "Hide biography" : "Show biography"}
+      aria-expanded={showBio}
+    >
+      <span>{showBio ? "Hide biography" : "Show biography"}</span>
+      <i className={`fa fa-chevron-${showBio ? "down" : "up"} transition-transform duration-300`}></i>
+    </button>
+
+  );
+
   return (
     <div
       className={clsx(
-        "bg-white rounded-xs border border-brand-opacity transition-all relative overflow-hidden h-full",
+        "bg-white rounded-xs border border-brand-opacity transition-all relative overflow-hidden flex flex-col",
         className,
       )}
     >
@@ -55,61 +75,15 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
         <img src={`img/${img}`} className="absolute inset-0 w-full h-full object-cover" alt={`${name}`} />
       </div>
 
-      <div className="flex flex-col ">
-        <div className="p-4 pb-3">
-          <h2 className="text-lg font-semibold text-brand-1100 my-0">{name}</h2>
-          <div className="flex items-center mb-0 min-h-[24px]">
-            {children && (
-              <button
-                onClick={toggleBio}
-                onKeyDown={handleKeyDown}
-                type="button"
-                tabIndex={0}
-                className={clsx(
-                  "text-nextflow-600 text-xs cursor-pointer flex items-center gap-1 hover:text-nextflow-800 focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm p-1 -ml-1 transition-all duration-200",
-                  showBio && "text-nextflow-800",
-                )}
-                aria-label={showBio ? "Hide biography" : "Show biography"}
-                aria-expanded={showBio}
-              >
-                <span>{showBio ? "Hide biography" : "Show biography"}</span>
-                <i className={`fa fa-chevron-${showBio ? "down" : "up"} transition-transform duration-300`}></i>
-              </button>
-            )}
+      <div className="ambassador-info flex flex-col flex-1 bg-white">
+        <div className="flex flex-col justify-between h-full">
+          <div className="p-4">
+            <h2 className="text-lg font-semibold text-brand-1000 my-0">{name}</h2>
           </div>
-
-          {children && (
-            <div
-              className={clsx(
-                "bio-bottomsheet absolute inset-x-0 bottom-0 z-20 bg-white rounded-t-lg shadow-lg transform transition-transform duration-500 ease-in-out",
-                showBio ? "translate-y-0" : "translate-y-full",
-              )}
-              aria-hidden={!showBio}
-            >
-              <div className="p-5 pt-8 max-h-[99vh] overflow-y-auto ambassador-bio-content pb-15">
-                {children}
-
-                <button
-                  onClick={toggleBio}
-                  onKeyDown={handleKeyDown}
-                  type="button"
-                  tabIndex={0}
-                  className={clsx(
-                    "text-nextflow-600 text-xs cursor-pointer flex items-center gap-1 hover:text-nextflow-800 focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm p-1 -ml-1 transition-all duration-200",
-                    showBio && "text-nextflow-800",
-                  )}
-                  aria-label={showBio ? "Hide biography" : "Show biography"}
-                  aria-expanded={showBio}
-                >
-                  <span>{showBio ? "Hide biography" : "Show biography"}</span>
-                  <i className={`fa fa-chevron-${showBio ? "down" : "up"} transition-transform duration-300`}></i>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="px-4 pb-4 flex gap-4 items-center social-container bg-white">
+          <div className="flex flex-col px-4">
+            <div className="flex items-center mb-0 min-h-[24px]">{children && <BioToggleButton />}</div>
+          </div>
+          <div className="p-4 flex gap-4 items-center social-container bg-white">
           {github && (
             <a
               href={`https://github.com/${github}`}
@@ -176,7 +150,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
           )}
 
           {country && (
-            <div className="absolute right-4 z-10 w-4 h-4 rounded-full overflow-hidden">
+            <div className="absolute right-4 z-10 w-5 h-5 rounded-full overflow-hidden border border-gray-300">
               <img
                 className="w-full h-full object-cover"
                 src={`https://flagicons.lipis.dev/flags/4x3/${country}.svg`}
@@ -187,7 +161,23 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
             </div>
           )}
         </div>
+        </div>
       </div>
+
+      {children && (
+        <div
+          className={clsx(
+            "bio-bottomsheet absolute overflow-y-auto inset-x-0 bottom-0 z-20 bg-white rounded-t-lg shadow-lg transform transition-transform duration-500 ease-in-out",
+            showBio ? "translate-y-0" : "translate-y-full",
+          )}
+          aria-hidden={!showBio}
+        >
+          <div className="p-5 pt-8 max-h-[99vh] overflow-y-auto ambassador-bio-content pb-15">
+            {children}
+            <BioToggleButton />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
