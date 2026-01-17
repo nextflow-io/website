@@ -729,6 +729,15 @@ const ambassadors: Ambassador[] = [
       'Maxime, bioinfomagician, develops nf-core pipelines, mainly Sarek, and is a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
   {
+    name: "Maxime Laurent",
+    img: "maxlaurent.jpeg",
+    country: "gb",
+    github: "max-laurent",
+    linkedin: "maximelrt",
+    children:
+      'Maxime is a Senior Scientist at <a href="https://fullcirclelabs.bio/" target="_blank" >Full Circle Labs</a >, he uses Nextflow to develop in-house bioinformatics pipelines to assemble plasmids and genomes following nf-core standards.',
+  },
+  {
     name: "Michael Heuer",
     img: "michael_heuer.png",
     country: "us",
