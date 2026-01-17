@@ -172,6 +172,16 @@ const ambassadors: Ambassador[] = [
       'Charalampos is a Senior Data Scientist in Oncology at Novartis Biomedical Research in Cambridge, MA. He earned his PhD from <a href="https://www.nyu.edu/">NYU.</a> He specializes in gene dysregulation in cancer and how to exploit it therapeutically.',
   },
   {
+    name: "Chao-Jen (CJ) Wong",
+    img: "cjwong.jpg",
+    country: "us",
+    github: "chaochaowong",
+    linkedin: "chao-jen-wong",
+    twitter: "",
+    children:
+      'Chao-Jen is a bioinformatician at <a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">Seattle Children’s Research Institute</a> in Seattle, WA. She has contributed to multiple open-source projects, including Bioconductor and nf-core. She earned her Ph.D. in Mathematics from <a href="https://www.cgu.edu" target="_blank">Claremont Graduate University</a>.',
+  },
+  {
     name: "Chiachun Chiu",
     img: "chiachun.jpg",
     country: "tw",
