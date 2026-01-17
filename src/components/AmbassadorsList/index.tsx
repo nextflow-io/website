@@ -913,6 +913,17 @@ const ambassadors: Ambassador[] = [
       'Sarai Varona is a bioinformatician from the Basque Country, currently based in Madrid, where she works at the <a href="https://www.isciii.es/ub/unidad" target="_blank">Bioinformatics Unit of the Carlos III Health Institute</a>. She is the current maintainer of the <a href="https://nf-co.re/viralrecon/" target="_blank">nf-core/viralrecon</a> pipeline.'
   },
   {
+    name: "Shaurya Jauhari",
+    img: "shauryajauhari.jpg",
+    country: "in",
+    github: "shauryajauhari",
+    linkedin: "in/shauryajauhari",
+    twitter: "shauryajauhari",
+    title: "Nextflow Ambassador",
+    children:
+      'Shaurya Jauhari is a multidisciplinary research and development professional, bridging the gap between computational biology and cybersecurity, currently moderating Red Teaming and Responsible AI security initiatives at <a href = "https://www.infosys.com" > Infosys</a>.'
+  },
+  {
     name: "Shiyi Yin",
     img: "shiyi.jpeg",
     country: "us",
