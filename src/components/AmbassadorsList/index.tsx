@@ -904,6 +904,15 @@ const ambassadors: Ambassador[] = [
       "Sanzida is a CSE and Bioinformatics master's student and is working on developing cancer biomarkers with machine learning algorithms.",
   },
   {
+    name: "Sarai Varona",
+    img: "sarai_varona.png",
+    country: "es-pv",
+    github: "svarona",
+    linkedin: "sarai-varona-fernández-abb51013a",
+    children:
+      'Sarai Varona is a bioinformatician from the Basque Country, currently based in Madrid, where she works at the <a href="https://www.isciii.es/ub/unidad" target="_blank">Bioinformatics Unit of the Carlos III Health Institute</a>. She is the current maintainer of the <a href="https://nf-co.re/viralrecon/" target="_blank">nf-core/viralrecon</a> pipeline.'
+  },
+  {
     name: "Shiyi Yin",
     img: "shiyi.jpeg",
     country: "us",
