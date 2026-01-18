@@ -863,7 +863,15 @@ const ambassadors: Ambassador[] = [
     children:
       'Riley is a Bioinformatician at <a href="https://mdibl.org/" target="_blank" >MDIBL</a >. He has helped develop pipelines for his institutions in-house use and is an active member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a> community.',
   },
-
+  {
+    name: "Rita Nemeth",
+    img: "ritanemeth.jpg",
+    country: "hu",
+    github: "Nerita21",
+    linkedin: "rita-nemeth",
+    children:
+      'Rita is an emerging Bioinformatics Developer and Imaging Scientist with an MSc degree from Hungary. Her work includes mirna target research and image acquisition-analysis.',
+  },
   {
     name: "Saba Nafees",
     img: "saba.jpeg",
