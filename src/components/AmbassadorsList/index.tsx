@@ -974,6 +974,15 @@ const ambassadors: Ambassador[] = [
       'Thai-Huy Tran is a final-year student at International University (VNU-HCM), Vietnam, with experience developing cfDNA data analysis pipelines and performing single-cell RNA analysis for cancer biology.',
   },
   {
+    name: "Zaki Fadlullah Wilmot",
+    img: "zaki_wilmot.png",
+    country: "my",
+    github: "zakiF",
+    linkedin: "zaki-fadlullah-wilmot-5552501a9",
+    children:
+      'Zaki Fadlullah Wilmot is a Research Assistant Professor at the Huntsman Cancer Institute, <a href="https://uofuhealth.utah.edu/staff/zaki-wilmot" target="_blank">University of Utah</a>. He focuses on computational oncology with interests in translational bioinformatics.'
+  },
+  {
     name: "Ziad Al-Bkhetan",
     img: "Ziad.jpg",
     country: "au",
