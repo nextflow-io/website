@@ -798,12 +798,12 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Omer Ali",
-    img: "omer.jpeg",
+    img: "omer.png",
     country: "nr",
     github: "Omer0191",
     linkedin: "omer0191",
     children:
-      "Omer Ali is a Bioinformatician at Oslo University Hospital. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
+      "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
   },
 
   {
