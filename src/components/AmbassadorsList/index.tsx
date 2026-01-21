@@ -979,6 +979,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "yz533cb",
     linkedin: "yunjiazhang",
+    twitter: "naran43536",
     children:
       'Yunjia holds a PhD in Biochemistry from the University of Cambridge and an MSc in Systems and Synthetic Biology from the University of Edinburgh. She develops and maintains bioinformatics pipelines, including <a href="https://github.com/sanger-tol/variantcomposition" target="_blank">variant analysis workflows</a>, at the Wellcome Sanger Institute.',
   },
