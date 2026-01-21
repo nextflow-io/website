@@ -339,7 +339,7 @@ const ambassadors: Ambassador[] = [
     github: "georgiakes",
     linkedin: "geokesisoglou",
     children:
-      'Georgia is a Bioinformatics Pipeline Developer at CNAG <a href="https://www.cnag.eu/" target="_blank" ></a > for the Variant Calling and Analysis Team <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" ></a >. She specializes in developing and implementing scalable pipelines for the clinical genomics.', 
+      'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.', 
   },
   {
     name: "Georgie Samaha",
