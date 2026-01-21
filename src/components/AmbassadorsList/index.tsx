@@ -556,7 +556,17 @@ const ambassadors: Ambassador[] = [
     linkedin: "kimhuyvo", 
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
-    },
+  },
+  {
+    name: "Kinley Tenzin",
+    img: "kinleytenzin.jpg",
+    country: "bt",
+    github: "tkinley",
+    title: "Nextflow Ambassador",
+    children:
+    "Kinley Tenzin is a PhD student at Kansas State University working in microbial bioinformatics, with interests in genome assembly, mobile genetic elements, and scalable workflow development with Nextflow.",
+  },
+  
   {
     name: "Kobe Lavaerts",
     img: "kobelavaerts.png",
