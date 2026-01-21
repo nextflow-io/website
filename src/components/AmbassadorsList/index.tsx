@@ -846,6 +846,15 @@ const ambassadors: Ambassador[] = [
       'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine</a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine</a>, California, designing novel anesthetics suitable for battlefield conditions.',
   },
   {
+    name: "Quentin Duvert",
+    img: "quentin_duvert.jpeg",
+    country: "fr",
+    github: "QuentinDuvertCurie",
+    linkedin: "quentin-duvert",
+    children:
+      'Quentin works at the <a href="https://www.ifb-elixir.fr/" target="_blank" >French Institute of Bioinformatics</a> and at <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" >Institut Curie</a> as part of the MuDis4LS project. His work focuses on developing, maintaining, and improving Nextflow pipelines.',
+  },
+  {
     name: "Rachel Griffard-Smith",
     img: "rachelgriffardsmith.jpg",
     country: "us",
