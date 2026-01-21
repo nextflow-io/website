@@ -806,6 +806,15 @@ const ambassadors: Ambassador[] = [
     children:
       "Nour Mahfel is a trainee clinical scientist on the Scientist Training Programme, specialising in genetic diagnostics at Birmingham Women's Hospital NHS.",
   },
+  {
+    name: "Omer Ali",
+    img: "omer.png",
+    country: "nr",
+    github: "Omer0191",
+    linkedin: "omer0191",
+    children:
+      "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
+  },
 
   {
     name: "Phil Ewels",
