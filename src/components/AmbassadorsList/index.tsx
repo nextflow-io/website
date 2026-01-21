@@ -333,6 +333,15 @@ const ambassadors: Ambassador[] = [
     twitter: "RikeHanssen",
   },
   {
+    name: "Georgia Kesisoglou",
+    img: "georgiakesisoglou.png",
+    country: "es",
+    github: "georgiakes",
+    linkedin: "geokesisoglou",
+    children:
+      'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.', 
+  },
+  {
     name: "Georgie Samaha",
     img: "georgie.jpg",
     country: "au",
@@ -556,7 +565,17 @@ const ambassadors: Ambassador[] = [
     linkedin: "kimhuyvo", 
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
-    },
+  },
+  {
+    name: "Kinley Tenzin",
+    img: "kinleytenzin.jpg",
+    country: "bt",
+    github: "tkinley",
+    title: "Nextflow Ambassador",
+    children:
+    "Kinley Tenzin is a PhD student at Kansas State University working in microbial bioinformatics, with interests in genome assembly, mobile genetic elements, and scalable workflow development with Nextflow.",
+  },
+  
   {
     name: "Kobe Lavaerts",
     img: "kobelavaerts.png",
@@ -795,6 +814,15 @@ const ambassadors: Ambassador[] = [
     linkedin: "nour-mahfel-010568182",
     children:
       "Nour Mahfel is a trainee clinical scientist on the Scientist Training Programme, specialising in genetic diagnostics at Birmingham Women's Hospital NHS.",
+  },
+  {
+    name: "Omer Ali",
+    img: "omer.png",
+    country: "nr",
+    github: "Omer0191",
+    linkedin: "omer0191",
+    children:
+      "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
   },
 
   {
