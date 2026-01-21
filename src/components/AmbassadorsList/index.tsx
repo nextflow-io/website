@@ -954,7 +954,7 @@ const ambassadors: Ambassador[] = [
     img: "shauryajauhari.jpg",
     country: "in",
     github: "shauryajauhari",
-    linkedin: "in/shauryajauhari",
+    linkedin: "shauryajauhari",
     twitter: "shauryajauhari",
     title: "Nextflow Ambassador",
     children:
