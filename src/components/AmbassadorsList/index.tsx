@@ -924,7 +924,7 @@ const ambassadors: Ambassador[] = [
     img: "ritanemeth.jpg",
     country: "hu",
     github: "Nerita21",
-    linkedin: "rita-nemeth",
+    linkedin: "rita-n-471578294",
     children:
       'Rita is an emerging Bioinformatics Developer and Imaging Scientist with an MSc degree from Hungary. Her work includes mirna target research and image acquisition-analysis.',
   },
