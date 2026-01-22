@@ -17,6 +17,7 @@ const countryMap: { [key: string]: string } = {
   gb: "United Kingdom",
   gh: "Ghana",
   gr: "Greece",
+  hu: "Hungary",
   id: "Indonesia",
   in: "India",
   it: "Italy",
