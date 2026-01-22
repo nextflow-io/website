@@ -172,6 +172,16 @@ const ambassadors: Ambassador[] = [
       'Charalampos is a Senior Data Scientist in Oncology at Novartis Biomedical Research in Cambridge, MA. He earned his PhD from <a href="https://www.nyu.edu/">NYU.</a> He specializes in gene dysregulation in cancer and how to exploit it therapeutically.',
   },
   {
+    name: "Chao-Jen (CJ) Wong",
+    img: "cjwong.jpg",
+    country: "us",
+    github: "chaochaowong",
+    linkedin: "chao-jen-wong",
+    twitter: "",
+    children:
+      'Chao-Jen is a bioinformatician at <a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">Seattle Children’s Research Institute</a> in Seattle, WA. She has contributed to multiple open-source projects, including Bioconductor and nf-core. She earned her Ph.D. in Mathematics from <a href="https://www.cgu.edu" target="_blank">Claremont Graduate University</a>.',
+  },
+  {
     name: "Chiachun Chiu",
     img: "chiachun.jpg",
     country: "tw",
@@ -331,6 +341,15 @@ const ambassadors: Ambassador[] = [
     github: "FriederikeHanssen",
     linkedin: "friederike-hanssen",
     twitter: "RikeHanssen",
+  },
+  {
+    name: "Georgia Kesisoglou",
+    img: "georgiakesisoglou.png",
+    country: "es",
+    github: "georgiakes",
+    linkedin: "geokesisoglou",
+    children:
+      'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.', 
   },
   {
     name: "Georgie Samaha",
@@ -556,7 +575,17 @@ const ambassadors: Ambassador[] = [
     linkedin: "kimhuyvo", 
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
-    },
+  },
+  {
+    name: "Kinley Tenzin",
+    img: "kinleytenzin.jpg",
+    country: "bt",
+    github: "tkinley",
+    title: "Nextflow Ambassador",
+    children:
+    "Kinley Tenzin is a PhD student at Kansas State University working in microbial bioinformatics, with interests in genome assembly, mobile genetic elements, and scalable workflow development with Nextflow.",
+  },
+  
   {
     name: "Kobe Lavaerts",
     img: "kobelavaerts.png",
@@ -729,6 +758,15 @@ const ambassadors: Ambassador[] = [
       'Maxime, bioinfomagician, develops nf-core pipelines, mainly Sarek, and is a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
   {
+    name: "Maxime Laurent",
+    img: "maxlaurent.jpeg",
+    country: "gb",
+    github: "max-laurent",
+    linkedin: "maximelrt",
+    children:
+      'Maxime is a Senior Scientist at <a href="https://fullcirclelabs.bio/" target="_blank" >Full Circle Labs</a >, he uses Nextflow to develop in-house bioinformatics pipelines to assemble plasmids and genomes following nf-core standards.',
+  },
+  {
     name: "Michael Heuer",
     img: "michael_heuer.png",
     country: "us",
@@ -796,6 +834,15 @@ const ambassadors: Ambassador[] = [
     children:
       "Nour Mahfel is a trainee clinical scientist on the Scientist Training Programme, specialising in genetic diagnostics at Birmingham Women's Hospital NHS.",
   },
+  {
+    name: "Omer Ali",
+    img: "omer.png",
+    country: "nr",
+    github: "Omer0191",
+    linkedin: "omer0191",
+    children:
+      "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
+  },
 
   {
     name: "Phil Ewels",
@@ -816,6 +863,15 @@ const ambassadors: Ambassador[] = [
     twitter: "pritamkpanda",
     children:
       'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine</a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine</a>, California, designing novel anesthetics suitable for battlefield conditions.',
+  },
+  {
+    name: "Quentin Duvert",
+    img: "quentin_duvert.jpeg",
+    country: "fr",
+    github: "QuentinDuvertCurie",
+    linkedin: "quentin-duvert",
+    children:
+      'Quentin works at the <a href="https://www.ifb-elixir.fr/" target="_blank" >French Institute of Bioinformatics</a> and at <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" >Institut Curie</a> as part of the MuDis4LS project. His work focuses on developing, maintaining, and improving Nextflow pipelines.',
   },
   {
     name: "Rachel Griffard-Smith",
@@ -919,6 +975,17 @@ const ambassadors: Ambassador[] = [
     linkedin: "sarai-varona-fernández-abb51013a",
     children:
       'Sarai Varona is a bioinformatician from the Basque Country, currently based in Madrid, where she works at the <a href="https://www.isciii.es/ub/unidad" target="_blank">Bioinformatics Unit of the Carlos III Health Institute</a>. She is the current maintainer of the <a href="https://nf-co.re/viralrecon/" target="_blank">nf-core/viralrecon</a> pipeline.'
+  },
+  {
+    name: "Shaurya Jauhari",
+    img: "shauryajauhari.jpg",
+    country: "in",
+    github: "shauryajauhari",
+    linkedin: "shauryajauhari",
+    twitter: "shauryajauhari",
+    title: "Nextflow Ambassador",
+    children:
+      'Shaurya Jauhari is a multidisciplinary research and development professional, bridging the gap between computational biology and cybersecurity, currently moderating Red Teaming and Responsible AI security initiatives at <a href = "https://www.infosys.com" > Infosys</a>.'
   },
   {
     name: "Shiyi Yin",
