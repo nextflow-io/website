@@ -1049,6 +1049,16 @@ const ambassadors: Ambassador[] = [
       'Thai-Huy Tran is a final-year student at International University (VNU-HCM), Vietnam, with experience developing cfDNA data analysis pipelines and performing single-cell RNA analysis for cancer biology.',
   },
   {
+    name: "Yunjia Zhang",
+    img: "yunjia.png",
+    country: "gb",
+    github: "yz533cb",
+    linkedin: "yunjiazhang",
+    twitter: "naran43536",
+    children:
+      'Yunjia holds a PhD in Biochemistry from the University of Cambridge and an MSc in Systems and Synthetic Biology from the University of Edinburgh. She develops and maintains bioinformatics pipelines, including <a href="https://github.com/sanger-tol/variantcomposition" target="_blank">variant analysis workflows</a>, at the Wellcome Sanger Institute.',
+  },
+  {
     name: "Zaki Fadlullah Wilmot",
     img: "zaki_wilmot.jpg",
     country: "my",
