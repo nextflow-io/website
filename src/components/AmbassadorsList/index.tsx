@@ -1050,7 +1050,7 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Zaki Fadlullah Wilmot",
-    img: "zaki_wilmot.png",
+    img: "zaki_wilmot.jpg",
     country: "my",
     github: "zakiF",
     linkedin: "zaki-fadlullah-wilmot-5552501a9",
