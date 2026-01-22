@@ -172,6 +172,16 @@ const ambassadors: Ambassador[] = [
       'Charalampos is a Senior Data Scientist in Oncology at Novartis Biomedical Research in Cambridge, MA. He earned his PhD from <a href="https://www.nyu.edu/">NYU.</a> He specializes in gene dysregulation in cancer and how to exploit it therapeutically.',
   },
   {
+    name: "Chao-Jen (CJ) Wong",
+    img: "cjwong.jpg",
+    country: "us",
+    github: "chaochaowong",
+    linkedin: "chao-jen-wong",
+    twitter: "",
+    children:
+      'Chao-Jen is a bioinformatician at <a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">Seattle Children’s Research Institute</a> in Seattle, WA. She has contributed to multiple open-source projects, including Bioconductor and nf-core. She earned her Ph.D. in Mathematics from <a href="https://www.cgu.edu" target="_blank">Claremont Graduate University</a>.',
+  },
+  {
     name: "Chiachun Chiu",
     img: "chiachun.jpg",
     country: "tw",
@@ -748,6 +758,15 @@ const ambassadors: Ambassador[] = [
       'Maxime, bioinfomagician, develops nf-core pipelines, mainly Sarek, and is a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
   {
+    name: "Maxime Laurent",
+    img: "maxlaurent.jpeg",
+    country: "gb",
+    github: "max-laurent",
+    linkedin: "maximelrt",
+    children:
+      'Maxime is a Senior Scientist at <a href="https://fullcirclelabs.bio/" target="_blank" >Full Circle Labs</a >, he uses Nextflow to develop in-house bioinformatics pipelines to assemble plasmids and genomes following nf-core standards.',
+  },
+  {
     name: "Michael Heuer",
     img: "michael_heuer.png",
     country: "us",
@@ -900,7 +919,15 @@ const ambassadors: Ambassador[] = [
     children:
       'Riley is a Bioinformatician at <a href="https://mdibl.org/" target="_blank" >MDIBL</a >. He has helped develop pipelines for his institutions in-house use and is an active member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a> community.',
   },
-
+  {
+    name: "Rita Nemeth",
+    img: "ritanemeth.jpg",
+    country: "hu",
+    github: "Nerita21",
+    linkedin: "rita-n-471578294",
+    children:
+      'Rita is an emerging Bioinformatics Developer and Imaging Scientist with an MSc degree from Hungary. Her work includes mirna target research and image acquisition-analysis.',
+  },
   {
     name: "Saba Nafees",
     img: "saba.jpeg",
