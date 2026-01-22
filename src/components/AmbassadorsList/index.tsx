@@ -578,7 +578,7 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Kinley Tenzin",
-    img: "kinleytenzin.jpg",
+    img: "kinley.jpg",
     country: "bt",
     github: "tkinley",
     title: "Nextflow Ambassador",
