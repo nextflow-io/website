@@ -3,7 +3,9 @@ import { defineConfig } from "astro/config";
 import remarkDescription from "astro-remark-description";
 import remarkDirective from "remark-directive";
 import sitemap from "@astrojs/sitemap";
-import { transformerNotationDiff, transformerNotationFocus, transformerMetaHighlight } from "@shikijs/transformers";
+import expressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 
@@ -12,12 +14,6 @@ export default defineConfig({
   site: "https://nextflow.io/",
   outDir: "./output",
   markdown: {
-    shikiConfig: {
-      // Choose from Shiki's built-in themes (or add your own)
-      // https://shiki.style/themes
-      theme: "light-plus",
-      transformers: [transformerNotationDiff(), transformerNotationFocus(), transformerMetaHighlight()],
-    },
     remarkPlugins: [
       remarkDirective,
       admonitionsPlugin,
@@ -52,6 +48,8 @@ export default defineConfig({
     ],
   },
   integrations: [
+    expressiveCode(),
+    mdx(),
     react(),
     tailwind(),
     sitemap({

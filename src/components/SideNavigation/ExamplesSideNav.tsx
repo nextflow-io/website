@@ -7,13 +7,11 @@ const ExamplesSideNav = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
-      const filename = path.split('/').pop();
-      
-      if (filename) {
-        const match = filename.match(/example(\d+)/);
-        if (match && match[1]) {
-          setActiveId(`example${match[1]}`);
-        }
+
+      // Extract pipeline name from /examples/pipeline-name/ format
+      const match = path.match(/\/examples\/([^\/]+)\/?$/);
+      if (match && match[1]) {
+        setActiveId(match[1]);
       }
     }
   }, []);
@@ -22,27 +20,27 @@ const ExamplesSideNav = () => {
     {
       id: 'basic-pipeline',
       title: 'Basic pipeline',
-      href: 'basic-pipeline.html'
+      href: '/examples/basic-pipeline'
     },
     {
       id: 'mixing-scripting-languages',
       title: 'Mixing scripting languages',
-      href: 'mixing-scripting-languages.html'
+      href: '/examples/mixing-scripting-languages'
     },
     {
       id: 'blast-pipeline',
       title: 'BLAST pipeline',
-      href: 'blast-pipeline.html'
+      href: '/examples/blast-pipeline'
     },
     {
       id: 'rna-seq-pipeline',
       title: 'RNA-Seq pipeline',
-      href: 'rna-seq-pipeline.html'
+      href: '/examples/rna-seq-pipeline'
     },
     {
       id: 'machine-learning-pipeline',
       title: 'Machine Learning pipeline',
-      href: 'machine-learning-pipeline.html'
+      href: '/examples/machine-learning-pipeline'
     }
   ];
 
