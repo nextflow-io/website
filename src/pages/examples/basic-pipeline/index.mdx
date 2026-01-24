@@ -1,0 +1,43 @@
+---
+title: Basic pipeline
+layout: "@layouts/ExampleLayout.astro"
+---
+
+import { Code } from "astro-expressive-code/components";
+import pipelineCode from "./_main.nf?raw";
+import terminalOutput from "./_nextflow_run_output.log?raw";
+
+<h2>Basic pipeline</h2>
+
+<p class="">
+  This example shows how to write a pipeline with two simple Bash processes, so that the results
+  produced by the first process are consumed by the second process.
+</p>
+
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "3", label: "1. Pipeline Parameters - Make workflows configurable" },
+    { range: "6", label: "2. Process Definition - Define computational steps" },
+    { range: "20", label: "3. Parallel Process - Each split runs independently" },
+    { range: "36", label: "4. Data Input - Pass parameters to first process" },
+    { range: "38", label: "5. Dataflow Pipeline - Connect processes with pipes" },
+  ]}
+/>
+
+### Key Concepts
+
+This example demonstrates fundamental Nextflow concepts:
+
+- **Pipeline Parameters**: Use `params.in` to make your pipeline configurable from the command line
+- **Process Definition**: Define computational steps as isolated, reusable processes
+- **Parallel Processing**: Each split file is processed independently and automatically in parallel
+- **Data Input**: Pass data into workflows using parameter references
+- **Dataflow Programming**: Connect processes using the pipe (`|`) operator for seamless data flow
+
+<Code lang="ansi" title="Running the Example" frame="terminal" code={terminalOutput} />
+
+The pipeline will split your FASTA file into individual sequences, reverse each one, and print the results.

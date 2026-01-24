@@ -192,27 +192,27 @@ const Menu = ({}) => {
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
-                  <a href="/basic-pipeline.html" tabIndex={0}>
+                  <a href="/examples/basic-pipeline" tabIndex={0}>
                     Basic pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/mixing-scripting-languages.html" tabIndex={0}>
+                  <a href="/examples/mixing-scripting-languages" tabIndex={0}>
                     Mixing scripting languages
                   </a>
                 </li>
                 <li>
-                  <a href="/blast-pipeline.html" tabIndex={0}>
+                  <a href="/examples/blast-pipeline" tabIndex={0}>
                     BLAST pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/rna-seq-pipeline.html" tabIndex={0}>
+                  <a href="/examples/rna-seq-pipeline" tabIndex={0}>
                     RNA-Seq pipeline
                   </a>
                 </li>
                 <li>
-                  <a href="/machine-learning-pipeline.html" tabIndex={0}>
+                  <a href="/examples/machine-learning-pipeline" tabIndex={0}>
                     Machine Learning pipeline
                   </a>
                 </li>
