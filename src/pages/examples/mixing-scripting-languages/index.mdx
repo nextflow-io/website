@@ -1,0 +1,28 @@
+---
+title: Multiple inputs
+layout: "@layouts/ExampleLayout.astro"
+---
+
+import { Code } from "astro-expressive-code/components";
+import pipelineCode from "./_main.nf?raw";
+
+<div class="blg-summary example">
+<h2>Mixing scripting languages</h2>
+
+<p class="">
+  With Nextflow, you are not limited to Bash scripts -- you can use any scripting language! In other words, for each{" "}
+  <i>process</i> you can use the language that best fits the specific task or that you simply prefer.
+</p>
+
+<Code code={pipelineCode} lang="nextflow" />
+
+</div>
+
+### Synopsis
+
+In the above example we define a simple pipeline with two processes.
+
+The first process executes a Perl script, because the script block definition starts
+with a Perl _shebang_ declaration (line 14). Since Perl uses the `$` character for variables, we use the special `shell` block instead of the normal `script` block to easily distinguish the Perl variables from the Nextflow variables.
+
+In the same way, the second process will execute a Python script, because the script block starts with a Python shebang (line 36).
