@@ -349,7 +349,7 @@ const ambassadors: Ambassador[] = [
     github: "georgiakes",
     linkedin: "geokesisoglou",
     children:
-      'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.', 
+      'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.',
   },
   {
     name: "Georgie Samaha",
@@ -537,7 +537,6 @@ const ambassadors: Ambassador[] = [
     children:
       'João is a MSc student affiliated with the <a href="https://dalmolingroup.imd.ufrn.br/" target="_blank" >Dalmolin Systems Biology Group</a >, at the Bioinformatics Multidisciplinary Environment in Natal, Brazil. His interests are in metagenomics, neurogenetics and scientific software development.',
   },
-
   {
     name: "Julia Apolonio de Amorim",
     img: "juliaapolonio.jpeg",
@@ -572,7 +571,7 @@ const ambassadors: Ambassador[] = [
     img: "kimhuyvo.png",
     country: "vn",
     github: "vkhuy",
-    linkedin: "kimhuyvo", 
+    linkedin: "kimhuyvo",
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
   },
@@ -585,7 +584,7 @@ const ambassadors: Ambassador[] = [
     children:
     "Kinley Tenzin is a PhD student at Kansas State University working in microbial bioinformatics, with interests in genome assembly, mobile genetic elements, and scalable workflow development with Nextflow.",
   },
-  
+
   {
     name: "Kobe Lavaerts",
     img: "kobelavaerts.png",
@@ -986,6 +985,15 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Shaurya Jauhari is a multidisciplinary research and development professional, bridging the gap between computational biology and cybersecurity, currently moderating Red Teaming and Responsible AI security initiatives at <a href = "https://www.infosys.com" > Infosys</a>.'
+  },
+  {
+    name: "Shivangi Verma",
+    img: "shivangi.jpg",
+    country: "gb",
+    github: "shivangi-7",
+    linkedin: "shivangi-verma-07",
+    children:
+      "Shivangi is a bioinformatics pipeline developer at NeoGenomics Laboratories, working on clinical and research pipelines in cancer genomics.",
   },
   {
     name: "Shiyi Yin",
