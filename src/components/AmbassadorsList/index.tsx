@@ -989,7 +989,7 @@ const ambassadors: Ambassador[] = [
   {
     name: "Shivangi Verma",
     img: "shivangi.jpg",
-    country: "uk",
+    country: "gb",
     github: "shivangi-7",
     linkedin: "shivangi-verma-07",
     children:
