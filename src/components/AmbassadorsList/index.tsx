@@ -537,7 +537,6 @@ const ambassadors: Ambassador[] = [
     children:
       'João is a MSc student affiliated with the <a href="https://dalmolingroup.imd.ufrn.br/" target="_blank" >Dalmolin Systems Biology Group</a >, at the Bioinformatics Multidisciplinary Environment in Natal, Brazil. His interests are in metagenomics, neurogenetics and scientific software development.',
   },
-
   {
     name: "Julia Apolonio de Amorim",
     img: "juliaapolonio.jpeg",
@@ -994,7 +993,7 @@ const ambassadors: Ambassador[] = [
     github: "shivangi-7",
     linkedin: "shivangi-verma-07",
     children:
-      "Shivangi is a bioinformatician at NeoGenomics Laboratories, working on clinical and research pipelines in cancer genomics.",
+      "Shivangi is a bioinformatics pipeline developer at NeoGenomics Laboratories, working on clinical and research pipelines in cancer genomics.",
   },
   {
     name: "Shiyi Yin",
