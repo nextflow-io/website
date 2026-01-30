@@ -87,6 +87,7 @@ const ambassadors: Ambassador[] = [
     github: "Iamamofa",
     linkedin: "justice-ohene-amofa-349b44173",
     twitter: "I_am_amofa",
+    title: "Nextflow Ambassador",
     children:
       'Justice is a Bioinformatician and a ML/AI engineer at the <a href="https://noguchi.ug.edu.gh" target="_blank" >Noguchi Memorial Institute For Medical Research</a >. He is currently on the <a href="https://pangens.org" target="_blank" >PANGenS Project.</a>',
   },
@@ -95,6 +96,7 @@ const ambassadors: Ambassador[] = [
     img: "Amrei.png",
     country: "se",
     github: "amrei-bp",
+    title: "Nextflow Ambassador",
     children:
       'Amrei is a Bioinformatician at the <a href="https://www.slubi.se" target="_blank" >Bioinformatics Infrastructure</a > of the <a href="https://www.slu.se/" target="_blank" >Swedish University for Agricultural Sciences</a >, where she supports researchers and teaches reproducible bioinformatics, including Nextflow.',
   },
@@ -104,6 +106,7 @@ const ambassadors: Ambassador[] = [
     country: "ar",
     github: "atrigila",
     linkedin: "anabellat",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Andre Fonseca",
@@ -111,6 +114,7 @@ const ambassadors: Ambassador[] = [
     country: "br",
     github: "oandrefonseca",
     linkedin: "oandrefonseca",
+    title: "Nextflow Ambassador",
     children:
       "Andre is a Bioinformatician Scientist with solid expertise in cancer biology, tumor immunology, and machine learning applications. He has worked in multiple institutions, including the prestigious MD Anderson Cancer Center.",
   },
@@ -120,6 +124,7 @@ const ambassadors: Ambassador[] = [
     country: "ch",
     github: "antoine-buetti",
     linkedin: "antoine-buetti-dinh",
+    title: "Nextflow Ambassador",
     children:
       "Antoine is a bioinformatician with experience spanning human genetics, cancer biology, and microbial ecology. He loves tackling biological questions through math and computational modeling.",
   },
@@ -130,6 +135,7 @@ const ambassadors: Ambassador[] = [
     country: "au",
     github: "awgymer",
     linkedin: "awgymer",
+    title: "Nextflow Ambassador",
     children:
       'Arthur is a bioinformatics developer with experience developing high-throughput pipelines for long read cancer data. He is also an active <a href="https://nf-co.re/" target="_blank" >nf-core</a> member.',
   },
@@ -139,6 +145,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "ashdederich",
     linkedin: "ashley-dederich-bioinformatician",
+    title: "Nextflow Ambassador",
     children:
       'Ashley is a Scientific Consultant at the <a href="https://chpc.utah.edu/" target="_blank">CHPC.</a> She has developed image analysis and genomic assembly pipelines and now uses her expertise to consult researchers on their scientific computing requirements.',
   },
@@ -149,6 +156,7 @@ const ambassadors: Ambassador[] = [
     github: "buluthamali",
     linkedin: "bulut-hamali",
     twitter: "BioinfUniverse",
+    title: "Nextflow Ambassador",
     children:
       'Bulut Hamali is a Bioinformatician at the <a href="https://med.uc.edu/depart/cancer-biology/" target="_blank" >UC Cincinnati</a >, studying HER2-positive breast cancer mechanisms. He holds a PhD from the Medical University of Vienna.',
   },
@@ -159,6 +167,7 @@ const ambassadors: Ambassador[] = [
     github: "chlazaris",
     linkedin: "chlazaris",
     twitter: "chlazaris",
+    title: "Nextflow Ambassador",
     children:
       'Charalampos is a Senior Data Scientist in Oncology at Novartis Biomedical Research in Cambridge, MA. He earned his PhD from <a href="https://www.nyu.edu/">NYU.</a> He specializes in gene dysregulation in cancer and how to exploit it therapeutically.',
   },
@@ -169,6 +178,7 @@ const ambassadors: Ambassador[] = [
     github: "chaochaowong",
     linkedin: "chao-jen-wong",
     twitter: "",
+    title: "Nextflow Ambassador",
     children:
       'Chao-Jen is a bioinformatician at <a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">Seattle Children’s Research Institute</a> in Seattle, WA. She has contributed to multiple open-source projects, including Bioconductor and nf-core. She earned her Ph.D. in Mathematics from <a href="https://www.cgu.edu" target="_blank">Claremont Graduate University</a>.',
   },
@@ -179,6 +189,7 @@ const ambassadors: Ambassador[] = [
     github: "godkin1211",
     twitter: "ChiachunChiu",
     linkedin: "michael-nostalgie-57630a61",
+    title: "Nextflow Ambassador",
     children:
       'Chiachun is a bioinformatician at the <a href="http://sub.chimei.org.tw/55480/index.php/english/english03/13-english" target="_blank" > Center for Precision Medicine of Chi Mei Medical Center</a >. He\'s also the community organizer of <a href="https://www.facebook.com/groups/446434039038963" target="_blank" >Taipei Bioinformatics Omnibus</a >.',
   },
@@ -189,6 +200,7 @@ const ambassadors: Ambassador[] = [
     github: "igiraclement",
     linkedin: "igiraneza-clement-56441897",
     twitter: "IGIRANEZACLEME1",
+    title: "Nextflow Ambassador",
     children:
       "Clement Igiraneza is a molecular biologist with expertise in infectious disease genomics, and bioinformatics data analysis. He has worked at the Rwanda Biomedical Center in the Molecular and Genomic Unit and focuses on genomic surveillance, sequencing technologies, diagnostic innovation, and capacity building for malaria drug-resistance monitoring.",
       },
@@ -199,6 +211,7 @@ const ambassadors: Ambassador[] = [
     github: "ctuni",
     linkedin: "cristina-tuñí-i-domínguez-75a053145",
     twitter: "c_tunyi",
+    title: "Nextflow Ambassador",
     children:
       '<a href="https://ctuni.dev" target="_blank">Cris</a> is a bioinformatics scientist and Ph.D. candidate at <a href="https://www.flomics.com/" target="_blank" >Flomics Biotech S.L.</a > They develop Nextflow RNA-Seq analysis pipelines to advance the field of early cancer diagnostics.',
   },
@@ -209,6 +222,7 @@ const ambassadors: Ambassador[] = [
     github: "Mxrcon",
     linkedin: "davi-marcon-2088a722b",
     twitter: "mxrcon_",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Evangelos Karatzas",
@@ -216,6 +230,7 @@ const ambassadors: Ambassador[] = [
     country: "gr",
     github: "vagkaratzas",
     linkedin: "vagkaratzas",
+    title: "Nextflow Ambassador",
     children:
       'Evangelos is a Research Fellow in <a href="https://www.ebi.ac.uk/" target="_blank" >EMBL-EBI</a >. He is currently developing Nextflow/nf-core pipelines to generate and annotate metagenomics derived protein families.',
   },
@@ -225,6 +240,7 @@ const ambassadors: Ambassador[] = [
     country: "id",
     github: "fadindashafira",
     linkedin: "fadindashafira",
+    title: "Nextflow Ambassador",
     children:
       'Fadinda is an AI Engineer in Bioinformatics at <a href="https://www.kalbe.co.id" target="_blank" >Kalbe Farma</a >. She is part of Kalbe Digital Lab, focusing on digital biology. She promotes bioinformatics by developing courses for <a href="https://kdu.kalbe.co.id" target="_blank" >Kalbe Digital University</a >.',
   },
@@ -235,6 +251,7 @@ const ambassadors: Ambassador[] = [
     github: "fmalmeida",
     linkedin: "almeida-fm",
     twitter: "fmarquesalmeida",
+    title: "Nextflow Ambassador",
     children:
       'Felipe is a bioinformatician at <a href="https://www.zs.com/careers/where-we-work/europe/copenhagen" target="_blank" >ZS</a >. He is involved in projects related to pipelines, promoting and facilitating the use of Nextflow with guidance and trainings, when fit. Also an active <a href="https://nf-co.re/" target="_blank" >nf-core</a> member.',
   },
@@ -245,6 +262,7 @@ const ambassadors: Ambassador[] = [
     github: "Zemzemfiras1",
     linkedin: "firaszemzem",
     twitter: "ZemzemFiras",
+    title: "Nextflow Ambassador",
     children:
       "Firas is PhD student at the laboratory of Cytogenetics, Molecular Genetics, and Reproductive Biology at CHU Farhat Hached Sousse, focuses on unraveling the genetic mechanisms responsible for genetic disorders.",
   },
@@ -255,6 +273,7 @@ const ambassadors: Ambassador[] = [
     country: "de",
     github: "heylf",
     linkedin: "florian-heyl",
+    title: "Nextflow Ambassador",
     children:
       "Florian Heyl is a Bioinformatician at DKFZ, Germany. He is bridging between nf-core, GHGA, Galaxy, and the single cell community. He holds a PhD in Bioinformatics from Freiburg University, Germany.",
   },
@@ -265,6 +284,7 @@ const ambassadors: Ambassador[] = [
     github: "lescai",
     linkedin: "francescolescai",
     twitter: "tokybo",
+    title: "Nextflow Ambassador",
     children:
       'Francesco Lescai leads the <a href="https://lescailab.unipv.it" target="_blank" >Computational Genomics Lab</a > at the <a href="https://dbb.dip.unipv.it/en" target="_blank" >University of Pavia</a >. He teaches bioinformatics and he\'s a developer of <a href="https://nf-co.re" target="_blank" >nf-core</a> pipelines.',
   },
@@ -274,6 +294,7 @@ const ambassadors: Ambassador[] = [
     country: "ar",
     github: "garciafranciscomartn",
     linkedin: "garciafranciscomartin",
+    title: "Nextflow Ambassador",
     children:
       'Francisco Martin Garcia is a Bioinformatician at <a href="https://www.garrahan.gov.ar/" target="_blank" >Garrahan Paediatric Hospital</a >, working on genomic variants, structural bioinformatics, and multi-omics approaches. He promotes the adoption of Nextflow in clinical and research settings.',
   },
@@ -284,6 +305,7 @@ const ambassadors: Ambassador[] = [
     github: "Franzx7",
     linkedin: "franz-arnold-ake-3a657b11b",
     twitter: "franz_ake",
+    title: "Nextflow Ambassador",
     children:
       'Franz AKE is a Bioinformatician specializing in single-cell transcriptomics. He completed his PhD in Bioinformatics at <a href="https://p-cmrc.cat/research/plass-group/" target="_blank" > IDIBELL Institute</a >. He advocates for workflow automation and the integration of Nextflow in omics studies.',
   },
@@ -293,6 +315,7 @@ const ambassadors: Ambassador[] = [
     country: "es",
     github: "georgiakes",
     linkedin: "geokesisoglou",
+    title: "Nextflow Ambassador",
     children:
       'Georgia is a Bioinformatics Pipeline Developer at <a href="https://www.cnag.eu/" target="_blank" >CNAG</a > for the <a href="https://www.cnag.eu/teams/bioinformatics-unit/variant-calling-and-analysis" target="_blank" >Variant Calling and Analysis Team</a >. She specializes in developing and implementing scalable pipelines for clinical genomics.',
   },
@@ -302,6 +325,7 @@ const ambassadors: Ambassador[] = [
     country: "au",
     github: "georgiesamaha",
     linkedin: "georgie-samaha-95095b230",
+    title: "Nextflow Ambassador",
     children:
       'Georgie leads the bioinformatics group at the <a href="https://www.sydney.edu.au/research/facilities/sydney-informatics-hub.html" target="_blank" >Sydney Informatics Hub</a >, University of Sydney. She is working toward making bioinformatics more accessible by developing public digital infrastructure with the <a href="https://www.biocommons.org.au/" target="_blank" >Australian BioCommons</a >.',
   },
@@ -311,6 +335,7 @@ const ambassadors: Ambassador[] = [
     country: "ar",
     github: "gpattarone",
     linkedin: "giselapattarone",
+    title: "Nextflow Ambassador",
     children:
       'Gisela is a Bioinformatician at <a href="http://www.cnea.gov.ar/" target="_blank" >CNEA</a >, where she designs and executes a meta-analysis project focused on gene expression profiles to identify diagnostic and therapeutic biomarkers in pediatric gliomas.',
   },
@@ -321,6 +346,7 @@ const ambassadors: Ambassador[] = [
     github: "ggrimes",
     linkedin: "graeme-grimes-a753743a",
     twitter: "bioggrimes",
+    title: "Nextflow Ambassador",
     children:
       'Graeme is a Bioinformatician at the <a href="https://www.ed.ac.uk/institute-genetics-cancer" target="_blank" >Institute of Genetics & Cancer</a > at the <a href="https://www.ed.ac.uk" target="_blank" >Univeristy of Edinburgh</a> in Scotland, he is also the lesson maintainer of the Carpentries <a href="https://carpentries-incubator.github.io/workflows-nextflow/" target="_blank" >Introduction to Bioinformatics workflows with Nextflow and nf-core</a >.',
   },
@@ -331,6 +357,7 @@ const ambassadors: Ambassador[] = [
     github: "Passarelli-bio",
     linkedin: "hemanoel-passarelli",
     twitter: "he_passarelli",
+    title: "Nextflow Ambassador",
     children:
       'Hemanoel is Bioinformatics Engineer at <a href="https://gen-t.science/" target="_blank" >Gen-t</a >, where he develops Nextflow pipelines to analyze human genetics data, enhancing Precision Medicine efforts in Brazil.',
   },
@@ -341,6 +368,7 @@ const ambassadors: Ambassador[] = [
     github: "hothman",
     linkedin: "houcemeddine-othman-5502b541",
     twitter: "Houcemeddi61361",
+    title: "Nextflow Ambassador",
     children:
       "Houcemeddine Othman is an Assistant Professor of Bioinformatics from Tunisia, working on the development of workflows for clinical genomics.",
   },
@@ -351,6 +379,7 @@ const ambassadors: Ambassador[] = [
     github: "hyunhwan-bcm",
     linkedin: "hyunhwan-jeong",
     twitter: "hyunhwan_jeong",
+    title: "Nextflow Ambassador",
     children:
       'Hyun-Hwan Jeong is an Assistant Professor of Pediatrics at Baylor College of Medicine. He is also an open-source contributor to multiple projects, including <a href="https://github.com/hyunhwan-jeong/CB2" target="_blank" >CB<sup>2</sup></a> and <a href="https://github.com/LiuzLab/AI_MARRVEL" target="_blank" >AI-MARRVEL</a >.',
   },
@@ -361,6 +390,7 @@ const ambassadors: Ambassador[] = [
     github: "iraiosub",
     linkedin: "ira-iosub-618254276",
     twitter: "IraIosub",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Isha Parikh",
@@ -368,6 +398,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "isha2106",
     linkedin: "isha2106",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Jacques Dainat",
@@ -377,6 +408,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "jacques-dainat-02257376",
     mastodon: "https://genomic.social/@jacquesdainat",
     bluesky: "https://bsky.app/profile/jacquesdainat.bsky.social",
+    title: "Nextflow Ambassador",
     children:
       'Currently Bioinformatician at <a href="https://en.ird.fr" target="_blank" > IRD </a> and part of the <a href="https://bioinfo.ird.fr" target="_blank" > i-Trop platform</a >, Jacques enjoys simplifying complex analyses through automation, minimizing technical barriers and enabling biologists to make the most of the power of bioinformatics.',
   },
@@ -387,6 +419,7 @@ const ambassadors: Ambassador[] = [
     github: "jfy133",
     linkedin: "james-fellows-yates-999859179",
     twitter: "jfy133",
+    title: "Nextflow Ambassador",
     children:
       'James has a PhD in Bioinformatics from <a href="https://www.uni-jena.de" target="_blank" >FSU Jena</a> and <a href="https://www.eva.mpg.de" target="_blank" >MPI-EVA</a >. He is currently a PostDoc at <a href="https://www.leibniz-hki.de/en/" target="_blank" >Leibniz-HKI</a >, working in metagenomics with a specialism in ancient DNA. He is also a <a href="https://nf-co.re/governance#core-team" target="_blank" >core team</a > member of <a href="https://nf-co.re/" target="_blank" >nf-core</a> <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
@@ -397,6 +430,7 @@ const ambassadors: Ambassador[] = [
     github: "jeffe107",
     linkedin: "jeferyd-yepes-garcía",
     twitter: "JeferydY",
+    title: "Nextflow Ambassador",
     children:
       '<a href="https://www.jeferydyepes.com" target="_blank" >Jeferyd</a > is currently a PhDc in bioinformatics at the University of Fribourg and SIB. He is the developer of <a href="https://f1000research.com/articles/13-640" target="_blank" >MAGFlow/BigMAG</a >, a Nextflow-based tool to compare metagenomics pipelines.',
   },
@@ -406,6 +440,7 @@ const ambassadors: Ambassador[] = [
     country: "kr",
     github: "jhlee0637",
     linkedin: "jehee-lee-202002",
+    title: "Nextflow Ambassador",
     children:
       "Jehee is a bioinformatician from Seoul, South Korea. He aims to become an expert in harmonizing AI, BI, and Cloud technologies to accelerate biological research.",
   },
@@ -415,6 +450,7 @@ const ambassadors: Ambassador[] = [
     country: "rs",
     github: "JelPej",
     linkedin: "jelena-pejovic-simeunovic-ph-d-bb300468",
+    title: "Nextflow Ambassador",
     children:
       "Jelena is an Advanced Bioinformatics Engineer at Loka, where she builds bioinformatics workflows and ensures seamless integration and optimal performance using Nextflow. She holds a PhD in Nano Biotechnology.",
   },
@@ -424,6 +460,7 @@ const ambassadors: Ambassador[] = [
     country: "nz",
     github: "jen-reeve",
     linkedin: "jennifer-reeve-microbio",
+    title: "Nextflow Ambassador",
     children:
       "Jen is a Software Developer with NetValue Ltd in Hamilton, New Zealand. Her current work uses Nextflow in biomedical contexts, but her scientific background spans microbiology, biochemistry and geochemistry.",
   },
@@ -433,6 +470,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "tracelail",
     linkedin: "tracelail",
+    title: "Nextflow Ambassador",
     children:
       "Trace is a graduate student in the Master of Bioinformatics program at Northeastern University. He brings industry experience in gene therapy and cell culture, with interests in conservation and environmental biotechnology applications.",
   },
@@ -443,6 +481,7 @@ const ambassadors: Ambassador[] = [
     github: "johnvusich",
     linkedin: "vusich",
     twitter: "johnvusich",
+    title: "Nextflow Ambassador",
     children:
       "John is a PhD candidate in the Andrechek Lab at Michigan State University. His research focuses on integrating multi-omics to characterize the genomic and epigenomic landscape of breast cancer.",
   },
@@ -452,6 +491,7 @@ const ambassadors: Ambassador[] = [
     country: "es",
     github: "JoseEspinosa",
     linkedin: "jose-espinosa-carrasco",
+    title: "Nextflow Ambassador",
     children:
       'Jose is a Bioinformatician at the CBCRG group at the <a href="https://www.crg.eu" target="_blank" >CRG</a >, the laboratory where Nextflow was born. As an early adopter of Nextflow, he is also a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
@@ -461,6 +501,7 @@ const ambassadors: Ambassador[] = [
     country: "es",
     github: "JGawra",
     linkedin: "janangawra",
+    title: "Nextflow Ambassador",
     children:
       'Dr. Janan Gawra is a postdoctoral researcher at the <a href="https://www.idaea.csic.es/person/janan-gawra/" target="_blank" >IDAEA-CSIC</a >. He is part of the <a href="https://epiboost.web.ua.pt/?page_id=6445" target="_blank" >EPIBOOST</a> project, studying the epigenetic and gene expression changes in zebrafish and seabass in response to environmental pollutants.',
   },
@@ -470,6 +511,7 @@ const ambassadors: Ambassador[] = [
     country: "br",
     github: "jvfe",
     linkedin: "joao-vitor-cavalcante",
+    title: "Nextflow Ambassador",
     children:
       'João is a MSc student affiliated with the <a href="https://dalmolingroup.imd.ufrn.br/" target="_blank" >Dalmolin Systems Biology Group</a >, at the Bioinformatics Multidisciplinary Environment in Natal, Brazil. His interests are in metagenomics, neurogenetics and scientific software development.',
   },
@@ -479,6 +521,7 @@ const ambassadors: Ambassador[] = [
     country: "br",
     github: "juliaapolonio",
     linkedin: "juliaapolonio",
+    title: "Nextflow Ambassador",
     children:
       'Julia is a MSc student at the <a href="https://www.ufrn.br/en" target="_blank" >Rio Grande do Norte Federal University</a > in Natal, Brazil. She is interested in GWAS and post-GWAS analyses, functional genomics and genetics of psychiatric and neurodegenerative diseases.',
   },
@@ -489,6 +532,7 @@ const ambassadors: Ambassador[] = [
     github: "mirpedrol",
     linkedin: "juliamirpedrol",
     twitter: "juliamirpedrol",
+    title: "Nextflow Ambassador",
     children:
       'Júlia is a bioinformatician at the Computational Biology and Health Genomics group from the CRG. She is also an nf-core tools developer and a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
@@ -499,6 +543,7 @@ const ambassadors: Ambassador[] = [
     country: "za",
     github: "Kimmiecc19",
     linkedin: "kimberly-christine-coetzer-hugo-a02049151",
+    title: "Nextflow Ambassador",
     children:
       "Kimberly is a PhD candidate in Bioinformatics and Computational Biology at Stellenbosch University, South Africa. She has experience in clinical proteomics and human genetics, specifically in the field of rare diseases.",
   },
@@ -508,6 +553,7 @@ const ambassadors: Ambassador[] = [
     country: "vn",
     github: "vkhuy",
     linkedin: "kimhuyvo",
+    title: "Nextflow Ambassador",
     children:
       'Kim Huy is a bioinformatician at <a href="https://www.ktest.vn/" target="_blank">KTest Science Co. Ltd</a>, with hands-on experience in developing robust analysis pipelines for both long-read and short-read sequencing data.',
   },
@@ -527,6 +573,7 @@ const ambassadors: Ambassador[] = [
     country: "be",
     github: "kobelavaerts",
     linkedin: "kobe-lavaerts-170489191",
+    title: "Nextflow Ambassador",
     children:
       'Kobe Lavaerts is a staff bioinformatician at the genomics core facility <a href="https://nucleomicscore.sites.vib.be/en" target="_blank" >Nucleomics Core</a > in <a href="https://vib.be/en" target="_blank" >VIB</a >, Belgium. He develops and maintains the Nextflow pipelines used in the core facility. He also teaches the <a href="https://github.com/vib-tcp/nextflow-workshop" target="_blank" >VIB Nextflow training</a > twice a year.',
   },
@@ -536,6 +583,7 @@ const ambassadors: Ambassador[] = [
     country: "au",
     linkedin: "kristina-gagalova",
     github: "KristinaGagalova",
+    title: "Nextflow Ambassador",
     children:
       'Kristina is a Bioinformatics Scientist at the <a href="https://www.curtin.edu.au/" target="_blank" >Curtin University</a >/<a href="https://www.ccdm.com.au" target="_blank" >Centre for Crop and Disease Management</a >. She develops innovative algorithms and pipelines for pangenomics & structural bioinformatics, advancing crop disease research.',
   },
@@ -547,6 +595,7 @@ const ambassadors: Ambassador[] = [
     mastodon: "https://www.ghga.de/about-us/team-members/narci-kuebra",
     linkedin: "kubranarci",
     twitter: "kubranarci",
+    title: "Nextflow Ambassador",
     children:
       "Kübra Narcı is a bioinformatician at DKFZ, Germany. She is bridging between nf-core and GHGA. She holds a PhD in Bioinformatics from METU, Turkey.",
   },
@@ -557,6 +606,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "lianov",
     linkedin: "lara-ianov",
+    title: "Nextflow Ambassador",
     children:
       'Lara Ianov is the Co-Director of the <a href="https://www.uab.edu/cores/ircp/bds">UAB Biological Data Science Core</a >. She directs the development of transcriptomics pipelines including the nf-core/scnanoseq pipeline.',
   },
@@ -566,6 +616,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "lynnlangit",
     linkedin: "lynnlangit",
+    title: "Nextflow Ambassador",
     children:
       'Lynn is an independent cloud AI architect building tools for bioinformatics teams world-wide. She is also part of <a href="https://dimi-lab.github.io/team/" target="_blank" >DIMI Lab</a >.',
   },
@@ -575,6 +626,7 @@ const ambassadors: Ambassador[] = [
     country: "fr",
     github: "louislenezet",
     linkedin: "louis-le-nezet",
+    title: "Nextflow Ambassador",
     children:
       'Louis is a PhD student in bioinformatics at the <a href="https://igdr.univ-rennes.fr/en" target="_blank" >IGDR</a >. His research focuses on developing and applying computational methods to study the genetics basis of the canine hip dysplasia.',
   },
@@ -585,6 +637,7 @@ const ambassadors: Ambassador[] = [
     github: "lucacozzuto",
     linkedin: "cozzuto",
     twitter: "lucacozzuto",
+    title: "Nextflow Ambassador",
     children:
       'Luca is a Senior Bioinformatician at <a href="https://biocore.crg.eu/" target="_blank" > the Bioinformatics technology platform </a> of <a href="https://www.crg.eu/" target="_blank" > the Centre for Genomic Regulation.</a > He has a PhD in Molecular Medicine from <a href="https://www.semm.it/" target="_blank" > The European School of Molecular Medicine.</a>',
   },
@@ -596,6 +649,7 @@ const ambassadors: Ambassador[] = [
     mastodon: "https://genomic.social/@mbp",
     linkedin: "mahesh-binzer-panchal-79a726a2",
     twitter: "arcane_mahesh",
+    title: "Nextflow Ambassador",
     children:
       'Mahesh is a bioinformatician for <a href="https://www.nbis.se/" target="_blank" >NBIS</a >, <a href="https://www.scilifelab.se/" target="_blank" >SciLifeLab</a >, the Swedish node of <a href="https://elixir-europe.org/" target="_blank" >Elixir</a >. He supports research groups, performing de novo genome assembly, or workflow development. He is also an nf-core maintainer.',
   },
@@ -606,6 +660,7 @@ const ambassadors: Ambassador[] = [
     github: "mohe1linux",
     linkedin: "mahima-sanjay-gomladu-ms-a52867176",
     twitter: "GomladuMahima",
+    title: "Nextflow Ambassador",
     children:
       '<a href="https://www4.uib.no/en/find-employees/Mahima.Sanjay.Gomladu%2C.MS" target="_blank" >Mahima Sanjay Gomladu</a >, is a Senior Bioinformatics Engineer at the <a href="https://www.uib.no/en/clin2/genomics" target="_blank" >Genomics Core Facility</a >, University of Bergen, Norway. She designs modular, scalable pipelines using Nextflow to drive large-scale sequencing analyses (WES, WGS, RNA-seq, single-cell, spatial omics). As an ELIXIR collaborator, she promotes reproducible sciencand FAIR data principles.',
   },
@@ -615,6 +670,7 @@ const ambassadors: Ambassador[] = [
     country: "it",
     github: "daisymut",
     linkedin: "margherita-mutarelli",
+    title: "Nextflow Ambassador",
     children:
       'Margherita is a researcher at the <a href="https://www.isasi.cnr.it/" target="_blank" > Institute of Applied Sciences and Intelligent Systems (CNR-ISASI)</a > with a Ph.D. in Computational Biology and long term experience in NGS analysis. Happy member of nf-core.',
   },
@@ -624,6 +680,7 @@ const ambassadors: Ambassador[] = [
     country: "de",
     github: "MarieLataretu",
     linkedin: "marie-lataretu-b55103218",
+    title: "Nextflow Ambassador",
     children:
       'Marie is a bioinformatician at the <a href="https://www.rki.de/EN/Home/homepage_node.html" target="_blank" >Robert Koch Institute</a >. She mainly develops pipelines for NGS data and viroinformatics.',
   },
@@ -634,6 +691,7 @@ const ambassadors: Ambassador[] = [
     twitter: "_martinbc",
     github: "mberacochea",
     linkedin: "martin-beracochea-87802b44",
+    title: "Nextflow Ambassador",
     children:
       'Martin is the Production lead of <a href="https://www.ebi.ac.uk/metagenomics/" target="_blank" >MGnify</a> at <a href="https://www.ebi.ac.uk/" target="_blank" >EMBL-EBI</a >. He oversees the development and maintenance of web services and bioinformatics pipelines.',
   },
@@ -643,6 +701,7 @@ const ambassadors: Ambassador[] = [
     country: "br",
     github: "mlfalco-bioinfo",
     linkedin: "mateusfalco",
+    title: "Nextflow Ambassador",
     children:
       'Mateus is a PhD student on Pharmaceutical Sciences at <a href="https://www3.unicentro.br/ppgcf/" target="_blank" >Unicentro</a >, working at the facility <a href="https://ipec.org.br/" target="_blank" >IPEC</a> in wetlab and bioinformatics on Program Genomas Paraná.',
   },
@@ -652,6 +711,7 @@ const ambassadors: Ambassador[] = [
     country: "be",
     github: "matthdsm",
     linkedin: "desmetmatthias",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Matthias Hörtenhuber",
@@ -659,6 +719,7 @@ const ambassadors: Ambassador[] = [
     country: "se",
     github: "mashehu",
     twitter: "mashehu",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Maxime Garcia",
@@ -667,6 +728,7 @@ const ambassadors: Ambassador[] = [
     github: "maxulysse",
     linkedin: "maxugarcia",
     twitter: "gau",
+    title: "Nextflow Ambassador",
     children:
       'Maxime, bioinfomagician, develops nf-core pipelines, mainly Sarek, and is a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
@@ -676,6 +738,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "max-laurent",
     linkedin: "maximelrt",
+    title: "Nextflow Ambassador",
     children:
       'Maxime is a Senior Scientist at <a href="https://fullcirclelabs.bio/" target="_blank" >Full Circle Labs</a >, he uses Nextflow to develop in-house bioinformatics pipelines to assemble plasmids and genomes following nf-core standards.',
   },
@@ -685,6 +748,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "heuermh",
     twitter: "michael_l_heuer",
+    title: "Nextflow Ambassador",
     children:
       'Michael Heuer (he/him/his) is a Staff Engineer at <a href="https://mammoth.bio/" target="_blank" >Mammoth Biosciences</a >. Michael contributes to several nf-core workflows and is a member of the nf-core <a href="https://nf-co.re/governance#safety" target="_blank" >safety team.</a>',
   },
@@ -694,6 +758,7 @@ const ambassadors: Ambassador[] = [
     country: "be",
     github: "nvnieuwk",
     linkedin: "nicolas-vannieuwkerke-316874163",
+    title: "Nextflow Ambassador",
     children:
       'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He mainly develops Nextflow pipelines for in-house deployment using the nf-core standards. He also is an avid believer in "Learning on the job" and is always eager to learn',
   },
@@ -704,6 +769,7 @@ const ambassadors: Ambassador[] = [
     country: "fr",
     github: "nservant",
     linkedin: "nicolas-servant-0577471",
+    title: "Nextflow Ambassador",
     children:
       'Nicolas is the co-director of the <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" > bioinformatics core facility of Institut Curie</a >. His main interests are cancer biology/epigenetics/AI. Member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > community, he promotes Nextflow for good programming practices.',
   },
@@ -713,6 +779,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "NishatMohammad",
     linkedin: "nishat-fatima-mohammad",
+    title: "Nextflow Ambassador",
     children:
       "Nishat is a Medical Doctor and Bioinformatician using ML/AI techniques to find solutions to Biomedical problems. She is passionate about scalable and reproducible workflows that streamline pipelines for the future of science.",
   },
@@ -722,6 +789,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "nourmahfel",
     linkedin: "nour-mahfel-010568182",
+    title: "Nextflow Ambassador",
     children:
       "Nour Mahfel is a trainee clinical scientist on the Scientist Training Programme, specialising in genetic diagnostics at Birmingham Women's Hospital NHS.",
   },
@@ -731,6 +799,7 @@ const ambassadors: Ambassador[] = [
     country: "nr",
     github: "Omer0191",
     linkedin: "omer0191",
+    title: "Nextflow Ambassador",
     children:
       "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
   },
@@ -742,6 +811,7 @@ const ambassadors: Ambassador[] = [
     github: "ewels",
     linkedin: "philewels",
     twitter: "tallphil",
+    title: "Nextflow Ambassador",
     children:
       'Phil Ewels is Senior Product Manager for Open Source Software at <a href="https://www.seqera.io" target="_blank" >Seqera</a >, working on strengthening the Nextflow and nf-core communities. He holds a PhD in Molecular Biology from the <a href="https://www.cam.ac.uk" target="_blank" >University of Cambridge</a >, UK. He co-founded <a href="https://nf-co.re/" target="_blank" >nf-core</a> and is a member of the <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
@@ -752,6 +822,7 @@ const ambassadors: Ambassador[] = [
     github: "pritampanda15",
     linkedin: "pritam-kumar-panda",
     twitter: "pritamkpanda",
+    title: "Nextflow Ambassador",
     children:
       'Pritam is a Postdoctoral scholar in the <a href="https://profiles.stanford.edu/pritam-panda"> Department of Anesthesiology, Perioperative and Pain Medicine</a> at <a href="https://med.stanford.edu/profiles/pritam-panda"> Stanford University, School of Medicine</a>, California, designing novel anesthetics suitable for battlefield conditions.',
   },
@@ -761,6 +832,7 @@ const ambassadors: Ambassador[] = [
     country: "fr",
     github: "QuentinDuvertCurie",
     linkedin: "quentin-duvert",
+    title: "Nextflow Ambassador",
     children:
       'Quentin works at the <a href="https://www.ifb-elixir.fr/" target="_blank" >French Institute of Bioinformatics</a> and at <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" >Institut Curie</a> as part of the MuDis4LS project. His work focuses on developing, maintaining, and improving Nextflow pipelines.',
   },
@@ -770,6 +842,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "rachelgriffard",
     linkedin: "rachelgriffard",
+    title: "Nextflow Ambassador",
     children:
       'Rachel is a bioinformatician in the <a href="https://www.kumc.edu/school-of-medicine/academics/departments/biostatistics-and-data-science.html"> Department of Biostatistics & Data Science</a> at the University of Kansas Medical Center in Kansas City, Kansas analyzing and developing tools for microbiome data and other next generation sequencing data.',
   },
@@ -779,6 +852,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "ramirobarrantes",
     linkedin: "ramiro-barrantes-reynolds",
+    title: "Nextflow Ambassador",
     children:
       'Bioinformatician/statistician/data scientist for the <a href="https://www.med.uvm.edu/vigr/home">Genomics/Data Science Core</a > and the <a href="http://www.med.uvm.edu/tgircobre/home">Infectious Disease Center</a> at the <a href="https://www.uvm.edu/"> University of Vermont</a >, USA. Love Nextflow!!',
   },
@@ -789,6 +863,7 @@ const ambassadors: Ambassador[] = [
     github: "RaqManzano",
     linkedin: "raquel-manzano-bioinformatician",
     twitter: "appletreewoman",
+    title: "Nextflow Ambassador",
     children:
       'Raquel is a senior bioinformatician and final year PhD student at <a href="https://www.cruk.cam.ac.uk/" target="_blank" >CRUK Cambridge Institute</a >. She is also a trainer at the <a href="https://bioinfotraining.bio.cam.ac.uk" target="_blank" >University of Cambridge Bioinformatics Training Unit</a >. For her PhD she developed <a href="https://nf-co.re/rnadnavar/dev" target="_blank" >#rnadnavar.</a>',
   },
@@ -798,6 +873,7 @@ const ambassadors: Ambassador[] = [
     country: "nl",
     github: "rhassaine",
     linkedin: "rayan-hassaine",
+    title: "Nextflow Ambassador",
     children:
       'Rayan is a Bioinformatician at <a href="https://www.hartwigmedicalfoundation.nl/en/">Hartwig Medical Foundation</a > in Amsterdam. He is one of the developpers of WiGiTS & among the maintainers of <a href="https://github.com/nf-core/oncoanalyser">nf-core/oncoanalyser</a> pipeline.',
   },
@@ -807,6 +883,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "Riley-Grindle",
     linkedin: "riley-grindle",
+    title: "Nextflow Ambassador",
     children:
       'Riley is a Bioinformatician at <a href="https://mdibl.org/" target="_blank" >MDIBL</a >. He has helped develop pipelines for his institutions in-house use and is an active member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a> community.',
   },
@@ -816,6 +893,7 @@ const ambassadors: Ambassador[] = [
     country: "hu",
     github: "Nerita21",
     linkedin: "rita-n-471578294",
+    title: "Nextflow Ambassador",
     children:
       'Rita is an emerging Bioinformatics Developer and Imaging Scientist with an MSc degree from Hungary. Her work includes mirna target research and image acquisition-analysis.',
   },
@@ -826,6 +904,7 @@ const ambassadors: Ambassador[] = [
     github: "snafees",
     linkedin: "saba-nafees",
     twitter: "saba_nafees314",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Sameesh Kher",
@@ -834,6 +913,7 @@ const ambassadors: Ambassador[] = [
     github: "khersameesh24",
     linkedin: "khersameesh24",
     twitter: "khersameesh24",
+    title: "Nextflow Ambassador",
     children:
       'Sameesh Kher is a Bioinformatician at <a href="https://www.ghga.de/">GHGA</a> in Heidelberg. He is the developer of the <a href="https://github.com/nf-core/spatialxe">nf-core/spatialxe</a> pipeline.',
   },
@@ -846,6 +926,7 @@ const ambassadors: Ambassador[] = [
     twitter: "samuelruizperez",
     mastodon: "https://genomic.social/@samuelruizperez",
     bluesky: "https://bsky.app/profile/samuelruizperez.bsky.social",
+    title: "Nextflow Ambassador",
     children:
       'Sam is a MSc in Bioinformatics student at the University of Copenhagen and a bioinformatician at the <a href="https://www.cancer.dk/danish-cancer-institute/research-groups/epigenome-replication-and-maintenance/" target="_blank"> Center for Epigenetic Cell Memory (EpiC)</a>, Danish Cancer Institute. He works with nascent DNA sequencing data and develops pipelines and machine learning models to study replication and epigenome maintenance.',
   },
@@ -855,6 +936,7 @@ const ambassadors: Ambassador[] = [
     country: "bd",
     github: "sanzidaanee",
     linkedin: "sanzida-akhter-anee-47817b288",
+    title: "Nextflow Ambassador",
     children:
       "Sanzida is a CSE and Bioinformatics master's student and is working on developing cancer biomarkers with machine learning algorithms.",
   },
@@ -864,6 +946,7 @@ const ambassadors: Ambassador[] = [
     country: "es-pv",
     github: "svarona",
     linkedin: "sarai-varona-fernández-abb51013a",
+    title: "Nextflow Ambassador",
     children:
       'Sarai Varona is a bioinformatician from the Basque Country, currently based in Madrid, where she works at the <a href="https://www.isciii.es/ub/unidad" target="_blank">Bioinformatics Unit of the Carlos III Health Institute</a>. She is the current maintainer of the <a href="https://nf-co.re/viralrecon/" target="_blank">nf-core/viralrecon</a> pipeline.'
   },
@@ -884,6 +967,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "shivangi-7",
     linkedin: "shivangi-verma-07",
+    title: "Nextflow Ambassador",
     children:
       "Shivangi is a bioinformatics pipeline developer at NeoGenomics Laboratories, working on clinical and research pipelines in cancer genomics.",
   },
@@ -893,6 +977,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "yinshiyi",
     linkedin: "shiyi-yin",
+    title: "Nextflow Ambassador",
     children:
       "Shiyi Yin is a genomics scientist in the SF bay area, working in compbio using nextflow for biotech R&D.",
   },
@@ -902,6 +987,7 @@ const ambassadors: Ambassador[] = [
     country: "de",
     github: "sebgoti",
     linkedin: "sebastián-gonzález-tirado-77b7981a7",
+    title: "Nextflow Ambassador",
     children:
       'Sebastián is doing his PhD at the <a href="https://www.medizinische-fakultaet-hd.uni-heidelberg.de/einrichtungen/institute/institute-for-computational-biomedicine" target="_blank" >Institute for Computational Biomedicine</a > in Heidelberg. He is interested on the democratization of bioimage analysis workflows and spatial omics.',
   },
@@ -911,6 +997,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "SPPearce",
     linkedin: "simonppearce",
+    title: "Nextflow Ambassador",
     children:
       'Simon Pearce is a Principal Bioinformatician at the <a href="https://www.cruk.manchester.ac.uk/Our-Research/Cancer-Biomarker-Centre/CEP-Home/">Cancer Research UK National Biomarker Centre</a >, where he works on detecting and subtyping cancer using circulating cell-free DNA methylation.',
   },
@@ -920,6 +1007,7 @@ const ambassadors: Ambassador[] = [
     country: "se",
     github: "sofstam",
     linkedin: "sofia-stamouli-a22b5477",
+    title: "Nextflow Ambassador",
   },
   {
     name: "Susan Collins",
@@ -927,6 +1015,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "susancollins",
     linkedin: "susan--collins",
+    title: "Nextflow Ambassador",
     children:
       'Susan Collins is a Bioinformatics Engineer based in Vermont, building scalable, production-grade genomics workflows with Nextflow.',
   },
@@ -936,6 +1025,7 @@ const ambassadors: Ambassador[] = [
     country: "vn",
     github: "huymtraan",
     linkedin: "thaihuy-tran",
+    title: "Nextflow Ambassador",
     children:
       'Thai-Huy Tran is a final-year student at International University (VNU-HCM), Vietnam, with experience developing cfDNA data analysis pipelines and performing single-cell RNA analysis for cancer biology.',
   },
@@ -946,6 +1036,7 @@ const ambassadors: Ambassador[] = [
     github: "yz533cb",
     linkedin: "yunjiazhang",
     twitter: "naran43536",
+    title: "Nextflow Ambassador",
     children:
       'Yunjia holds a PhD in Biochemistry from the University of Cambridge and an MSc in Systems and Synthetic Biology from the University of Edinburgh. She develops and maintains bioinformatics pipelines, including <a href="https://github.com/sanger-tol/variantcomposition" target="_blank">variant analysis workflows</a>, at the Wellcome Sanger Institute.',
   },
@@ -955,6 +1046,7 @@ const ambassadors: Ambassador[] = [
     country: "my",
     github: "zakiF",
     linkedin: "zaki-fadlullah-wilmot-5552501a9",
+    title: "Nextflow Ambassador",
     children:
       'Zaki Fadlullah Wilmot is a Research Assistant Professor at the Huntsman Cancer Institute, <a href="https://uofuhealth.utah.edu/staff/zaki-wilmot" target="_blank">University of Utah</a>. He focuses on computational oncology with interests in translational bioinformatics.'
   },
@@ -964,6 +1056,7 @@ const ambassadors: Ambassador[] = [
     country: "au",
     github: "ziadbkh",
     linkedin: "ziad-al-bkhetan",
+    title: "Nextflow Ambassador",
     children:
       '<a href="https://www.biocommons.org.au/lb-ziad">Ziad</a> is the Product Manager, Bioinformatics Platforms at <a href="http://biocommons.org.au/">Australian BioCommons</a >. He leads several bioinformatics focused services such as <a href="https://www.biocommons.org.au/seqera-platform">the Australian Nextflow Seqera Service</a > and <a href="https://www.biocommons.org.au/ables">ABLeS.</a>',
   },
@@ -973,6 +1066,7 @@ const ambassadors: Ambassador[] = [
     country: "us",
     github: "EZUY",
     linkedin: "ze-yu-9024b215b",
+    title: "Nextflow Ambassador",
     children:
       'Ze Yu is a Computational biologist at UT Southwestern <a href="https://labs.utsouthwestern.edu/bioinformatics-lab" target="_blank">Bioinformatics Lab</a>, focusing on scalable genomics workflows and production-grade Nextflow DSL2 pipelines.',
   },
@@ -983,6 +1077,7 @@ const ambassadors: Ambassador[] = [
     github: "anwarMZ",
     linkedin: "mzohaibanwar",
     twitter: "zohaibanwar_",
+    title: "Nextflow Ambassador",
     children:
       'Zohaib is a Senior Postdoc Researcher at the <a href="https://cidgoh.ca/" target="_blank" >Center for Infectious Disease Genomics and One Health</a >. He\'s the developer of <a href="https://virusmvp.org" target="_blank" >VIRUS-MVP</a >, powered by a genomics workflow developed in Nextflow with nf-core modules.',
   },
@@ -1017,7 +1112,7 @@ const ambassadors: Ambassador[] = [
     github: "madamrtalbot",
     linkedin: "adam-talbot-9040a826",
     twitter: "adamrtalbot",
-    title: "Nextflow Ambassador",
+    title: "Program Alumni",
   },
   {
     name: "Alex Peltzer",
@@ -1091,6 +1186,7 @@ const ambassadors: Ambassador[] = [
     img: "daniel.jpeg",
     country: "se",
     github: "erikrikarddaniel",
+    title: "Program Alumni",
   },
   {
     name: "Edoardo Giacopuzzi",
@@ -1100,6 +1196,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "edoardo-giacopuzzi-a1654823",
     twitter: "supergecko",
     bluesky: "https://bsky.app/profile/edg1983.bsky.social",
+    title: "Program Alumni",
     children:
       'Edoardo is a Senior Bioinformatician at <a href="https://humantechnopole.it/en" target="_blank" >Human Technopole</a> research institute in Milan, Italy. He works in population genetics using Nextflow to bring order to genomic data.',
   },
@@ -1110,6 +1207,7 @@ const ambassadors: Ambassador[] = [
     github: "Emiller88",
     linkedin: "edmund-miller-01974a105",
     twitter: "E_Miller88",
+    title: "Program Alumni",
     children:
       'Edmund Miller is a Ph.D. Candidate in the Functional Genomics Lab at the <a href="https://www.utdallas.edu" target="_blank" >University of Texas at Dallas</a >. He\'s a <a href="https://nf-co.re/governance#maintainers" target="_blank" >maintainer</a > in the <a href="https://nf-co.re" target="_blank">nf-core</a> project involved in an eclectic group of nf-core projects.',
   },
@@ -1141,6 +1239,7 @@ const ambassadors: Ambassador[] = [
     github: "FranBonath",
     linkedin: "franziska-bonath-a0827a7a",
     twitter: "FranBonath",
+    title: "Program Alumni",
     children:
       'Fran got her PhD in Developmental Biology at the University of Manchester, then moved to Stockholm where she eventually landed at the NGI, one of the founding institutions of nf-core. She is a <a href="https://nf-co.re/governance#core-team" target="_blank" >core team</a > member of <a href="https://nf-co.re/" target="_blank" >nf-core.</a>',
   },
@@ -1151,6 +1250,7 @@ const ambassadors: Ambassador[] = [
     github: "FriederikeHanssen",
     linkedin: "friederike-hanssen",
     twitter: "RikeHanssen",
+    title: "Program Alumni",
   },
   {
     name: "Gisela Gabernet",
@@ -1175,6 +1275,7 @@ const ambassadors: Ambassador[] = [
     country: "mx",
     github: "javibio-git",
     linkedin: "javier-carpinteyro-ponce",
+    title: "Program Alumni",
     children:
       'Javier (Javi) is a bioinformatics research associate at <a href="https://carnegiescience.edu" target="_blank" >Carnegie Science</a >. He currently provides bioinformatics support to bench-based researchers helping them with their data analysis needs. He is also interested in developing reproducible and scalable workflows for population genomics.',
   },
@@ -1228,6 +1329,7 @@ const ambassadors: Ambassador[] = [
     mastodon:
       "https://ki.se/forskning/forskningsomraden-centrum-och-natverk/forskargrupper/evolution-och-epidemiologi-for-hiv-och-enterovirus-jan-albert-grupp",
     linkedin: "lili-andersson-li-78565b134",
+    title: "Program Alumni",
     children:
       "Lili Andersson-Li is a bioinformatician at KI, Sweden. She develops pipelines for metagenomics, viral typing and viral drug resistance testing. She holds a PhD in population genetics.",
   },
@@ -1239,6 +1341,7 @@ const ambassadors: Ambassador[] = [
     mastodon: "https://genomic.social/@lwpembleton",
     linkedin: "lpembleton",
     twitter: "lwpembleton",
+    title: "Program Alumni",
     children:
       'Luke has a PhD in Molecular Genetics from <a href="https://www.latrobe.edu.au/" target="_blank" >La Trobe University</a > and <a href="https://agriculture.vic.gov.au/about/our-research" target="_blank" >AVR</a >, Australia. He is currently a Genomic Breeding Scientist and Global Strategic Science Manager at <a href="https://www.barenbrug.com" target="_blank" >Barenbrug</a >.',
   },
@@ -1279,6 +1382,7 @@ const ambassadors: Ambassador[] = [
     github: "muntajihad",
     linkedin: "muntadherjihad",
     twitter: "munta04",
+    title: "Program Alumni",
     children:
       'Muntadher is a Bioinformatician at <a href="https://www.cruk.cam.ac.uk/" target="_blank" >CRUK CI</a >, develops statistical models to identify cellular crosstalk in pancreatic cancer and develops Nextflow pipelines for scRNA-seq variant calling.',
   },
@@ -1289,6 +1393,7 @@ const ambassadors: Ambassador[] = [
     github: "nicholas-owen",
     linkedin: "nicholas-owen-3ab03820",
     twitter: "dr__no",
+    title: "Program Alumni",
     children:
       'Nick is a Principal Research Data Steward / Bioinformatician at <a href="https://www.ucl.ac.uk/" target="_blank" >UCL Advanced Research Computing</a >. He has a strong background in splicing and disease, developing pipelines for NGS analysis using Nextflow.',
   },
@@ -1385,6 +1490,7 @@ const ambassadors: Ambassador[] = [
     country: "gb",
     github: "SimonDMurray",
     linkedin: "simon-murray-856102156",
+    title: "Program Alumni",
     children:
       'Simon Murray is a Bioinformatics Engineer at <a href="https://www.genomicsengland.co.uk" target="_blank" >Genomics England</a > in Research Data Products where he develops and maintains pipelines for the <a href="https://www.genomicsengland.co.uk/research/research-environment" target="_blank" >Research Environment</a >.',
   },
