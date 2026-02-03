@@ -1365,6 +1365,17 @@ const ambassadors: Ambassador[] = [
     title: "Program Alumni",
   },
   {
+    name: "Montassar Torkhani",
+    img: "montassar.jpg",
+    country: "tn",
+    github: "Montassar-Torkhani",
+    linkedin: "montassar-torkhani-b5040b198",
+    twitter: "MontassarTorkh2",
+    title: "Nextflow Ambassador",
+    children:
+      'Montassar is a PhD student in bioinformatics at the Faculty of Medicine of Tunis. He develops reproducible workflows for genomic and machine learning applications in biology.',
+  },
+  {
     name: "Moritz E. Beber",
     img: "moritz.jpeg",
     country: "dk",
