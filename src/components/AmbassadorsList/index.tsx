@@ -190,7 +190,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "chelsea-ujuamajirionwu",
     title: "Nextflow Ambassador",
     children:
-      'Chelsea is a MSc Computational Biology student at <a href="https://www.uni-wuerzburg.de/en/" target="_blank" > JMU Würzburg </a>. She specializes in transcriptomics, with a focus on reproducible and scalable workflows.',
+      'Chelsea is a MSc Computational Biology student at <a href="https://www.uni-wuerzburg.de/en/" target="_blank">JMU Würzburg</a>. She specializes in transcriptomics, with a focus on reproducible and scalable workflows.',
   },
   {
     name: "Chiachun Chiu",
