@@ -753,6 +753,17 @@ const ambassadors: Ambassador[] = [
       'Michael Heuer (he/him/his) is a Staff Engineer at <a href="https://mammoth.bio/" target="_blank" >Mammoth Biosciences</a >. Michael contributes to several nf-core workflows and is a member of the nf-core <a href="https://nf-co.re/governance#safety" target="_blank" >safety team.</a>',
   },
   {
+    name: "Montassar Torkhani",
+    img: "montassar.jpg",
+    country: "tn",
+    github: "Montassar-Torkhani",
+    linkedin: "montassar-torkhani-b5040b198",
+    twitter: "MontassarTorkh2",
+    title: "Nextflow Ambassador",
+    children:
+      'Montassar is a PhD student in bioinformatics at the Faculty of Medicine of Tunis. He develops reproducible workflows for genomic and machine learning applications in precision medicine.',
+  }, 
+  {
     name: "Nicolas Vannieuwkerke",
     img: "nicolas.jpeg",
     country: "be",
