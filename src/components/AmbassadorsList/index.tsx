@@ -183,6 +183,16 @@ const ambassadors: Ambassador[] = [
       'Chao-Jen is a bioinformatician at <a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">Seattle Children’s Research Institute</a> in Seattle, WA. She has contributed to multiple open-source projects, including Bioconductor and nf-core. She earned her Ph.D. in Mathematics from <a href="https://www.cgu.edu" target="_blank">Claremont Graduate University</a>.',
   },
   {
+    name: "Chelsea Uju Amajirionwu",
+    img: "ChelseaUju.png",
+    country: "de",
+    github: "ChelseaSeqs",
+    linkedin: "chelsea-ujuamajirionwu",
+    title: "Nextflow Ambassador",
+    children:
+      'Chelsea is a MSc Computational Biology student at <a href="https://www.uni-wuerzburg.de/en/" target="_blank">JMU Würzburg</a>. She specializes in transcriptomics, with a focus on reproducible and scalable workflows.',
+  },
+  {
     name: "Chiachun Chiu",
     img: "chiachun.jpg",
     country: "tw",
