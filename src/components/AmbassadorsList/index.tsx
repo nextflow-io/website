@@ -783,7 +783,6 @@ const ambassadors: Ambassador[] = [
     children:
       'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He mainly develops Nextflow pipelines for in-house deployment using the nf-core standards. He also is an avid believer in "Learning on the job" and is always eager to learn',
   },
-
   {
     name: "Nicolas Servant",
     img: "nservant.jpg",
@@ -1395,17 +1394,6 @@ const ambassadors: Ambassador[] = [
     title: "Program Alumni",
     children:
       'Moritz is a Senior IT Solution Architect at <a href="https://www.novonordisk.com" target="_blank" referrerpolicy="no-referrer" >Novo Nordisk A/S</a >. He holds a PhD in bioinformatics and worked in computational systems biology. He strongly supports open knowledge and open source initiatives such as <a href="https://nf-co.re/" target="_blank" referrerpolicy="no-referrer" >nf-core</a >.',
-  },
-  {
-    name: "Montassar Torkhani",
-    img: "montassar.jpg",
-    country: "tn",
-    github: "Montassar-Torkhani",
-    linkedin: "montassar-torkhani-b5040b198",
-    twitter: "MontassarTorkh2",
-    title: "Nextflow Ambassador",
-    children:
-      'Montassar is a PhD student in bioinformatics at the Faculty of Medicine of Tunis. He develops reproducible workflows for genomic and machine learning applications in biology.',
   },
   {
     name: "Muntadher Jihad",
