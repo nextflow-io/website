@@ -263,6 +263,12 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
+                  <a href="https://registry.nextflow.io/" target="_blank" tabIndex={0}>
+                    Plugins
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
+                  </a>
+                </li>
+                <li>
                   <a href="https://seqera.io/ask-ai/" target="_blank" tabIndex={0}>
                     Seqera AI
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
