@@ -35,7 +35,7 @@ const steps: Step[] = [
     code: "java -version",
     note: {
       text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
-      link: { text: "here.", url: "https://www.nextflow.io/docs/latest/index.html" },
+      link: { text: "here.", url: "https://docs.seqera.io/nextflow/" },
     },
     pill: "Step 1"
   },
@@ -56,7 +56,7 @@ const steps: Step[] = [
         },
         {
           text: ". See the ",
-          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html" },
+          link: { text: "installation docs", url: "https://docs.seqera.io/nextflow/install" },
         },
         {
           text: " for more information.",
@@ -77,7 +77,7 @@ const steps: Step[] = [
         },
         {
           text: "See the ",
-          link: { text: "installation docs", url: "https://www.nextflow.io/docs/latest/install.html" },
+          link: { text: "installation docs", url: "https://docs.seqera.io/nextflow/install" },
         },
         {
           text: ".",
