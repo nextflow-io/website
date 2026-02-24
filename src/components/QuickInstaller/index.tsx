@@ -34,8 +34,15 @@ const steps: Step[] = [
     main: "Make sure Java 17 or later is installed on your computer by using the command:",
     code: "java -version",
     note: {
-      text: "Note: If you are having trouble installing or upgrading Java check out our documentation ",
-      link: { text: "here.", url: "https://docs.seqera.io/nextflow/" },
+      parts: [
+        {
+          text: "If you have trouble installing or upgrading Java, see our ",
+          link: { text: "Requirements", url: "https://docs.seqera.io/nextflow/install#requirements" },
+        },
+        {
+          text: " for more information.",
+        },
+      ]
     },
     pill: "Step 1"
   },
@@ -55,8 +62,8 @@ const steps: Step[] = [
           link: { text: "GitHub", url: "https://github.com/nextflow-io/nextflow/releases" },
         },
         {
-          text: ". See the ",
-          link: { text: "installation docs", url: "https://docs.seqera.io/nextflow/install" },
+          text: ". See ",
+          link: { text: "Installation", url: "https://docs.seqera.io/nextflow/install" },
         },
         {
           text: " for more information.",
@@ -73,14 +80,14 @@ const steps: Step[] = [
     note: {
       parts: [
         {
-          text: "You'll want to make the binary executable and move it to a directory in your PATH. ",
+          text: "Make the binary executable and move it to a directory in your PATH. ",
         },
         {
-          text: "See the ",
-          link: { text: "installation docs", url: "https://docs.seqera.io/nextflow/install" },
+          text: "See ",
+          link: { text: "Installation", url: "https://docs.seqera.io/nextflow/install" },
         },
         {
-          text: ".",
+          text: " for more information.",
         },
       ],
     },
