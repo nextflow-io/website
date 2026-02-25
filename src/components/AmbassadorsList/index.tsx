@@ -752,6 +752,16 @@ const ambassadors: Ambassador[] = [
     children:
       'Maxime is a Senior Scientist at <a href="https://fullcirclelabs.bio/" target="_blank" >Full Circle Labs</a >, he uses Nextflow to develop in-house bioinformatics pipelines to assemble plasmids and genomes following nf-core standards.',
   },
+    {
+    name: "Melanie Nuesch",
+    img: "mel_photo.png",
+    country: "uy",
+    github: "melnuesch",
+    linkedin: "melnuesch",
+    title: "Nextflow Ambassador",
+    children:
+      'Melanie Nuesch is the Head of the High-Performance Computing (HPC) Platform at the German Rheumatism Research Centre (DRFZ) in Berlin. A bioinformatician by training, she pursued her doctoral research in the lab of Prof. Eicke Latz, focusing on high-dimensional immune profiling, systems biology for precision medicine and laboratory automation. At the DRFZ, Melanie champions reproducible science by architecting hybrid cluster environments and standardizing institute-wide multi-omics analyses through Nextflow and Containerization. As a Nextflow Ambassador, she is passionate about bridging the gap between complex robotic data generation and accessible, scalable "Pipeline-as-Code" bioinformatics.',
+  },
   {
     name: "Michael Heuer",
     img: "michael_heuer.png",
