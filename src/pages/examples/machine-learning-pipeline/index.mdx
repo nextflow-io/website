@@ -1,0 +1,51 @@
+---
+title: Machine Learning pipeline
+layout: "@layouts/ExampleLayout.astro"
+---
+
+import { Code } from "astro-expressive-code/components";
+import pipelineCode from "./_main.nf?raw";
+import terminalOutput from "./_nextflow_run_output.log?raw";
+
+<h2>Machine Learning pipeline</h2>
+
+<p class="">
+  This example demonstrates a complete Machine Learning workflow using Nextflow. It splits a dataset, trains multiple
+  models in parallel (Random Forest, SVM, Logistic Regression), and evaluates their performance to find the best model.
+</p>
+
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "2", label: "1. ML Pipeline Parameters" },
+    { range: "6", label: "2. Workflow Definition" },
+    { range: "24", label: "3. Data Splitting Process" },
+    { range: "57", label: "4. Parallel Model Training" },
+    { range: "96", label: "5. Model Evaluation" },
+  ]}
+/>
+
+### Key Concepts
+
+This example demonstrates advanced Machine Learning patterns with Nextflow:
+
+- **Parallel Model Training**: Train multiple ML models simultaneously using the `each` operator
+- **Python Integration**: Embed scikit-learn scripts directly in Nextflow processes
+- **Data Splitting**: Automatically split datasets into training and testing subsets
+- **Model Serialization**: Save trained models using pickle for evaluation
+- **Performance Comparison**: Compare multiple models to find the best performing one
+- **Reproducible ML**: Use fixed random seeds for consistent results across runs
+
+### Try it on your computer
+
+<Code
+  lang="ansi"
+  title="Launch the pipeline with this command"
+  frame="terminal"
+  code={terminalOutput}
+/>
+
+**NOTE**: This pipeline requires Python with pandas and scikit-learn. The example demonstrates ML workflow patterns and parallel model training capabilities.

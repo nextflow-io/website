@@ -1,0 +1,52 @@
+---
+title: RNA-Seq pipeline
+layout: "@layouts/ExampleLayout.astro"
+---
+
+import { Code } from "astro-expressive-code/components";
+import pipelineCode from "./_main.nf?raw";
+import terminalOutput from "./_nextflow_run_output.log?raw";
+
+<h2>RNA-Seq pipeline</h2>
+
+<p class="">
+  This example shows the actual RNA-Seq pipeline from the nextflow-io/rnaseq-nf repository. It demonstrates a complete
+  RNA-seq analysis workflow including indexing, quality control, quantification, and report generation.
+</p>
+
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "2", label: "1. Pipeline Header & Description" },
+    { range: "6", label: "2. Parameter Definitions" },
+    { range: "15", label: "3. Process Definitions" },
+    { range: "64", label: "4. Workflow Definition" },
+    { range: "75", label: "5. Workflow Execution" },
+  ]}
+/>
+
+### Key Concepts
+
+This production RNA-seq pipeline demonstrates advanced Nextflow patterns:
+
+- **Real Production Pipeline**: Fetched directly from the official nextflow-io/rnaseq-nf repository
+- **Comprehensive Workflow**: Complete RNA-seq analysis from raw reads to final reports
+- **Modern Tools Integration**: Uses Salmon for quantification, FastQC for QC, and MultiQC for aggregated reporting
+- **Parameter Validation**: Robust input validation and help documentation
+- **Resource Optimization**: Proper CPU and memory allocation for each process
+- **Container Support**: Full Docker/Singularity container integration
+- **Output Organization**: Structured result publishing with meaningful directory names
+
+### Try it on your computer
+
+<Code
+  lang="ansi"
+  title="Launch the pipeline with this command"
+  frame="terminal"
+  code={terminalOutput}
+/>
+
+**NOTE**: This pipeline automatically downloads from GitHub and includes all necessary tools via containers. Run with `-with-docker` for the complete containerized experience.

@@ -1,0 +1,56 @@
+---
+title: BLAST pipeline
+layout: "@layouts/ExampleLayout.astro"
+---
+
+import { Code } from "astro-expressive-code/components";
+import pipelineCode from "./_main.nf?raw";
+import terminalOutput from "./_nextflow_run_output.log?raw";
+
+<div class="blg-summary example">
+<h2>BLAST pipeline</h2>
+
+<p class="">
+  This example demonstrates parallel BLAST searches by splitting a FASTA file into chunks and
+  running BLAST queries in parallel. The results are collected and merged into a single output file.
+</p>
+
+<Code
+  code={pipelineCode}
+  lang="nextflow"
+  title="main.nf"
+  frame="code"
+  mark={[
+    { range: "3-6" },
+    { range: "14-18" },
+    { range: "23-26" },
+    { range: "29-32" },
+    { range: "35-38" },
+  ]}
+/>
+
+</div>
+
+### Key Concepts
+
+This example demonstrates advanced Nextflow patterns for bioinformatics workflows:
+
+- **File Splitting**: Use `splitFasta()` to divide large files into manageable chunks for parallel processing
+- **Parallel Processing**: Each FASTA chunk is processed independently, maximizing resource utilization
+- **Parameter Configuration**: Customize query files, database paths, output names, and chunk sizes via command-line parameters
+- **Process Communication**: Data flows seamlessly between BLAST search and sequence extraction processes
+- **Result Aggregation**: Use `collectFile()` to merge distributed results into a single output file
+- **Database Handling**: Proper handling of BLAST database files and directory structures
+
+### Try it on your computer
+
+To run this pipeline on your computer, you will need:
+
+<Code
+  lang="ansi"
+  title="Launch the pipeline with this command"
+  frame="terminal"
+  code={terminalOutput}
+/>
+
+**NOTE**: This example requires BLAST+ tools and a properly formatted BLAST database to run successfully.
