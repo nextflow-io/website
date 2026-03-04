@@ -621,6 +621,16 @@ const ambassadors: Ambassador[] = [
       'Lara Ianov is the Co-Director of the <a href="https://www.uab.edu/cores/ircp/bds">UAB Biological Data Science Core</a >. She directs the development of transcriptomics pipelines including the nf-core/scnanoseq pipeline.',
   },
   {
+    name: "Lizel Potgieter",
+    img: "potgieter.jpg",
+    country: "se",
+    github: "lpotgieter",
+    linkedin: "lizel-potgieter/",
+    title: "Nextflow Ambassador",
+    children:
+      'Lizel Potgieter is a bioinformatician at <a href="https://www.slubi.se"> SLU Bioinformatics Infrastructure</a >. She works on any multiomics data users at the university need analysed from any domain of life.',
+  },
+  {
     name: "Lynn Langit",
     img: "lynnlangit.png",
     country: "us",
