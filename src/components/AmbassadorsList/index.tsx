@@ -652,6 +652,16 @@ const ambassadors: Ambassador[] = [
       'Luca is a Senior Bioinformatician at <a href="https://biocore.crg.eu/" target="_blank" > the Bioinformatics technology platform </a> of <a href="https://www.crg.eu/" target="_blank" > the Centre for Genomic Regulation.</a > He has a PhD in Molecular Medicine from <a href="https://www.semm.it/" target="_blank" > The European School of Molecular Medicine.</a>',
   },
   {
+    name: "Madson Aragão",
+    img: "madson_aragao.jpeg",
+    country: "br",
+    github: "madsondeluna",
+    linkedin: "madsonaragao",
+    title: "Nextflow Ambassador",
+    children:
+      "Bioinformatics researcher focused on data science, protein design, and multi-omics analysis.",
+  },
+  {
     name: "Mahesh Binzer-Panchal",
     img: "mahesh_binzer-panchal.png",
     country: "se",
