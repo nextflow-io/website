@@ -215,6 +215,17 @@ const ambassadors: Ambassador[] = [
       "Clement Igiraneza is a molecular biologist with expertise in infectious disease genomics, and bioinformatics data analysis. He has worked at the Rwanda Biomedical Center in the Molecular and Genomic Unit and focuses on genomic surveillance, sequencing technologies, diagnostic innovation, and capacity building for malaria drug-resistance monitoring.",
       },
   {
+    name: "Clément Moliné",
+    img: "clementmoline.jpg",
+    country: "no",
+    github: "ClementMoline",
+    linkedin: "clement-moline",
+    twitter: "clement_mln",
+    title: "Nextflow Ambassador",
+    children:
+      'Clement is a Bioinformatics, AI and Data Engineer with experience in Immuno-Oncology, Medical Genetics, Clinical Microbiology, Infectious and Autoimmune Diseases. He has developed Nextflow pipelines for neoantigen detection, detection of pathogens in CSF samples or variant calling for rare genetic diseases. He now works at Oslo University Hospital\'s <a href="https://ous-research.no/meg/" target="_blank">Medical Genetics Department</a> in the Unit for Genomic Diagnostics.',
+      },
+  {
     name: "Cris Tuñi",
     img: "cristuni.jpeg",
     country: "es-ct",
