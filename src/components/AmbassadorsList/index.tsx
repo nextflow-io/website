@@ -836,7 +836,7 @@ const ambassadors: Ambassador[] = [
   },
   {
     name: "Nikhila T Suresh",
-    img: "nikhila.jpeg",
+    img: "nikhila.jpg",
     country: "us",
     github: "nikhila123456",
     linkedin: "nikhila-t-suresh",
