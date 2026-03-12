@@ -813,7 +813,7 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Montassar is a PhD student in bioinformatics at the Faculty of Medicine of Tunis. He develops reproducible workflows for genomic and machine learning applications in precision medicine.',
-  }, 
+  },
   {
     name: "Nicolas Vannieuwkerke",
     img: "nicolas.jpeg",
@@ -833,6 +833,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Nicolas is the co-director of the <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" > bioinformatics core facility of Institut Curie</a >. His main interests are cancer biology/epigenetics/AI. Member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > community, he promotes Nextflow for good programming practices.',
+  },
+  {
+    name: "Nikhila T Suresh",
+    img: "nikhila.jpeg",
+    country: "us",
+    github: "nikhila123456",
+    linkedin: "nikhila-t-suresh",
+    title: "Nextflow Ambassador",
+    children:
+      'Nikhila is a post-doc associate at <a href="https://www.fau.edu/" target="_blank" > Florida Atlantic University</a >. Her main interests are high dimensional multiomics datasets integration, mainly for cancer immunology and tumour classification.',
   },
   {
     name: "Nishat Fatima Mohammad",
