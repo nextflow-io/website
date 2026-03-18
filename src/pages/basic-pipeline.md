@@ -74,7 +74,7 @@ This pipeline defines two processes:
 
   <p style="padding-left: 40px;">&#8226; <code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code>
 
-  <p style="padding-left: 40px;">&#8226; <code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix `upper_`
+  <p style="padding-left: 40px;">&#8226; <code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix <code>upper_</code>
 
 The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
 
