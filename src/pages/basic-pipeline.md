@@ -70,32 +70,42 @@ output {
 
 ### Script synopsis
 
-This script defines two processes:
+This pipeline defines two processes:
 
-- `split`: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix `chunk_`
-- `convert_to_upper`: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix `upper_`
+  <p style="padding-left: 40px;">&#8226; <code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code>
+
+  <p style="padding-left: 40px;">&#8226; <code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix `upper_`
 
 The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
 
 The `workflow` block is organized into two sections:
 
-- `main:`: defines the workflow logic and how processes are connected via channels
-- `publish:`: declares which channels should be published as workflow outputs
+  <p style="padding-left: 40px;">&#8226; <code>main:</code> defines the workflow logic and how processes are connected via channels</p>
+
+  <p style="padding-left: 40px;">&#8226; <code>publish:</code> declares which channels should be published as workflow outputs</p>
 
 The `output` block (outside the workflow) defines where and how each output should be published. In this example, the outputs from both processes are published in subdirectories (`lower` and `upper`) in the default results output directory (`params.outdir`).
 
-### Try it
+<br>
 
-To run this script:
+To run this pipeline:
 
-1. Install Nextflow
-   - See [Installation](https://docs.seqera.io/nextflow/install) for more information
-2. Create a new file named `main.nf` in your current directory
-3. Copy and save the above script to your new file
-4. Run your pipeline using the following command:
+ <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a></p>
 
-   ```
-   nextflow run main.nf
-   ```
+ <p style="padding-left: 40px;">2.  Create a new file named <code>main.nf</code> in your current directory</p>
+
+ <p style="padding-left: 40px;">3. Copy and save the above script to your new file</p>
+
+ <p style="padding-left: 40px;">4. Run your pipeline using the following command:</p>
+
+<div style="padding-left: 60px; margin-top: 1rem;">
+
+```
+nextflow run main.nf
+```
+
+</div>
+
+<br>
 
 See [Your first script](https://docs.seqera.io/nextflow/your-first-script) for more information about this pipeline.
