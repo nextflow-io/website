@@ -1,13 +1,13 @@
 ---
-title: Your first script
+title: Basic pipeline
 layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h2>Your first script</h2>
+<h2>Basic pipeline</h2>
 
 <p class="" >
-    Your first script shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also demonstrates how to publish pipeline outputs to named directories.
+    This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also demonstrates how to publish pipeline outputs to named directories.
 </p>
 
 ```groovy
@@ -72,25 +72,21 @@ output {
 
 This script defines two processes:
 
-<ul>
-  <li><code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code></li>
-  <li><code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix <code>upper_</code></li>
-</ul>
+- `split`: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix `chunk_`
+- `convert_to_upper`: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix `upper_`
 
 The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
 
 The `workflow` block is organized into two sections:
 
-<ul>
-  <li><code>main:</code>: defines the workflow logic and how processes are connected via channels</li>
-  <li><code>publish:</code>: declares which channels should be published as workflow outputs</li>
-</ul>
+- `main:`: defines the workflow logic and how processes are connected via channels
+- `publish:`: declares which channels should be published as workflow outputs
 
 The `output` block (outside the workflow) defines where and how each output should be published. In this example, the outputs from both processes are published in subdirectories (`lower` and `upper`) in the default results output directory (`params.outdir`).
 
 ### Try it
 
-To run this pipeline:
+To run this script:
 
 1. Install Nextflow
    - See [Installation](https://docs.seqera.io/nextflow/install) for more information

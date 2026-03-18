@@ -193,7 +193,7 @@ const Menu = ({}) => {
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
                 <li>
                   <a href="/basic-pipeline.html" tabIndex={0}>
-                    Your first script
+                    Basic pipeline
                   </a>
                 </li>
                 <li>

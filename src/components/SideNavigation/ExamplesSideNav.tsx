@@ -21,7 +21,7 @@ const ExamplesSideNav = () => {
   const items = [
     {
       id: 'basic-pipeline',
-      title: 'Your first script',
+      title: 'Basic pipeline',
       href: 'basic-pipeline.html'
     },
     {
