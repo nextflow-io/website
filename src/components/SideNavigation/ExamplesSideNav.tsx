@@ -3,12 +3,12 @@ import SideNavigation from './index';
 
 const ExamplesSideNav = () => {
   const [activeId, setActiveId] = useState('basic-pipeline');
-  
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       const filename = path.split('/').pop();
-      
+
       if (filename) {
         const match = filename.match(/example(\d+)/);
         if (match && match[1]) {
@@ -17,11 +17,11 @@ const ExamplesSideNav = () => {
       }
     }
   }, []);
-  
+
   const items = [
     {
       id: 'basic-pipeline',
-      title: 'Basic pipeline',
+      title: 'Your first script',
       href: 'basic-pipeline.html'
     },
     {
@@ -47,14 +47,14 @@ const ExamplesSideNav = () => {
   ];
 
   return (
-    <SideNavigation 
-      items={items} 
+    <SideNavigation
+      items={items}
       title="All examples"
-      activeItem={activeId} 
+      activeItem={activeId}
       className="font-sans text-sm"
       mode="page"
     />
   );
 };
 
-export default ExamplesSideNav; 
+export default ExamplesSideNav;
