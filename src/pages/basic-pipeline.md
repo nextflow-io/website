@@ -47,9 +47,9 @@ process convert_to_upper {
 // Workflow block
 workflow {
     main:
-    ch_str = channel.of(params.str)                  // Create a channel using parameter input
-    ch_chunks = split(ch_str)                        // Split string into chunks and create a named channel
-    ch_upper = convert_to_upper(ch_chunks.flatten()) // Convert lowercase letters to uppercase letters
+    ch_str = channel.of(params.str)
+    ch_chunks = split(ch_str)
+    ch_upper = convert_to_upper(ch_chunks.flatten())
 
     publish:
     lower = ch_chunks.flatten()
@@ -72,17 +72,19 @@ output {
 
 This script defines two processes:
 
-- `split`: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix `chunk_`
-
-- `convert_to_upper`: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix `upper_`
+<ul>
+  <li><code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code></li>
+  <li><code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix <code>upper_</code></li>
+</ul>
 
 The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
 
 The `workflow` block is organized into two sections:
 
-- `main:`: defines the workflow logic and how processes are connected via channels
-
-- `publish:`: declares which channels should be published as workflow outputs
+<ul>
+  <li><code>main:</code>: defines the workflow logic and how processes are connected via channels</li>
+  <li><code>publish:</code>: declares which channels should be published as workflow outputs</li>
+</ul>
 
 The `output` block (outside the workflow) defines where and how each output should be published. In this example, the outputs from both processes are published in subdirectories (`lower` and `upper`) in the default results output directory (`params.outdir`).
 
