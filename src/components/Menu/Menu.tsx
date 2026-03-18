@@ -198,7 +198,7 @@ const Menu = ({}) => {
                 </li>
                 <li>
                   <a href="/mixing-scripting-languages.html" tabIndex={0}>
-                    Mixing scripting languages
+                    Mixed script languages
                   </a>
                 </li>
                 <li>
