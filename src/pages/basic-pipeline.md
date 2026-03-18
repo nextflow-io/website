@@ -7,7 +7,7 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>Basic pipeline</h2>
 
 <p class="" >
-    This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also demonstrates how to publish pipeline outputs to named directories.
+    This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also shows how to publish pipeline outputs to named directories.
 </p>
 
 ```groovy
@@ -68,7 +68,7 @@ output {
 
 </div>
 
-### Script synopsis
+### Synopsis
 
 This pipeline defines two processes:
 
@@ -90,13 +90,13 @@ The `output` block (outside the workflow) defines where and how each output shou
 
 To run this pipeline:
 
- <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a></p>
+ <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow (version 25.10 or later)</a></p>
 
- <p style="padding-left: 40px;">2.  Create a new file named <code>main.nf</code> in your current directory</p>
+ <p style="padding-left: 40px;">2. Create a new file named <code>main.nf</code> in your current directory</p>
 
  <p style="padding-left: 40px;">3. Copy and save the above script to your new file</p>
 
- <p style="padding-left: 40px;">4. Run your pipeline using the following command:</p>
+ <p style="padding-left: 40px;">4. Run your pipeline:</p>
 
 <div style="padding-left: 60px; margin-top: 1rem;">
 
