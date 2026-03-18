@@ -7,53 +7,62 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>Basic pipeline</h2>
 
 <p class="" >
-    This example shows how to write a pipeline with two simple Bash processes, so that the results produced by the first process are consumed by the second process.
+    This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also shows how to publish pipeline outputs to named directories.
 </p>
 
 ```groovy
-#!/usr/bin/env nextflow
+// Default parameter input
+params.str = "Hello world!"
 
-params.in = "$baseDir/data/sample.fa"
-
-/*
- * Split a fasta file into multiple files
- */
-process splitSequences {
-
+// split process
+process split {
     input:
-    path 'input.fa'
+    val x
 
     output:
-    path 'seq_*'
+    path 'chunk_*'
 
+    script:
     """
-    awk '/^>/{f="seq_"++d} {print > f}' < input.fa
+    printf '${x}' | split -b 6 - chunk_
     """
 }
 
-/*
- * Reverse the sequences
- */
-process reverse {
+// convert_to_upper process
+process convert_to_upper {
+    tag "$y"
 
     input:
-    path x
+    path y
 
     output:
-    stdout
+    path 'upper_*'
 
+    script:
     """
-    cat $x | rev
+    cat $y | tr '[a-z]' '[A-Z]' > upper_${y}
     """
 }
 
-/*
- * Define the workflow
- */
+// Workflow block
 workflow {
-    splitSequences(params.in) \
-      | reverse \
-      | view
+    main:
+    ch_str = channel.of(params.str)
+    ch_chunks = split(ch_str)
+    ch_upper = convert_to_upper(ch_chunks.flatten())
+
+    publish:
+    lower = ch_chunks.flatten()
+    upper = ch_upper
+}
+
+output {
+    lower {
+        path 'lower'
+    }
+    upper {
+        path 'upper'
+    }
 }
 ```
 
@@ -61,42 +70,42 @@ workflow {
 
 ### Synopsis
 
-- **Line 1** The script starts with a shebang declaration. This allows you to launch your pipeline just like any other Bash script.
+This pipeline defines two processes:
 
-- **Line 3**: Declares a pipeline parameter named `params.in` that is initialized with the value `$HOME/sample.fa`. This value can be overridden when launching the pipeline, by simply adding the option `--in <value>` to the script command line.
+  <p style="padding-left: 40px;">&#8226; <code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code>
 
-- **Lines 8-19**: The process that splits the provided file.
+  <p style="padding-left: 40px;">&#8226; <code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix <code>upper_</code>
 
-  - **Line 10**: Opens the input declaration block. The lines following this clause are interpreted as input definitions.
+The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
 
-  - **Line 11**: Declares the process input file, which will be named `input.fa` in the process script.
+The `workflow` block is organized into two sections:
 
-  - **Line 13**: Opens the output declaration block. The lines following this clause are interpreted as output declarations.
+  <p style="padding-left: 40px;">&#8226; <code>main:</code> defines the workflow logic and how processes are connected via channels</p>
 
-  - **Line 14**: Files whose names match the pattern `seq_*` are declared as the output of this process.
+  <p style="padding-left: 40px;">&#8226; <code>publish:</code> declares which channels should be published as workflow outputs</p>
 
-  - **Lines 16-18**: The actual script executed by the process to split the input file.
+The `output` block (outside the workflow) defines where and how each output should be published. In this example, the outputs from both processes are published in subdirectories (`lower` and `upper`) in the default results output directory (`params.outdir`).
 
-- **Lines 24-35**: The second process, which receives the splits produced by the
-  previous process and reverses their content.
+<br>
 
-  - **Line 26**: Opens the input declaration block. Lines following this clause are
-    interpreted as input declarations.
+To run this pipeline:
 
-  - **Line 27**: Defines the process input file.
+ <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a> (version 25.10 or later)</p>
 
-  - **Line 29**: Opens the output declaration block. Lines following this clause are
-    interpreted as output declarations.
+ <p style="padding-left: 40px;">2. Create a new file named <code>main.nf</code> in your current directory</p>
 
-  - **Line 30**: The standard output of the executed script is declared as the process
-    output.
+ <p style="padding-left: 40px;">3. Copy and save the above script to your new file</p>
 
-  - **Lines 32-34**: The actual script executed by the process to reverse the content of the input files.
+ <p style="padding-left: 40px;">4. Run your pipeline:</p>
 
-- **Lines 40-44**: The workflow that connects everything together!
+<div style="padding-left: 60px; margin-top: 1rem;">
 
-  - **Line 41**: First, the input file specified by `params.in` is passed to the `splitSequences` process.
+```
+nextflow run main.nf
+```
 
-  - **Line 42**: The outputs of `splitSequences` are passed as inputs to the `reverse` process, which processes each split file in parallel.
+</div>
 
-  - **Line 43**: Finally, each output emitted by `reverse` is printed.
+<br>
+
+See [Your first script](https://docs.seqera.io/nextflow/your-first-script) for more information about this pipeline.
