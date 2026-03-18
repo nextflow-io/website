@@ -26,7 +26,7 @@ const ExamplesSideNav = () => {
     },
     {
       id: 'mixing-scripting-languages',
-      title: 'Mixed scripts',
+      title: 'Mixed script pipeline',
       href: 'mixing-scripting-languages.html'
     },
     {

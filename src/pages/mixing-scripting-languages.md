@@ -1,10 +1,10 @@
 ---
-title: Mixed scripts
+title: Mixed script pipeline
 layout: "@layouts/ExampleLayout.astro"
 ---
 
 <div class="blg-summary example">
-<h2>Mixed scripts</h2>
+<h2>Mixed script pipeline</h2>
 
 <p class="" >
     This pipeline shows how to use different scripting languages in a single Nextflow pipeline. The first process uses a Perl script to generate random number pairs, and the second process uses a Python script to calculate the average of each pair.
