@@ -798,10 +798,9 @@ const ambassadors: Ambassador[] = [
     img: "michael_heuer.png",
     country: "us",
     github: "heuermh",
-    twitter: "michael_l_heuer",
     title: "Nextflow Ambassador",
     children:
-      'Michael Heuer (he/him/his) is a Staff Engineer at <a href="https://mammoth.bio/" target="_blank" >Mammoth Biosciences</a >. Michael contributes to several nf-core workflows and is a member of the nf-core <a href="https://nf-co.re/governance#safety" target="_blank" >safety team.</a>',
+      'Michael Heuer (he/him/his) is a Staff Bioinformatics Engineer at Network.bio. Michael contributes to several nf-core workflows and is a member of the nf-core <a href="https://nf-co.re/governance#safety" target="_blank" >safety team.</a>',
   },
   {
     name: "Montassar Torkhani",
