@@ -822,7 +822,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "nicolas-vannieuwkerke-316874163",
     title: "Nextflow Ambassador",
     children:
-      'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He mainly develops Nextflow pipelines for in-house deployment using the nf-core standards. He also is an avid believer in "Learning on the job" and is always eager to learn',
+      'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He is very active in the nf-core community and involved in the development of multiple pipelines and tools.',
   },
   {
     name: "Nicolas Servant",
