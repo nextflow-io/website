@@ -463,7 +463,7 @@ const ambassadors: Ambassador[] = [
     linkedin: "jehee-lee-202002",
     title: "Nextflow Ambassador",
     children:
-      "Jehee is a bioinformatician from Seoul, South Korea. He aims to become an expert in harmonizing AI, BI, and Cloud technologies to accelerate biological research.",
+      "Jehee is a Bioinformatics Engineer based in Seoul, South Korea. He specializes in bridging legacy clinical infrastructure and modern bioinformatics workflows by architecting secure, scalable data pipelines.",
   },
   {
     name: "Jelena Pejovic Simeunovic",
