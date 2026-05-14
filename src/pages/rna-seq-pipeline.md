@@ -7,95 +7,89 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>RNA-Seq pipeline</h2>
 
 <p class="">
-    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
+    This pipeline shows an example of a basic for RNA-Seq analysis that performs quality control, transcript quantification, and result aggregation. The pipeline processes paired-end FASTQ files, generates quality control reports with FastQC, quantifies transcripts with Salmon, and produces a unified report with MultiQC.
 </p>
 
 ```groovy
-#!/usr/bin/env nextflow
-
-/*
- * The following pipeline parameters specify the reference genomes
- * and read pairs and can be provided as command line options
- */
-params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
-params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
+// Parameter inputs
+params.reads = "${baseDir}/data/ggal/ggal_gut_{1,2}.fq"
+params.transcriptome = "${baseDir}/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
 params.outdir = "results"
+params.multiqc = "${baseDir}/multiqc"
 
+
+// Component imports
+include { RNASEQ } from './modules/rnaseq'
+include { MULTIQC } from './modules/multiqc'
+
+
+// Workflow block
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
 
-    INDEX(params.transcriptome)
-    FASTQC(read_pairs_ch)
-    QUANT(INDEX.out, read_pairs_ch)
-}
+    log.info """\
+      R N A S E Q - N F   P I P E L I N E
+      ===================================
+      transcriptome: ${params.transcriptome}
+      reads        : ${params.reads}
+      outdir       : ${params.outdir}
+    """.stripIndent()
 
-process INDEX {
-    tag "$transcriptome.simpleName"
+    read_pairs_ch = channel.fromFilePairs(params.reads, checkIfExists: true, flat: true)
 
-    input:
-    path transcriptome
+    (fastqc_ch, quant_ch) = RNASEQ(read_pairs_ch, params.transcriptome)
 
-    output:
-    path 'index'
+    multiqc_files_ch = fastqc_ch.mix(quant_ch).collect()
 
-    script:
-    """
-    salmon index --threads $task.cpus -t $transcriptome -i index
-    """
-}
+    MULTIQC(multiqc_files_ch, params.multiqc)
 
-process FASTQC {
-    tag "FASTQC on $sample_id"
-    publishDir params.outdir
-
-    input:
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "fastqc_${sample_id}_logs"
-
-    script:
-    """
-    fastqc.sh "$sample_id" "$reads"
-    """
-}
-
-process QUANT {
-    tag "$pair_id"
-    publishDir params.outdir
-
-    input:
-    path index
-    tuple val(pair_id), path(reads)
-
-    output:
-    path pair_id
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
-    """
+    workflow.onComplete = {
+        log.info(
+            workflow.success
+                ? "\nDone! Open the following report in your browser --> ${params.outdir}/multiqc_report.html\n"
+                : "Oops .. something went wrong"
+        )
+    }
 }
 ```
 
 </div>
 
-### Try it in your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+The pipeline uses two imported components:
 
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
+  <p style="padding-left: 40px;">&#8226; <code>RNASEQ</code>: a subworkflow that contains three processes:</p>
 
-Install Nextflow by entering the following command in the terminal:
+  <p style="padding-left: 80px;">&#8226; <code>INDEX</code>: creates a Salmon index from the transcriptome (runs once)</p>
 
-    $ curl -fsSL get.nextflow.io | bash
+  <p style="padding-left: 80px;">&#8226; <code>FASTQC</code>: analyzes each sample in parallel</p>
 
-Then launch the pipeline with this command:
+  <p style="padding-left: 80px;">&#8226; <code>QUANT</code>: quantifies transcripts for each sample after indexing completes</p>
 
-    $ nextflow run rnaseq-nf -with-docker
+  <p style="padding-left: 40px;">&#8226; <code>MULTIQC</code>: aggregates all quality control and quantification outputs into a comprehensive HTML report</p>
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+The `workflow` block uses `channel.fromFilePairs` to create a channel of paired-end read files. It passes the reads and transcriptome to the `RNASEQ` subworkflow, then mixes the FastQC and quantification outputs and passes them to `MULTIQC`.
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+<br>
+
+### Get started
+
+To run this pipeline:
+
+ <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a> (version 25.10 or later)</p>
+
+ <p style="padding-left: 40px;">2. <a href="https://docs.docker.com/get-started/get-docker/"> Install Docker</a></p>
+
+ <p style="padding-left: 40px;">3. Run the pipeline directly from its GitHub repository:</p>
+
+<div style="padding-left: 60px; margin-top: 1rem;">
+
+```
+nextflow run nextflow-io/rnaseq-nf -profile docker
+```
+
+</div>
+
+<br>
+
+See the [rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) GitHub repository for all of the pipeline code and the [rnaseq-nf tutorial](https://nextflow.io/docs/stable/tutorials/rnaseq-nf.html) for a full pipeline description.
