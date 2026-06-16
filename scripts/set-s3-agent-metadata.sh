@@ -13,7 +13,6 @@ declare -A CONTENT_TYPES=(
   [".well-known/jwks.json"]="application/json"
   [".well-known/mcp/server-card.json"]="application/json"
   [".well-known/agent-skills/index.json"]="application/json"
-  [".well-known/agent-skills/nextflow-docs/SKILL.md"]="text/markdown; charset=utf-8"
   ["auth.md"]="text/markdown; charset=utf-8"
   ["index.md"]="text/markdown; charset=utf-8"
   ["openapi.json"]="application/json"
@@ -31,6 +30,17 @@ for key in "${!CONTENT_TYPES[@]}"; do
     echo "Skipping ${key} (not found in bucket)"
   fi
 done
+
+while IFS= read -r -d '' skill_file; do
+  key="${skill_file#output/}"
+  if aws s3api head-object --bucket "$BUCKET" --key "$key" >/dev/null 2>&1; then
+    aws s3 cp "s3://${BUCKET}/${key}" "s3://${BUCKET}/${key}" \
+      --metadata-directive REPLACE \
+      --content-type "text/markdown; charset=utf-8" \
+      --acl public-read
+    echo "Set Content-Type for ${key} -> text/markdown; charset=utf-8"
+  fi
+done < <(find output/.well-known/agent-skills -name 'SKILL.md' -print0 2>/dev/null)
 
 # Link header on homepage objects
 LINK_HEADER='</.well-known/api-catalog>; rel="api-catalog", </docs.seqera.io/nextflow/>; rel="service-doc", </openapi.json>; rel="service-desc"'
