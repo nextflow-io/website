@@ -13,6 +13,8 @@ publish:
 	 --acl public-read \
 	 --exclude "$0"
 
+	bash scripts/set-s3-agent-metadata.sh
+
 invalidate:
 	aws cloudfront create-invalidation --distribution-id E3RPV5P71OW0UF --paths '/*'
 

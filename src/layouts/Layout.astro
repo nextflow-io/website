@@ -4,6 +4,7 @@ import "../styles/focus-styles.css";
 import MenuComponent from "@components/Menu/Menu";
 import Footer from "@components/Footer.astro";
 import CookieBanner from "@components/CookieBanner/index.tsx";
+import WebMcpBridge from "@components/WebMcpBridge/index.tsx";
 
 import { existsSync } from "fs";
 import path from "path";
@@ -46,6 +47,11 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
     <meta property="twitter:title" content={page_title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={share_image} />
+
+    <link rel="api-catalog" href="/.well-known/api-catalog" />
+    <link rel="service-doc" href="https://docs.seqera.io/nextflow/" />
+    <link rel="service-desc" href="/openapi.json" />
+    <link rel="alternate" type="text/markdown" href="/index.md" />
 
     <!-- Bootstrap core CSS -->
     <link href="/css/bootstrap.css" rel="stylesheet" />
@@ -122,6 +128,7 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
 
     <slot />
     <CookieBanner client:only="react" />
+    <WebMcpBridge client:only="react" />
     <Footer />
 
     <script is:inline>

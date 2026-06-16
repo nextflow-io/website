@@ -1,0 +1,12 @@
+; DNS for AI Discovery (DNS-AID) records for nextflow.io
+; Deploy this zone (or merge these records) with your DNS provider.
+; Sign the zone with DNSSEC and publish DS records at the registrar.
+
+$ORIGIN nextflow.io.
+$TTL 3600
+
+; Index entrypoint — points agents to the site's API catalog
+_index._agents.nextflow.io. IN SVCB 1 nextflow.io. alpn="h3,h2" port=443 mandatory=alpn,port
+
+; Agent-to-agent discovery entrypoint
+_a2a._agents.nextflow.io. IN SVCB 1 nextflow.io. alpn="h3,h2" port=443 mandatory=alpn,port
