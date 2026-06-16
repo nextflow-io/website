@@ -54,8 +54,16 @@ const tools: WebMcpTool[] = [
         { title: "Home", url: "https://nextflow.io/", keywords: ["nextflow", "workflow", "pipeline", "reproducible"] },
         { title: "Examples", url: "https://nextflow.io/examples.html", keywords: ["example", "tutorial", "pipeline"] },
         { title: "About", url: "https://nextflow.io/about-us.html", keywords: ["about", "seqera", "team"] },
-        { title: "Basic pipeline", url: "https://nextflow.io/basic-pipeline.html", keywords: ["basic", "hello", "world"] },
-        { title: "Documentation", url: "https://docs.seqera.io/nextflow/", keywords: ["docs", "documentation", "reference", "manual"] },
+        {
+          title: "Basic pipeline",
+          url: "https://nextflow.io/basic-pipeline.html",
+          keywords: ["basic", "hello", "world"],
+        },
+        {
+          title: "Documentation",
+          url: "https://docs.seqera.io/nextflow/",
+          keywords: ["docs", "documentation", "reference", "manual"],
+        },
         { title: "Training", url: "https://training.nextflow.io/latest/", keywords: ["training", "course", "learn"] },
       ];
       return pages.filter(

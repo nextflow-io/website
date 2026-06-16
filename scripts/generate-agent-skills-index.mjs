@@ -5,16 +5,7 @@
  */
 import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import {
-  cpSync,
-  existsSync,
-  mkdirSync,
-  readdirSync,
-  readFileSync,
-  rmSync,
-  statSync,
-  writeFileSync,
-} from "node:fs";
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -121,9 +112,7 @@ function copySkills() {
     skills.push({
       name: frontmatter.name ?? dirName,
       type: "skill-md",
-      description:
-        frontmatter.description ??
-        `Nextflow agent skill from nextflow-io/agent-skills (${dirName}).`,
+      description: frontmatter.description ?? `Nextflow agent skill from nextflow-io/agent-skills (${dirName}).`,
       url: `${siteOrigin}/${relativePath}`,
       digest: sha256OfBytes(content),
     });
