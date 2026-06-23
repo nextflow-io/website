@@ -50,7 +50,6 @@ Parallelisation is defined by process input and output declarations; application
 Machine-readable resources for agents:
 
 - API catalog: `/.well-known/api-catalog`
-- OpenAPI: `/openapi.json`
 - MCP server card: `/.well-known/mcp/server-card.json`
 - Agent skills: `/.well-known/agent-skills/index.json`
 - Auth: `/auth.md`

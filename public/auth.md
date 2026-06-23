@@ -11,7 +11,6 @@ Most resources on nextflow.io are public and do not require authentication:
 - **Documentation** — [https://docs.seqera.io/nextflow/](https://docs.seqera.io/nextflow/)
 - **RSS feed** — [https://nextflow.io/feed.xml](https://nextflow.io/feed.xml)
 - **API catalog** — [https://nextflow.io/.well-known/api-catalog](https://nextflow.io/.well-known/api-catalog)
-- **OpenAPI spec** — [https://nextflow.io/openapi.json](https://nextflow.io/openapi.json)
 - **Markdown pages** — send `Accept: text/markdown` to any page URL, or read `https://nextflow.io/index.md`
 
 ## Discovery
