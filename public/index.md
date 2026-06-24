@@ -52,6 +52,5 @@ Machine-readable resources for agents:
 - API catalog: `/.well-known/api-catalog`
 - MCP server card: `/.well-known/mcp/server-card.json`
 - Agent skills: `/.well-known/agent-skills/index.json`
-- Auth: `/auth.md`
 
 Supported by [Seqera](https://seqera.io).

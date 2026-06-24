@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
  * Syncs skills from nextflow-io/agent-skills and generates
- * /.well-known/agent-skills/index.json with SHA-256 digests.
+ * /.well-known/agent-skills/index.json.
  */
 import { execSync } from "node:child_process";
-import { createHash } from "node:crypto";
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -79,11 +78,6 @@ function parseFrontmatter(content) {
   return fields;
 }
 
-function sha256OfBytes(bytes) {
-  const hex = createHash("sha256").update(bytes).digest("hex");
-  return `sha256:${hex}`;
-}
-
 function copySkills() {
   rmSync(skillsDestDir, { recursive: true, force: true });
   mkdirSync(skillsDestDir, { recursive: true });
@@ -114,7 +108,6 @@ function copySkills() {
       type: "skill-md",
       description: frontmatter.description ?? `Nextflow agent skill from nextflow-io/agent-skills (${dirName}).`,
       url: `${siteOrigin}/${relativePath}`,
-      digest: sha256OfBytes(content),
     });
   }
 
