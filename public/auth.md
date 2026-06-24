@@ -23,30 +23,11 @@ Start with these machine-readable discovery documents:
 4. `GET /.well-known/mcp/server-card.json` — MCP server card
 5. `GET /.well-known/agent-skills/index.json` — agent skills index
 
-## Agent registration
+## Agent access
 
-nextflow.io does not operate protected APIs that require agent credentials today. The registration endpoints below are reserved for future programmatic access:
-
-| Endpoint | Method | Purpose |
-| --- | --- | --- |
-| `https://nextflow.io/agent/register` | `POST` | Reserved agent registration endpoint |
-| `https://nextflow.io/agent/claim` | `POST` | Reserved claim ceremony endpoint |
+All resources on nextflow.io are public and do not require credentials. No registration is needed — read any resource directly.
 
 **Supported identity type:** `anonymous` (read-only public resources only).
-
-**Credential types:** `access_token` (not currently issued).
-
-If you receive `404` or `501` from a registration endpoint, treat all public resources as unauthenticated read-only access.
-
-## Using credentials
-
-When credentials become available, send them on API requests:
-
-```http
-GET /feed.xml HTTP/1.1
-Host: nextflow.io
-Authorization: Bearer <access_token>
-```
 
 ## Errors
 

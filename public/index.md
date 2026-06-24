@@ -21,7 +21,7 @@ Nextflow allows you to write a computational pipeline by making it simpler to pu
 
 ### Reproducibility
 
-Nextflow supports [Docker](http://docker.io) and [Singularity](http://singularity.lbl.gov/) containers, with Git integration for versioned, self-contained pipelines.
+Nextflow supports [Docker](https://www.docker.com/) and [Singularity](https://apptainer.org/) containers, with Git integration for versioned, self-contained pipelines.
 
 ### Continuous checkpoints
 
