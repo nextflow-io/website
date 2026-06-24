@@ -18,3 +18,5 @@ aws s3 sync --delete output/docs s3://www2.nextflow.io/docs \
  --acl public-read \
  --exclude "$0" \
  "$@"
+
+bash "$(dirname "$0")/scripts/set-s3-agent-metadata.sh"
