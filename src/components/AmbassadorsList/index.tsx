@@ -716,6 +716,16 @@ const ambassadors: Ambassador[] = [
       'Margherita is a researcher at the <a href="https://www.isasi.cnr.it/" target="_blank" > Institute of Applied Sciences and Intelligent Systems (CNR-ISASI)</a > with a Ph.D. in Computational Biology and long term experience in NGS analysis. Happy member of nf-core.',
   },
   {
+    name: "Markus Sujansky",
+    img: "MarkusSujansky.jpg",
+    country: "us",
+    github: "msujansky",
+    linkedin: "msujansky",
+    title: "Nextflow Ambassador",
+    children:
+      'Markus is a Bioinformatician at <a href="https://mdibl.org/" target="_blank" >MDIBL</a >. He is developing and using Nextflow pipelines for in-house use, focusing on single-cell cross-species genomic analysis.',
+  }
+  {
     name: "Marie Lataretu",
     img: "marie_lataretu.jpg",
     country: "de",
