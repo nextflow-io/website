@@ -246,6 +246,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
   },
   {
+    name: "Erik Fasterius",
+    img: "erik-fasterius.jpg",
+    country: "se",
+    github: "fasterius",
+    linkedin: "erik-fasterius",
+    title: "Nextflow Ambassador",
+    children:
+      'Erik is a bioinformatician working at the <a href="https://www.nbis.se/" target="_blank">National Bioinformatics Infrastructure Sweden</a>, <a href="https://www.scilifelab.se/" target="_blank">SciLifeLab</a>, the Swedish node of <a href="https://elixir-europe.org/" target="_blank">Elixir</a>. He supports Swedish life science researchers with bespoke transcriptomic analyses as well as Nextflow pipelines, and is passionate about reproducibility. He also contributes to the nf-core community with pipelines and modules.'
+  },
+  {
     name: "Evangelos Karatzas",
     img: "evangelos.jpg",
     country: "gr",
