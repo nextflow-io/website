@@ -1100,6 +1100,16 @@ const ambassadors: Ambassador[] = [
       'Thai-Huy Tran is a final-year student at International University (VNU-HCM), Vietnam, with experience developing cfDNA data analysis pipelines and performing single-cell RNA analysis for cancer biology.',
   },
   {
+    name: "Tian Qin",
+    img: "Tian_Qin.jpeg",
+    country: "ca",
+    github: "karmaout",
+    linkedin: "tianq3",
+    title: "Nextflow Ambassador",
+    children:
+      "Tian is a Postdoctoral Fellow and Bioinformatician, decoding multiple sclerosis using next-generation sequencing and large clinical cohorts.",
+  },
+  {
     name: "Yunjia Zhang",
     img: "yunjia.png",
     country: "gb",
