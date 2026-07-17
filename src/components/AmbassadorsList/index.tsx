@@ -794,6 +794,16 @@ const ambassadors: Ambassador[] = [
       'Melanie Nuesch is the Head of the High-Performance Computing (HPC) Platform at the German Rheumatism Research Centre (DRFZ) in Berlin. A bioinformatician by training, she pursued her doctoral research in the lab of Prof. Eicke Latz, focusing on high-dimensional immune profiling, systems biology for precision medicine and laboratory automation. At the DRFZ, Melanie champions reproducible science by architecting hybrid cluster environments and standardizing institute-wide multi-omics analyses through Nextflow and Containerization. As a Nextflow Ambassador, she is passionate about bridging the gap between complex robotic data generation and accessible, scalable "Pipeline-as-Code" bioinformatics.',
   },
   {
+    name: "Michael Geaghan",
+    img: "michael_geaghan.jpg",
+    country: "au",
+    github: "mgeaghan",
+    linkedin: "michael-geaghan-796755137",
+    title: "Nextflow Ambassador",
+    children:
+      'Michael is a Senior Bioinformatician at the <a href="https://www.sydney.edu.au/research/facilities/sydney-informatics-hub.html" target="_blank" >Sydney Informatics Hub</a>, University of Sydney, where he collaborates with researchers to develop reusable bioinformatics workflows. He also develops and delivers training materials on Nextflow and bioinformatics through the <a href="https://www.biocommons.org.au/" target="_blank" >Australian BioCommons</a >.',
+  },
+  {
     name: "Michael Heuer",
     img: "michael_heuer.png",
     country: "us",
