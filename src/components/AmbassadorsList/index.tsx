@@ -724,7 +724,7 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Markus is a Bioinformatician at <a href="https://mdibl.org/" target="_blank" >MDIBL</a >. He is developing and using Nextflow pipelines for in-house use, focusing on single-cell cross-species genomic analysis.',
-  }
+  },
   {
     name: "Marie Lataretu",
     img: "marie_lataretu.jpg",
