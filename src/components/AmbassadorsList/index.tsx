@@ -246,6 +246,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
   },
   {
+    name: "Erik Fasterius",
+    img: "erik-fasterius.jpg",
+    country: "se",
+    github: "fasterius",
+    linkedin: "erik-fasterius",
+    title: "Nextflow Ambassador",
+    children:
+      'Erik is a bioinformatician working at the <a href="https://www.nbis.se/" target="_blank">National Bioinformatics Infrastructure Sweden</a>, <a href="https://www.scilifelab.se/" target="_blank">SciLifeLab</a>, the Swedish node of <a href="https://elixir-europe.org/" target="_blank">Elixir</a>. He supports Swedish life science researchers with bespoke transcriptomic analyses as well as Nextflow pipelines, and is passionate about reproducibility. He also contributes to the nf-core community with pipelines and modules.'
+  },
+  {
     name: "Evangelos Karatzas",
     img: "evangelos.jpg",
     country: "gr",
@@ -275,6 +285,17 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Felipe is a bioinformatician at <a href="https://www.zs.com/careers/where-we-work/europe/copenhagen" target="_blank" >ZS</a >. He is involved in projects related to pipelines, promoting and facilitating the use of Nextflow with guidance and trainings, when fit. Also an active <a href="https://nf-co.re/" target="_blank" >nf-core</a> member.',
+  },
+    {
+    name: "Fernando Falat",
+    img: "fernando_falat.jpg",
+    country: "br",
+    github: "falatfernando",
+    linkedin: "fernandofalat",
+    twitter: "",
+    title: "Nextflow Ambassador",
+    children:
+      'Fernando is a Senior Solutions Architect and Genomic Data Scientist, currently pursuing his MSc at the University of São Paulo, Brazil. His interests include bioinformatics software development, scalable pipelines, and genomic data analysis.',
   },
   {
     name: "Firas Zemzem",
