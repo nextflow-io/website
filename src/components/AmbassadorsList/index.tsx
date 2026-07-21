@@ -237,6 +237,16 @@ const ambassadors: Ambassador[] = [
       '<a href="https://ctuni.dev" target="_blank">Cris</a> is a bioinformatics scientist and Ph.D. candidate at <a href="https://www.flomics.com/" target="_blank" >Flomics Biotech S.L.</a > They develop Nextflow RNA-Seq analysis pipelines to advance the field of early cancer diagnostics.',
   },
   {
+    name: "Daniel Mouzo",
+    img: "danielmouzo.jpg",
+    country: "es",
+    github: "damouzo",
+    linkedin: "danielmouzo",
+    title: "Nextflow Ambassador",
+    children:
+      'Dani is a postdoc bioinformatician at Queen Mary University, in collaboration with Fundación Jiménez Díaz in Madrid, working with clinical omics analysis in gene therapy and cancer. Visit his <a href="https://damouzo.github.io/" target="_blank">website</a>.',
+  },
+  {
     name: "Davi Marcon",
     img: "davi.jpeg",
     country: "br",
@@ -1212,16 +1222,6 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Zohaib is a Senior Postdoc Researcher at the <a href="https://cidgoh.ca/" target="_blank" >Center for Infectious Disease Genomics and One Health</a >. He\'s the developer of <a href="https://virusmvp.org" target="_blank" >VIRUS-MVP</a >, powered by a genomics workflow developed in Nextflow with nf-core modules.',
-  },
-  {
-    name: "Daniel Mouzo",
-    img: "danielmouzo.jpg",
-    country: "es",
-    github: "damouzo",
-    linkedin: "danielmouzo",
-    title: "Nextflow Ambassador",
-    children:
-      'Dani is a postdoc bioinformatician at Queen Mary University, in collaboration with Fundación Jiménez Díaz in Madrid, working with clinical omics analysis in gene therapy and cancer. Visit his <a href="https://damouzo.github.io/" target="_blank">website</a>.',
   },
   // Ambassador Program Staff
   {
