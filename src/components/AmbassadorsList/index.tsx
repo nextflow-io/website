@@ -256,6 +256,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
   },
   {
+    name: "Delfina Terradas",
+    img: "delfina-terradas.jpg",
+    country: "ar",
+    github: "delfiterradas",
+    linkedin: "delfina-maría-terradas-1b516b2a8",
+    title: "Nextflow Ambassador",
+    children:
+      'Delfina is a bioinformatician at <a href="https://www.zs.com/capabilities/research-and-development/research-discovery" target="_blank" >ZS</a >. Her work focuses on developing reproducible pipelines for a wide range of bioinformatics applications.',
+  },
+  {
     name: "Dhvnit Mehta",
     img: "dhvnit-m.jpg",
     country: "in",
