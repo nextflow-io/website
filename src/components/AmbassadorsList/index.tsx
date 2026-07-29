@@ -274,7 +274,7 @@ const ambassadors: Ambassador[] = [
     twitter: "",
     title: "Nextflow Ambassador",
     children:
-      'Dhvnit is an MSc student in Industrial Biotechology. He has interests in genomics, automation and optimization of tools and pipelines in bioinformatics.', 
+      'Dhvnit is an MSc student in Industrial Biotechology. He has interests in genomics, automation and optimization of tools and pipelines in bioinformatics.',
   },
   {
     name: "Erik Fasterius",
@@ -422,6 +422,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Graeme is a Bioinformatician at the <a href="https://www.ed.ac.uk/institute-genetics-cancer" target="_blank" >Institute of Genetics & Cancer</a > at the <a href="https://www.ed.ac.uk" target="_blank" >Univeristy of Edinburgh</a> in Scotland, he is also the lesson maintainer of the Carpentries <a href="https://carpentries-incubator.github.io/workflows-nextflow/" target="_blank" >Introduction to Bioinformatics workflows with Nextflow and nf-core</a >.',
+  },
+  {
+    name: "Haris Spyridis",
+    img: "Haris.jpg",
+    country: "gr",
+    github: "haris18s",
+    linkedin: "haris-spyridis-2bab42192",
+    title: "Nextflow Ambassador",
+    children:
+      'Haris holds an MSc in Functional Genomics and started their Nextflow journey by contributing to the <a href="https://nf-co.re/taxprofiler" target="_blank">nf-core/taxprofiler</a> pipeline. He is currently looking for research positions in bioinformatics.',
   },
   {
     name: "Hemanoel Passarelli",
