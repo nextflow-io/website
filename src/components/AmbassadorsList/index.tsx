@@ -955,7 +955,16 @@ const ambassadors: Ambassador[] = [
     children:
       "Omer Ali is a Bioinformatician at Oslo University Hospital, Oslo Norway. He works with TSO500 and whole genome data. Part of the team who provides advance molecular diagnostics to cancer patients.",
   },
-
+  {
+    name: "Pauline Fourgoux",
+    img: "Pauline_Fourgoux.png",
+    country: "gb",
+    github: "paulinefx",
+    linkedin: "pauline-fourgoux-ba4107137 ",
+    title: "Nextflow Ambassador",
+    children: 
+      'Pauline Fourgoux is a Senior Bioinformatician at the <a href="https://eit.org" target="_blank" >Ellison Institute of Technology</a> developing Nextflow pipelines to streamline reproducible sequencing workflows for scientists.'
+  },
   {
     name: "Phil Ewels",
     img: "phil.jpg",
