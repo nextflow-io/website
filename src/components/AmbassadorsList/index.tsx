@@ -16,6 +16,16 @@ interface Ambassador {
 }
 
 const ambassadors: Ambassador[] = [
+   {
+    name: "Mashael Alghuraybi",
+    img: "mashael_alghuraybi.png",
+    country: "sa",
+    github: "malghuraybi",
+    linkedin: "mashael-alghuraybi",
+    title: "Nextflow Ambassador",
+    children:
+      "Mashael is a bioinformatics data specialist in Saudi Arabia. Her work focuses on genomics, metagenomics, and reproducible workflows for animal health and One Health research.",
+  },
   {
     name: "Abhinav Sharma",
     img: "abhinav.jpg",
