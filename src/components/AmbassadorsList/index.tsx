@@ -778,6 +778,17 @@ const ambassadors: Ambassador[] = [
       '<a href="https://www4.uib.no/en/find-employees/Mahima.Sanjay.Gomladu%2C.MS" target="_blank" >Mahima Sanjay Gomladu</a >, is a Senior Bioinformatics Engineer at the <a href="https://www.uib.no/en/clin2/genomics" target="_blank" >Genomics Core Facility</a >, University of Bergen, Norway. She designs modular, scalable pipelines using Nextflow to drive large-scale sequencing analyses (WES, WGS, RNA-seq, single-cell, spatial omics). As an ELIXIR collaborator, she promotes reproducible sciencand FAIR data principles.',
   },
   {
+    name: "Mansi Chandra",
+    img: "mansi-chandra.jpg",
+    country: "gb",
+    github: "Mansichandra30",
+    linkedin: "mansi-chandra-b91458202",
+    twitter: "",
+    title: "Nextflow Ambassador",
+    children:
+      'Mansi is a Bioinformatics Researcher specializing in transcriptomics, genomics, and single-cell sequencing analysis.',
+  },
+  {
     name: "Margherita Mutarelli",
     img: "margherita.png",
     country: "it",
