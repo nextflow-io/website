@@ -16,16 +16,6 @@ interface Ambassador {
 }
 
 const ambassadors: Ambassador[] = [
-   {
-    name: "Mashael Alghuraybi",
-    img: "mashael_alghuraybi.png",
-    country: "sa",
-    github: "malghuraybi",
-    linkedin: "mashael-alghuraybi",
-    title: "Nextflow Ambassador",
-    children:
-      "Mashael is a bioinformatics data specialist in Saudi Arabia. Her work focuses on genomics, metagenomics, and reproducible workflows for animal health and One Health research.",
-  },
   {
     name: "Abhinav Sharma",
     img: "abhinav.jpg",
@@ -828,6 +818,16 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Martin is the Production lead of <a href="https://www.ebi.ac.uk/metagenomics/" target="_blank" >MGnify</a> at <a href="https://www.ebi.ac.uk/" target="_blank" >EMBL-EBI</a >. He oversees the development and maintenance of web services and bioinformatics pipelines.',
+  },
+     {
+    name: "Mashael Alghuraybi",
+    img: "mashael_alghuraybi.png",
+    country: "sa",
+    github: "malghuraybi",
+    linkedin: "mashael-alghuraybi-msc-69b80b229",
+    title: "Nextflow Ambassador",
+    children:
+      "Mashael is a bioinformatics data specialist in Saudi Arabia. Her work focuses on genomics, metagenomics, and reproducible workflows for animal health and One Health research.",
   },
   {
     name: "Mateus Falco",
