@@ -947,6 +947,17 @@ const ambassadors: Ambassador[] = [
       "Nishat is a Medical Doctor and Bioinformatician using ML/AI techniques to find solutions to Biomedical problems. She is passionate about scalable and reproducible workflows that streamline pipelines for the future of science.",
   },
   {
+  name: "Nkiruka Cynthia Efenji",
+  img: "nkirukaefenji.jpeg",
+  country: "ng",
+  github: "Nkiruka-Cynthia",
+  linkedin: "nkirucynthiaefenji",
+  twitter: "nkii_cy",
+  title: "Nextflow Ambassador",
+  children:
+    'Nkiruka is a microbial bioinformatician building auditable Nextflow pipelines for cancer genomics and microbiome research. She teaches Nextflow and nf-core through STaiMIC and is passionate about growing global bioinformatics capacity and open science.',
+  },
+  {
     name: "Nour Mahfel",
     img: "nour.jpeg",
     country: "gb",
