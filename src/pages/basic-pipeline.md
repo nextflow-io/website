@@ -88,6 +88,8 @@ The `output` block (outside the workflow) defines where and how each output shou
 
 <br>
 
+### Get started
+
 To run this pipeline:
 
  <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a> (version 25.10 or later)</p>
