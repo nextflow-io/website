@@ -217,12 +217,6 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://github.com/nextflow-io/rnaseq-nf" target="_blank" tabIndex={0}>
-                    Simple RNAseq pipeline
-                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
-                  </a>
-                </li>
-                <li>
                   <a href="http://nextflow-io.github.io/patterns/index.html" target="_blank" tabIndex={0}>
                     Implementation patterns
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
