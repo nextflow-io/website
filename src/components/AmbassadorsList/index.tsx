@@ -1213,7 +1213,7 @@ const ambassadors: Ambassador[] = [
       'Susan Collins is a Bioinformatics Engineer based in Vermont, building scalable, production-grade genomics workflows with Nextflow.',
     {
   name: "Susan Nasif O-Adorisio, PhD",
-  img: "susan-nasif.jpg",
+  img: "susan-nasif.jpg.jpeg",
   country: "it",
   github: "DrSusanNasif",
   linkedin: "susannasifphd",
