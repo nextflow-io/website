@@ -761,6 +761,16 @@ const ambassadors: Ambassador[] = [
     children:
       'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He is very active in the nf-core community and involved in the development of multiple pipelines and tools.',
   },
+    name: "Nicholas Owen",
+    img: "nowen.png",
+    country: "gb",
+    github: "nicholas-owen",
+    linkedin: "nicholas-owen-3ab03820",
+    twitter: "dr__no",
+    title: "Nextflow Ambassador",
+    children:
+      'Nick is a Principal Research Data Steward / Bioinformatician at <a href="https://www.ucl.ac.uk/" target="_blank" >UCL Advanced Research Computing</a >. He has a strong background in splicing and disease, developing pipelines for NGS analysis using Nextflow.',
+  },
   {
     name: "Nikhila T Suresh",
     img: "nikhila.jpg",
@@ -1526,17 +1536,6 @@ const ambassadors: Ambassador[] = [
     title: "Program Alumni",
     children:
       'Nicolas is the co-director of the <a href="https://institut-curie.org/plateforme/curiecoretech-bioinformatics-cubic" target="_blank" > bioinformatics core facility of Institut Curie</a >. His main interests are cancer biology/epigenetics/AI. Member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > community, he promotes Nextflow for good programming practices.',
-  },
-  {
-    name: "Nicholas Owen",
-    img: "nowen.png",
-    country: "gb",
-    github: "nicholas-owen",
-    linkedin: "nicholas-owen-3ab03820",
-    twitter: "dr__no",
-    title: "Program Alumni",
-    children:
-      'Nick is a Principal Research Data Steward / Bioinformatician at <a href="https://www.ucl.ac.uk/" target="_blank" >UCL Advanced Research Computing</a >. He has a strong background in splicing and disease, developing pipelines for NGS analysis using Nextflow.',
   },
   {
     name: "Natalia Coutouné",
