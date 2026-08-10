@@ -761,6 +761,7 @@ const ambassadors: Ambassador[] = [
     children:
       'Nicolas Vannieuwkerke is a Bioinformatician at <a href="https://www.cmgg.be/" target="_blank" >CMGG</a >. He is very active in the nf-core community and involved in the development of multiple pipelines and tools.',
   },
+  {
     name: "Nicholas Owen",
     img: "nowen.png",
     country: "gb",
