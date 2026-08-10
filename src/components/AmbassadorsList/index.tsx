@@ -1211,6 +1211,17 @@ const ambassadors: Ambassador[] = [
     title: "Nextflow Ambassador",
     children:
       'Susan Collins is a Bioinformatics Engineer based in Vermont, building scalable, production-grade genomics workflows with Nextflow.',
+    },
+    {
+  name: "Susan Nasif O-Adorisio",
+  img: "susan-nasif.jpg.jpeg",
+  country: "it",
+  github: "DrSusanNasif",
+  linkedin: "susannasifphd",
+  twitter: "DrSusanNasif",
+  title: "Nextflow Ambassador",
+  children:
+    'Susan is Founder & CEO of STaiMIC and a KU Leuven-trained biomedical scientist with 20+ years of experience in antiviral R&D, vaccinology, translational AI and multi-omics. She has led programmes supported by the European Commission, pharmaceutical industry and leading Italian academic medical centres. She also contributes to the WHO/EU Innovation Platform for Digital and Tech Innovation and the BioExpert Network, focusing on reproducible biomedical AI and multi-omics for underserved communities.',
   },
   {
     name: "Thai-Huy Tran",
