@@ -818,7 +818,7 @@ const ambassadors: Ambassador[] = [
     img: "Pauline_Fourgoux.png",
     country: "gb",
     github: "paulinefx",
-    linkedin: "pauline-fourgoux-ba4107137 ",
+    linkedin: "pauline-fourgoux-ba4107137",
     title: "Nextflow Ambassador",
     children:
       'Pauline Fourgoux is a Senior Bioinformatician at the <a href="https://eit.org" target="_blank" >Ellison Institute of Technology</a> developing Nextflow pipelines to streamline reproducible sequencing workflows for scientists.'
@@ -1281,7 +1281,7 @@ const ambassadors: Ambassador[] = [
     children:
       'Gisela is a Bioinformatician at <a href="http://www.cnea.gov.ar/" target="_blank" >CNEA</a >, where she designs and executes a meta-analysis project focused on gene expression profiles to identify diagnostic and therapeutic biomarkers in pediatric gliomas.',
   },
-    {
+  {
     name: "Hemanoel Passarelli",
     img: "hemanoel-passarelli.jpg",
     country: "br",
