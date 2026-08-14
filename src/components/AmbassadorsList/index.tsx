@@ -806,7 +806,7 @@ const ambassadors: Ambassador[] = [
   {
     name: "Omer Ali",
     img: "omer.png",
-    country: "nor",
+    country: "no",
     github: "Omer0191",
     linkedin: "omer0191",
     title: "Nextflow Ambassador",
