@@ -6,6 +6,7 @@ const countryMap: { [key: string]: string } = {
   bd: "Bangladesh",
   be: "Belgium",
   br: "Brazil",
+  bt: "Bhutan",
   ca: "Canada",
   ch: "Switzerland",
   cl: "Chile",
@@ -24,15 +25,21 @@ const countryMap: { [key: string]: string } = {
   ke: "Kenya",
   kr: "South Korea",
   mx: "Mexico",
+  my: "Malaysia",
   ng: "Nigeria",
+  nl: "Netherlands",
   no: "Norway",
+  nr: "Nauru",
   nz: "New Zealand",
   pk: "Pakistan",
   rs: "Serbia",
+  rw: "Rwanda",
+  sa: "Saudi Arabia",
   se: "Sweden",
   tn: "Tunisia",
   tw: "Taiwan",
   us: "United States",
+  uy: "Uruguay",
   vn: "Vietnam",
   za: "South Africa",
 };
@@ -53,7 +60,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
     const updatedCountries = selectedCountries.includes(countryCode)
       ? selectedCountries.filter(code => code !== countryCode)
       : [...selectedCountries, countryCode];
-    
+
     setSelectedCountries(updatedCountries);
     onFilterChange(updatedCountries);
   };
@@ -102,7 +109,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
                   <div
                     key={countryCode}
                     className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs flex-shrink-0"
-                    onClick={(e) => e.stopPropagation()} 
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <img
                       className="w-3 h-2 mr-1 rounded overflow-hidden object-cover"
@@ -125,13 +132,13 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
                   </div>
                 );
               })}
-              
+
               {/* Placeholder text when no selection */}
               {selectedCountries.length === 0 && (
                 <span className="text-sm whitespace-nowrap">Filter by country</span>
               )}
             </div>
-            
+
             {/* Dropdown arrow - always visible on the right */}
             <div className="flex-shrink-0">
               <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
