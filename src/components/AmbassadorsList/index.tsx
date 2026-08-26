@@ -1019,6 +1019,15 @@ const ambassadors: Ambassador[] = [
       "Tian is a Postdoctoral Fellow and Bioinformatician, decoding multiple sclerosis using next-generation sequencing and large clinical cohorts.",
   },
   {
+  name: "Timothy Lee",
+  img: "NFportrait.png",
+  country: "ca",
+  github: "timlee-bioinf",
+  linkedin: "timothy-l-458110289",
+  children:
+    'Timothy is a data-driven researcher based in Vancouver, developing genetic risk prediction models for respiratory conditions to support regional health research.',
+  },
+  {
     name: "Yunjia Zhang",
     img: "yunjia.png",
     country: "gb",
