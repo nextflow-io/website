@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import "./menu.css"; 
+import "./menu.css";
 import Hamburger from "../Hamburger";
 
 const Menu = ({}) => {
@@ -117,8 +117,8 @@ const Menu = ({}) => {
     e.stopPropagation();
   };
 
-  const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container 
-    ${!isVisible ? "header-hidden" : ""} 
+  const headerClasses = `navbar navbar-inverse navbar-fixed-top header-container
+    ${!isVisible ? "header-hidden" : ""}
     ${isMenuOpen ? "menu-open" : ""}`;
 
   const handleLiClick = (e: React.MouseEvent, index: number) => {
@@ -157,7 +157,7 @@ const Menu = ({}) => {
         <div className={`navbar-collapse ${isMenuOpen && isMobile ? "in" : "collapse"}`}>
           <ul className="nav navbar-nav py-2">
             <li className="show animated ">
-              <a href="/docs/latest/index.html" className="text-black">
+              <a href="https://docs.seqera.io/nextflow/" className="text-black">
                 Documentation
               </a>
             </li>
@@ -172,8 +172,8 @@ const Menu = ({}) => {
                 <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink externalLink inline-block" />
               </a>
             </li>
-            <li 
-              ref={setDropdownRef(0)} 
+            <li
+              ref={setDropdownRef(0)}
               className={`dropdown show ${activeDropdown === 0 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 0)}
             >
@@ -187,7 +187,7 @@ const Menu = ({}) => {
                 onClick={(e) => handleDropdownClick(e, 0)}
                 onTouchStart={(e) => handleTouchStart(e, 0)}
               >
-                <span className="menu-label">Examples</span> 
+                <span className="menu-label">Examples</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -231,8 +231,8 @@ const Menu = ({}) => {
               </ul>
             </li>
 
-            <li 
-              ref={setDropdownRef(1)} 
+            <li
+              ref={setDropdownRef(1)}
               className={`dropdown show ${activeDropdown === 1 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 1)}
             >
@@ -246,7 +246,7 @@ const Menu = ({}) => {
                 onClick={(e) => handleDropdownClick(e, 1)}
                 onTouchStart={(e) => handleTouchStart(e, 1)}
               >
-                <span className="menu-label">Tools</span> 
+                <span className="menu-label">Tools</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -259,6 +259,12 @@ const Menu = ({}) => {
                 <li>
                   <a href="https://seqera.io/containers/" target="_blank" tabIndex={0}>
                     Containers
+                    <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://registry.nextflow.io/" target="_blank" tabIndex={0}>
+                    Plugins
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
                 </li>
@@ -276,8 +282,8 @@ const Menu = ({}) => {
 
 
 
-            <li 
-              ref={setDropdownRef(2)} 
+            <li
+              ref={setDropdownRef(2)}
               className={`dropdown show ${activeDropdown === 2 ? "open" : ""}`}
               onClick={(e) => handleLiClick(e, 2)}
             >
@@ -291,7 +297,7 @@ const Menu = ({}) => {
                 onClick={(e) => handleDropdownClick(e, 2)}
                 onTouchStart={(e) => handleTouchStart(e, 2)}
               >
-                <span className="menu-label">Resources</span> 
+                <span className="menu-label">Resources</span>
                 <img src="/img/assets/angle-down.svg" alt="Expand" className="dropdown-icon inline-block" />
               </a>
               <ul className="dropdown-menu" role="menu" onClick={handleMenuItemClick}>
@@ -307,7 +313,7 @@ const Menu = ({}) => {
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
                 </li>
-                
+
                 <li>
                   <a href="https://community.seqera.io/tag/nextflow" target="_blank" tabIndex={0}>
                     Community forum
