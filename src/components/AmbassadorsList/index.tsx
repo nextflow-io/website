@@ -496,6 +496,16 @@ const ambassadors: Ambassador[] = [
       'Júlia is a bioinformatician at the Computational Biology and Health Genomics group from the CRG. She is also an nf-core tools developer and a member of the <a href="https://nf-co.re/" target="_blank" >nf-core</a > <a href="https://nf-co.re/governance#core-team" target="_blank" >core team.</a>',
   },
   {
+    name: "Koffi Anderson Hongo",
+    img: "Hongo_K_Anderson.png",
+    country: "ci",
+    github: "bboy010",
+    linkedin: "koffi-anderson-hongo-b165a4170",
+    title: "Nextflow Ambassador",
+    children:
+      "Hongo is a researcher and co-founder of LearnerWorld with a strong foundation in genetics, bioinformatics, data, and machine learning focusing on scalable genomics workflows.",
+  },
+  {
     name: "Kimberly Christine Coetzer",
     img: "KCCoetzer_NF_ambassador.png",
     country: "za",
