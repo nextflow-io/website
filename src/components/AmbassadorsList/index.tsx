@@ -1155,7 +1155,7 @@ const ambassadors: Ambassador[] = [
     github: "buluthamali",
     linkedin: "bulut-hamali",
     twitter: "BioinfUniverse",
-    title: "Nextflow Ambassador",
+    title: "Program Alumni",
     children:
       'Bulut Hamali is a Bioinformatician at the <a href="https://med.uc.edu/depart/cancer-biology/" target="_blank" >UC Cincinnati</a >, studying HER2-positive breast cancer mechanisms. He holds a PhD from the Medical University of Vienna.',
   },
