@@ -140,17 +140,6 @@ const ambassadors: Ambassador[] = [
       'Ashley is a Scientific Consultant at the <a href="https://chpc.utah.edu/" target="_blank">CHPC.</a> She has developed image analysis and genomic assembly pipelines and now uses her expertise to consult researchers on their scientific computing requirements.',
   },
   {
-    name: "Bulut Hamali",
-    img: "BulutHamali.png",
-    country: "us",
-    github: "buluthamali",
-    linkedin: "bulut-hamali",
-    twitter: "BioinfUniverse",
-    title: "Nextflow Ambassador",
-    children:
-      'Bulut Hamali is a Bioinformatician at the <a href="https://med.uc.edu/depart/cancer-biology/" target="_blank" >UC Cincinnati</a >, studying HER2-positive breast cancer mechanisms. He holds a PhD from the Medical University of Vienna.',
-  },
-  {
     name: "Charalampos (Harris) Lazaris",
     img: "harris.jpg",
     country: "us",
@@ -1158,6 +1147,17 @@ const ambassadors: Ambassador[] = [
     linkedin: "bhargavamorampalli",
     twitter: "iambhargava",
     title: "Program Alumni",
+  },
+  {
+    name: "Bulut Hamali",
+    img: "BulutHamali.png",
+    country: "us",
+    github: "buluthamali",
+    linkedin: "bulut-hamali",
+    twitter: "BioinfUniverse",
+    title: "Program Alumni",
+    children:
+      'Bulut Hamali is a Bioinformatician at the <a href="https://med.uc.edu/depart/cancer-biology/" target="_blank" >UC Cincinnati</a >, studying HER2-positive breast cancer mechanisms. He holds a PhD from the Medical University of Vienna.',
   },
   {
     name: "Carson Miller",
