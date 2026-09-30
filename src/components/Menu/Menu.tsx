@@ -269,7 +269,7 @@ const Menu = ({}) => {
                   </a>
                 </li>
                 <li>
-                  <a href="https://seqera.io/ask-ai/" target="_blank" tabIndex={0}>
+                  <a href="https://cloud.seqera.io/?coScientist=open" target="_blank" tabIndex={0}>
                     Seqera AI
                     <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
                   </a>
