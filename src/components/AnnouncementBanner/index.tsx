@@ -4,6 +4,12 @@ import "./banner.css";
 
 const FRONTIER_URL = "https://nextflow.com/frontier";
 
+const message = (
+  <>
+    Our new product, <strong>Nextflow Frontier</strong>, is live, built on Nextflow by the team who created it.
+  </>
+);
+
 const AnnouncementBanner = () => {
   const bannerRef = useRef<HTMLDivElement>(null);
 
@@ -25,9 +31,15 @@ const AnnouncementBanner = () => {
   return (
     <div ref={bannerRef} className="announcement-banner bg-brand" role="region" aria-label="Announcement">
       <div className="container announcement-banner__inner">
-        <p className="announcement-banner__text">
-          Our new product, <strong>Nextflow Frontier</strong>, is live, built on Nextflow by the team who created it.
-        </p>
+        <div className="announcement-banner__marquee">
+          <div className="announcement-banner__track">
+            <p className="announcement-banner__text">{message}</p>
+            {/* Second copy makes the mobile scroll loop seamless */}
+            <p className="announcement-banner__text announcement-banner__text--clone" aria-hidden="true">
+              {message}
+            </p>
+          </div>
+        </div>
         <Button url={FRONTIER_URL} variant="link" className="announcement-banner__cta">
           Learn more
         </Button>
