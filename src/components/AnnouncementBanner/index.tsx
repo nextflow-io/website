@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import Button from "../Button";
 import "./banner.css";
 
 const FRONTIER_URL = "https://seqera.io/frontier/";
@@ -22,14 +23,14 @@ const AnnouncementBanner = () => {
   }, []);
 
   return (
-    <div ref={bannerRef} className="announcement-banner" role="region" aria-label="Announcement">
+    <div ref={bannerRef} className="announcement-banner bg-brand" role="region" aria-label="Announcement">
       <div className="container announcement-banner__inner">
         <p className="announcement-banner__text">
           Our new product, <strong>Nextflow Frontier</strong>, is live, built on Nextflow by the team who created it.
         </p>
-        <a className="announcement-banner__cta" href={FRONTIER_URL}>
+        <Button url={FRONTIER_URL} variant="link" className="announcement-banner__cta">
           Learn more
-        </a>
+        </Button>
       </div>
     </div>
   );

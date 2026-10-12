@@ -1,5 +1,5 @@
 :root {
-  --banner-height: 48px;
+  --banner-height: 37px;
 }
 
 @media (max-width: 767px) {
@@ -14,7 +14,6 @@ body {
 }
 
 .announcement-banner {
-  background: var(--color-brand, #160f26);
   color: #fff;
 }
 
@@ -38,28 +37,29 @@ body {
   font-weight: 600;
 }
 
-.announcement-banner a.announcement-banner__cta {
+/* Shared link Button, adapted to the dark banner */
+.announcement-banner a.announcement-banner__cta.button-link {
   flex-shrink: 0;
-  padding: 4px 12px;
-  border: 1px solid var(--color-nextflow-600, #0dc09d);
-  border-radius: 4px;
-  background: var(--color-nextflow-300, #86e0ce);
-  color: var(--color-brand, #160f26);
+  gap: 8px;
+  padding: 0;
+  color: #fff;
   font-size: 14px;
   line-height: 21px;
   font-weight: 500;
-  text-decoration: none;
   white-space: nowrap;
-  transition: background-color 0.2s ease-in-out;
 }
 
-.announcement-banner a.announcement-banner__cta:hover {
-  background: var(--color-nextflow-400, #56d3ba);
+.announcement-banner a.announcement-banner__cta.button-link::after {
+  bottom: -2px;
 }
 
-.announcement-banner a.announcement-banner__cta:focus-visible {
+.announcement-banner a.announcement-banner__cta.button-link img {
+  filter: brightness(0) invert(1);
+}
+
+.announcement-banner a.announcement-banner__cta.button-link:focus-visible {
   outline: 2px solid #fff;
-  outline-offset: 2px;
+  outline-offset: 4px;
 }
 
 @media (max-width: 767px) {
@@ -75,7 +75,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .announcement-banner a.announcement-banner__cta {
+  .announcement-banner a.announcement-banner__cta.button-link::after,
+  .announcement-banner a.announcement-banner__cta.button-link span {
     transition: none;
   }
 }
