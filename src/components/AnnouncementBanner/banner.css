@@ -1,0 +1,81 @@
+:root {
+  --banner-height: 48px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --banner-height: 70px;
+  }
+}
+
+/* Push page content below the banner; the fixed navbar already accounts for itself */
+body {
+  padding-top: var(--banner-height) !important;
+}
+
+.announcement-banner {
+  background: var(--color-brand, #160f26);
+  color: #fff;
+}
+
+.announcement-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.announcement-banner p.announcement-banner__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: #fff;
+}
+
+.announcement-banner__text strong {
+  font-weight: 600;
+}
+
+.announcement-banner a.announcement-banner__cta {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border: 1px solid var(--color-nextflow-600, #0dc09d);
+  border-radius: 4px;
+  background: var(--color-nextflow-300, #86e0ce);
+  color: var(--color-brand, #160f26);
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.announcement-banner a.announcement-banner__cta:hover {
+  background: var(--color-nextflow-400, #56d3ba);
+}
+
+.announcement-banner a.announcement-banner__cta:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 767px) {
+  .announcement-banner__inner {
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .announcement-banner p.announcement-banner__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announcement-banner a.announcement-banner__cta {
+    transition: none;
+  }
+}

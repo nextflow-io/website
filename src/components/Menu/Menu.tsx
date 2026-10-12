@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./menu.css";
 import Hamburger from "../Hamburger";
+import AnnouncementBanner from "../AnnouncementBanner";
 
 const Menu = ({}) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -143,6 +144,7 @@ const Menu = ({}) => {
 
   return (
     <div id="header" ref={headerRef} className={headerClasses} role="navigation">
+      <AnnouncementBanner />
       <div className="container ">
         <div className="navbar-header">
           {isMobile && (
