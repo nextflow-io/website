@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Button from "../Button";
 import "./banner.css";
 
-const FRONTIER_URL = "https://seqera.io/frontier/";
+const FRONTIER_URL = "https://nextflow.com/frontier";
 
 const AnnouncementBanner = () => {
   const bannerRef = useRef<HTMLDivElement>(null);
