@@ -6,7 +6,8 @@ const FRONTIER_URL = "https://nextflow.com/frontier";
 
 const message = (
   <>
-    Our new product, <strong>Nextflow Frontier</strong>, is live, built on Nextflow by the team who created it.
+    Nextflow.io is not changing. Our new product, <strong>Nextflow Frontier</strong>, is live, built on Nextflow by the
+    team who created it.
   </>
 );
 
