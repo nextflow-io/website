@@ -17,19 +17,31 @@ layout: "@layouts/ExampleLayout.astro"
  * Proof of concept of a RNAseq pipeline implemented with Nextflow
  */
 
+nextflow.enable.types = true
+
+// import modules
+include { RNASEQ } from './modules/rnaseq'
+include { MULTIQC } from './modules/multiqc'
+
+// import types
+include { Sample ; AlignedSample } from './modules/rnaseq'
+
 /*
  * Default pipeline parameters. They can be overriden on the command line eg.
  * given `params.reads` specify on the run command line `--reads some_value`.
  */
 
-params.reads = null
-params.transcriptome = null
-params.multiqc = "${projectDir}/multiqc"
+params {
+    // The input samplesheet of paired-end reads. Nextflow loads the
+    // samplesheet into a channel of records, one record per row.
+    reads: Channel<Sample>
 
+    // The input transcriptome file
+    transcriptome: Path
 
-// import modules
-include { RNASEQ } from './modules/rnaseq'
-include { MULTIQC } from './modules/multiqc'
+    // Directory containing multiqc configuration
+    multiqc: Path = "${projectDir}/multiqc"
+}
 
 /*
  * main script flow
@@ -40,28 +52,24 @@ workflow {
       R N A S E Q - N F   P I P E L I N E
       ===================================
       transcriptome: ${params.transcriptome}
-      reads        : ${params.reads}
       outdir       : ${workflow.outputDir}
     """.stripIndent()
 
-    // Create a channel of paired-end reads from the glob in `params.reads`.
-    // `checkIfExists: true` fails fast if no files match; `flat: true` flattens
-    // the pair into the tuple so each emission is `[sample_id, read1, read2]`,
-    // e.g. ['ggal_gut', ggal_gut_1.fq, ggal_gut_2.fq].
-    read_pairs_ch = channel.fromFilePairs(params.reads, checkIfExists: true, flat: true)
-
+    // `params.reads` is a channel of records loaded from the samplesheet, one
+    // record per row e.g. [id: 'ggal_gut', fastq_1: ggal_gut_1.fq, fastq_2: ggal_gut_2.fq].
+    //
     // Run the RNASEQ sub-workflow over each read pair against the transcriptome.
-    // It emits a channel of tuples with the following elements:
-    //   - per-sample ID
-    //   - per-sample FastQC report directories
-    //   - per-sample Salmon quantification directories
-    samples_ch = RNASEQ(read_pairs_ch, params.transcriptome)
+    // It emits a channel of records with the following fields:
+    //   - id: per-sample ID
+    //   - fastqc: per-sample FastQC directories
+    //   - quant: per-sample Salmon quantification directories
+    samples_ch = RNASEQ(params.reads, params.transcriptome)
 
     // Extract the FastQC and Salmon outputs into a single stream (`flatMap`) and
     // collect them into a list (`collect`) so that MultiQC sees all results at
     // once, e.g. [fastqc/ggal_gut, quant/ggal_gut, fastqc/ggal_liver, ...].
     multiqc_files_ch = samples_ch
-        .flatMap { id, fastqc, quant -> [fastqc, quant] }
+        .flatMap { r -> [r.fastqc, r.quant] }
         .collect()
 
     // Run MultiQC on the collected result files using the config in `params.multiqc`
@@ -71,7 +79,7 @@ workflow {
     // Publish per-sample results and aggregated MultiQC report as workflow outputs
     // The directory paths for these outputs are defined in the `output` block below.
     publish:
-    samples = samples_ch.map { id, fastqc, quant -> [id: id, fastqc: fastqc, quant: quant] }
+    samples = samples_ch
     multiqc_report = multiqc_report
 }
 
@@ -88,7 +96,7 @@ workflow {
 output {
     // Publish the per-sample FastQC and Salmon results into
     // the `fastqc` and `quant` subdirectories, respectively.
-    samples {
+    samples: Channel<AlignedSample> {
         // Per-sample results are separated further into subdirectories
         // by ID (e.g. `fastqc/ggal_gut`, `fastqc/ggal_liver`, etc).
         path { sample ->
@@ -105,7 +113,7 @@ output {
 
     // Publish the aggregated MultiQC HTML report in the
     // output directory, e.g. `results/multiqc_report.html`
-    multiqc_report {
+    multiqc_report: Path {
     }
 }
 ```
@@ -122,7 +130,7 @@ The pipeline uses two imported components:
   - `QUANT`: quantifies transcripts for each sample after indexing completes
 - `MULTIQC`: aggregates all quality control and quantification outputs into a single HTML report
 
-The `workflow` block uses `channel.fromFilePairs` to create a channel of paired-end read files. It passes the reads and transcriptome to the `RNASEQ` subworkflow, which emits the FastQC and Salmon results for each sample. These results are collected and passed to `MULTIQC`.
+The `params` block declares the pipeline inputs with their types. The `reads` parameter is a `Channel<Sample>`, so Nextflow loads the input samplesheet into a channel of `Sample` records, one per row. The `workflow` block passes the reads and transcriptome to the `RNASEQ` subworkflow, which emits a record with the FastQC and Salmon results for each sample. These results are collected and passed to `MULTIQC`.
 
 The `publish:` section and the `output` block publish the per-sample results to the `fastqc` and `quant` subdirectories, along with a `samples.csv` index file and the MultiQC report, in the output directory (`results` by default).
 
@@ -130,7 +138,7 @@ The `publish:` section and the `output` block publish the per-sample results to 
 
 To run this pipeline:
 
-1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 25.10 or later).
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.10 or later).
 2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
 3. Run the pipeline directly from its GitHub repository:
 
