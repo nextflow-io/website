@@ -2,6 +2,33 @@
 import Page from "@layouts/Page.astro";
 import AboutSideNav from "@components/SideNavigation/AboutSideNav";
 import Button from "@components/Button";
+
+interface Person {
+  name: string;
+  img: string;
+  role: string;
+  imgClass?: string;
+}
+
+const coreTeam: Person[] = [
+  { name: "Paolo Di Tommaso", img: "paolo.jpg", role: "Nextflow Creator & Chief Architect, Seqera" },
+  { name: "Evan Floden", img: "evan.jpg", role: "CEO, Seqera" },
+  { name: "Ben Sherman", img: "ben.jpg", role: "Senior Software Engineer, Seqera" },
+  { name: "Jorge Ejarque", img: "jorge.jpg", role: "Software Engineer, Seqera" },
+  { name: "Chris Hakkaart", img: "chris_h.png", role: "Senior Education Engineer, Seqera" },
+  { name: "Phil Ewels", img: "phil.jpg", role: "Senior Product Manager (OSS), Seqera" },
+];
+
+const keyContributors: Person[] = [
+  { name: "Cedric Notredame", img: "cedric.jpg", role: "Centre for Genomic Regulation" },
+  { name: "Emilio Palumbo", img: "emilio.png", role: "Centre for Genomic Regulation" },
+  { name: "Francesco Strozzi", img: "placeholder.png", role: "Enterome Bioscience" },
+  { name: "Harshil Patel", img: "harshil.jpeg", role: "Seqera" },
+  { name: "Kevin Sayers", img: "kevin.png", role: "Amazon Web Services" },
+  { name: "nf-core", img: "nf-core.png", role: "Core team", imgClass: "bg-gray-100" },
+];
+
+const linkClass = "text-nextflow-800 hover:text-nextflow-900 transition-colors";
 ---
 
 <Page title="About Us">
@@ -16,26 +43,14 @@ import Button from "@components/Button";
           <h2 class="text-brand-1000 mb-4">About Nextflow</h2>
           <div class="prose max-w-none">
             <p class="leading-relaxed mb-4">
-              Nextflow is a free and open-source software distributed under the Apache 2.0 licence, developed by
-              <a
-                href="http://www.seqera.io"
-                target="_blank"
-                class="text-nextflow-800 hover:text-nextflow-900 transition-colors"
-              >
-                Seqera.
-              </a>
-              The software is used by scientists and engineers to write, deploy and share data-intensive, highly scalable,
-              workflows on any infrastructure.
+              Nextflow is free and open-source software distributed under the Apache 2.0 licence, developed by
+              <a href="https://seqera.io" target="_blank" class={linkClass}>Seqera</a>. The software is used by
+              scientists and engineers to write, deploy and share data-intensive, highly scalable workflows on any
+              infrastructure.
             </p>
             <p class="leading-relaxed">
-              Check it out the
-              <a
-                href="https://github.com/nextflow-io/nextflow"
-                target="_blank"
-                class="text-nextflow-800 hover:text-nextflow-900 transition-colors"
-              >
-                project repository
-              </a>
+              Check out the
+              <a href="https://github.com/nextflow-io/nextflow" target="_blank" class={linkClass}>project repository</a>
               on GitHub for details.
             </p>
           </div>
@@ -45,84 +60,25 @@ import Button from "@components/Button";
           <h2 class="text-brand-1000 mb-4">Core team</h2>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/paolo.jpg" alt="Paolo Di Tommaso, Nextflow Lead" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent opacity-80"></div>
-                <div
-                  class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end flex flex-col justify-end"
-                >
-                  <h4 class="text-xl leading-tight">Paolo Di Tommaso</h4>
-                  <p class="text-sm font-light mb-0 mb-0">Seqera CTO</p>
+            {
+              coreTeam.map((person) => (
+                <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
+                  <div class="relative h-80">
+                    <img
+                      src={`img/${person.img}`}
+                      alt={`${person.name}, ${person.role}`}
+                      loading="lazy"
+                      class="w-full h-full object-cover"
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+                    <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
+                      <h3 class="text-xl leading-tight">{person.name}</h3>
+                      <p class="text-sm font-light mb-0">{person.role}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/evan.jpg" alt="Evan Floden, CEO at Seqera Labs" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Evan Floden</h4>
-                  <p class="text-sm font-light mb-0">CEO & Co-founder</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/ben.jpg" alt="Ben Sherman, Software Engineer" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Ben Sherman</h4>
-                  <p class="text-sm font-light mb-0">Software Engineer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/jorge.jpg" alt="Jorge Ejarque, Engineer" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Jorge Ejarque</h4>
-                  <p class="text-sm font-light mb-0">Software Engineer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/tom.jpg" alt="Tom Sellman, Engineer" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Tom Sellman</h4>
-                  <p class="text-sm font-light mb-0">Software Engineer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/chris_h.png" alt="Chris Hakkaart, Technical Writer" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Chris Hakkaart</h4>
-                  <p class="text-sm font-light mb-0">Technical Writer</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-80">
-                <img src="img/phil.jpg" alt="Phil Ewels, Product Manager" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Phil Ewels</h4>
-                  <p class="text-sm font-light mb-0">Product Manager</p>
-                </div>
-              </div>
-            </div>
+              ))
+            }
           </div>
         </section>
 
@@ -132,42 +88,25 @@ import Button from "@components/Button";
           <div class="prose max-w-none mb-8">
             <p class="leading-relaxed mb-4">
               The project is supported and maintained by
-              <a
-                href="http://www.seqera.io"
-                target="_blank"
-                class="text-nextflow-800 hover:text-nextflow-900 transition-colors"
-              >
-                Seqera
-              </a>.
+              <a href="https://seqera.io" target="_blank" class={linkClass}>Seqera</a>.
             </p>
             <p class="leading-relaxed">
               We thank the
-              <a
-                href="https://chanzuckerberg.com/"
-                target="_blank"
-                class="text-nextflow-800 hover:text-nextflow-900 transition-colors"
-              >
-                Chan Zuckerberg Initiative
-              </a>
+              <a href="https://chanzuckerberg.com/" target="_blank" class={linkClass}>Chan Zuckerberg Initiative</a>
               for supporting the project in the past through two Essential Open Source Software for Science (EOSS) grants.
               Together with
-              <a
-                href="http://www.nf-co.re"
-                target="_blank"
-                class="text-nextflow-800 hover:text-nextflow-900 transition-colors"
-              >
-                nf-core
-              </a>, Nextflow was part of of the second and fourth cycles.
+              <a href="https://nf-co.re" target="_blank" class={linkClass}>nf-core</a>, Nextflow was part of the second
+              and fourth cycles.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-md mx-auto">
-            <!-- Funding Partner 1 -->
             <div class="flex flex-col items-center">
               <div class="w-40 h-auto mb-3 p-4 bg-white rounded-xs flex items-center justify-center">
                 <img
                   src="img/czi.jpeg"
                   alt="Chan Zuckerberg Initiative logo - funder of Nextflow development"
+                  loading="lazy"
                   class="max-w-full max-h-20"
                 />
               </div>
@@ -178,7 +117,8 @@ import Button from "@components/Button";
               <div class="w-40 h-auto mb-3 p-4 bg-white rounded-xs flex items-center justify-center">
                 <img
                   src="img/seqera-logo.png"
-                  alt="Seqera Labs logo - company maintaining Nextflow"
+                  alt="Seqera logo - company maintaining Nextflow"
+                  loading="lazy"
                   class="max-w-full max-h-20"
                 />
               </div>
@@ -190,106 +130,48 @@ import Button from "@components/Button";
         <section id="key-contributors" class="bg-white rounded-xs p-6 mb-8">
           <h2 class="text-brand-1000 mb-4">Key contributors</h2>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/cedric.jpg" alt="Cedric Notredame" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Cedric Notredame</h4>
-                  <p class="text-sm font-light mb-0">Centre for Genomic Regulation</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {
+              keyContributors.map((person) => (
+                <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
+                  <div class="relative h-72">
+                    <img
+                      src={`img/${person.img}`}
+                      alt={person.name}
+                      loading="lazy"
+                      class:list={["w-full h-full object-cover", person.imgClass]}
+                    />
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80" />
+                    <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
+                      <h3 class="text-xl leading-tight">{person.name}</h3>
+                      <p class="text-sm font-light mb-0">{person.role}</p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/emilio.png" alt="Emilio Palumbo" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Emilio Palumbo</h4>
-                  <p class="text-sm font-light mb-0">Centre for Genomic Regulation</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/placeholder.png" alt="Francesco Strozzi" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Francesco Strozzi</h4>
-                  <p class="text-sm font-light mb-0">Enterome Bioscience</p>
-                </div>
-              </div>
-            </div>
+              ))
+            }
           </div>
+        </section>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8">
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/harshil.jpeg" alt="Harshil Patel" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Harshil Patel</h4>
-                  <p class="text-sm font-light mb-0">Seqera</p>
-                </div>
-              </div>
-            </div>
+        <section id="project-contributors" class="bg-white rounded-xs p-6 mb-8">
+          <h2 class="text-brand-1000 mb-4">Project contributors</h2>
 
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/kevin.png" alt="Kevin Sayers" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Kevin Sayers</h4>
-                  <p class="text-sm font-light mb-0">Amazon Web Services</p>
-                </div>
-              </div>
-            </div>
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/nf-core.png" alt="nf-core" class="w-full h-full object-cover bg-gray-100" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">nf-core</h4>
-                  <p class="text-sm font-light mb-0">Core team</p>
-                </div>
-              </div>
-            </div>
-            <div class="profile-card rounded-xs overflow-hidden shadow-sm transition-all duration-300 hover:shadow-md">
-              <div class="relative h-72">
-                <img src="img/seqera-logo.png" alt="Seqera" class="w-full h-full object-contain bg-white p-6" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-brand/20 to-transparent opacity-80"></div>
-                <div class="absolute bottom-0 left-0 p-4 text-white flex flex-col justify-end">
-                  <h4 class="text-xl leading-tight">Seqera team</h4>
-                  <p class="text-sm font-light mb-0"></p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="py-6">
-            <h2 class="text-brand-1000 mb-4">Project contributors</h2>
-
-            <div class="flex justify-center mb-6">
-              <a
-                href="https://github.com/nextflow-io/nextflow/graphs/contributors"
-                class="hover:opacity-90 transition-opacity"
-              >
-                <img
-                  src="https://contrib.rocks/image?repo=nextflow-io/nextflow"
-                  alt="GitHub contributors"
-                  class="rounded-md"
-                />
-              </a>
-            </div>
-
-            <p class="text-xl">Plus thousands more developers contributing Nextflow pipelines in the community!</p>
-            <Button url="https://github.com/nextflow-io/nextflow/graphs/contributors" variant="link"
-              >Join the community</Button
+          <div class="flex justify-center mb-6">
+            <a
+              href="https://github.com/nextflow-io/nextflow/graphs/contributors"
+              class="hover:opacity-90 transition-opacity"
             >
+              <img
+                src="https://contrib.rocks/image?repo=nextflow-io/nextflow"
+                alt="GitHub contributors"
+                loading="lazy"
+                class="rounded-md"
+              />
+            </a>
           </div>
+
+          <p class="text-xl">Plus thousands more developers contributing Nextflow pipelines in the community!</p>
+          <Button url="https://community.seqera.io/tag/nextflow" variant="link">Join the community</Button>
         </section>
       </div>
     </div>
