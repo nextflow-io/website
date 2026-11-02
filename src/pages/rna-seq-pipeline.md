@@ -7,95 +7,137 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>RNA-Seq pipeline</h2>
 
 <p class="">
-    This example shows how to put together a basic RNA-Seq pipeline. It maps a collection of read-pairs to a given reference genome and outputs the respective transcript model.
+    This pipeline shows an example of a basic RNA-Seq analysis that performs quality control, transcript quantification, and result aggregation. The pipeline processes paired-end FASTQ files, generates quality control reports with FastQC, quantifies transcripts with Salmon, and produces a unified report with MultiQC.
 </p>
 
-```groovy
+```nextflow
 #!/usr/bin/env nextflow
 
 /*
- * The following pipeline parameters specify the reference genomes
- * and read pairs and can be provided as command line options
+ * Proof of concept of a RNAseq pipeline implemented with Nextflow
  */
-params.reads = "$baseDir/data/ggal/ggal_gut_{1,2}.fq"
-params.transcriptome = "$baseDir/data/ggal/ggal_1_48850000_49020000.Ggal71.500bpflank.fa"
-params.outdir = "results"
 
+/*
+ * Default pipeline parameters. They can be overriden on the command line eg.
+ * given `params.reads` specify on the run command line `--reads some_value`.
+ */
+
+params.reads = null
+params.transcriptome = null
+params.multiqc = "${projectDir}/multiqc"
+
+
+// import modules
+include { RNASEQ } from './modules/rnaseq'
+include { MULTIQC } from './modules/multiqc'
+
+/*
+ * main script flow
+ */
 workflow {
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true )
+    main:
+    log.info """\
+      R N A S E Q - N F   P I P E L I N E
+      ===================================
+      transcriptome: ${params.transcriptome}
+      reads        : ${params.reads}
+      outdir       : ${workflow.outputDir}
+    """.stripIndent()
 
-    INDEX(params.transcriptome)
-    FASTQC(read_pairs_ch)
-    QUANT(INDEX.out, read_pairs_ch)
+    // Create a channel of paired-end reads from the glob in `params.reads`.
+    // `checkIfExists: true` fails fast if no files match; `flat: true` flattens
+    // the pair into the tuple so each emission is `[sample_id, read1, read2]`,
+    // e.g. ['ggal_gut', ggal_gut_1.fq, ggal_gut_2.fq].
+    read_pairs_ch = channel.fromFilePairs(params.reads, checkIfExists: true, flat: true)
+
+    // Run the RNASEQ sub-workflow over each read pair against the transcriptome.
+    // It emits a channel of tuples with the following elements:
+    //   - per-sample ID
+    //   - per-sample FastQC report directories
+    //   - per-sample Salmon quantification directories
+    samples_ch = RNASEQ(read_pairs_ch, params.transcriptome)
+
+    // Extract the FastQC and Salmon outputs into a single stream (`flatMap`) and
+    // collect them into a list (`collect`) so that MultiQC sees all results at
+    // once, e.g. [fastqc/ggal_gut, quant/ggal_gut, fastqc/ggal_liver, ...].
+    multiqc_files_ch = samples_ch
+        .flatMap { id, fastqc, quant -> [fastqc, quant] }
+        .collect()
+
+    // Run MultiQC on the collected result files using the config in `params.multiqc`
+    // to produce a single consolidated HTML report (`multiqc_report.html`).
+    multiqc_report = MULTIQC(multiqc_files_ch, params.multiqc)
+
+    // Publish per-sample results and aggregated MultiQC report as workflow outputs
+    // The directory paths for these outputs are defined in the `output` block below.
+    publish:
+    samples = samples_ch.map { id, fastqc, quant -> [id: id, fastqc: fastqc, quant: quant] }
+    multiqc_report = multiqc_report
 }
 
-process INDEX {
-    tag "$transcriptome.simpleName"
+/*
+ * workflow outputs
+ *
+ * The `output` block defines the directory structure of published outputs.
+ * The base output directory can be set using the `-output-dir` CLI option
+ * or `outputDir` config option. It defaults to `results`.
+ * By default, all published files are saved directly in the output directory.
+ * The `path` directive can be used to route files to specific paths within
+ * the output directory.
+ */
+output {
+    // Publish the per-sample FastQC and Salmon results into
+    // the `fastqc` and `quant` subdirectories, respectively.
+    samples {
+        // Per-sample results are separated further into subdirectories
+        // by ID (e.g. `fastqc/ggal_gut`, `fastqc/ggal_liver`, etc).
+        path { sample ->
+            sample.fastqc >> "fastqc/${sample.id}"
+            sample.quant >> "quant/${sample.id}"
+        }
+        // Create an index file (samplesheet) of the published
+        // samples in the output directory, e.g. `results/samples.csv`.
+        index {
+            path 'samples.csv'
+            header true
+        }
+    }
 
-    input:
-    path transcriptome
-
-    output:
-    path 'index'
-
-    script:
-    """
-    salmon index --threads $task.cpus -t $transcriptome -i index
-    """
-}
-
-process FASTQC {
-    tag "FASTQC on $sample_id"
-    publishDir params.outdir
-
-    input:
-    tuple val(sample_id), path(reads)
-
-    output:
-    path "fastqc_${sample_id}_logs"
-
-    script:
-    """
-    fastqc.sh "$sample_id" "$reads"
-    """
-}
-
-process QUANT {
-    tag "$pair_id"
-    publishDir params.outdir
-
-    input:
-    path index
-    tuple val(pair_id), path(reads)
-
-    output:
-    path pair_id
-
-    script:
-    """
-    salmon quant --threads $task.cpus --libType=U -i $index -1 ${reads[0]} -2 ${reads[1]} -o $pair_id
-    """
+    // Publish the aggregated MultiQC HTML report in the
+    // output directory, e.g. `results/multiqc_report.html`
+    multiqc_report {
+    }
 }
 ```
 
 </div>
 
-### Try it in your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+The pipeline uses two imported components:
 
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
+- `RNASEQ`: a subworkflow that contains three processes:
+  - `INDEX`: creates a Salmon index from the transcriptome (runs once)
+  - `FASTQC`: generates a quality control report for each sample in parallel
+  - `QUANT`: quantifies transcripts for each sample after indexing completes
+- `MULTIQC`: aggregates all quality control and quantification outputs into a single HTML report
 
-Install Nextflow by entering the following command in the terminal:
+The `workflow` block uses `channel.fromFilePairs` to create a channel of paired-end read files. It passes the reads and transcriptome to the `RNASEQ` subworkflow, which emits the FastQC and Salmon results for each sample. These results are collected and passed to `MULTIQC`.
 
-    $ curl -fsSL get.nextflow.io | bash
+The `publish:` section and the `output` block publish the per-sample results to the `fastqc` and `quant` subdirectories, along with a `samples.csv` index file and the MultiQC report, in the output directory (`results` by default).
 
-Then launch the pipeline with this command:
+### Get started
 
-    $ nextflow run rnaseq-nf -with-docker
+To run this pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/rnaseq-nf) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 25.10 or later).
+2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
+3. Run the pipeline directly from its GitHub repository:
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+   ```bash
+   nextflow run nextflow-io/rnaseq-nf -profile docker
+   ```
+
+When the run completes, open `results/multiqc_report.html` in your browser to view the report.
+
+See the [rnaseq-nf](https://github.com/nextflow-io/rnaseq-nf) GitHub repository for all of the pipeline code and the [rnaseq-nf tutorial](https://docs.seqera.io/nextflow/tutorials/rnaseq-nf) for a full pipeline description.

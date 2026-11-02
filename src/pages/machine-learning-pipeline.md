@@ -1,5 +1,5 @@
 ---
-title: Error strategies
+title: Machine Learning pipeline
 layout: "@layouts/ExampleLayout.astro"
 ---
 
@@ -7,63 +7,116 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>Machine Learning pipeline</h2>
 
 <p class="">
-    This example shows how to put together a basic Machine Learning pipeline. It fetches a dataset from OpenML, trains a variety of machine learning models on a prediction target, and selects the best model based on some evaluation criteria.
+    This pipeline shows how to put together a basic machine learning pipeline. It fetches datasets from OpenML, trains a variety of machine learning models on each dataset, evaluates each model against a test set, and reports the best model for each dataset. The excerpt below shows the core of the pipeline.
 </p>
 
-```groovy
-#!/usr/bin/env nextflow
+```nextflow
+nextflow.enable.moduleBinaries = true
+nextflow.enable.types = true
 
-params.dataset_name = 'wdbc'
-params.train_models = ['dummy', 'gb', 'lr', 'mlp', 'rf']
-params.outdir = 'results'
+include { FETCH_DATASET } from './modules/fetch_dataset'
+include { SPLIT_TRAIN_TEST } from './modules/split_train_test'
+include { VISUALIZE as VISUALIZE_TRAIN } from './modules/visualize'
+include { VISUALIZE as VISUALIZE_TEST } from './modules/visualize'
+include { TRAIN } from './modules/train'
+include { EVALUATE } from './modules/evaluate'
 
-workflow {
-    // fetch dataset from OpenML
-    ch_datasets = fetch_dataset(params.dataset_name)
-
-    // split dataset into train/test sets
-    (ch_train_datasets, ch_predict_datasets) = split_train_test(ch_datasets)
-
-    // perform training
-    (ch_models, ch_train_logs) = train(ch_train_datasets, params.train_models)
-
-    // perform inference
-    ch_predict_inputs = ch_models.combine(ch_predict_datasets, by: 0)
-    (ch_scores, ch_predict_logs) = predict(ch_predict_inputs)
-
-    // select the best model based on inference score
-    ch_scores
-        | max {
-            new JsonSlurper().parse(it[2])['value']
-        }
-        | subscribe { dataset_name, model_type, score_file ->
-            def score = new JsonSlurper().parse(score_file)
-            println "The best model for ${dataset_name} was ${model_type}, with ${score['name']} = ${score['value']}"
-        }
+params {
+    fetch_datasets: String?
+    train_test_splits: Path?
+    train_models: String?
+    pretrained_models: Path?
 }
 
-// view the entire code on GitHub ...
+workflow {
+    main:
+    // fetch and split datasets if specified
+    if( params.fetch_datasets != null ) {
+        ch_dataset_names = channel.fromList(params.fetch_datasets.tokenize(','))
+        ch_datasets = FETCH_DATASET(ch_dataset_names)
+        ch_train_test_splits = SPLIT_TRAIN_TEST(ch_datasets)
+    }
 
+    // ...
+
+    // separate training and test data
+    ch_train_datasets = ch_train_test_splits.map { r ->
+        record(dataset_name: r.dataset_name, meta: r.meta, data: r.data_train)
+    }
+    ch_test_datasets = ch_train_test_splits.map { r ->
+        record(dataset_name: r.dataset_name, meta: r.meta, data: r.data_test)
+    }
+
+    // ...
+
+    // train new models if specified
+    if( params.train_models != null ) {
+        model_types = params.train_models.tokenize(',')
+        ch_train_inputs = ch_train_datasets.flatMap { r ->
+            model_types.collect { model_type ->
+                r + record(model_type: model_type)
+            }
+        }
+        ch_models = TRAIN(ch_train_inputs)
+    }
+
+    // ...
+
+    // evaluate each model against test dataset
+    ch_evaluate_inputs = ch_models.join(ch_test_datasets, by: 'dataset_name')
+    ch_evals = EVALUATE(ch_evaluate_inputs).map { r ->
+        record(
+            model_type: r.model_type,
+            dataset_name: r.dataset_name,
+            score_name: r.score.name,
+            score: r.score.value,
+            logs: r.logs,
+        )
+    }
+
+    // report the best model for each dataset based on evaluation score
+    ch_evals
+        .map { r -> tuple(r.dataset_name, r) }
+        .groupBy()
+        .subscribe { dataset_name, evals ->
+            def best = evals.max { r -> r.score }
+            printf "The best model for dataset '${dataset_name}' was '${best.model_type}' (${best.score_name} = %.3f)\n", best.score
+        }
+
+    // ...
+}
+
+// ...
 ```
 
 </div>
 
-### Try it in your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+The pipeline imports a process for each step from the `modules` directory:
 
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
+- `FETCH_DATASET`: downloads a dataset from [OpenML](https://www.openml.org/)
+- `SPLIT_TRAIN_TEST`: splits each dataset into a training set and a test set
+- `VISUALIZE`: plots each training and test set
+- `TRAIN`: trains a model of a given type (e.g. random forest or logistic regression) on a training set
+- `EVALUATE`: scores each trained model against the corresponding test set
 
-Install Nextflow by entering the following command in the terminal:
+The `workflow` block uses records to keep each dataset name together with its files. It uses the `flatMap` operator to create a training task for every combination of dataset and model type, so that all models are trained in parallel, and the `join` operator to match each model with the test set for the same dataset. Finally, it groups the evaluation scores by dataset and reports the best model for each one.
 
-    $ curl -fsSL get.nextflow.io | bash
+You can also provide your own train/test splits or pre-trained models instead of fetching datasets and training new models.
 
-Then launch the pipeline with this command:
+### Get started
 
-    $ nextflow run ml-hyperopt -profile wave
+To run this pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/ml-hyperopt) and build a Docker image on-the-fly using [Wave](https://seqera.io/wave/), thus the first execution may take a few minutes to complete depending on your network connection.
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.04 or later).
+2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
+3. Run the pipeline directly from its GitHub repository with the test data:
 
-**NOTE**: Nextflow 22.10.0 or newer is required to run this pipeline with Wave.
+   ```bash
+   nextflow run nextflow-io/hyperopt -profile test,wave
+   ```
+
+The `wave` profile uses [Wave](https://docs.seqera.io/nextflow/wave) to build a container from the pipeline's Conda environment on the fly, so the first run may take a few minutes. When the run completes, the datasets, trained models, and evaluation results are saved in the `results` directory.
+
+See the [hyperopt](https://github.com/nextflow-io/hyperopt) GitHub repository for all of the pipeline code.

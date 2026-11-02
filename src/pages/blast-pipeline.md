@@ -7,105 +7,142 @@ layout: "@layouts/ExampleLayout.astro"
 <h2>BLAST pipeline</h2>
 
 <p class="">
-    This example splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
+    This pipeline splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
 </p>
 
-```groovy
-#!/usr/bin/env nextflow
+```nextflow
+nextflow.enable.types = true
 
 /*
- * Defines the pipeline input parameters (with a default value for each one).
- * Each of the following parameters can be specified as command line options.
+ * Pipeline parameters. Each parameter can be overridden on the command line (e.g. `--query query.fa`)
  */
-params.query = "$baseDir/data/sample.fa"
-params.db = "$baseDir/blast-db/pdb/tiny"
-params.out = "result.txt"
-params.chunkSize = 100
+params {
+    // Query sequences (FASTA)
+    query: Path = "${projectDir}/data/sample.fa"
 
-db_name = file(params.db).name
-db_dir = file(params.db).parent
+    // BLAST database (directory and database name)
+    db: String = "${projectDir}/blast-db/pdb/tiny"
 
+    // Name of the output file with the matching sequences
+    out: String = "result.txt"
 
-workflow {
-    /*
-     * Create a channel emitting the given query fasta file(s).
-     * Split the file into chunks containing as many sequences as defined by the parameter 'chunkSize'.
-     * Finally, assign the resulting channel to the variable 'ch_fasta'
-     */
-    Channel
-        .fromPath(params.query)
-        .splitFasta(by: params.chunkSize, file:true)
-        .set { ch_fasta }
-
-    /*
-     * Execute a BLAST job for each chunk emitted by the 'ch_fasta' channel
-     * and emit the resulting BLAST matches.
-     */
-    ch_hits = blast(ch_fasta, db_dir)
-
-    /*
-     * Each time a file emitted by the 'blast' process, an extract job is executed,
-     * producing a file containing the matching sequences.
-     */
-    ch_sequences = extract(ch_hits, db_dir)
-
-    /*
-     * Collect all the sequences files into a single file
-     * and print the resulting file contents when complete.
-     */
-    ch_sequences
-        .collectFile(name: params.out)
-        .view { file -> "matching sequences:\n ${file.text}" }
+    // Number of sequences per query chunk
+    chunkSize: Integer = 100
 }
 
 
+// Entry workflow
+workflow {
+    main:
+    db_dir = file(params.db).parent
+    db_name = file(params.db).name
+
+    // Split the query file into chunks of `chunkSize` sequences
+    ch_fasta = channel.of(params.query)
+        .flatMap { fasta -> fasta.splitFasta(by: params.chunkSize, file: true) }
+
+    // Run BLAST on each chunk and emit the top hits
+    ch_hits = blast(ch_fasta, db_dir, db_name)
+
+    // Extract the sequences of the top hits from the database
+    ch_sequences = extract(ch_hits, db_dir, db_name)
+
+    // Merge the matching sequences into a single file and print it
+    val_result = merge_sequences(ch_sequences.collect(), params.out)
+    val_result.view { result -> "matching sequences:\n${result.text}" }
+
+    publish:
+    result = val_result
+}
+
+
+// Pipeline outputs (published to the `results` directory by default)
+output {
+    result {
+    }
+}
+
+
+// Search each query chunk against the database and keep the IDs of the top 10 hits
 process blast {
     input:
-    path 'query.fa'
-    path db
+    query: Path
+    db_dir: Path
+    db_name: String
 
     output:
-    path 'top_hits'
+    file('top_hits')
 
+    script:
     """
-    blastp -db $db/$db_name -query query.fa -outfmt 6 > blast_result
+    blastp -db ${db_dir}/${db_name} -query ${query} -outfmt 6 > blast_result
     cat blast_result | head -n 10 | cut -f 2 > top_hits
     """
 }
 
 
+// Fetch the sequences of the top hits from the database
 process extract {
     input:
-    path 'top_hits'
-    path db
+    top_hits: Path
+    db_dir: Path
+    db_name: String
 
     output:
-    path 'sequences'
+    file('sequences')
 
+    script:
     """
-    blastdbcmd -db $db/$db_name -entry_batch top_hits | head -n 10 > sequences
+    blastdbcmd -db ${db_dir}/${db_name} -entry_batch ${top_hits} | head -n 10 > sequences
+    """
+}
+
+
+// Concatenate the matching sequences into a single file
+process merge_sequences {
+    input:
+    sequences: Bag<Path>
+    name: String
+
+    stage:
+    stageAs sequences, 'sequences_*'
+
+    output:
+    file(name)
+
+    script:
+    """
+    cat sequences_* > ${name}
     """
 }
 ```
 
 </div>
 
-### Try it on your computer
+### Synopsis
 
-To run this pipeline on your computer, you will need:
+This pipeline defines three processes:
 
-- Unix-like operating system
-- Java 17 (or higher)
-- Docker
+- `blast`: searches a chunk of query sequences against the BLAST database and writes the IDs of the top 10 hits to a file.
+- `extract`: fetches the sequences of the top hits from the BLAST database.
+- `merge_sequences`: concatenates the matching sequences into a single file.
 
-Install Nextflow by entering the following command in the terminal:
+The `workflow` block uses the `splitFasta` function with the `flatMap` operator to split the query file into chunks of `chunkSize` sequences, so that each chunk is processed by `blast` and `extract` in parallel. The `collect` operator gathers the sequences from every chunk so that `merge_sequences` runs once, and the `view` operator prints the result to the terminal.
 
-    $ curl -fsSL https://get.nextflow.io | bash
+The `output` block publishes the merged sequences to the output directory (`results` by default).
 
-Then launch the pipeline with this command:
+### Get started
 
-    $ ./nextflow run blast-example -with-docker
+To run this pipeline:
 
-It will automatically download the pipeline [GitHub repository](https://github.com/nextflow-io/blast-example) and the associated Docker images, thus the first execution may take a few minutes to complete depending on your network connection.
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.04 or later).
+2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
+3. Run the pipeline directly from its GitHub repository:
 
-**NOTE**: To run this example with versions of Nextflow older than 22.04.0, you must include the `-dsl2` flag with `nextflow run`.
+   ```bash
+   nextflow run nextflow-io/blast-example -profile docker
+   ```
+
+The matching sequences are printed to the console and saved to `results/result.txt`.
+
+See the [blast-example](https://github.com/nextflow-io/blast-example) GitHub repository for all of the pipeline code.
