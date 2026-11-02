@@ -50,6 +50,7 @@ workflow {
     // ...
 
     // train new models if specified
+    def ch_models: Channel<Model>
     if( params.train_models != null ) {
         model_types = params.train_models.tokenize(',')
         ch_train_inputs = ch_train_datasets.flatMap { r ->
@@ -109,7 +110,7 @@ You can also provide your own train/test splits or pre-trained models instead of
 
 To run this pipeline:
 
-1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.04 or later).
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.10 or later).
 2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
 3. Run the pipeline directly from its GitHub repository with the test data:
 
