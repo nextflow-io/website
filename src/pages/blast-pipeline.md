@@ -18,10 +18,10 @@ nextflow.enable.types = true
  */
 params {
     // Query sequences (FASTA)
-    query: Path = "${projectDir}/data/sample.fa"
+    query: Path
 
     // BLAST database (directory and database name)
-    db: String = "${projectDir}/blast-db/pdb/tiny"
+    db: String
 
     // Name of the output file with the matching sequences
     out: String = "result.txt"
@@ -129,13 +129,15 @@ This pipeline defines three processes:
 
 The `workflow` block uses the `splitFasta` function with the `flatMap` operator to split the query file into chunks of `chunkSize` sequences, so that each chunk is processed by `blast` and `extract` in parallel. The `collect` operator gathers the sequences from every chunk so that `merge_sequences` runs once, and the `view` operator prints the result to the terminal.
 
+The default values for `query` and `db` are set in the pipeline's `nextflow.config`.
+
 The `output` block publishes the merged sequences to the output directory (`results` by default).
 
 ### Get started
 
 To run this pipeline:
 
-1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.04 or later).
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.10 or later).
 2. [Install Docker](https://docs.docker.com/get-started/get-docker/).
 3. Run the pipeline directly from its GitHub repository:
 
