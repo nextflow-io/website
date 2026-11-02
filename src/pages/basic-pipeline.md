@@ -21,9 +21,14 @@ params {
 // Entry workflow
 workflow {
     main:
-    ch_str = channel.of(params.str)                         // Create a channel of the pipeline input
-    ch_chunks = split(ch_str).flatMap { chunks -> chunks }  // Split string into chunks and emit each chunk separately
-    ch_upper = convert_to_upper(ch_chunks)                  // Convert lowercase letters to uppercase letters
+    // Create a channel of the pipeline input
+    ch_str = channel.of(params.str)
+
+    // Split string into chunks and emit each chunk separately
+    ch_chunks = split(ch_str).flatMap { chunks -> chunks }
+
+    // Convert lowercase letters to uppercase letters
+    ch_upper = convert_to_upper(ch_chunks)
 
     publish:
     lower = ch_chunks
