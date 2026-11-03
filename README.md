@@ -8,6 +8,12 @@
 
 Source code for [https://nextflow.io](https://nextflow.io). Website is generated using [Astro](https://astro.build).
 
+This repository contains the landing page, pipeline examples, the Nextflow Ambassadors pages, and archived event pages. Other Nextflow content lives elsewhere:
+
+- Documentation: [docs.seqera.io/nextflow](https://docs.seqera.io/nextflow/) (built from the [Nextflow repo](https://github.com/nextflow-io/nextflow))
+- Blog: [seqera.io/blog](https://seqera.io/blog/tag-nextflow/)
+- Podcast: [seqera.io/podcasts](https://seqera.io/podcasts/)
+
 ## Commands
 
 To build the website you need Node.js and `npm` installed. See the [npm docs](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) for instructions.
@@ -23,7 +29,7 @@ There is a `Makefile` in the repo with a few standard commands for working with 
 | `make publish`    | Publish the website to s3            |
 | `make invalidate` | Invalidate the Cloudfront cache      |
 
-The `dev` server builds pages on request and live-updates as you make changes. It includes additional debugging tools. Note that some type-checking on happens during `make build`.
+The `dev` server builds pages on request and live-updates as you make changes. It includes additional debugging tools. Note that type-checking (`astro check`) only happens during `make build`.
 
 There are also a bunch of `npm` commands for more fine-grained control:
 
@@ -39,9 +45,6 @@ There are also a bunch of `npm` commands for more fine-grained control:
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
 </details>
-
-Note that `make build` / `npm run build` fetch the Nextflow repo and build the docs automatically.
-When running `make dev` / `npm run dev` this doesn't happen, so the docs will not be visible.
 
 ## Code formatting
 
@@ -60,13 +63,9 @@ After that, checks will automatically run every time you do `git commit` in the 
 
 ## Publishing
 
-The Nextflow website is hosted on AWS s3, behind a Cloudfront cache. There are three components to the website:
+The website is hosted on AWS s3, behind a Cloudfront cache. GitHub Actions builds the site on every pull request, and builds and publishes it (`make publish` + `make invalidate`) on every push to `master`, as well as once a day.
 
-1. Front end (this repository)
-2. Docs (`/docs`, built from the main Nextflow repo using Sphinx)
-3. Nextflow binary downloads (`https://get.nextflow.io`, built from the main Nextflow repo)
-
-All three parts of the website are published separately. Care must be taken not to clobber anything by overwriting.
+The Nextflow binary downloads (`https://get.nextflow.io`) are published separately from the main Nextflow repo. Care must be taken not to clobber anything by overwriting.
 
 ## Project Structure
 
@@ -74,23 +73,31 @@ The repository has the following rough structure:
 
 ```text
 /
-├── public/
+├── bin/            # Custom remark plugins
+├── public/         # Static assets (images, CSS, JS, PDFs)
 └── src/
-    ├── content/
-    │   ├── blog/
-    │   └── podcast/
     ├── components/
     ├── layouts/
-    └── pages/
+    ├── pages/
+    └── styles/
 ```
 
-Blog posts and podcast episodes go into `content` as markdown files. Other top-level pages should be named as `.astro` or `.md` files in the `src/pages/` directory. Astro finds all of this content and builds a page. Each page is exposed as a route based on its file name.
+Pages are named as `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name, e.g. `src/pages/ambassadors.astro` becomes `/ambassadors.html`.
 
 Any static assets, like images, can be placed in the `public/` directory.
 
-The `src/components/` and `src/layouts/` folders contain the templating files to build the site.
+The `src/components/` and `src/layouts/` folders contain the templating files to build the site. Components are a mix of Astro and React.
+
+## Adding an ambassador
+
+Ambassadors are listed in `src/components/AmbassadorsList/index.tsx`. To add one:
+
+1. Add a profile photo to `public/img/`.
+2. Add an entry to the `ambassadors` array with the name, image filename, two-letter country code, and any social handles. Set `title` to `"Nextflow Ambassador"`.
+
+To move someone to the alumni section, change their `title` to `"Program Alumni"`.
 
 ## Documentation
 
-For more info, check the [Astro docs](https://docs.astro.build)
-and the old [v3 Bootstrap docs](https://getbootstrap.com/docs/3.4/).
+For more info, check the [Astro docs](https://docs.astro.build) and the [Tailwind CSS docs](https://tailwindcss.com/docs).
+The site also still loads [Bootstrap v3](https://getbootstrap.com/docs/3.4/) styles alongside Tailwind.
