@@ -34,16 +34,7 @@ params {
 
 workflow {
     main:
-    log.info """\
-      R N A S E Q - N F   P I P E L I N E
-      ===================================
-      transcriptome: ${params.transcriptome}
-      outdir       : ${workflow.outputDir}
-    """.stripIndent()
 
-    // `params.reads` is a channel of records loaded from the samplesheet, one
-    // record per row e.g. [id: 'ggal_gut', fastq_1: ggal_gut_1.fq, fastq_2: ggal_gut_2.fq].
-    //
     // Run the RNASEQ sub-workflow over each read pair against the transcriptome.
     // It emits a channel of records with the following fields:
     //   - id: per-sample ID
