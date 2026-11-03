@@ -6,21 +6,52 @@ layout: "@layouts/ExampleLayout.astro"
 <div class="blg-summary example">
 <h2>Basic pipeline</h2>
 
-<p class="" >
+<p class="">
     This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also shows how to publish pipeline outputs to named directories.
 </p>
 
-```groovy
-// Default parameter input
-params.str = "Hello world!"
+```nextflow
+nextflow.enable.types = true
+
+// Pipeline parameters
+params {
+    str: String = "Hello world!"
+}
+
+// Entry workflow
+workflow {
+    main:
+    // Create a channel of the pipeline input
+    ch_str = channel.of(params.str)
+
+    // Split string into chunks and emit each chunk separately
+    ch_chunks = split(ch_str).flatMap { chunks -> chunks }
+
+    // Convert lowercase letters to uppercase letters
+    ch_upper = convert_to_upper(ch_chunks)
+
+    publish:
+    lower = ch_chunks
+    upper = ch_upper
+}
+
+// Pipeline outputs
+output {
+    lower {
+        path 'lower'
+    }
+    upper {
+        path 'upper'
+    }
+}
 
 // split process
 process split {
     input:
-    val x
+    x: String
 
     output:
-    path 'chunk_*'
+    files('chunk_*')
 
     script:
     """
@@ -33,36 +64,15 @@ process convert_to_upper {
     tag "$y"
 
     input:
-    path y
+    y: Path
 
     output:
-    path 'upper_*'
+    file("upper_${y}")
 
     script:
     """
     cat $y | tr '[a-z]' '[A-Z]' > upper_${y}
     """
-}
-
-// Workflow block
-workflow {
-    main:
-    ch_str = channel.of(params.str)
-    ch_chunks = split(ch_str)
-    ch_upper = convert_to_upper(ch_chunks.flatten())
-
-    publish:
-    lower = ch_chunks.flatten()
-    upper = ch_upper
-}
-
-output {
-    lower {
-        path 'lower'
-    }
-    upper {
-        path 'upper'
-    }
 }
 ```
 
@@ -70,42 +80,30 @@ output {
 
 ### Synopsis
 
-This pipeline defines two processes:
+The script enables [static typing](https://docs.seqera.io/nextflow/static-typing) with the `nextflow.enable.types` feature flag.
 
-  <p style="padding-left: 40px;">&#8226; <code>split</code>: takes a string as input, splits it into 6-byte chunks, and writes the chunks to files with the prefix <code>chunk_</code>
+This script defines two processes:
 
-  <p style="padding-left: 40px;">&#8226; <code>convert_to_upper</code>: takes files as input, transforms their contents to uppercase letters, and writes the uppercase strings to files with the prefix <code>upper_</code>
+- `split`: takes a string input, splits it into 6-character chunks, and writes the chunks to files with the prefix `chunk_`.
+- `convert_to_upper`: takes an input file, transforms its contents to uppercase letters, and writes the uppercase text to a file with the prefix `upper_`.
 
-The `split` output is emitted as a single element containing all chunk files. The `flatten` operator splits this combined element so that each file is treated as a sole element and processed independently by `convert_to_upper`.
+The script also defines a `params` block, a `workflow` block, and an `output` block:
 
-The `workflow` block is organized into two sections:
+- The `params` block declares the pipeline parameters.
+- The `workflow` block defines how processes are connected via channels (`main:`) and which channels are published as outputs (`publish:`). In this example, the `split` process emits a collection of files, and the `flatMap` operator emits each file separately to the `convert_to_upper` process.
+- The `output` block defines where each output is published. In this example, the outputs from both processes are published to subdirectories (`lower` and `upper`) in the output directory (`results` by default).
 
-  <p style="padding-left: 40px;">&#8226; <code>main:</code> defines the workflow logic and how processes are connected via channels</p>
-
-  <p style="padding-left: 40px;">&#8226; <code>publish:</code> declares which channels should be published as workflow outputs</p>
-
-The `output` block (outside the workflow) defines where and how each output should be published. In this example, the outputs from both processes are published in subdirectories (`lower` and `upper`) in the default results output directory (`params.outdir`).
-
-<br>
+### Get started
 
 To run this pipeline:
 
- <p style="padding-left: 40px;">1. <a href="https://docs.seqera.io/nextflow/install">Install Nextflow</a> (version 25.10 or later)</p>
+1. [Install Nextflow](https://docs.seqera.io/nextflow/install) (version 26.10 or later).
+2. Create a new file named `main.nf` in your current directory.
+3. Copy and save the above script to your new file.
+4. Run your pipeline:
 
- <p style="padding-left: 40px;">2. Create a new file named <code>main.nf</code> in your current directory</p>
-
- <p style="padding-left: 40px;">3. Copy and save the above script to your new file</p>
-
- <p style="padding-left: 40px;">4. Run your pipeline:</p>
-
-<div style="padding-left: 60px; margin-top: 1rem;">
-
-```
-nextflow run main.nf
-```
-
-</div>
-
-<br>
+   ```bash
+   nextflow run main.nf
+   ```
 
 See [Your first script](https://docs.seqera.io/nextflow/your-first-script) for more information about this pipeline.
