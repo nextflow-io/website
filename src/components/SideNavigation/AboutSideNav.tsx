@@ -22,6 +22,11 @@ const AboutSideNav = () => {
       id: 'key-contributors',
       title: 'Key contributors',
       href: 'key-contributors'
+    },
+    {
+      id: 'project-contributors',
+      title: 'Project contributors',
+      href: 'project-contributors'
     }
   ];
 
