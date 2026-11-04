@@ -1,0 +1,48 @@
+name: Nextflow website build
+# read more here
+# https://help.github.com/en/articles/workflow-syntax-for-github-actions#on
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * *" # Daily, 1am
+
+jobs:
+  build:
+    name: Nextflow website build
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Environment
+        run: env | sort
+
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # ratchet:actions/checkout@v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # ratchet:actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install website deps
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Publish website
+        if: github.event_name != 'pull_request'
+        run: |
+          make publish
+          make invalidate
+        env:
+          AWS_EC2_METADATA_DISABLED: true
+          AWS_ACCESS_KEY_ID: ${{secrets.NXF_AWS_ACCESS}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.NXF_AWS_SECRET}}

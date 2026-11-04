@@ -1,0 +1,129 @@
+:root {
+  --banner-height: 37px;
+}
+
+/* Push page content below the banner; the fixed navbar already accounts for itself */
+body {
+  padding-top: var(--banner-height) !important;
+}
+
+.announcement-banner {
+  color: #fff;
+}
+
+.announcement-banner__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.announcement-banner p.announcement-banner__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 21px;
+  color: #fff;
+}
+
+.announcement-banner__text--clone {
+  display: none;
+}
+
+.announcement-banner__text strong {
+  font-weight: 600;
+}
+
+/* Shared link Button, adapted to the dark banner */
+.announcement-banner a.announcement-banner__cta.button-link {
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 0;
+  color: #fff;
+  font-size: 14px;
+  line-height: 21px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.announcement-banner a.announcement-banner__cta.button-link::after {
+  bottom: -2px;
+}
+
+.announcement-banner a.announcement-banner__cta.button-link img {
+  filter: brightness(0) invert(1);
+}
+
+.announcement-banner a.announcement-banner__cta.button-link:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 4px;
+}
+
+@media (max-width: 767px) {
+  .announcement-banner__inner {
+    gap: 12px;
+  }
+
+  /* One line that scrolls; the CTA stays fixed on the right */
+  .announcement-banner__marquee {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 12px, #000 calc(100% - 12px), transparent);
+  }
+
+  .announcement-banner__track {
+    display: flex;
+    width: max-content;
+    animation: announcement-marquee 20s linear infinite;
+  }
+
+  .announcement-banner__marquee:hover .announcement-banner__track,
+  .announcement-banner__marquee:active .announcement-banner__track {
+    animation-play-state: paused;
+  }
+
+  .announcement-banner p.announcement-banner__text {
+    padding-right: 32px;
+    white-space: nowrap;
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .announcement-banner__text--clone {
+    display: block;
+  }
+}
+
+@keyframes announcement-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No scrolling: fall back to the static, wrapped message */
+  .announcement-banner__marquee {
+    mask-image: none;
+  }
+
+  .announcement-banner__track {
+    animation: none;
+    width: auto;
+  }
+
+  .announcement-banner p.announcement-banner__text {
+    padding-right: 0;
+    white-space: normal;
+  }
+
+  .announcement-banner__text--clone {
+    display: none;
+  }
+
+  .announcement-banner a.announcement-banner__cta.button-link::after,
+  .announcement-banner a.announcement-banner__cta.button-link span {
+    transition: none;
+  }
+}
