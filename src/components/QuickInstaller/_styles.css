@@ -177,7 +177,10 @@
   font-size: 14px;
   line-height: 1.4;
   width: calc(100% - 30px);
-  word-break: break-all;
+  /* Wrap at spaces first; only split a token (e.g. the URL) if it can't fit on its own.
+     Overrides bootstrap's `code { white-space: nowrap }` */
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .copy-button {
@@ -260,8 +263,6 @@
   .code-content code {
     width: 100%;
     font-size: 12px;
-    display: flex;
-    flex-wrap: wrap;
   }
 
   .copy-button {
