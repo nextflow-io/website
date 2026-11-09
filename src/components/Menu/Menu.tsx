@@ -159,13 +159,15 @@ const Menu = ({}) => {
         <div className={`navbar-collapse ${isMenuOpen && isMobile ? "in" : "collapse"}`}>
           <ul className="nav navbar-nav py-2">
             <li className="show animated ">
-              <a href="https://docs.seqera.io/nextflow/" className="text-black">
+              <a href="https://docs.seqera.io/nextflow/" className="text-black" target="_blank" tabIndex={0}>
                 Documentation
+                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
               </a>
             </li>
             <li className="show animated ">
-              <a href="http://training.nextflow.io">
+              <a href="https://training.nextflow.io" target="_blank" tabIndex={0}>
                 Training
+                <img src="/img/assets/external-link-arrow.svg" alt="External link" className="externalLink inline-block" />
               </a>
             </li>
             <li className="show animated ">

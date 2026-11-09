@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This pipeline splits a FASTA file into chunks and executes a BLAST query for each chunk in parallel. Then, all the sequences for the top hits are collected and merged into a single result file.
 </p>
 
-```nextflow
+```nextflow title="main.nf"
 nextflow.enable.types = true
 
 /*

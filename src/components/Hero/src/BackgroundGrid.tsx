@@ -16,9 +16,6 @@ const BackgroundGrid: React.FC = () => {
     const totalCycleDuration = sparks.length * delayBetweenSparks + animationDuration;
     
     const animateSpark = (sparkEl: SVGPathElement, delay: number) => {
-      const classes = sparkEl.className.baseVal.split(' ');
-      const sparkNumber = classes.find((cls: string) => cls.startsWith('sparkle-'))?.split('-')[1];
-      
       let keyframeName = '';
       const sparkId = sparkEl.id;
       

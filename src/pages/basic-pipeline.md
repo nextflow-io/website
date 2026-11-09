@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This pipeline shows how to write a pipeline with two simple Bash processes. The first process splits a string into chunks, and the second process converts the lowercase letters in each chunk to uppercase. It also shows how to publish pipeline outputs to named directories.
 </p>
 
-```nextflow
+```nextflow title="main.nf"
 nextflow.enable.types = true
 
 // Pipeline parameters

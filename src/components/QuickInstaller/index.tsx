@@ -143,10 +143,10 @@ const TerminalComponent: React.FC = () => {
         if (attr) return `<span style="color: #005cc5">${attr}</span>=`;
         return match;
       })
-      .replace(/"([^"]*)"/g, (match, value) => {
+      .replace(/"([^"]*)"/g, (_match, value) => {
         return `"<span style="color: #032f62">${value}</span>"`;
       })
-      .replace(/\b(\d+)\b/g, (match, num) => {
+      .replace(/\b(\d+)\b/g, (_match, num) => {
         return `<span style="color: #005cc5">${num}</span>`;
       });
 

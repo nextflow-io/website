@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This pipeline shows an example of a basic RNA-Seq analysis that performs quality control, transcript quantification, and result aggregation. The pipeline processes paired-end FASTQ files, generates quality control reports with FastQC, quantifies transcripts with Salmon, and produces a unified report with MultiQC.
 </p>
 
-```nextflow
+```nextflow title="main.nf"
 #!/usr/bin/env nextflow
 
 nextflow.enable.types = true

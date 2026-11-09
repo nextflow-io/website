@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This pipeline shows how to put together a basic machine learning pipeline. It fetches datasets from OpenML, trains a variety of machine learning models on each dataset, evaluates each model against a test set, and reports the best model for each dataset. The excerpt below shows the core of the pipeline.
 </p>
 
-```nextflow
+```nextflow title="main.nf"
 nextflow.enable.moduleBinaries = true
 nextflow.enable.types = true
 

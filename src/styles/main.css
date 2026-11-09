@@ -1,6 +1,252 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* No cascade layers, in v3's order: the legacy public/css stylesheets override utilities with plain `!important` rules */
+@import "tailwindcss/theme.css";
+@import "tailwindcss/preflight.css";
+
+@config "../../tailwind.config.js";
+
+/* v4 defaults borders to currentcolor; keep v3's gray */
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  border-color: var(--color-gray-200, currentcolor);
+}
+
+/* v3 preflight rules that v4 dropped or weakened to `*`, which Bootstrap's element rules would now beat */
+body {
+  line-height: inherit;
+}
+blockquote, dl, dd, h1, h2, h3, h4, h5, h6, hr, figure, p, pre {
+  margin: 0;
+}
+ol, ul, menu {
+  margin: 0;
+  padding: 0;
+}
+button, [role="button"] {
+  cursor: pointer;
+}
+
+p {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* v4's preflight zeroes padding on every element, overriding the `cellpadding` attribute */
+table[cellpadding="9"] :is(td, th) {
+  padding: 9px;
+}
+
+figcaption {
+  @apply font-body text-xs antialiased text-center font-light mt-3 opacity-70;
+}
+
+@tailwind utilities source(none);
+@source "../**/*.{astro,html,js,jsx,ts,tsx,vue,svelte}";
+
+@utility container-xl {
+  @apply mx-auto;
+  max-width: 1440px;
+}
+
+@utility container-lg {
+  @apply mx-auto;
+  max-width: 1248px;
+}
+
+@utility container-md {
+  @apply mx-auto;
+  max-width: 1008px;
+}
+
+@utility container-sm {
+  @apply mx-auto;
+  max-width: 900px;
+}
+
+@utility gradient-indigo {
+  background-image: linear-gradient(180deg, #4256e7 0%, #7f91eb 100%);
+}
+
+@utility bg-gradient {
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    rgba(66, 86, 231, 0.1) 100%
+  );
+}
+
+@utility bg-accent {
+  background-image: linear-gradient(
+    210.05deg,
+    #778ff5 18.12%,
+    rgba(231, 57, 124, 0.66) 94.13%
+  );
+}
+
+@utility bg-light {
+  background-color: rgba(66, 86, 231, 0.1);
+}
+
+@utility row {
+  @apply -mx-4 flex flex-row flex-wrap;
+}
+
+@utility col {
+  @apply px-4;
+}
+
+@utility col-full {
+  @apply col flex-1/1 min-w-full;
+}
+
+@utility col-1 {
+  @apply col flex-1/12 min-w-1/12;
+}
+
+@utility col-2 {
+  @apply col flex-2/12 min-w-2/12;
+}
+
+@utility col-3 {
+  @apply col flex-3/12 min-w-3/12;
+}
+
+@utility col-4 {
+  @apply col flex-4/12 min-w-4/12;
+}
+
+@utility col-5 {
+  @apply col flex-5/12 min-w-5/12;
+}
+
+@utility col-6 {
+  @apply col flex-6/12 min-w-6/12;
+}
+
+@utility col-7 {
+  @apply col flex-7/12 min-w-7/12;
+}
+
+@utility col-8 {
+  @apply col flex-8/12 min-w-8/12;
+}
+
+@utility col-9 {
+  @apply col flex-9/12 min-w-9/12;
+}
+
+@utility col-10 {
+  @apply col flex-10/12 min-w-10/12;
+}
+
+@utility col-11 {
+  @apply col flex-11/12 min-w-11/12;
+}
+
+@utility col-1/5 {
+  @apply col flex-1/5 min-w-1/5;
+}
+
+@utility col-p-0.5 {
+  padding-left: 2px !important;
+  padding-right: 2px !important;
+}
+
+@utility typo-display {
+  @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
+  & span {
+    @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
+  }
+}
+
+@utility typo-hero {
+  @apply font-display font-semibold text-5xl lg:text-6xl antialiased;
+}
+
+@utility typo-h1 {
+  @apply font-display font-semibold text-2xl md:text-4xl lg:text-5xl antialiased;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h2 {
+  @apply font-display font-semibold text-2xl md:text-3xl lg:text-4xl antialiased;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h3 {
+  @apply font-display font-semibold text-2xl md:text-3xl antialiased;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h4 {
+  @apply font-display font-semibold text-xl md:text-2xl antialiased;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h5 {
+  @apply font-display text-base font-semibold antialiased tracking-wide;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h6 {
+  @apply font-display text-[20px] font-normal antialiased;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-h7 {
+  @apply text-sm font-medium antialiased text-gray-800;
+  & a {
+    @apply font-display;
+  }
+}
+
+@utility typo-blockquote {
+  @apply font-body text-xl antialiased;
+}
+
+@utility typo-intro {
+  @apply font-body text-base font-semibold antialiased;
+}
+
+@utility typo-body {
+  @apply text-base font-light antialiased;
+  font-weight: 400;
+}
+
+@utility typo-small {
+  @apply font-body text-sm antialiased;
+  font-weight: 400;
+}
+
+@utility btn-primary {
+  @apply bg-indigo-600 text-white;
+}
+
+@utility btn-secondary {
+  @apply bg-white text-indigo-600 hover:bg-indigo-200;
+}
+
+@utility btn-primary-alt {
+  @apply bg-green-600 text-white;
+}
+
+@utility btn-secondary-alt {
+  @apply bg-white text-green-600 hover:bg-green-200;
+}
 
 :root {
   --nextflow-green: #4db6ac;
@@ -14,8 +260,21 @@ body {
   height: 100%;
 }
 /* TODO: Remove this. Is a quick fix for the Tailwind integration */
-body, p, span, div, a, button {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+body,
+p,
+span,
+div,
+a,
+button {
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -60,214 +319,11 @@ ul {
 p {
   margin: 0 0 12px;
 }
-code, kbd, pre, samp, code span {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+code,
+kbd,
+pre,
+samp,
+code span {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 /* TODO: Finish here */
-
-@layer components {
-  .container-xl {
-    @apply mx-auto;
-    max-width: 1440px;
-  }
-
-  .container-lg {
-    @apply mx-auto;
-    max-width: 1248px;
-  }
-
-  .container-md {
-    @apply mx-auto;
-    max-width: 1008px;
-  }
-
-  .container-sm {
-    @apply mx-auto;
-    max-width: 900px;
-  }
-
-  .gradient-indigo {
-    background-image: linear-gradient(180deg, #4256e7 0%, #7f91eb 100%);
-  }
-
-  .bg-gradient {
-    background-image: linear-gradient(180deg, #ffffff 0%, rgba(66, 86, 231, 0.1) 100%);
-  }
-
-  .bg-accent {
-    background-image: linear-gradient(210.05deg, #778ff5 18.12%, rgba(231, 57, 124, 0.66) 94.13%);
-  }
-
-  .bg-light {
-    background-color: rgba(66, 86, 231, 0.1);
-  }
-
-  .row {
-    @apply -mx-4 flex flex-row flex-wrap;
-  }
-
-  .col {
-    @apply px-4;
-  }
-
-  .col-full {
-    @apply col flex-1/1 min-w-full;
-  }
-
-  .col-1 {
-    @apply col flex-1/12 min-w-1/12;
-  }
-
-  .col-2 {
-    @apply col flex-2/12 min-w-2/12;
-  }
-
-  .col-3 {
-    @apply col flex-3/12 min-w-3/12;
-  }
-
-  .col-4 {
-    @apply col flex-4/12 min-w-4/12;
-  }
-
-  .col-5 {
-    @apply col flex-5/12 min-w-5/12;
-  }
-
-  .col-6 {
-    @apply col flex-6/12 min-w-6/12;
-  }
-
-  .col-7 {
-    @apply col flex-7/12 min-w-7/12;
-  }
-
-  .col-8 {
-    @apply col flex-8/12 min-w-8/12;
-  }
-
-  .col-9 {
-    @apply col flex-9/12 min-w-9/12;
-  }
-
-  .col-10 {
-    @apply col flex-10/12 min-w-10/12;
-  }
-
-  .col-11 {
-    @apply col flex-11/12 min-w-11/12;
-  }
-
-  .col-1\/5 {
-    @apply col flex-1/5 min-w-1/5;
-  }
-
-  .col-p-0\.5 {
-    padding-left: 2px !important;
-    padding-right: 2px !important;
-  }
-
-  .text-gradient-1 {
-    background: #f18046;
-    background: linear-gradient(to right, #f18046 0%, #fa6863 25%, #52428c 50%, #3d95fd 75%, #0dc09d 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  .typo-display,
-  .typo-display span {
-    @apply font-display font-semibold text-2xl md:text-4xl lg:text-6xl antialiased;
-  }
-
-  .typo-hero {
-    @apply font-display font-semibold text-5xl lg:text-6xl antialiased;
-  }
-
-  .typo-h1 {
-    @apply font-display font-semibold text-2xl md:text-4xl lg:text-5xl antialiased;
-  }
-
-  .typo-h2 {
-    @apply font-display font-semibold text-2xl md:text-3xl lg:text-4xl antialiased;
-  }
-
-  .typo-h3 {
-    @apply font-display font-semibold text-2xl md:text-3xl antialiased;
-  }
-
-  .typo-h4 {
-    @apply font-display font-semibold text-xl md:text-2xl antialiased;
-  }
-
-  .typo-h5 {
-    @apply font-display text-base font-semibold antialiased tracking-wide;
-  }
-
-  .typo-h6 {
-    @apply font-display text-[20px] font-normal antialiased;
-  }
-  .typo-h7 {
-    @apply text-sm font-medium antialiased text-gray-800;
-  }
-
-  .typo-h1,
-  .typo-h2,
-  .typo-h3,
-  .typo-h4,
-  .typo-h5,
-  .typo-h6,
-  .typo-h7 {
-    & a {
-      @apply font-display;
-    }
-  }
-
-  .typo-blockquote {
-    @apply font-body text-xl antialiased;
-  }
-
-  .typo-intro {
-    @apply font-body text-base font-semibold antialiased;
-  }
-
-  .typo-body {
-    @apply text-base font-light antialiased;
-    font-weight: 400;
-  }
-
-  .typo-small {
-    @apply font-body text-sm antialiased;
-    font-weight: 400;
-  }
-
-  .btn-primary {
-    @apply bg-indigo-600 text-white;
-  }
-
-  .btn-secondary {
-    @apply bg-white text-indigo-600 hover:bg-indigo-200;
-  }
-
-  .btn-accent {
-  }
-
-  .btn-primary-alt {
-    @apply bg-green-600 text-white;
-  }
-
-  .btn-secondary-alt {
-    @apply bg-white text-green-600 hover:bg-green-200;
-  }
-
-  .btn-accent-alt {
-  }
-
-  .typed {
-    background: linear-gradient(210.05deg, #778ff5 18.12%, #d22081 94.23%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  figcaption {
-    @apply font-body text-xs antialiased text-center font-light mt-3 opacity-70;
-  }
-}
