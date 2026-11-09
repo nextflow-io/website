@@ -1,6 +1,7 @@
 ---
 import "../styles/main.css";
 import "../styles/focus-styles.css";
+import "../styles/dark.css";
 import MenuComponent from "@components/Menu/Menu";
 import Footer from "@components/Footer.astro";
 import CookieBanner from "@components/CookieBanner/index.tsx";
@@ -35,6 +36,17 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <!-- Inline so the theme is set before first paint -->
+    <script is:inline>
+      {
+        let theme = null;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch {}
+        theme ??= matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = theme;
+      }
+    </script>
     <title>{page_title}</title>
     <meta name="description" content={description} />
     <meta property="og:title" content={page_title} />
