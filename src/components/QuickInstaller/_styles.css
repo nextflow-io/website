@@ -61,20 +61,24 @@
 }
 
 .terminal-buttons {
+  /* Horizontal inset of the pill track; the indicator below uses the same value */
+  --track-inset: 31px;
   display: flex;
-  padding: 2px 31px;
-  justify-content: space-between;
+  padding: 2px var(--track-inset);
   align-items: center;
   align-self: stretch;
   border-radius: 20px;
   background: var(--color-nextflow-900, #087f68);
   margin: 5px 0;
-  gap: 50px;
+  position: relative;
 }
 
+/* Each pill takes an equal third of the track, so the indicator can follow it at any width */
 .pill {
   display: flex;
-  width: 80px;
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
   justify-content: center;
   align-items: center;
   gap: 5px;
@@ -130,23 +134,32 @@
   fill: var(--color-nextflow-700) !important;
 }
 
+/* Active-step indicator: one third of the track wide, moved by whole widths */
 .terminal-buttons::after {
   content: "";
   position: absolute;
-  left: 5%;
-  width: 26%;
+  top: 50%;
+  left: var(--track-inset);
+  width: calc((100% - 2 * var(--track-inset)) / 3);
   height: 32px;
   background-color: var(--color-nextflow-DEFAULT, #0dc09d);
   border-radius: 20px;
-  transition: all 0.3s ease-in-out;
+  transform: translate(0, -50%);
+  transition: transform 0.3s ease-in-out;
 }
 
 .terminal-buttons[data-index="1"]::after {
-  left: 37%;
+  transform: translate(100%, -50%);
 }
 
 .terminal-buttons[data-index="2"]::after {
-  left: 69%;
+  transform: translate(200%, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-buttons::after {
+    transition: none;
+  }
 }
 
 .pill[data-active="true"] {
@@ -294,19 +307,6 @@
 
 @media (max-width: 480px) {
   .terminal-buttons {
-    padding: 2px 10px;
-  }
-  .terminal-buttons {
-    gap: 20px;
-  }
-  .terminal-buttons::after {
-    left: 8%;
-    width: 28%;
-  }
-  .terminal-buttons[data-index="1"]::after {
-    left: 36%;
-  }
-  .terminal-buttons[data-index="2"]::after {
-    left: 65%;
+    --track-inset: 10px;
   }
 }
