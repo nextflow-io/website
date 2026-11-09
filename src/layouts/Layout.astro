@@ -114,7 +114,8 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
         src="https://www.googletagmanager.com/ns.html?id=GTM-TNCXSWG"
         height="0"
         width="0"
-        style="display:none;visibility:hidden"></iframe></noscript
+        style="display: none; visibility: hidden"
+      ></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
 
@@ -215,7 +216,7 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
               false,
             );
 
-            toggle.addEventListener("touchstart", function (e) {}, { passive: true });
+            toggle.addEventListener("touchstart", function () {}, { passive: true });
 
             toggle.addEventListener(
               "touchend",
@@ -251,58 +252,13 @@ if (!existsSync(path.join(path.resolve("./public"), image_path))) {
             },
             false,
           );
-
-          // Función de depuración para verificar eventos táctiles
-          // Comentar o eliminar en producción
-          function debugMobileEvents() {
-            const debugStyle =
-              "position: fixed; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; z-index: 9999; font-size: 12px; max-width: 80%; border-radius: 4px; display: none;";
-            const debugElement = document.createElement("div");
-            debugElement.setAttribute("style", debugStyle);
-            document.body.appendChild(debugElement);
-
-            // Mostrar mensajes de depuración para eventos táctiles
-            document.addEventListener("touchstart", function (e) {
-              const target = e.target;
-              const isDropdown = target && target.closest && !!target.closest(".dropdown-toggle");
-              debugElement.style.display = "block";
-              debugElement.textContent = `Touchstart en: ${target.tagName} ${target.className}. Es dropdown: ${isDropdown}`;
-              setTimeout(() => {
-                debugElement.style.display = "none";
-              }, 3000);
-            });
-
-            // Verificar eventos en los elementos dropdown
-            dropdownToggles.forEach((toggle, index) => {
-              toggle.addEventListener("touchstart", function () {
-                debugElement.style.display = "block";
-                debugElement.textContent = `Dropdown ${index} tocado`;
-                setTimeout(() => {
-                  debugElement.style.display = "none";
-                }, 3000);
-              });
-            });
-          }
-
-          // Descomentar para activar depuración
-          // debugMobileEvents();
         });
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        const scrollingElement = document.scrollingElement || document.documentElement;
-        const fixedElements = document.querySelectorAll(
-          '*[style*="position: fixed"], *[style*="position:fixed"], *[style*="position: absolute"], *[style*="position:absolute"]',
-        );
-
         setTimeout(() => {
           window.scrollTo(0, 10);
         }, 1000);
-
-        const scrollableElements = Array.from(document.querySelectorAll("*")).filter((el) => {
-          const style = window.getComputedStyle(el);
-          return (style.overflowY === "auto" || style.overflowY === "scroll") && el.scrollHeight > el.clientHeight;
-        });
 
         let scrollMonitor = setInterval(() => {
           if (window.scrollY > 0) {

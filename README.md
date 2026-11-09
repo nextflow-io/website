@@ -50,13 +50,13 @@ There are also a bunch of `npm` commands for more fine-grained control:
 
 Code syntax is enforced using [Prettier](https://prettier.io/). You can use a plugin in your code editor to run this automatically on save and it also runs as a CI check on push and pull-requests.
 
-To make it easier to catch formatting errors before pushing, the repo is set up to use [pre-commit](https://pre-commit.com/). If installed, this will run Prettier on any edited files before allowing a commit.
+To make it easier to catch formatting errors before pushing, the repo is set up to use [prek](https://prek.j178.dev/) (configured in `prek.toml`). If installed, this will run Prettier on any edited files before allowing a commit.
 
 To use, set up as follows:
 
 ```bash
-pip install pre-commit  # Install the pre-commit tool itself
-pre-commit install  # Set up in the Nextflow website repo
+brew install prek  # Install prek itself (or `uv tool install prek`)
+prek install  # Set up in the Nextflow website repo
 ```
 
 After that, checks will automatically run every time you do `git commit` in the repo. Note that formatting changes will be applied automatically but the commit will be aborted - you must do `git add .` and `git commit` again.
@@ -73,7 +73,6 @@ The repository has the following rough structure:
 
 ```text
 /
-├── bin/            # Custom remark plugins
 ├── public/         # Static assets (images, CSS, JS, PDFs)
 └── src/
     ├── components/
@@ -100,4 +99,5 @@ To move someone to the alumni section, change their `title` to `"Program Alumni"
 ## Documentation
 
 For more info, check the [Astro docs](https://docs.astro.build) and the [Tailwind CSS docs](https://tailwindcss.com/docs).
+Code blocks are rendered by [Expressive Code](https://expressive-code.com/) with [starlight-codeblocks](https://ewels.github.io/starlight-codeblocks/), which links Nextflow names in `nextflow` code blocks to the Nextflow docs.
 The site also still loads [Bootstrap v3](https://getbootstrap.com/docs/3.4/) styles alongside Tailwind.

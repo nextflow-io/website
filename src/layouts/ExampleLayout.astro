@@ -1,7 +1,6 @@
 ---
 import Page from "./Page.astro";
 import ExamplesSideNav from "@components/SideNavigation/ExamplesSideNav";
-import CodeCopyButton from "@components/CodeBlock/CodeCopy";
 import "../components/CodeBlock/styles.css";
 
 const { frontmatter } = Astro.props;
@@ -21,7 +20,6 @@ const image = frontmatter?.image || "";
         <div class="code-examples">
           <slot />
         </div>
-        <CodeCopyButton client:load />
       </div>
     </div>
   </div>
@@ -33,8 +31,8 @@ const image = frontmatter?.image || "";
     position: relative;
   }
 
-  .code-examples :global(pre) {
-    margin-top: 1.5rem !important;
+  .code-examples :global(.expressive-code) {
+    margin-top: 1.5rem;
   }
 
   .code-examples :global(h3) {
@@ -77,8 +75,8 @@ const image = frontmatter?.image || "";
     margin: 0;
   }
 
-  .code-examples :global(li > pre) {
-    margin-top: 0.5rem !important;
+  .code-examples :global(li > .expressive-code) {
+    margin-top: 0.5rem;
     margin-bottom: 0.25rem;
   }
 </style>

@@ -10,7 +10,7 @@ layout: "@layouts/ExampleLayout.astro"
     This pipeline shows how to use different scripting languages in a single Nextflow pipeline. The first process uses an R script to generate random number pairs, and the second process uses a Python script to calculate the average of each coordinate.
 </p>
 
-```nextflow
+```nextflow title="main.nf"
 nextflow.enable.types = true
 
 // Pipeline parameters

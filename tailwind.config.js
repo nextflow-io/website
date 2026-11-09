@@ -226,23 +226,7 @@ export default {
         }, {});
       }
 
-      const customVars = extractColorVars(theme("colors"));
-
-      Object.entries(screens).forEach(([key, value]) => {
-        customVars[`--${key}`] = value;
-      });
-
-      Object.keys(theme("fontSize")).forEach((key) => {
-        customVars[`--size-${key}`] = theme("fontSize")[key][0];
-        customVars[`--leading-${key}`] = theme("fontSize")[key][1];
-      });
-      addBase({
-        ":root": customVars,
-        p: {
-          fontSize: theme("fontSize.base[0]"),
-          lineHeight: theme("fontSize.base[1]"),
-        },
-      });
+      addBase({ ":root": extractColorVars(theme("colors")) });
     },
   ],
 };

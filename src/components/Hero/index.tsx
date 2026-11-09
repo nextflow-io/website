@@ -2,7 +2,7 @@ import clsx from "clsx";
 import styles from "./styles.module.css";
 import BackgroundGrid from "./src/BackgroundGrid";
 
-const Hero = ({ children, large }: { children: React.ReactNode; large?: boolean }) => {
+const Hero = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className={clsx(styles.hero, "hero-section w-full px-0")}>
       <div className={styles.bgSvgContainer}>

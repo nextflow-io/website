@@ -5,13 +5,35 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
-  pre-commit:
+  prek:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # ratchet:actions/checkout@v4
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # ratchet:actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
         with:
-          node-version: 20
-      - run: npm install --only=dev
-      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # ratchet:pre-commit/action@v3.0.1
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # ratchet:actions/setup-node@v7
+        with:
+          node-version: 26
+      # Prettier resolves prettier-plugin-astro from node_modules
+      - run: npm ci
+      - uses: j178/prek-action@44924fe9ef4a6f88253c4b6b1bf11c689d3ce53d # ratchet:j178/prek-action@v3.1.0
+
+  nextflow-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: nf-core/setup-nextflow@v3
+      # The RNA-seq and machine learning examples include local modules, so can't be linted standalone
+      - name: Extract example pipelines
+        run: |
+          mkdir -p examples
+          for page in basic-pipeline mixing-scripting-languages blast-pipeline; do
+            awk '/^```nextflow/{f=1;next} /^```/{f=0} f' "src/pages/$page.md" > "examples/$page.nf"
+          done
+      - run: nextflow lint examples

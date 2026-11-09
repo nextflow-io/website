@@ -65,11 +65,6 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
     onFilterChange(updatedCountries);
   };
 
-  const clearAllFilters = () => {
-    setSelectedCountries([]);
-    onFilterChange([]);
-  };
-
   const removeCountry = (countryCode: string) => {
     const updatedCountries = selectedCountries.filter(code => code !== countryCode);
     setSelectedCountries(updatedCountries);
@@ -99,7 +94,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
       <div className="relative country-filter-dropdown">
         <div
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-          className="px-3 py-2 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-sm min-w-[300px] max-w-[300px] cursor-pointer"
+          className="px-3 py-2 border border-nextflow-600 hover:border-nextflow-900 bg-white shadow-xs min-w-[300px] max-w-[300px] cursor-pointer"
         >
           <div className="flex items-center min-h-[24px]">
             <div className="flex items-center gap-1 overflow-x-auto flex-1 mr-2">
@@ -108,7 +103,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
                 return (
                   <div
                     key={countryCode}
-                    className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs flex-shrink-0"
+                    className="flex items-center bg-nextflow-100 border border-nextflow-300 rounded-full px-2 py-1 text-xs shrink-0"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <img
@@ -140,7 +135,7 @@ const AmbassadorFilter: React.FC<AmbassadorFilterProps> = ({ onFilterChange }) =
             </div>
 
             {/* Dropdown arrow - always visible on the right */}
-            <div className="flex-shrink-0">
+            <div className="shrink-0">
               <svg className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>

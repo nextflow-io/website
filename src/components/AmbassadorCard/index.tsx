@@ -27,7 +27,6 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
   bluesky,
   className,
   children,
-  title,
 }) => {
   const [showBio, setShowBio] = useState(false);
 
@@ -52,7 +51,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
       type="button"
       tabIndex={0}
       className={clsx(
-        "text-nextflow-900 text-sm cursor-pointer flex items-center gap-1 hover:text-nextflow-1000 focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm p-1 -ml-1 transition-all duration-200",
+        "text-nextflow-900 text-sm cursor-pointer flex items-center gap-1 hover:text-nextflow-1000 focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm p-1 -ml-1 transition-all duration-200",
         showBio && "text-nextflow-1000",
       )}
       aria-label={showBio ? "Hide biography" : "Show biography"}
@@ -89,7 +88,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
               href={`https://github.com/${github}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm"
+              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm"
               title={`GitHub: ${github}`}
             >
               <i className="fa fa-github text-lg"></i>
@@ -102,7 +101,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
               href={`https://linkedin.com/in/${linkedin}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm"
+              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm"
               title={`LinkedIn: ${linkedin}`}
             >
               <i className="fa fa-linkedin text-lg" />
@@ -115,7 +114,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
               href={`https://twitter.com/${twitter}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm"
+              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm"
               title={`Twitter: ${twitter}`}
             >
               <i className="fa fa-twitter text-lg" />
@@ -128,7 +127,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
               href={mastodon}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm"
+              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm"
               title="Mastodon"
             >
               <i className="fa fa-rss text-lg" />
@@ -141,7 +140,7 @@ const AmbassadorCard: React.FC<AmbassadorCardProps> = ({
               href={bluesky}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-none focus:ring-2 focus:ring-nextflow-600 focus:ring-opacity-50 rounded-sm"
+              className="text-brand-900 hover:text-nextflow-600 transition-colors relative group focus:outline-hidden focus:ring-2 focus:ring-nextflow-600/50 rounded-sm"
               title="Bluesky"
             >
               <i className="fa fa-rss text-lg" />

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
+import { CookiesProvider, useCookies } from "react-cookie";
 import clsx from "clsx";
-import CookieIcon from "./src/cookie.svg"; 
 
 declare global {
   interface Window {
@@ -59,14 +58,11 @@ const CookieBanner = () => {
       <div
         className={clsx(
           "w-full p-4 lg:rounded-md",
-          "bg-brand text-white fixed bottom-0 lg:left-1/2 lg:mb-6 lg:transform lg:-translate-x-1/2 lg:w-[70%] z-[99]",
+          "bg-brand text-white fixed bottom-0 lg:left-1/2 lg:mb-6 lg:transform lg:-translate-x-1/2 lg:w-[70%] z-99",
         )}
       >
         <div className="flex items-center justify-between flex-wrap -my-2">
           <div className="flex items-center py-2 md:pr-4">
-            {/* <div className="mr-4 hidden sm:block">
-              <img src={CookieIcon.src} alt="Cookie" className="h-8 w-8"/>
-            </div>      */}
             <div className="flex-auto text-xs ml-5">
               This website uses cookies to offer you a better browsing
               experience. <br className="hidden md:block" />
@@ -84,7 +80,7 @@ const CookieBanner = () => {
             <div className="flex flex-wrap -mx-1 -my-1">
               <div className="px-1 py-1">
                 <button
-                  className=" text-white px-4 py-2 rounded-md hover:bg-brand-1000 outline outline-white outline-1 transition"
+                  className=" text-white px-4 py-2 rounded-md hover:bg-brand-1000 outline-solid outline-white outline-1 transition"
                   onClick={denyAll}
                 >
                   Essential only
@@ -106,4 +102,10 @@ const CookieBanner = () => {
   );
 };
 
-export default CookieBanner;
+export default function CookieBannerWithProvider() {
+  return (
+    <CookiesProvider>
+      <CookieBanner />
+    </CookiesProvider>
+  );
+}

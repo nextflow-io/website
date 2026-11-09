@@ -1,6 +1,5 @@
 // website/src/components/Card/index.tsx
 import React from 'react';
-import clsx from 'clsx';
 import style from './styles.module.css';
 import Button from '@components/Button';
 interface CardProps {
@@ -8,11 +7,10 @@ interface CardProps {
     title: string;          
     text: string;          
     link?: string;         
-    isHoverable?: boolean; 
     button?: string;
 }
 
-const Card: React.FC<CardProps> = ({ icon, title, text, link, isHoverable, button }) => {
+const Card: React.FC<CardProps> = ({ icon, title, text, link, button }) => {
     const cardContent = (
         <div className={style.cardContent}>
             <div className={style.cardContentInner }>
@@ -27,11 +25,11 @@ const Card: React.FC<CardProps> = ({ icon, title, text, link, isHoverable, butto
 
 
     return link ? (
-        <a href={link} className={clsx(style.card, { 'hoverable': isHoverable })}>
+        <a href={link} className={style.card}>
             {cardContent}
         </a>
     ) : (
-        <div className={clsx(style.card, { 'hoverable': isHoverable })}>
+        <div className={style.card}>
             {cardContent}
         </div>
     );
