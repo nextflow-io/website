@@ -142,6 +142,31 @@ const Menu = ({}) => {
     }
   };
 
+  const toggleTheme = () => {
+    const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {}
+  };
+
+  // Icon is picked by CSS from <html data-theme>, so server and client render the same markup
+  const themeToggle = (
+    <li>
+      <button
+        type="button"
+        className="theme-toggle"
+        onClick={toggleTheme}
+        title="Toggle dark mode"
+        aria-label="Toggle dark mode"
+      >
+        <i className="fa fa-moon-o light-only hidden-xs" aria-hidden="true"></i>
+        <i className="fa fa-sun-o dark-only hidden-xs" aria-hidden="true"></i>
+        <span className="visible-xs">Toggle dark mode</span>
+      </button>
+    </li>
+  );
+
   return (
     <div id="header" ref={headerRef} className={headerClasses} role="navigation">
       <AnnouncementBanner />
@@ -153,7 +178,8 @@ const Menu = ({}) => {
             </div>
           )}
           <a className="navbar-brand max-w-[155px] flex items-center" href="/index.html">
-            <img src="/img/nextflow.svg" title="Nextflow Logo" className="mt-1" />
+            <img src="/img/nextflow.svg" title="Nextflow Logo" className="mt-1 light-only" />
+            <img src="/img/nextflow_darkbg.svg" title="Nextflow Logo" className="mt-1 dark-only" />
           </a>
         </div>
         <div className={`navbar-collapse ${isMenuOpen && isMobile ? "in" : "collapse"}`}>
@@ -354,9 +380,11 @@ const Menu = ({}) => {
                 </a>
               </li>
             )}
+            {isMobile && themeToggle}
           </ul>
           {!isMobile && (
           <ul className="navbar-right">
+            {themeToggle}
             <li className="navbar-right">
               <a href="https://github.com/nextflow-io/nextflow" title="GitHub Repository" tabIndex={0}>
                 <i className="fa fa-github hidden-xs" aria-hidden="true"></i>

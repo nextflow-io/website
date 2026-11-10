@@ -35,7 +35,9 @@ export default defineConfig({
   integrations: [
     codeblocks({
       expressiveCode: {
-        themes: ["light-plus"],
+        themes: ["light-plus", "dark-plus"],
+        useDarkModeMediaQuery: false,
+        themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
         plugins: [pluginLineNumbers()],
         customCreateRenderer: async (options) => {
           const renderer = await createRenderer(options);

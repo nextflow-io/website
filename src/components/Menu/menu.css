@@ -12,6 +12,7 @@
 .navbar-right {
   list-style-type: none;
   display: flex;
+  align-items: center;
 }
 
 .dropdown-toggle {
@@ -282,7 +283,8 @@
   border-bottom: none !important;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
   background-color: var(--nextflow-light-green, #e0f7f5);
   color: #333;
   text-decoration: none;
@@ -311,4 +313,28 @@
 
 .dropdown-menu > li > a {
   border-bottom: none !important;
+}
+
+/* Bootstrap rings every clicked link until the next page loads; keyboard focus keeps focus-styles.css */
+#header a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.theme-toggle {
+  background: none;
+  border: 0;
+  padding: 0 14px;
+  color: #333;
+  font-size: 1.2em;
+  line-height: 1em;
+}
+
+@media (max-width: 767px) {
+  .theme-toggle {
+    width: 100%;
+    min-height: 44px;
+    padding: 15px;
+    text-align: left;
+    font-size: 16px;
+  }
 }

@@ -1,0 +1,195 @@
+/* Dark theme: active when <html data-theme="dark">, set by the inline script in Layout.astro.
+   Greys match Seqera Platform's dark mode; green accents and buttons match docs.seqera.io.
+   Tailwind utilities compile to literal colours with !important, so they are overridden one by one below. */
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --dm-bg: #1c1b21;
+  --dm-surface: #27252b;
+  --dm-border: rgba(255, 255, 255, 0.1);
+  --dm-text: #e8e7e9;
+  --dm-muted: #b9b7be;
+  --dm-link: var(--color-nextflow-300);
+
+  --color-brand-300-opacity: var(--dm-border);
+  --color-brand-900-opacity: var(--dm-border);
+  --color-nextflow-300-opacity: rgba(13, 192, 157, 0.07);
+  --color-gray-100: rgba(255, 255, 255, 0.08);
+  --color-gray-200: var(--dm-border);
+  --nextflow-light-green: var(--color-nextflow-600-opacity);
+  --focus-color: var(--color-nextflow-400);
+}
+
+[data-theme="dark"] .light-only,
+:root:not([data-theme="dark"]) .dark-only {
+  display: none !important;
+}
+
+[data-theme="dark"] body {
+  background-color: var(--dm-bg);
+  color: var(--dm-text);
+}
+
+[data-theme="dark"] hr {
+  border-color: var(--dm-border);
+}
+
+[data-theme="dark"] code:not(.scb-inline) {
+  color: var(--color-nextflow-400);
+}
+
+[data-theme="dark"] :is(a.link, .code-examples p a, .blg-summary p a),
+[data-theme="dark"] :is(a.link, .code-examples p a, .blg-summary p a):is(:hover, :focus) {
+  color: var(--dm-link);
+}
+
+/* Tailwind colour utilities */
+
+[data-theme="dark"] :is(.text-brand, .text-brand-1000, .text-black, .text-\[\#160F26\]) {
+  color: var(--dm-text) !important;
+}
+
+[data-theme="dark"] :is(.text-brand-900, .text-gray-800, .text-gray-900) {
+  color: var(--dm-muted) !important;
+}
+
+[data-theme="dark"] :is(.text-nextflow-800, .text-nextflow-900, .text-nextflow-1000) {
+  color: var(--dm-link) !important;
+}
+
+[data-theme="dark"] :is(.hover\:text-nextflow-900, .hover\:text-nextflow-1000):hover {
+  color: var(--color-nextflow-200) !important;
+}
+
+[data-theme="dark"] .text-blue-500 {
+  color: var(--color-blue-300) !important;
+}
+
+[data-theme="dark"] .text-blue-700 {
+  color: var(--color-blue-200) !important;
+}
+
+[data-theme="dark"] .bg-white:not(.light-surface) {
+  background-color: var(--dm-bg) !important;
+}
+
+[data-theme="dark"] :is(.bg-gray-100, .hover\:bg-gray-100:hover) {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] .bg-nextflow-100 {
+  background-color: var(--color-nextflow-600-opacity) !important;
+}
+
+[data-theme="dark"] .bg-blue-100 {
+  background-color: rgba(66, 86, 231, 0.25) !important;
+}
+
+[data-theme="dark"] :is(.border-gray-200, .border-gray-300) {
+  border-color: var(--dm-border) !important;
+}
+
+[data-theme="dark"] .hover\:border-brand:hover {
+  border-color: var(--color-nextflow-600) !important;
+}
+
+/* Header and navigation */
+
+[data-theme="dark"] .navbar-inverse {
+  background-color: var(--dm-bg);
+  border-color: var(--dm-bg);
+  border-bottom-color: var(--dm-border);
+}
+
+[data-theme="dark"] .navbar-inverse .navbar-collapse {
+  border-color: var(--dm-border);
+}
+
+[data-theme="dark"] .navbar-inverse .navbar-nav > li > a,
+[data-theme="dark"] .navbar-right a,
+[data-theme="dark"] .theme-toggle {
+  color: var(--dm-text);
+}
+
+[data-theme="dark"] .navbar-inverse .navbar-nav > li > a:is(:hover, :focus, :focus-visible),
+[data-theme="dark"] .navbar-inverse .navbar-nav > .open > a,
+[data-theme="dark"] .navbar-right a:hover,
+[data-theme="dark"] .theme-toggle:hover {
+  color: #fff;
+  background-color: transparent;
+}
+
+[data-theme="dark"] .dropdown-menu > li > a,
+[data-theme="dark"] .dropdown-menu > li > a:is(:hover, :focus, :focus-visible) {
+  color: var(--dm-text);
+}
+
+@media (min-width: 768px) {
+  [data-theme="dark"] .navbar-nav .dropdown .dropdown-menu {
+    background-color: var(--dm-surface);
+    border: 1px solid var(--dm-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (max-width: 767px) {
+  [data-theme="dark"] .menu-open {
+    background-color: var(--dm-bg);
+  }
+
+  [data-theme="dark"] .navbar-nav > li {
+    border-bottom-color: var(--dm-border);
+  }
+}
+
+[data-theme="dark"] :is(img.externalLink, img.dropdown-icon) {
+  filter: invert(1);
+}
+
+[data-theme="dark"] .mobile-menu-toggle span {
+  background-color: var(--dm-text);
+}
+
+/* Brand-coloured bars blend into the dark page without an edge */
+[data-theme="dark"] .bg-brand {
+  box-shadow: 0 0 0 1px var(--dm-border);
+}
+
+[data-theme="dark"] .footer-wrapper {
+  border-top: 1px solid var(--dm-border);
+}
+
+/* Ambassador cards */
+
+[data-theme="dark"] .ambassador-bio-content {
+  color: var(--dm-muted);
+}
+
+[data-theme="dark"] .ambassador-bio-content a {
+  color: var(--dm-link);
+  background-image: linear-gradient(var(--dm-link), var(--dm-link));
+}
+
+/* Homepage installer: its token colours are inline styles */
+
+[data-theme="dark"] .terminal-wrapper {
+  border-color: var(--dm-border);
+}
+
+[data-theme="dark"] .code-block {
+  background-color: var(--dm-bg);
+  border-color: var(--dm-border);
+}
+
+[data-theme="dark"] .code-content code {
+  background: none !important;
+  color: var(--dm-text);
+}
+
+[data-theme="dark"] .code-content code span {
+  color: inherit !important;
+}
+
+[data-theme="dark"] .code-content code span:first-child {
+  color: var(--color-nextflow-400) !important;
+}
